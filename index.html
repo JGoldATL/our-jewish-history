@@ -54,8 +54,8 @@ svg{display:block;width:100%;height:100%}
 </style><style>
 .memorial{cursor:pointer;filter:drop-shadow(0 1px 2px #0003)}.memorial:focus{outline:none}.memorial:focus circle{stroke-width:3}.legendStar{display:inline-block;width:18px;height:18px;vertical-align:middle;margin-right:4px}.legend{max-width:255px}
 #declineNotice{margin:5px 0 2px;font:12px Arial;border-top:1px solid #ded5c6;padding-top:5px}#declineNotice[hidden]{display:none}.declineHeading{color:#777166}#declineReasons{display:flex;gap:6px;overflow-x:auto;padding:4px 0;max-width:100%}.reason{flex:0 0 auto;font:12px Arial;border:1px solid #c6bba9;border-radius:5px;padding:5px 7px;background:#f3efe5;color:#38342f;cursor:pointer}.reason.mass_killing{border-color:#a33b32;color:#8f2f29}.reason.uncertain{border-style:dashed}.reason:focus-visible{outline:2px solid #275d9b;outline-offset:1px}
-</style><style>.year{white-space:nowrap}#closeStory{position:absolute;right:7px;top:5px;border:0;background:transparent;color:#777166;font:22px Arial;cursor:pointer;width:30px;height:30px}.story h2{padding-right:18px}</style></head><body>
-<header><h1>Jewish Movement &amp; Continuity</h1><div class="sub">v1.5 Alpha — Movement, continuity and community loss • Ancient → Hellenistic → Roman Jewish geography</div></header>
+</style><style>.year{white-space:nowrap}#closeStory{position:absolute;right:7px;top:5px;border:0;background:transparent;color:#777166;font:22px Arial;cursor:pointer;width:30px;height:30px}.story h2{padding-right:18px}</style><style>.ticks{display:block;position:relative;height:16px;margin:0 3px}.ticks span{position:absolute;white-space:nowrap;transform:translateX(-50%)}.ticks span:first-child{transform:none}.ticks span:last-child{transform:translateX(-100%)}.timelineGuide{font:11px Arial;color:#777166;margin:2px 0 3px}@media(max-width:700px){.ticks{font-size:8px}.timelineGuide{font-size:10px}}</style></head><body>
+<header><h1>Jewish Movement &amp; Continuity</h1><div class="sub">v1.6 Alpha — Movement-focused timeline • Ancient → Hellenistic → Roman Jewish geography</div></header>
 <div class="wrap"><div class="map">
 <svg preserveaspectratio="xMidYMid meet" viewbox="0 0 1200 650">
 <g id="world">
@@ -213,7 +213,7 @@ C 800.0,276.8 800.0,255.8 813.0,241.8 Z" id="adensity" opacity="0"></path>
 <div class="legend"><div><span class="sd"></span>Community/place</div><div><span style="display:inline-block;width:20px;height:10px;background:#275d9b;opacity:.65;margin-right:6px;vertical-align:middle;border-radius:45% 55% 42% 58%"></span>Population concentration</div><div><span class="sw red"></span>Forced movement</div><div><span class="sw blue"></span>Toward the Land</div><div>Gray arrows: resettlement · dashed: biblical narrative</div><div><svg class="legendStar" viewBox="-18 -18 36 36" aria-hidden="true"><circle r="17" fill="#fffaf0" stroke="#a33b32"/><path d="M0,-11 L-9.5,5.5 L9.5,5.5 Z M0,11 L-9.5,-5.5 L9.5,-5.5 Z" fill="none" stroke="#8f2f29" stroke-width="2.2"/><path d="M-12,-1 L-5,2 L-1,-1 L4,2 L12,-1" fill="none" stroke="#fffaf0" stroke-width="3.7"/></svg>Community destroyed through mass killing</div></div>
 <div class="story" id="story"><button type="button" id="closeStory" aria-label="Close story">×</button><div class="date" id="sd"></div><h2 id="st"></h2><p id="ss"></p><p id="sc" style="font-weight:bold"></p><p class="evidence" id="se"></p></div></div>
 <div class="controls"><div class="row"><div class="year" id="yl">586 BCE</div><div class="era" id="el">Babylonian conquest and deportations</div></div>
-<input aria-label="Historical year" id="time" max="200" min="-1250" type="range" value="-1208"/><div class="ticks"><span>1250 BCE</span><span>800</span><span>400</span><span>1 CE</span><span>200 CE</span></div>
+<input aria-label="Historical year" id="time" max="10000" min="0" step="1" type="range" value="0"/><div class="ticks" id="timelineTicks"></div><div class="timelineGuide">Quiet centuries compressed · more space around movements</div>
 <div id="declineNotice" hidden><span class="declineHeading">Why the shading changed</span><div id="declineReasons"></div></div>
 <div class="note">The map prioritizes Jewish population presence and movement over modern political geography. Labels appear when historically relevant; rivers and terrain provide orientation.</div></div></div>
 <script>const q=id=>document.getElementById(id),time=q('time'),story=q('story'),world=q('world');
@@ -239,7 +239,7 @@ const POPULATIONS = [
     "story": "The Merneptah Stele provides the earliest widely recognized extra-biblical textual reference to Israel in Canaan.",
     "evidence": "Documented presence; this does not establish the Exodus route.",
     "classification": "documented_presence_only",
-    "assessment": "Merneptah Stele c.1208 BCE attests presence, not arrival; opening moved to the evidence date.",
+    "assessment": "Merneptah Stele c.1208 BCE attests presence, not arrival. The Israel/Canaan display hands over to Judah/Judea at 720 BCE; this change of map layers is not evidence of disappearance.",
     "sources": [
       "https://image-database.nes.lsa.umich.edu/items/show/45"
     ],
@@ -249,7 +249,7 @@ const POPULATIONS = [
         1
       ],
       [
-        -679,
+        -720,
         0
       ]
     ],
@@ -263,7 +263,7 @@ const POPULATIONS = [
         0.34
       ],
       [
-        -680,
+        -720,
         0
       ]
     ],
@@ -1077,7 +1077,7 @@ const CONSEQUENCES = [
     "id": "israelConquest",
     "communityId": "israel",
     "start": -740,
-    "end": -680,
+    "end": -720,
     "kind": "migration",
     "label": "Israel: conquest",
     "title": "Northern Israel under Assyrian conquest",
@@ -1094,13 +1094,13 @@ const CONSEQUENCES = [
   {
     "id": "israelLayer",
     "communityId": "israel",
-    "start": -680,
-    "end": null,
+    "start": -720,
+    "end": -710,
     "kind": "display",
-    "label": "Israel: continued presence",
-    "title": "The map changes its regional label",
-    "date": "680 BCE",
-    "story": "The Israel/Canaan layer gives way to the Judah/Judea view. This change in map layers does not mean that the population vanished or that every northern Israelite moved away.",
+    "label": "Judah / Judea view",
+    "title": "The map changes to Judah / Judea",
+    "date": "720 BCE",
+    "story": "The earlier Israel/Canaan marker and shading give way to the Judah/Judea view. This prevents overlapping labels; it does not mean that all northern Israelites disappeared or moved to Judah.",
     "evidence": "Density intensity is illustrative, not a census. The explanation distinguishes historical disruption from a change in map presentation.",
     "classification": "display_transition",
     "sources": [
@@ -1294,6 +1294,34 @@ function fw(y,s,p,n){if(y<s||y>n)return 0;if(y<=p)return Math.max(.12,(y-s)/(p-s
 function vis(x,o){x.style.opacity=o;x.style.pointerEvents=o>.08?'auto':'none';x.setAttribute('aria-hidden',o===0);x.setAttribute('tabindex',o>.08?'0':'-1');}
 function labelVis(group,on){const t=group.querySelector('text');if(t)t.style.opacity=on?1:0;}
 function yearLabel(y){return y<0?Math.abs(y)+' BCE':y===0?'1 BCE / 1 CE':y+' CE';}
+
+const TIMELINE_CONFIG={start:-1300,end:200,range:10000,quietWeight:.12,movementWeight:2.8,changeWeight:1.25,changeRadius:7};
+const timelineYears=[],timelinePositions=[];
+function buildTimeline(){
+ let distance=0;const changeDates=[...POPULATIONS.flatMap(p=>(p.nodeStates||[]).map(s=>s[0])),...CONSEQUENCES.map(c=>c.start),...EVENTS.map(e=>e.window[1])];
+ for(let y=TIMELINE_CONFIG.start;y<=TIMELINE_CONFIG.end;y++){
+  timelineYears.push(y);timelinePositions.push(distance);
+  const movement= Math.max(0,...MOVEMENTS.map(m=>fw(y,...m.window)));
+  const change=Math.max(0,...changeDates.map(date=>Math.max(0,1-Math.abs(y-date)/TIMELINE_CONFIG.changeRadius)));
+  distance+=TIMELINE_CONFIG.quietWeight+TIMELINE_CONFIG.movementWeight*movement+TIMELINE_CONFIG.changeWeight*change;
+ }
+ const total=timelinePositions[timelinePositions.length-1];for(let i=0;i<timelinePositions.length;i++)timelinePositions[i]=timelinePositions[i]/total*TIMELINE_CONFIG.range;
+}
+function positionForYear(year){const index=Math.max(0,Math.min(timelineYears.length-1,Math.round(year)-TIMELINE_CONFIG.start));return timelinePositions[index];}
+function yearForPosition(position){
+ const value=Math.max(0,Math.min(TIMELINE_CONFIG.range,+position));let lo=0,hi=timelinePositions.length-1;
+ while(lo<hi){const mid=Math.floor((lo+hi)/2);if(timelinePositions[mid]<value)lo=mid+1;else hi=mid;}
+ if(lo>0&&value-timelinePositions[lo-1]<timelinePositions[lo]-value)lo--;
+ return timelineYears[lo];
+}
+function currentYear(){return yearForPosition(time.value);}
+function setYear(year){time.value=positionForYear(year);update();}
+buildTimeline();
+for(const year of [TIMELINE_CONFIG.start,-720,-539,-205,TIMELINE_CONFIG.end]){
+ const label=document.createElement('span');label.textContent=yearLabel(year);label.style.left=positionForYear(year)/TIMELINE_CONFIG.range*100+'%';q('timelineTicks').appendChild(label);
+}
+window.HISTORY_TIMELINE={config:TIMELINE_CONFIG,positionForYear,yearForPosition,currentYear,setYear};
+
 // Sample a quadratic curve into a wide ribbon with a triangular head: the alpha arrow language.
 function ribbon(a,c,b,width=9,head=28){
  const point=t=>[(1-t)*(1-t)*a[0]+2*(1-t)*t*c[0]+t*t*b[0],(1-t)*(1-t)*a[1]+2*(1-t)*t*c[1]+t*t*b[1]];
@@ -1332,7 +1360,7 @@ function activeConsequences(y){return CONSEQUENCES.filter(c=>y>=c.start&&(c.end=
 let selectedStory=null;
 function showStory(data){
  selectedStory=data;q('sd').textContent=data.date||'';q('st').textContent=data.title||'';
- const context=activeConsequences(+time.value).filter(c=>c.communityId===data.id).sort((a,b)=>b.start-a.start)[0];
+ const context=activeConsequences(currentYear()).filter(c=>c.communityId===data.id).sort((a,b)=>b.start-a.start)[0];
  q('ss').textContent=data.story||'';if(context)q('ss').textContent+=' '+context.story;
  q('sc').textContent=data.scale||'';
  const labels={documented_migration:'Documented migration',documented_presence_only:'Documented presence only',uncertain_provenance:'Uncertain provenance',documented_mass_killing:'Documented mass killing and community destruction',uncertain_continuity:'Uncertain continuity',display_transition:'Map interpretation'};
@@ -1349,14 +1377,16 @@ function updateConsequences(y){
  if(story.classList.contains('show')&&selectedStory)showStory(selectedStory);
 }
 
-function update(){const y=+time.value;q('yl').textContent=yearLabel(y);
+function update(){const y=currentYear();q('yl').textContent=yearLabel(y);time.setAttribute('aria-valuetext',yearLabel(y));time.dataset.year=y;
  for(const p of POPULATIONS){const node=q(p.id);let opacity=statesAt(y,p.nodeStates);if(p.nodeRamp){const [start,duration,base,end=Infinity]=p.nodeRamp;if(y>=start&&y<=end)opacity=Math.min(1,(y-start)/duration+base);}vis(node,opacity);labelVis(node,opacity>.1);node.classList.toggle('uncertainPresence',p.uncertainAfter!==null&&y>p.uncertainAfter);}
  for(const p of [...POPULATIONS,ASSYRIAN_PRESENCE])q(p.densityId||p.id).style.opacity=statesAt(y,p.densityStates);
  for(const m of MOVEMENTS)vis(q(m.id),fw(y,...m.window)*m.weight);
  for(const event of EVENTS)vis(q(event.id),fw(y,...event.window));
  updateConsequences(y);
  let era='Israel documented in Canaan';
- if(y<-1190) era='Biblical movement layer and early Israel';
+ if(y<TIMELINE_CONFIG.start) era='Before the traditional movement layer';
+ if(y<-1250) era='Before the traditional Exodus narrative';
+ else if(y<-1190) era='Biblical movement layer and early Israel';
  else if(y<-730) era='Israelite presence in Canaan';
  else if(y<-710) era='Assyrian conquest of the northern kingdom';
  else if(y<-680) era='Assyrian campaign against Judah';
@@ -1387,7 +1417,7 @@ function update(){const y=+time.value;q('yl').textContent=yearLabel(y);
 function bind(x){const f=()=>showStory(x._record||{title:x.dataset.title,date:x.dataset.date,story:x.dataset.story,scale:x.dataset.scale,evidence:x.dataset.evidence});x.addEventListener('click',f);if(window.matchMedia&&window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 701px)').matches)x.addEventListener('mouseenter',f);x.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();f();}});}
 const ASSYRIAN_PRESENCE={id:'adensity',classification:'documented_migration',assessment:'Assyrian inscriptions document deportation; this regional footprint represents dispersed deportees, not uniform settlement or numerical density.',sources:['https://oracc.museum.upenn.edu/rinap/'],densityStates:[[-722,.24],[-710,.38]]};
 window.HISTORY_DATA={populations:[...POPULATIONS,ASSYRIAN_PRESENCE],movements:MOVEMENTS,consequences:CONSEQUENCES};
-bind(q('lachish'));story.addEventListener('click',ev=>ev.stopPropagation());document.querySelector('.map').addEventListener('click',ev=>{const i=ev.target.closest&&(ev.target.closest('.route,.biblical,g[data-title],.story,.reason'));if(!i)story.classList.remove('show');});q('closeStory').addEventListener('click',()=>story.classList.remove('show'));document.addEventListener('keydown',ev=>{if(ev.key==='Escape')story.classList.remove('show');});time.addEventListener('input',update);update();
+bind(q('lachish'));story.addEventListener('click',ev=>ev.stopPropagation());document.querySelector('.map').addEventListener('click',ev=>{const i=ev.target.closest&&(ev.target.closest('.route,.biblical,g[data-title],.story,.reason'));if(!i)story.classList.remove('show');});q('closeStory').addEventListener('click',()=>story.classList.remove('show'));document.addEventListener('keydown',ev=>{if(ev.key==='Escape')story.classList.remove('show');});time.addEventListener('keydown',ev=>{const delta={ArrowLeft:-1,ArrowDown:-1,ArrowRight:1,ArrowUp:1,PageDown:-10,PageUp:10};if(ev.key in delta){ev.preventDefault();setYear(currentYear()+delta[ev.key]);}else if(ev.key==='Home'||ev.key==='End'){ev.preventDefault();setYear(ev.key==='Home'?TIMELINE_CONFIG.start:TIMELINE_CONFIG.end);}});time.addEventListener('input',update);update();
 </script></body></html>
 
 
