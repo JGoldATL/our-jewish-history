@@ -107,10 +107,17 @@ body{color:var(--ink)}header{padding:14px 18px 9px}h1{font:600 clamp(25px,3vw,38
 @media(max-height:520px){header{padding:4px 12px}h1{font-size:22px}.sub{display:none}.wrap{gap:4px;padding-bottom:4px}.controls{padding:4px 9px}.row{min-height:29px}.year{font-size:25px}.milestoneNav{margin-top:2px}.milestoneNav button,#milestoneSelect{height:30px}.meanwhile{font-size:11px}.meanwhile span{display:none}.story{left:auto;right:8px;bottom:8px;top:auto;width:min(390px,90%);max-height:90%}.openingPrompt{padding:12px 16px;max-width:400px}.openingPrompt p{font-size:19px}.promptActions{margin-top:9px}.milestoneEvidence,.mapFooter{display:none}}
 @media(max-height:520px){.milestoneEvidence{display:flex;gap:7px;font-size:10px;margin-top:0;min-height:22px}.milestoneEvidence .qualification{display:none}.milestoneEvidence .sourcesButton{min-height:22px}.evidenceBadge{font-size:10px;padding:3px 6px}}
 @media(prefers-reduced-motion:reduce){button,.story.show{animation:none;transition:none}}
+</style><style id="map-navigation-polish">
+html,body{height:auto;min-height:100%;overflow:auto}body{min-height:100dvh}.wrap{flex:none}.map{flex:none;height:clamp(260px,calc(100svh - 265px),900px);min-height:0;contain:layout paint}#historicalMap{touch-action:none;cursor:grab}#historicalMap.dragging{cursor:grabbing}.mapNav{position:absolute;top:10px;right:10px;display:flex;align-items:center;gap:5px;z-index:3}.mapNav button{min-width:36px;min-height:36px;border:1px solid #d3cebf;border-radius:6px;background:#fffaf5f5;color:#244b60;font:20px Arial;cursor:pointer;box-shadow:0 2px 7px #173f5017}.mapNav #followMap{font:600 11px Arial;padding:0 10px}.mapNav #followMap[aria-pressed="false"]{background:#244b60;color:white}.story{z-index:4}.selectionFocus .place{fill:#093348}.selectionFocus .dot{stroke:#fff;stroke-width:4}.selectionFocus.route{filter:drop-shadow(0 0 3px #ffffff)!important}.selectionFocus.density{stroke:#fff5df!important;stroke-width:2!important}.selectedLocation{fill:none;stroke:#fffaf0;stroke-width:2;vector-effect:non-scaling-stroke;pointer-events:none}
+header,.wrap{margin:0 auto}html{overflow-y:scroll;scrollbar-gutter:stable}
+.meanwhile a{font:11px Arial;color:#346a81;text-decoration:underline;margin-left:7px}.memorial.selectionFocus circle{stroke-width:3}
+@media(max-width:700px){.mapNav{top:9px;right:8px;gap:4px}.mapNav button{min-width:34px;min-height:35px}.mapNav #followMap{font-size:10px;padding:0 7px}.row{flex-wrap:wrap}.meanwhile{flex-basis:100%;max-width:100%;text-align:left;margin:0;font-size:11px}.meanwhile strong{margin-right:5px}.meanwhile span{display:inline}}
+@media(max-height:520px){.map{height:clamp(160px,calc(100svh - 205px),320px)}.openingPrompt{left:12px;right:auto;bottom:8px;width:min(500px,calc(100% - 24px));max-width:500px;padding:10px 12px}.openingPrompt .eyebrow,.openingPrompt .promptHint{display:none}.openingPrompt p{font-size:16px;line-height:1.2;margin:0}.openingPrompt .promptActions{margin-top:6px}.openingPrompt #introPlay{min-height:27px;padding:5px 10px;font-size:12px}}
 </style></head><body>
 <header><h1><span class="titleFull">Jewish History: 3000 Years and Counting</span><span class="titleCompact">3000 Years and Counting</span></h1><div class="sub">…and meanwhile, around the world</div></header>
 <div class="wrap"><div class="map">
-<svg id="historicalMap" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1200 650">
+<div class="mapNav" role="group" aria-label="Map navigation"><button id="zoomIn" type="button" aria-label="Zoom in">+</button><button id="zoomOut" type="button" aria-label="Zoom out">−</button><button id="followMap" type="button" aria-pressed="true" title="Restore the historical camera">Follow history</button></div>
+<svg id="historicalMap" role="group" aria-label="Interactive historical map. Drag to pan; use the zoom controls or pinch." preserveAspectRatio="xMidYMid slice" viewBox="0 0 1200 650">
 <g id="world">
 <defs>
 <linearGradient id="atlasSea" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#366982"/><stop offset=".5" stop-color="#3b7b99"/><stop offset="1" stop-color="#245570"/></linearGradient>
@@ -271,8 +278,9 @@ body{color:var(--ink)}header{padding:14px 18px 9px}h1{font:600 clamp(25px,3vw,38
 <div class="controls"><div class="row"><div class="year" id="yl">586 BCE</div><button id="playTour" type="button" aria-label="Play 10-second timeline tour" hidden>▶ Play</button><div class="era" id="el" hidden></div><div class="meanwhile" id="meanwhile"><strong>Meanwhile…</strong><span>World-history comparisons to follow.</span></div></div>
 <div class="timelineTrack"><div id="eventNotches" role="group" aria-label="Historical milestones"></div><input aria-label="Historical year" id="time" max="10000" min="0" step="1" type="range" value="0"/></div><div class="ticks" id="timelineTicks"></div><div class="milestoneNav"><button id="previousEvent" type="button" aria-label="Previous historical milestone">‹</button><select id="milestoneSelect" aria-label="Choose a historical milestone"></select><button id="nextEvent" type="button" aria-label="Next historical milestone">›</button></div><div class="milestoneEvidence" id="milestoneEvidence"></div><div class="timelineGuide">Quiet centuries compressed · more space around movements</div>
 <div id="declineNotice" hidden><span class="declineHeading">Why the shading changed</span><div id="declineReasons"></div></div>
-<div class="mapFooter"><span class="note">Explore communities, movement and continuity.</span><span class="version">Alpha 1.11</span></div></div></div>
-<script id="history-data" type="application/json">{
+<div class="mapFooter"><span class="note">Drag the map · scroll or pinch to zoom.</span><span class="version">Alpha 1.12</span></div></div></div>
+<script id="history-data" type="application/json">
+{
   "schemaVersion": "1.0",
   "coverage": {
     "startDate": -1300,
@@ -742,11 +750,12 @@ body{color:var(--ink)}header{padding:14px 18px 9px}h1{font:600 clamp(25px,3vw,38
       "confidence": "historically established, details uncertain",
       "notes": "Deportations supplied part of this community; later return did not empty it.",
       "sourceIds": [
-        "source-aac7806373"
+        "source-aac7806373",
+        "met-judean-diaspora"
       ],
       "title": "Judeans in Babylonia",
       "date": "6th century BCE onward",
-      "story": "Judean communities are documented in Babylonia; later return did not empty this community.",
+      "story": "Judean communities lived in Babylonia after deportation and continued after some people returned to Judea.",
       "evidence": "Documented community presence.",
       "movementIds": [
         "d"
@@ -858,11 +867,12 @@ body{color:var(--ink)}header{padding:14px 18px 9px}h1{font:600 clamp(25px,3vw,38
       "confidence": "historically established, details uncertain",
       "notes": "Papyri attest presence from 495 BCE; proposed founding routes remain debated. After 390 BCE low opacity indicates uncertain continuity, not extinction.",
       "sourceIds": [
-        "source-03ddfcbbf4"
+        "source-03ddfcbbf4",
+        "berlin-elephantine-petition"
       ],
-      "title": "Jewish community at Elephantine",
+      "title": "A community without a known arrival route",
       "date": "5th century BCE",
-      "story": "A Jewish/Judean community is documented at Elephantine. No migration arrow is drawn because its precise founding route is not established well enough.",
+      "story": "Aramaic papyri document a Jewish community at Elephantine in Egypt during the fifth century BCE. They establish presence, not a securely dated founding journey. That is why the map shows population shading without an arrival arrow.",
       "evidence": "Direct evidence establishes the community in the 5th century BCE. After the surviving papyri end, continuity is uncertain; fading means the evidence weakens, not that every Jew disappeared.",
       "movementIds": [],
       "consequenceIds": [
@@ -1945,10 +1955,12 @@ body{color:var(--ink)}header{padding:14px 18px 9px}h1{font:600 clamp(25px,3vw,38
       "confidence": "historically established, details uncertain",
       "provenanceStatus": "documented movement",
       "whatRemainedAtOrigin": "Population remained at origin; this movement does not imply a complete removal.",
-      "story": "Campaigns in 597 and 587/586 BCE deported part of Judah’s population. Many remained.",
-      "title": "Babylonian deportations",
+      "story": "Babylonian campaigns in 597 and 587/586 BCE carried part of Judah’s population into captivity. People also remained in Judah. The red route represents deportation, not everyone leaving the land.",
+      "title": "Deportation did not empty Judah",
       "sourceIds": [
-        "source-aac7806373"
+        "source-aac7806373",
+        "bm-jerusalem-chronicle-597",
+        "met-judean-diaspora"
       ],
       "notes": "Schematic regional endpoints and curve; no claim to an exact travel itinerary. Ancient literary testimony is distinguished from direct documentary evidence.",
       "linkedDestructionIds": [],
@@ -2003,10 +2015,12 @@ body{color:var(--ink)}header{padding:14px 18px 9px}h1{font:600 clamp(25px,3vw,38
       "confidence": "historically established, details uncertain",
       "provenanceStatus": "documented movement",
       "whatRemainedAtOrigin": "Population remained at origin; this movement does not imply a complete removal.",
-      "story": "Some Judeans returned under Persian rule. Many remained in Babylonia. The Cyrus Cylinder itself does not name Judeans.",
-      "title": "Partial return to Judea",
+      "story": "After 539 BCE, some Judeans returned to Judea under Persian rule. Communities continued in Babylonia. The blue arrow shows return alongside continued presence at both ends—not the transfer of an entire population.",
+      "title": "Some returned. Others stayed.",
       "sourceIds": [
-        "source-1da0bdccbd"
+        "source-1da0bdccbd",
+        "met-judean-diaspora",
+        "met-cyrus-cylinder"
       ],
       "notes": "Schematic regional endpoints and curve; no claim to an exact travel itinerary. Ancient literary testimony is distinguished from direct documentary evidence.",
       "linkedDestructionIds": [],
@@ -2535,6 +2549,46 @@ body{color:var(--ink)}header{padding:14px 18px 9px}h1{font:600 clamp(25px,3vw,38
       "url": "https://www.jewishencyclopedia.com/articles/4344-chittim-kittim",
       "evidenceType": "historical reference",
       "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "bm-jerusalem-chronicle-597",
+      "title": "British Museum — Babylonian Chronicle, tablet 1896,0409.51",
+      "url": "https://www.britishmuseum.org/collection/object/W_1896-0409-51",
+      "evidenceType": "primary/contemporary evidence",
+      "supports": "A Babylonian account of the capture of Jerusalem in 597 BCE.",
+      "limitations": "This tablet alone does not establish deportation totals or the later 587/586 BCE campaign. Catalog summary retrieved; full page retrieval was unavailable during this pass."
+    },
+    {
+      "id": "met-judean-diaspora",
+      "title": "Ira Spar, The Met — Cyrus and the Judean Diaspora",
+      "url": "https://www.metmuseum.org/perspectives/cyrus-and-the-judean-diaspora",
+      "evidenceType": "academic scholarship",
+      "supports": "Context for Babylonian deportations, continued Judean communities in Babylonia, and partial return under Persian rule.",
+      "limitations": "A scholarly museum interpretation combining ancient texts and archaeology, not a population census."
+    },
+    {
+      "id": "met-cyrus-cylinder",
+      "title": "The Met — The Cyrus Cylinder and Ancient Persia",
+      "url": "https://www.metmuseum.org/exhibitions/listings/2013/cyrus-cylinder",
+      "evidenceType": "institutional/museum/library sources",
+      "supports": "The cylinder records Persian royal restoration policies.",
+      "limitations": "The cylinder does not name Judeans or supply a count of Judean returnees."
+    },
+    {
+      "id": "berlin-elephantine-petition",
+      "title": "Berlin Egyptian Museum — Elephantine petition, P 13495 (407 BCE)",
+      "url": "https://search.smb.museum/object/obj-823546",
+      "evidenceType": "primary/contemporary evidence",
+      "supports": "An Aramaic petition from the Jewish community at Elephantine, dated 407 BCE.",
+      "limitations": "It documents an existing community; it does not establish its founding date or migration route."
+    },
+    {
+      "id": "stanford-confucius",
+      "title": "Stanford Encyclopedia of Philosophy — Confucius",
+      "url": "https://plato.stanford.edu/entries/confucius/",
+      "evidenceType": "academic scholarship",
+      "supports": "Traditional life dates and historical context for Confucius in China.",
+      "limitations": "The life dates are traditional, and biographical details remain debated."
     }
   ],
   "eras": [
@@ -2717,9 +2771,22 @@ body{color:var(--ink)}header{padding:14px 18px 9px}h1{font:600 clamp(25px,3vw,38
   "presentation": {
     "openingYear": -1208,
     "tourDurationMs": 10000,
-    "version": "Alpha 1.11"
+    "version": "Alpha 1.12",
+    "worldContext": [
+      {
+        "id": "confucius-lifetime",
+        "startDate": -551,
+        "endDate": -479,
+        "text": "Confucius in China · traditional lifetime 551–479 BCE",
+        "evidence": "Traditional life dates; biographical details uncertain.",
+        "sourceIds": [
+          "stanford-confucius"
+        ]
+      }
+    ]
   }
-}</script>
+}
+</script>
 <script>'use strict';
 const q=id=>document.getElementById(id),time=q('time'),story=q('story'),world=q('world');
 let DATA=JSON.parse(q('history-data').textContent);
@@ -2785,8 +2852,8 @@ function ribbon(a,c,b,width=9,head=28){
 }
 // One path contains the traditional dotted arc and its integrated triangular outline.
 function traditionalArc(a,c,b){const dx=b[0]-c[0],dy=b[1]-c[1],l=Math.hypot(dx,dy)||1,u=[dx/l,dy/l],n=[-u[1],u[0]],back=[b[0]-u[0]*17,b[1]-u[1]*17],left=[back[0]+n[0]*8,back[1]+n[1]*8],right=[back[0]-n[0]*8,back[1]-n[1]*8];return `M ${a} Q ${c} ${b} L ${left} L ${right} L ${b}`;}
-function bind(el,record,type){el._record=record;el._recordType=type;el.setAttribute('role','button');el.setAttribute('aria-label',record.title||record.historicalPlaceName||record.id);el.dataset.title=record.title||record.historicalPlaceName||record.id;const open=()=>showStory(record,type);el.addEventListener('click',open);el.addEventListener('mouseenter',()=>{if(window.matchMedia&&window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 701px)').matches)open();});el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});}
-const rendered={populations:new Map(),movements:new Map(),destructions:new Map(),events:new Map()};
+function bind(el,record,type){el._record=record;el._recordType=type;el.setAttribute('role','button');el.setAttribute('aria-label',record.title||record.historicalPlaceName||record.id);el.dataset.title=record.title||record.historicalPlaceName||record.id;const open=()=>{if(mapNavigation.pointers.size||(typeof performance!=='undefined'&&performance.now()<mapNavigation.suppressUntil))return;showStory(record,type);};el.addEventListener('click',open);el.addEventListener('mouseenter',()=>{if(window.matchMedia&&window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 701px)').matches)open();});el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});}
+const rendered={populations:new Map(),movements:new Map(),destructions:new Map(),events:new Map(),conversions:new Map()};
 function renderRecords(){
  let anchors=q('anchorLayer');if(!anchors)anchors=svg('g',{id:'anchorLayer'},world);anchors.replaceChildren();let labels=q('labelLayer');if(!labels)labels=svg('g',{id:'labelLayer'},world);labels.replaceChildren();
  for(const map of Object.values(rendered))map.clear();q('populationLayer').replaceChildren();q('movementLayer').replaceChildren();let layers=q('eventLayer');if(!layers)layers=svg('g',{id:'eventLayer'},world);layers.replaceChildren();let memorials=q('memorialLayer');if(!memorials)memorials=svg('g',{id:'memorialLayer'},world);memorials.replaceChildren();
@@ -2795,8 +2862,14 @@ function renderRecords(){
  for(const m of DATA.movements){if(!canRenderMovement(m))continue;const a=m.originCoordinates||INDEX.places.get(m.origin).coordinates,b=m.destinationCoordinates||INDEX.places.get(m.destination).coordinates,c=m.rendering?.control||[(a[0]+b[0])/2,(a[1]+b[1])/2];const traditional=m.evidenceStatus==='traditional account',color=movementColor(m),attrs={id:m.id,class:traditional?'biblical':'route',fill:traditional?'none':color};if(traditional)attrs.d=traditionalArc(a,c,b);else{const width=m.movementScale?{small:7,substantial:9,major:13,massive:18}[m.movementScale]||9:m.rendering?.width||9;attrs.points=ribbon(a,c,b,width,m.rendering?.headLength||28);attrs.stroke=color;attrs['stroke-width']=4.5;attrs.style='filter:drop-shadow(0 2px 1.5px #00000035)';}const el=svg(traditional?'path':'polygon',attrs,q('movementLayer'));bind(el,m,'movement');rendered.movements.set(m.id,el);}
  for(const e of DATA.historicalEvents){const r=e.rendering||{},a=r.position||INDEX.places.get(e.place)?.coordinates;if(!a)continue;const g=svg('g',{id:e.id},layers);g._anchor=a;svg('circle',{class:'dot',cx:a[0],cy:a[1],r:r.radius||5},g);g._label=makeMapLabel(e,'event',a,r.label||e.title,r.labelPosition,labels);bind(g,e,'event');rendered.events.set(e.id,g);}
  for(const c of DATA.communityDestructions){if(c.destructionStatus!=='documented violent community destruction')continue;const a=c.rendering?.position||INDEX.places.get(c.place)?.coordinates;if(!a)continue;const leader=svg('path',{class:'mapLeader memorialLeader',d:''},memorials),g=svg('g',{id:c.id,class:'memorial',transform:`translate(${a})`},memorials);g._anchor=a;g._leader=leader;svg('circle',{r:17,fill:'#fffaf0',stroke:'#a33b32','stroke-width':1.3},g);svg('path',{d:'M0,-11 L-9.5,5.5 L9.5,5.5 Z M0,11 L-9.5,-5.5 L9.5,-5.5 Z',fill:'none',stroke:'#8f2f29','stroke-width':2.2,'stroke-linejoin':'round'},g);svg('path',{d:'M-12,-1 L-5,2 L-1,-1 L4,2 L12,-1',fill:'none',stroke:'#fffaf0','stroke-width':3.7},g);svg('title',{},g).textContent=c.title;bind(g,c,'destruction');rendered.destructions.set(c.id,g);}
- world.appendChild(anchors);world.appendChild(layers);world.appendChild(memorials);world.appendChild(labels);
+ let conversions=q('conversionLayer');if(!conversions)conversions=svg('g',{id:'conversionLayer'},world);conversions.replaceChildren();
+ for(const change of DATA.populationChanges){if(!canRenderConversion(change))continue;const population=DATA.populations.find(p=>p.id===change.populationId),a=change.rendering?.position||population?.coordinates||INDEX.places.get(population?.place)?.coordinates;if(!a)continue;const leader=svg('path',{class:'mapLeader memorialLeader',d:''},conversions),g=svg('g',{id:'conversion-'+change.id,class:'memorial conversionSymbol'},conversions);g._anchor=a;g._leader=leader;drawCommunitySymbol(g,true);bind(g,change,'change');rendered.conversions.set(change.id,g);}
+ for(const symbol of rendered.destructions.values())drawCommunitySymbol(symbol,false);initSymbolKey();
+ world.appendChild(anchors);world.appendChild(layers);world.appendChild(memorials);world.appendChild(conversions);world.appendChild(labels);
 }
+function canRenderConversion(change){return change.populationChangeCause==='forced conversion'&&(change.sourceIds||[]).length>0&&['well documented','historically established, details uncertain'].includes(change.evidenceStatus);}
+function drawCommunitySymbol(group,conversion){for(const child of [...group.children])if(child.tagName.toLowerCase()!=='title')child.remove();group.dataset.symbol=conversion?'forced-conversion':'violent-community-destruction';svg('circle',{r:17,fill:'#fffaf0',stroke:'#a33b32','stroke-width':1.3},group);if(conversion)svg('path',{d:'M0,-11 L-9.5,5.5 L9.5,5.5 Z M0,11 L-9.5,-5.5 L9.5,-5.5 Z',fill:'#b33b30',stroke:'#b33b30','stroke-width':1.4},group);else{svg('path',{d:'M-1,-12 L-11,4 L-3,4 M4,6 L12,6 L3,-10 M-11,-6 L-3,8 M2,12 L12,-4 L4,-4 M-3,-6 L-11,-6',fill:'none',stroke:'#a33b32','stroke-width':2.4,'stroke-linecap':'square','stroke-linejoin':'miter'},group);}}
+function initSymbolKey(){const old=world.ownerSVGElement.parentElement.querySelector('.legendStar');if(old)drawCommunitySymbol(old,false);if(q('conversionLegend'))return;const row=document.createElement('div');row.id='conversionLegend';const icon=document.createElementNS(SVG_NS,'svg');icon.setAttribute('class','legendStar');icon.setAttribute('viewBox','-18 -18 36 36');icon.setAttribute('aria-hidden','true');drawCommunitySymbol(icon,true);row.appendChild(icon);row.appendChild(document.createTextNode('Documented forced conversion'));q('legendContents').appendChild(row);}
 function makeMapLabel(record,type,anchor,title,position,parent){const group=svg('g',{class:'labelAnchor'},parent);group._anchor=anchor;group._leader=svg('path',{class:'mapLeader',d:''},group);const xy=position||[anchor[0]+10,anchor[1]-8];svg('text',{class:'place',x:xy[0],y:xy[1]},group).textContent=title;bind(group,record,type);return group;}
 let timelineYears=[],timelinePositions=[];
 function buildTimeline(){timelineYears=[];timelinePositions=[];let distance=0;const config=DATA.timeline,dates=[...DATA.populations.flatMap(p=>(p.states||[]).map(s=>s.date)),...DATA.populationChanges.map(c=>c.startDate),...DATA.historicalEvents.map(e=>e.dateRange.start)];for(let y=config.start;y<=config.end;y++){timelineYears.push(y);timelinePositions.push(distance);const move=Math.max(0,...DATA.movements.filter(m=>canRenderMovement(m)).map(m=>fw(y,...movementWindow(m))));const change=Math.max(0,...dates.map(date=>Math.max(0,1-Math.abs(y-date)/config.changeRadius)));distance+=config.quietWeight+config.movementWeight*move+config.changeWeight*change;}const total=timelinePositions.at(-1);timelinePositions=timelinePositions.map(p=>p/total*config.range);time.min=0;time.max=config.range;time.step=1;renderNotches();q('timelineTicks').replaceChildren();for(const year of config.ticks||[config.start,config.end]){if(year<config.start||year>config.end)continue;const label=document.createElement('span');label.textContent=yearLabel(year);label.style.left=positionForYear(year)/config.range*100+'%';q('timelineTicks').appendChild(label);}}
@@ -2809,15 +2882,17 @@ function queueScrub(){if(typeof requestAnimationFrame!=='function'){update();ret
 function currentYear(){return yearForPosition(time.value);}
 function setYear(year){cancelScrub();time.value=positionForYear(year);update(positionForYear(year));}
 let selectedStory=null;
-function showStory(record,type){stopTour();selectedStory={record,type,year:Math.round(continuousYear(displayedPosition??+time.value))};q('sd').textContent=record.date||'';q('st').textContent=record.title||record.historicalPlaceName||'';q('ss').textContent=record.story||record.notes||'';q('sc').textContent='';const extra=[];if(type==='population'){const state=resolvePopulation(record,currentYear());extra.push('Presence: '+state.presenceStatus+'. Concentration: '+state.concentration+'.');const latest=state.changes.at(-1);if(latest?.story)q('ss').textContent+=' '+latest.story;}
+function highlightSelection(record,type){for(const el of world.querySelectorAll('.selectionFocus'))el.classList.remove('selectionFocus');if(!record)return;const focus=el=>el?.classList.add('selectionFocus');if(type==='movement')focus(rendered.movements.get(record.id));if(type==='destruction')focus(rendered.destructions.get(record.id));if(type==='change')focus(rendered.conversions.get(record.id));if(type==='event')focus(rendered.events.get(record.id));for(const p of DATA.populations)if((type==='population'&&p.id===record.id)||p.id===record.populationId||(type==='movement'&&[record.origin,record.destination].includes(p.place))){const els=rendered.populations.get(p.id);focus(els.node);focus(els.label);focus(els.density);}}
+function showStory(record,type){stopTour();highlightSelection(record,type);selectedStory={record,type,year:Math.round(continuousYear(displayedPosition??+time.value))};q('sd').textContent=record.date||'';q('st').textContent=record.title||record.historicalPlaceName||'';q('ss').textContent=record.story||record.notes||'';q('sc').textContent='';const extra=[];if(type==='population'){const state=resolvePopulation(record,currentYear());extra.push('Presence: '+state.presenceStatus+'. Concentration: '+state.concentration+'.');const latest=state.changes.at(-1);if(latest?.story)q('ss').textContent+=' '+latest.story;}
  if(type==='movement'){const from=INDEX.places.get(record.origin)?.historicalPlaceName,to=INDEX.places.get(record.destination)?.historicalPlaceName;if(from&&to)extra.push(from+' → '+to+'.');else if(record.regionalDisplacement)extra.push('Regional displacement; destination not a permanent community.');extra.push('Movement: '+(record.movementType||record.movementDescription||'type uncertain')+'.');extra.push('Cause: '+record.cause+'.');if(record.whatRemainedAtOrigin)extra.push('At origin: '+record.whatRemainedAtOrigin);const estimate=record.reportedEstimate||(record.populationPreferred!=null||record.populationLow!=null||record.populationHigh!=null?{lowEstimate:record.populationLow,highEstimate:record.populationHigh,preferredEstimate:record.populationPreferred,unit:record.populationUnit,sourceIds:record.sourceIds}:null);if(estimate&&estimate.sourceIds?.length){let number=estimate.lowEstimate!=null&&estimate.highEstimate!=null?estimate.lowEstimate+'–'+estimate.highEstimate:estimate.preferredEstimate??estimate.lowEstimate??estimate.highEstimate;if(number!=null){q('sc').textContent='Reported: '+number+' '+(estimate.unit||'people');if(estimate.explanationOfDiscrepancy)extra.push(estimate.explanationOfDiscrepancy);}}}
  q('se').textContent=[...extra,record.evidenceStatus||record.confidence,record.notes].filter(Boolean).join(' ');const ids=new Set(record.sourceIds||[]);if(type==='population')for(const c of computeFrame(currentYear()).changes.filter(c=>c.populationId===record.id))for(const id of c.sourceIds||[])ids.add(id);for(const id of ids){const source=INDEX.sources.get(id);if(!source?.url)continue;const a=document.createElement('a');a.href=source.url;a.target='_blank';a.rel='noopener';a.textContent=' Source';a.title=source.title;q('se').appendChild(a);}renderStoryEvidence(record,type);story.classList.add('show');}
 function update(position=+time.value){displayedPosition=position;const y=continuousYear(position),frame=computeFrame(y),displayYear=Math.round(y);q('yl').textContent=yearLabel(displayYear);time.dataset.year=displayYear;time.setAttribute('aria-valuetext',yearLabel(displayYear));for(const state of frame.populations){const els=rendered.populations.get(state.id);if(els.underlay)els.underlay.style.opacity=state.intensity*.5;if(els.density){vis(els.density,state.intensity);els.density.style.fill=state.uncertain?'url(#uncertainPopulationPattern)':'';els.density.classList.toggle('uncertainPopulation',state.uncertain);}if(els.node){vis(els.node,state.nodeOpacity);els.node.classList.toggle('uncertainPresence',state.uncertain);}if(els.label)vis(els.label,state.nodeOpacity>.08?1:0);}
  for(const m of frame.movements)vis(rendered.movements.get(m.id),m.opacity);for(const c of frame.destructions){const symbol=rendered.destructions.get(c.id);vis(symbol,c.visible?1:0);if(symbol?._leader)symbol._leader.style.visibility=c.visible?'visible':'hidden';}for(const e of frame.events){const event=rendered.events.get(e.id);vis(event,e.opacity);if(event?._label)vis(event._label,e.opacity>.08?1:0);}
+ for(const [id,symbol] of rendered.conversions){const change=DATA.populationChanges.find(c=>c.id===id),visible=activeAt(change,y);vis(symbol,visible?1:0);symbol._leader.style.visibility=visible?'visible':'hidden';}
  q('el').textContent=frame.era?.title||'';renderMeanwhile(y);applyMapCamera(y);
  const latest=new Map();for(const c of frame.changes){const before=latest.get(c.populationId);if(!before||before.startDate<c.startDate)latest.set(c.populationId,c);}const changes=[...latest.values()].sort((a,b)=>b.startDate-a.startDate),row=q('declineReasons'),signature=changes.map(c=>c.id).join('|');if(signature!==lastChangeSignature){lastChangeSignature=signature;row.replaceChildren();q('declineNotice').hidden=changes.length===0;for(const c of changes){const b=document.createElement('button');b.type='button';b.className='reason '+(c.populationChangeCause==='violent destruction'?'mass_killing':c.populationChangeCause==='evidence becomes uncertain'?'uncertain':'');const icon=document.createElement('span');icon.className='reasonIcon';icon.textContent=c.populationChangeCause==='evidence becomes uncertain'?'◌':'ⓘ';icon.setAttribute('aria-hidden','true');b.appendChild(icon);b.appendChild(document.createTextNode(c.label||c.title||c.populationChangeCause));b.addEventListener('click',()=>showStory(c,'change'));row.appendChild(b);}}syncMilestone(displayYear);if(story.classList.contains('show')&&selectedStory&&selectedStory.year!==displayYear)showStory(selectedStory.record,selectedStory.type);
 }
-function replaceData(data){assertHistory(data);stopTour();cancelScrub();lastChangeSignature=null;lastMilestoneSignature="";DATA=data;INDEX=indexData(DATA);selectedStory=null;story.classList.remove('show');renderRecords();buildTimeline();setYear(DATA.timeline.start);window.HISTORY_DATA=DATA;}
+function replaceData(data){assertHistory(data);mapNavigation.manual=false;mapNavigation.view=null;mapNavigation.pointers.clear();q('followMap').setAttribute('aria-pressed','true');stopTour();cancelScrub();lastChangeSignature=null;lastMilestoneSignature="";DATA=data;INDEX=indexData(DATA);selectedStory=null;story.classList.remove('show');renderRecords();buildTimeline();setYear(DATA.timeline.start);window.HISTORY_DATA=DATA;}
 
 // Presentation controls are independent of evidence and historical datasets.
 let tourPlaying=false,tourAnimation=null,tourPreviousTime=null;
@@ -2827,28 +2902,42 @@ function startTour(){cancelScrub();dismissPrompt();story.classList.remove('show'
 let milestones=[];
 function evidenceFor(record){if(record.evidenceStatus==='traditional account'||record.presenceStatus==='traditional')return {label:'Biblical tradition',kind:'traditional'};const kinds=record.evidenceKinds||[];if(kinds.includes('archaeological'))return {label:'Archaeological',kind:'archaeological'};if(kinds.includes('documentary'))return {label:'Documentary',kind:'documentary'};const sources=(record.sourceIds||[]).map(id=>INDEX.sources.get(id)).filter(Boolean);if(sources.some(s=>s.evidenceType==='primary/contemporary evidence'))return {label:'Historical account',kind:'documentary'};if(sources.some(s=>s.evidenceType==='academic scholarship'))return {label:'Academic scholarship',kind:'scholarship'};return {label:'Historical evidence',kind:'historical'};}
 function sourceRecords(record,type){const ids=new Set(record.sourceIds||[]);if(type==='population')for(const c of computeFrame(currentYear()).changes.filter(c=>c.populationId===record.id))for(const id of c.sourceIds||[])ids.add(id);return [...ids].map(id=>INDEX.sources.get(id)).filter(Boolean);}
-function renderStoryEvidence(record,type){const evidence=evidenceFor(record),badge=q('storyEvidenceBadge');badge.textContent=evidence.label;badge.className='evidenceBadge '+evidence.kind;badge.title='Evidence type; confidence and uncertainties are explained below.';const list=q('storySourceList'),wasOpen=!list.hidden;list.replaceChildren();const sources=sourceRecords(record,type);q('storySources').textContent='Sources ('+sources.length+')';q('storySources').disabled=sources.length===0;for(const source of sources){const item=document.createElement(source.url?'a':'span');if(source.url){item.href=source.url;item.target='_blank';item.rel='noopener';}item.textContent=source.title||source.id;list.appendChild(item);const caption=document.createElement('small');caption.textContent=source.evidenceType||'Source classification not supplied';list.appendChild(caption);}if(!sources.length){const note=document.createElement('p');note.textContent='No source references supplied for this record.';list.appendChild(note);}list.hidden=!wasOpen;}
+function renderStoryEvidence(record,type){const evidence=evidenceFor(record),badge=q('storyEvidenceBadge');badge.textContent=evidence.label;badge.className='evidenceBadge '+evidence.kind;badge.title='Evidence type; confidence and uncertainties are explained below.';const list=q('storySourceList'),wasOpen=!list.hidden;list.replaceChildren();const sources=sourceRecords(record,type);q('storySources').textContent='Sources ('+sources.length+')';q('storySources').disabled=sources.length===0;for(const source of sources){const item=document.createElement(source.url?'a':'span');if(source.url){item.href=source.url;item.target='_blank';item.rel='noopener';}item.textContent=source.title||source.id;list.appendChild(item);const caption=document.createElement('small');caption.textContent=source.evidenceType||'Source classification not supplied';list.appendChild(caption);if(source.supports){const support=document.createElement('small');support.textContent='Supports: '+source.supports;list.appendChild(support);}if(source.limitations){const limits=document.createElement('small');limits.textContent='Limits: '+source.limitations;list.appendChild(limits);}}if(!sources.length){const note=document.createElement('p');note.textContent='No source references supplied for this record.';list.appendChild(note);}list.hidden=!wasOpen;}
 function renderNotches(){const box=q('eventNotches');if(!box)return;box.replaceChildren();milestones=[];const add=(collection,type)=>{for(const record of collection){const date=type==='movement'?(record.dateRange?.start??record.rendering?.window?.[1]):type==='event'?record.dateRange?.start:record.startDate;if(Number.isFinite(date)&&date>=DATA.timeline.start&&date<=DATA.timeline.end)milestones.push({record,type,date,illustrative:type==='movement'&&!Number.isFinite(record.dateRange?.start)});}};add(DATA.populations,'population');add(DATA.movements,'movement');add(DATA.historicalEvents,'event');add(DATA.communityDestructions,'destruction');add(DATA.populationChanges,'change');milestones.sort((a,b)=>a.date-b.date);const select=q('milestoneSelect');select.replaceChildren();for(let i=0;i<milestones.length;i++){const m=milestones[i],option=document.createElement('option');option.value=i;option.textContent=(m.record.date||yearLabel(m.date))+' · '+(m.record.title||m.record.historicalPlaceName||m.record.id);select.appendChild(option);}const seen=new Set();for(let i=0;i<milestones.length;i++){const m=milestones[i];if(seen.has(m.date))continue;seen.add(m.date);const el=document.createElement('button');el.type='button';el.className='eventNotch';el.style.left=positionForYear(m.date)/DATA.timeline.range*100+'%';el.dataset.year=m.date;el.setAttribute('aria-label',(m.illustrative?'Illustrative position; '+m.record.date:m.record.date||yearLabel(m.date))+': '+(m.record.title||m.record.historicalPlaceName));el.title=el.getAttribute('aria-label');el.addEventListener('click',()=>selectMilestone(i,true));box.appendChild(el);}lastMilestoneSignature='';}
 function selectMilestone(index,open){const m=milestones[index];if(!m)return;stopTour();dismissPrompt();setYear(m.date);syncMilestone(m.date,index);if(open)showStory(m.record,m.type);}
 function syncMilestone(year,chosen){if(!milestones.length)return;let i=chosen??0;if(chosen==null)for(let n=0;n<milestones.length;n++){if(milestones[n].date<=year)i=n;else break;}const m=milestones[i],signature=m.type+':'+m.record.id;if(signature===lastMilestoneSignature)return;lastMilestoneSignature=signature;for(const option of q('milestoneSelect').options)option.selected=+option.value===i;q('previousEvent').disabled=i===0;q('nextEvent').disabled=i===milestones.length-1;const evidence=evidenceFor(m.record),row=q('milestoneEvidence');row.replaceChildren();const badge=document.createElement('span');badge.className='evidenceBadge '+evidence.kind;badge.textContent=evidence.label;badge.title='Evidence type, not a certainty rating';row.appendChild(badge);const sources=document.createElement('button');sources.type='button';sources.className='sourcesButton';sources.textContent='Sources';sources.addEventListener('click',()=>{showStory(m.record,m.type);q('storySourceList').hidden=false;});row.appendChild(sources);const qualification=document.createElement('span');qualification.className='qualification';qualification.textContent=m.illustrative?'Exact date uncertain; position is illustrative.':m.record.evidenceStatus||m.record.confidence||'';row.appendChild(qualification);for(const notch of q('eventNotches').children)notch.classList.toggle('selected',+notch.dataset.year===m.date);}
 let labelLayoutKey='',labelMetrics=new WeakMap();
-function renderMeanwhile(year){const slot=q('meanwhile');if(!slot)return;const context=(DATA.presentation?.worldContext||[]).find(r=>r.startDate<=year&&(r.endDate==null||year<=r.endDate));slot.querySelector('span').textContent=context?.text||'World-history comparisons to follow.';slot.title=context?.evidence||'Reserved for approved, researched world-history comparisons.';}
+const mapNavigation={manual:false,view:null,pointers:new Map(),frame:null,suppressUntil:0,dragDistance:0,rect:null};
+function renderMeanwhile(year){const slot=q('meanwhile');if(!slot)return;const context=(DATA.presentation?.worldContext||[]).find(r=>r.startDate<=year&&(r.endDate==null||year<=r.endDate));const signature=context?JSON.stringify(context):'';if(slot.dataset.contextId===signature)return;slot.dataset.contextId=signature;slot.hidden=!context;const caption=slot.querySelector('span');caption.textContent=context?.text||'';slot.title=context?.evidence||'';for(const id of context?.sourceIds||[]){const source=INDEX.sources.get(id);if(!source?.url)continue;const link=document.createElement('a');link.href=source.url;link.target='_blank';link.rel='noopener';link.textContent='Source';link.title=source.title;caption.appendChild(link);}}
 function declutterMapLabels(view){
  const rect=world.ownerSVGElement.parentElement.getBoundingClientRect?.()||{width:1200,height:650},unit=view[2]/(rect.width||1200),occupied=[],inside=b=>b.x>=view[0]+5*unit&&b.y>=view[1]+5*unit&&b.x+b.w<=view[0]+view[2]-5*unit&&b.y+b.h<=view[1]+view[3]-5*unit,collides=b=>occupied.some(a=>b.x<a.x+a.w+3*unit&&b.x+b.w+3*unit>a.x&&b.y<a.y+a.h+3*unit&&b.y+b.h+3*unit>a.y);
  // Community anchors are protected; badges may move, but their leaders retain the true location.
  for(const node of [...rendered.populations.values()].map(p=>p.node).concat([...rendered.events.values()])){if(!node?._anchor||+(node.style.opacity||0)<=.08)continue;const [x,y]=node._anchor;occupied.push({x:x-6*unit,y:y-6*unit,w:12*unit,h:12*unit});}
- for(const symbol of rendered.destructions.values()){if(+(symbol.style.opacity||0)<=.08)continue;const [ax,ay]=symbol._anchor,r=11*unit;let chosen=[ax,ay];for(const [dx,dy] of [[0,0],[25,-23],[-25,-23],[25,23],[-25,23],[0,-43],[0,43],[44,0],[-44,0]]){const x=ax+dx*unit,y=ay+dy*unit,b={x:x-r,y:y-r,w:2*r,h:2*r};if(inside(b)&&!collides(b)){chosen=[x,y];occupied.push(b);break;}}symbol.setAttribute('transform',`translate(${chosen}) scale(${r/17})`);symbol._leader.setAttribute('d',Math.hypot(chosen[0]-ax,chosen[1]-ay)>unit?`M ${ax},${ay} L ${chosen}`:'');}
+ for(const symbol of [...rendered.destructions.values(),...rendered.conversions.values()]){if(+(symbol.style.opacity||0)<=.08)continue;const [ax,ay]=symbol._anchor,r=11*unit;let chosen=[ax,ay];for(const [dx,dy] of [[0,0],[25,-23],[-25,-23],[25,23],[-25,23],[0,-43],[0,43],[44,0],[-44,0]]){const x=ax+dx*unit,y=ay+dy*unit,b={x:x-r,y:y-r,w:2*r,h:2*r};if(inside(b)&&!collides(b)){chosen=[x,y];occupied.push(b);break;}}symbol.setAttribute('transform',`translate(${chosen}) scale(${r/17})`);symbol._leader.setAttribute('d',Math.hypot(chosen[0]-ax,chosen[1]-ay)>unit?`M ${ax},${ay} L ${chosen}`:'');}
  const labels=[...world.querySelectorAll('#labelLayer .place,#geoLabels text')].sort((a,b)=>Number(b.classList.contains('place'))-Number(a.classList.contains('place')));
  for(const label of labels){if(typeof label.getBBox!=='function')continue;const city=label.classList.contains('place'),group=label.parentElement;if(city&&+(group.style.opacity||0)<=.08){label.style.visibility='hidden';group._leader.style.visibility='hidden';continue;}if(!label.dataset.originalX){label.dataset.originalX=label.getAttribute('x');label.dataset.originalY=label.getAttribute('y');}const target=city?14:label.classList.contains('waterLabel')?12:11;label.style.fontSize=target*unit+'px';label.style.strokeWidth=(city?4:1.5)*unit+'px';label.style.letterSpacing=city?'0':.6*unit+'px';let metrics=labelMetrics.get(label);if(!metrics){const measured=label.getBBox();metrics={w:measured.width/(target*unit),h:measured.height/(target*unit)};labelMetrics.set(label,metrics);}const w=metrics.w*target*unit,h=metrics.h*target*unit,anchor=group._anchor;let tries=[[+label.dataset.originalX,+label.dataset.originalY]];
  if(city&&anchor){const [x,y]=anchor;tries=[];for(const distance of [12,28,48,72,96])for(const [dx,dy] of [[distance,-9],[distance,21],[-distance-w/unit,-9],[-distance-w/unit,21],[-w/unit/2,-distance],[-w/unit/2,distance+14]])tries.push([x+dx*unit,y+dy*unit]);}
  let accepted=false;for(const [x,y] of tries){const left=city?x:x-w/2,b={x:left-2*unit,y:y-h-2*unit,w:w+4*unit,h:h+4*unit};if(!inside(b)||collides(b))continue;label.setAttribute('x',x);label.setAttribute('y',y);occupied.push(b);accepted=true;if(city&&anchor){const lx=Math.max(x,Math.min(x+w,anchor[0])),ly=y-h*.4;group._leader.setAttribute('d',Math.hypot(lx-anchor[0],ly-anchor[1])>19*unit?`M ${anchor} L ${lx},${ly}`:'');group._leader.style.visibility='visible';}break;}label.style.visibility=accepted?'visible':'hidden';if(city&&!accepted)group._leader.style.visibility='hidden';
  }
 }
-function applyMapCamera(y){const map=world.ownerSVGElement,box=map.parentElement.getBoundingClientRect?.()||{width:1200,height:650},ratio=(box.width||1200)/Math.max(1,box.height||650),states=DATA.cameraStates;let i=0;while(i+1<states.length&&states[i+1].startDate<=y)i++;const a=states[i];if(Array.isArray(a.viewBox)&&a.viewBox.length===4){map.setAttribute('viewBox',a.viewBox.join(' '));declutterMapLabels(a.viewBox);world.style.transform='none';map.dataset.scope=a.scope||'';return;}const b=states[Math.min(i+1,states.length-1)],span=b.startDate-a.startDate,t=span>0?Math.min(1,Math.max(0,(y-a.startDate)/span)):0,eased=t*t*(3-2*t),mix=(key,fallback)=>{const av=a[key]??fallback,bv=b[key]??av;return av+(bv-av)*eased;},scale=mix('scale',1),cx=mix('centerX',600),cy=mix('centerY',325),w=ratio<1?Math.max(380,500/scale):1200/scale,h=w/Math.max(.3,ratio);const view=[cx-w/2,cy-h/2,w,h];map.setAttribute('viewBox',view.join(' '));declutterMapLabels(view);world.style.transform='none';map.dataset.scope=a.scope||'';}
+function applyMapCamera(y){if(mapNavigation.manual&&mapNavigation.view){clampMapView();paintMapView(mapNavigation.view);return;}const map=world.ownerSVGElement,box=map.parentElement.getBoundingClientRect?.()||{width:1200,height:650},ratio=(box.width||1200)/Math.max(1,box.height||650),states=DATA.cameraStates;let i=0;while(i+1<states.length&&states[i+1].startDate<=y)i++;const a=states[i];if(Array.isArray(a.viewBox)&&a.viewBox.length===4){map.setAttribute('viewBox',a.viewBox.join(' '));declutterMapLabels(a.viewBox);world.style.transform='none';map.dataset.scope=a.scope||'';return;}const b=states[Math.min(i+1,states.length-1)],span=b.startDate-a.startDate,t=span>0?Math.min(1,Math.max(0,(y-a.startDate)/span)):0,eased=t*t*(3-2*t),mix=(key,fallback)=>{const av=a[key]??fallback,bv=b[key]??av;return av+(bv-av)*eased;},scale=mix('scale',1),cx=mix('centerX',600),cy=mix('centerY',325),w=ratio<1?Math.max(380,500/scale):1200/scale,h=w/Math.max(.3,ratio);const view=[cx-w/2,cy-h/2,w,h];map.setAttribute('viewBox',view.join(' '));declutterMapLabels(view);world.style.transform='none';map.dataset.scope=a.scope||'';}
 function initPublicControls(){const legend=q('mapLegend'),toggle=q('legendToggle'),contents=q('legendContents');const collapse=closed=>{contents.hidden=closed;legend.classList.toggle('collapsed',closed);toggle.setAttribute('aria-expanded',String(!closed));toggle.querySelector('span').textContent=closed?'+':'−';};toggle.addEventListener('click',()=>collapse(!contents.hidden));collapse(true);q('storySources').addEventListener('click',()=>{q('storySourceList').hidden=!q('storySourceList').hidden;});q('milestoneSelect').addEventListener('change',()=>selectMilestone(+q('milestoneSelect').value,true));q('previousEvent').addEventListener('click',()=>selectMilestone(+q('milestoneSelect').value-1,true));q('nextEvent').addEventListener('click',()=>selectMilestone(+q('milestoneSelect').value+1,true));q('playTour').setAttribute('aria-pressed','false');q('playTour').addEventListener('click',()=>tourPlaying?stopTour():startTour());document.addEventListener('pointerdown',e=>{if(e.target.closest?.('#introPlay'))return;dismissPrompt();},{capture:true});q('introPlay').addEventListener('click',startTour);document.addEventListener('keydown',e=>{if(['Enter',' ','ArrowLeft','ArrowRight','Home','End'].includes(e.key))dismissPrompt();});document.addEventListener('visibilitychange',()=>{if(document.hidden)stopTour();});window.addEventListener('resize',()=>applyMapCamera(currentYear()));window.HISTORY_PRESENTATION={startTour,stopTour,continuousYear,queueScrub,selectMilestone,evidenceFor,get milestones(){return milestones;},get playing(){return tourPlaying;},dismissPrompt,applyMapCamera};}
 
+function paintMapView(view){const map=q('historicalMap');map.setAttribute('viewBox',view.join(' '));declutterMapLabels(view);world.style.transform='none';}
+function captureManualView(){if(!mapNavigation.manual){const v=q('historicalMap').getAttribute('viewBox').split(' ').map(Number);mapNavigation.view=v;mapNavigation.manual=true;}q('followMap').setAttribute('aria-pressed','false');stopTour();story.classList.remove('show');selectedStory=null;highlightSelection(null);}
+function clampMapView(){const v=mapNavigation.view,r=q('historicalMap').getBoundingClientRect(),ratio=r.width/Math.max(1,r.height),maxW=Math.min(5400,2207.5472*ratio);v[2]=Math.max(130,Math.min(maxW,v[2]));v[3]=v[2]/ratio;v[0]=Math.max(-2475,Math.min(2925-v[2],v[0]));v[1]=Math.max(-392.4528,Math.min(1815.0944-v[3],v[1]));}
+function scheduleMapPaint(){clampMapView();if(mapNavigation.frame!=null)return;mapNavigation.frame=requestAnimationFrame(()=>{mapNavigation.frame=null;paintMapView(mapNavigation.view);});}
+function zoomMap(factor,clientX,clientY){captureManualView();const r=q('historicalMap').getBoundingClientRect(),v=mapNavigation.view,fx=clientX==null?.5:(clientX-r.left)/r.width,fy=clientY==null?.5:(clientY-r.top)/r.height,px=v[0]+fx*v[2],py=v[1]+fy*v[3];v[2]*=factor;v[3]*=factor;v[0]=px-fx*v[2];v[1]=py-fy*v[3];scheduleMapPaint();}
+function followHistory(){if(mapNavigation.frame!=null)cancelAnimationFrame(mapNavigation.frame);mapNavigation.frame=null;mapNavigation.manual=false;mapNavigation.view=null;mapNavigation.pointers.clear();q('historicalMap').classList.remove('dragging');q('followMap').setAttribute('aria-pressed','true');applyMapCamera(continuousYear(displayedPosition??+time.value));}
+function initMapNavigation(){const map=q('historicalMap'),surface=map.parentElement;q('zoomIn').addEventListener('click',()=>zoomMap(.8));q('zoomOut').addEventListener('click',()=>zoomMap(1.25));q('followMap').addEventListener('click',followHistory);
+ map.addEventListener('wheel',e=>{e.preventDefault();dismissPrompt();zoomMap(Math.exp(Math.max(-100,Math.min(100,e.deltaY))*.002),e.clientX,e.clientY);},{passive:false});
+ map.addEventListener('pointerdown',e=>{if(e.button!==0&&e.pointerType==='mouse')return;stopTour();mapNavigation.rect=map.getBoundingClientRect();mapNavigation.pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});mapNavigation.dragDistance=0;e.preventDefault();});
+ surface.addEventListener('pointermove',e=>{const old=mapNavigation.pointers.get(e.pointerId);if(!old)return;const before=[...mapNavigation.pointers.values()];mapNavigation.pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});const after=[...mapNavigation.pointers.values()],dx=e.clientX-old.x,dy=e.clientY-old.y;mapNavigation.dragDistance+=Math.hypot(dx,dy);if(mapNavigation.dragDistance<4&&after.length<2)return;surface.setPointerCapture?.(e.pointerId);captureManualView();map.classList.add('dragging');const v=mapNavigation.view,r=mapNavigation.rect;if(after.length===1){v[0]-=dx*v[2]/r.width;v[1]-=dy*v[3]/r.height;}else{const center=p=>({x:(p[0].x+p[1].x)/2,y:(p[0].y+p[1].y)/2}),a=center(before),b=center(after),distance=p=>Math.hypot(p[1].x-p[0].x,p[1].y-p[0].y);v[0]-=(b.x-a.x)*v[2]/r.width;v[1]-=(b.y-a.y)*v[3]/r.height;zoomMap(Math.max(.5,Math.min(2,distance(before)/Math.max(1,distance(after)))),b.x,b.y);}scheduleMapPaint();e.preventDefault();});
+ const release=e=>{if(!mapNavigation.pointers.has(e.pointerId))return;mapNavigation.pointers.delete(e.pointerId);if(mapNavigation.dragDistance>=4)mapNavigation.suppressUntil=performance.now()+400;if(!mapNavigation.pointers.size)map.classList.remove('dragging');};surface.addEventListener('pointerup',release);surface.addEventListener('pointercancel',release);map.addEventListener('click',e=>{if(performance.now()<mapNavigation.suppressUntil){e.preventDefault();e.stopImmediatePropagation();}},true);
+ window.HISTORY_MAP={zoom:zoomMap,followHistory,get manual(){return mapNavigation.manual;},get view(){return q('historicalMap').getAttribute('viewBox').split(' ').map(Number);}};
+}
 window.HISTORY_ENGINE={schemaVersion:'1.0',validate:validateHistory,computeFrame,resolvePopulation,canRenderMovement,movementColor,replaceData,getData:()=>DATA};
 window.HISTORY_TIMELINE={get config(){return DATA.timeline;},positionForYear,yearForPosition,currentYear,setYear};window.HISTORY_DATA=DATA;
-story.addEventListener('click',e=>e.stopPropagation());document.querySelector('.map').addEventListener('click',e=>{if(!e.target.closest?.('.route,.biblical,g[data-title],.density[data-title],.story,.reason'))story.classList.remove('show');});q('closeStory').addEventListener('click',()=>story.classList.remove('show'));document.addEventListener('keydown',e=>{if(e.key==='Escape')story.classList.remove('show');});time.addEventListener('keydown',e=>{const delta={ArrowLeft:-1,ArrowDown:-1,ArrowRight:1,ArrowUp:1,PageDown:-10,PageUp:10};if(e.key in delta){e.preventDefault();setYear(currentYear()+delta[e.key]);}else if(e.key==='Home'||e.key==='End'){e.preventDefault();setYear(e.key==='Home'?DATA.timeline.start:DATA.timeline.end);}});time.addEventListener('input',()=>{stopTour();dismissPrompt();queueScrub();});time.addEventListener('pointerdown',stopTour);time.addEventListener('keydown',stopTour);
-renderRecords();buildTimeline();setYear(DATA.presentation?.openingYear??DATA.timeline.start);initPublicControls();
+story.addEventListener('click',e=>e.stopPropagation());document.querySelector('.map').addEventListener('click',e=>{if(!e.target.closest?.('.route,.biblical,g[data-title],.density[data-title],.story,.reason'))story.classList.remove('show');});q('closeStory').addEventListener('click',()=>{story.classList.remove('show');highlightSelection(null);selectedStory=null;});document.addEventListener('keydown',e=>{if(e.key==='Escape')story.classList.remove('show');});time.addEventListener('keydown',e=>{const delta={ArrowLeft:-1,ArrowDown:-1,ArrowRight:1,ArrowUp:1,PageDown:-10,PageUp:10};if(e.key in delta){e.preventDefault();setYear(currentYear()+delta[e.key]);}else if(e.key==='Home'||e.key==='End'){e.preventDefault();setYear(e.key==='Home'?DATA.timeline.start:DATA.timeline.end);}});time.addEventListener('input',()=>{stopTour();dismissPrompt();queueScrub();});time.addEventListener('pointerdown',stopTour);time.addEventListener('keydown',stopTour);
+renderRecords();buildTimeline();setYear(DATA.presentation?.openingYear??DATA.timeline.start);initPublicControls();initMapNavigation();
 </script></body></html>
