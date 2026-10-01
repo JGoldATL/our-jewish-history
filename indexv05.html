@@ -5,7 +5,8 @@
 *{box-sizing:border-box}html,body{height:100%;overflow:hidden}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,serif;display:flex;flex-direction:column}
 header,.wrap{max-width:1240px;margin:auto;width:100%}header{padding:8px 16px 3px;flex:0 0 auto}h1{margin:0;font-size:clamp(23px,3vw,37px)}.sub,.note{font:12px Arial;color:var(--muted)}
 .wrap{padding:4px 10px 8px;flex:1 1 auto;min-height:0;display:flex;flex-direction:column}.map{position:relative;background:#dfe7e7;border:1px solid #c7c1b5;border-radius:14px;overflow:hidden;flex:1 1 auto;min-height:0}
-svg{display:block;width:100%;height:100%}.sea{fill:#dfe7e7}.land{fill:#d6cebf}.coast{fill:none;stroke:#8f897e;stroke-width:1.25;vector-effect:non-scaling-stroke}
+svg{display:block;width:100%;height:100%}
+#world{transform-box:fill-box;transform-origin:center;transition:transform .7s ease}.sea{fill:#dfe7e7}.land{fill:#d6cebf}.coast{fill:none;stroke:#8f897e;stroke-width:1.25;vector-effect:non-scaling-stroke}
 .grid{stroke:#fff;stroke-opacity:.18;stroke-width:1}.label{font:12px Arial;fill:#6f695f}.place{font:bold 12px Arial;fill:#252522}
 .density{fill:#275d9b;stroke:#275d9b;stroke-width:1;transition:opacity .25s}.dot{fill:#222;stroke:#f3efe5;stroke-width:3;cursor:pointer}.ring{fill:none;stroke:#222;opacity:.3}
 .route{cursor:pointer;transition:opacity .2s}.biblical{fill:none;stroke:#6d6256;stroke-width:5;stroke-dasharray:12 10;stroke-linecap:round;cursor:pointer}
@@ -15,9 +16,18 @@ svg{display:block;width:100%;height:100%}.sea{fill:#dfe7e7}.land{fill:#d6cebf}.c
 .controls{margin-top:6px;flex:0 0 auto;background:#fffdf8;border:1px solid #d1c9bc;border-radius:12px;padding:9px 13px}.row{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.year{font-size:23px;font-weight:bold}.era{font:12px Arial;color:var(--muted)}input{width:100%;margin:6px 0 3px;accent-color:#333}.ticks{display:flex;justify-content:space-between;font:9px Arial;color:#777}
 @media(max-width:700px){header{padding-top:5px}h1{font-size:21px}.sub{font-size:10px}.controls{padding:7px 9px}.year{font-size:20px}.note{font-size:10px}.legend{font-size:10px}}
 </style></head><body>
-<header><h1>Jewish Movement & Continuity</h1><div class="sub">v0.5 geographic prototype • Real longitude/latitude framework • Organic population footprints</div></header>
+<header><h1>Jewish Movement & Continuity</h1><div class="sub">v0.6 geographic camera prototype • Real geography • Timeline-driven zoom • Organic population footprints</div></header>
 <div class="wrap"><div class="map">
 <svg viewBox="0 0 1200 650" preserveAspectRatio="xMidYMid meet">
+<g id="world">
+<defs>
+<marker id="redHead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 Q4,5 0,10 L9,5 Z" fill="#a33b32"/>
+</marker>
+<marker id="blueHead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 Q4,5 0,10 L9,5 Z" fill="#275d9b"/>
+</marker>
+</defs>
 <rect class="sea" width="1200" height="650"/>
 <!-- faint geographic grid -->
 <line class="grid" x1="75.0" y1="0" x2="75.0" y2="650"/><line class="grid" x1="225.0" y1="0" x2="225.0" y2="650"/><line class="grid" x1="375.0" y1="0" x2="375.0" y2="650"/><line class="grid" x1="525.0" y1="0" x2="525.0" y2="650"/><line class="grid" x1="675.0" y1="0" x2="675.0" y2="650"/><line class="grid" x1="825.0" y1="0" x2="825.0" y2="650"/><line class="grid" x1="975.0" y1="0" x2="975.0" y2="650"/><line class="grid" x1="1125.0" y1="0" x2="1125.0" y2="650"/><line class="grid" x1="0" y1="588.7" x2="1200" y2="588.7"/><line class="grid" x1="0" y1="466.0" x2="1200" y2="466.0"/><line class="grid" x1="0" y1="343.4" x2="1200" y2="343.4"/><line class="grid" x1="0" y1="220.8" x2="1200" y2="220.8"/><line class="grid" x1="0" y1="98.1" x2="1200" y2="98.1"/>
@@ -117,23 +127,24 @@ svg{display:block;width:100%;height:100%}.sea{fill:#dfe7e7}.land{fill:#d6cebf}.c
 <path id="ed" class="density" opacity="0" d="M 693.3,402.9 C 712.3,387.9 747.3,393.9 751.3,417.9 C 736.3,439.9 702.3,441.9 687.3,423.9 C 682.3,414.9 685.3,407.9 693.3,402.9 Z"/>
 
 <!-- Working movement arrows -->
-<path id="d" class="route" d="M 768.2,319.7 C 848.2,236.7 791.3,240.2 861.3,298.2 L 848.3,274.2 L 909.3,312.2 L 844.3,338.2 L 860.3,320.2 C 786.3,267.2 853.2,264.7 768.2,331.7 Z" fill="#a33b32" stroke="#7f2d27" stroke-width="1.5"
+<path id="d" class="route" d="M 761.2,321.7 C 833.2,251.7 816.3,250.2 881.3,312.2" fill="none" stroke="#a33b32" stroke-width="13" stroke-linecap="round" marker-end="url(#redHead)"
 data-title="Babylonian deportations" data-date="597 and 587/586 BCE" data-story="Babylonian campaigns removed part of Judah’s population to Babylonia. Many people remained in Judah." data-scale="Scale: substantial movement; exact total uncertain" data-evidence="Movement and destination are historically established; the visualization avoids false numerical precision."/>
-<path id="r" class="route" d="M 876.3,329.2 C 801.3,402.2 848.2,401.7 782.2,340.7 L 794.2,364.7 L 735.2,324.7 L 799.2,298.7 L 784.2,316.7 C 853.2,374.7 805.3,373.2 876.3,317.2 Z" fill="#275d9b" stroke="#1d4777" stroke-width="1.5"
+<path id="r" class="route" d="M 883.3,324.2 C 809.3,388.2 831.2,391.7 763.2,333.7" fill="none" stroke="#275d9b" stroke-width="11" stroke-linecap="round" marker-end="url(#blueHead)"
 data-title="Partial return to Judea" data-date="After 539 BCE" data-story="Under Persian rule, some Judeans returned from Babylonia to Judea. Many remained in Babylonia." data-scale="Scale: partial return; exact total uncertain" data-evidence="Return is historically established; both population centers remain visible."/>
 
 <!-- Community anchors -->
 <g id="j" data-title="Judah / Judea" data-date="6th–5th centuries BCE" data-story="A Judean population remained in the land through and after the Babylonian conquests." data-evidence="Presence marker; exact population is not represented as a precise census."><circle class="ring" cx="753.2" cy="321.7" r="11"/><circle class="dot" cx="753.2" cy="321.7" r="6"/><text class="place" x="764.2" y="312.7">Jerusalem / Judea</text></g>
 <g id="b" data-title="Judeans in Babylonia" data-date="6th century BCE onward" data-story="Judean communities are documented in Babylonia; later return did not empty this community." data-evidence="Documented community presence."><circle class="ring" cx="891.3" cy="312.2" r="11"/><circle class="dot" cx="891.3" cy="312.2" r="6"/><text class="place" x="902.3" y="303.2">Babylonia</text></g>
 <g id="e" data-title="Jewish community at Elephantine" data-date="5th century BCE" data-story="A Jewish/Judean community is documented at Elephantine. No migration arrow is drawn because its precise founding route is not established well enough." data-evidence="Presence without provenance: no invented route."><circle class="ring" cx="718.3" cy="415.9" r="11"/><circle class="dot" cx="718.3" cy="415.9" r="6"/><text class="place" x="729.3" y="406.9">Elephantine</text></g>
-</svg>
+
+</g></svg>
 <div class="legend"><div><span class="sd"></span>Community/place</div><div><span style="display:inline-block;width:20px;height:10px;background:#275d9b;opacity:.65;margin-right:6px;vertical-align:middle;border-radius:45% 55% 42% 58%"></span>Population concentration</div><div><span class="sw red"></span>Forced movement</div><div><span class="sw blue"></span>Toward the Land</div></div>
 <div id="story" class="story"><div id="sd" class="date"></div><h2 id="st"></h2><p id="ss"></p><p id="sc" style="font-weight:bold"></p><p id="se" class="evidence"></p></div></div>
 <div class="controls"><div class="row"><div id="yl" class="year">586 BCE</div><div id="el" class="era">Babylonian conquest and deportations</div></div>
 <input id="time" type="range" min="-600" max="-400" value="-586"><div class="ticks"><span>600 BCE</span><span>550 BCE</span><span>500 BCE</span><span>450 BCE</span><span>400 BCE</span></div>
-<div class="note">Blue footprints are categorical, not census-precise. Their irregular shape and opacity can change through time. Arrows show movement; tap a community or arrow for context.</div></div></div>
+<div class="note">The map begins closer to the active region and gradually widens as the timeline advances. Population footprints are categorical, not census-precise; smooth arrows show movement.</div></div></div>
 <script>
-const q=x=>document.getElementById(x),time=q('time'),d=q('d'),r=q('r'),j=q('j'),b=q('b'),e=q('e'),jd=q('jd'),bd=q('bd'),ed=q('ed'),story=q('story');
+const q=x=>document.getElementById(x),time=q('time'),d=q('d'),r=q('r'),j=q('j'),b=q('b'),e=q('e'),jd=q('jd'),bd=q('bd'),ed=q('ed'),story=q('story'),world=q('world');
 function fw(y,s,p,n){if(y<s||y>n)return 0;if(y<=p)return Math.max(.12,(y-s)/(p-s||1));return Math.max(0,1-(y-p)/(n-p||1))}
 function vis(x,o){x.style.opacity=o;x.style.pointerEvents=o>.08?'auto':'none'}
 function update(){
@@ -143,6 +154,11 @@ function update(){
  let jo=.72,bo=0,eo=0;if(y>=-597&&y<-586){jo=.62;bo=.22}if(y>=-586&&y<-540){jo=.42;bo=.68}if(y>=-540&&y<-500){jo=.52;bo=.70}if(y>=-500){jo=.60;bo=.70;eo=.30}
  jd.style.opacity=jo;bd.style.opacity=bo;ed.style.opacity=eo;
  q('el').textContent=y<=-550?'Babylonian conquest and deportations':y<-540?'Judean communities persist in two centers':y<=-480?'Partial return under Persian rule':'Judea, Babylonia and Elephantine';
+ // Prototype camera: tighter regional view early, gradually widening as the historical geography expands.
+ let t=Math.max(0,Math.min(1,(y+600)/200));
+ let z=1.48-(.48*t);
+ let tx=-7*(1-t), ty=2*(1-t);
+ world.style.transform=`translate(${tx}%,${ty}%) scale(${z})`;
 }
 function bind(x){let f=()=>{q('sd').textContent=x.dataset.date||'';q('st').textContent=x.dataset.title||'';q('ss').textContent=x.dataset.story||'';q('sc').textContent=x.dataset.scale||'';q('se').textContent=x.dataset.evidence||'';story.classList.add('show')};x.addEventListener('click',f);x.addEventListener('mouseenter',f)}
 [d,r,j,b,e].forEach(bind);story.addEventListener('click',ev=>ev.stopPropagation());document.querySelector('.map').addEventListener('click',ev=>{const i=ev.target.closest&&(ev.target.closest('.route')||ev.target.closest('g[data-title]')||ev.target.closest('.story'));if(!i)story.classList.remove('show')});time.addEventListener('input',update);update();
