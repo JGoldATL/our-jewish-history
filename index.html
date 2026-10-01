@@ -51,8 +51,11 @@ svg{display:block;width:100%;height:100%}
 #r{stroke:#173f70;stroke-width:4.5;stroke-linejoin:round;filter:drop-shadow(0 2px 1.5px #00000035)}
 #exodus{stroke-width:7!important;stroke-dasharray:12 8!important;stroke-linecap:round;filter:drop-shadow(0 2px 1.5px #00000030)}
 #e.uncertainPresence .ring{stroke-dasharray:4 4}
-</style></head><body>
-<header><h1>Jewish Movement &amp; Continuity</h1><div class="sub">v1.4 Alpha — Data-driven movement and continuity • Ancient → Hellenistic → Roman Jewish geography</div></header>
+</style><style>
+.memorial{cursor:pointer;filter:drop-shadow(0 1px 2px #0003)}.memorial:focus{outline:none}.memorial:focus circle{stroke-width:3}.legendStar{display:inline-block;width:18px;height:18px;vertical-align:middle;margin-right:4px}.legend{max-width:255px}
+#declineNotice{margin:5px 0 2px;font:12px Arial;border-top:1px solid #ded5c6;padding-top:5px}#declineNotice[hidden]{display:none}.declineHeading{color:#777166}#declineReasons{display:flex;gap:6px;overflow-x:auto;padding:4px 0;max-width:100%}.reason{flex:0 0 auto;font:12px Arial;border:1px solid #c6bba9;border-radius:5px;padding:5px 7px;background:#f3efe5;color:#38342f;cursor:pointer}.reason.mass_killing{border-color:#a33b32;color:#8f2f29}.reason.uncertain{border-style:dashed}.reason:focus-visible{outline:2px solid #275d9b;outline-offset:1px}
+</style><style>.year{white-space:nowrap}#closeStory{position:absolute;right:7px;top:5px;border:0;background:transparent;color:#777166;font:22px Arial;cursor:pointer;width:30px;height:30px}.story h2{padding-right:18px}</style></head><body>
+<header><h1>Jewish Movement &amp; Continuity</h1><div class="sub">v1.5 Alpha — Movement, continuity and community loss • Ancient → Hellenistic → Roman Jewish geography</div></header>
 <div class="wrap"><div class="map">
 <svg preserveaspectratio="xMidYMid meet" viewbox="0 0 1200 650">
 <g id="world">
@@ -207,10 +210,11 @@ C 800.0,276.8 800.0,255.8 813.0,241.8 Z" id="adensity" opacity="0"></path>
 <!-- MOVEMENT LAYER: intentionally above population shading -->
 <g id="populationLayer"></g><g id="movementLayer"></g>
 </g></svg>
-<div class="legend"><div><span class="sd"></span>Community/place</div><div><span style="display:inline-block;width:20px;height:10px;background:#275d9b;opacity:.65;margin-right:6px;vertical-align:middle;border-radius:45% 55% 42% 58%"></span>Population concentration</div><div><span class="sw red"></span>Forced movement</div><div><span class="sw blue"></span>Toward the Land</div><div>Gray arrows: resettlement · dashed: biblical narrative</div></div>
-<div class="story" id="story"><div class="date" id="sd"></div><h2 id="st"></h2><p id="ss"></p><p id="sc" style="font-weight:bold"></p><p class="evidence" id="se"></p></div></div>
+<div class="legend"><div><span class="sd"></span>Community/place</div><div><span style="display:inline-block;width:20px;height:10px;background:#275d9b;opacity:.65;margin-right:6px;vertical-align:middle;border-radius:45% 55% 42% 58%"></span>Population concentration</div><div><span class="sw red"></span>Forced movement</div><div><span class="sw blue"></span>Toward the Land</div><div>Gray arrows: resettlement · dashed: biblical narrative</div><div><svg class="legendStar" viewBox="-18 -18 36 36" aria-hidden="true"><circle r="17" fill="#fffaf0" stroke="#a33b32"/><path d="M0,-11 L-9.5,5.5 L9.5,5.5 Z M0,11 L-9.5,-5.5 L9.5,-5.5 Z" fill="none" stroke="#8f2f29" stroke-width="2.2"/><path d="M-12,-1 L-5,2 L-1,-1 L4,2 L12,-1" fill="none" stroke="#fffaf0" stroke-width="3.7"/></svg>Community destroyed through mass killing</div></div>
+<div class="story" id="story"><button type="button" id="closeStory" aria-label="Close story">×</button><div class="date" id="sd"></div><h2 id="st"></h2><p id="ss"></p><p id="sc" style="font-weight:bold"></p><p class="evidence" id="se"></p></div></div>
 <div class="controls"><div class="row"><div class="year" id="yl">586 BCE</div><div class="era" id="el">Babylonian conquest and deportations</div></div>
 <input aria-label="Historical year" id="time" max="200" min="-1250" type="range" value="-1208"/><div class="ticks"><span>1250 BCE</span><span>800</span><span>400</span><span>1 CE</span><span>200 CE</span></div>
+<div id="declineNotice" hidden><span class="declineHeading">Why the shading changed</span><div id="declineReasons"></div></div>
 <div class="note">The map prioritizes Jewish population presence and movement over modern political geography. Labels appear when historically relevant; rivers and terrain provide orientation.</div></div></div>
 <script>const q=id=>document.getElementById(id),time=q('time'),story=q('story'),world=q('world');
 // Historical records are independent of SVG rendering. Opacity is qualitative, never census data.
@@ -265,7 +269,11 @@ const POPULATIONS = [
     ],
     "uncertainAfter": null,
     "movementIds": [],
-    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate."
+    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate.",
+    "consequenceIds": [
+      "israelConquest",
+      "israelLayer"
+    ]
   },
   {
     "id": "j",
@@ -333,7 +341,13 @@ const POPULATIONS = [
     ],
     "uncertainAfter": null,
     "movementIds": [],
-    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate."
+    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate.",
+    "consequenceIds": [
+      "judahDeportation1",
+      "judahDeportation2",
+      "jerusalem70",
+      "judea135"
+    ]
   },
   {
     "id": "b",
@@ -396,6 +410,9 @@ const POPULATIONS = [
       -597,
       18,
       0.2
+    ],
+    "consequenceIds": [
+      "babyloniaContinues"
     ]
   },
   {
@@ -454,6 +471,9 @@ const POPULATIONS = [
       20,
       0.2,
       -390
+    ],
+    "consequenceIds": [
+      "elephantineUncertain"
     ]
   },
   {
@@ -504,7 +524,10 @@ const POPULATIONS = [
     "movementIds": [
       "egyptMovement"
     ],
-    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate."
+    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate.",
+    "consequenceIds": [
+      "alexandria117"
+    ]
   },
   {
     "id": "asiaNode",
@@ -523,7 +546,7 @@ const POPULATIONS = [
     ],
     "title": "Jewish communities in Asia Minor",
     "date": "Hellenistic–Roman period",
-    "story": "Jewish communities became established across Asia Minor. The blue footprint represents regional presence rather than a claim that every place inside it had the same population density.",
+    "story": "Jewish communities developed across Asia Minor, in present-day Turkey. One recorded relocation brought families from Babylonia under Antiochus III around 210–205 BCE; it was not an exile from Judea.",
     "evidence": "Literary, inscriptional and archaeological evidence documents numerous communities; exact founding routes differ by locality.",
     "classification": "documented_migration",
     "assessment": "Josephus reports Antiochus III relocating families from Babylonia to Lydia/Phrygia; date and letter authenticity need caution.",
@@ -546,7 +569,8 @@ const POPULATIONS = [
     "movementIds": [
       "asiaMovement"
     ],
-    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate."
+    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate.",
+    "consequenceIds": []
   },
   {
     "id": "cyprusNode",
@@ -594,7 +618,10 @@ const POPULATIONS = [
     ],
     "uncertainAfter": null,
     "movementIds": [],
-    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate."
+    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate.",
+    "consequenceIds": [
+      "cyprus117"
+    ]
   },
   {
     "id": "romeNode",
@@ -613,7 +640,7 @@ const POPULATIONS = [
     ],
     "title": "Jewish community in Rome",
     "date": "By the late Republic",
-    "story": "A Jewish community was established at Rome before the destruction of the Second Temple and grew during the late Republican and early imperial periods.",
+    "story": "Jews lived in Rome before 70 CE. Roman conquest and enslavement brought additional Jews to Italy, including in the period after 63 BCE. The community’s origins cannot be reduced to a single exile in 36 BCE.",
     "evidence": "Literary and later archaeological evidence establishes a substantial Roman Jewish community.",
     "classification": "documented_migration",
     "assessment": "Philo attests captives brought to Italy and later freed; this does not explain every earlier Roman resident. The 150 BCE display threshold is a late Republican approximation, not an exact founding year.",
@@ -636,7 +663,8 @@ const POPULATIONS = [
     "movementIds": [
       "romeMovement"
     ],
-    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate."
+    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate.",
+    "consequenceIds": []
   },
   {
     "id": "cyreneNode",
@@ -686,7 +714,10 @@ const POPULATIONS = [
     "movementIds": [
       "cyreneMovement"
     ],
-    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate."
+    "displayDateNote": "Display thresholds are approximate alpha snapshots, not a claim about first settlement. Density opacity is illustrative, not a census or population estimate.",
+    "consequenceIds": [
+      "cyrene117"
+    ]
   }
 ];
 const MOVEMENTS = [
@@ -946,8 +977,8 @@ const MOVEMENTS = [
   },
   {
     "id": "asiaMovement",
-    "title": "Relocation to Lydia and Phrygia",
-    "date": "205 BCE",
+    "title": "Families relocated from Babylonia to Anatolia",
+    "date": "c. 210–205 BCE",
     "window": [
       -210,
       -205,
@@ -966,8 +997,8 @@ const MOVEMENTS = [
       183
     ],
     "kind": "resettlement",
-    "story": "Josephus preserves a letter reporting the relocation of 2,000 Jewish families from Babylonia/Mesopotamia. Dating is approximate and the letter’s authenticity is debated.",
-    "evidence": "Schematic regional endpoints and curve; no claim to an exact travel itinerary. Ancient literary testimony is distinguished from direct documentary evidence.",
+    "story": "Antiochus III ordered Jewish families moved from Babylonia and Mesopotamia to Lydia and Phrygia, in present-day Turkey. This was a state-directed relocation of diaspora families, not an exile from Judea. The date is approximate.",
+    "evidence": "Josephus, Antiquities 12.147–153 preserves the relocation letter. Its dating and authenticity require caution; the map curve is schematic.",
     "sources": [
       "https://www.attalus.org/translate/aj_12a.html"
     ],
@@ -1011,7 +1042,7 @@ const MOVEMENTS = [
   {
     "id": "romeMovement",
     "title": "Jewish captives brought to Italy",
-    "date": "50 BCE",
+    "date": "Late Republic, especially after 63 BCE",
     "window": [
       -63,
       -50,
@@ -1030,8 +1061,8 @@ const MOVEMENTS = [
       170
     ],
     "kind": "forced",
-    "story": "Philo Embassy to Gaius 155 attests Jewish captives brought to Italy and freed. Late Republican dating is approximate; this did not found or explain the entire Roman community.",
-    "evidence": "Schematic regional endpoints and curve; no claim to an exact travel itinerary. Ancient literary testimony is distinguished from direct documentary evidence.",
+    "story": "Roman conquest brought Jewish captives to Italy; many later gained freedom. Pompey’s conquest in 63 BCE is a major historical context. A visible arrow near 36 BCE represents this broader movement, not a separately established exile in that year. Jews already lived in Rome.",
+    "evidence": "Philo, Embassy to Gaius 155, describes former Jewish captives living in Rome. It does not date every arrival or establish a single deportation in 36 BCE.",
     "sources": [
       "https://catholiclibrary.org/library/view?chunk.id=00000049&docId=%2FAntiquities-EN%2FAntiquities.Philo.152.html"
     ],
@@ -1039,6 +1070,220 @@ const MOVEMENTS = [
     "weight": 1,
     "datePrecision": "approximate",
     "eventGroup": "romeMovement"
+  }
+];
+const CONSEQUENCES = [
+  {
+    "id": "israelConquest",
+    "communityId": "israel",
+    "start": -740,
+    "end": -680,
+    "kind": "migration",
+    "label": "Israel: conquest",
+    "title": "Northern Israel under Assyrian conquest",
+    "date": "740 BCE",
+    "story": "The lower blue shading introduces the period of Assyrian conquest and deportation. The stronger reduction is a schematic cue, not a census. Population remained in the region. The documented Samaria deportations occur in 722–720 BCE.",
+    "evidence": "Density intensity is illustrative, not a census. The explanation distinguishes historical disruption from a change in map presentation.",
+    "classification": "documented_migration",
+    "sources": [
+      "https://oracc.museum.upenn.edu/rinap/"
+    ],
+    "memorial": false,
+    "position": null
+  },
+  {
+    "id": "israelLayer",
+    "communityId": "israel",
+    "start": -680,
+    "end": null,
+    "kind": "display",
+    "label": "Israel: continued presence",
+    "title": "The map changes its regional label",
+    "date": "680 BCE",
+    "story": "The Israel/Canaan layer gives way to the Judah/Judea view. This change in map layers does not mean that the population vanished or that every northern Israelite moved away.",
+    "evidence": "Density intensity is illustrative, not a census. The explanation distinguishes historical disruption from a change in map presentation.",
+    "classification": "display_transition",
+    "sources": [
+      "https://oracc.museum.upenn.edu/rinap/"
+    ],
+    "memorial": false,
+    "position": null
+  },
+  {
+    "id": "judahDeportation1",
+    "communityId": "j",
+    "start": -597,
+    "end": -586,
+    "kind": "migration",
+    "label": "Judah: deportation",
+    "title": "First Babylonian deportation",
+    "date": "597 BCE",
+    "story": "Babylonian conquest deported part of Judah’s population in 597 BCE. The population remaining in the land stays visible.",
+    "evidence": "Density intensity is illustrative, not a census. The explanation distinguishes historical disruption from a change in map presentation.",
+    "classification": "documented_migration",
+    "sources": [
+      "https://www.jstor.org/stable/10.1163/j.ctv2gjwzvz"
+    ],
+    "memorial": false,
+    "position": null
+  },
+  {
+    "id": "judahDeportation2",
+    "communityId": "j",
+    "start": -586,
+    "end": -540,
+    "kind": "migration",
+    "label": "Judah: conquest and deportation",
+    "title": "Babylonian destruction and deportation",
+    "date": "586 BCE",
+    "story": "Jerusalem and the First Temple were destroyed in 587/586 BCE. Deportation, death and destruction reduced the population; many Judeans remained. The lower shading does not mean a complete removal.",
+    "evidence": "Density intensity is illustrative, not a census. The explanation distinguishes historical disruption from a change in map presentation.",
+    "classification": "documented_migration",
+    "sources": [
+      "https://www.jstor.org/stable/10.1163/j.ctv2gjwzvz"
+    ],
+    "memorial": false,
+    "position": null
+  },
+  {
+    "id": "babyloniaContinues",
+    "communityId": "b",
+    "start": -300,
+    "end": null,
+    "kind": "display",
+    "label": "Babylonia continues",
+    "title": "Babylonia remains a major Jewish center",
+    "date": "300 BCE",
+    "story": "The small change in blue intensity is part of the schematic map scale. It does not identify a new exodus or a documented population collapse. Jewish life continued in Babylonia.",
+    "evidence": "Density intensity is illustrative, not a census. The explanation distinguishes historical disruption from a change in map presentation.",
+    "classification": "display_transition",
+    "sources": [
+      "https://www.jstor.org/stable/10.1163/j.ctv2gjwzvz"
+    ],
+    "memorial": false,
+    "position": null
+  },
+  {
+    "id": "elephantineUncertain",
+    "communityId": "e",
+    "start": -389,
+    "end": null,
+    "kind": "uncertain",
+    "label": "Elephantine: evidence weakens",
+    "title": "Elephantine’s later continuity is uncertain",
+    "date": "389 BCE",
+    "story": "After the surviving documentary record thins, the community fades on this map. Its precise later fate is uncertain. Fading here means weaker evidence, not documented murder or a proven departure route.",
+    "evidence": "Density intensity is illustrative, not a census. Later continuity is uncertain; no death or migration is inferred from missing evidence.",
+    "classification": "uncertain_continuity",
+    "sources": [
+      "https://www.iranicaonline.org/articles/elephantine/"
+    ],
+    "memorial": false,
+    "position": null
+  },
+  {
+    "id": "jerusalem70",
+    "communityId": "j",
+    "start": 70,
+    "end": null,
+    "kind": "mass_killing",
+    "label": "Jerusalem: destruction",
+    "title": "Jerusalem destroyed; many Jews killed",
+    "date": "70 CE",
+    "story": "In 70 CE Roman forces destroyed Jerusalem and the Second Temple. Many Jews were killed and survivors enslaved. The broken star marks this destruction at Jerusalem. Jewish communities elsewhere in the land continued.",
+    "evidence": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+    "classification": "documented_mass_killing",
+    "sources": [
+      "https://penelope.uchicago.edu/josephus/war-6.html"
+    ],
+    "memorial": true,
+    "position": [
+      775,
+      344
+    ]
+  },
+  {
+    "id": "judea135",
+    "communityId": "j",
+    "start": 135,
+    "end": null,
+    "kind": "migration",
+    "label": "Judea: killing and displacement",
+    "title": "After the Bar Kokhba revolt",
+    "date": "135 CE",
+    "story": "Roman suppression of the revolt in 132–135 CE caused mass killing, enslavement and displacement in Judea. Jewish life continued, especially in Galilee. Reduced regional shading does not mean that all Jews left the land.",
+    "evidence": "Density intensity is illustrative, not a census. The explanation distinguishes historical disruption from a change in map presentation.",
+    "classification": "documented_migration",
+    "sources": [
+      "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Cassius_Dio/69*.html"
+    ],
+    "memorial": false,
+    "position": null
+  },
+  {
+    "id": "alexandria117",
+    "communityId": "alexNode",
+    "start": 117,
+    "end": null,
+    "kind": "mass_killing",
+    "label": "Alexandria: mass killing",
+    "title": "Alexandria’s community devastated",
+    "date": "117 CE",
+    "story": "During the Diaspora Revolt of 115–117 CE, attacks and Roman suppression killed many Jews and devastated Alexandria’s Jewish community. The broken star commemorates the destruction. Lower shading does not supply a survivor count or deny later Jewish presence.",
+    "evidence": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+    "classification": "documented_mass_killing",
+    "sources": [
+      "https://cojs.org/115-c-e-117-c-e-jewish-rebellion-emperor-trajan/"
+    ],
+    "memorial": true,
+    "position": [
+      650,
+      348
+    ]
+  },
+  {
+    "id": "cyrene117",
+    "communityId": "cyreneNode",
+    "start": 117,
+    "end": null,
+    "kind": "mass_killing",
+    "label": "Cyrenaica: mass killing",
+    "title": "Cyrenaica’s communities devastated",
+    "date": "117 CE",
+    "story": "Roman suppression of the Diaspora Revolt in 115–117 CE involved mass killing and devastated Jewish communities in Cyrenaica. The broken star records this catastrophe; later Jewish presence must be evaluated separately.",
+    "evidence": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+    "classification": "documented_mass_killing",
+    "sources": [
+      "https://cojs.org/115-c-e-117-c-e-jewish-rebellion-emperor-trajan/",
+      "https://www.jewishencyclopedia.com/articles/4826-cyrene"
+    ],
+    "memorial": true,
+    "position": [
+      533,
+      335
+    ]
+  },
+  {
+    "id": "cyprus117",
+    "communityId": "cyprusNode",
+    "start": 117,
+    "end": null,
+    "kind": "mass_killing",
+    "label": "Cyprus: killing and exclusion",
+    "title": "Cyprus’s community destroyed and excluded",
+    "date": "117 CE",
+    "story": "After the Diaspora Revolt of 115–117 CE, Jewish life on Cyprus was devastated by killing and exclusion. Cassius Dio reports a ban on Jews landing on the island. Later Jewish residents are also recorded; the star does not mean permanent extinction.",
+    "evidence": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+    "classification": "documented_mass_killing",
+    "sources": [
+      "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Cassius_Dio/68*.html",
+      "https://www.jewishencyclopedia.com/articles/4344-chittim-kittim"
+    ],
+    "memorial": true,
+    "position": [
+      740,
+      259
+    ]
   }
 ];
 const EVENTS=[{id:'lachish',window:[-710,-701,-685]}];
@@ -1073,11 +1318,43 @@ for(const m of MOVEMENTS){
  else{attrs.points=ribbon(m.origin,m.control,m.destination);attrs.stroke=color;attrs['stroke-width']=4.5;attrs.style='filter:drop-shadow(0 2px 1.5px #00000035)';}
  metadata(svg(traditional?'path':'polygon',attrs,q('movementLayer')),m);
 }
+
+const memorialLayer=svg('g',{id:'memorialLayer'},world);
+const BROKEN_STAR='M0,-11 L-9.5,5.5 L9.5,5.5 Z M0,11 L-9.5,-5.5 L9.5,-5.5 Z';
+for(const c of CONSEQUENCES.filter(c=>c.memorial)){
+ const g=svg('g',{id:c.id,class:'memorial',transform:`translate(${c.position[0]},${c.position[1]})`},memorialLayer);
+ svg('circle',{r:17,fill:'#fffaf0',stroke:'#a33b32','stroke-width':1.3},g);
+ svg('path',{d:BROKEN_STAR,fill:'none',stroke:'#8f2f29','stroke-width':2.2,'stroke-linejoin':'round'},g);
+ svg('path',{d:'M-12,-1 L-5,2 L-1,-1 L4,2 L12,-1',fill:'none',stroke:'#fffaf0','stroke-width':3.7},g);
+ svg('title',{},g).textContent=c.title;metadata(g,c);
+}
+function activeConsequences(y){return CONSEQUENCES.filter(c=>y>=c.start&&(c.end===null||y<c.end));}
+let selectedStory=null;
+function showStory(data){
+ selectedStory=data;q('sd').textContent=data.date||'';q('st').textContent=data.title||'';
+ const context=activeConsequences(+time.value).filter(c=>c.communityId===data.id).sort((a,b)=>b.start-a.start)[0];
+ q('ss').textContent=data.story||'';if(context)q('ss').textContent+=' '+context.story;
+ q('sc').textContent=data.scale||'';
+ const labels={documented_migration:'Documented migration',documented_presence_only:'Documented presence only',uncertain_provenance:'Uncertain provenance',documented_mass_killing:'Documented mass killing and community destruction',uncertain_continuity:'Uncertain continuity',display_transition:'Map interpretation'};
+ q('se').textContent=(labels[data.classification]?labels[data.classification]+'. ':'')+[data.evidence,data.assessment].filter(Boolean).join(' ');
+ for(const url of [...new Set([...(data.sources||[]),...(context?.sources||[])])]){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent=' Source';q('se').appendChild(a);}
+ story.classList.add('show');
+}
+function updateConsequences(y){
+ for(const c of CONSEQUENCES.filter(c=>c.memorial))vis(q(c.id),y>=c.start?1:0);
+ const row=q('declineReasons');row.replaceChildren();
+ const latest=new Map();for(const c of activeConsequences(y)){const prev=latest.get(c.communityId);if(!prev||c.start>prev.start)latest.set(c.communityId,c);}
+ const values=[...latest.values()].sort((a,b)=>b.start-a.start);q('declineNotice').hidden=values.length===0;
+ for(const c of values){const button=document.createElement('button');button.type='button';button.textContent=c.label;button.className='reason '+c.kind;button.addEventListener('click',()=>showStory(c));row.appendChild(button);}
+ if(story.classList.contains('show')&&selectedStory)showStory(selectedStory);
+}
+
 function update(){const y=+time.value;q('yl').textContent=yearLabel(y);
  for(const p of POPULATIONS){const node=q(p.id);let opacity=statesAt(y,p.nodeStates);if(p.nodeRamp){const [start,duration,base,end=Infinity]=p.nodeRamp;if(y>=start&&y<=end)opacity=Math.min(1,(y-start)/duration+base);}vis(node,opacity);labelVis(node,opacity>.1);node.classList.toggle('uncertainPresence',p.uncertainAfter!==null&&y>p.uncertainAfter);}
  for(const p of [...POPULATIONS,ASSYRIAN_PRESENCE])q(p.densityId||p.id).style.opacity=statesAt(y,p.densityStates);
  for(const m of MOVEMENTS)vis(q(m.id),fw(y,...m.window)*m.weight);
  for(const event of EVENTS)vis(q(event.id),fw(y,...event.window));
+ updateConsequences(y);
  let era='Israel documented in Canaan';
  if(y<-1190) era='Biblical movement layer and early Israel';
  else if(y<-730) era='Israelite presence in Canaan';
@@ -1107,12 +1384,10 @@ function update(){const y=+time.value;q('yl').textContent=yearLabel(y);
  world.style.transform=`translate(${tx}%,${ty}%) scale(${z})`;
 
 }
-function bind(x){const f=()=>{q('sd').textContent=x.dataset.date||'';q('st').textContent=x.dataset.title||'';q('ss').textContent=x.dataset.story||'';q('sc').textContent=x.dataset.scale||'';q('se').textContent=x.dataset.evidence||'';
- const data=x._record; if(data){const labels={documented_migration:'Documented migration',documented_presence_only:'Documented presence only',uncertain_provenance:'Uncertain provenance'};q('se').textContent=labels[data.classification]+'. '+q('se').textContent;for(const url of data.sources||[]){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent=' Source';q('se').appendChild(a);}}
- story.classList.add('show');};x.addEventListener('click',f);x.addEventListener('mouseenter',f);x.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();f();}});}
+function bind(x){const f=()=>showStory(x._record||{title:x.dataset.title,date:x.dataset.date,story:x.dataset.story,scale:x.dataset.scale,evidence:x.dataset.evidence});x.addEventListener('click',f);if(window.matchMedia&&window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 701px)').matches)x.addEventListener('mouseenter',f);x.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();f();}});}
 const ASSYRIAN_PRESENCE={id:'adensity',classification:'documented_migration',assessment:'Assyrian inscriptions document deportation; this regional footprint represents dispersed deportees, not uniform settlement or numerical density.',sources:['https://oracc.museum.upenn.edu/rinap/'],densityStates:[[-722,.24],[-710,.38]]};
-window.HISTORY_DATA={populations:[...POPULATIONS,ASSYRIAN_PRESENCE],movements:MOVEMENTS};
-bind(q('lachish'));story.addEventListener('click',ev=>ev.stopPropagation());document.querySelector('.map').addEventListener('click',ev=>{const i=ev.target.closest&&(ev.target.closest('.route,.biblical,g[data-title],.story'));if(!i)story.classList.remove('show');});time.addEventListener('input',update);update();
+window.HISTORY_DATA={populations:[...POPULATIONS,ASSYRIAN_PRESENCE],movements:MOVEMENTS,consequences:CONSEQUENCES};
+bind(q('lachish'));story.addEventListener('click',ev=>ev.stopPropagation());document.querySelector('.map').addEventListener('click',ev=>{const i=ev.target.closest&&(ev.target.closest('.route,.biblical,g[data-title],.story,.reason'));if(!i)story.classList.remove('show');});q('closeStory').addEventListener('click',()=>story.classList.remove('show'));document.addEventListener('keydown',ev=>{if(ev.key==='Escape')story.classList.remove('show');});time.addEventListener('input',update);update();
 </script></body></html>
 
 
