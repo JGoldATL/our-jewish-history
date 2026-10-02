@@ -222,8 +222,35 @@ function closeStory(){selected=null;lastAutoIdx=-1;render();}
 function setPos(p){position=Math.max(0,Math.min(1,p));render();}
 function setYearExact(y){position=posForYear(y);render();}
 function startTour(){stopTour();dismissPrompt();selected=null;lastAutoIdx=-1;view.manual=false;view.zoom=1;view.R=view.baseR;if(position>=0.999)position=posForYear(DATA.presentation?.openingYear??DATA.timeline.start);const from=position,dur=DATA.presentation?.tourDurationMs||20000,t0=performance.now();
-  const step=now=>{position=Math.min(1,from+(now-t0)/dur*(1-from));render();if(position>=1){stopTour();return;}tour=requestAnimationFrame(step);};tour=requestAnimationFrame(step);$('play').textContent='Ⅱ Pause';$('play').setAttribute('aria-pressed','true');}
-function stopTour(){if(tour!=null)cancelAnimationFrame(tour);tour=null;const b=$('play');b.textContent='▶ Play';b.setAttribute('aria-pressed','false');}
+  const step=now=>{position=Math.min(1,from+(now-t0)/dur*(1-from));render();if(position>=1){stopTour();return;}tour=requestAnimationFrame(step);};tour=requestAnimationFrame(step);setPlayUI(true);}
+function stopTour(){if(tour!=null)cancelAnimationFrame(tour);tour=null;cancelTurn();setPlayUI(false);}
+// Play and Pause are drawn shapes in the same style (black, same height and weight), never text characters.
+const ICO_PLAY='M3.5,1.5 L13.5,8 L3.5,14.5 Z',ICO_PAUSE='M3.5,1.5 H6.5 V14.5 H3.5 Z M9.5,1.5 H12.5 V14.5 H9.5 Z';
+function setPlayUI(playing){$('playIco').setAttribute('d',playing?ICO_PAUSE:ICO_PLAY);$('playLbl').textContent=playing?'Pause':'Play';$('play').setAttribute('aria-pressed',String(playing));}
+
+/* ---------- turn the globe to a card's place (Previous / Next) ---------- */
+// Once the user has dragged or zoomed, the globe no longer follows the story by itself (view.manual). Previous / Next then
+// turn it, smoothly, so the card's place is in view. The user's zoom is kept unless the place would not fit.
+let turnAnim=null;
+function cancelTurn(){if(turnAnim!=null)cancelAnimationFrame(turnAnim);turnAnim=null;}
+function recordPlaces(record,type){const pl=id=>INDEX.places.get(id)?.coordinates;
+  if(type==='movement')return [record.originCoordinates||pl(record.origin),record.destinationCoordinates||pl(record.destination)].filter(Boolean);
+  if(type==='event')return [pl(record.place)||record.rendering?.position].filter(Boolean);
+  const pop=DATA.populations.find(p=>p.id===(type==='population'?record.id:record.populationId));
+  return [type==='population'?record.coordinates||pl(record.place):pop?.coordinates||pl(pop?.place)||pl(record.place)].filter(Boolean);}
+function meanLonLat(pts){let x=0,y=0,z=0;for(const [lo,la] of pts){const a=lo*D2R,b=la*D2R;x+=Math.cos(b)*Math.cos(a);y+=Math.cos(b)*Math.sin(a);z+=Math.sin(b);}return [Math.atan2(y,x)/D2R,Math.atan2(z,Math.hypot(x,y))/D2R];}
+function placesFit(pts,s){const keep={lon:view.lon,lat:view.lat,zoom:view.zoom,R:view.R,deg:view.deg};Object.assign(view,{lon:s.lon,lat:s.lat,zoom:s.zoom,R:view.baseR*s.zoom,deg:s.deg});
+  const st=$('stage'),w=st.clientWidth,h=st.clientHeight,m=Math.min(44,w*.08);const ok=pts.every(([lo,la])=>{const q=project(lo,la);return q.vis&&q.depth<1&&q.x>=m&&q.x<=w-m&&q.y>=m&&q.y<=h-m;});Object.assign(view,keep);return ok;}
+function turnToRecord(record,type){
+  if(!view.manual)return;                       // the story camera is still in charge and already follows the story
+  const pts=recordPlaces(record,type).map(svgToLonLat);if(!pts.length)return;
+  const [lon,lat]=pts.length>1?meanLonLat(pts):pts[0];const to={lon,lat:Math.max(-70,Math.min(80,lat)),zoom:view.zoom,deg:view.deg};
+  if(!placesFit(pts,to)){while(to.zoom>ZMIN+.01&&!placesFit(pts,to))to.zoom=Math.max(ZMIN,to.zoom*.9);   // first zoom out to the default,
+    while(to.deg<45&&!placesFit(pts,to))to.deg=Math.min(45,to.deg*1.12);}                                // then show more of the globe
+  const from={lon:view.lon,lat:view.lat,zoom:view.zoom,deg:view.deg},dl=(((to.lon-from.lon+180)%360)+360)%360-180;
+  const set=e=>{view.lon=from.lon+dl*e;view.lat=from.lat+(to.lat-from.lat)*e;view.deg=from.deg+(to.deg-from.deg)*e;view.zoom=from.zoom+(to.zoom-from.zoom)*e;view.R=view.baseR*view.zoom;render();};
+  if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){set(1);return;}
+  const t0=performance.now(),ms=800,tick=now=>{const t=Math.min(1,(now-t0)/ms);set(t*t*(3-2*t));turnAnim=t<1?requestAnimationFrame(tick):null;};turnAnim=requestAnimationFrame(tick);}
 function dismissPrompt(){if(!promptOpen)return;promptOpen=false;$('prompt').hidden=true;$('panel').classList.remove('inviting');$('play').hidden=false;$('options').hidden=false;}
 function reset(){stopTour();dismissPrompt();selected=null;lastAutoIdx=-1;position=0;view.manual=true;const j=svgToLonLat(INDEX.places.get('place-j').coordinates);view.lon=j[0];view.lat=j[1];view.deg=15;setZoom(1);}
 
@@ -265,7 +292,7 @@ function initInteraction(){
   window.addEventListener('resize',()=>requestAnimationFrame(layout));
 }
 function step(dir){const y=Math.round(currentYear());let i=lastMilestoneIdx(y);if(dir>0){i=milestones.findIndex(m=>m.date>y);if(i<0)return;}else{while(i>=0&&milestones[i].date>=y)i--;if(i<0)return;}selectMilestone(i);}
-function selectMilestone(i){const m=milestones[i];if(!m)return;stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
+function selectMilestone(i){const m=milestones[i];if(!m)return;stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();turnToRecord(m.record,m.type);if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
 
 /* ---------- boot ---------- */
 async function boot(){
