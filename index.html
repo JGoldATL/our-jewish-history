@@ -82,7 +82,7 @@ button:focus-visible,select:focus-visible,a:focus-visible,[tabindex]:focus-visib
 .era{font-size:14px;color:var(--muted);min-height:20px}
 .rule{height:1px;background:linear-gradient(90deg,rgba(239,230,211,.5),rgba(239,230,211,0))}
 #story{display:grid;gap:12px;position:relative}
-#panel.inviting #story,#panel.inviting #chipBox,#panel.inviting .mnav{display:none}
+#panel.inviting #story,#panel.inviting .mnav{display:none}
 #story.pinned{padding:20px 22px;border-radius:22px;background:rgba(239,230,211,.05);border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.35)}
 .kicker{font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--red);padding-right:44px}
 #story h2{margin:0;font-family:var(--serif);font-weight:700;font-size:40px;line-height:1.02;color:var(--cream);text-wrap:balance}
@@ -106,7 +106,7 @@ button:focus-visible,select:focus-visible,a:focus-visible,[tabindex]:focus-visib
 .chip{min-height:34px;padding:6px 13px;border-radius:999px;border:1px solid rgba(239,230,211,.22);background:none;color:var(--soft);font-size:13px;cursor:pointer;text-align:left}
 .chip.uncertain{border-style:dashed}
 .chip:hover{border-color:var(--amber);color:var(--cream)}
-.mnav{display:flex;gap:8px;align-items:center}
+.mnav{display:flex;gap:10px;align-items:center}.mnav .pill{flex:1}
 .mnav select{flex:1;min-width:0;width:100%;height:44px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(14,24,34,.6);color:var(--text);padding:0 14px;font-size:14px}
 .footR{display:flex;gap:16px;align-items:center}
 .dlgWrap{position:fixed;inset:0;z-index:50;background:rgba(5,10,14,.6);display:grid;place-items:center;padding:16px}
@@ -140,6 +140,24 @@ button:focus-visible,select:focus-visible,a:focus-visible,[tabindex]:focus-visib
  .brand h1{font-size:26px}.tools{width:100%}
  .key{left:0;right:auto;width:min(320px,100%)}
 }
+@media (max-width:900px){
+ html,body{height:100%;overflow:hidden}
+ body{display:flex;flex-direction:column;height:100svh;min-height:0}
+ .layout{flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:0;padding:0 16px}
+ #stage{flex:0 0 auto;height:min(calc(84vw + 120px),56svh)}
+ #panel{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y;gap:14px;padding:12px 2px 24px;border-top:1px solid var(--line)}
+ .foot{padding:8px 16px;padding-bottom:max(8px,env(safe-area-inset-bottom))}.foot>span:first-child{display:none}
+}
+@media (max-width:620px){
+ .brand p{display:none}.brand h1{font-size:24px}.top{gap:10px;padding:10px 16px 6px}
+ .top{position:relative;row-gap:8px}.brand{flex:1 1 auto}.tools{display:contents}
+ .pill,.seg button{white-space:nowrap}.pill{height:38px;padding:0 12px;font-size:13px}.seg{padding:3px}.seg button{height:30px;padding:0 9px;font-size:12.5px}
+ #play{order:1}#keyBtn,#options,#reset{order:2}#keyBtn{margin-right:auto}
+ .key{top:100%;left:16px;right:16px;width:auto}
+ #stage{height:min(calc(84vw + 80px),48svh)}#panel>.rule{display:none}
+ #panel>div:first-child{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}.year{font-size:40px;letter-spacing:-1px}.year span{font-size:18px;margin-left:8px}.era{font-size:13px}#panel{gap:10px}#story h2{font-size:28px}
+ .prompt p{font-size:21px}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
@@ -148,6 +166,7 @@ button:focus-visible,select:focus-visible,a:focus-visible,[tabindex]:focus-visib
 <div class="tools">
 <button type="button" class="pill" id="keyBtn" aria-expanded="false" aria-controls="key">Map key</button>
 <div class="seg" id="options" role="group" aria-label="Map options" hidden><button type="button" data-trails="off" aria-pressed="true">This moment</button><button type="button" data-trails="on" aria-pressed="false">With past routes</button></div>
+<button type="button" class="pill" id="reset">Reset</button>
 <button type="button" class="pill primary" id="play" aria-pressed="false" hidden>▶ Play</button>
 <div class="key" id="key" hidden>
 <h2>Map key</h2>
@@ -172,7 +191,6 @@ button:focus-visible,select:focus-visible,a:focus-visible,[tabindex]:focus-visib
 </svg>
 <svg id="arc" aria-hidden="true"><g id="arcWrap"><g id="arcStatic"></g><g id="arcLive"></g></g></svg>
 <div class="arcSlider" id="arcSlider" role="slider" tabindex="0" aria-label="Timeline: use arrow keys to move by a year, Page Up and Page Down to jump between events" aria-valuemin="-1300" aria-valuemax="200">Timeline</div>
-<div class="nav"><button type="button" class="round" id="zoomIn" aria-label="Zoom in">+</button><button type="button" class="round" id="zoomOut" aria-label="Zoom out">−</button><button type="button" class="round navReset" id="reset">Reset</button></div>
 </section>
 
 <aside id="panel" class="inviting" aria-live="polite">
@@ -191,8 +209,7 @@ button:focus-visible,select:focus-visible,a:focus-visible,[tabindex]:focus-visib
 <p id="storyText"></p>
 <p id="storyMeanwhile" hidden><em>Meanwhile…</em><span id="storyMeanwhileText"></span></p>
 </article>
-<div id="chipBox" hidden><h3>Why the shading changed</h3><div id="chips"></div></div>
-<div class="mnav"><button type="button" class="round" id="prev" aria-label="Previous event">‹</button><select id="milestoneSelect" aria-label="Jump to an event"></select><button type="button" class="round" id="next" aria-label="Next event">›</button></div>
+<div class="mnav"><button type="button" class="pill" id="prev">‹ Previous</button><button type="button" class="pill" id="next">Next ›</button></div>
 </aside>
 </main>
 <footer class="foot"><span>Drag the globe to turn it · pinch or scroll to zoom</span><span class="footR"><button type="button" class="linkBtn" id="sourcesLink">Sources</button><span id="version"></span></span></footer>

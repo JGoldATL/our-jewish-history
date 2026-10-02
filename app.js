@@ -110,7 +110,7 @@ const posForYear=y=>positions[Math.max(0,Math.min(years.length-1,Math.round(y)-D
 function yearAt(pos){pos=Math.max(0,Math.min(1,pos));let lo=0,hi=positions.length-1;while(lo<hi){const m=(lo+hi)>>1;if(positions[m]<pos)lo=m+1;else hi=m;}if(lo===0)return years[0];const a=positions[lo-1],b=positions[lo];return years[lo-1]+(pos-a)/(b-a||1);}
 function buildMilestones(){milestones=[];const add=(col,type)=>{for(const r of col){const date=type==='movement'?(r.dateRange?.start??r.rendering?.window?.[1]):type==='event'?r.dateRange?.start:r.startDate;if(Number.isFinite(date)&&date>=DATA.timeline.start&&date<=DATA.timeline.end)milestones.push({record:r,type,date});}};
   add(DATA.populations,'population');add(DATA.movements,'movement');add(DATA.historicalEvents,'event');add(DATA.communityDestructions,'destruction');add(DATA.populationChanges,'change');milestones.sort((a,b)=>a.date-b.date);
-  const sel=$('milestoneSelect');sel.replaceChildren();milestones.forEach((m,i)=>{const o=document.createElement('option');o.value=i;o.textContent=(m.record.date||yearLabel(m.date))+' · '+(m.record.title||m.record.historicalPlaceName||m.record.id);sel.appendChild(o);});}
+}
 
 /* ---------- state ---------- */
 let trails=false,tour=null,selected=null,promptOpen=true,lastAutoIdx=-1;
@@ -120,8 +120,8 @@ const currentYear=()=>yearAt(position);
 let ARC={cx:0,cy:0,r:0,a0:0,a1:0};
 function layout(){
   const stage=$('stage'),w=stage.clientWidth,h=stage.clientHeight,narrow=w<620;
-  const R=narrow?Math.max(130,w*0.40):Math.max(150,Math.min(w*0.44,h*0.43));
-  view.baseR=R;view.R=R*view.zoom;view.cx=w/2;view.cy=narrow?R+60:Math.min(h/2-18,R+44);
+  const R=narrow?Math.max(100,Math.min(w*0.42,(h-80)/2)):Math.max(150,Math.min(w*0.44,h*0.43));
+  view.baseR=R;view.R=R*view.zoom;view.cx=w/2;view.cy=narrow?R+18:Math.min(h/2-18,R+44);
   ARC={cx:view.cx,cy:view.cy,r:R+(narrow?18:34),a0:162*D2R,a1:18*D2R,w,h,narrow};
   $('ov').setAttribute('viewBox',`0 0 ${w} ${h}`);$('arc').setAttribute('viewBox',`0 0 ${w} ${h}`);
   drawArcStatic();render();
@@ -136,7 +136,7 @@ function drawArcStatic(){
   el('path',{d:arcD(0,1),class:'arcHalo'},g);el('path',{d:arcD(0,1),class:'arcTrack'},g);el('path',{d:arcD(0,1),class:'arcHit',id:'arcHit'},g);
   const seen=new Set();
   milestones.forEach((m,i)=>{if(seen.has(m.date))return;seen.add(m.date);const [x,y]=arcPt(posForYear(m.date));const c=el('circle',{cx:x,cy:y,r:3,class:'notch'},g);c.dataset.i=i;});
-  const placed=[];for(const yr of [-1300,-1208,-722,-586,-539,-332,-205,-63,70,117,200]){const pos=posForYear(yr),[x,y]=arcPt(pos,ARC.narrow?16:22),a=arcAngle(pos);if(x<44||x>ARC.w-44)continue;if(placed.some(([px,py])=>Math.hypot(px-x,py-y)<46)&&yr!==200&&yr!==-1300)continue;if(yr!==200&&Math.hypot(x-arcPt(1,22)[0],y-arcPt(1,22)[1])<46)continue;placed.push([x,y]);const t=el('text',{x,y,class:'tick','text-anchor':Math.cos(a)<-0.3?'end':Math.cos(a)>0.3?'start':'middle','dominant-baseline':Math.sin(a)>0.5?'hanging':'middle'},g);t.textContent=yearLabel(yr).replace(' / 1 CE','');}
+  const placed=[];for(const yr of [-1300,-1208,-722,-586,-539,-332,-205,-63,70,117,200]){const pos=posForYear(yr),[x,y]=arcPt(pos,ARC.narrow?16:22),a=arcAngle(pos);if(x<44||x>ARC.w-44)continue;if(placed.some(([px,py])=>Math.hypot(px-x,py-y)<46)&&yr!==200&&yr!==-1300)continue;if(yr!==200&&Math.hypot(x-arcPt(1,22)[0],y-arcPt(1,22)[1])<46)continue;placed.push([x,y]);const t=el('text',{x,y,class:'tick','text-anchor':Math.cos(a)<-0.3?'end':Math.cos(a)>0.3?'start':'middle','dominant-baseline':Math.sin(a)>0.5?'hanging':'middle'},g);t.textContent=yearLabel(yr).replace(' / 1 CE','');const bb=t.getBBox();if(bb.x<4)t.setAttribute('x',x+4-bb.x);else if(bb.x+bb.width>ARC.w-4)t.setAttribute('x',x-(bb.x+bb.width-ARC.w+4));}
 }
 function drawArcLive(){const g=$('arcLive');g.replaceChildren();el('path',{d:arcD(0,Math.max(0.0001,position)),class:'arcFill'},g);const [x,y]=arcPt(position);el('circle',{cx:x,cy:y,r:11,class:'bead'},g);const s=$('arcSlider');s.setAttribute('aria-valuenow',Math.round(currentYear()));s.setAttribute('aria-valuetext',yearLabel(Math.round(currentYear())));}
 function posFromPointer(e){const r=$('arc').getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let a=Math.atan2(y-ARC.cy,x-ARC.cx);if(a<-Math.PI/2)a+=2*Math.PI;const p=(a-ARC.a0)/(ARC.a1-ARC.a0);return Math.max(0,Math.min(1,p));}
@@ -189,9 +189,9 @@ function render(){
   const boxes=placeLabels(labels,layers.label,scale,obstacles);for(const l of geoLabels()){const fs=l.kind==='waterLabel'?13:11,w=l.text.length*fs*(l.kind==='waterLabel'?0.55:0.78),h=fs*1.2,b={x:l.x-w/2,y:l.y-h,w,h};if(boxes.some(o=>b.x<o.x+o.w&&b.x+b.w>o.x&&b.y<o.y+o.h&&b.y+b.h>o.y))continue;boxes.push(b);const t=el('text',{x:l.x.toFixed(1),y:l.y.toFixed(1),'text-anchor':'middle',class:l.kind==='waterLabel'?'seaName':'regionName'},layers.label);t.textContent=l.kind==='waterLabel'?l.text:l.text.toUpperCase();}
   // panel
   $('year').innerHTML=`${Math.abs(dy)}<span>${dy<0?'BCE':'CE'}</span>`;$('era').textContent=frame.era?.title||'';
-  drawArcLive();renderChips(frame);
-  const idx=lastMilestoneIdx(dy);if(idx>=0)$('milestoneSelect').value=idx;
-  if(!selected){if(idx!==lastAutoIdx){lastAutoIdx=idx;if(idx>=0)fillStory(milestones[idx].record,milestones[idx].type,false);}}
+  drawArcLive();
+  
+  const idx=lastMilestoneIdx(dy);if(!selected){if(idx!==lastAutoIdx){lastAutoIdx=idx;if(idx>=0)fillStory(milestones[idx].record,milestones[idx].type,false);}}
 }
 function drawGeo(g){if(!GEO)return;const line=(pts,cls)=>{let d='',pen=false;for(const [lo,la] of pts){const q=project(lo,la);if(!q.vis){pen=false;continue;}d+=(pen?' L':' M')+q.x.toFixed(1)+','+q.y.toFixed(1);pen=true;}if(d)el('path',{d,class:cls},g);};
   for(const c of GEO.coast)line(c,'coast');for(const r of GEO.rivers)line(r,'river');}
@@ -202,11 +202,9 @@ function placeLabels(list,parent,scale,obstacles=[]){const boxes=[...obstacles];
     if(!placed&&l.prio>=2)placed=[cand[0][0],l.x+cand[0][1],l.y+cand[0][2]];if(!placed)continue;
     const t=el('text',{x:placed[1].toFixed(1),y:placed[2].toFixed(1),'text-anchor':placed[0],class:'label','font-size':fs.toFixed(1)},parent);t.textContent=l.text;}return boxes;}
 function lastMilestoneIdx(y){let idx=-1;for(let i=0;i<milestones.length;i++)if(milestones[i].date<=y)idx=i;return idx;}
-let lastChipSig='';
-function renderChips(frame){const latest=new Map();for(const c of frame.changes){const b=latest.get(c.populationId);if(!b||b.startDate<c.startDate)latest.set(c.populationId,c);}const ch=[...latest.values()].sort((a,b)=>b.startDate-a.startDate),sig=ch.map(c=>c.id).join('|');if(sig===lastChipSig)return;lastChipSig=sig;const row=$('chips');row.replaceChildren();$('chipBox').hidden=!ch.length;for(const c of ch){const b=document.createElement('button');b.type='button';b.className='chip'+(c.populationChangeCause==='evidence becomes uncertain'?' uncertain':'');b.textContent=c.label||c.title;b.addEventListener('click',()=>openStory(c,'change'));row.appendChild(b);}}
 
 /* ---------- story ---------- */
-function openStory(record,type){stopTour();dismissPrompt();selected={record,type};fillStory(record,type,true);render();if(window.innerWidth<900)$('story').scrollIntoView({behavior:'smooth',block:'start'});}
+function openStory(record,type){stopTour();dismissPrompt();selected={record,type};fillStory(record,type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
 function fillStory(record,type,user){const kind={movement:'Movement',population:'Community',change:'Community',destruction:'Event',event:'Event'}[type]||'';
   $('storyKicker').textContent=kind;$('storyDate').textContent=record.date||'';$('storyTitle').textContent=record.title||record.historicalPlaceName||'';$('storyText').textContent=record.story||'';
   const mw=kind==='Event'&&record.meanwhile;$('storyMeanwhile').hidden=!mw;$('storyMeanwhileText').textContent=mw?' '+record.meanwhile:'';
@@ -232,7 +230,7 @@ function initInteraction(){
     if(ptrs.size===2&&pinch){if(gesture)return;const [a,b]=[...ptrs.values()];const d=Math.hypot(a[0]-b[0],a[1]-b[1]);dragMoved=true;stopTour();const r0=$('ov').getBoundingClientRect();setZoom(pinch.zoom*d/pinch.d,(a[0]+b[0])/2-r0.left,(a[1]+b[1])/2-r0.top);return;}
     const dx=e.clientX-last[0],dy=e.clientY-last[1];if(Math.abs(dx)+Math.abs(dy)<1)return;if(!dragMoved&&Math.hypot(e.clientX-last[0],e.clientY-last[1])<3)return;if(!dragMoved)try{stage.setPointerCapture(e.pointerId);}catch(_){}dragMoved=true;last=[e.clientX,e.clientY];
     const k=90/view.deg,degPerPx=1/(view.R*k)/D2R;view.lat=Math.max(-70,Math.min(80,view.lat+dy*degPerPx));view.lon-=dx*degPerPx/Math.max(.2,Math.cos(view.lat*D2R));view.manual=true;stopTour();dismissPrompt();render();});
-  stage.addEventListener('click',e=>{if(dragMoved||e.target.closest('.route,.anchor,.sym,.event'))return;if(tour==null)return;stopTour();const i=lastMilestoneIdx(Math.round(currentYear()));if(i<0)return;const m=milestones[i];selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();if(window.innerWidth<900)$('story').scrollIntoView({behavior:'smooth',block:'start'});});
+  stage.addEventListener('click',e=>{if(dragMoved||e.target.closest('.route,.anchor,.sym,.event'))return;if(tour==null)return;stopTour();const i=lastMilestoneIdx(Math.round(currentYear()));if(i<0)return;const m=milestones[i];selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});});
   let gesture=null;
   stage.addEventListener('touchmove',e=>{e.preventDefault();},{passive:false});
   stage.addEventListener('gesturestart',e=>{e.preventDefault();gesture={zoom:view.zoom};stopTour();},{passive:false});
@@ -252,8 +250,8 @@ function initInteraction(){
   $('arcSlider').addEventListener('keydown',e=>{const y=Math.round(currentYear());let n=null;if(e.key==='ArrowRight'||e.key==='ArrowUp')n=y+(e.shiftKey?25:1);if(e.key==='ArrowLeft'||e.key==='ArrowDown')n=y-(e.shiftKey?25:1);if(e.key==='Home')n=DATA.timeline.start;if(e.key==='End')n=DATA.timeline.end;if(e.key==='PageUp'){step(1);e.preventDefault();return;}if(e.key==='PageDown'){step(-1);e.preventDefault();return;}if(n!=null){e.preventDefault();stopTour();dismissPrompt();selected=null;setYearExact(Math.max(DATA.timeline.start,Math.min(DATA.timeline.end,n)));}});
   $('play').addEventListener('click',()=>tour!=null?stopTour():startTour());$('introPlay').addEventListener('click',startTour);
   $('introExplore').addEventListener('click',()=>{dismissPrompt();$('arcSlider').focus();$('arcWrap').classList.add('attention');setTimeout(()=>$('arcWrap').classList.remove('attention'),2600);});
-  $('reset').addEventListener('click',reset);$('zoomIn').addEventListener('click',()=>{stopTour();setZoom(view.zoom*1.35);});$('zoomOut').addEventListener('click',()=>{stopTour();setZoom(view.zoom/1.35);});
-  $('prev').addEventListener('click',()=>step(-1));$('next').addEventListener('click',()=>step(1));$('milestoneSelect').addEventListener('change',e=>selectMilestone(+e.target.value));
+  $('reset').addEventListener('click',reset);
+  $('prev').addEventListener('click',()=>step(-1));$('next').addEventListener('click',()=>step(1));
   $('closeStory').addEventListener('click',closeStory);$('sourcesLink').addEventListener('click',openSources);$('sourcesClose').addEventListener('click',()=>{$('sourcesDlg').hidden=true;$('sourcesLink').focus();});
   for(const b of document.querySelectorAll('[data-trails]'))b.addEventListener('click',()=>{trails=b.dataset.trails==='on';for(const o of document.querySelectorAll('[data-trails]'))o.setAttribute('aria-pressed',String(o===b));render();});
   $('keyBtn').addEventListener('click',()=>{const k=$('key');k.hidden=!k.hidden;$('keyBtn').setAttribute('aria-expanded',String(!k.hidden));});
@@ -261,7 +259,7 @@ function initInteraction(){
   window.addEventListener('resize',()=>requestAnimationFrame(layout));
 }
 function step(dir){const y=Math.round(currentYear());let i=lastMilestoneIdx(y);if(dir>0){i=milestones.findIndex(m=>m.date>y);if(i<0)return;}else{while(i>=0&&milestones[i].date>=y)i--;if(i<0)return;}selectMilestone(i);}
-function selectMilestone(i){const m=milestones[i];if(!m)return;stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();$('milestoneSelect').value=i;}
+function selectMilestone(i){const m=milestones[i];if(!m)return;stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
 
 /* ---------- boot ---------- */
 async function boot(){
