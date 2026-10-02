@@ -146,12 +146,18 @@ function followCamera(y){if(view.manual)return;const s=DATA.cameraStates;let i=0
   const [lon,lat]=svgToLonLat([mix('centerX'),mix('centerY')]);view.lon=lon;view.lat=lat;view.deg=Math.max(10,Math.min(45,26/mix('scale')));}
 
 /* ---------- symbols ---------- */
-const BADGE={destroyed:{fill:'#A33B32',mark:'M-2.5,-2.5 L2.5,2.5 M2.5,-2.5 L-2.5,2.5'},expelled:{fill:'#A8691A',mark:'M-2.7,2.7 L2.6,-2.6 M-1.2,-2.6 H2.6 V1.2'},converted:{fill:'#3E5C76',mark:'M0,-3.6 V3.6 M-2.4,-1.2 H2.4'}};
-function communitySymbol(parent,kind,size){const g=el('g',{class:'sym'},parent);const s=size/36;const inner=el('g',{transform:`scale(${s})`},g);
-  el('circle',{r:17,fill:'#FBF4E4',stroke:'#7A2A20','stroke-width':1.4},inner);
-  el('path',{d:'M0,-11 L-9.5,5.5 L9.5,5.5 Z M0,11 L-9.5,-5.5 L9.5,-5.5 Z',fill:'none',stroke:'#2B2118','stroke-width':2.1,'stroke-linejoin':'round'},inner);
-  const b=BADGE[kind];const bg=el('g',{transform:'translate(12 12)'},inner);el('circle',{r:6.6,fill:b.fill,stroke:'#FBF4E4','stroke-width':1.5},bg);el('path',{d:b.mark,fill:'none',stroke:'#FBF4E4','stroke-width':1.7,'stroke-linecap':'round','stroke-linejoin':'round'},bg);
-  return g;}
+// Community symbols (locked 2 Oct 2026, Map-Icon-Decisions): shape + color carry the meaning, never color alone.
+// Murdered community = red octagon; forced conversion = purple diamond; forced conversion to Christianity = split diamond (half star, half cross).
+const SYM_SHAPE={octagon:'M15.71,6.51 L6.51,15.71 L-6.51,15.71 L-15.71,6.51 L-15.71,-6.51 L-6.51,-15.71 L6.51,-15.71 L15.71,-6.51 Z',diamond:'M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z'};
+const SYM_CREAM='#FFF3DC',SYM_PURPLE='#5A3B7A';let symClip=0;
+function hexagram(r){const h=(r*.866).toFixed(2),q=(r/2).toFixed(2);return `M0,${-r} L${h},${q} L-${h},${q} Z M0,${r} L-${h},-${q} L${h},-${q} Z`;}
+function drawSymbol(inner,kind,record){const outline={class:'symShape',stroke:'#1B2328','stroke-width':1.2,'stroke-linejoin':'round'},star={fill:'none',stroke:SYM_CREAM,'stroke-width':1.6,'stroke-linejoin':'round'};
+  if(kind==='destroyed'){el('path',{...outline,d:SYM_SHAPE.octagon,fill:'#8C2A24'},inner);el('path',{...star,d:hexagram(10.4)},inner);return;}
+  if(record?.conversionReligion!=='Christianity'){el('path',{...outline,d:SYM_SHAPE.diamond,fill:SYM_PURPLE},inner);el('path',{...star,d:hexagram(8.4)},inner);return;}
+  const L='symClip'+(++symClip),R='symClip'+(++symClip),defs=el('defs',{},inner);el('rect',{x:-20,y:-20,width:20,height:40},el('clipPath',{id:L},defs));el('rect',{x:0,y:-20,width:20,height:40},el('clipPath',{id:R},defs));
+  el('path',{d:SYM_SHAPE.diamond,fill:SYM_PURPLE,'clip-path':`url(#${L})`},inner);el('path',{d:SYM_SHAPE.diamond,fill:SYM_CREAM,'clip-path':`url(#${R})`},inner);el('path',{...outline,d:SYM_SHAPE.diamond,fill:'none'},inner);
+  el('path',{...star,d:hexagram(10.6),'clip-path':`url(#${L})`},inner);el('path',{d:'M1,-10.6 V10.6 M1,-3.6 H9.2',fill:'none',stroke:SYM_PURPLE,'stroke-width':1.8,'stroke-linecap':'square'},inner);}
+function communitySymbol(parent,kind,size,record){const g=el('g',{class:'sym'},parent);const inner=el('g',{transform:`scale(${size/36})`},g);drawSymbol(inner,kind,record);return g;}
 
 /* ---------- render ---------- */
 const COLORS={'#a33b32':['#D2463A','#8E1F18'],'#275d9b':['#3D82D4','#174E92'],'#6d6256':['#565C60','#2C3033']};
@@ -184,7 +190,7 @@ function render(){
   const symSize=Math.max(30,40*scale),obstacles=[];
   for(const fd of frame.destructions){const c=DATA.communityDestructions.find(r=>r.id===fd.id),past=trails&&c.startDate<=y;if(!fd.visible&&!past)continue;const pop=DATA.populations.find(p=>p.id===c.populationId);const q=P(pop?.coordinates||INDEX.places.get(c.place).coordinates);if(!q.vis)continue;
     const g=communitySymbol(layers.mark,'destroyed',symSize);const sx=q.x+symSize*.62,sy=q.y-symSize*.62;obstacles.push({x:sx-symSize/2,y:sy-symSize/2,w:symSize,h:symSize});g.setAttribute('transform',`translate(${sx.toFixed(1)} ${sy.toFixed(1)})`);g.setAttribute('opacity',fd.visible?1:.5);g.setAttribute('tabindex',0);g.setAttribute('role','button');g.setAttribute('aria-label',c.title);if(selected?.record===c)g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(c,'destruction');});}
-  for(const c of DATA.populationChanges){if(!canRenderConversion(c))continue;const vis=activeAt(c,y),past=trails&&c.startDate<=y;if(!vis&&!past)continue;const pop=DATA.populations.find(p=>p.id===c.populationId);const q=P(pop.coordinates);if(!q.vis)continue;const g=communitySymbol(layers.mark,'converted',symSize);g.setAttribute('transform',`translate(${(q.x+symSize*.62).toFixed(1)} ${(q.y-symSize*.62).toFixed(1)})`);g.setAttribute('opacity',vis?1:.5);g.addEventListener('click',()=>openStory(c,'change'));}
+  for(const c of DATA.populationChanges){if(!canRenderConversion(c))continue;const vis=activeAt(c,y),past=trails&&c.startDate<=y;if(!vis&&!past)continue;const pop=DATA.populations.find(p=>p.id===c.populationId);const q=P(pop.coordinates);if(!q.vis)continue;const g=communitySymbol(layers.mark,'converted',symSize,c);g.setAttribute('transform',`translate(${(q.x+symSize*.62).toFixed(1)} ${(q.y-symSize*.62).toFixed(1)})`);g.setAttribute('opacity',vis?1:.5);g.addEventListener('click',()=>openStory(c,'change'));}
   drawGlobe();
   const boxes=placeLabels(labels,layers.label,scale,obstacles);for(const l of geoLabels()){const fs=l.kind==='waterLabel'?13:11,w=l.text.length*fs*(l.kind==='waterLabel'?0.55:0.78),h=fs*1.2,b={x:l.x-w/2,y:l.y-h,w,h};if(boxes.some(o=>b.x<o.x+o.w&&b.x+b.w>o.x&&b.y<o.y+o.h&&b.y+b.h>o.y))continue;boxes.push(b);const t=el('text',{x:l.x.toFixed(1),y:l.y.toFixed(1),'text-anchor':'middle',class:l.kind==='waterLabel'?'seaName':'regionName'},layers.label);t.textContent=l.kind==='waterLabel'?l.text:l.text.toUpperCase();}
   // panel

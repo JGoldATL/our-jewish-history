@@ -722,7 +722,7 @@
           "continuityStatus": "stable"
         },
         {
-          "date": 117,
+          "date": 115,
           "concentration": "very small",
           "presenceStatus": "documented",
           "continuityStatus": "contracting"
@@ -888,7 +888,7 @@
           "continuityStatus": "stable"
         },
         {
-          "date": 117,
+          "date": 115,
           "concentration": "very small",
           "presenceStatus": "documented",
           "continuityStatus": "contracting"
@@ -1056,7 +1056,7 @@
           "continuityStatus": "stable"
         },
         {
-          "date": 117,
+          "date": 115,
           "concentration": "very small",
           "presenceStatus": "documented",
           "continuityStatus": "contracting"
@@ -1321,12 +1321,12 @@
       "concentration": null,
       "confidence": "historically established, details uncertain",
       "evidenceStatus": "historically established, details uncertain",
-      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The red octagon commemorates mass killing and community destruction; it does not claim that every resident died.",
       "sourceIds": [
         "source-a6795b19cf"
       ],
-      "story": "In 70 CE Roman forces destroyed Jerusalem and the Second Temple. Many Jews were killed and survivors enslaved. The broken star marks this destruction at Jerusalem. Jewish communities elsewhere in the land continued.",
-      "title": "Jerusalem destroyed; many Jews killed",
+      "story": "The historian Josephus tells how Roman forces destroyed Jerusalem and the Second Temple. Many Jews were killed, and survivors were enslaved. Jewish communities elsewhere in the land carried on.",
+      "title": "Romans destroy Jerusalem and the Second Temple",
       "date": "70 CE",
       "label": "Jerusalem: destruction",
       "result": null
@@ -1355,7 +1355,7 @@
     {
       "id": "alexandria117",
       "populationId": "alexNode",
-      "startDate": 117,
+      "startDate": 115,
       "endDate": null,
       "populationChangeCause": "violent destruction",
       "continuityStatus": "documented destruction",
@@ -1363,20 +1363,21 @@
       "concentration": null,
       "confidence": "historically established, details uncertain",
       "evidenceStatus": "historically established, details uncertain",
-      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The red octagon commemorates mass killing and community destruction; it does not claim that every resident died.",
       "sourceIds": [
-        "source-2396693681"
+        "source-2396693681",
+        "source-hidabroot-16183"
       ],
-      "story": "During the Diaspora Revolt of 115–117 CE, attacks and Roman suppression killed many Jews and devastated Alexandria’s Jewish community. The broken star commemorates the destruction. Lower shading does not supply a survivor count or deny later Jewish presence.",
-      "title": "Alexandria’s community devastated",
-      "date": "117 CE",
+      "story": "In 115 CE, Jews in Egypt and other Roman lands rose up against Roman rule. This is called the Diaspora Revolt. In Alexandria, attacks and the Roman crackdown killed many Jews and devastated the Jewish community.",
+      "title": "Alexandria's Jewish community devastated",
+      "date": "115 CE",
       "label": "Alexandria: mass killing",
       "result": null
     },
     {
       "id": "cyrene117",
       "populationId": "cyreneNode",
-      "startDate": 117,
+      "startDate": 115,
       "endDate": null,
       "populationChangeCause": "violent destruction",
       "continuityStatus": "documented destruction",
@@ -1384,21 +1385,22 @@
       "concentration": null,
       "confidence": "historically established, details uncertain",
       "evidenceStatus": "historically established, details uncertain",
-      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The red octagon commemorates mass killing and community destruction; it does not claim that every resident died.",
       "sourceIds": [
         "source-2396693681",
-        "source-e0dbf98082"
+        "source-e0dbf98082",
+        "source-hidabroot-16183"
       ],
-      "story": "Roman suppression of the Diaspora Revolt in 115–117 CE involved mass killing and devastated Jewish communities in Cyrenaica. The broken star records this catastrophe; later Jewish presence must be evaluated separately.",
-      "title": "Cyrenaica’s communities devastated",
-      "date": "117 CE",
+      "story": "In 115 CE, Jews rose up against Roman rule in what is called the Diaspora Revolt. Rome crushed the revolt with mass killing, and the Jewish communities of Cyrenaica were devastated.",
+      "title": "Cyrenaica's Jewish communities devastated",
+      "date": "115 CE",
       "label": "Cyrenaica: mass killing",
       "result": null
     },
     {
       "id": "cyprus117",
       "populationId": "cyprusNode",
-      "startDate": 117,
+      "startDate": 115,
       "endDate": null,
       "populationChangeCause": "violent destruction",
       "continuityStatus": "documented destruction",
@@ -1406,14 +1408,15 @@
       "concentration": null,
       "confidence": "historically established, details uncertain",
       "evidenceStatus": "historically established, details uncertain",
-      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The red octagon commemorates mass killing and community destruction; it does not claim that every resident died.",
       "sourceIds": [
         "source-b21346bd04",
-        "source-b6be89faea"
+        "source-b6be89faea",
+        "source-hidabroot-16183"
       ],
-      "story": "After the Diaspora Revolt of 115–117 CE, Jewish life on Cyprus was devastated by killing and exclusion. Cassius Dio reports a ban on Jews landing on the island. Later Jewish residents are also recorded; the star does not mean permanent extinction.",
-      "title": "Cyprus’s community destroyed and excluded",
-      "date": "117 CE",
+      "story": "In 115 CE, Jews rose up against Roman rule in what is called the Diaspora Revolt, and the revolt spread to Cyprus. Jewish life on the island was devastated by killing. The Roman historian Cassius Dio reports that Jews were then banned from landing on Cyprus.",
+      "title": "Cyprus's Jewish community destroyed and banned",
+      "date": "115 CE",
       "label": "Cyprus: killing and exclusion",
       "result": null
     }
@@ -1739,7 +1742,7 @@
       "confidence": "historically established, details uncertain",
       "provenanceStatus": "documented movement",
       "whatRemainedAtOrigin": "Population remained at origin; this movement does not imply a complete removal.",
-      "story": "After 539 BCE, some Judeans returned to Judea under Persian rule. Communities continued in Babylonia. The blue arrow shows return alongside continued presence at both ends—not the transfer of an entire population.",
+      "story": "In 539 BCE, the Persian king Cyrus the Great issued the Edict of Cyrus allowing the Jews to return to Jerusalem and the Land of Judah, which was made a self-governing Jewish province under the new Persian Empire.",
       "title": "Some returned. Others stayed.",
       "sourceIds": [
         "source-1da0bdccbd",
@@ -2032,10 +2035,10 @@
       "destructionStatus": "documented violent community destruction",
       "scope": "local community",
       "confidence": "historically established, details uncertain",
-      "title": "Jerusalem destroyed; many Jews killed",
+      "title": "Romans destroy Jerusalem and the Second Temple",
       "date": "70 CE",
-      "story": "In 70 CE Roman forces destroyed Jerusalem and the Second Temple. Many Jews were killed and survivors enslaved. The broken star marks this destruction at Jerusalem. Jewish communities elsewhere in the land continued.",
-      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "story": "The historian Josephus tells how Roman forces destroyed Jerusalem and the Second Temple. Many Jews were killed, and survivors were enslaved. Jewish communities elsewhere in the land carried on.",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The red octagon commemorates mass killing and community destruction; it does not claim that every resident died.",
       "sourceIds": [
         "source-a6795b19cf"
       ],
@@ -2051,18 +2054,19 @@
       "id": "destruction-alexandria117",
       "populationId": "alexNode",
       "place": "place-alexNode",
-      "startDate": 117,
+      "startDate": 115,
       "endDate": null,
       "reestablishedDate": null,
       "destructionStatus": "documented violent community destruction",
       "scope": "local community",
       "confidence": "historically established, details uncertain",
-      "title": "Alexandria’s community devastated",
-      "date": "117 CE",
-      "story": "During the Diaspora Revolt of 115–117 CE, attacks and Roman suppression killed many Jews and devastated Alexandria’s Jewish community. The broken star commemorates the destruction. Lower shading does not supply a survivor count or deny later Jewish presence.",
-      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "title": "Alexandria's Jewish community devastated",
+      "date": "115 CE",
+      "story": "In 115 CE, Jews in Egypt and other Roman lands rose up against Roman rule. This is called the Diaspora Revolt. In Alexandria, attacks and the Roman crackdown killed many Jews and devastated the Jewish community.",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The red octagon commemorates mass killing and community destruction; it does not claim that every resident died.",
       "sourceIds": [
-        "source-2396693681"
+        "source-2396693681",
+        "source-hidabroot-16183"
       ],
       "survivorMovementIds": [],
       "rendering": {
@@ -2076,19 +2080,20 @@
       "id": "destruction-cyrene117",
       "populationId": "cyreneNode",
       "place": "place-cyreneNode",
-      "startDate": 117,
+      "startDate": 115,
       "endDate": null,
       "reestablishedDate": null,
       "destructionStatus": "documented violent community destruction",
       "scope": "local community",
       "confidence": "historically established, details uncertain",
-      "title": "Cyrenaica’s communities devastated",
-      "date": "117 CE",
-      "story": "Roman suppression of the Diaspora Revolt in 115–117 CE involved mass killing and devastated Jewish communities in Cyrenaica. The broken star records this catastrophe; later Jewish presence must be evaluated separately.",
-      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "title": "Cyrenaica's Jewish communities devastated",
+      "date": "115 CE",
+      "story": "In 115 CE, Jews rose up against Roman rule in what is called the Diaspora Revolt. Rome crushed the revolt with mass killing, and the Jewish communities of Cyrenaica were devastated.",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The red octagon commemorates mass killing and community destruction; it does not claim that every resident died.",
       "sourceIds": [
         "source-2396693681",
-        "source-e0dbf98082"
+        "source-e0dbf98082",
+        "source-hidabroot-16183"
       ],
       "survivorMovementIds": [],
       "rendering": {
@@ -2102,19 +2107,20 @@
       "id": "destruction-cyprus117",
       "populationId": "cyprusNode",
       "place": "place-cyprusNode",
-      "startDate": 117,
+      "startDate": 115,
       "endDate": null,
       "reestablishedDate": null,
       "destructionStatus": "documented violent community destruction",
       "scope": "local community",
       "confidence": "historically established, details uncertain",
-      "title": "Cyprus’s community destroyed and excluded",
-      "date": "117 CE",
-      "story": "After the Diaspora Revolt of 115–117 CE, Jewish life on Cyprus was devastated by killing and exclusion. Cassius Dio reports a ban on Jews landing on the island. Later Jewish residents are also recorded; the star does not mean permanent extinction.",
-      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "title": "Cyprus's Jewish community destroyed and banned",
+      "date": "115 CE",
+      "story": "In 115 CE, Jews rose up against Roman rule in what is called the Diaspora Revolt, and the revolt spread to Cyprus. Jewish life on the island was devastated by killing. The Roman historian Cassius Dio reports that Jews were then banned from landing on Cyprus.",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The red octagon commemorates mass killing and community destruction; it does not claim that every resident died.",
       "sourceIds": [
         "source-b21346bd04",
-        "source-b6be89faea"
+        "source-b6be89faea",
+        "source-hidabroot-16183"
       ],
       "survivorMovementIds": [],
       "rendering": {
@@ -2313,6 +2319,13 @@
       "evidenceType": "academic scholarship",
       "supports": "Traditional life dates and historical context for Confucius in China.",
       "limitations": "The life dates are traditional, and biographical details remain debated."
+    },
+    {
+      "id": "source-hidabroot-16183",
+      "title": "The Forgotten Revolt: A Jewish Uprising Lost to Time (Hidabroot, Yosef Yabece)",
+      "url": "https://www.hidabroot.com/article/16183",
+      "evidenceType": "popular article",
+      "notes": "Added Oct 2 2026 at Jeffrey's direction for the Diaspora Revolt (115 CE): began in Libya, spread to Egypt, the Land of Israel, Cyprus and Babylon. Supplements, does not replace, the existing record sources."
     }
   ],
   "eras": [
@@ -2373,7 +2386,7 @@
       "title": "After the destruction of the Second Temple"
     },
     {
-      "startDate": 117,
+      "startDate": 115,
       "title": "Diaspora Revolt reshapes major communities"
     },
     {
@@ -2489,7 +2502,7 @@
   ],
   "migrationNotes": [
     "The generic 701 BCE Lachish-to-Assyria movement was removed to comply with the explicit historical constraint.",
-    "Broken stars are licensed by communityDestructions records, not by deaths or population decline.",
+    "Murdered-community symbols are licensed by communityDestructions records, not by deaths or population decline.",
     "Legacy SVG opacity values remain rendering parameters; they are not numerical demographic estimates."
   ],
   "presentation": {
