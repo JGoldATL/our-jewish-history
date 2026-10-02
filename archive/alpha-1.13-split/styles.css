@@ -1,0 +1,136 @@
+/* ===== base styles 1 ===== */
+:root{--paper:#f3efe5;--ink:#20201d;--red:#a33b32;--blue:#275d9b;--muted:#777166}
+*{box-sizing:border-box}html,body{height:100%;overflow:hidden}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,serif;display:flex;flex-direction:column}
+header,.wrap{max-width:1240px;margin:auto;width:100%}header{padding:8px 16px 3px;flex:0 0 auto}h1{margin:0;font-size:clamp(23px,3vw,37px)}.sub,.note{font:12px Arial;color:var(--muted)}
+.wrap{padding:4px 10px 8px;flex:1 1 auto;min-height:0;display:flex;flex-direction:column}.map{position:relative;background:#dfe7e7;border:1px solid #c7c1b5;border-radius:14px;overflow:hidden;flex:1 1 auto;min-height:0}
+svg{display:block;width:100%;height:100%}
+#world{transform-box:fill-box;transform-origin:center;transition:transform .7s ease}.sea{fill:#dfe7e7}.land{fill:#d6cebf}.coast{fill:none;stroke:#8f897e;stroke-width:1.25;vector-effect:non-scaling-stroke}
+.grid{stroke:#fff;stroke-opacity:.18;stroke-width:1}.label{font:12px Arial;fill:#6f695f}.place{font:bold 12px Arial;fill:#252522}
+.density{fill:#275d9b;stroke:#275d9b;stroke-width:1;transition:opacity .25s}.dot{fill:#222;stroke:#f3efe5;stroke-width:3;cursor:pointer}.ring{fill:none;stroke:#222;opacity:.3}
+.route{cursor:pointer;transition:opacity .2s;stroke-linejoin:round}
+#d,#assyria{stroke:#8f2f29;stroke-width:4.5;filter:drop-shadow(0 1px 1px #00000028)}
+#r{stroke:#1f4f85;stroke-width:4.5;filter:drop-shadow(0 1px 1px #00000028)}.biblical{fill:none;stroke:#6d6256;stroke-width:5;stroke-dasharray:12 10;stroke-linecap:round;cursor:pointer}
+.legend{position:absolute;left:10px;top:10px;background:#fffdf8e8;border:1px solid #d2cabd;border-radius:10px;padding:7px 9px;font:11px Arial;backdrop-filter:blur(3px)}.legend div{margin:4px}
+.sw{display:inline-block;width:20px;height:4px;margin-right:6px;vertical-align:middle}.red{background:var(--red)}.blue{background:var(--blue)}.sd{display:inline-block;width:9px;height:9px;border-radius:50%;background:#222;margin-right:7px}
+.story{display:none;position:absolute;right:12px;top:12px;width:min(350px,calc(100% - 24px));background:#fffdf8f2;border:1px solid #ccc3b4;border-radius:12px;padding:13px;box-shadow:0 8px 24px #0002}.story.show{display:block}.story h2{margin:2px 0 7px;font-size:19px}.story p{font:13px/1.4 Arial;margin:7px 0}.date{font:11px Arial;color:var(--muted);text-transform:uppercase}.evidence{border-top:1px solid #ddd5c8;padding-top:8px!important;color:var(--muted)}
+.controls{margin-top:6px;flex:0 0 auto;background:#fffdf8;border:1px solid #d1c9bc;border-radius:12px;padding:9px 13px}.row{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.year{font-size:23px;font-weight:bold}.era{font:12px Arial;color:var(--muted)}input{width:100%;margin:6px 0 3px;accent-color:#333}.ticks{display:flex;justify-content:space-between;font:9px Arial;color:#777}
+@media(max-width:700px){header{padding-top:5px}h1{font-size:21px}.sub{font-size:10px}.controls{padding:7px 9px}.year{font-size:20px}.note{font-size:10px}.legend{font-size:10px}}
+
+/* Alpha Map v1 visual system */
+.map{background:#dce6e4;border-color:#b9b1a3;box-shadow:inset 0 0 55px #6d66551a}
+.sea{fill:#dce6e4}
+.landmass path{fill:#e9dfca;stroke:none}
+.coastline polyline{fill:none;stroke:#756f65;stroke-width:1.15;vector-effect:non-scaling-stroke}
+.terrain{stroke:none;pointer-events:none}
+.terrain.desert{fill:#cdbb92;opacity:.24}
+.terrain.levant{fill:#9eaa84;opacity:.15}
+.terrain.mesopotamia{fill:#9eaa84;opacity:.12}
+.rivers path{fill:none;stroke:#7da2ae;stroke-width:1.5;opacity:.72;vector-effect:non-scaling-stroke}
+.regionLabel{font:600 11px Arial;letter-spacing:2px;fill:#625d54;opacity:.72}
+.waterLabel{font:italic 11px Georgia;letter-spacing:2px;fill:#68838a;opacity:.72}
+.place{font:bold 11px Arial;fill:#38342f;paint-order:stroke;stroke:#f2eadb;stroke-width:3px;stroke-linejoin:round}
+.density{fill:#245b93;stroke:#245b93;stroke-width:.7;filter:url(#softEdge)}
+.dot{fill:#272521;stroke:#f3eadb;stroke-width:2.5}
+.legend{background:#fffaf0e8;border-color:#c6bba9}
+.controls{background:#fffaf0;border-color:#c6bba9}
+.story{background:#fffaf0f4;border-color:#c6bba9}
+
+/* ===== base styles 2 ===== */
+.route[aria-hidden="true"],.biblical[aria-hidden="true"]{pointer-events:none!important}.uncertainPresence .ring{stroke-dasharray:4 4}.story a{color:#275d9b}.story{max-height:calc(100% - 24px);overflow:auto}
+
+/* ===== base styles 3 ===== */
+#exodus{
+ stroke-width:6.5!important;
+ stroke-dasharray:11 8!important;
+ stroke-linecap:round;
+ filter:drop-shadow(0 1px 1px #00000022);
+}
+
+/* ===== base styles 4 ===== */
+#movementLayer .route,#movementLayer .biblical{pointer-events:auto}
+#d,#assyria,#assyria2,#assyria3{stroke:#7f2924;stroke-width:4.5;stroke-linejoin:round;filter:drop-shadow(0 2px 1.5px #00000035)}
+#r{stroke:#173f70;stroke-width:4.5;stroke-linejoin:round;filter:drop-shadow(0 2px 1.5px #00000035)}
+#exodus{stroke-width:7!important;stroke-dasharray:12 8!important;stroke-linecap:round;filter:drop-shadow(0 2px 1.5px #00000030)}
+#e.uncertainPresence .ring{stroke-dasharray:4 4}
+
+/* ===== base styles 5 ===== */
+.memorial{cursor:pointer;filter:drop-shadow(0 1px 2px #0003)}.memorial:focus{outline:none}.memorial:focus circle{stroke-width:3}.legendStar{display:inline-block;width:18px;height:18px;vertical-align:middle;margin-right:4px}.legend{max-width:255px}
+#declineNotice{margin:5px 0 2px;font:12px Arial;border-top:1px solid #ded5c6;padding-top:5px}#declineNotice[hidden]{display:none}.declineHeading{color:#777166}#declineReasons{display:flex;gap:6px;overflow-x:auto;padding:4px 0;max-width:100%}.reason{flex:0 0 auto;font:12px Arial;border:1px solid #c6bba9;border-radius:5px;padding:5px 7px;background:#f3efe5;color:#38342f;cursor:pointer}.reason.mass_killing{border-color:#a33b32;color:#8f2f29}.reason.uncertain{border-style:dashed}.reason:focus-visible{outline:2px solid #275d9b;outline-offset:1px}
+
+/* ===== base styles 6 ===== */
+.year{white-space:nowrap}#closeStory{position:absolute;right:7px;top:5px;border:0;background:transparent;color:#777166;font:22px Arial;cursor:pointer;width:30px;height:30px}.story h2{padding-right:18px}
+
+/* ===== base styles 7 ===== */
+.ticks{display:block;position:relative;height:16px;margin:0 3px}.ticks span{position:absolute;white-space:nowrap;transform:translateX(-50%)}.ticks span:first-child{transform:none}.ticks span:last-child{transform:translateX(-100%)}.timelineGuide{font:11px Arial;color:#777166;margin:2px 0 3px}@media(max-width:700px){.ticks{font-size:8px}.timelineGuide{font-size:10px}}
+
+/* ===== base styles 8 ===== */
+.uncertainPopulation{stroke-dasharray:4 3;filter:none}.density[data-title]{cursor:pointer}.uncertainPresence .ring{stroke-dasharray:4 4}
+
+/* ===== atlas-visual-system ===== */
+/* Relief is geographic context, not historical settlement or political boundaries. */
+:root{--blue:#286bb3;--red:#b33b30}
+.map{background:#356c89;border-color:#b5aa92;box-shadow:0 2px 12px #51453212,inset 0 0 45px #102d4233}
+.sea{fill:url(#atlasSea)}.grid{stroke:#c7e0e7;stroke-opacity:.065}
+.atlasTexture,.atlasRelief{pointer-events:none}
+.coastline polyline{stroke:#79715d;stroke-width:.7;opacity:.68}
+.terrain.desert{fill:#d1b480;opacity:.08}.terrain.levant,.terrain.mesopotamia{opacity:.035}
+.rivers path{stroke:#4b94a9;stroke-width:1.25;opacity:.8}
+.waterLabel{text-anchor:middle;fill:#e2eef0;opacity:.9;letter-spacing:1.5px;text-shadow:0 1px 2px #153d54}
+.regionLabel{text-anchor:middle;fill:#524939;opacity:.7;paint-order:stroke;stroke:#eddfc9;stroke-width:2.2}
+.density{fill:url(#populationWash);stroke:#488bc3;stroke-width:.5;filter:url(#softEdge)}
+.place{fill:#213a4b;stroke:#f7ecd4;stroke-width:3.2;font:bold 11px Arial}
+.legend,.story{background:#fffaf0f2;box-shadow:0 3px 15px #132d421c}
+.legend .populationSwatch{background:linear-gradient(90deg,#5c9dde,#2866ad);border-radius:50%;height:10px;opacity:.75}
+.dot{fill:#253b45;stroke:#fff6e6}.ring{stroke:#fff6e6;opacity:.65}
+#movementLayer .route{stroke:#fff3dc!important;stroke-width:1.15!important;filter:drop-shadow(0 1px 2px #152d4338)!important}
+.uncertainPopulation{filter:none;stroke-dasharray:4 3}
+@media(prefers-reduced-motion:reduce){#world,.density,.route{transition:none}}
+
+/* ===== public-map-polish ===== */
+header{padding:12px 16px 6px}h1{font-size:clamp(22px,3vw,36px);font-weight:600;letter-spacing:-.6px;color:#203848}.sub{font:italic 16px Georgia;color:#6f736d;margin:4px 0}
+.map{background:#326e8a}.sea{fill:#326e8a}.atlasTexture{opacity:.035}#world{transform:none!important;transition:none;transform-box:view-box}
+.coastline polyline{opacity:.35;stroke-width:.55}.rivers path{stroke:#387f98;stroke-width:.85;opacity:.68;stroke-linejoin:round;stroke-linecap:round}
+.regionLabel{font:600 10px Arial;letter-spacing:1.5px;opacity:.6}.waterLabel{font:italic 12px Georgia;letter-spacing:.6px;opacity:.8}.place{font:600 11px Arial;stroke-width:3;fill:#203849}
+.legend{padding:5px 8px;max-width:232px;font-size:10px;box-shadow:0 2px 8px #163b4715;background:#fff9ede8}.legend div{margin:3px}#legendToggle{width:100%;background:none;border:0;padding:5px 2px;font:600 11px Arial;text-align:left;color:#384c57;cursor:pointer}#legendToggle span{float:right;margin-left:20px}#legendContents[hidden]{display:none}.legend.collapsed{min-width:84px}.legendStar{width:15px;height:15px}
+.openingPrompt{position:absolute;left:18px;bottom:18px;max-width:430px;background:#fff9edf0;border:1px solid #dbccb1;border-radius:12px;padding:15px 18px;box-shadow:0 5px 20px #213d4c1a}.openingPrompt[hidden]{display:none}.eyebrow{font:600 10px Arial;letter-spacing:1.5px;text-transform:uppercase;color:#6d766e}.openingPrompt p{font:22px/1.25 Georgia;color:#294550;margin:6px 0 8px}.promptHint{font:11px Arial;color:#6b7777}
+.controls{padding:10px 14px}.row{align-items:center;gap:14px}.year{font-size:32px;letter-spacing:-.6px;color:#244957}.era{margin-left:auto;font-size:12px;text-align:right}#playTour{border:1px solid #b4c5c8;border-radius:20px;background:#edf2ef;color:#2e5667;padding:7px 13px;font:600 12px Arial;white-space:nowrap;cursor:pointer}#playTour[aria-pressed="true"]{background:#d5e6ed}
+.timelineTrack{position:relative;margin-top:4px}#eventNotches{position:absolute;left:8px;right:8px;top:0;height:23px;pointer-events:none;z-index:0}.eventNotch{position:absolute;width:1px;height:5px;top:0;background:#6b8c99;opacity:.65}#time{position:relative;z-index:1;accent-color:#315d72;margin:6px 0 5px;cursor:ew-resize}.ticks{height:15px}.timelineGuide{color:#7b8079;font-size:10px;margin-top:2px}
+.reason,.reason.mass_killing{background:#f1f1e9;border:1px solid #d6dacd;color:#596c6d;border-radius:14px;font-size:11px;padding:4px 9px}.reason.uncertain{border-style:dashed}.reasonIcon{margin-right:5px;color:#728a8e}.declineHeading{color:#74817b;font-size:11px}#declineNotice{border-color:#e0dfd1}.mapFooter{display:flex;justify-content:space-between;gap:8px;margin-top:3px}.version{font:9px Arial;color:#92988f}.note{font-size:10px;color:#7d847c}
+@media(max-width:700px){header{padding:8px 12px 4px}h1{font-size:22px;line-height:1.05;letter-spacing:-.4px}.sub{font-size:13px}.wrap{padding:4px 7px 6px}.map{border-radius:12px}.legend{top:8px;left:8px;max-width:215px}.controls{padding:8px 10px}.year{font-size:27px}.era{font-size:10px}.row{gap:7px}#playTour{font-size:11px;padding:6px 9px}.openingPrompt{left:10px;right:10px;bottom:12px;max-width:350px;padding:12px 14px}.openingPrompt p{font-size:19px}.promptHint{font-size:10px}.timelineGuide{font-size:9px}.mapFooter .note{font-size:9px}}
+@media(max-height:520px){header{padding-top:4px}h1{font-size:21px}.sub{font-size:11px;margin:1px 0}.openingPrompt{max-width:320px;padding:9px 12px}.openingPrompt p{font-size:17px}.mapFooter,.timelineGuide{display:none}.controls{padding:5px 10px}.year{font-size:24px}.legend{max-width:195px}}
+
+/* ===== journey-polish ===== */
+.density,.route{transition:none;stroke:none}.atlasTexture{display:none}.story.show{animation:panelIn .18s ease-out}@keyframes panelIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+#playTour,#introPlay{background:#285a70;color:#fffaf0;border:0;border-radius:9px;box-shadow:0 2px 5px #2443511a;font:600 14px Arial;padding:10px 17px;min-height:40px;cursor:pointer}#playTour[aria-pressed="true"]{background:#476b79}.promptActions{display:flex;align-items:center;gap:15px;margin-top:13px}.promptHint{flex:1;position:relative;padding-right:14px;line-height:1.4}.promptHint svg{width:42px;height:34px;display:block;margin:2px 0 -3px auto;fill:none;stroke:#759298;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.openingPrompt{max-width:475px}.openingPrompt p{font:23px/1.25 Georgia}.eyebrow{font-size:9px}
+#eventNotches{pointer-events:auto;z-index:2;top:-5px;height:12px}.eventNotch{border:0;width:14px;height:17px;top:-3px;background:none;opacity:1;transform:translateX(-50%);padding:0;cursor:pointer}.eventNotch::after{content:'';position:absolute;width:1px;height:7px;background:#6995a6;left:7px;top:6px}.eventNotch:focus-visible{outline:2px solid #326e8a;border-radius:3px}.eventNotch.selected::after{height:10px;background:#285a70;width:2px}
+.milestoneNav{display:flex;align-items:center;gap:5px;margin-top:5px}.milestoneNav button{border:1px solid #d0dbd7;background:#eef2ed;border-radius:7px;width:30px;height:30px;color:#3a6070;font:22px Georgia;cursor:pointer}.milestoneNav button:disabled{opacity:.35;cursor:default}#milestoneSelect{min-width:0;flex:1;height:30px;border:1px solid #d6ddd3;border-radius:7px;background:#faf9f1;color:#304c58;font:12px Arial;padding:3px 7px}.milestoneEvidence{display:flex;align-items:center;gap:7px;font:10px Arial;margin-top:5px;min-height:19px}.evidenceBadge{display:inline-flex;align-items:center;border-radius:5px;padding:3px 7px;background:#e8eeeb;color:#47636b;font:600 10px Arial;letter-spacing:.1px}.evidenceBadge.traditional{background:#f0e8d8;color:#776241}.evidenceBadge.archaeological{background:#ebeade;color:#6c694e}.sourcesButton,#storySources{padding:3px 0;background:none;border:0;color:#346a81;text-decoration:underline;text-underline-offset:2px;font:11px Arial;cursor:pointer}.milestoneEvidence .qualification{color:#838d86}
+.storyEvidence{display:flex;align-items:center;gap:9px;margin:6px 0 9px}.sourceList{border:1px solid #d8e0d6;border-radius:7px;background:#f4f5ec;padding:7px 9px;font:11px/1.5 Arial;margin:7px 0}.sourceList[hidden]{display:none}.sourceList a{display:block;padding:4px 0;color:#326882;text-decoration:underline}.sourceList small{display:block;color:#7b837b}.story{width:min(375px,calc(100% - 24px))}.legend{font-size:10px;max-width:220px}#legendContents div{margin:4px 2px}.legendStar{width:13px;height:13px}
+@media(max-width:700px){#playTour{font-size:12px;padding:8px 12px;min-height:35px}.openingPrompt p{font-size:20px}.openingPrompt{padding:13px 14px}.promptActions{gap:10px}.promptHint{font-size:10px}#introPlay{font-size:12px;padding:9px 11px;white-space:nowrap;min-height:37px}.promptHint svg{height:25px}.story{position:absolute;left:0;right:0;top:auto;bottom:0;width:100%;max-height:58%;border-radius:16px 16px 0 0;padding:15px 16px 13px;box-shadow:0 -8px 28px #18344722;overscroll-behavior:contain}.story::before{content:'';display:block;width:34px;height:3px;background:#becdc7;border-radius:2px;margin:-7px auto 9px}.story h2{font-size:19px}.story p{font-size:12px;line-height:1.45}.controls{padding:7px 10px}.milestoneNav{margin-top:3px}#milestoneSelect{font-size:10px;height:28px}.milestoneNav button{height:28px;width:29px}.milestoneEvidence{font-size:9px;gap:5px;margin-top:3px}.evidenceBadge{font-size:9px;padding:3px 5px}.milestoneEvidence .qualification{display:none}.timelineGuide{display:none}.mapFooter{margin-top:2px}.reason{font-size:10px}#declineNotice{margin-top:3px}
+}
+@media(max-height:520px){.milestoneEvidence,.timelineGuide{display:none}.milestoneNav{margin-top:1px}.controls{padding:4px 8px}#playTour{min-height:28px;padding:5px 9px}.story{max-height:85%;width:min(350px,85%);left:auto;right:0}.openingPrompt{max-width:360px}.openingPrompt p{font-size:17px}.promptActions{margin-top:7px}#introPlay{min-height:28px;padding:5px 9px}.promptHint svg{display:none}}
+@media(prefers-reduced-motion:reduce){.story.show{animation:none}}
+
+/* ===== editorial-polish ===== */
+:root{--ink:#183e50;--muted:#66746f;--paper:#f4f0e6;--line:#d2ccbc;--sans:Arial,Helvetica,sans-serif;--serif:Georgia,'Times New Roman',serif}
+body{color:var(--ink)}header{padding:14px 18px 9px}h1{font:600 clamp(25px,3vw,38px)/1.08 var(--serif);letter-spacing:-1px}.sub{font:italic 15px var(--serif);margin:5px 0 0}.titleCompact{display:none}.wrap{padding:0 12px 12px;gap:8px}.map{border-radius:14px;box-shadow:0 3px 16px #243f4812}.controls{margin:0;border-radius:12px;border-color:var(--line);padding:11px 16px;background:#fffcf4}.year{font:600 35px/1.1 var(--serif);font-variant-numeric:tabular-nums}.row{gap:14px;min-height:42px}.era{display:none}.meanwhile{margin-left:auto;max-width:45%;font:12px/1.4 var(--sans);color:var(--muted);text-align:right}.meanwhile strong{font-weight:600;color:#315567}.meanwhile span{display:block}.meanwhile[hidden]{display:none}
+#playTour[hidden]{display:none}#playTour,#introPlay{border-radius:7px;box-shadow:0 2px 4px #193e501c;transition:background .15s,box-shadow .15s}#playTour:hover,#introPlay:hover{background:#19485e;box-shadow:0 3px 8px #193e5030}button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #286d95;outline-offset:3px}
+.openingPrompt{padding:22px 24px;border-radius:10px;max-width:465px;background:#fffaf3f7;box-shadow:0 6px 25px #1b394723;border-color:#d5c9af}.openingPrompt p{font:25px/1.28 var(--serif);letter-spacing:-.25px}.eyebrow{font:600 11px var(--sans);letter-spacing:1.8px}.promptHint{font:12px/1.5 var(--sans)}.promptActions{margin-top:18px;gap:18px}
+.legend{font:12px/1.4 var(--sans);max-width:235px;border-radius:8px;background:#fffaf4f5}.legend.collapsed{min-width:92px}#legendToggle{font:600 12px var(--sans);min-height:31px}.legendStar{width:17px;height:17px}.milestoneNav{gap:8px;margin-top:7px}.milestoneNav button{width:36px;height:36px;font-size:24px;border-radius:6px}#milestoneSelect{font:14px var(--sans);height:36px;padding:4px 9px;background:#fcfbf5;border-radius:6px}.milestoneEvidence{font:12px/1.4 var(--sans);gap:9px;margin-top:6px;flex-wrap:wrap}.evidenceBadge{font:600 11px var(--sans);padding:4px 7px}.sourcesButton,#storySources{font:12px var(--sans);min-height:28px}.milestoneEvidence .qualification{color:#687770}.ticks{font:10px var(--sans);height:16px;color:#66766e}.timelineGuide{font:11px var(--sans)}.mapFooter{margin-top:5px}.note,.version{font:10px var(--sans)}.reason{font:12px var(--sans);padding:6px 10px}.declineHeading{font:12px var(--sans)}
+.story{padding:19px 20px;width:min(390px,calc(100% - 24px));background:#fffaf5fa;border-radius:10px;border-color:#d3c8b4;box-shadow:0 8px 32px #173f5024}.story h2{font:600 24px/1.15 var(--serif);margin:8px 0 12px;letter-spacing:-.35px}.story p{font:14px/1.55 var(--sans);margin:10px 0;color:#2e4954}.story .date{font:12px var(--sans);color:#667770;letter-spacing:.7px}.story .evidence{font:12px/1.5 var(--sans);color:#64726f}.storyEvidence{gap:10px;margin:8px 0}.sourceList{font:12px/1.5 var(--sans)}#closeStory{width:36px;height:36px;font-size:26px;right:7px;top:7px}
+.place{font:600 14px var(--sans);fill:#183b4b;paint-order:stroke;stroke:#fffaf0;stroke-linejoin:round;opacity:1!important}.mapLeader{fill:none;stroke:#456b7a;stroke-opacity:.8;vector-effect:non-scaling-stroke;stroke-width:1;pointer-events:none}.memorialLeader{stroke:#97594e}.memorial{filter:none}.labelAnchor{cursor:pointer}.density{mix-blend-mode:multiply}.populationUnderlay{filter:url(#softEdge)}#exodus{stroke:#6b7269!important;stroke-width:3.2!important;stroke-dasharray:7 5!important;stroke-linecap:butt!important;vector-effect:non-scaling-stroke;filter:none!important}
+@media(max-width:700px){header{padding:10px 12px 8px}.titleFull{display:none}.titleCompact{display:inline}h1{font-size:clamp(20px,5.9vw,28px);letter-spacing:-.65px;white-space:nowrap}.sub{font-size:12px;margin-top:3px}.wrap{padding:0 7px 7px;gap:6px}.map{border-radius:10px}.controls{padding:8px 10px}.year{font-size:29px}.row{min-height:35px;gap:9px}.meanwhile{font-size:11px;max-width:43%}.meanwhile span{display:none}.openingPrompt{padding:17px 18px;left:11px;right:11px;bottom:12px}.openingPrompt p{font-size:22px}.promptActions{gap:12px;margin-top:13px}.promptHint{font-size:11px}#introPlay{font-size:13px}.milestoneNav{gap:5px;margin-top:4px}.milestoneNav button{width:34px;height:34px}#milestoneSelect{height:34px;font-size:12px}.milestoneEvidence{font-size:11px;gap:7px;margin-top:3px}.evidenceBadge{font-size:10px}.story{left:0;right:0;top:auto;bottom:0;width:100%;max-height:58%;padding:17px 18px;border-radius:15px 15px 0 0}.story h2{font-size:23px}.story p{font-size:14px}.story .evidence{font-size:12px}.legend{font-size:12px}.ticks{font-size:9px}.mapFooter{margin-top:1px}.mapFooter .note{font-size:10px}.reason{font-size:11px}.timelineGuide{display:none}}
+@media(max-height:520px){header{padding:4px 12px}h1{font-size:22px}.sub{display:none}.wrap{gap:4px;padding-bottom:4px}.controls{padding:4px 9px}.row{min-height:29px}.year{font-size:25px}.milestoneNav{margin-top:2px}.milestoneNav button,#milestoneSelect{height:30px}.meanwhile{font-size:11px}.meanwhile span{display:none}.story{left:auto;right:8px;bottom:8px;top:auto;width:min(390px,90%);max-height:90%}.openingPrompt{padding:12px 16px;max-width:400px}.openingPrompt p{font-size:19px}.promptActions{margin-top:9px}.milestoneEvidence,.mapFooter{display:none}}
+@media(max-height:520px){.milestoneEvidence{display:flex;gap:7px;font-size:10px;margin-top:0;min-height:22px}.milestoneEvidence .qualification{display:none}.milestoneEvidence .sourcesButton{min-height:22px}.evidenceBadge{font-size:10px;padding:3px 6px}}
+@media(prefers-reduced-motion:reduce){button,.story.show{animation:none;transition:none}}
+
+/* ===== map-navigation-polish ===== */
+html,body{height:auto;min-height:100%;overflow:auto}body{min-height:100dvh}.wrap{flex:none}.map{flex:none;height:clamp(260px,calc(100svh - 265px),900px);min-height:0;contain:layout paint}#historicalMap{touch-action:none;cursor:grab}#historicalMap.dragging{cursor:grabbing}.mapNav{position:absolute;top:10px;right:10px;display:flex;align-items:center;gap:5px;z-index:3}.mapNav button{min-width:36px;min-height:36px;border:1px solid #d3cebf;border-radius:6px;background:#fffaf5f5;color:#244b60;font:20px Arial;cursor:pointer;box-shadow:0 2px 7px #173f5017}.mapNav #followMap{font:600 11px Arial;padding:0 10px}.mapNav #followMap[aria-pressed="false"]{background:#244b60;color:white}.story{z-index:4}.selectionFocus .place{fill:#093348}.selectionFocus .dot{stroke:#fff;stroke-width:4}.selectionFocus.route{filter:drop-shadow(0 0 3px #ffffff)!important}.selectionFocus.density{stroke:#fff5df!important;stroke-width:2!important}.selectedLocation{fill:none;stroke:#fffaf0;stroke-width:2;vector-effect:non-scaling-stroke;pointer-events:none}
+header,.wrap{margin:0 auto}html{overflow-y:scroll;scrollbar-gutter:stable}
+.meanwhile a{font:11px Arial;color:#346a81;text-decoration:underline;margin-left:7px}.memorial.selectionFocus circle{stroke-width:3}
+@media(max-width:700px){.mapNav{top:9px;right:8px;gap:4px}.mapNav button{min-width:34px;min-height:35px}.mapNav #followMap{font-size:10px;padding:0 7px}.row{flex-wrap:wrap}.meanwhile{flex-basis:100%;max-width:100%;text-align:left;margin:0;font-size:11px}.meanwhile strong{margin-right:5px}.meanwhile span{display:inline}}
+@media(max-height:520px){.map{height:clamp(160px,calc(100svh - 205px),320px)}.openingPrompt{left:12px;right:auto;bottom:8px;width:min(500px,calc(100% - 24px));max-width:500px;padding:10px 12px}.openingPrompt .eyebrow,.openingPrompt .promptHint{display:none}.openingPrompt p{font-size:16px;line-height:1.2;margin:0}.openingPrompt .promptActions{margin-top:6px}.openingPrompt #introPlay{min-height:27px;padding:5px 10px;font-size:12px}}
+
+/* ===== journeys-layout ===== */
+.row{display:grid!important;grid-template-columns:170px 100px 1fr;align-items:center}.meanwhile{display:none!important}#playTour{grid-column:2;grid-row:1;justify-self:start;margin:0!important;width:94px}.year{grid-column:1;grid-row:1}#declineReasons{display:flex!important;flex-wrap:wrap!important;overflow:visible!important;max-height:none!important;gap:5px}.reason{white-space:normal!important}.story{top:58px;bottom:auto;max-height:calc(100% - 72px);overflow-y:auto}.mapNav{z-index:6}.trailInset{position:absolute;bottom:10px;left:10px;z-index:3;background:#fffaf5f5;border:1px solid #d3cebf;border-radius:8px;padding:7px 9px;box-shadow:0 2px 8px #173f5022;font:11px var(--sans)}.trailInset button{display:block;border:0;background:none;color:#244b60;font:600 12px var(--sans);padding:4px;cursor:pointer;min-height:30px}.trailInset button[aria-pressed="true"]{background:#e2eaf0;border-radius:4px}.trailInset span{display:block;font-size:10px;color:#64726f}.promptActions{flex-wrap:wrap}#walkJourney{border:1px solid #a5b8b8;background:#fffaf5;border-radius:7px;padding:10px 13px;font:600 14px var(--sans);color:#244b60;cursor:pointer}#walkJourney span{font-size:24px;padding-left:8px}#sliderHint{font:600 12px var(--sans);color:#244b60;padding:3px 0}#sliderHint span{font-size:22px}.sliderAttention{outline:3px solid #c9a34d;outline-offset:5px;border-radius:12px}.rivers path{stroke-width:1.2;opacity:.9}
+@media(max-width:700px){.row{grid-template-columns:150px 100px 1fr}.story{position:relative;left:auto!important;right:auto!important;top:auto;bottom:auto;width:100%;max-height:65dvh;z-index:4;border-radius:10px}.story.show{display:block}.openingPrompt{bottom:76px}h1{font-size:28px}.sub{font-size:11px}.trailInset{padding:3px 7px;bottom:7px}.trailInset span{font-size:9px}.mapFooter{flex-wrap:wrap}#declineReasons .reason{flex:0 1 auto}.controls{overflow:visible}.legendStar{width:23px;height:23px}}
+@media(max-height:520px) and (orientation:landscape){.openingPrompt{bottom:60px;padding:8px 12px}.openingPrompt p{font-size:16px}.promptActions{margin-top:6px}#walkJourney,#introPlay{padding:6px 9px;font-size:11px}}
