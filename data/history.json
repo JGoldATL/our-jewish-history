@@ -1,0 +1,2501 @@
+{
+  "schemaVersion": "1.0",
+  "coverage": {
+    "startDate": -1300,
+    "endDate": 200,
+    "notes": "The approved production dataset remains ancient through 200 CE. Later architecture scenarios are isolated test fixtures, not researched production history."
+  },
+  "places": [
+    {
+      "id": "place-israel",
+      "historicalPlaceName": "Israel / Canaan",
+      "modernPlaceName": "Israel / Palestinian territories",
+      "coordinates": [
+        752.9,
+        315.4
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": "M 723.8,266.9 C 744.8,259.9 775.8,278.9 777.8,309.9 C 781.8,337.9 763.8,370.9 738.8,375.9 C 716.8,366.9 708.8,338.9 714.8,313.9 C 707.8,290.9 711.8,273.9 723.8,266.9 Z",
+      "role": "region",
+      "isLandOfIsrael": true
+    },
+    {
+      "id": "place-j",
+      "historicalPlaceName": "Jerusalem / Judea",
+      "modernPlaceName": "Jerusalem / Israel / Palestinian territories",
+      "coordinates": [
+        753.2,
+        321.7
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": "M 723.8,266.9 C 744.8,259.9 775.8,278.9 777.8,309.9 C 781.8,337.9 763.8,370.9 738.8,375.9 C 716.8,366.9 708.8,338.9 714.8,313.9 C 707.8,290.9 711.8,273.9 723.8,266.9 Z",
+      "role": "region",
+      "isLandOfIsrael": true
+    },
+    {
+      "id": "place-b",
+      "historicalPlaceName": "Babylonia",
+      "modernPlaceName": "Iraq",
+      "coordinates": [
+        891.3,
+        312.2
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": "M 836.3,280.2 C 876.3,262.2 938.3,274.2 959.3,307.2 C 940.3,343.2 895.3,359.2 845.3,341.2 C 819.3,319.2 819.3,295.2 836.3,280.2 Z",
+      "role": "region",
+      "isLandOfIsrael": false
+    },
+    {
+      "id": "place-e",
+      "historicalPlaceName": "Elephantine",
+      "modernPlaceName": "Aswan, Egypt",
+      "coordinates": [
+        718.35,
+        415.877
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": "M 713,404 C 721,402 724,409 724,418 C 724,427 718,430 712,425 C 709,420 710,411 713,404 Z",
+      "role": "settlement",
+      "isLandOfIsrael": false,
+      "geographicCoordinates": {
+        "latitude": 24.09,
+        "longitude": 32.89
+      }
+    },
+    {
+      "id": "place-alexNode",
+      "historicalPlaceName": "Alexandria",
+      "modernPlaceName": "Alexandria, Egypt",
+      "coordinates": [
+        673.8,
+        328.7
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": "M 637.9,299.7 C 668.3,295.6 712.4,307.8 719.8,325.8 C 709.7,349.6 679.3,359.1 638.8,347.5 C 625.5,332.2 628.7,311.9 637.9,299.7 Z",
+      "role": "settlement",
+      "isLandOfIsrael": false
+    },
+    {
+      "id": "place-asiaNode",
+      "historicalPlaceName": "Asia Minor",
+      "modernPlaceName": "Turkey",
+      "coordinates": [
+        652.5,
+        242.8
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": "M 593.2,202.8 C 643.4,197.2 716.3,214.0 728.5,238.8 C 711.8,271.6 661.6,284.8 594.7,268.8 C 572.7,247.6 578.0,219.6 593.2,202.8 Z",
+      "role": "region",
+      "isLandOfIsrael": false
+    },
+    {
+      "id": "place-cyprusNode",
+      "historicalPlaceName": "Cyprus",
+      "modernPlaceName": "Cyprus",
+      "coordinates": [
+        723.0,
+        280.8
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": "M 703.5,265.8 C 720.0,263.7 744.0,270.0 748.0,279.3 C 742.5,291.6 726.0,296.6 704.0,290.6 C 696.8,282.6 698.5,272.1 703.5,265.8 Z",
+      "role": "settlement",
+      "isLandOfIsrael": false
+    },
+    {
+      "id": "place-romeNode",
+      "historicalPlaceName": "Rome",
+      "modernPlaceName": "Rome, Italy",
+      "coordinates": [
+        412.5,
+        197.5
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": "M 393.0,179.5 C 409.5,176.9 433.5,184.5 437.5,195.7 C 432.0,210.4 415.5,216.4 393.5,209.2 C 386.2,199.6 388.0,187.0 393.0,179.5 Z",
+      "role": "settlement",
+      "isLandOfIsrael": false
+    },
+    {
+      "id": "place-cyreneNode",
+      "historicalPlaceName": "Cyrenaica",
+      "modernPlaceName": "Cyrenaica, Libya",
+      "coordinates": [
+        552.9,
+        308.8
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": "M 520.1,286.8 C 547.9,283.7 588.2,293.0 594.9,306.6 C 585.7,324.7 557.9,331.9 521.0,323.1 C 508.8,311.5 511.7,296.1 520.1,286.8 Z",
+      "role": "region",
+      "isLandOfIsrael": false
+    },
+    {
+      "id": "place-adensity",
+      "historicalPlaceName": "Assyrian sphere",
+      "modernPlaceName": "Northern Mesopotamia",
+      "coordinates": null,
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": "M 813.0,241.8 C 840.0,226.8 897.0,234.8 908.0,264.8\nC 895.0,296.8 858.0,306.8 819.0,294.8\nC 800.0,276.8 800.0,255.8 813.0,241.8 Z",
+      "role": "region",
+      "isLandOfIsrael": false
+    },
+    {
+      "id": "place-egypt",
+      "historicalPlaceName": "Egypt",
+      "modernPlaceName": null,
+      "coordinates": [
+        693,
+        343.4
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": null,
+      "role": "settlement",
+      "isLandOfIsrael": false
+    },
+    {
+      "id": "place-assyria-west",
+      "historicalPlaceName": "Assyrian sphere (schematic)",
+      "modernPlaceName": null,
+      "coordinates": [
+        855,
+        269.8
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": null,
+      "role": "region",
+      "isLandOfIsrael": false
+    },
+    {
+      "id": "place-assyria-central",
+      "historicalPlaceName": "Assyrian sphere (schematic)",
+      "modernPlaceName": null,
+      "coordinates": [
+        870,
+        260
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": null,
+      "role": "region",
+      "isLandOfIsrael": false
+    },
+    {
+      "id": "place-assyria-east",
+      "historicalPlaceName": "Assyrian sphere (schematic)",
+      "modernPlaceName": null,
+      "coordinates": [
+        930,
+        279.6
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": null,
+      "role": "region",
+      "isLandOfIsrael": false
+    },
+    {
+      "id": "place-lachish",
+      "historicalPlaceName": "Lachish",
+      "modernPlaceName": null,
+      "coordinates": [
+        747.6,
+        324.3
+      ],
+      "coordinateSystem": "alpha-map SVG",
+      "geographicFootprint": null,
+      "role": "settlement",
+      "isLandOfIsrael": true
+    }
+  ],
+  "populations": [
+    {
+      "id": "israel",
+      "place": "place-israel",
+      "historicalPlaceName": "Israel / Canaan",
+      "modernPlaceName": "Israel / Palestinian territories",
+      "coordinates": [
+        752.9,
+        315.4
+      ],
+      "geographicFootprint": "M 723.8,266.9 C 744.8,259.9 775.8,278.9 777.8,309.9 C 781.8,337.9 763.8,370.9 738.8,375.9 C 716.8,366.9 708.8,338.9 714.8,313.9 C 707.8,290.9 711.8,273.9 723.8,266.9 Z",
+      "startDate": -1208,
+      "endDate": null,
+      "dateMeaning": "Start of this alpha’s mapped coverage, not an independently established founding date.",
+      "presenceStatus": "documented",
+      "concentration": "substantial",
+      "provenanceStatus": "unknown",
+      "continuityStatus": "stable",
+      "confidence": "historically established, details uncertain",
+      "notes": "Merneptah Stele c.1208 BCE attests presence, not arrival. The Israel/Canaan display hands over to Judah/Judea at 720 BCE; this change of map layers is not evidence of disappearance.",
+      "sourceIds": [
+        "source-344c7e3a98"
+      ],
+      "title": "Israel in Canaan",
+      "date": "c. 1208 BCE",
+      "story": "The Merneptah Stele provides the earliest widely recognized extra-biblical textual reference to Israel in Canaan.",
+      "evidence": "Documented presence; this does not establish the Exodus route.",
+      "movementIds": [],
+      "consequenceIds": [
+        "israelConquest",
+        "israelLayer"
+      ],
+      "estimate": {
+        "lowEstimate": null,
+        "highEstimate": null,
+        "preferredEstimate": null,
+        "sourceIds": [],
+        "confidence": "unknown",
+        "explanationOfDiscrepancy": "No defensible numerical population estimate supplied."
+      },
+      "states": [
+        {
+          "date": -1208,
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "continuityStatus": "stable"
+        },
+        {
+          "date": -740,
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "continuityStatus": "contracting"
+        }
+      ],
+      "rendering": {
+        "densityId": "idensity",
+        "node": true,
+        "radius": 6.0,
+        "ring": true,
+        "label": "Israel / Canaan",
+        "labelPosition": [
+          763.9,
+          306.4
+        ],
+        "nodeOpacityStates": [
+          [
+            -1208,
+            1
+          ],
+          [
+            -720,
+            0
+          ]
+        ],
+        "densityOpacityStates": [
+          [
+            -1208,
+            0.58
+          ],
+          [
+            -740,
+            0.34
+          ],
+          [
+            -720,
+            0
+          ]
+        ],
+        "nodeRamp": null,
+        "uncertainAfter": null,
+        "transitionYears": 8,
+        "notes": "Inherited opacity values are visual style parameters, not population estimates.",
+        "displayStart": -1208,
+        "displayEnd": -720
+      },
+      "evidenceKinds": [
+        "archaeological"
+      ],
+      "evidenceKindNote": "Inscriptional artifact: Merneptah Stele; presence does not establish an arrival route."
+    },
+    {
+      "id": "j",
+      "place": "place-j",
+      "historicalPlaceName": "Jerusalem / Judea",
+      "modernPlaceName": "Jerusalem / Israel / Palestinian territories",
+      "coordinates": [
+        753.2,
+        321.7
+      ],
+      "geographicFootprint": "M 723.8,266.9 C 744.8,259.9 775.8,278.9 777.8,309.9 C 781.8,337.9 763.8,370.9 738.8,375.9 C 716.8,366.9 708.8,338.9 714.8,313.9 C 707.8,290.9 711.8,273.9 723.8,266.9 Z",
+      "startDate": -720,
+      "endDate": null,
+      "dateMeaning": "Start of this alpha’s mapped coverage, not an independently established founding date.",
+      "presenceStatus": "documented",
+      "concentration": "major",
+      "provenanceStatus": "unknown",
+      "continuityStatus": "stable",
+      "confidence": "historically established, details uncertain",
+      "notes": "Local continuity is not a new migration; alpha display begins at 720 BCE, not the origin of Judah.",
+      "sourceIds": [
+        "source-d79a1ce00d"
+      ],
+      "title": "Judah / Judea",
+      "date": "6th–5th centuries BCE",
+      "story": "A Judean population remained in the land through and after the Babylonian conquests.",
+      "evidence": "Presence marker; exact population is not represented as a precise census.",
+      "movementIds": [],
+      "consequenceIds": [
+        "judahDeportation1",
+        "judahDeportation2",
+        "jerusalem70",
+        "judea135"
+      ],
+      "estimate": {
+        "lowEstimate": null,
+        "highEstimate": null,
+        "preferredEstimate": null,
+        "sourceIds": [],
+        "confidence": "unknown",
+        "explanationOfDiscrepancy": "No defensible numerical population estimate supplied."
+      },
+      "states": [
+        {
+          "date": -720,
+          "concentration": "major",
+          "presenceStatus": "documented",
+          "continuityStatus": "stable"
+        },
+        {
+          "date": -597,
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "continuityStatus": "contracting"
+        },
+        {
+          "date": -586,
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "continuityStatus": "contracting"
+        },
+        {
+          "date": -540,
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "continuityStatus": "growing"
+        },
+        {
+          "date": -500,
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "continuityStatus": "growing"
+        },
+        {
+          "date": -300,
+          "concentration": "major",
+          "presenceStatus": "documented",
+          "continuityStatus": "growing"
+        },
+        {
+          "date": 70,
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "continuityStatus": "contracting"
+        },
+        {
+          "date": 135,
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "continuityStatus": "contracting"
+        }
+      ],
+      "rendering": {
+        "densityId": "jd",
+        "node": true,
+        "radius": 6.0,
+        "ring": true,
+        "label": "Jerusalem / Judea",
+        "labelPosition": [
+          764.2,
+          312.7
+        ],
+        "nodeOpacityStates": [
+          [
+            -720,
+            1
+          ]
+        ],
+        "densityOpacityStates": [
+          [
+            -720,
+            0.66
+          ],
+          [
+            -597,
+            0.56
+          ],
+          [
+            -586,
+            0.4
+          ],
+          [
+            -540,
+            0.5
+          ],
+          [
+            -500,
+            0.58
+          ],
+          [
+            -300,
+            0.66
+          ],
+          [
+            70,
+            0.48
+          ],
+          [
+            135,
+            0.4
+          ]
+        ],
+        "nodeRamp": null,
+        "uncertainAfter": null,
+        "transitionYears": 8,
+        "notes": "Inherited opacity values are visual style parameters, not population estimates.",
+        "displayStart": -720,
+        "displayEnd": null
+      }
+    },
+    {
+      "id": "b",
+      "place": "place-b",
+      "historicalPlaceName": "Babylonia",
+      "modernPlaceName": "Iraq",
+      "coordinates": [
+        891.3,
+        312.2
+      ],
+      "geographicFootprint": "M 836.3,280.2 C 876.3,262.2 938.3,274.2 959.3,307.2 C 940.3,343.2 895.3,359.2 845.3,341.2 C 819.3,319.2 819.3,295.2 836.3,280.2 Z",
+      "startDate": -597,
+      "endDate": null,
+      "dateMeaning": "Start of this alpha’s mapped coverage, not an independently established founding date.",
+      "presenceStatus": "documented",
+      "concentration": "small",
+      "provenanceStatus": "documented movement",
+      "continuityStatus": "stable",
+      "confidence": "historically established, details uncertain",
+      "notes": "Deportations supplied part of this community; later return did not empty it.",
+      "sourceIds": [
+        "source-aac7806373",
+        "met-judean-diaspora"
+      ],
+      "title": "Judeans in Babylonia",
+      "date": "6th century BCE onward",
+      "story": "Judean communities lived in Babylonia after deportation and continued after some people returned to Judea.",
+      "evidence": "Documented community presence.",
+      "movementIds": [
+        "d"
+      ],
+      "consequenceIds": [
+        "babyloniaContinues"
+      ],
+      "estimate": {
+        "lowEstimate": null,
+        "highEstimate": null,
+        "preferredEstimate": null,
+        "sourceIds": [],
+        "confidence": "unknown",
+        "explanationOfDiscrepancy": "No defensible numerical population estimate supplied."
+      },
+      "states": [
+        {
+          "date": -597,
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "continuityStatus": "stable"
+        },
+        {
+          "date": -586,
+          "concentration": "major",
+          "presenceStatus": "documented",
+          "continuityStatus": "growing"
+        },
+        {
+          "date": -540,
+          "concentration": "major",
+          "presenceStatus": "documented",
+          "continuityStatus": "growing"
+        },
+        {
+          "date": -300,
+          "concentration": "major",
+          "presenceStatus": "documented",
+          "continuityStatus": "contracting"
+        }
+      ],
+      "rendering": {
+        "densityId": "bd",
+        "node": true,
+        "radius": 6.0,
+        "ring": true,
+        "label": "Babylonia",
+        "labelPosition": [
+          902.3,
+          303.2
+        ],
+        "nodeOpacityStates": [
+          [
+            -597,
+            0.2
+          ],
+          [
+            -579,
+            1
+          ]
+        ],
+        "densityOpacityStates": [
+          [
+            -597,
+            0.22
+          ],
+          [
+            -586,
+            0.68
+          ],
+          [
+            -540,
+            0.7
+          ],
+          [
+            -300,
+            0.66
+          ]
+        ],
+        "nodeRamp": [
+          -597,
+          18,
+          0.2
+        ],
+        "uncertainAfter": null,
+        "transitionYears": 8,
+        "notes": "Inherited opacity values are visual style parameters, not population estimates.",
+        "displayStart": -597,
+        "displayEnd": null
+      }
+    },
+    {
+      "id": "e",
+      "place": "place-e",
+      "historicalPlaceName": "Elephantine",
+      "modernPlaceName": "Aswan, Egypt",
+      "coordinates": [
+        718.35,
+        415.877
+      ],
+      "geographicFootprint": "M 713,404 C 721,402 724,409 724,418 C 724,427 718,430 712,425 C 709,420 710,411 713,404 Z",
+      "startDate": -500,
+      "endDate": null,
+      "dateMeaning": "Start of this alpha’s mapped coverage, not an independently established founding date.",
+      "presenceStatus": "documented",
+      "concentration": "small",
+      "provenanceStatus": "unknown",
+      "continuityStatus": "evidence becomes uncertain",
+      "confidence": "historically established, details uncertain",
+      "notes": "Papyri attest presence from 495 BCE; proposed founding routes remain debated. After 390 BCE low opacity indicates uncertain continuity, not extinction.",
+      "sourceIds": [
+        "source-03ddfcbbf4",
+        "berlin-elephantine-petition"
+      ],
+      "title": "A community without a known arrival route",
+      "date": "5th century BCE",
+      "story": "Aramaic papyri document a Jewish community at Elephantine in Egypt during the fifth century BCE. They establish presence, not a securely dated founding journey. That is why the map shows population shading without an arrival arrow.",
+      "evidence": "Direct evidence establishes the community in the 5th century BCE. After the surviving papyri end, continuity is uncertain; fading means the evidence weakens, not that every Jew disappeared.",
+      "movementIds": [],
+      "consequenceIds": [
+        "elephantineUncertain"
+      ],
+      "estimate": {
+        "lowEstimate": null,
+        "highEstimate": null,
+        "preferredEstimate": null,
+        "sourceIds": [],
+        "confidence": "unknown",
+        "explanationOfDiscrepancy": "No defensible numerical population estimate supplied."
+      },
+      "states": [
+        {
+          "date": -500,
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "continuityStatus": "stable"
+        },
+        {
+          "date": -389,
+          "concentration": "very small",
+          "presenceStatus": "uncertain",
+          "continuityStatus": "evidence becomes uncertain"
+        }
+      ],
+      "rendering": {
+        "densityId": "ed",
+        "node": true,
+        "radius": 6.0,
+        "ring": true,
+        "label": "Elephantine",
+        "labelPosition": [
+          728.35,
+          407.877
+        ],
+        "nodeOpacityStates": [
+          [
+            -500,
+            0.2
+          ],
+          [
+            -480,
+            1
+          ],
+          [
+            -389,
+            0.2
+          ]
+        ],
+        "densityOpacityStates": [
+          [
+            -500,
+            0.3
+          ],
+          [
+            -389,
+            0.09
+          ]
+        ],
+        "nodeRamp": [
+          -500,
+          20,
+          0.2,
+          -390
+        ],
+        "uncertainAfter": -390,
+        "transitionYears": 8,
+        "notes": "Inherited opacity values are visual style parameters, not population estimates.",
+        "displayStart": -500,
+        "displayEnd": null,
+        "labelSide": "left"
+      },
+      "evidenceKinds": [
+        "documentary"
+      ],
+      "evidenceKindNote": "Surviving Elephantine papyri attest presence; provenance remains uncertain."
+    },
+    {
+      "id": "alexNode",
+      "place": "place-alexNode",
+      "historicalPlaceName": "Alexandria",
+      "modernPlaceName": "Alexandria, Egypt",
+      "coordinates": [
+        673.8,
+        328.7
+      ],
+      "geographicFootprint": "M 637.9,299.7 C 668.3,295.6 712.4,307.8 719.8,325.8 C 709.7,349.6 679.3,359.1 638.8,347.5 C 625.5,332.2 628.7,311.9 637.9,299.7 Z",
+      "startDate": -300,
+      "endDate": null,
+      "dateMeaning": "Start of this alpha’s mapped coverage, not an independently established founding date.",
+      "presenceStatus": "documented",
+      "concentration": "substantial",
+      "provenanceStatus": "documented movement",
+      "continuityStatus": "stable",
+      "confidence": "historically established, details uncertain",
+      "notes": "Josephus reports forced and voluntary movement into Egypt; Egypt endpoint does not establish a single founding route into Alexandria. Lower opacity after 117 CE is an illustrative disruption cue; severity and later continuity differ by locality.",
+      "sourceIds": [
+        "source-39eddf178f"
+      ],
+      "title": "Jewish Alexandria",
+      "date": "Hellenistic period onward",
+      "story": "Alexandria became one of the major Jewish centers of the Hellenistic and early Roman world. The map shows documented presence without pretending there was one single migration route.",
+      "evidence": "Jewish settlement in Hellenistic Egypt is well established; population totals in ancient literary sources require caution.",
+      "movementIds": [
+        "egyptMovement"
+      ],
+      "consequenceIds": [
+        "alexandria117"
+      ],
+      "estimate": {
+        "lowEstimate": null,
+        "highEstimate": null,
+        "preferredEstimate": null,
+        "sourceIds": [],
+        "confidence": "unknown",
+        "explanationOfDiscrepancy": "No defensible numerical population estimate supplied."
+      },
+      "states": [
+        {
+          "date": -300,
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "continuityStatus": "stable"
+        },
+        {
+          "date": 117,
+          "concentration": "very small",
+          "presenceStatus": "documented",
+          "continuityStatus": "contracting"
+        }
+      ],
+      "rendering": {
+        "densityId": "alexDensity",
+        "node": true,
+        "radius": 5.0,
+        "ring": false,
+        "label": "Alexandria",
+        "labelPosition": [
+          683.8,
+          320.7
+        ],
+        "nodeOpacityStates": [
+          [
+            -300,
+            0.52
+          ],
+          [
+            117,
+            0.16
+          ]
+        ],
+        "densityOpacityStates": [
+          [
+            -300,
+            0.52
+          ],
+          [
+            117,
+            0.16
+          ]
+        ],
+        "nodeRamp": null,
+        "uncertainAfter": null,
+        "transitionYears": 8,
+        "notes": "Inherited opacity values are visual style parameters, not population estimates.",
+        "displayStart": -300,
+        "displayEnd": null
+      }
+    },
+    {
+      "id": "asiaNode",
+      "place": "place-asiaNode",
+      "historicalPlaceName": "Asia Minor",
+      "modernPlaceName": "Turkey",
+      "coordinates": [
+        652.5,
+        242.8
+      ],
+      "geographicFootprint": "M 593.2,202.8 C 643.4,197.2 716.3,214.0 728.5,238.8 C 711.8,271.6 661.6,284.8 594.7,268.8 C 572.7,247.6 578.0,219.6 593.2,202.8 Z",
+      "startDate": -210,
+      "endDate": null,
+      "dateMeaning": "Start of this alpha’s mapped coverage, not an independently established founding date.",
+      "presenceStatus": "documented",
+      "concentration": "small",
+      "provenanceStatus": "documented movement",
+      "continuityStatus": "stable",
+      "confidence": "historically established, details uncertain",
+      "notes": "Josephus reports Antiochus III relocating families from Babylonia to Lydia/Phrygia; date and letter authenticity need caution.",
+      "sourceIds": [
+        "source-39eddf178f"
+      ],
+      "title": "Jewish communities in Asia Minor",
+      "date": "Hellenistic–Roman period",
+      "story": "Jewish communities developed across Asia Minor, in present-day Turkey. One recorded relocation brought families from Babylonia under Antiochus III around 210–205 BCE; it was not an exile from Judea.",
+      "evidence": "Literary, inscriptional and archaeological evidence documents numerous communities; exact founding routes differ by locality.",
+      "movementIds": [
+        "asiaMovement"
+      ],
+      "consequenceIds": [],
+      "estimate": {
+        "lowEstimate": null,
+        "highEstimate": null,
+        "preferredEstimate": null,
+        "sourceIds": [],
+        "confidence": "unknown",
+        "explanationOfDiscrepancy": "No defensible numerical population estimate supplied."
+      },
+      "states": [
+        {
+          "date": -210,
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "continuityStatus": "stable"
+        }
+      ],
+      "rendering": {
+        "densityId": "asiaDensity",
+        "node": true,
+        "radius": 5.0,
+        "ring": false,
+        "label": "Asia Minor",
+        "labelPosition": [
+          662.5,
+          234.8
+        ],
+        "nodeOpacityStates": [
+          [
+            -210,
+            0.38
+          ]
+        ],
+        "densityOpacityStates": [
+          [
+            -210,
+            0.38
+          ]
+        ],
+        "nodeRamp": null,
+        "uncertainAfter": null,
+        "transitionYears": 8,
+        "notes": "Inherited opacity values are visual style parameters, not population estimates.",
+        "displayStart": -210,
+        "displayEnd": null
+      }
+    },
+    {
+      "id": "cyprusNode",
+      "place": "place-cyprusNode",
+      "historicalPlaceName": "Cyprus",
+      "modernPlaceName": "Cyprus",
+      "coordinates": [
+        723.0,
+        280.8
+      ],
+      "geographicFootprint": "M 703.5,265.8 C 720.0,263.7 744.0,270.0 748.0,279.3 C 742.5,291.6 726.0,296.6 704.0,290.6 C 696.8,282.6 698.5,272.1 703.5,265.8 Z",
+      "startDate": -100,
+      "endDate": null,
+      "dateMeaning": "Start of this alpha’s mapped coverage, not an independently established founding date.",
+      "presenceStatus": "documented",
+      "concentration": "small",
+      "provenanceStatus": "unknown",
+      "continuityStatus": "stable",
+      "confidence": "historically established, details uncertain",
+      "notes": "Presence is attested; this alpha does not identify a defensible founding route. Lower opacity after 117 CE is an illustrative disruption cue; severity and later continuity differ by locality.",
+      "sourceIds": [
+        "source-6fb07de7fd"
+      ],
+      "title": "Jews in Cyprus",
+      "date": "Late Hellenistic / Roman period",
+      "story": "Jewish presence is documented on Cyprus by the Roman period. We show presence without inventing a Judea-to-Cyprus migration arrow.",
+      "evidence": "Historically established regional presence; precise early population totals are uncertain.",
+      "movementIds": [],
+      "consequenceIds": [
+        "cyprus117"
+      ],
+      "estimate": {
+        "lowEstimate": null,
+        "highEstimate": null,
+        "preferredEstimate": null,
+        "sourceIds": [],
+        "confidence": "unknown",
+        "explanationOfDiscrepancy": "No defensible numerical population estimate supplied."
+      },
+      "states": [
+        {
+          "date": -100,
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "continuityStatus": "stable"
+        },
+        {
+          "date": 117,
+          "concentration": "very small",
+          "presenceStatus": "documented",
+          "continuityStatus": "contracting"
+        }
+      ],
+      "rendering": {
+        "densityId": "cyprusDensity",
+        "node": true,
+        "radius": 4.5,
+        "ring": false,
+        "label": "Cyprus",
+        "labelPosition": [
+          732.0,
+          273.8
+        ],
+        "nodeOpacityStates": [
+          [
+            -100,
+            0.28
+          ],
+          [
+            117,
+            0.07
+          ]
+        ],
+        "densityOpacityStates": [
+          [
+            -100,
+            0.28
+          ],
+          [
+            117,
+            0.07
+          ]
+        ],
+        "nodeRamp": null,
+        "uncertainAfter": null,
+        "transitionYears": 8,
+        "notes": "Inherited opacity values are visual style parameters, not population estimates.",
+        "displayStart": -100,
+        "displayEnd": null
+      }
+    },
+    {
+      "id": "romeNode",
+      "place": "place-romeNode",
+      "historicalPlaceName": "Rome",
+      "modernPlaceName": "Rome, Italy",
+      "coordinates": [
+        412.5,
+        197.5
+      ],
+      "geographicFootprint": "M 393.0,179.5 C 409.5,176.9 433.5,184.5 437.5,195.7 C 432.0,210.4 415.5,216.4 393.5,209.2 C 386.2,199.6 388.0,187.0 393.0,179.5 Z",
+      "startDate": -150,
+      "endDate": null,
+      "dateMeaning": "Start of this alpha’s mapped coverage, not an independently established founding date.",
+      "presenceStatus": "documented",
+      "concentration": "small",
+      "provenanceStatus": "documented movement",
+      "continuityStatus": "stable",
+      "confidence": "historically established, details uncertain",
+      "notes": "Philo attests captives brought to Italy and later freed; this does not explain every earlier Roman resident. The 150 BCE display threshold is a late Republican approximation, not an exact founding year.",
+      "sourceIds": [
+        "source-6852ef3044"
+      ],
+      "title": "Jewish community in Rome",
+      "date": "By the late Republic",
+      "story": "Jews lived in Rome before 70 CE. Roman conquest and enslavement brought additional Jews to Italy, including in the period after 63 BCE. The community’s origins cannot be reduced to a single exile in 36 BCE.",
+      "evidence": "Literary and later archaeological evidence establishes a substantial Roman Jewish community.",
+      "movementIds": [
+        "romeMovement"
+      ],
+      "consequenceIds": [],
+      "estimate": {
+        "lowEstimate": null,
+        "highEstimate": null,
+        "preferredEstimate": null,
+        "sourceIds": [],
+        "confidence": "unknown",
+        "explanationOfDiscrepancy": "No defensible numerical population estimate supplied."
+      },
+      "states": [
+        {
+          "date": -150,
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "continuityStatus": "stable"
+        }
+      ],
+      "rendering": {
+        "densityId": "romeDensity",
+        "node": true,
+        "radius": 5.0,
+        "ring": false,
+        "label": "Rome",
+        "labelPosition": [
+          422.5,
+          189.5
+        ],
+        "nodeOpacityStates": [
+          [
+            -150,
+            0.28
+          ]
+        ],
+        "densityOpacityStates": [
+          [
+            -150,
+            0.28
+          ]
+        ],
+        "nodeRamp": null,
+        "uncertainAfter": null,
+        "transitionYears": 8,
+        "notes": "Inherited opacity values are visual style parameters, not population estimates.",
+        "displayStart": -150,
+        "displayEnd": null
+      }
+    },
+    {
+      "id": "cyreneNode",
+      "place": "place-cyreneNode",
+      "historicalPlaceName": "Cyrenaica",
+      "modernPlaceName": "Cyrenaica, Libya",
+      "coordinates": [
+        552.9,
+        308.8
+      ],
+      "geographicFootprint": "M 520.1,286.8 C 547.9,283.7 588.2,293.0 594.9,306.6 C 585.7,324.7 557.9,331.9 521.0,323.1 C 508.8,311.5 511.7,296.1 520.1,286.8 Z",
+      "startDate": -300,
+      "endDate": null,
+      "dateMeaning": "Start of this alpha’s mapped coverage, not an independently established founding date.",
+      "presenceStatus": "documented",
+      "concentration": "small",
+      "provenanceStatus": "documented movement",
+      "continuityStatus": "stable",
+      "confidence": "historically established, details uncertain",
+      "notes": "Josephus reports Ptolemaic settlement in Libya; schematic Egypt–Cyrenaica connection is not a precise route. Presence begins in the Ptolemaic era; the appearance date is approximate. Lower opacity after 117 CE is an illustrative disruption cue; severity and later continuity differ by locality.",
+      "sourceIds": [
+        "source-e0dbf98082"
+      ],
+      "title": "Jewish communities in Cyrenaica",
+      "date": "Hellenistic–Roman period",
+      "story": "Jewish communities were established in Cyrenaica in North Africa during the Hellenistic and Roman eras.",
+      "evidence": "Documented diaspora presence; the visualization does not infer one founding migration route.",
+      "movementIds": [
+        "cyreneMovement"
+      ],
+      "consequenceIds": [
+        "cyrene117"
+      ],
+      "estimate": {
+        "lowEstimate": null,
+        "highEstimate": null,
+        "preferredEstimate": null,
+        "sourceIds": [],
+        "confidence": "unknown",
+        "explanationOfDiscrepancy": "No defensible numerical population estimate supplied."
+      },
+      "states": [
+        {
+          "date": -300,
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "continuityStatus": "stable"
+        },
+        {
+          "date": 117,
+          "concentration": "very small",
+          "presenceStatus": "documented",
+          "continuityStatus": "contracting"
+        }
+      ],
+      "rendering": {
+        "densityId": "cyreneDensity",
+        "node": true,
+        "radius": 4.5,
+        "ring": false,
+        "label": "Cyrenaica",
+        "labelPosition": [
+          561.9,
+          301.8
+        ],
+        "nodeOpacityStates": [
+          [
+            -300,
+            0.28
+          ],
+          [
+            117,
+            0.1
+          ]
+        ],
+        "densityOpacityStates": [
+          [
+            -300,
+            0.28
+          ],
+          [
+            117,
+            0.1
+          ]
+        ],
+        "nodeRamp": null,
+        "uncertainAfter": null,
+        "transitionYears": 8,
+        "notes": "Inherited opacity values are visual style parameters, not population estimates.",
+        "displayStart": -300,
+        "displayEnd": null,
+        "labelSide": "below"
+      }
+    },
+    {
+      "id": "adensity",
+      "place": "place-adensity",
+      "historicalPlaceName": "Assyrian sphere",
+      "modernPlaceName": "Northern Mesopotamia",
+      "coordinates": null,
+      "geographicFootprint": "M 813.0,241.8 C 840.0,226.8 897.0,234.8 908.0,264.8\nC 895.0,296.8 858.0,306.8 819.0,294.8\nC 800.0,276.8 800.0,255.8 813.0,241.8 Z",
+      "startDate": -722,
+      "endDate": null,
+      "dateMeaning": "Start of this alpha’s mapped coverage, not an independently established founding date.",
+      "presenceStatus": "probable",
+      "concentration": "small",
+      "provenanceStatus": "documented movement",
+      "continuityStatus": "stable",
+      "confidence": "historically established, details uncertain",
+      "notes": "Regional deportee presence; schematic footprint, no census or precise settlement allocation.",
+      "sourceIds": [
+        "source-1d935f0864"
+      ],
+      "title": "Israelite deportees in the Assyrian sphere",
+      "date": "722 BCE onward",
+      "story": "Regional deportee presence; schematic footprint, no census or precise settlement allocation.",
+      "evidence": "Regional footprint is schematic.",
+      "movementIds": [
+        "assyria",
+        "assyria2",
+        "assyria3"
+      ],
+      "consequenceIds": [],
+      "estimate": {
+        "lowEstimate": null,
+        "highEstimate": null,
+        "preferredEstimate": null,
+        "sourceIds": [],
+        "confidence": "unknown",
+        "explanationOfDiscrepancy": "No defensible numerical population estimate supplied."
+      },
+      "states": [
+        {
+          "date": -722,
+          "concentration": "small",
+          "presenceStatus": "probable",
+          "continuityStatus": "stable"
+        },
+        {
+          "date": -710,
+          "concentration": "small",
+          "presenceStatus": "probable",
+          "continuityStatus": "growing"
+        }
+      ],
+      "rendering": {
+        "densityId": "adensity",
+        "node": false,
+        "radius": 5,
+        "ring": false,
+        "label": null,
+        "labelPosition": null,
+        "nodeOpacityStates": [],
+        "densityOpacityStates": [
+          [
+            -722,
+            0.24
+          ],
+          [
+            -710,
+            0.38
+          ]
+        ],
+        "nodeRamp": null,
+        "uncertainAfter": null,
+        "transitionYears": 8,
+        "notes": "Inherited opacity values are visual style parameters, not population estimates.",
+        "displayStart": -722,
+        "displayEnd": null
+      }
+    }
+  ],
+  "populationChanges": [
+    {
+      "id": "israelConquest",
+      "populationId": "israel",
+      "startDate": -740,
+      "endDate": -720,
+      "populationChangeCause": "documented displacement",
+      "continuityStatus": "documented displacement",
+      "presenceStatus": null,
+      "concentration": null,
+      "confidence": "historically established, details uncertain",
+      "evidenceStatus": "historically established, details uncertain",
+      "notes": "Density intensity is illustrative, not a census. The explanation distinguishes historical disruption from a change in map presentation.",
+      "sourceIds": [
+        "source-1d935f0864"
+      ],
+      "story": "The lower blue shading introduces the period of Assyrian conquest and deportation. The stronger reduction is a schematic cue, not a census. Population remained in the region. The documented Samaria deportations occur in 722–720 BCE.",
+      "title": "Northern Israel under Assyrian conquest",
+      "date": "740 BCE",
+      "label": "Israel: conquest",
+      "result": null
+    },
+    {
+      "id": "israelLayer",
+      "populationId": "israel",
+      "startDate": -720,
+      "endDate": -710,
+      "populationChangeCause": "display transition",
+      "continuityStatus": "stable",
+      "presenceStatus": null,
+      "concentration": null,
+      "confidence": "display policy",
+      "evidenceStatus": null,
+      "notes": "Density intensity is illustrative, not a census. The explanation distinguishes historical disruption from a change in map presentation.",
+      "sourceIds": [
+        "source-1d935f0864"
+      ],
+      "story": "The earlier Israel/Canaan marker and shading give way to the Judah/Judea view. This prevents overlapping labels; it does not mean that all northern Israelites disappeared or moved to Judah.",
+      "title": "The map changes to Judah / Judea",
+      "date": "720 BCE",
+      "label": "Judah / Judea view",
+      "result": null
+    },
+    {
+      "id": "judahDeportation1",
+      "populationId": "j",
+      "startDate": -597,
+      "endDate": -586,
+      "populationChangeCause": "documented displacement",
+      "continuityStatus": "documented displacement",
+      "presenceStatus": null,
+      "concentration": null,
+      "confidence": "historically established, details uncertain",
+      "evidenceStatus": "historically established, details uncertain",
+      "notes": "Density intensity is illustrative, not a census. The explanation distinguishes historical disruption from a change in map presentation.",
+      "sourceIds": [
+        "source-aac7806373"
+      ],
+      "story": "Babylonian conquest deported part of Judah’s population in 597 BCE. The population remaining in the land stays visible.",
+      "title": "First Babylonian deportation",
+      "date": "597 BCE",
+      "label": "Judah: deportation",
+      "result": null
+    },
+    {
+      "id": "judahDeportation2",
+      "populationId": "j",
+      "startDate": -586,
+      "endDate": -540,
+      "populationChangeCause": "documented displacement",
+      "continuityStatus": "documented displacement",
+      "presenceStatus": null,
+      "concentration": null,
+      "confidence": "historically established, details uncertain",
+      "evidenceStatus": "historically established, details uncertain",
+      "notes": "Density intensity is illustrative, not a census. The explanation distinguishes historical disruption from a change in map presentation.",
+      "sourceIds": [
+        "source-aac7806373"
+      ],
+      "story": "Jerusalem and the First Temple were destroyed in 587/586 BCE. Deportation, death and destruction reduced the population; many Judeans remained. The lower shading does not mean a complete removal.",
+      "title": "Babylonian destruction and deportation",
+      "date": "586 BCE",
+      "label": "Judah: conquest and deportation",
+      "result": null
+    },
+    {
+      "id": "babyloniaContinues",
+      "populationId": "b",
+      "startDate": -300,
+      "endDate": null,
+      "populationChangeCause": "display transition",
+      "continuityStatus": "stable",
+      "presenceStatus": null,
+      "concentration": null,
+      "confidence": "display policy",
+      "evidenceStatus": null,
+      "notes": "Density intensity is illustrative, not a census. The explanation distinguishes historical disruption from a change in map presentation.",
+      "sourceIds": [
+        "source-aac7806373"
+      ],
+      "story": "The small change in blue intensity is part of the schematic map scale. It does not identify a new exodus or a documented population collapse. Jewish life continued in Babylonia.",
+      "title": "Babylonia remains a major Jewish center",
+      "date": "300 BCE",
+      "label": "Babylonia continues",
+      "result": null
+    },
+    {
+      "id": "elephantineUncertain",
+      "populationId": "e",
+      "startDate": -389,
+      "endDate": null,
+      "populationChangeCause": "evidence becomes uncertain",
+      "continuityStatus": "evidence becomes uncertain",
+      "presenceStatus": null,
+      "concentration": null,
+      "confidence": "historically established, details uncertain",
+      "evidenceStatus": "historically established, details uncertain",
+      "notes": "Density intensity is illustrative, not a census. Later continuity is uncertain; no death or migration is inferred from missing evidence.",
+      "sourceIds": [
+        "source-03ddfcbbf4"
+      ],
+      "story": "After the surviving documentary record thins, the community fades on this map. Its precise later fate is uncertain. Fading here means weaker evidence, not documented murder or a proven departure route.",
+      "title": "Elephantine’s later continuity is uncertain",
+      "date": "389 BCE",
+      "label": "Elephantine: evidence weakens",
+      "result": {
+        "presenceStatus": "uncertain",
+        "continuityStatus": "evidence becomes uncertain",
+        "uncertain": true
+      }
+    },
+    {
+      "id": "jerusalem70",
+      "populationId": "j",
+      "startDate": 70,
+      "endDate": null,
+      "populationChangeCause": "violent destruction",
+      "continuityStatus": "documented destruction",
+      "presenceStatus": null,
+      "concentration": null,
+      "confidence": "historically established, details uncertain",
+      "evidenceStatus": "historically established, details uncertain",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "sourceIds": [
+        "source-a6795b19cf"
+      ],
+      "story": "In 70 CE Roman forces destroyed Jerusalem and the Second Temple. Many Jews were killed and survivors enslaved. The broken star marks this destruction at Jerusalem. Jewish communities elsewhere in the land continued.",
+      "title": "Jerusalem destroyed; many Jews killed",
+      "date": "70 CE",
+      "label": "Jerusalem: destruction",
+      "result": null
+    },
+    {
+      "id": "judea135",
+      "populationId": "j",
+      "startDate": 135,
+      "endDate": null,
+      "populationChangeCause": "documented displacement",
+      "continuityStatus": "documented displacement",
+      "presenceStatus": null,
+      "concentration": null,
+      "confidence": "historically established, details uncertain",
+      "evidenceStatus": "historically established, details uncertain",
+      "notes": "Density intensity is illustrative, not a census. The explanation distinguishes historical disruption from a change in map presentation.",
+      "sourceIds": [
+        "source-6488683891"
+      ],
+      "story": "Roman suppression of the revolt in 132–135 CE caused mass killing, enslavement and displacement in Judea. Jewish life continued, especially in Galilee. Reduced regional shading does not mean that all Jews left the land.",
+      "title": "After the Bar Kokhba revolt",
+      "date": "135 CE",
+      "label": "Judea: killing and displacement",
+      "result": null
+    },
+    {
+      "id": "alexandria117",
+      "populationId": "alexNode",
+      "startDate": 117,
+      "endDate": null,
+      "populationChangeCause": "violent destruction",
+      "continuityStatus": "documented destruction",
+      "presenceStatus": null,
+      "concentration": null,
+      "confidence": "historically established, details uncertain",
+      "evidenceStatus": "historically established, details uncertain",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "sourceIds": [
+        "source-2396693681"
+      ],
+      "story": "During the Diaspora Revolt of 115–117 CE, attacks and Roman suppression killed many Jews and devastated Alexandria’s Jewish community. The broken star commemorates the destruction. Lower shading does not supply a survivor count or deny later Jewish presence.",
+      "title": "Alexandria’s community devastated",
+      "date": "117 CE",
+      "label": "Alexandria: mass killing",
+      "result": null
+    },
+    {
+      "id": "cyrene117",
+      "populationId": "cyreneNode",
+      "startDate": 117,
+      "endDate": null,
+      "populationChangeCause": "violent destruction",
+      "continuityStatus": "documented destruction",
+      "presenceStatus": null,
+      "concentration": null,
+      "confidence": "historically established, details uncertain",
+      "evidenceStatus": "historically established, details uncertain",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "sourceIds": [
+        "source-2396693681",
+        "source-e0dbf98082"
+      ],
+      "story": "Roman suppression of the Diaspora Revolt in 115–117 CE involved mass killing and devastated Jewish communities in Cyrenaica. The broken star records this catastrophe; later Jewish presence must be evaluated separately.",
+      "title": "Cyrenaica’s communities devastated",
+      "date": "117 CE",
+      "label": "Cyrenaica: mass killing",
+      "result": null
+    },
+    {
+      "id": "cyprus117",
+      "populationId": "cyprusNode",
+      "startDate": 117,
+      "endDate": null,
+      "populationChangeCause": "violent destruction",
+      "continuityStatus": "documented destruction",
+      "presenceStatus": null,
+      "concentration": null,
+      "confidence": "historically established, details uncertain",
+      "evidenceStatus": "historically established, details uncertain",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "sourceIds": [
+        "source-b21346bd04",
+        "source-b6be89faea"
+      ],
+      "story": "After the Diaspora Revolt of 115–117 CE, Jewish life on Cyprus was devastated by killing and exclusion. Cassius Dio reports a ban on Jews landing on the island. Later Jewish residents are also recorded; the star does not mean permanent extinction.",
+      "title": "Cyprus’s community destroyed and excluded",
+      "date": "117 CE",
+      "label": "Cyprus: killing and exclusion",
+      "result": null
+    }
+  ],
+  "movements": [
+    {
+      "id": "exodus",
+      "date": "Biblical/traditional chronology",
+      "dateRange": {
+        "start": -1250,
+        "end": -1190,
+        "precision": "Traditional narrative display chronology; independently established dates are not supplied."
+      },
+      "origin": "place-egypt",
+      "destination": "place-israel",
+      "intermediateLocations": [],
+      "originCoordinates": [
+        693,
+        343.4
+      ],
+      "destinationCoordinates": [
+        745.2,
+        329.7
+      ],
+      "movementType": "flight",
+      "cause": "uncertain",
+      "populationLow": null,
+      "populationHigh": null,
+      "populationPreferred": null,
+      "populationConfidence": "unknown",
+      "populationUnit": "people",
+      "evidenceStatus": "traditional account",
+      "confidence": "traditional account",
+      "provenanceStatus": "unknown",
+      "whatRemainedAtOrigin": "Not quantified in the supplied record.",
+      "story": "Biblical narrative; date, route and event are not independently established.",
+      "title": "Exodus from Egypt",
+      "sourceIds": [],
+      "notes": "Schematic regional endpoints and curve; no claim to an exact travel itinerary. Ancient literary testimony is distinguished from direct documentary evidence.",
+      "linkedDestructionIds": [],
+      "movementScale": null,
+      "rendering": {
+        "window": [
+          -1250,
+          -1215,
+          -1190
+        ],
+        "control": [
+          703.1,
+          287.7
+        ],
+        "opacity": 0.75,
+        "enabled": true,
+        "width": 9,
+        "headLength": 28
+      },
+      "eventGroup": "exodus",
+      "regionalDisplacement": false,
+      "destinationCertainty": "documented location; route schematic",
+      "reportedEstimate": null
+    },
+    {
+      "id": "assyria",
+      "date": "720 BCE",
+      "dateRange": {
+        "start": -722,
+        "end": -720,
+        "precision": "historical event range; rendering window is separate"
+      },
+      "origin": "place-israel",
+      "destination": "place-assyria-west",
+      "intermediateLocations": [],
+      "originCoordinates": [
+        755.9,
+        312.4
+      ],
+      "destinationCoordinates": [
+        855,
+        269.8
+      ],
+      "movementType": "forced removal",
+      "cause": "conquest",
+      "populationLow": null,
+      "populationHigh": null,
+      "populationPreferred": null,
+      "populationConfidence": "unknown",
+      "populationUnit": "people",
+      "evidenceStatus": "historically established, details uncertain",
+      "confidence": "historically established, details uncertain",
+      "provenanceStatus": "documented movement",
+      "whatRemainedAtOrigin": "Population remained at origin; this movement does not imply a complete removal.",
+      "story": "Deportation is documented in Assyrian royal inscriptions. Branches represent one dispersal event, not three separate population totals. Exact allocation to destinations is uncertain.",
+      "title": "Assyrian deportations from Samaria",
+      "sourceIds": [
+        "source-1d935f0864"
+      ],
+      "notes": "Schematic regional endpoints and curve; no claim to an exact travel itinerary. Ancient literary testimony is distinguished from direct documentary evidence.",
+      "linkedDestructionIds": [],
+      "movementScale": null,
+      "rendering": {
+        "window": [
+          -722,
+          -720,
+          -685
+        ],
+        "control": [
+          801,
+          244
+        ],
+        "opacity": 1,
+        "enabled": true,
+        "width": 9,
+        "headLength": 28
+      },
+      "eventGroup": "samaria-deportations",
+      "regionalDisplacement": false,
+      "destinationCertainty": "schematic regional destination",
+      "reportedEstimate": null
+    },
+    {
+      "id": "assyria2",
+      "date": "720 BCE",
+      "dateRange": {
+        "start": -722,
+        "end": -720,
+        "precision": "historical event range; rendering window is separate"
+      },
+      "origin": "place-israel",
+      "destination": "place-assyria-central",
+      "intermediateLocations": [],
+      "originCoordinates": [
+        755.9,
+        312.4
+      ],
+      "destinationCoordinates": [
+        870,
+        260
+      ],
+      "movementType": "forced removal",
+      "cause": "conquest",
+      "populationLow": null,
+      "populationHigh": null,
+      "populationPreferred": null,
+      "populationConfidence": "unknown",
+      "populationUnit": "people",
+      "evidenceStatus": "historically established, details uncertain",
+      "confidence": "historically established, details uncertain",
+      "provenanceStatus": "documented movement",
+      "whatRemainedAtOrigin": "Population remained at origin; this movement does not imply a complete removal.",
+      "story": "Deportation is documented in Assyrian royal inscriptions. Branches represent one dispersal event, not three separate population totals. Exact allocation to destinations is uncertain.",
+      "title": "Assyrian deportations from Samaria",
+      "sourceIds": [
+        "source-1d935f0864"
+      ],
+      "notes": "Schematic regional endpoints and curve; no claim to an exact travel itinerary. Ancient literary testimony is distinguished from direct documentary evidence.",
+      "linkedDestructionIds": [],
+      "movementScale": null,
+      "rendering": {
+        "window": [
+          -722,
+          -720,
+          -685
+        ],
+        "control": [
+          810,
+          288
+        ],
+        "opacity": 0.88,
+        "enabled": true,
+        "width": 9,
+        "headLength": 28
+      },
+      "eventGroup": "samaria-deportations",
+      "regionalDisplacement": false,
+      "destinationCertainty": "schematic regional destination",
+      "reportedEstimate": null
+    },
+    {
+      "id": "assyria3",
+      "date": "720 BCE",
+      "dateRange": {
+        "start": -722,
+        "end": -720,
+        "precision": "historical event range; rendering window is separate"
+      },
+      "origin": "place-israel",
+      "destination": "place-assyria-east",
+      "intermediateLocations": [],
+      "originCoordinates": [
+        755.9,
+        312.4
+      ],
+      "destinationCoordinates": [
+        930,
+        279.6
+      ],
+      "movementType": "forced removal",
+      "cause": "conquest",
+      "populationLow": null,
+      "populationHigh": null,
+      "populationPreferred": null,
+      "populationConfidence": "unknown",
+      "populationUnit": "people",
+      "evidenceStatus": "historically established, details uncertain",
+      "confidence": "historically established, details uncertain",
+      "provenanceStatus": "documented movement",
+      "whatRemainedAtOrigin": "Population remained at origin; this movement does not imply a complete removal.",
+      "story": "Deportation is documented in Assyrian royal inscriptions. Branches represent one dispersal event, not three separate population totals. Exact allocation to destinations is uncertain.",
+      "title": "Assyrian deportations from Samaria",
+      "sourceIds": [
+        "source-1d935f0864"
+      ],
+      "notes": "Schematic regional endpoints and curve; no claim to an exact travel itinerary. Ancient literary testimony is distinguished from direct documentary evidence.",
+      "linkedDestructionIds": [],
+      "movementScale": null,
+      "rendering": {
+        "window": [
+          -722,
+          -720,
+          -685
+        ],
+        "control": [
+          843,
+          297
+        ],
+        "opacity": 0.72,
+        "enabled": true,
+        "width": 9,
+        "headLength": 28
+      },
+      "eventGroup": "samaria-deportations",
+      "regionalDisplacement": false,
+      "destinationCertainty": "schematic regional destination",
+      "reportedEstimate": null
+    },
+    {
+      "id": "d",
+      "date": "597 and 587/586 BCE",
+      "dateRange": {
+        "start": -597,
+        "end": -586,
+        "precision": "separate campaigns in 597 and 587/586 BCE; not a continuous deportation"
+      },
+      "origin": "place-j",
+      "destination": "place-b",
+      "intermediateLocations": [],
+      "originCoordinates": [
+        761.2,
+        321.7
+      ],
+      "destinationCoordinates": [
+        881.3,
+        312.2
+      ],
+      "movementType": "forced removal",
+      "cause": "conquest",
+      "populationLow": null,
+      "populationHigh": null,
+      "populationPreferred": null,
+      "populationConfidence": "unknown",
+      "populationUnit": "people",
+      "evidenceStatus": "historically established, details uncertain",
+      "confidence": "historically established, details uncertain",
+      "provenanceStatus": "documented movement",
+      "whatRemainedAtOrigin": "Population remained at origin; this movement does not imply a complete removal.",
+      "story": "Babylonian campaigns in 597 and 587/586 BCE carried part of Judah’s population into captivity. People also remained in Judah. The red route represents deportation, not everyone leaving the land.",
+      "title": "Deportation did not empty Judah",
+      "sourceIds": [
+        "source-aac7806373",
+        "bm-jerusalem-chronicle-597",
+        "met-judean-diaspora"
+      ],
+      "notes": "Schematic regional endpoints and curve; no claim to an exact travel itinerary. Ancient literary testimony is distinguished from direct documentary evidence.",
+      "linkedDestructionIds": [],
+      "movementScale": null,
+      "rendering": {
+        "window": [
+          -597,
+          -586,
+          -555
+        ],
+        "control": [
+          820,
+          272
+        ],
+        "opacity": 1,
+        "enabled": true,
+        "width": 9,
+        "headLength": 28
+      },
+      "eventGroup": "d",
+      "regionalDisplacement": false,
+      "destinationCertainty": "documented location; route schematic",
+      "reportedEstimate": null
+    },
+    {
+      "id": "r",
+      "date": "After 539 BCE",
+      "dateRange": {
+        "start": -539,
+        "end": null,
+        "precision": "after 539 BCE; endpoint not supplied"
+      },
+      "origin": "place-b",
+      "destination": "place-j",
+      "intermediateLocations": [],
+      "originCoordinates": [
+        883.3,
+        325.7
+      ],
+      "destinationCoordinates": [
+        763.2,
+        334.7
+      ],
+      "movementType": "return / Aliyah",
+      "cause": "religious motivation",
+      "populationLow": null,
+      "populationHigh": null,
+      "populationPreferred": null,
+      "populationConfidence": "unknown",
+      "populationUnit": "people",
+      "evidenceStatus": "historically established, details uncertain",
+      "confidence": "historically established, details uncertain",
+      "provenanceStatus": "documented movement",
+      "whatRemainedAtOrigin": "Population remained at origin; this movement does not imply a complete removal.",
+      "story": "After 539 BCE, some Judeans returned to Judea under Persian rule. Communities continued in Babylonia. The blue arrow shows return alongside continued presence at both ends—not the transfer of an entire population.",
+      "title": "Some returned. Others stayed.",
+      "sourceIds": [
+        "source-1da0bdccbd",
+        "met-judean-diaspora",
+        "met-cyrus-cylinder"
+      ],
+      "notes": "Schematic regional endpoints and curve; no claim to an exact travel itinerary. Ancient literary testimony is distinguished from direct documentary evidence.",
+      "linkedDestructionIds": [],
+      "movementScale": null,
+      "rendering": {
+        "window": [
+          -539,
+          -520,
+          -480
+        ],
+        "control": [
+          818,
+          374
+        ],
+        "opacity": 1,
+        "enabled": true,
+        "width": 9,
+        "headLength": 28
+      },
+      "eventGroup": "r",
+      "regionalDisplacement": false,
+      "destinationCertainty": "documented location; route schematic",
+      "reportedEstimate": null
+    },
+    {
+      "id": "egyptMovement",
+      "date": "300 BCE",
+      "dateRange": {
+        "start": -320,
+        "end": -275,
+        "precision": "approximate"
+      },
+      "origin": "place-j",
+      "destination": "place-alexNode",
+      "intermediateLocations": [],
+      "originCoordinates": [
+        753.2,
+        321.7
+      ],
+      "destinationCoordinates": [
+        673.8,
+        328.7
+      ],
+      "movementType": "forced removal",
+      "cause": "conquest",
+      "populationLow": null,
+      "populationHigh": null,
+      "populationPreferred": null,
+      "populationConfidence": "unknown",
+      "populationUnit": "people",
+      "evidenceStatus": "historically established, details uncertain",
+      "confidence": "historically established, details uncertain",
+      "provenanceStatus": "documented movement",
+      "whatRemainedAtOrigin": "Population remained at origin; this movement does not imply a complete removal.",
+      "story": "Josephus reports Ptolemy I taking Judean and Samaritan captives to Egypt, alongside voluntary Jewish settlement. The endpoint represents Egypt, not a proven direct arrival in Alexandria.",
+      "title": "Judeans taken to Egypt",
+      "sourceIds": [
+        "source-39eddf178f"
+      ],
+      "notes": "Schematic regional endpoints and curve; no claim to an exact travel itinerary. Ancient literary testimony is distinguished from direct documentary evidence.",
+      "linkedDestructionIds": [],
+      "movementScale": null,
+      "rendering": {
+        "window": [
+          -320,
+          -300,
+          -275
+        ],
+        "control": [
+          708,
+          365
+        ],
+        "opacity": 1,
+        "enabled": true,
+        "width": 9,
+        "headLength": 28
+      },
+      "eventGroup": "egyptMovement",
+      "regionalDisplacement": false,
+      "destinationCertainty": "documented location; route schematic",
+      "reportedEstimate": null
+    },
+    {
+      "id": "asiaMovement",
+      "date": "c. 210–205 BCE",
+      "dateRange": {
+        "start": -210,
+        "end": -205,
+        "precision": "approximate, source-dependent"
+      },
+      "origin": "place-b",
+      "destination": "place-asiaNode",
+      "intermediateLocations": [],
+      "originCoordinates": [
+        891.3,
+        312.2
+      ],
+      "destinationCoordinates": [
+        652.5,
+        242.8
+      ],
+      "movementType": null,
+      "cause": "other",
+      "populationLow": null,
+      "populationHigh": null,
+      "populationPreferred": null,
+      "populationConfidence": "unknown",
+      "populationUnit": "people",
+      "evidenceStatus": "historically established, details uncertain",
+      "confidence": "historically established, details uncertain",
+      "provenanceStatus": "documented movement",
+      "whatRemainedAtOrigin": "Population remained at origin; this movement does not imply a complete removal.",
+      "story": "Antiochus III ordered Jewish families moved from Babylonia and Mesopotamia to Lydia and Phrygia, in present-day Turkey. This was a state-directed relocation of diaspora families, not an exile from Judea. The date is approximate.",
+      "title": "Families relocated from Babylonia to Anatolia",
+      "sourceIds": [
+        "source-39eddf178f"
+      ],
+      "notes": "Josephus, Antiquities 12.147–153 preserves the relocation letter. Its dating and authenticity require caution; the map curve is schematic. State-directed relocation; consent/coercion details remain qualified.",
+      "linkedDestructionIds": [],
+      "movementScale": null,
+      "rendering": {
+        "window": [
+          -210,
+          -205,
+          -185
+        ],
+        "control": [
+          780,
+          183
+        ],
+        "opacity": 1,
+        "enabled": true,
+        "width": 9,
+        "headLength": 28
+      },
+      "eventGroup": "asiaMovement",
+      "regionalDisplacement": false,
+      "destinationCertainty": "documented location; route schematic",
+      "reportedEstimate": {
+        "lowEstimate": null,
+        "highEstimate": null,
+        "preferredEstimate": 2000,
+        "unit": "families",
+        "sourceIds": [
+          "source-39eddf178f"
+        ],
+        "confidence": "reported in an ancient literary source",
+        "explanationOfDiscrepancy": "Josephus preserves a letter reporting 2,000 families. This is not an independently verified census or an estimate of 2,000 individuals."
+      },
+      "movementTypeConfidence": "uncertain",
+      "movementDescription": "State-directed resettlement; consent/coercion details uncertain."
+    },
+    {
+      "id": "cyreneMovement",
+      "date": "Ptolemaic period; exact date uncertain",
+      "dateRange": {
+        "start": null,
+        "end": null,
+        "precision": "precise event date not supplied; inherited rendering window is illustrative"
+      },
+      "origin": "place-alexNode",
+      "destination": "place-cyreneNode",
+      "intermediateLocations": [],
+      "originCoordinates": [
+        673.8,
+        328.7
+      ],
+      "destinationCoordinates": [
+        552.9,
+        308.8
+      ],
+      "movementType": null,
+      "cause": "other",
+      "populationLow": null,
+      "populationHigh": null,
+      "populationPreferred": null,
+      "populationConfidence": "unknown",
+      "populationUnit": "people",
+      "evidenceStatus": "historically established, details uncertain",
+      "confidence": "historically established, details uncertain",
+      "provenanceStatus": "documented movement",
+      "whatRemainedAtOrigin": "Not quantified in the supplied record.",
+      "story": "Josephus Against Apion 2.44 reports Ptolemaic settlement in Libya. Egypt is a schematic point of departure; exact origins, dates and itinerary are uncertain.",
+      "title": "Ptolemaic settlement in Cyrenaica",
+      "sourceIds": [
+        "source-be2cb0b323"
+      ],
+      "notes": "Schematic regional endpoints and curve; no claim to an exact travel itinerary. Ancient literary testimony is distinguished from direct documentary evidence.",
+      "linkedDestructionIds": [],
+      "movementScale": null,
+      "rendering": {
+        "window": [
+          -300,
+          -280,
+          -240
+        ],
+        "control": [
+          610,
+          347
+        ],
+        "opacity": 1,
+        "enabled": true,
+        "width": 9,
+        "headLength": 28
+      },
+      "eventGroup": "cyreneMovement",
+      "regionalDisplacement": false,
+      "destinationCertainty": "documented location; route schematic",
+      "reportedEstimate": null,
+      "movementTypeConfidence": "uncertain",
+      "movementDescription": "State-directed resettlement; consent/coercion details uncertain."
+    },
+    {
+      "id": "romeMovement",
+      "date": "Late Republic, especially after 63 BCE",
+      "dateRange": {
+        "start": -63,
+        "end": -62,
+        "precision": "representative Pompeian context; other arrivals occurred"
+      },
+      "origin": "place-j",
+      "destination": "place-romeNode",
+      "intermediateLocations": [],
+      "originCoordinates": [
+        753.2,
+        321.7
+      ],
+      "destinationCoordinates": [
+        412.5,
+        197.5
+      ],
+      "movementType": "forced removal",
+      "cause": "conquest",
+      "populationLow": null,
+      "populationHigh": null,
+      "populationPreferred": null,
+      "populationConfidence": "unknown",
+      "populationUnit": "people",
+      "evidenceStatus": "historically established, details uncertain",
+      "confidence": "historically established, details uncertain",
+      "provenanceStatus": "documented movement",
+      "whatRemainedAtOrigin": "Population remained at origin; this movement does not imply a complete removal.",
+      "story": "Roman conquest brought Jewish captives to Italy; many later gained freedom. Pompey’s conquest in 63 BCE is a major historical context. A visible arrow near 36 BCE represents this broader movement, not a separately established exile in that year. Jews already lived in Rome.",
+      "title": "Jewish captives brought to Italy",
+      "sourceIds": [
+        "source-6852ef3044"
+      ],
+      "notes": "Philo, Embassy to Gaius 155, describes former Jewish captives living in Rome. It does not date every arrival or establish a single deportation in 36 BCE.",
+      "linkedDestructionIds": [],
+      "movementScale": null,
+      "rendering": {
+        "window": [
+          -63,
+          -50,
+          -20
+        ],
+        "control": [
+          567,
+          170
+        ],
+        "opacity": 1,
+        "enabled": true,
+        "width": 9,
+        "headLength": 28
+      },
+      "eventGroup": "romeMovement",
+      "regionalDisplacement": false,
+      "destinationCertainty": "documented location; route schematic",
+      "reportedEstimate": null,
+      "eventDateRange": {
+        "start": -63,
+        "end": -62,
+        "precision": "representative historical context; arrivals were not confined to these years"
+      }
+    }
+  ],
+  "communityDestructions": [
+    {
+      "id": "destruction-jerusalem70",
+      "populationId": "j",
+      "place": "place-j",
+      "startDate": 70,
+      "endDate": null,
+      "reestablishedDate": null,
+      "destructionStatus": "documented violent community destruction",
+      "scope": "local community",
+      "confidence": "historically established, details uncertain",
+      "title": "Jerusalem destroyed; many Jews killed",
+      "date": "70 CE",
+      "story": "In 70 CE Roman forces destroyed Jerusalem and the Second Temple. Many Jews were killed and survivors enslaved. The broken star marks this destruction at Jerusalem. Jewish communities elsewhere in the land continued.",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "sourceIds": [
+        "source-a6795b19cf"
+      ],
+      "survivorMovementIds": [],
+      "rendering": {
+        "position": [
+          775,
+          344
+        ]
+      }
+    },
+    {
+      "id": "destruction-alexandria117",
+      "populationId": "alexNode",
+      "place": "place-alexNode",
+      "startDate": 117,
+      "endDate": null,
+      "reestablishedDate": null,
+      "destructionStatus": "documented violent community destruction",
+      "scope": "local community",
+      "confidence": "historically established, details uncertain",
+      "title": "Alexandria’s community devastated",
+      "date": "117 CE",
+      "story": "During the Diaspora Revolt of 115–117 CE, attacks and Roman suppression killed many Jews and devastated Alexandria’s Jewish community. The broken star commemorates the destruction. Lower shading does not supply a survivor count or deny later Jewish presence.",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "sourceIds": [
+        "source-2396693681"
+      ],
+      "survivorMovementIds": [],
+      "rendering": {
+        "position": [
+          650,
+          348
+        ]
+      }
+    },
+    {
+      "id": "destruction-cyrene117",
+      "populationId": "cyreneNode",
+      "place": "place-cyreneNode",
+      "startDate": 117,
+      "endDate": null,
+      "reestablishedDate": null,
+      "destructionStatus": "documented violent community destruction",
+      "scope": "local community",
+      "confidence": "historically established, details uncertain",
+      "title": "Cyrenaica’s communities devastated",
+      "date": "117 CE",
+      "story": "Roman suppression of the Diaspora Revolt in 115–117 CE involved mass killing and devastated Jewish communities in Cyrenaica. The broken star records this catastrophe; later Jewish presence must be evaluated separately.",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "sourceIds": [
+        "source-2396693681",
+        "source-e0dbf98082"
+      ],
+      "survivorMovementIds": [],
+      "rendering": {
+        "position": [
+          533,
+          335
+        ]
+      }
+    },
+    {
+      "id": "destruction-cyprus117",
+      "populationId": "cyprusNode",
+      "place": "place-cyprusNode",
+      "startDate": 117,
+      "endDate": null,
+      "reestablishedDate": null,
+      "destructionStatus": "documented violent community destruction",
+      "scope": "local community",
+      "confidence": "historically established, details uncertain",
+      "title": "Cyprus’s community destroyed and excluded",
+      "date": "117 CE",
+      "story": "After the Diaspora Revolt of 115–117 CE, Jewish life on Cyprus was devastated by killing and exclusion. Cassius Dio reports a ban on Jews landing on the island. Later Jewish residents are also recorded; the star does not mean permanent extinction.",
+      "notes": "Shading shows a qualitative change, not a measured death toll or census. The broken star commemorates mass killing and community destruction; it does not claim that every resident died.",
+      "sourceIds": [
+        "source-b21346bd04",
+        "source-b6be89faea"
+      ],
+      "survivorMovementIds": [],
+      "rendering": {
+        "position": [
+          740,
+          259
+        ]
+      }
+    }
+  ],
+  "historicalEvents": [
+    {
+      "id": "lachish",
+      "place": "place-lachish",
+      "title": "Lachish captured by Assyria",
+      "date": "701 BCE",
+      "dateRange": {
+        "start": -701,
+        "end": -701
+      },
+      "eventType": "conquest",
+      "story": "Sennacherib captured Lachish during the campaign against Judah. Captivity and destruction are recorded. The precise relocation route is not supplied, so no generic Judah-to-Assyria arrow is generated.",
+      "sourceIds": [
+        "source-d79a1ce00d"
+      ],
+      "evidenceStatus": "well documented",
+      "confidence": "well documented",
+      "rendering": {
+        "window": [
+          -710,
+          -701,
+          -685
+        ],
+        "position": [
+          747.6,
+          324.3
+        ],
+        "labelPosition": [
+          757.6,
+          339.3
+        ],
+        "label": "Lachish",
+        "radius": 5
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "source-344c7e3a98",
+      "title": "image-database.nes.lsa.umich.edu",
+      "url": "https://image-database.nes.lsa.umich.edu/items/show/45",
+      "evidenceType": "institutional/museum/library source",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-d79a1ce00d",
+      "title": "www.britishmuseum.org",
+      "url": "https://www.britishmuseum.org/collection/object/W_1856-0909-14_4",
+      "evidenceType": "institutional/museum/library source",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-aac7806373",
+      "title": "www.jstor.org",
+      "url": "https://www.jstor.org/stable/10.1163/j.ctv2gjwzvz",
+      "evidenceType": "academic scholarship",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-03ddfcbbf4",
+      "title": "www.iranicaonline.org",
+      "url": "https://www.iranicaonline.org/articles/elephantine/",
+      "evidenceType": "academic scholarship",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-39eddf178f",
+      "title": "www.attalus.org",
+      "url": "https://www.attalus.org/translate/aj_12a.html",
+      "evidenceType": "primary/contemporary evidence",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-6fb07de7fd",
+      "title": "penelope.uchicago.edu",
+      "url": "https://penelope.uchicago.edu/josephus/ant-13.html",
+      "evidenceType": "primary/contemporary evidence",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-6852ef3044",
+      "title": "catholiclibrary.org",
+      "url": "https://catholiclibrary.org/library/view?chunk.id=00000049&docId=%2FAntiquities-EN%2FAntiquities.Philo.152.html",
+      "evidenceType": "primary/contemporary evidence",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-e0dbf98082",
+      "title": "www.jewishencyclopedia.com",
+      "url": "https://www.jewishencyclopedia.com/articles/4826-cyrene",
+      "evidenceType": "historical reference",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-1d935f0864",
+      "title": "oracc.museum.upenn.edu",
+      "url": "https://oracc.museum.upenn.edu/rinap/",
+      "evidenceType": "primary/contemporary evidence",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-1da0bdccbd",
+      "title": "www.metmuseum.org",
+      "url": "https://www.metmuseum.org/exhibitions/listings/2013/cyrus-cylinder",
+      "evidenceType": "institutional/museum/library source",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-be2cb0b323",
+      "title": "penelope.uchicago.edu",
+      "url": "https://penelope.uchicago.edu/josephus/apion-2.html",
+      "evidenceType": "primary/contemporary evidence",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-a6795b19cf",
+      "title": "penelope.uchicago.edu",
+      "url": "https://penelope.uchicago.edu/josephus/war-6.html",
+      "evidenceType": "primary/contemporary evidence",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-6488683891",
+      "title": "penelope.uchicago.edu",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Cassius_Dio/69*.html",
+      "evidenceType": "primary/contemporary evidence",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-2396693681",
+      "title": "cojs.org",
+      "url": "https://cojs.org/115-c-e-117-c-e-jewish-rebellion-emperor-trajan/",
+      "evidenceType": "historical reference",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-b21346bd04",
+      "title": "penelope.uchicago.edu",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Cassius_Dio/68*.html",
+      "evidenceType": "primary/contemporary evidence",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "source-b6be89faea",
+      "title": "www.jewishencyclopedia.com",
+      "url": "https://www.jewishencyclopedia.com/articles/4344-chittim-kittim",
+      "evidenceType": "historical reference",
+      "notes": "Reference inherited from Alpha 1.6; this architecture pass does not independently reassess the source."
+    },
+    {
+      "id": "bm-jerusalem-chronicle-597",
+      "title": "British Museum — Babylonian Chronicle, tablet 1896,0409.51",
+      "url": "https://www.britishmuseum.org/collection/object/W_1896-0409-51",
+      "evidenceType": "primary/contemporary evidence",
+      "supports": "A Babylonian account of the capture of Jerusalem in 597 BCE.",
+      "limitations": "This tablet alone does not establish deportation totals or the later 587/586 BCE campaign. Catalog summary retrieved; full page retrieval was unavailable during this pass."
+    },
+    {
+      "id": "met-judean-diaspora",
+      "title": "Ira Spar, The Met — Cyrus and the Judean Diaspora",
+      "url": "https://www.metmuseum.org/perspectives/cyrus-and-the-judean-diaspora",
+      "evidenceType": "academic scholarship",
+      "supports": "Context for Babylonian deportations, continued Judean communities in Babylonia, and partial return under Persian rule.",
+      "limitations": "A scholarly museum interpretation combining ancient texts and archaeology, not a population census."
+    },
+    {
+      "id": "met-cyrus-cylinder",
+      "title": "The Met — The Cyrus Cylinder and Ancient Persia",
+      "url": "https://www.metmuseum.org/exhibitions/listings/2013/cyrus-cylinder",
+      "evidenceType": "institutional/museum/library sources",
+      "supports": "The cylinder records Persian royal restoration policies.",
+      "limitations": "The cylinder does not name Judeans or supply a count of Judean returnees."
+    },
+    {
+      "id": "berlin-elephantine-petition",
+      "title": "Berlin Egyptian Museum — Elephantine petition, P 13495 (407 BCE)",
+      "url": "https://search.smb.museum/object/obj-823546",
+      "evidenceType": "primary/contemporary evidence",
+      "supports": "An Aramaic petition from the Jewish community at Elephantine, dated 407 BCE.",
+      "limitations": "It documents an existing community; it does not establish its founding date or migration route."
+    },
+    {
+      "id": "stanford-confucius",
+      "title": "Stanford Encyclopedia of Philosophy — Confucius",
+      "url": "https://plato.stanford.edu/entries/confucius/",
+      "evidenceType": "academic scholarship",
+      "supports": "Traditional life dates and historical context for Confucius in China.",
+      "limitations": "The life dates are traditional, and biographical details remain debated."
+    }
+  ],
+  "eras": [
+    {
+      "startDate": -1300,
+      "title": "Before the traditional Exodus narrative"
+    },
+    {
+      "startDate": -1250,
+      "title": "Biblical movement layer and early Israel"
+    },
+    {
+      "startDate": -1190,
+      "title": "Israelite presence in Canaan"
+    },
+    {
+      "startDate": -730,
+      "title": "Assyrian conquest of the northern kingdom"
+    },
+    {
+      "startDate": -710,
+      "title": "Assyrian campaign against Judah"
+    },
+    {
+      "startDate": -680,
+      "title": "Judah remains in the land"
+    },
+    {
+      "startDate": -597,
+      "title": "Babylonian conquest and deportations"
+    },
+    {
+      "startDate": -550,
+      "title": "Judean communities persist in two centers"
+    },
+    {
+      "startDate": -540,
+      "title": "Partial return under Persian rule"
+    },
+    {
+      "startDate": -480,
+      "title": "Judea, Babylonia and Elephantine"
+    },
+    {
+      "startDate": -330,
+      "title": "Hellenistic Jewish world expands into Egypt"
+    },
+    {
+      "startDate": -200,
+      "title": "Jewish communities expand across the eastern Mediterranean"
+    },
+    {
+      "startDate": -100,
+      "title": "Judea and a broad Mediterranean diaspora"
+    },
+    {
+      "startDate": 70,
+      "title": "After the destruction of the Second Temple"
+    },
+    {
+      "startDate": 117,
+      "title": "Diaspora Revolt reshapes major communities"
+    },
+    {
+      "startDate": 135,
+      "title": "Jewish life continues in Judea/Galilee, Babylonia and the Roman world"
+    }
+  ],
+  "cameraStates": [
+    {
+      "startDate": -1300,
+      "scale": 1.82,
+      "translateX": -10,
+      "translateY": 3,
+      "scope": "ancient Near East",
+      "centerX": 817,
+      "centerY": 322
+    },
+    {
+      "startDate": -760,
+      "scale": 1.58,
+      "translateX": -7,
+      "translateY": 2,
+      "scope": "ancient Near East",
+      "centerX": 810,
+      "centerY": 321
+    },
+    {
+      "startDate": -610,
+      "scale": 1.34,
+      "translateX": -4,
+      "translateY": 1,
+      "scope": "ancient Near East",
+      "centerX": 800,
+      "centerY": 318
+    },
+    {
+      "startDate": -520,
+      "scale": 1.18,
+      "translateX": -2,
+      "translateY": 0,
+      "scope": "eastern Mediterranean",
+      "centerX": 780,
+      "centerY": 310
+    },
+    {
+      "startDate": -330,
+      "scale": 1.05,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Mediterranean",
+      "centerX": 730,
+      "centerY": 302
+    },
+    {
+      "startDate": -200,
+      "scale": 0.94,
+      "translateX": 3,
+      "translateY": 0,
+      "scope": "Mediterranean",
+      "centerX": 704,
+      "centerY": 300
+    },
+    {
+      "startDate": -100,
+      "scale": 0.84,
+      "translateX": 7,
+      "translateY": 0,
+      "scope": "Mediterranean",
+      "centerX": 690,
+      "centerY": 300
+    }
+  ],
+  "timeline": {
+    "start": -1300,
+    "end": 200,
+    "range": 10000,
+    "quietWeight": 0.12,
+    "movementWeight": 2.8,
+    "changeWeight": 1.25,
+    "changeRadius": 7,
+    "ticks": [
+      -1300,
+      -720,
+      -539,
+      -205,
+      200
+    ]
+  },
+  "concentrationStyles": {
+    "very small": 0.1,
+    "small": 0.28,
+    "substantial": 0.58,
+    "major": 0.7,
+    "dominant center": 0.82
+  },
+  "pendingResearch": [
+    {
+      "id": "regional-displacement-722",
+      "dateRange": {
+        "start": -722,
+        "end": -720
+      },
+      "notes": "Northwest/west/southwest regional refugee branches require supported origins, endpoints or explicitly evidenced regional displacement fields before rendering."
+    },
+    {
+      "id": "regional-displacement-701",
+      "dateRange": {
+        "start": -701,
+        "end": -701
+      },
+      "notes": "No generic Judah-to-Assyria exile route. Supported regional displacement can be added without generating permanent endpoint communities."
+    }
+  ],
+  "migrationNotes": [
+    "The generic 701 BCE Lachish-to-Assyria movement was removed to comply with the explicit historical constraint.",
+    "Broken stars are licensed by communityDestructions records, not by deaths or population decline.",
+    "Legacy SVG opacity values remain rendering parameters; they are not numerical demographic estimates."
+  ],
+  "presentation": {
+    "openingYear": -1208,
+    "tourDurationMs": 20000,
+    "version": "Alpha 1.13",
+    "worldContext": []
+  }
+}
