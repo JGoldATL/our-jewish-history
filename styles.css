@@ -54,7 +54,7 @@ svg{display:block;width:100%;height:100%}
 #e.uncertainPresence .ring{stroke-dasharray:4 4}
 
 /* ===== base styles 5 ===== */
-.memorial{cursor:pointer;filter:drop-shadow(0 1px 2px #0003)}.memorial:focus{outline:none}.memorial:focus circle{stroke-width:3}.legendStar{display:inline-block;width:18px;height:18px;vertical-align:middle;margin-right:4px}.legend{max-width:255px}
+.memorial{cursor:pointer;filter:drop-shadow(0 1px 2px #0003)}.memorial:focus{outline:none}.memorial:focus .symbolShape{stroke:#286D95;stroke-width:3}.legendStar{display:inline-block;width:18px;height:18px;vertical-align:middle;margin-right:4px}.legend{max-width:255px}
 #declineNotice{margin:5px 0 2px;font:12px Arial;border-top:1px solid #ded5c6;padding-top:5px}#declineNotice[hidden]{display:none}.declineHeading{color:#777166}#declineReasons{display:flex;gap:6px;overflow-x:auto;padding:4px 0;max-width:100%}.reason{flex:0 0 auto;font:12px Arial;border:1px solid #c6bba9;border-radius:5px;padding:5px 7px;background:#f3efe5;color:#38342f;cursor:pointer}.reason.mass_killing{border-color:#a33b32;color:#8f2f29}.reason.uncertain{border-style:dashed}.reason:focus-visible{outline:2px solid #275d9b;outline-offset:1px}
 
 /* ===== base styles 6 ===== */
@@ -126,7 +126,7 @@ body{color:var(--ink)}header{padding:14px 18px 9px}h1{font:600 clamp(25px,3vw,38
 /* ===== map-navigation-polish ===== */
 html,body{height:auto;min-height:100%;overflow:auto}body{min-height:100dvh}.wrap{flex:none}.map{flex:none;height:clamp(260px,calc(100svh - 265px),900px);min-height:0;contain:layout paint}#historicalMap{touch-action:none;cursor:grab}#historicalMap.dragging{cursor:grabbing}.mapNav{position:absolute;top:10px;right:10px;display:flex;align-items:center;gap:5px;z-index:3}.mapNav button{min-width:36px;min-height:36px;border:1px solid #d3cebf;border-radius:6px;background:#fffaf5f5;color:#244b60;font:20px Arial;cursor:pointer;box-shadow:0 2px 7px #173f5017}.mapNav #followMap{font:600 11px Arial;padding:0 10px}.mapNav #followMap[aria-pressed="false"]{background:#244b60;color:white}.story{z-index:4}.selectionFocus .place{fill:#093348}.selectionFocus .dot{stroke:#fff;stroke-width:4}.selectionFocus.route{filter:drop-shadow(0 0 3px #ffffff)!important}.selectionFocus.density{stroke:#fff5df!important;stroke-width:2!important}.selectedLocation{fill:none;stroke:#fffaf0;stroke-width:2;vector-effect:non-scaling-stroke;pointer-events:none}
 header,.wrap{margin:0 auto}html{overflow-y:scroll;scrollbar-gutter:stable}
-.meanwhile a{font:11px Arial;color:#346a81;text-decoration:underline;margin-left:7px}.memorial.selectionFocus circle{stroke-width:3}
+.meanwhile a{font:11px Arial;color:#346a81;text-decoration:underline;margin-left:7px}.memorial.selectionFocus .symbolShape{stroke-width:3}
 @media(max-width:700px){.mapNav{top:9px;right:8px;gap:4px}.mapNav button{min-width:34px;min-height:35px}.mapNav #followMap{font-size:10px;padding:0 7px}.row{flex-wrap:wrap}.meanwhile{flex-basis:100%;max-width:100%;text-align:left;margin:0;font-size:11px}.meanwhile strong{margin-right:5px}.meanwhile span{display:inline}}
 @media(max-height:520px){.map{height:clamp(160px,calc(100svh - 205px),320px)}.openingPrompt{left:12px;right:auto;bottom:8px;width:min(500px,calc(100% - 24px));max-width:500px;padding:10px 12px}.openingPrompt .eyebrow,.openingPrompt .promptHint{display:none}.openingPrompt p{font-size:16px;line-height:1.2;margin:0}.openingPrompt .promptActions{margin-top:6px}.openingPrompt #introPlay{min-height:27px;padding:5px 10px;font-size:12px}}
 
