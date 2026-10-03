@@ -101,7 +101,7 @@ function ribbon(pts,tail,neck,headLen,headHalf){
 }
 
 /* ---------- timeline (same nonlinear weighting as Alpha 1.13) ---------- */
-let years=[],positions=[],position=0,milestones=[];
+let years=[],positions=[],position=0,milestones=[],GROUPS=new Map();
 function buildTimeline(){const cfg=DATA.timeline;let dist=0;years=[];positions=[];const dates=[...DATA.populations.flatMap(p=>(p.states||[]).map(s=>s.date)),...DATA.populationChanges.map(c=>c.startDate),...DATA.historicalEvents.map(e=>e.dateRange.start)];
   const movers=DATA.movements.filter(m=>canRenderMovement(m));
   for(let y=cfg.start;y<=cfg.end;y++){years.push(y);positions.push(dist);const move=Math.max(0,...movers.map(m=>fw(y,...movementWindow(m))));const change=Math.max(0,...dates.map(d=>Math.max(0,1-Math.abs(y-d)/cfg.changeRadius)));dist+=cfg.quietWeight+cfg.movementWeight*move+cfg.changeWeight*change;}
@@ -110,7 +110,13 @@ const posForYear=y=>positions[Math.max(0,Math.min(years.length-1,Math.round(y)-D
 function yearAt(pos){pos=Math.max(0,Math.min(1,pos));let lo=0,hi=positions.length-1;while(lo<hi){const m=(lo+hi)>>1;if(positions[m]<pos)lo=m+1;else hi=m;}if(lo===0)return years[0];const a=positions[lo-1],b=positions[lo];return years[lo-1]+(pos-a)/(b-a||1);}
 function buildMilestones(){milestones=[];const add=(col,type)=>{for(const r of col){const date=type==='movement'?(r.dateRange?.start??r.rendering?.window?.[1]):type==='event'?r.dateRange?.start:r.startDate;if(Number.isFinite(date)&&date>=DATA.timeline.start&&date<=DATA.timeline.end)milestones.push({record:r,type,date});}};
   add(DATA.populations,'population');add(DATA.movements,'movement');add(DATA.historicalEvents,'event');add(DATA.communityDestructions,'destruction');add(DATA.populationChanges,'change');milestones.sort((a,b)=>a.date-b.date);
+  // One card per event. (1) Branches of one event (same title and date, e.g. the three Assyrian routes) share a single card; the card shows all branches.
+  // (2) A destruction card replaces the community-change card about the same event (same title): destruction, murder and exile come first.
+  GROUPS=new Map();const destroyed=new Set(milestones.filter(m=>m.type==='destruction').map(m=>m.record.title)),first=new Map();
+  milestones=milestones.filter(m=>{if(m.type==='change'&&destroyed.has(m.record.title))return false;
+    if(m.type==='movement'){const k=m.date+'|'+m.record.title,f=first.get(k);if(f){GROUPS.get(f.record).push(m.record);GROUPS.set(m.record,GROUPS.get(f.record));return false;}first.set(k,m);GROUPS.set(m.record,[m.record]);}return true;});
 }
+const sameCard=(r,q)=>!!r&&!!q&&(r===q||(GROUPS.get(r)||[]).includes(q));
 
 /* ---------- state ---------- */
 let trails=false,tour=null,selected=null,promptOpen=true,lastAutoIdx=-1;
@@ -183,7 +189,7 @@ function render(){
     if(traditional){el('path',{d,class:'routeTrad'},g);}
     else{const [c1,c2]=COLORS[fm.color]||COLORS['#6d6256'];const gid='rg-'+m.id;const lg=el('linearGradient',{id:gid,class:'dyn',x1:0,y1:0,x2:0,y2:1},defs);el('stop',{offset:0,'stop-color':c1},lg);el('stop',{offset:1,'stop-color':c2},lg);
       el('path',{d,class:'routeShadow',transform:`translate(${2*scale} ${3.5*scale})`},g);el('path',{d,fill:`url(#${gid})`,class:'routeBody'},g);}
-    if(selected?.record===m)g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(m,'movement');});g.addEventListener('keydown',e=>{if(e.key==='Enter'){openStory(m,'movement');}});}
+    if(sameCard(selected?.record,m))g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(m,'movement');});g.addEventListener('keydown',e=>{if(e.key==='Enter'){openStory(m,'movement');}});}
   // historical events (e.g. Lachish)
   for(const fe of frame.events){if(fe.opacity<=.02)continue;const e=DATA.historicalEvents.find(r=>r.id===fe.id);const pl=INDEX.places.get(e.place);const q=P(pl?.coordinates||e.rendering.position);if(!q.vis)continue;const g=el('g',{class:'event',transform:`translate(${q.x} ${q.y})`,opacity:fe.opacity.toFixed(2),tabindex:0,role:'button','aria-label':e.title},layers.mark);el('rect',{x:-5,y:-5,width:10,height:10,transform:'rotate(45)',class:'eventMark'},g);g.addEventListener('click',()=>{if(!dragMoved)openStory(e,'event');});if(e.rendering?.label)labels.push({text:e.rendering.label,x:q.x,y:q.y,side:'below',prio:0,record:e});}
   // community symbols: anchored at the community's own place
@@ -234,7 +240,7 @@ function setPlayUI(playing){$('playIco').setAttribute('d',playing?ICO_PAUSE:ICO_
 let turnAnim=null;
 function cancelTurn(){if(turnAnim!=null)cancelAnimationFrame(turnAnim);turnAnim=null;}
 function recordPlaces(record,type){const pl=id=>INDEX.places.get(id)?.coordinates;
-  if(type==='movement')return [record.originCoordinates||pl(record.origin),record.destinationCoordinates||pl(record.destination)].filter(Boolean);
+  if(type==='movement'){const g=GROUPS.get(record)||[record];return [g[0].originCoordinates||pl(g[0].origin),...g.map(r=>r.destinationCoordinates||pl(r.destination))].filter(Boolean);}
   if(type==='event')return [pl(record.place)||record.rendering?.position].filter(Boolean);
   const pop=DATA.populations.find(p=>p.id===(type==='population'?record.id:record.populationId));
   return [type==='population'?record.coordinates||pl(record.place):pop?.coordinates||pl(pop?.place)||pl(record.place)].filter(Boolean);}
@@ -291,7 +297,10 @@ function initInteraction(){
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('sourcesDlg').hidden){$('sourcesDlg').hidden=true;return;}if(!$('key').hidden){$('key').hidden=true;return;}if(promptOpen){dismissPrompt();return;}if(selected)closeStory();}});
   window.addEventListener('resize',()=>requestAnimationFrame(layout));
 }
-function step(dir){const y=Math.round(currentYear());let i=lastMilestoneIdx(y);if(dir>0){i=milestones.findIndex(m=>m.date>y);if(i<0)return;}else{while(i>=0&&milestones[i].date>=y)i--;if(i<0)return;}selectMilestone(i);}
+function step(dir){const y=Math.round(currentYear());let i=selected?milestones.findIndex(m=>m.type===selected.type&&sameCard(m.record,selected.record)):-1;   // from the open card, go to the next / previous card (cards that share a year are all reached)
+  if(i<0){i=lastMilestoneIdx(y);if(dir>0){i=milestones.findIndex(m=>m.date>y);if(i<0)return;}else{while(i>=0&&milestones[i].date>=y)i--;if(i<0)return;}}
+  else{i+=dir;if(i<0||i>=milestones.length)return;}
+  selectMilestone(i);}
 function selectMilestone(i){const m=milestones[i];if(!m)return;stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();turnToRecord(m.record,m.type);if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
 
 /* ---------- boot ---------- */
