@@ -26,6 +26,13 @@ for(const [name,dev,all] of [['desktop',devices['Desktop Chrome'],true],['iphone
   const z0=await p.evaluate(()=>+view.zoom.toFixed(3)),id0=await p.evaluate(()=>selected?.record.id);await press('#next');await p.waitForTimeout(1100);const r=await probe();if(r.id===id0)break;   // no later card: Next does nothing
   r.zoomBefore=z0;r.zoomKept=Math.abs(r.zoom-z0)<.002;rows.push(r);}
  const missed=rows.filter(r=>!r.inView||r.animating),zoomChanged=rows.filter(r=>!r.zoomKept).map(r=>`${r.title} (${r.zoomBefore}→${r.zoom}, deg ${r.deg}, ${r.n} places)`);
+ // 2b. every card is reachable: from the first card, Next visits every card once, in order; Previous walks back; no duplicates by title
+ if(name==='desktop'){const walk=await p.evaluate(async()=>{closeStory();setYearExact(-1300);const want=milestones.map(m=>m.record.id),got=[];selectMilestone(0);got.push(selected.record.id);for(let i=0;i<60;i++){const before=selected.record.id;step(1);if(selected.record.id===before)break;got.push(selected.record.id);}
+   const back=[];for(let i=0;i<60;i++){const before=selected.record.id;step(-1);if(selected.record.id===before)break;back.push(selected.record.id);}
+   const titles=milestones.map(m=>m.type+'|'+m.record.title),dup=titles.filter((t,i)=>titles.indexOf(t)!==i);
+   const destroyedTitles=milestones.filter(m=>m.type==='destruction').map(m=>m.record.title),changeClash=milestones.filter(m=>m.type==='change'&&destroyedTitles.includes(m.record.title)).map(m=>m.record.title);
+   return {cards:want.length,reached:got.length,inOrder:JSON.stringify(got)===JSON.stringify(want),backOk:back.length===want.length-1&&JSON.stringify(back)===JSON.stringify(want.slice(0,-1).reverse()),dup,changeClash};});
+  console.log('desktop walk',JSON.stringify(walk));if(!(walk.reached===walk.cards&&walk.inOrder&&walk.backOk&&!walk.dup.length&&!walk.changeClash.length)){bad++;console.log('walk FAIL');}}
  // 3. Previous works the same way, and touching the globe cancels a turn in progress
  await p.evaluate(()=>{view.lon+=120;view.lat=-35;view.manual=true;render();});await press('#prev');await p.waitForTimeout(1100);const prev=await probe();
  await p.evaluate(()=>{view.lon+=150;view.lat=30;view.manual=true;render();});await press('#next');await p.waitForTimeout(200);const mid=await p.evaluate(()=>turnAnim!=null);
