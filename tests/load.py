@@ -163,6 +163,23 @@ with tempfile.TemporaryDirectory() as td:
     check('an unknown Place ID rejects the movement with the reason',
           any(r['id'] == 'MOV-001' and 'not in the Places tab' in r['reason'] for r in rep['rejects']) and 'MOV-001' not in mv)
 
+    x9 = td / 'nine.xlsx'
+    wb = openpyxl.load_workbook(x7); wsP = wb['Places']
+    wsP.cell(3, 5).value = None; wsP.cell(3, 6).value = None            # place-b-c: no coordinates yet
+    wb.save(x9)
+    p, rep = run(x9, hist)
+    d9 = json.loads(hist.read_text())['sheet']; pl = {q['id']: q for q in d9['places']}; mv = {m['id']: m for m in d9['movements']}
+    check('a Place with no coordinates loads with a warning and is not guessed',
+          p.returncode == 0 and 'place-b-c' in pl and pl['place-b-c']['lat'] is None
+          and any(w['id'] == 'place-b-c' and 'no latitude/longitude' in w['note'] for w in rep['warnings']))
+    check('a movement to a Place with no coordinates is not marked ready to draw',
+          'MOV-001' in mv and mv['MOV-001']['arrowEndsReady'] is False and rep['movementsWithArrowEnds'] == 0)
+    x10 = td / 'ten.xlsx'
+    wb = openpyxl.load_workbook(x7); wb['Places'].cell(3, 5).value = 95.0; wb['Places'].cell(3, 6).value = None; wb.save(x10)
+    p, rep = run(x10, hist)
+    check('a Place with a bad or half-filled coordinate is still rejected',
+          any(r['id'] == 'place-b-c' and 'latitude/longitude' in r['reason'] for r in rep['rejects']))
+
     p, rep = run(x1, hist)
     check('Sheet without the Place ID columns still loads and says the columns are missing',
           p.returncode == 0 and rep['missingOptionalMovementColumns'] == ['Destination place ID', 'Origin place ID'] and rep['movementsWithArrowEnds'] == 0, rep['missingOptionalMovementColumns'])

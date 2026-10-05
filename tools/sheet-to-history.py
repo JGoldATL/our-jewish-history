@@ -175,11 +175,16 @@ def build(wb, rep):
         raw[tab] = keep
 
     # places
-    places, place_ids = [], set()
+    places, place_ids, placed = [], set(), set()
     for r in raw['Places']:
-        if num(r['lat']) is None or num(r['lon']) is None or not (-90 <= r['lat'] <= 90 and -180 <= r['lon'] <= 180):
+        no_coords = r['lat'] in (None, '') and r['lon'] in (None, '')
+        if no_coords:
+            r['lat'] = r['lon'] = None
+            rep.warn('Places', r['id'], r['_row'], 'no latitude/longitude yet: the place loads, but nothing can be drawn there until coordinates are supplied')
+        elif num(r['lat']) is None or num(r['lon']) is None or not (-90 <= r['lat'] <= 90 and -180 <= r['lon'] <= 180):
             rep.reject('Places', r['id'], r['_row'], 'latitude/longitude missing or out of range'); continue
         place_ids.add(r['id'])
+        if r['lat'] is not None: placed.add(r['id'])
         places.append({'id': r['id'], 'historicalName': r['historicalName'], 'modernName': r['modernName'],
                        'role': r['role'], 'lat': r['lat'], 'lon': r['lon'],
                        'landOfIsrael': str(r['landOfIsrael'] or '').lower() == 'yes'})
@@ -306,7 +311,8 @@ def build(wb, rep):
         movements.append({'id': r['id'], 'eventId': r['eventId'], 'startYear': y[0], 'endYear': y[1],
                           'dateDisplay': r['dateDisplay'], 'origin': r['origin'], 'destination': r['destination'],
                           'originPlaceId': ends['originPlaceId'], 'destinationPlaceId': ends['destinationPlaceId'],
-                          'arrowEndsReady': ends['originPlaceId'] is not None and ends['destinationPlaceId'] is not None,
+                          'arrowEndsReady': ends['originPlaceId'] is not None and ends['destinationPlaceId'] is not None
+                                            and ends['originPlaceId'] in placed and ends['destinationPlaceId'] in placed,
                           'arrowTreatment': arrow, 'links': lk})
 
     context = []
