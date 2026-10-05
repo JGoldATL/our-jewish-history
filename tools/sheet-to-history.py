@@ -302,7 +302,7 @@ def build(wb, rep):
         if bad_end: continue
         if (ends['originPlaceId'] is None) != (ends['destinationPlaceId'] is None) and (
                 'originPlaceId' in r and 'destinationPlaceId' in r):
-            rep.warn('Movements', r['id'], r['_row'], 'only one end has a Place ID, so no arrow can be drawn')
+            rep.warn('Movements', r['id'], r['_row'], 'only one end has a Place ID (general location only), so no arrow can be drawn')
         movements.append({'id': r['id'], 'eventId': r['eventId'], 'startYear': y[0], 'endYear': y[1],
                           'dateDisplay': r['dateDisplay'], 'origin': r['origin'], 'destination': r['destination'],
                           'originPlaceId': ends['originPlaceId'], 'destinationPlaceId': ends['destinationPlaceId'],
