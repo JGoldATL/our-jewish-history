@@ -8,6 +8,7 @@ Headless-browser checks for the globe (Playwright + Chromium). Run from the repo
     NODE_PATH=$(npm root -g) node tests/sym.js     # symbols, revolt timing, key, sources
     NODE_PATH=$(npm root -g) node tests/pause.js   # Play / Pause on touch devices, icon shapes
     NODE_PATH=$(npm root -g) node tests/follow.js  # Previous / Next turn the globe to the card's place
+    NODE_PATH=$(npm root -g) node tests/links.js   # clicking a map object opens its Sheet card (data.cardLinks)
 
     python3 tests/load.py                          # Sheet loader (tools/sheet-to-history.py); needs: pip install openpyxl
 
@@ -18,7 +19,7 @@ reason (never silently fixed). It does not need the real Sheet. Loading the real
 Set SITE=... to test another address. Screenshots go to tests/out/reg/ (not committed).
 
 What a passing run looks like (Oct 2, 2026, commit 19e63bc):
-- reg.js: validate "0 issues"; sweep 1501 years, 0 mismatches; endpoints [-1300, 200];
+- reg.js: validate "0 issues"; sweep 2201 years, 0 mismatches; endpoints [-2000, 200];
   33 cards (the Sheet's cards, from data/history.json "sheet"; add ?engine=1 to see the old 30-card engine list), kinds Event / Community / Movement / Archaeology, bad []; no page errors
   (Google Fonts may fail to load in a sandbox; that is the network, not the site);
   iPhone / iPad portrait / iPad landscape: no errors, no sideways scroll.

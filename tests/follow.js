@@ -10,12 +10,12 @@ for(const [name,dev,all] of [['desktop',devices['Desktop Chrome'],true],['iphone
  const probe=()=>p.evaluate(()=>{const pts=recordLonLats(selected.record,selected.type),st=$('stage'),w=st.clientWidth,h=st.clientHeight;
    return {id:selected.record.id,title:selected.record.title,n:pts.length,zoom:+view.zoom.toFixed(3),deg:+view.deg.toFixed(2),inView:pts.every(([lo,la])=>{const q=project(lo,la);return q.vis&&q.x>0&&q.x<w&&q.y>0&&q.y<h;}),animating:turnAnim!=null};});
  // 0. follow mode (user has not touched the globe): the story camera should already show each card's place
- await p.evaluate(()=>{dismissPrompt();setYearExact(-1300);closeStory();});
+ await p.evaluate(()=>{dismissPrompt();setYearExact(-2000);closeStory();});
  const follow=[];const cards=await p.evaluate(()=>milestones.length);
  for(let i=0;i<(all?cards:4);i++){await press('#next');await p.waitForTimeout(250);const r=await probe();if(!r.inView)follow.push(r.title);}
  console.log(name,'follow mode: cards not in view:',JSON.stringify(follow));
  // 1. real drag + wheel zoom, then Next
- await p.evaluate(()=>{closeStory();setYearExact(-1300);});
+ await p.evaluate(()=>{closeStory();setYearExact(-2000);});
  const box=await p.locator('#ov').boundingBox(),cx=box.x+box.width/2,cy=box.y+box.height*.45;
  if(name==='desktop'){await p.mouse.move(cx,cy);await p.mouse.down();await p.mouse.move(cx-260,cy+60,{steps:8});await p.mouse.up();await p.mouse.move(cx,cy);await p.mouse.wheel(0,-500);}
  else{await p.evaluate(()=>{view.lon+=140;view.lat=-40;view.manual=true;setZoom(2);});}
@@ -27,7 +27,7 @@ for(const [name,dev,all] of [['desktop',devices['Desktop Chrome'],true],['iphone
   r.zoomBefore=z0;r.zoomKept=Math.abs(r.zoom-z0)<.002;rows.push(r);}
  const missed=rows.filter(r=>!r.inView||r.animating),zoomChanged=rows.filter(r=>!r.zoomKept).map(r=>`${r.title} (${r.zoomBefore}→${r.zoom}, deg ${r.deg}, ${r.n} places)`);
  // 2b. every card is reachable: from the first card, Next visits every card once, in order; Previous walks back; no duplicates by title
- if(name==='desktop'){const walk=await p.evaluate(async()=>{closeStory();setYearExact(-1300);const want=milestones.map(m=>m.record.id),got=[];selectMilestone(0);got.push(selected.record.id);for(let i=0;i<60;i++){const before=selected.record.id;step(1);if(selected.record.id===before)break;got.push(selected.record.id);}
+ if(name==='desktop'){const walk=await p.evaluate(async()=>{closeStory();setYearExact(-2000);const want=milestones.map(m=>m.record.id),got=[];selectMilestone(0);got.push(selected.record.id);for(let i=0;i<60;i++){const before=selected.record.id;step(1);if(selected.record.id===before)break;got.push(selected.record.id);}
    const back=[];for(let i=0;i<60;i++){const before=selected.record.id;step(-1);if(selected.record.id===before)break;back.push(selected.record.id);}
    const titles=milestones.map(m=>m.type+'|'+m.record.title),dup=titles.filter((t,i)=>titles.indexOf(t)!==i);
    const destroyedTitles=milestones.filter(m=>m.type==='destruction').map(m=>m.record.title),changeClash=milestones.filter(m=>m.type==='change'&&destroyedTitles.includes(m.record.title)).map(m=>m.record.title);

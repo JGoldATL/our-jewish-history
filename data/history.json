@@ -2330,7 +2330,7 @@
   ],
   "eras": [
     {
-      "startDate": -1300,
+      "startDate": -2000,
       "title": "Before the traditional Exodus narrative"
     },
     {
@@ -2396,7 +2396,7 @@
   ],
   "cameraStates": [
     {
-      "startDate": -1300,
+      "startDate": -2000,
       "scale": 1.82,
       "translateX": -10,
       "translateY": 3,
@@ -2460,7 +2460,7 @@
     }
   ],
   "timeline": {
-    "start": -1300,
+    "start": -2000,
     "end": 200,
     "range": 10000,
     "quietWeight": 0.12,
@@ -2468,12 +2468,15 @@
     "changeWeight": 1.25,
     "changeRadius": 7,
     "ticks": [
+      -2000,
       -1300,
       -720,
       -539,
       -205,
       200
-    ]
+    ],
+    "earlyUntil": -1300,
+    "earlyQuietWeight": 0.03
   },
   "concentrationStyles": {
     "very small": 0.1,
@@ -6977,5 +6980,29 @@
         "meanwhileStatus": "approved"
       }
     ]
-  }
+  },
+  "cardLinks": {
+    "exodus": "EVT-0002",
+    "assyria": "EVT-0009",
+    "assyria2": "EVT-0009",
+    "assyria3": "EVT-0009",
+    "d": "EVT-0013",
+    "r": "EVT-0016",
+    "asiaMovement": "EVT-0021",
+    "romeMovement": "EVT-0025",
+    "egyptMovement": "EVT-0019",
+    "cyreneMovement": "EVT-0020",
+    "lachish": "EVT-0011",
+    "destruction-jerusalem70": "EVT-0027",
+    "destruction-alexandria117": "DES-002",
+    "destruction-cyrene117": "DES-003",
+    "destruction-cyprus117": "DES-004",
+    "e": "EVT-0018",
+    "alexNode": "EVT-0019",
+    "cyreneNode": "EVT-0020",
+    "romeNode": "EVT-0024",
+    "cyprusNode": "EVT-0026",
+    "b": "EVT-0015"
+  },
+  "cardLinksNote": "Maps an engine map object (arrow, community, symbol) to the Sheet card shown when it is clicked. Movement links follow the Sheet Movements tab (eventId) and the Oct 5 Place ID mapping; the rest are matched by place and title. Objects not listed open their own engine text. Review with the dataset chat."
 }

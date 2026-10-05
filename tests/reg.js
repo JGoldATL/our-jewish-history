@@ -3,8 +3,8 @@ const {chromium,devices}=require('playwright');const S=process.argv[2]||'tests/o
 const p=await b.newPage({viewport:{width:1440,height:900}});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error')errs.push(m.text())});p.on('requestfailed',r=>errs.push('FAIL '+r.url()));
 await p.goto(''+(process.env.SITE||'http://localhost:8778/')+'');await p.waitForTimeout(2500);
 out.validate=await p.evaluate(()=>{try{const r=validateHistory(DATA);return Array.isArray(r)?r.length+' issues':JSON.stringify(r).slice(0,200)}catch(e){return 'ERR '+e.message}});
-// 1501 integer-year sweep: engine says visible vs drawn
-out.sweep=await p.evaluate(()=>{dismissPrompt();let miss=[],years=0;for(let y=-1300;y<=200;y++){setYearExact(y);years++;const f=computeFrame(y);
+// 2201 integer-year sweep: engine says visible vs drawn
+out.sweep=await p.evaluate(()=>{dismissPrompt();let miss=[],years=0;for(let y=-2000;y<=200;y++){setYearExact(y);years++;const f=computeFrame(y);
  const wantM=f.movements.filter(m=>m.visible&&m.opacity>.01).length,gotM=document.querySelectorAll('#lRoute .route').length;
  const wantE=f.events.filter(e=>e.opacity>.02).length,gotE=document.querySelectorAll('#lMark .event').length;
  if(wantM!==gotM||wantE!==gotE)miss.push([y,wantM,gotM,wantE,gotE]);}return {years,mismatches:miss.length,sample:miss.slice(0,12)}});
