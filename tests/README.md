@@ -9,6 +9,12 @@ Headless-browser checks for the globe (Playwright + Chromium). Run from the repo
     NODE_PATH=$(npm root -g) node tests/pause.js   # Play / Pause on touch devices, icon shapes
     NODE_PATH=$(npm root -g) node tests/follow.js  # Previous / Next turn the globe to the card's place
 
+    python3 tests/load.py                          # Sheet loader (tools/sheet-to-history.py); needs: pip install openpyxl
+
+load.py builds a tiny workbook with planted internal text and checks: only public fields reach history.json, drafts load in preview and
+are dropped by --public, a re-run of the same export changes nothing, an edit touches only its own record, bad records are rejected with a
+reason (never silently fixed). It does not need the real Sheet. Loading the real Sheet: see the header of tools/sheet-to-history.py.
+
 Set SITE=... to test another address. Screenshots go to tests/out/reg/ (not committed).
 
 What a passing run looks like (Oct 2, 2026, commit 19e63bc):
