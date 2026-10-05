@@ -2517,7 +2517,7 @@
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.1",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
       "sheetModified": "2026-10-05T21:00:00Z",
-      "exportSha256": "5b3b92a17ec74fb4",
+      "exportSha256": "6a88f59d28a289b4",
       "mode": "preview",
       "counts": {
         "places": 76,
@@ -3129,8 +3129,8 @@
         "historicalName": "Assyrian sphere, west branch",
         "modernName": null,
         "role": "region",
-        "lat": null,
-        "lon": null,
+        "lat": 35,
+        "lon": 42,
         "landOfIsrael": false
       },
       {
@@ -3138,8 +3138,8 @@
         "historicalName": "Assyrian sphere, central branch",
         "modernName": null,
         "role": "region",
-        "lat": null,
-        "lon": null,
+        "lat": 35.6,
+        "lon": 43,
         "landOfIsrael": false
       },
       {
@@ -3147,8 +3147,8 @@
         "historicalName": "Assyrian sphere, east branch",
         "modernName": null,
         "role": "region",
-        "lat": null,
-        "lon": null,
+        "lat": 34.4,
+        "lon": 47,
         "landOfIsrael": false
       },
       {
@@ -3156,8 +3156,8 @@
         "historicalName": "German-speaking lands",
         "modernName": "Germany, Austria, Switzerland, Bohemia",
         "role": "region",
-        "lat": null,
-        "lon": null,
+        "lat": 50,
+        "lon": 10,
         "landOfIsrael": false
       },
       {
@@ -3165,8 +3165,8 @@
         "historicalName": "East-central Europe",
         "modernName": "Poland, Bohemia, Hungary",
         "role": "region",
-        "lat": null,
-        "lon": null,
+        "lat": 50,
+        "lon": 19,
         "landOfIsrael": false
       },
       {
@@ -3174,8 +3174,8 @@
         "historicalName": "Ottoman lands",
         "modernName": null,
         "role": "region",
-        "lat": null,
-        "lon": null,
+        "lat": 39,
+        "lon": 35,
         "landOfIsrael": false
       },
       {
@@ -3183,8 +3183,8 @@
         "historicalName": "Mediterranean",
         "modernName": null,
         "role": "region",
-        "lat": null,
-        "lon": null,
+        "lat": 35,
+        "lon": 18,
         "landOfIsrael": false
       },
       {
@@ -3192,8 +3192,8 @@
         "historicalName": "Pale of Settlement",
         "modernName": "Lithuania, Belarus, Ukraine, Poland, Moldova",
         "role": "region",
-        "lat": null,
-        "lon": null,
+        "lat": 52.5,
+        "lon": 27,
         "landOfIsrael": false
       },
       {
@@ -3201,8 +3201,8 @@
         "historicalName": "Central Europe",
         "modernName": null,
         "role": "region",
-        "lat": null,
-        "lon": null,
+        "lat": 49,
+        "lon": 16,
         "landOfIsrael": false
       },
       {
@@ -3210,8 +3210,8 @@
         "historicalName": "Eastern Europe",
         "modernName": null,
         "role": "region",
-        "lat": null,
-        "lon": null,
+        "lat": 50,
+        "lon": 32,
         "landOfIsrael": false
       }
     ],
@@ -5197,7 +5197,7 @@
         "destination": "Assyrian sphere (schematic)",
         "originPlaceId": "place-samaria",
         "destinationPlaceId": "place-assyria-west",
-        "arrowEndsReady": false,
+        "arrowEndsReady": true,
         "arrowTreatment": "Red",
         "links": [
           "POP-002"
@@ -5406,7 +5406,7 @@
         "destination": "East-central Europe",
         "originPlaceId": "place-german-lands",
         "destinationPlaceId": "place-east-central-europe",
-        "arrowEndsReady": false,
+        "arrowEndsReady": true,
         "arrowTreatment": "Charcoal (several routes)",
         "links": [
           "POP-043"
@@ -5468,7 +5468,7 @@
         "destination": "Constantinople",
         "originPlaceId": "place-ottoman-lands",
         "destinationPlaceId": "place-constantinople",
-        "arrowEndsReady": false,
+        "arrowEndsReady": true,
         "arrowTreatment": "Red",
         "links": [
           "POP-044"
@@ -5514,7 +5514,7 @@
         "destination": "Ottoman cities",
         "originPlaceId": "place-iberia",
         "destinationPlaceId": "place-ottoman-lands",
-        "arrowEndsReady": false,
+        "arrowEndsReady": true,
         "arrowTreatment": "Charcoal (relocation)",
         "links": [
           "POP-044"
@@ -5530,7 +5530,7 @@
         "destination": "Safed; Jerusalem",
         "originPlaceId": "place-mediterranean",
         "destinationPlaceId": "place-safed",
-        "arrowEndsReady": false,
+        "arrowEndsReady": true,
         "arrowTreatment": "Blue",
         "links": [
           "POP-045"
@@ -5688,7 +5688,7 @@
         "destination": "Odessa; large cities",
         "originPlaceId": "place-pale-of-settlement",
         "destinationPlaceId": "place-odessa",
-        "arrowEndsReady": false,
+        "arrowEndsReady": true,
         "arrowTreatment": "Charcoal",
         "links": [
           "POP-060"
@@ -5750,7 +5750,7 @@
         "destination": "United States",
         "originPlaceId": "place-central-europe",
         "destinationPlaceId": "place-us",
-        "arrowEndsReady": false,
+        "arrowEndsReady": true,
         "arrowTreatment": "Charcoal",
         "links": [
           "POP-063"
@@ -5766,7 +5766,7 @@
         "destination": "United States",
         "originPlaceId": "place-eastern-europe",
         "destinationPlaceId": "place-us",
-        "arrowEndsReady": false,
+        "arrowEndsReady": true,
         "arrowTreatment": "Charcoal (red only for specific persecution-driven flight records)",
         "links": [
           "CHG-026"
@@ -5796,7 +5796,7 @@
         "destination": "Land of Israel",
         "originPlaceId": "place-eastern-europe",
         "destinationPlaceId": "place-israel",
-        "arrowEndsReady": false,
+        "arrowEndsReady": true,
         "arrowTreatment": "Blue (multiple routes)",
         "links": [
           "CHG-028",
@@ -5813,7 +5813,7 @@
         "destination": "Argentina",
         "originPlaceId": "place-eastern-europe",
         "destinationPlaceId": "place-argentina",
-        "arrowEndsReady": false,
+        "arrowEndsReady": true,
         "arrowTreatment": "Charcoal (relocation)",
         "links": [
           "POP-069"
@@ -5845,7 +5845,7 @@
         "destination": "Land of Israel",
         "originPlaceId": "place-eastern-europe",
         "destinationPlaceId": "place-israel",
-        "arrowEndsReady": false,
+        "arrowEndsReady": true,
         "arrowTreatment": "Blue",
         "links": [
           "POP-071"
