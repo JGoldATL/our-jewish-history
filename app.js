@@ -108,7 +108,14 @@ function buildTimeline(){const cfg=DATA.timeline;let dist=0;years=[];positions=[
   const tot=positions.at(-1);positions=positions.map(p=>p/tot);}
 const posForYear=y=>positions[Math.max(0,Math.min(years.length-1,Math.round(y)-DATA.timeline.start))];
 function yearAt(pos){pos=Math.max(0,Math.min(1,pos));let lo=0,hi=positions.length-1;while(lo<hi){const m=(lo+hi)>>1;if(positions[m]<pos)lo=m+1;else hi=m;}if(lo===0)return years[0];const a=positions[lo-1],b=positions[lo];return years[lo-1]+(pos-a)/(b-a||1);}
-function buildMilestones(){milestones=[];const add=(col,type)=>{for(const r of col){const date=type==='movement'?(r.dateRange?.start??r.rendering?.window?.[1]):type==='event'?r.dateRange?.start:r.startDate;if(Number.isFinite(date)&&date>=DATA.timeline.start&&date<=DATA.timeline.end)milestones.push({record:r,type,date});}};
+// Cards come from the master Sheet (data/history.json "sheet" section: every card the loader kept, in Sheet order within a year).
+// The engine records still draw the map (communities, arrows, symbols); they no longer decide which cards exist. Add ?engine=1 to the address to see the old engine card list.
+let SHEETPLACES=new Map();
+function sheetCardMilestones(){const sc=DATA.sheet?.cards;if(!sc?.length||/[?&]engine=1/.test(location.search))return null;
+  SHEETPLACES=new Map((DATA.sheet.places||[]).map(p=>[p.id,p]));
+  // A card dated before the timeline begins (Abraham, c. 2000 BCE) is placed at the first year of the timeline; its own date still shows on the card.
+  return sc.map(c=>({record:c,type:'sheet',date:Math.max(DATA.timeline.start,Math.round(c.startYear))})).filter(m=>Number.isFinite(m.date)&&m.date<=DATA.timeline.end).sort((a,b)=>a.date-b.date);}
+function buildMilestones(){milestones=[];GROUPS=new Map();const fromSheet=sheetCardMilestones();if(fromSheet){milestones=fromSheet;return;}const add=(col,type)=>{for(const r of col){const date=type==='movement'?(r.dateRange?.start??r.rendering?.window?.[1]):type==='event'?r.dateRange?.start:r.startDate;if(Number.isFinite(date)&&date>=DATA.timeline.start&&date<=DATA.timeline.end)milestones.push({record:r,type,date});}};
   add(DATA.populations,'population');add(DATA.movements,'movement');add(DATA.historicalEvents,'event');add(DATA.communityDestructions,'destruction');add(DATA.populationChanges,'change');milestones.sort((a,b)=>a.date-b.date);
   // One card per event. (1) Branches of one event (same title and date, e.g. the three Assyrian routes) share a single card; the card shows all branches.
   // (2) A destruction card replaces the community-change card about the same event (same title): destruction, murder and exile come first.
@@ -217,8 +224,8 @@ function lastMilestoneIdx(y){let idx=-1;for(let i=0;i<milestones.length;i++)if(m
 
 /* ---------- story ---------- */
 function openStory(record,type){stopTour();dismissPrompt();selected={record,type};fillStory(record,type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
-function fillStory(record,type,user){const kind={movement:'Movement',population:'Community',change:'Community',destruction:'Event',event:'Event'}[type]||'';
-  $('storyKicker').textContent=kind;$('storyDate').textContent=record.date||'';$('storyTitle').textContent=record.title||record.historicalPlaceName||'';$('storyText').textContent=record.story||'';
+function fillStory(record,type,user){const kind=type==='sheet'?record.type:{movement:'Movement',population:'Community',change:'Community',destruction:'Event',event:'Event'}[type]||'';
+  $('storyKicker').textContent=kind+(type==='sheet'&&record.status==='draft'?' · Draft':'');$('storyDate').textContent=record.date||'';$('storyTitle').textContent=record.title||record.historicalPlaceName||'';$('storyText').textContent=type==='sheet'?record.description||'':record.story||'';
   const mw=kind==='Event'&&record.meanwhile;$('storyMeanwhile').hidden=!mw;$('storyMeanwhileText').textContent=mw?' '+record.meanwhile:'';
   $('closeStory').hidden=!user;$('story').classList.toggle('pinned',!!user);}
 function openSources(){const list=$('allSources');if(!list.childElementCount){for(const src of [...DATA.sources].sort((a,b)=>(a.title||'').localeCompare(b.title||''))){const row=document.createElement('li');const a=document.createElement(src.url?'a':'span');if(src.url){a.href=src.url;a.target='_blank';a.rel='noopener';}a.textContent=src.title||src.id;row.appendChild(a);if(src.supports){const sm=document.createElement('small');sm.textContent=src.supports;row.appendChild(sm);}list.appendChild(row);}}$('sourcesDlg').hidden=false;$('sourcesClose').focus();}
@@ -247,9 +254,10 @@ function recordPlaces(record,type){const pl=id=>INDEX.places.get(id)?.coordinate
 function meanLonLat(pts){let x=0,y=0,z=0;for(const [lo,la] of pts){const a=lo*D2R,b=la*D2R;x+=Math.cos(b)*Math.cos(a);y+=Math.cos(b)*Math.sin(a);z+=Math.sin(b);}return [Math.atan2(y,x)/D2R,Math.atan2(z,Math.hypot(x,y))/D2R];}
 function placesFit(pts,s){const keep={lon:view.lon,lat:view.lat,zoom:view.zoom,R:view.R,deg:view.deg};Object.assign(view,{lon:s.lon,lat:s.lat,zoom:s.zoom,R:view.baseR*s.zoom,deg:s.deg});
   const st=$('stage'),w=st.clientWidth,h=st.clientHeight,m=Math.min(44,w*.08);const ok=pts.every(([lo,la])=>{const q=project(lo,la);return q.vis&&q.depth<1&&q.x>=m&&q.x<=w-m&&q.y>=m&&q.y<=h-m;});Object.assign(view,keep);return ok;}
+function recordLonLats(record,type){if(type==='sheet'){const p=SHEETPLACES.get(record.placeId);return p&&Number.isFinite(p.lat)&&Number.isFinite(p.lon)?[[p.lon,p.lat]]:[];}return recordPlaces(record,type).map(svgToLonLat);}
 function turnToRecord(record,type){
   if(!view.manual)return;                       // the story camera is still in charge and already follows the story
-  const pts=recordPlaces(record,type).map(svgToLonLat);if(!pts.length)return;
+  const pts=recordLonLats(record,type);if(!pts.length)return;
   const [lon,lat]=pts.length>1?meanLonLat(pts):pts[0];const to={lon,lat:Math.max(-70,Math.min(80,lat)),zoom:view.zoom,deg:view.deg};
   if(!placesFit(pts,to)){while(to.zoom>ZMIN+.01&&!placesFit(pts,to))to.zoom=Math.max(ZMIN,to.zoom*.9);   // first zoom out to the default,
     while(to.deg<45&&!placesFit(pts,to))to.deg=Math.min(45,to.deg*1.12);}                                // then show more of the globe

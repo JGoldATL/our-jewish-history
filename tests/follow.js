@@ -7,7 +7,7 @@ for(const [name,dev,all] of [['desktop',devices['Desktop Chrome'],true],['iphone
  const c=await b.newContext({...dev,viewport:name==='desktop'?{width:1440,height:900}:dev.viewport});const p=await c.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
  await p.goto(''+(process.env.SITE||'http://localhost:8778/')+'');await p.waitForTimeout(2500);
  const press=async s=>name==='desktop'?p.locator(s).click():p.locator(s).tap();
- const probe=()=>p.evaluate(()=>{const pts=recordPlaces(selected.record,selected.type).map(svgToLonLat),st=$('stage'),w=st.clientWidth,h=st.clientHeight;
+ const probe=()=>p.evaluate(()=>{const pts=recordLonLats(selected.record,selected.type),st=$('stage'),w=st.clientWidth,h=st.clientHeight;
    return {id:selected.record.id,title:selected.record.title,n:pts.length,zoom:+view.zoom.toFixed(3),deg:+view.deg.toFixed(2),inView:pts.every(([lo,la])=>{const q=project(lo,la);return q.vis&&q.x>0&&q.x<w&&q.y>0&&q.y<h;}),animating:turnAnim!=null};});
  // 0. follow mode (user has not touched the globe): the story camera should already show each card's place
  await p.evaluate(()=>{dismissPrompt();setYearExact(-1300);closeStory();});

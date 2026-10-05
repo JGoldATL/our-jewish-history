@@ -19,13 +19,13 @@ Set SITE=... to test another address. Screenshots go to tests/out/reg/ (not comm
 
 What a passing run looks like (Oct 2, 2026, commit 19e63bc):
 - reg.js: validate "0 issues"; sweep 1501 years, 0 mismatches; endpoints [-1300, 200];
-  30 cards (one per event: the three Assyrian routes are one card, and a destruction card replaces the community card about the same event), kinds only Event / Community / Movement, bad []; no page errors
+  33 cards (the Sheet's cards, from data/history.json "sheet"; add ?engine=1 to see the old 30-card engine list), kinds Event / Community / Movement / Archaeology, bad []; no page errors
   (Google Fonts may fail to load in a sandbox; that is the network, not the site);
   iPhone / iPad portrait / iPad landscape: no errors, no sideways scroll.
 - lay.js: iPhone and iPad portrait: pageScrolls false, titleVisible true; no errors.
 - sym.js: symbols 0 at 69 CE, 1 at 70-114 CE, 4 from 115 CE; Hidabroot source listed.
 - pause.js: every device ends labelled Play, stopped: true, and the Play and Pause icons are drawn shapes of the same colour and height (no text characters).
-- follow.js: Next visits all 30 cards once in order and Previous walks back; every card's place is on the front of the globe and on screen after Next, the user's zoom is kept unless the place cannot fit, Previous works, and touching the globe cancels a turn.
+- follow.js: Next visits all 33 cards once in order and Previous walks back; every card's place is on the front of the globe and on screen after Next, the user's zoom is kept unless the place cannot fit, Previous works, and touching the globe cancels a turn.
 
 Always also look at the screenshots: the checks cannot judge appearance.
 

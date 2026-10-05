@@ -11,7 +11,7 @@ out.sweep=await p.evaluate(()=>{dismissPrompt();let miss=[],years=0;for(let y=-1
 // endpoints
 out.endpoints=await p.evaluate(()=>{setPos(0);const a=Math.round(currentYear());setPos(1);const z=Math.round(currentYear());return [a,z]});
 // cards: all milestone types, wording rules
-out.cards=await p.evaluate(()=>{const kinds={},bad=[];for(const m of milestones){fillStory(m.record,m.type,true);const k=$('storyKicker').textContent;kinds[k]=(kinds[k]||0)+1;const t=$('story').innerText;if(/source|debated|related|still here/i.test(t))bad.push(m.record.id);if(!['Event','Community','Movement','Archaeology'].includes(k))bad.push('kind:'+k);}return {count:milestones.length,kinds,bad}});
+out.cards=await p.evaluate(()=>{const kinds={},bad=[];for(const m of milestones){fillStory(m.record,m.type,true);const k=$('storyKicker').textContent.replace(/ · Draft$/,'');kinds[k]=(kinds[k]||0)+1;const t=$('story').innerText;if(/source|debated|related|still here/i.test(t))bad.push(m.record.id);if(!['Event','Community','Movement','Archaeology'].includes(k))bad.push('kind:'+k);}return {count:milestones.length,kinds,bad}});
 // date checks + screenshots
 for(const y of [-1208,-722,-586,-500,-63,200]){await p.evaluate(y=>{closeStory();setYearExact(y)},y);await p.waitForTimeout(300);await p.screenshot({path:`${S}/reg/d${y}.png`});}
 // playback
