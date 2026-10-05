@@ -2517,7 +2517,7 @@
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.1",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
       "sheetModified": "2026-10-05T21:00:00Z",
-      "exportSha256": "6a88f59d28a289b4",
+      "exportSha256": "1e81e0aa30e54b91",
       "mode": "preview",
       "counts": {
         "places": 76,
@@ -6201,7 +6201,6 @@
         "startYear": 800,
         "dateDisplay": "9th century CE",
         "links": [
-          "CTX-012",
           "POP-035"
         ]
       },
