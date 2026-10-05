@@ -2516,13 +2516,13 @@
       "schema": "sheet-1",
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.1",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-10-05T00:19:50Z",
-      "exportSha256": "1dde98116197850a",
+      "sheetModified": "2026-10-05T20:17:20Z",
+      "exportSha256": "bfa2332bb9fc84ad",
       "mode": "preview",
       "counts": {
         "places": 66,
         "events": 31,
-        "communities": 111,
+        "communities": 112,
         "movements": 44,
         "context": 43,
         "evidence": 20,
@@ -4303,6 +4303,21 @@
           "status": "candidate"
         },
         "noEngineFields": true
+      },
+      {
+        "id": "DES-008",
+        "family": "DES",
+        "startYear": 1348,
+        "endYear": 1351,
+        "dateDisplay": "1348–1351 CE (cluster)",
+        "placeId": "place-israel",
+        "links": [],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
       },
       {
         "id": "CHG-011",
@@ -6116,7 +6131,9 @@
         "status": "draft",
         "startYear": -2000,
         "endYear": null,
-        "placeId": "place-israel"
+        "placeId": "place-israel",
+        "meanwhile": "In Egypt, the Great Pyramid of Giza had already stood for about 560 years.",
+        "meanwhileStatus": "approved"
       },
       {
         "id": "EVT-0002",
@@ -6149,8 +6166,6 @@
         "startYear": -1208,
         "endYear": null,
         "placeId": "place-israel",
-        "meanwhile": "Greek tradition places the Trojan War around this time.",
-        "meanwhileStatus": "draft",
         "evidenceIds": [
           "EVD-001"
         ]
@@ -6178,8 +6193,8 @@
         "startYear": -1000,
         "endYear": null,
         "placeId": "place-j",
-        "meanwhile": "In China, the Zhou dynasty has begun its rule.",
-        "meanwhileStatus": "draft",
+        "meanwhile": "In Peru, builders are raising the great temple center of Chavin de Huantar around 1000 BCE.",
+        "meanwhileStatus": "approved",
         "evidenceIds": [
           "EVD-003"
         ]
@@ -6194,7 +6209,9 @@
         "status": "draft",
         "startYear": -960,
         "endYear": null,
-        "placeId": "place-j"
+        "placeId": "place-j",
+        "meanwhile": "In Nigeria, the Nok people begin making clay sculptures around 900 BCE.",
+        "meanwhileStatus": "approved"
       },
       {
         "id": "EVT-0007",
@@ -6206,7 +6223,9 @@
         "status": "draft",
         "startYear": -930,
         "endYear": null,
-        "placeId": "place-israel"
+        "placeId": "place-israel",
+        "meanwhile": "In Greece, legend says the city of Sparta is founded around 900 BCE.",
+        "meanwhileStatus": "approved"
       },
       {
         "id": "EVT-0008",
@@ -6234,6 +6253,8 @@
         "startYear": -740,
         "endYear": -720,
         "placeId": "place-israel",
+        "meanwhile": "In Italy, legend says Romulus founds the city of Rome in 753 BCE.",
+        "meanwhileStatus": "approved",
         "movementIds": [
           "MOV-002"
         ],
@@ -6254,6 +6275,8 @@
         "startYear": -701,
         "endYear": -701,
         "placeId": "place-lachish",
+        "meanwhile": "In Greece, people begin writing with an alphabet by about 750 BCE.",
+        "meanwhileStatus": "approved",
         "movementIds": [
           "MOV-003"
         ],
@@ -6346,6 +6369,8 @@
         "startYear": -586,
         "endYear": -586,
         "placeId": "place-j",
+        "meanwhile": "In the Greek city of Miletus, the thinker Thales predicts a solar eclipse in 585 BCE that stops a battle between the Lydians and Medes.",
+        "meanwhileStatus": "approved",
         "movementIds": [
           "MOV-005"
         ],
@@ -6366,8 +6391,8 @@
         "startYear": -539,
         "endYear": -538,
         "placeId": "place-b",
-        "meanwhile": "Around now in China, the teacher Confucius (traditionally born 551 BCE) is growing up.",
-        "meanwhileStatus": "draft",
+        "meanwhile": "In China, Confucius, the famous teacher, is born in 551 BCE.",
+        "meanwhileStatus": "approved",
         "movementIds": [
           "MOV-006"
         ],
@@ -6390,7 +6415,9 @@
         "status": "draft",
         "startYear": -516,
         "endYear": null,
-        "placeId": "place-j"
+        "placeId": "place-j",
+        "meanwhile": "In Greece, the city of Athens starts one of the first democracies in 508 BCE.",
+        "meanwhileStatus": "approved"
       },
       {
         "id": "EVT-0018",
@@ -6439,7 +6466,7 @@
         "date": "Ptolemaic period",
         "title": "Jews settle in Cyrenaica",
         "description": "Under the Ptolemies, Jewish families settled in Cyrenaica, in what is now Libya, and a lasting community grew there.",
-        "status": "draft",
+        "status": "approved",
         "startYear": -300,
         "endYear": null,
         "placeId": "place-cyreneNode",
@@ -6499,8 +6526,8 @@
         "startYear": -167,
         "endYear": -164,
         "placeId": "place-j",
-        "meanwhile": "About thirty years earlier, Egypt issued the Rosetta Stone decree (196 BCE).",
-        "meanwhileStatus": "draft"
+        "meanwhile": "In Egypt, priests honor their king with the decree that is carved on the Rosetta Stone in 196 BCE.",
+        "meanwhileStatus": "approved"
       },
       {
         "id": "EVT-0024",
@@ -6567,8 +6594,8 @@
         "startYear": 70,
         "endYear": 70,
         "placeId": "place-j",
-        "meanwhile": "In Italy, Mount Vesuvius erupts in 79 CE and buries Pompeii.",
-        "meanwhileStatus": "draft",
+        "meanwhile": "In Italy, Mount Vesuvius erupts and buries the city of Pompeii in 79 CE.",
+        "meanwhileStatus": "approved",
         "evidenceIds": [
           "EVD-018"
         ],
@@ -6640,8 +6667,8 @@
         "startYear": 132,
         "endYear": 135,
         "placeId": "place-j",
-        "meanwhile": "In China, Zhang Heng builds his earthquake detector in 132 CE.",
-        "meanwhileStatus": "draft"
+        "meanwhile": "In China, Zhang Heng builds a bronze earthquake detector in 132 CE.",
+        "meanwhileStatus": "approved"
       },
       {
         "id": "EVT-0030",
@@ -6653,7 +6680,9 @@
         "status": "draft",
         "startYear": 200,
         "endYear": null,
-        "placeId": "place-galilee"
+        "placeId": "place-galilee",
+        "meanwhile": "In China, the Han dynasty, which ruled for about 400 years, ends in 220 CE.",
+        "meanwhileStatus": "approved"
       }
     ]
   }

@@ -130,7 +130,7 @@ def symbol(raw):
 
 class Report:
     def __init__(self):
-        self.rejects, self.warnings = [], []
+        self.rejects, self.warnings, self.withheld = [], [], []
 
     def reject(self, tab, rid, row, why):
         self.rejects.append({'tab': tab, 'id': rid, 'row': row, 'reason': why})
@@ -153,7 +153,10 @@ def build(wb, rep):
         keep = []
         for r in rows:
             rid = r['id']
-            fam = re.match(r'[A-Za-z]+', str(rid)).group(0) if rid else None
+            m = re.match(r'[A-Za-z]+', str(rid)) if rid else None
+            fam = m.group(0) if m else None
+            if rid is not None and len(str(rid)) > 40:
+                rid = str(rid)[:37] + '...'  # stray pasted text in the ID column: shorten for the report
             if tab == 'Places':
                 ok = bool(re.fullmatch(r'place-[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*', str(rid)))
             else:
@@ -222,10 +225,11 @@ def build(wb, rep):
                 'description': r['cardDescription'], 'status': st, 'startYear': r.get('start'), 'endYear': r.get('end'),
                 'placeId': r.get('placeId')}
         if r.get('meanwhile'):
-            card['meanwhile'] = r['meanwhile']
-            card['meanwhileStatus'] = str(r.get('meanwhileStatus') or 'unstated').lower()
-            if r['cardType'] != 'Event':
-                rep.warn(tab, r['id'], r['_row'], f'Meanwhile line is on a {r["cardType"]} card; the rule is Event cards only (loaded; the app shows it on Event cards only)')
+            if r['cardType'] == 'Event':
+                card['meanwhile'] = r['meanwhile']
+                card['meanwhileStatus'] = str(r.get('meanwhileStatus') or 'unstated').lower()
+            else:  # Jeffrey, Oct 5: Meanwhile shows on Event cards only. The line stays in the Sheet; it is not exported.
+                rep.withheld.append({'id': r['id'], 'row': r['_row'], 'cardType': r['cardType']})
         if r.get('movementIds'):
             card['movementIds'] = r['movementIds']
         if r.get('evidenceIds'):
@@ -329,8 +333,9 @@ def diff(old, new):
     for sec in sorted(set(old) | set(new)):
         o = {r['id']: r for r in old.get(sec, [])}
         n = {r['id']: r for r in new.get(sec, [])}
-        res[sec] = {'added': sorted(set(n) - set(o)), 'removed': sorted(set(o) - set(n)),
-                    'changed': sorted(i for i in set(o) & set(n) if o[i] != n[i])}
+        changed = sorted(i for i in set(o) & set(n) if o[i] != n[i])
+        res[sec] = {'added': sorted(set(n) - set(o)), 'removed': sorted(set(o) - set(n)), 'changed': changed,
+                    'changedFields': {i: sorted(k for k in set(o[i]) | set(n[i]) if o[i].get(k) != n[i].get(k)) for i in changed}}
     return res
 
 
@@ -375,7 +380,8 @@ def main(argv=None):
         out_hist['sheet'] = hist['sheet']
 
     report = {'mode': meta['mode'], 'counts': meta['counts'], 'diff': d, 'rejects': rep.rejects,
-              'warnings': rep.warnings, 'missingOptionalEngineColumns': missing_optional,
+              'warnings': rep.warnings, 'meanwhileWithheldNonEvent': rep.withheld,
+              'missingOptionalEngineColumns': missing_optional,
               'recordsWithNoEngineFields': sum(1 for c in sections['communities'] if c.get('noEngineFields'))}
 
     # ---- console report
@@ -386,12 +392,17 @@ def main(argv=None):
         print(f'  {sec:12} added {len(v["added"]):3}  changed {len(v["changed"]):3}  removed {len(v["removed"]):3}')
         for k in ('added', 'changed', 'removed'):
             if 0 < len(v[k]) <= 8: print(f'      {k}: {", ".join(v[k])}')
+        if 8 < len(v['changed']) <= 60 or (v['changed'] and len(v['changed']) <= 8):
+            for i in v['changed']: print(f'        {i}: {", ".join(v["changedFields"][i])}')
     print(f'\nValidator rejects: {len(rep.rejects)}')
     for x in rep.rejects:
         print(f'  REJECT {x["tab"]} row {x["row"]} {x["id"]}: {x["reason"]}')
     print(f'Warnings: {len(rep.warnings)}')
     for x in rep.warnings:
         print(f'  warn   {x["tab"]} row {x["row"]} {x["id"]}: {x["note"]}')
+    print(f'Meanwhile lines withheld because the card is not an Event card: {len(rep.withheld)}')
+    for x in rep.withheld:
+        print(f'  held   Events row {x["row"]} {x["id"]} ({x["cardType"]} card)')
     if missing_optional:
         print(f'\nCommunities tab has no column for: {missing_optional}')
     print(f'POP/CHG records with no engine fields (no shading until supplied): {report["recordsWithNoEngineFields"]}')

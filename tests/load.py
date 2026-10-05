@@ -98,7 +98,9 @@ with tempfile.TemporaryDirectory() as td:
     check('record with no Place ID rejected, not fixed', any(r['id'] == 'DES-002' for r in rep['rejects']) and not any(c['id'] == 'DES-002' for c in sheet['communities']))
     check('end before start rejected', any(r['id'] == 'CHG-001' for r in rep['rejects']))
     check('Meanwhile kept where filled, with its status', cards['EVT-0001']['meanwhile'] == 'Meanwhile approved.' and cards['EVT-0002']['meanwhileStatus'] == 'draft')
-    check('Meanwhile on non-Event card is flagged', any(w['id'] == 'EVT-0003' for w in rep['warnings']))
+    check('Meanwhile on a non-Event card is withheld from the file and reported',
+          'meanwhile' not in cards['EVT-0003'] and 'Meanwhile on arch' not in hist.read_text()
+          and [w['id'] for w in rep['meanwhileWithheldNonEvent']] == ['EVT-0003'])
     check('arrow "not stated" is flagged', any(w['id'] == 'MOV-002' for w in rep['warnings']))
     check('hyphenated place IDs load', any(p_['id'] == 'place-b-c' for p_ in sheet['places']))
     check('POP/CHG with no engine fields are counted, not guessed', rep['recordsWithNoEngineFields'] >= 1 and not any('engine' in c for c in sheet['communities']))
@@ -117,6 +119,7 @@ with tempfile.TemporaryDirectory() as td:
     p, rep = run(x2, hist)
     d = rep['diff']
     check('edit touches only the changed record', d['cards']['changed'] == ['EVT-0001'] and d['events']['changed'] == [], d['cards'])
+    check('a reworded title is reported as exactly the title field changing', d['cards']['changedFields'] == {'EVT-0001': ['title']}, d['cards']['changedFields'])
     check('removed record is reported', d['cards']['removed'] == ['EVT-0003'] and d['events']['removed'] == ['EVT-0003'])
     check('added record is reported', d['movements']['added'] == ['MOV-003'])
     check('unchanged records not listed as changed', d['places']['changed'] == [] and d['communities']['changed'] == [])
@@ -132,6 +135,12 @@ with tempfile.TemporaryDirectory() as td:
     check('public build: approved Meanwhile kept', pcards['EVT-0001'].get('meanwhile') == 'Meanwhile approved.')
     check('public file leaks nothing', SECRET not in pub.read_text())
     check('--public --out leaves the preview file alone', json.loads(hist.read_text())['sheet']['meta']['mode'] == 'preview')
+
+    x6 = td / 'six.xlsx'
+    make(x6, lambda dd: dd['Events'].append(['Pasted paragraph of chat text that is far longer than any ID should ever be, in column A'] + [None] * 21))
+    p, rep = run(x6, hist)
+    check('stray text in an ID column is rejected with a reason, not a crash',
+          p.returncode == 0 and any(r['tab'] == 'Events' and 'permanent-ID' in r['reason'] for r in rep['rejects']), p.stderr[-200:])
 
     x4 = td / 'four.xlsx'
     wb = openpyxl.load_workbook(x1); ws = wb['Communities']
