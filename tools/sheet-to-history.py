@@ -77,6 +77,9 @@ TABS = {
 # new POP/CHG record is reported as "no engine fields" and nothing is guessed.
 OPTIONAL_COMMUNITY_COLS = dict(concentration='Concentration', presenceStatus='Presence status',
                                footprintRadiusKm='Footprint radius (km)')
+# Optional arrow-endpoint columns on Movements. The Sheet gives origin and destination as text only; an arrow can be
+# drawn only when both ends are Place IDs from the Places tab. Blank = no arrow endpoint (nothing is guessed).
+OPTIONAL_MOVEMENT_COLS = dict(originPlaceId='Origin place ID', destinationPlaceId='Destination place ID')
 SECTION_OF_TAB = {'Events': 'events', 'Communities': 'communities', 'Movements': 'movements',
                   'Context & Voyages': 'context', 'Evidence': 'evidence', 'Places': 'places'}
 
@@ -140,12 +143,12 @@ class Report:
 
 
 def build(wb, rep):
-    raw, missing_optional = {}, []
+    raw, missing_optional = {}, {'Communities': [], 'Movements': []}
     for tab, cols in TABS.items():
-        opt = OPTIONAL_COMMUNITY_COLS if tab == 'Communities' else None
+        opt = {'Communities': OPTIONAL_COMMUNITY_COLS, 'Movements': OPTIONAL_MOVEMENT_COLS}.get(tab)
         raw[tab], miss = read_tab(wb, tab, cols, opt)
-        if tab == 'Communities':
-            missing_optional = miss
+        if tab in missing_optional:
+            missing_optional[tab] = miss
 
     seen = {}
     all_ids = set()
@@ -290,8 +293,20 @@ def build(wb, rep):
         arrow = r['arrow']
         if arrow and 'not stated' in arrow.lower():
             rep.warn('Movements', r['id'], r['_row'], 'arrow treatment is "not stated"; no colour can be chosen yet')
+        ends, bad_end = {}, False
+        for key, label in (('originPlaceId', 'origin'), ('destinationPlaceId', 'destination')):
+            v = r.get(key)
+            if v is not None and v not in place_ids:
+                rep.reject('Movements', r['id'], r['_row'], f'{label} place ID {v!r} is not in the Places tab'); bad_end = True
+            ends[key] = v
+        if bad_end: continue
+        if (ends['originPlaceId'] is None) != (ends['destinationPlaceId'] is None) and (
+                'originPlaceId' in r and 'destinationPlaceId' in r):
+            rep.warn('Movements', r['id'], r['_row'], 'only one end has a Place ID, so no arrow can be drawn')
         movements.append({'id': r['id'], 'eventId': r['eventId'], 'startYear': y[0], 'endYear': y[1],
                           'dateDisplay': r['dateDisplay'], 'origin': r['origin'], 'destination': r['destination'],
+                          'originPlaceId': ends['originPlaceId'], 'destinationPlaceId': ends['destinationPlaceId'],
+                          'arrowEndsReady': ends['originPlaceId'] is not None and ends['destinationPlaceId'] is not None,
                           'arrowTreatment': arrow, 'links': lk})
 
     context = []
@@ -381,7 +396,9 @@ def main(argv=None):
 
     report = {'mode': meta['mode'], 'counts': meta['counts'], 'diff': d, 'rejects': rep.rejects,
               'warnings': rep.warnings, 'meanwhileWithheldNonEvent': rep.withheld,
-              'missingOptionalEngineColumns': missing_optional,
+              'missingOptionalEngineColumns': missing_optional['Communities'],
+              'missingOptionalMovementColumns': missing_optional['Movements'],
+              'movementsWithArrowEnds': sum(1 for m in sections['movements'] if m['arrowEndsReady']),
               'recordsWithNoEngineFields': sum(1 for c in sections['communities'] if c.get('noEngineFields'))}
 
     # ---- console report
@@ -403,8 +420,11 @@ def main(argv=None):
     print(f'Meanwhile lines withheld because the card is not an Event card: {len(rep.withheld)}')
     for x in rep.withheld:
         print(f'  held   Events row {x["row"]} {x["id"]} ({x["cardType"]} card)')
-    if missing_optional:
-        print(f'\nCommunities tab has no column for: {missing_optional}')
+    if missing_optional['Communities']:
+        print(f'\nCommunities tab has no column for: {missing_optional["Communities"]}')
+    if missing_optional['Movements']:
+        print(f'Movements tab has no column for: {missing_optional["Movements"]}')
+    print(f'Movements with both arrow ends as Place IDs (can be drawn): {report["movementsWithArrowEnds"]} of {len(sections["movements"])}')
     print(f'POP/CHG records with no engine fields (no shading until supplied): {report["recordsWithNoEngineFields"]}')
 
     if a.report:

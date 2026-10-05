@@ -142,6 +142,31 @@ with tempfile.TemporaryDirectory() as td:
     check('stray text in an ID column is rejected with a reason, not a crash',
           p.returncode == 0 and any(r['tab'] == 'Events' and 'permanent-ID' in r['reason'] for r in rep['rejects']), p.stderr[-200:])
 
+    x7 = td / 'seven.xlsx'
+    wb = openpyxl.load_workbook(x1); ws = wb['Movements']
+    c0 = ws.max_column
+    ws.cell(1, c0 + 1, 'Origin place ID'); ws.cell(1, c0 + 2, 'Destination place ID')
+    ws.cell(2, c0 + 1, 'place-a'); ws.cell(2, c0 + 2, 'place-b-c')      # MOV-001: both ends valid
+    ws.cell(3, c0 + 1, 'place-a')                                        # MOV-002: origin only
+    wb.save(x7)
+    p, rep = run(x7, hist)
+    mv = {m['id']: m for m in json.loads(hist.read_text())['sheet']['movements']}
+    check('Place ID columns load and mark an arrow as ready only when both ends are present',
+          mv['MOV-001']['arrowEndsReady'] is True and mv['MOV-002']['arrowEndsReady'] is False and rep['movementsWithArrowEnds'] == 1, mv)
+    check('a movement with only one end gets a warning, not a guess',
+          any(w['id'] == 'MOV-002' and 'only one end' in w['note'] for w in rep['warnings']) and mv['MOV-002']['destinationPlaceId'] is None)
+
+    x8 = td / 'eight.xlsx'
+    wb = openpyxl.load_workbook(x7); ws = wb['Movements']; ws.cell(2, c0 + 2, 'place-nowhere'); wb.save(x8)
+    p, rep = run(x8, hist)
+    mv = {m['id'] for m in json.loads(hist.read_text())['sheet']['movements']}
+    check('an unknown Place ID rejects the movement with the reason',
+          any(r['id'] == 'MOV-001' and 'not in the Places tab' in r['reason'] for r in rep['rejects']) and 'MOV-001' not in mv)
+
+    p, rep = run(x1, hist)
+    check('Sheet without the Place ID columns still loads and says the columns are missing',
+          p.returncode == 0 and rep['missingOptionalMovementColumns'] == ['Destination place ID', 'Origin place ID'] and rep['movementsWithArrowEnds'] == 0, rep['missingOptionalMovementColumns'])
+
     x4 = td / 'four.xlsx'
     wb = openpyxl.load_workbook(x1); ws = wb['Communities']
     ws.cell(1, ws.max_column + 1, 'Concentration'); ws.cell(2, ws.max_column, 'major'); wb.save(x4)
