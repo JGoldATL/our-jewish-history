@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Load the Jewish Continuity master dataset (Google Sheet export) into data/history.json.
 
-SOURCE OF TRUTH: the Google Sheet "Jewish_Continuity_Master_Dataset_v0.2.1" (linked in the project
+SOURCE OF TRUTH: the Google Sheet "Jewish_Continuity_Master_Dataset_v0.2.2" (linked in the project
 instructions). The build sandbox cannot reach Google, so this script reads an .xlsx export of that
 Sheet. Export it fresh each time (File > Download > .xlsx, or ask the dataset chat's Drive connection).
 Never commit the export: a committed copy would be an old copy.
@@ -514,7 +514,7 @@ def main(argv=None):
     new = {k: v for k, v in sections.items()}
     d = diff(old, new)
 
-    meta = {'schema': SCHEMA, 'source': 'Google Sheet Jewish_Continuity_Master_Dataset_v0.2.1',
+    meta = {'schema': SCHEMA, 'source': 'Google Sheet Jewish_Continuity_Master_Dataset_v0.2.2',
             'sheetFileId': '1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8',
             'sheetModified': a.sheet_modified or (hist.get('sheet') or {}).get('meta', {}).get('sheetModified'),
             'exportSha256': hashlib.sha256(xlsx.read_bytes()).hexdigest()[:16],
