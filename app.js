@@ -4,7 +4,7 @@
    ported verbatim from Alpha 1.13, so historical behaviour is unchanged. */
 const $=id=>document.getElementById(id);
 const NS='http://www.w3.org/2000/svg';
-let DATA=null,INDEX=null,GEO=null;
+let DATA=null,INDEX=null,GEO=null,SHEETPL=new Map();
 const D2R=Math.PI/180;
 const svgToLonLat=([x,y])=>[x/15-15,58-y*53/650];
 
@@ -161,10 +161,11 @@ function followCamera(y){if(view.manual)return;const s=DATA.cameraStates;let i=0
 /* ---------- symbols ---------- */
 // Community symbols (locked 2 Oct 2026, Map-Icon-Decisions): shape + color carry the meaning, never color alone.
 // Murdered community = red octagon; forced conversion = purple diamond; forced conversion to Christianity = split diamond (half star, half cross).
-const SYM_SHAPE={octagon:'M15.71,6.51 L6.51,15.71 L-6.51,15.71 L-15.71,6.51 L-15.71,-6.51 L-6.51,-15.71 L6.51,-15.71 L15.71,-6.51 Z',diamond:'M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z'};
+const SYM_SHAPE={octagon:'M15.71,6.51 L6.51,15.71 L-6.51,15.71 L-15.71,6.51 L-15.71,-6.51 L-6.51,-15.71 L6.51,-15.71 L15.71,-6.51 Z',diamond:'M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z',square:'M-13,-13 H13 V13 H-13 Z'};
 const SYM_CREAM='#FFF3DC',SYM_PURPLE='#5A3B7A';let symClip=0;
 function hexagram(r){const h=(r*.866).toFixed(2),q=(r/2).toFixed(2);return `M0,${-r} L${h},${q} L-${h},${q} Z M0,${r} L-${h},-${q} L${h},-${q} Z`;}
 function drawSymbol(inner,kind,record){const outline={class:'symShape',stroke:'#1B2328','stroke-width':1.2,'stroke-linejoin':'round'},star={fill:'none',stroke:SYM_CREAM,'stroke-width':1.6,'stroke-linejoin':'round'};
+  if(kind==='noLonger'){el('path',{...outline,d:SYM_SHAPE.square,fill:'#20272B'},inner);el('path',{...star,d:hexagram(10.4)},inner);return;}
   if(kind==='destroyed'){el('path',{...outline,d:SYM_SHAPE.octagon,fill:'#8C2A24'},inner);el('path',{...star,d:hexagram(10.4)},inner);return;}
   if(record?.conversionReligion!=='Christianity'){el('path',{...outline,d:SYM_SHAPE.diamond,fill:SYM_PURPLE},inner);el('path',{...star,d:hexagram(8.4)},inner);return;}
   const L='symClip'+(++symClip),R='symClip'+(++symClip),defs=el('defs',{},inner);el('rect',{x:-20,y:-20,width:20,height:40},el('clipPath',{id:L},defs));el('rect',{x:0,y:-20,width:20,height:40},el('clipPath',{id:R},defs));
@@ -203,6 +204,10 @@ function render(){
   const symSize=Math.max(30,40*scale),obstacles=[];
   for(const fd of frame.destructions){const c=DATA.communityDestructions.find(r=>r.id===fd.id),past=trails&&c.startDate<=y;if(!fd.visible&&!past)continue;const pop=DATA.populations.find(p=>p.id===c.populationId);const q=P(pop?.coordinates||INDEX.places.get(c.place).coordinates);if(!q.vis)continue;
     const g=communitySymbol(layers.mark,'destroyed',symSize);const sx=q.x+symSize*.62,sy=q.y-symSize*.62;obstacles.push({x:sx-symSize/2,y:sy-symSize/2,w:symSize,h:symSize});g.setAttribute('transform',`translate(${sx.toFixed(1)} ${sy.toFixed(1)})`);g.setAttribute('opacity',fd.visible?1:.5);g.setAttribute('tabindex',0);g.setAttribute('role','button');g.setAttribute('aria-label',c.title);if(selected?.record===c||isCardOf(c))g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(c,'destruction');});}
+  // "Community no longer exists": black square at the place, from its year. Display window (a design choice, not history): full for 20 years, fading out by 30.
+  for(const c of (DATA.sheet?.communities||[])){if(c.mapSymbol?.kind!=='blackSquare'||/[?&]engine=1/.test(location.search))continue;const pp=SHEETPL.get(c.placeId);if(!Number.isFinite(pp?.lat))continue;const age=y-c.startYear,past=trails&&age>=0;let op=age<0?0:age<=20?1:Math.max(0,1-(age-20)/10);if(past)op=Math.max(op,.5);if(op<=.01)continue;
+    const q=P([(pp.lon+15)*15,(58-pp.lat)*650/53]);if(!q.vis)continue;const g=communitySymbol(layers.mark,'noLonger',symSize);const sx=q.x+symSize*.62,sy=q.y-symSize*.62;obstacles.push({x:sx-symSize/2,y:sy-symSize/2,w:symSize,h:symSize});g.setAttribute('transform',`translate(${sx.toFixed(1)} ${sy.toFixed(1)})`);g.setAttribute('opacity',op.toFixed(2));g.setAttribute('tabindex',0);g.setAttribute('role','button');g.setAttribute('aria-label','Community no longer exists: '+(pp.historicalName||c.placeId)+', '+c.dateDisplay);
+    const card=DATA.sheet.cards.find(k=>k.id===c.id);if(card){if(selected?.record===card)g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(card,'sheet');});}}
   for(const c of DATA.populationChanges){if(!canRenderConversion(c))continue;const vis=activeAt(c,y),past=trails&&c.startDate<=y;if(!vis&&!past)continue;const pop=DATA.populations.find(p=>p.id===c.populationId);const q=P(pop.coordinates);if(!q.vis)continue;const g=communitySymbol(layers.mark,'converted',symSize,c);g.setAttribute('transform',`translate(${(q.x+symSize*.62).toFixed(1)} ${(q.y-symSize*.62).toFixed(1)})`);g.setAttribute('opacity',vis?1:.5);g.addEventListener('click',()=>openStory(c,'change'));}
   drawGlobe();
   const boxes=placeLabels(labels,layers.label,scale,obstacles);for(const l of geoLabels()){const fs=l.kind==='waterLabel'?13:11,w=l.text.length*fs*(l.kind==='waterLabel'?0.55:0.78),h=fs*1.2,b={x:l.x-w/2,y:l.y-h,w,h};if(boxes.some(o=>b.x<o.x+o.w&&b.x+b.w>o.x&&b.y<o.y+o.h&&b.y+b.h>o.y))continue;boxes.push(b);const t=el('text',{x:l.x.toFixed(1),y:l.y.toFixed(1),'text-anchor':'middle',class:l.kind==='waterLabel'?'seaName':'regionName'},layers.label);t.textContent=l.kind==='waterLabel'?l.text:l.text.toUpperCase();}
@@ -315,9 +320,35 @@ function step(dir){const y=Math.round(currentYear());let i=selected?milestones.f
 function selectMilestone(i){const m=milestones[i];if(!m)return;stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();turnToRecord(m.record,m.type);if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
 
 /* ---------- boot ---------- */
+
+// Sheet arrows: Movements with both ends ready are added to the engine's movement list so they use the same drawing, fading and timeline code.
+// Movements that an engine arrow already draws (same Event ID) are skipped, so nothing is drawn twice.
+function addSheetMovements(){
+  const S=DATA.sheet;if(!S?.movements?.length||/[?&]engine=1/.test(location.search))return;
+  const pl=new Map((S.places||[]).map(p=>[p.id,p]));SHEETPL=pl;
+  const covered=new Set(DATA.movements.map(m=>DATA.cardLinks?.[m.id]).filter(Boolean));
+  const xy=p=>[(p.lon+15)*15,(58-p.lat)*650/53];
+  const ok=m=>m.arrowEndsReady&&!covered.has(m.eventId)&&[m.originPlaceId,m.destinationPlaceId].every(id=>Number.isFinite(pl.get(id)?.lat)&&Number.isFinite(pl.get(id)?.lon));
+  const ready=new Map(S.movements.filter(ok).map(m=>[m.id,m]));
+  // Branch rule (dataset chat): the New Amsterdam arrow (23 refugees) draws only together with the Amsterdam, Curacao and Barbados branches.
+  const needs={'MOV-055':['MOV-052','MOV-053','MOV-054']};
+  for(const [id,req] of Object.entries(needs))if(ready.has(id)&&!req.every(r=>ready.has(r)))ready.delete(id);
+  const sib=new Map();for(const m of ready.values()){const k=(m.eventId||m.id)+'|'+m.originPlaceId;(sib.get(k)||sib.set(k,[]).get(k)).push(m.id);}
+  const added=[];
+  for(const m of ready.values()){
+    const a=xy(pl.get(m.originPlaceId)),b=xy(pl.get(m.destinationPlaceId)),grp=sib.get((m.eventId||m.id)+'|'+m.originPlaceId),i=grp.indexOf(m.id);
+    const bend=grp.length>1?(i-(grp.length-1)/2)*0.22:0.12,dx=b[0]-a[0],dy=b[1]-a[1];
+    const control=[(a[0]+b[0])/2-dy*bend,(a[1]+b[1])/2+dx*bend];
+    const t=m.arrowTreatment||'',color=/^Red/.test(t)?'#a33b32':/^Blue/.test(t)?'#275d9b':'#6d6256';
+    const o=pl.get(m.originPlaceId),d=pl.get(m.destinationPlaceId),end=m.endYear??m.startYear;
+    added.push({id:m.id,sheetArrow:true,color,title:`${o.historicalName||m.origin} to ${d.historicalName||m.destination}`,date:m.dateDisplay,dateRange:{start:m.startYear,end},origin:m.originPlaceId,destination:m.destinationPlaceId,originCoordinates:a,destinationCoordinates:b,rendering:{control},movementType:null,evidenceStatus:'',story:'',sourceIds:[]});
+    if(m.eventId&&S.cards.some(c=>c.id===m.eventId)){DATA.cardLinks=DATA.cardLinks||{};DATA.cardLinks[m.id]=m.eventId;}
+  }
+  DATA.movements=DATA.movements.concat(added);
+}
 async function boot(){
   try{
-    const res=await fetch('data/history.json');DATA=await res.json();try{GEO=await (await fetch('data/geo.json')).json();}catch(_){GEO=null;}assertHistory(DATA);INDEX=indexData(DATA);
+    const res=await fetch('data/history.json');DATA=await res.json();try{GEO=await (await fetch('data/geo.json')).json();}catch(_){GEO=null;}assertHistory(DATA);addSheetMovements();INDEX=indexData(DATA);
     buildTimeline();buildMilestones();initGL();initInteraction();
     position=posForYear(DATA.presentation?.openingYear??-1208);$('version').textContent='Globe preview · data from '+(DATA.presentation?.version||'Alpha');
     layout();

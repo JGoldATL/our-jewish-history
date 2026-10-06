@@ -50,6 +50,7 @@ SYMBOL_KINDS = [  # only the locked/leaning shapes get a kind; everything else s
     (re.compile(r'^Red octagon', re.I), 'octagon', 'locked'),
     (re.compile(r'^Split diamond', re.I), 'splitDiamond', 'leaning'),
     (re.compile(r'^Purple diamond', re.I), 'purpleDiamond', 'leaning'),
+    (re.compile(r'^Black square$', re.I), 'blackSquare', 'locked'),  # approved by Jeffrey Oct 5: community no longer exists
     (re.compile(r'^Candidate:\s*black square', re.I), 'blackSquare', 'candidate'),
 ]
 

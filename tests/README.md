@@ -33,3 +33,6 @@ Always also look at the screenshots: the checks cannot judge appearance.
 Map building (not a test): tools/build-map.py rebuilds images/tex-region.jpg, images/tex-world.jpg and the coast in data/geo.json
 from Natural Earth land and lakes; the baked relief it works from is in images/src/. See the header of that file for the commands.
 A sharper relief (Pass B) only has to replace images/src/relief-region.jpg and relief-world.jpg.
+
+
+arrows.js: Sheet arrows. Every Movement with both ends ready is drawn (none twice, none that an engine arrow already draws); the New Amsterdam branch rule holds; the 587 BCE arrow appears on the globe.

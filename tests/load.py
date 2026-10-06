@@ -124,6 +124,17 @@ with tempfile.TemporaryDirectory() as td:
     check('added record is reported', d['movements']['added'] == ['MOV-003'])
     check('unchanged records not listed as changed', d['places']['changed'] == [] and d['communities']['changed'] == [])
 
+    # "Black square" (approved symbol) loads as a locked shape; the old "Candidate: black square" still warns and is not drawn.
+    x3 = td / 'three.xlsx'
+    def edit3(d):
+        d['Communities'][0][6] = 'Black square'
+    make(x3, edit3)
+    hist3 = td / 'hist3.json'; hist3.write_text(hist.read_text())
+    p3, rep3 = run(x3, hist3)
+    c3 = {c['id']: c for c in json.loads(hist3.read_text())['sheet']['communities']}
+    check('"Black square" loads as a locked blackSquare symbol', c3['POP-001']['mapSymbol'].get('kind') == 'blackSquare' and c3['POP-001']['mapSymbol'].get('status') == 'locked', c3['POP-001']['mapSymbol'])
+    check('"Black square" gives no open-rule warning', not any('POP-001' in w and 'OPEN' in w for w in rep3['warnings']), rep3['warnings'])
+
     x3 = td / 'three.xlsx'
     make(x3)
     pub = td / 'public.json'
