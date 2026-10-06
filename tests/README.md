@@ -52,3 +52,6 @@ Common Era rule (Oct 6, 2026):
 - follow.js can report one card "not in view" when it runs at the same time as reg.js (CPU load); rerun it alone before treating it as real.
 
 Quiz link (Oct 6, 2026): quizlink.js checks the "Take a Quiz" pill in the globe header: label and href, tap size (44 px desktop and iPad, 38 px phones), no overlap with the other controls, no horizontal scroll at 1440, 820, 390 and 320 px wide, and that a click opens the quiz. On phones the pill wraps to its own row, which moves the card title about 46 px lower (the iPhone SE title below the fold is the old baseline).
+
+## Header regroup (tests/header.js)
+Run: `NODE_PATH=$(npm root -g) node tests/header.js` (server on 8778). Checks at 10 widths from 1440 to 360 px that Play lives in the story nav (between Previous and Next), the header holds Take a Quiz, Map key, the toggle and Reset, desktop (over 960 px) is one row, narrower is title + Quiz on row 1 and controls on row 2, and nothing is off screen. At 360 px or less the controls may wrap to a third row (not checked). At 900 px or less the story nav sticks to the bottom of the panel.
