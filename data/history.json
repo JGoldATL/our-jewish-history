@@ -2517,13 +2517,13 @@
   "sheet": {
     "meta": {
       "schema": "sheet-1",
-      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.1",
+      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.2",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-10-06T15:22:52Z",
-      "exportSha256": "46ed9fc0ce92e1f9",
+      "sheetModified": "2026-10-06T16:45:00Z",
+      "exportSha256": "3baf4c2be66a004c",
       "mode": "preview",
       "counts": {
-        "places": 89,
+        "places": 93,
         "events": 90,
         "communities": 115,
         "movements": 59,
@@ -2531,7 +2531,7 @@
         "evidence": 20,
         "cards": 164,
         "eras": 7,
-        "cameraStops": 36,
+        "cameraStops": 37,
         "eraAssignment": 264
       }
     },
@@ -3336,6 +3336,46 @@
         "lat": 30.005,
         "lon": 31.231,
         "landOfIsrael": false
+      },
+      {
+        "id": "place-cam-central-atlantic",
+        "historicalName": "Central Atlantic (camera centre only)",
+        "modernName": "Open ocean, no place",
+        "role": "region",
+        "lat": 23,
+        "lon": -19,
+        "landOfIsrael": false,
+        "cameraOnly": true
+      },
+      {
+        "id": "place-cam-north-atlantic",
+        "historicalName": "North Atlantic (camera centre only)",
+        "modernName": "Open ocean, no place",
+        "role": "region",
+        "lat": 29,
+        "lon": -34,
+        "landOfIsrael": false,
+        "cameraOnly": true
+      },
+      {
+        "id": "place-cam-labrador-sea",
+        "historicalName": "Labrador Sea / Irminger Sea (camera centre only)",
+        "modernName": "Open ocean, no place",
+        "role": "region",
+        "lat": 60,
+        "lon": -46,
+        "landOfIsrael": false,
+        "cameraOnly": true
+      },
+      {
+        "id": "place-cam-inner-asia",
+        "historicalName": "Inner Asia (camera centre only)",
+        "modernName": "Xinjiang / Tibet plateau, no place",
+        "role": "region",
+        "lat": 38,
+        "lon": 83,
+        "landOfIsrael": false,
+        "cameraOnly": true
       }
     ],
     "events": [
@@ -10029,17 +10069,17 @@
         "era": 4,
         "startYear": 1080,
         "label": "Cairo, Aden and India",
-        "centerPlaceId": "place-cairo",
-        "centerLat": 30.005,
-        "centerLon": 31.231,
-        "role": "settlement",
+        "centerPlaceId": "place-yemen",
+        "centerLat": 15.5,
+        "centerLon": 47.5,
+        "role": "region",
         "framePlaceIds": [
-          "place-yemen",
+          "place-cairo",
           "place-malabar"
         ],
-        "reachDeg": 46.4,
-        "viewDeg": 45.0,
-        "fits": false,
+        "reachDeg": 28.6,
+        "viewDeg": 32.9,
+        "fits": true,
         "recordIds": [
           "EVT-0047"
         ],
@@ -10368,16 +10408,17 @@
         "era": 6,
         "startYear": 1630,
         "label": "Amsterdam to Dutch Brazil",
-        "centerPlaceId": "place-recife",
-        "centerLat": -8.05,
-        "centerLon": -34.88,
-        "role": "settlement",
+        "centerPlaceId": "place-cam-central-atlantic",
+        "centerLat": 23,
+        "centerLon": -19,
+        "role": "region",
         "framePlaceIds": [
+          "place-recife",
           "place-amsterdam"
         ],
-        "reachDeg": 69.3,
-        "viewDeg": 45.0,
-        "fits": false,
+        "reachDeg": 34.7,
+        "viewDeg": 39.9,
+        "fits": true,
         "recordIds": [
           "EVT-0070",
           "MOV-027",
@@ -10391,19 +10432,20 @@
         "era": 6,
         "startYear": 1654,
         "label": "The Recife dispersal, 1654",
-        "centerPlaceId": "place-recife",
-        "centerLat": -8.05,
-        "centerLon": -34.88,
-        "role": "settlement",
+        "centerPlaceId": "place-cam-north-atlantic",
+        "centerLat": 29,
+        "centerLon": -34,
+        "role": "region",
         "framePlaceIds": [
+          "place-recife",
           "place-amsterdam",
           "place-curacao",
           "place-barbados",
           "place-new-amsterdam"
         ],
-        "reachDeg": 69.3,
-        "viewDeg": 45.0,
-        "fits": false,
+        "reachDeg": 37.1,
+        "viewDeg": 42.6,
+        "fits": true,
         "recordIds": [
           "EVT-0071",
           "MOV-029",
@@ -10583,16 +10625,17 @@
         "era": 7,
         "startYear": 1820,
         "label": "Central Europe to the United States",
-        "centerPlaceId": "place-central-europe",
-        "centerLat": 49,
-        "centerLon": 16,
+        "centerPlaceId": "place-cam-labrador-sea",
+        "centerLat": 60,
+        "centerLon": -46,
         "role": "region",
         "framePlaceIds": [
+          "place-central-europe",
           "place-us"
         ],
-        "reachDeg": 74.1,
-        "viewDeg": 45.0,
-        "fits": false,
+        "reachDeg": 38.0,
+        "viewDeg": 43.7,
+        "fits": true,
         "recordIds": [
           "EVT-0083",
           "MOV-037",
@@ -10606,17 +10649,18 @@
         "era": 7,
         "startYear": 1845,
         "label": "Baghdad to India to Shanghai",
-        "centerPlaceId": "place-bombay",
-        "centerLat": 19.08,
-        "centerLon": 72.88,
-        "role": "settlement",
+        "centerPlaceId": "place-cam-inner-asia",
+        "centerLat": 38,
+        "centerLon": 83,
+        "role": "region",
         "framePlaceIds": [
+          "place-bombay",
           "place-b",
           "place-shanghai"
         ],
-        "reachDeg": 45.3,
-        "viewDeg": 45.0,
-        "fits": false,
+        "reachDeg": 32.1,
+        "viewDeg": 37.0,
+        "fits": true,
         "recordIds": [
           "EVT-0080",
           "EVT-0085",
@@ -10633,14 +10677,15 @@
         "era": 7,
         "startYear": 1881,
         "label": "Eastern Europe to America",
-        "centerPlaceId": "place-eastern-europe",
-        "centerLat": 50,
-        "centerLon": 32,
+        "centerPlaceId": "place-cam-labrador-sea",
+        "centerLat": 60,
+        "centerLon": -46,
         "role": "region",
         "framePlaceIds": [
+          "place-eastern-europe",
           "place-us"
         ],
-        "reachDeg": 80.3,
+        "reachDeg": 43.1,
         "viewDeg": 45.0,
         "fits": false,
         "recordIds": [
@@ -10682,24 +10727,40 @@
         "status": "approved"
       },
       {
-        "id": "STOP-7.11",
-        "stop": "7.11",
+        "id": "STOP-7.11a",
+        "stop": "7.11a",
         "era": 7,
         "startYear": 1889,
-        "label": "Eastern Europe to Argentina",
+        "label": "Eastern Europe, departure for Argentina",
+        "centerPlaceId": "place-eastern-europe",
+        "centerLat": 50,
+        "centerLon": 32,
+        "role": "region",
+        "framePlaceIds": [],
+        "reachDeg": 0.0,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "MOV-041"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-7.11b",
+        "stop": "7.11b",
+        "era": 7,
+        "startYear": 1890,
+        "label": "Argentina, arrival and farming colonies",
         "centerPlaceId": "place-argentina",
         "centerLat": -34.6,
         "centerLon": -58.4,
         "role": "region",
-        "framePlaceIds": [
-          "place-eastern-europe"
-        ],
-        "reachDeg": 116.0,
-        "viewDeg": 45.0,
-        "fits": false,
+        "framePlaceIds": [],
+        "reachDeg": 0.0,
+        "viewDeg": 24.0,
+        "fits": true,
         "recordIds": [
           "EVT-0094",
-          "MOV-041",
           "POP-069"
         ],
         "status": "approved"
