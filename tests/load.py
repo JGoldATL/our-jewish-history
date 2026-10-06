@@ -36,6 +36,7 @@ BASE = {
         ['EVT-0003', -500, None, '500 BCE', 'place-a', None, None, 'Archaeology', '500 BCE', 'Arch one', 'Plain text three.', 'Meanwhile on arch.', 'Draft', None, 'draft', S, S, S, S, S, S, S],
         ['EVT-0004', -400, None, '400 BCE', 'place-a', None, None, 'Event', '400 BCE', 'Half card', None, None, None, None, None, S, S, S, S, S, S, S],
         ['EVT-0005', -300, None, '300 BCE', 'place-a', None, None, None, None, None, None, None, None, None, None, S, S, S, S, S, S, S],
+        ['EVT-0006', -250, None, '250 BCE', 'place-a', None, None, None, None, None, None, None, None, None, 'approved', S, S, S, S, S, S, S],
     ],
     'Communities': [
         ['POP-001', 'POP', 'c. 1000 BCE', -1000, None, 'place-a', 'Blue presence', 'EVT-0001', None, None, None, None, None, S, S, S],
@@ -93,6 +94,7 @@ with tempfile.TemporaryDirectory() as td:
     cards = {c['id']: c for c in sheet['cards']}
     check('all complete cards loaded, drafts included in preview', set(cards) == {'EVT-0001', 'EVT-0002', 'EVT-0003'}, list(cards))
     check('record with no card is not in the card list', 'EVT-0005' not in cards and any(e['id'] == 'EVT-0005' and not e['hasCard'] for e in sheet['events']))
+    check('a row with only a Card status (no card text) is silent, record kept', not any(r['id']=='EVT-0006' for r in rep['rejects']) and any(e['id']=='EVT-0006' for e in sheet['events']))
     check('incomplete card rejected with reason, record kept', any(r['id'] == 'EVT-0004' for r in rep['rejects']) and any(e['id'] == 'EVT-0004' for e in sheet['events']))
     check('duplicate card text makes one card only', 'DES-001' not in cards and any(w['id'] == 'DES-001' for w in rep['warnings']))
     check('record with no Place ID rejected, not fixed', any(r['id'] == 'DES-002' for r in rep['rejects']) and not any(c['id'] == 'DES-002' for c in sheet['communities']))

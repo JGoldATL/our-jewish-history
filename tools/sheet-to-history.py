@@ -405,7 +405,8 @@ def build(wb, rep):
 
     def make_card(tab, r, rid_extra=None):
         title = r.get('cardTitle')
-        if not any(r.get(k) for k in ('cardType', 'cardDate', 'cardTitle', 'cardDescription', 'cardStatus')):
+        # No card text at all (a Card status alone does not make a card) means no card was intended: stay silent.
+        if not any(r.get(k) for k in ('cardType', 'cardDate', 'cardTitle', 'cardDescription')):
             return None
         missing = [n for n, k in (('card type', 'cardType'), ('card date', 'cardDate'), ('card title', 'cardTitle'),
                                   ('card description', 'cardDescription'), ('card status', 'cardStatus')) if not r.get(k)]
