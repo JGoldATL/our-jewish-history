@@ -59,16 +59,24 @@ async function answer(p,wantRight){
 
   // 2. Public build with only drafts: not-ready message
   {
-    const {p}=await page(browser,{fixture:h=>{h.sheet.meta.mode='public';}});
+    const {p}=await page(browser,{fixture:h=>{h.sheet.meta.mode='public';h.sheet.questions.forEach(q=>q.status='draft');}});
     await p.waitForSelector('.msg');
     ok(/not ready yet/.test(await p.$eval('.msg',e=>e.textContent)),'public + all drafts shows "not ready" message');
     await p.context().close();
   }
 
   // 3. Full round, preview data (drafts shown)
+  // 2b. Real data (all Approved): no draft marker; with every row set to Draft in preview, the marker shows
+  {
+    const {p:a}=await page(browser);await a.waitForSelector('.card');
+    ok((await a.$eval('#mode',e=>e.textContent))==='','approved questions: no draft marker in the footer');
+    await a.context().close();
+    const {p:b}=await page(browser,{fixture:h=>{h.sheet.questions.forEach(q=>q.status='draft');}});await b.waitForSelector('.card');
+    ok(/Preview · draft questions included/.test(await b.$eval('#mode',e=>e.textContent)),'preview with only drafts: footer marks drafts');
+    await b.context().close();
+  }
   const {p,errs}=await page(browser);
   await p.waitForSelector('.card');
-  ok(/Preview · draft questions included/.test(await p.$eval('#mode',e=>e.textContent)),'preview footer marks drafts');
   const ts=await p.evaluate(()=>document.querySelector('h1').textContent);
   ok(ts==='When in the World?','title');
   ok(await p.$eval('#globe',e=>e.getBoundingClientRect().width)===88,'globe is 88 px');
