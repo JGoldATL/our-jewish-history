@@ -2520,16 +2520,16 @@
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.1",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
       "sheetModified": "2026-10-05T21:00:00Z",
-      "exportSha256": "1e81e0aa30e54b91",
+      "exportSha256": "e717e48b86aff550",
       "mode": "preview",
       "counts": {
-        "places": 76,
-        "events": 31,
+        "places": 89,
+        "events": 90,
         "communities": 115,
-        "movements": 45,
+        "movements": 59,
         "context": 43,
         "evidence": 20,
-        "cards": 33
+        "cards": 164
       }
     },
     "places": [
@@ -3216,6 +3216,123 @@
         "lat": 50,
         "lon": 32,
         "landOfIsrael": false
+      },
+      {
+        "id": "place-spain",
+        "historicalName": "Spain (Crowns of Castile and Aragon)",
+        "modernName": "Spain",
+        "role": "region",
+        "lat": 40,
+        "lon": -4,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-portugal",
+        "historicalName": "Portugal",
+        "modernName": "Portugal",
+        "role": "region",
+        "lat": 39.6,
+        "lon": -8,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-papal-states",
+        "historicalName": "Papal States",
+        "modernName": "Central Italy (Lazio, Marche, Umbria, Emilia-Romagna)",
+        "role": "region",
+        "lat": 42.5,
+        "lon": 12.8,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-barcelona",
+        "historicalName": "Barcelona",
+        "modernName": "Barcelona, Spain",
+        "role": "settlement",
+        "lat": 41.385,
+        "lon": 2.173,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-kalisz",
+        "historicalName": "Kalisz",
+        "modernName": "Kalisz, Poland",
+        "role": "settlement",
+        "lat": 51.76,
+        "lon": 18.09,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-venice",
+        "historicalName": "Venice (the Ghetto)",
+        "modernName": "Venice, Italy",
+        "role": "settlement",
+        "lat": 45.446,
+        "lon": 12.326,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-edirne",
+        "historicalName": "Edirne (Adrianople)",
+        "modernName": "Edirne, Turkey",
+        "role": "settlement",
+        "lat": 41.677,
+        "lon": 26.556,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-medzhybizh",
+        "historicalName": "Medzhybizh (Podolia)",
+        "modernName": "Medzhybizh, Ukraine",
+        "role": "settlement",
+        "lat": 49.447,
+        "lon": 27.41,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-paris",
+        "historicalName": "Paris",
+        "modernName": "Paris, France",
+        "role": "settlement",
+        "lat": 48.857,
+        "lon": 2.352,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-damascus",
+        "historicalName": "Damascus",
+        "modernName": "Damascus, Syria",
+        "role": "settlement",
+        "lat": 33.513,
+        "lon": 36.292,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-algeria",
+        "historicalName": "Algeria",
+        "modernName": "Algeria",
+        "role": "region",
+        "lat": 36,
+        "lon": 3,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-basel",
+        "historicalName": "Basel",
+        "modernName": "Basel, Switzerland",
+        "role": "settlement",
+        "lat": 47.559,
+        "lon": 7.588,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-cairo",
+        "historicalName": "Cairo (Fustat)",
+        "modernName": "Cairo, Egypt",
+        "role": "settlement",
+        "lat": 30.005,
+        "lon": 31.231,
+        "landOfIsrael": false
       }
     ],
     "events": [
@@ -3651,6 +3768,656 @@
           "EVD-011"
         ],
         "hasCard": false
+      },
+      {
+        "id": "EVT-0040",
+        "startYear": 614,
+        "endYear": null,
+        "dateDisplay": "614 CE",
+        "placeId": "place-j",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0041",
+        "startYear": 628,
+        "endYear": null,
+        "dateDisplay": "628–630 CE",
+        "placeId": "place-j",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0042",
+        "startYear": 634,
+        "endYear": null,
+        "dateDisplay": "634–638 CE",
+        "placeId": "place-israel",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0043",
+        "startYear": 641,
+        "endYear": null,
+        "dateDisplay": "641–642 CE",
+        "placeId": "place-egypt",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0044",
+        "startYear": 650,
+        "endYear": null,
+        "dateDisplay": "c. 650 CE",
+        "placeId": "place-b",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0045",
+        "startYear": 711,
+        "endYear": null,
+        "dateDisplay": "711 CE",
+        "placeId": "place-iberia",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0046",
+        "startYear": 900,
+        "endYear": 1100,
+        "dateDisplay": "10th–11th century CE",
+        "placeId": "place-egypt",
+        "movementIds": [
+          "MOV-009"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0047",
+        "startYear": 1080,
+        "endYear": null,
+        "dateDisplay": "c. 1080–1240 CE",
+        "placeId": "place-cairo",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0048",
+        "startYear": 1182,
+        "endYear": null,
+        "dateDisplay": "1182 CE",
+        "placeId": "place-france",
+        "movementIds": [
+          "MOV-011"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0049",
+        "startYear": 1220,
+        "endYear": null,
+        "dateDisplay": "c. 1220 CE",
+        "placeId": "place-rhineland",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0050",
+        "startYear": 1263,
+        "endYear": null,
+        "dateDisplay": "1263 CE",
+        "placeId": "place-barcelona",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0051",
+        "startYear": 1264,
+        "endYear": null,
+        "dateDisplay": "1264 CE",
+        "placeId": "place-kalisz",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0052",
+        "startYear": 1275,
+        "endYear": null,
+        "dateDisplay": "1275 CE",
+        "placeId": "place-england",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0053",
+        "startYear": 1290,
+        "endYear": null,
+        "dateDisplay": "1290 CE",
+        "placeId": "place-england",
+        "movementIds": [
+          "MOV-012"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0054",
+        "startYear": 1300,
+        "endYear": 1500,
+        "dateDisplay": "14th–15th century CE",
+        "placeId": "place-east-central-europe",
+        "movementIds": [
+          "MOV-015"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0055",
+        "startYear": 1306,
+        "endYear": null,
+        "dateDisplay": "1306 CE",
+        "placeId": "place-france",
+        "movementIds": [
+          "MOV-013"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0056",
+        "startYear": 1322,
+        "endYear": null,
+        "dateDisplay": "1322 CE",
+        "placeId": "place-france",
+        "movementIds": [
+          "MOV-014"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0057",
+        "startYear": 1394,
+        "endYear": null,
+        "dateDisplay": "1394 CE",
+        "placeId": "place-france",
+        "movementIds": [
+          "MOV-017"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0058",
+        "startYear": 1453,
+        "endYear": null,
+        "dateDisplay": "After 1453 CE",
+        "placeId": "place-constantinople",
+        "movementIds": [
+          "MOV-019"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0059",
+        "startYear": 1492,
+        "endYear": null,
+        "dateDisplay": "1492 CE",
+        "placeId": "place-spain",
+        "movementIds": [
+          "MOV-020"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0060",
+        "startYear": 1492,
+        "endYear": 1493,
+        "dateDisplay": "1492–93 CE",
+        "placeId": "place-sicily",
+        "movementIds": [
+          "MOV-021"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0061",
+        "startYear": 1500,
+        "endYear": 1650,
+        "dateDisplay": "c. 1500–1650 CE",
+        "placeId": "place-ottoman-lands",
+        "movementIds": [
+          "MOV-022"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0062",
+        "startYear": 1500,
+        "endYear": 1570,
+        "dateDisplay": "Early / mid-1500s CE",
+        "placeId": "place-safed",
+        "movementIds": [
+          "MOV-023"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0063",
+        "startYear": 1500,
+        "endYear": 1700,
+        "dateDisplay": "16th–17th century CE",
+        "placeId": "place-portugal",
+        "movementIds": [
+          "MOV-024"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0064",
+        "startYear": 1516,
+        "endYear": null,
+        "dateDisplay": "1516–17 CE",
+        "placeId": "place-israel",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0065",
+        "startYear": 1516,
+        "endYear": null,
+        "dateDisplay": "1516 CE",
+        "placeId": "place-venice",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0066",
+        "startYear": 1536,
+        "endYear": null,
+        "dateDisplay": "1536 CE",
+        "placeId": "place-portugal",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0067",
+        "startYear": 1555,
+        "endYear": null,
+        "dateDisplay": "1555 CE",
+        "placeId": "place-romeNode",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0068",
+        "startYear": 1569,
+        "endYear": 1593,
+        "dateDisplay": "1569 / 1593 CE",
+        "placeId": "place-papal-states",
+        "movementIds": [
+          "MOV-025"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0069",
+        "startYear": 1590,
+        "endYear": null,
+        "dateDisplay": "From c. 1590 CE",
+        "placeId": "place-amsterdam",
+        "movementIds": [
+          "MOV-026"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0070",
+        "startYear": 1630,
+        "endYear": null,
+        "dateDisplay": "1630s onward CE",
+        "placeId": "place-recife",
+        "movementIds": [
+          "MOV-027"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0071",
+        "startYear": 1654,
+        "endYear": null,
+        "dateDisplay": "1654 CE",
+        "placeId": "place-recife",
+        "movementIds": [
+          "MOV-029"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0072",
+        "startYear": 1666,
+        "endYear": null,
+        "dateDisplay": "1666 CE",
+        "placeId": "place-edirne",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0073",
+        "startYear": 1669,
+        "endYear": 1670,
+        "dateDisplay": "1669–70 CE",
+        "placeId": "place-vienna",
+        "movementIds": [
+          "MOV-030"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0074",
+        "startYear": 1700,
+        "endYear": null,
+        "dateDisplay": "18th century CE",
+        "placeId": "place-medzhybizh",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0075",
+        "startYear": 1744,
+        "endYear": 1745,
+        "dateDisplay": "1744–45 CE",
+        "placeId": "place-prague",
+        "movementIds": [
+          "MOV-031"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0076",
+        "startYear": 1777,
+        "endYear": null,
+        "dateDisplay": "1777 CE",
+        "placeId": "place-safed",
+        "movementIds": [
+          "MOV-032"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0077",
+        "startYear": 1782,
+        "endYear": null,
+        "dateDisplay": "1782 CE",
+        "placeId": "place-vienna",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0078",
+        "startYear": 1791,
+        "endYear": null,
+        "dateDisplay": "1791 CE",
+        "placeId": "place-paris",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0079",
+        "startYear": 1800,
+        "endYear": 1900,
+        "dateDisplay": "19th century CE",
+        "placeId": "place-odessa",
+        "movementIds": [
+          "MOV-033"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0080",
+        "startYear": 1800,
+        "endYear": 1900,
+        "dateDisplay": "19th century CE",
+        "placeId": "place-bombay",
+        "movementIds": [
+          "MOV-035"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0081",
+        "startYear": 1804,
+        "endYear": null,
+        "dateDisplay": "1804 / 1835 CE",
+        "placeId": "place-pale-of-settlement",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0082",
+        "startYear": 1808,
+        "endYear": 1810,
+        "dateDisplay": "1808–10 CE",
+        "placeId": "place-israel",
+        "movementIds": [
+          "MOV-034"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0083",
+        "startYear": 1820,
+        "endYear": 1880,
+        "dateDisplay": "1820–1880 CE",
+        "placeId": "place-us",
+        "movementIds": [
+          "MOV-037"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0084",
+        "startYear": 1840,
+        "endYear": null,
+        "dateDisplay": "1840 CE",
+        "placeId": "place-damascus",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0085",
+        "startYear": 1845,
+        "endYear": null,
+        "dateDisplay": "From 1845 CE",
+        "placeId": "place-shanghai",
+        "movementIds": [
+          "MOV-036"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0086",
+        "startYear": 1856,
+        "endYear": null,
+        "dateDisplay": "1856–69 CE",
+        "placeId": "place-constantinople",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0087",
+        "startYear": 1858,
+        "endYear": null,
+        "dateDisplay": "1858 CE",
+        "placeId": "place-london",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0088",
+        "startYear": 1860,
+        "endYear": null,
+        "dateDisplay": "1860 CE",
+        "placeId": "place-paris",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0089",
+        "startYear": 1867,
+        "endYear": null,
+        "dateDisplay": "1867–71 CE",
+        "placeId": "place-central-europe",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0090",
+        "startYear": 1870,
+        "endYear": null,
+        "dateDisplay": "1870 CE",
+        "placeId": "place-algeria",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0091",
+        "startYear": 1881,
+        "endYear": 1914,
+        "dateDisplay": "1881–1914 CE",
+        "placeId": "place-us",
+        "movementIds": [
+          "MOV-038"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0092",
+        "startYear": 1881,
+        "endYear": 1882,
+        "dateDisplay": "1881–82 CE",
+        "placeId": "place-j",
+        "movementIds": [
+          "MOV-039"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0093",
+        "startYear": 1882,
+        "endYear": 1903,
+        "dateDisplay": "1882–1903 CE",
+        "placeId": "place-israel",
+        "movementIds": [
+          "MOV-040"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0094",
+        "startYear": 1889,
+        "endYear": null,
+        "dateDisplay": "From 1889 CE",
+        "placeId": "place-argentina",
+        "movementIds": [
+          "MOV-041"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0095",
+        "startYear": 1890,
+        "endYear": 1899,
+        "dateDisplay": "1890s CE",
+        "placeId": "place-j",
+        "movementIds": [
+          "MOV-042"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0096",
+        "startYear": 1891,
+        "endYear": null,
+        "dateDisplay": "1891 CE",
+        "placeId": "place-london",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0097",
+        "startYear": 1894,
+        "endYear": null,
+        "dateDisplay": "1894–1906 CE",
+        "placeId": "place-paris",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0098",
+        "startYear": 1897,
+        "endYear": null,
+        "dateDisplay": "1897 CE",
+        "placeId": "place-basel",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
       }
     ],
     "communities": [
@@ -4026,7 +4793,7 @@
         "links": [
           "POP-005"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4115,11 +4882,11 @@
         "links": [
           "POP-008"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "mapSymbol": {
-          "text": "Candidate: black square (data rule OPEN)",
+          "text": "Black square",
           "kind": "blackSquare",
-          "status": "candidate"
+          "status": "locked"
         },
         "noEngineFields": true
       },
@@ -4133,7 +4900,7 @@
         "links": [
           "POP-019"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4144,7 +4911,7 @@
         "dateDisplay": "700–1100 CE",
         "placeId": "place-persia",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4155,7 +4922,7 @@
         "dateDisplay": "700–1100 CE",
         "placeId": "place-israel",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4166,7 +4933,7 @@
         "dateDisplay": "700–1100 CE",
         "placeId": "place-egypt",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4177,7 +4944,7 @@
         "dateDisplay": "8th–11th century CE",
         "placeId": "place-maghreb",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4188,7 +4955,7 @@
         "dateDisplay": "c. 800–1057 CE",
         "placeId": "place-kairouan",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4201,7 +4968,7 @@
         "links": [
           "CTX-010"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4212,7 +4979,7 @@
         "dateDisplay": "700–1100 CE",
         "placeId": "place-sicily",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4223,7 +4990,7 @@
         "dateDisplay": "700–1100 CE",
         "placeId": "place-central-asia",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4234,7 +5001,7 @@
         "dateDisplay": "700–1100 CE",
         "placeId": "place-yemen",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4248,7 +5015,7 @@
           "VOY-002",
           "VOY-003"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4259,7 +5026,7 @@
         "dateDisplay": "700–1100 CE",
         "placeId": "place-s-france",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4270,7 +5037,7 @@
         "dateDisplay": "700–1100 CE",
         "placeId": "place-rhineland",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4281,7 +5048,7 @@
         "dateDisplay": "When Muhammad arrived (7th century CE)",
         "placeId": "place-medina",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4292,7 +5059,7 @@
         "dateDisplay": "1096 CE",
         "placeId": "place-worms",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "mapSymbol": {
           "text": "Red octagon",
           "kind": "octagon",
@@ -4307,7 +5074,7 @@
         "dateDisplay": "1096 CE",
         "placeId": "place-mainz",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "mapSymbol": {
           "text": "Red octagon",
           "kind": "octagon",
@@ -4322,7 +5089,7 @@
         "dateDisplay": "1096 CE",
         "placeId": "place-speyer",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4336,7 +5103,7 @@
           "DES-005",
           "DES-006"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4349,7 +5116,7 @@
         "links": [
           "MOV-010"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4362,7 +5129,7 @@
         "links": [
           "MOV-011"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4373,7 +5140,7 @@
         "dateDisplay": "1190 CE",
         "placeId": "place-york",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "mapSymbol": {
           "text": "Red octagon",
           "kind": "octagon",
@@ -4390,7 +5157,7 @@
         "links": [
           "DES-007"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4401,7 +5168,7 @@
         "dateDisplay": "12th–13th century CE",
         "placeId": "place-england",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4412,7 +5179,7 @@
         "dateDisplay": "11th–13th century CE",
         "placeId": "place-poland",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4427,9 +5194,9 @@
         ],
         "hasCard": false,
         "mapSymbol": {
-          "text": "Candidate: black square (data rule OPEN)",
+          "text": "Black square",
           "kind": "blackSquare",
-          "status": "candidate"
+          "status": "locked"
         },
         "noEngineFields": true
       },
@@ -4441,7 +5208,7 @@
         "dateDisplay": "1348–1351 CE (cluster)",
         "placeId": "place-israel",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "mapSymbol": {
           "text": "Red octagon",
           "kind": "octagon",
@@ -4458,7 +5225,7 @@
         "links": [
           "MOV-013"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4484,7 +5251,7 @@
         "links": [
           "MOV-015"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4495,7 +5262,7 @@
         "dateDisplay": "1391–1392 CE (cluster)",
         "placeId": "place-iberia",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "mapSymbol": {
           "text": "Red octagon",
           "kind": "octagon",
@@ -4530,7 +5297,7 @@
         "links": [
           "MOV-018"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "mapSymbol": {
           "text": "Red octagon",
           "kind": "octagon",
@@ -4545,7 +5312,7 @@
         "dateDisplay": "1475 CE",
         "placeId": "place-trent",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "mapSymbol": {
           "text": "Red octagon",
           "kind": "octagon",
@@ -4564,9 +5331,9 @@
         ],
         "hasCard": false,
         "mapSymbol": {
-          "text": "Candidate: black square (data rule OPEN)",
+          "text": "Black square",
           "kind": "blackSquare",
-          "status": "candidate"
+          "status": "locked"
         },
         "noEngineFields": true
       },
@@ -4580,7 +5347,7 @@
         "links": [
           "CHG-014"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "mapSymbol": {
           "text": "Split diamond (forced conversion to Christianity)",
           "kind": "splitDiamond",
@@ -4598,7 +5365,7 @@
         "links": [
           "MOV-022"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4611,7 +5378,7 @@
         "links": [
           "MOV-023"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4624,7 +5391,7 @@
         "links": [
           "CTX-021"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4637,7 +5404,7 @@
         "links": [
           "MOV-026"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4650,7 +5417,7 @@
         "links": [
           "POP-047"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4664,7 +5431,7 @@
           "MOV-027",
           "MOV-029"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4677,7 +5444,7 @@
         "links": [
           "CHG-016"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "mapSymbol": {
           "text": "Red octagon",
           "kind": "octagon",
@@ -4707,7 +5474,7 @@
         "links": [
           "MOV-029"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4718,7 +5485,7 @@
         "dateDisplay": "17th–18th century CE",
         "placeId": "place-curacao",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4729,7 +5496,7 @@
         "dateDisplay": "17th–18th century CE",
         "placeId": "place-suriname",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4740,7 +5507,7 @@
         "dateDisplay": "After 1655 CE",
         "placeId": "place-jamaica",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4751,7 +5518,7 @@
         "dateDisplay": "17th century CE",
         "placeId": "place-barbados",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4765,7 +5532,7 @@
           "CHG-010",
           "CTX-022"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4776,7 +5543,7 @@
         "dateDisplay": "From 1658 CE",
         "placeId": "place-newport",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4787,7 +5554,7 @@
         "dateDisplay": "From 1733 CE",
         "placeId": "place-savannah",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4798,7 +5565,7 @@
         "dateDisplay": "From the 1690s / 1749 CE",
         "placeId": "place-charleston",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4809,7 +5576,7 @@
         "dateDisplay": "From the 1740s CE",
         "placeId": "place-philadelphia",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4822,7 +5589,7 @@
         "links": [
           "MOV-031"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4835,7 +5602,7 @@
         "links": [
           "CHG-016"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4848,7 +5615,7 @@
         "links": [
           "CTX-025"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4861,7 +5628,7 @@
         "links": [
           "CTX-029"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4874,7 +5641,7 @@
         "links": [
           "MOV-033"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4885,7 +5652,7 @@
         "dateDisplay": "1834 CE",
         "placeId": "place-safed",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4896,7 +5663,7 @@
         "dateDisplay": "1837 CE",
         "placeId": "place-safed",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4907,7 +5674,7 @@
         "dateDisplay": "1839 CE",
         "placeId": "place-mashhad",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "mapSymbol": {
           "text": "Purple diamond (forced conversion, other faith)",
           "kind": "purpleDiamond",
@@ -4925,7 +5692,7 @@
         "links": [
           "MOV-035"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4938,7 +5705,7 @@
         "links": [
           "MOV-036"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4949,7 +5716,7 @@
         "dateDisplay": "From 1860 CE",
         "placeId": "place-j",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4962,7 +5729,7 @@
         "links": [
           "MOV-037"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4973,7 +5740,7 @@
         "dateDisplay": "By 1880 CE",
         "placeId": "place-israel",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4986,7 +5753,7 @@
         "links": [
           "CTX-036"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -4997,7 +5764,7 @@
         "dateDisplay": "19th century CE",
         "placeId": "place-morocco",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -5010,7 +5777,7 @@
         "links": [
           "POP-034"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -5023,7 +5790,7 @@
         "links": [
           "POP-035"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -5034,7 +5801,7 @@
         "dateDisplay": "1881–1884 CE (cluster)",
         "placeId": "place-poland",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "mapSymbol": {
           "text": "Red octagon",
           "kind": "octagon",
@@ -5052,7 +5819,7 @@
         "links": [
           "MOV-040"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -5065,7 +5832,7 @@
         "links": [
           "MOV-041"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -5078,7 +5845,7 @@
         "links": [
           "MOV-042"
         ],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -5142,7 +5909,7 @@
         "dateDisplay": "1881–1914 CE",
         "placeId": "place-london",
         "links": [],
-        "hasCard": false,
+        "hasCard": true,
         "noEngineFields": true
       },
       {
@@ -5306,7 +6073,7 @@
       },
       {
         "id": "MOV-009",
-        "eventId": null,
+        "eventId": "EVT-0046",
         "startYear": 900,
         "endYear": 1100,
         "dateDisplay": "10th–11th century CE",
@@ -5339,7 +6106,7 @@
       },
       {
         "id": "MOV-011",
-        "eventId": null,
+        "eventId": "EVT-0048",
         "startYear": 1182,
         "endYear": null,
         "dateDisplay": "1182 CE",
@@ -5355,7 +6122,7 @@
       },
       {
         "id": "MOV-012",
-        "eventId": null,
+        "eventId": "EVT-0053",
         "startYear": 1290,
         "endYear": null,
         "dateDisplay": "1290 CE",
@@ -5371,7 +6138,7 @@
       },
       {
         "id": "MOV-013",
-        "eventId": null,
+        "eventId": "EVT-0055",
         "startYear": 1306,
         "endYear": null,
         "dateDisplay": "1306 CE",
@@ -5387,7 +6154,7 @@
       },
       {
         "id": "MOV-014",
-        "eventId": null,
+        "eventId": "EVT-0056",
         "startYear": 1322,
         "endYear": null,
         "dateDisplay": "1322 CE",
@@ -5401,7 +6168,7 @@
       },
       {
         "id": "MOV-015",
-        "eventId": null,
+        "eventId": "EVT-0054",
         "startYear": 1300,
         "endYear": 1500,
         "dateDisplay": "14th–15th century CE",
@@ -5433,7 +6200,7 @@
       },
       {
         "id": "MOV-017",
-        "eventId": null,
+        "eventId": "EVT-0057",
         "startYear": 1394,
         "endYear": null,
         "dateDisplay": "1394 CE",
@@ -5463,7 +6230,7 @@
       },
       {
         "id": "MOV-019",
-        "eventId": null,
+        "eventId": "EVT-0058",
         "startYear": 1453,
         "endYear": null,
         "dateDisplay": "After 1453 CE",
@@ -5479,13 +6246,13 @@
       },
       {
         "id": "MOV-020",
-        "eventId": null,
+        "eventId": "EVT-0059",
         "startYear": 1492,
         "endYear": null,
         "dateDisplay": "1492 CE",
         "origin": "Spain",
         "destination": "Portugal; North Africa; Italy; Ottoman lands; other documented destinations",
-        "originPlaceId": "place-iberia",
+        "originPlaceId": "place-spain",
         "destinationPlaceId": null,
         "arrowEndsReady": false,
         "arrowTreatment": "Red",
@@ -5495,7 +6262,7 @@
       },
       {
         "id": "MOV-021",
-        "eventId": null,
+        "eventId": "EVT-0060",
         "startYear": 1492,
         "endYear": 1493,
         "dateDisplay": "1492–93 CE",
@@ -5509,7 +6276,7 @@
       },
       {
         "id": "MOV-022",
-        "eventId": null,
+        "eventId": "EVT-0061",
         "startYear": 1500,
         "endYear": 1650,
         "dateDisplay": "c. 1500–1650 CE",
@@ -5518,14 +6285,14 @@
         "originPlaceId": "place-iberia",
         "destinationPlaceId": "place-ottoman-lands",
         "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal (relocation)",
+        "arrowTreatment": "Charcoal",
         "links": [
           "POP-044"
         ]
       },
       {
         "id": "MOV-023",
-        "eventId": null,
+        "eventId": "EVT-0062",
         "startYear": 1500,
         "endYear": 1570,
         "dateDisplay": "Early / mid-1500s CE",
@@ -5541,13 +6308,13 @@
       },
       {
         "id": "MOV-024",
-        "eventId": null,
+        "eventId": "EVT-0063",
         "startYear": 1500,
         "endYear": 1700,
         "dateDisplay": "16th–17th century CE",
         "origin": "Portugal; Iberia",
         "destination": "Western Europe; Mediterranean",
-        "originPlaceId": "place-iberia",
+        "originPlaceId": "place-portugal",
         "destinationPlaceId": null,
         "arrowEndsReady": false,
         "arrowTreatment": "Red (persecution-driven flight)",
@@ -5558,13 +6325,13 @@
       },
       {
         "id": "MOV-025",
-        "eventId": null,
+        "eventId": "EVT-0068",
         "startYear": 1569,
         "endYear": 1593,
         "dateDisplay": "1569 / 1593 CE",
         "origin": "Papal territories",
         "destination": "Not specified",
-        "originPlaceId": "place-italy",
+        "originPlaceId": "place-papal-states",
         "destinationPlaceId": null,
         "arrowEndsReady": false,
         "arrowTreatment": "Red",
@@ -5574,7 +6341,7 @@
       },
       {
         "id": "MOV-026",
-        "eventId": null,
+        "eventId": "EVT-0069",
         "startYear": 1590,
         "endYear": null,
         "dateDisplay": "From c. 1590 CE",
@@ -5583,14 +6350,14 @@
         "originPlaceId": "place-iberia",
         "destinationPlaceId": "place-amsterdam",
         "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal (relocation)",
+        "arrowTreatment": "Charcoal",
         "links": [
           "POP-047"
         ]
       },
       {
         "id": "MOV-027",
-        "eventId": null,
+        "eventId": "EVT-0070",
         "startYear": 1630,
         "endYear": null,
         "dateDisplay": "1630s onward CE",
@@ -5599,7 +6366,7 @@
         "originPlaceId": "place-amsterdam",
         "destinationPlaceId": "place-recife",
         "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal (relocation)",
+        "arrowTreatment": "Charcoal",
         "links": [
           "POP-049"
         ]
@@ -5623,7 +6390,7 @@
       },
       {
         "id": "MOV-029",
-        "eventId": null,
+        "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": null,
         "dateDisplay": "1654 CE",
@@ -5639,7 +6406,7 @@
       },
       {
         "id": "MOV-030",
-        "eventId": null,
+        "eventId": "EVT-0073",
         "startYear": 1669,
         "endYear": 1670,
         "dateDisplay": "1669–70 CE",
@@ -5653,7 +6420,7 @@
       },
       {
         "id": "MOV-031",
-        "eventId": null,
+        "eventId": "EVT-0075",
         "startYear": 1744,
         "endYear": 1745,
         "dateDisplay": "1744–45 CE",
@@ -5669,7 +6436,7 @@
       },
       {
         "id": "MOV-032",
-        "eventId": null,
+        "eventId": "EVT-0076",
         "startYear": 1777,
         "endYear": null,
         "dateDisplay": "1777 CE",
@@ -5683,7 +6450,7 @@
       },
       {
         "id": "MOV-033",
-        "eventId": null,
+        "eventId": "EVT-0079",
         "startYear": 1800,
         "endYear": 1900,
         "dateDisplay": "19th century CE",
@@ -5699,7 +6466,7 @@
       },
       {
         "id": "MOV-034",
-        "eventId": null,
+        "eventId": "EVT-0082",
         "startYear": 1808,
         "endYear": 1810,
         "dateDisplay": "1808–10 CE",
@@ -5713,7 +6480,7 @@
       },
       {
         "id": "MOV-035",
-        "eventId": null,
+        "eventId": "EVT-0080",
         "startYear": 1800,
         "endYear": 1900,
         "dateDisplay": "19th century CE",
@@ -5722,14 +6489,14 @@
         "originPlaceId": "place-b",
         "destinationPlaceId": "place-bombay",
         "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal (relocation)",
+        "arrowTreatment": "Charcoal",
         "links": [
           "POP-061"
         ]
       },
       {
         "id": "MOV-036",
-        "eventId": null,
+        "eventId": "EVT-0085",
         "startYear": 1845,
         "endYear": null,
         "dateDisplay": "From 1845 CE",
@@ -5745,7 +6512,7 @@
       },
       {
         "id": "MOV-037",
-        "eventId": null,
+        "eventId": "EVT-0083",
         "startYear": 1820,
         "endYear": 1880,
         "dateDisplay": "1820–1880 CE",
@@ -5761,7 +6528,7 @@
       },
       {
         "id": "MOV-038",
-        "eventId": null,
+        "eventId": "EVT-0091",
         "startYear": 1881,
         "endYear": 1914,
         "dateDisplay": "1881–1914 CE",
@@ -5777,7 +6544,7 @@
       },
       {
         "id": "MOV-039",
-        "eventId": null,
+        "eventId": "EVT-0092",
         "startYear": 1881,
         "endYear": 1882,
         "dateDisplay": "1881–82 CE",
@@ -5791,7 +6558,7 @@
       },
       {
         "id": "MOV-040",
-        "eventId": null,
+        "eventId": "EVT-0093",
         "startYear": 1882,
         "endYear": 1903,
         "dateDisplay": "1882–1903 CE",
@@ -5808,7 +6575,7 @@
       },
       {
         "id": "MOV-041",
-        "eventId": null,
+        "eventId": "EVT-0094",
         "startYear": 1889,
         "endYear": null,
         "dateDisplay": "From 1889 CE",
@@ -5817,14 +6584,14 @@
         "originPlaceId": "place-eastern-europe",
         "destinationPlaceId": "place-argentina",
         "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal (relocation)",
+        "arrowTreatment": "Charcoal",
         "links": [
           "POP-069"
         ]
       },
       {
         "id": "MOV-042",
-        "eventId": null,
+        "eventId": "EVT-0095",
         "startYear": 1890,
         "endYear": 1899,
         "dateDisplay": "1890s CE",
@@ -5884,6 +6651,245 @@
         "arrowTreatment": "Charcoal (relocation)",
         "links": [
           "POP-011"
+        ]
+      },
+      {
+        "id": "MOV-046",
+        "eventId": "EVT-0009",
+        "startYear": -722,
+        "endYear": -720,
+        "dateDisplay": "722–720 BCE",
+        "origin": "Northern Israel (Samaria)",
+        "destination": "Assyrian sphere, central (schematic)",
+        "originPlaceId": "place-samaria",
+        "destinationPlaceId": "place-assyria-central",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "MOV-002",
+          "POP-002"
+        ]
+      },
+      {
+        "id": "MOV-047",
+        "eventId": "EVT-0009",
+        "startYear": -722,
+        "endYear": -720,
+        "dateDisplay": "722–720 BCE",
+        "origin": "Northern Israel (Samaria)",
+        "destination": "Assyrian sphere, east (schematic)",
+        "originPlaceId": "place-samaria",
+        "destinationPlaceId": "place-assyria-east",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "MOV-002",
+          "POP-002"
+        ]
+      },
+      {
+        "id": "MOV-048",
+        "eventId": "EVT-0061",
+        "startYear": 1500,
+        "endYear": 1650,
+        "dateDisplay": "c. 1500–1650 CE",
+        "origin": "Italy",
+        "destination": "Ottoman cities",
+        "originPlaceId": "place-italy",
+        "destinationPlaceId": "place-ottoman-lands",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "MOV-022",
+          "POP-044"
+        ]
+      },
+      {
+        "id": "MOV-049",
+        "eventId": "EVT-0062",
+        "startYear": 1500,
+        "endYear": 1570,
+        "dateDisplay": "Early / mid-1500s CE",
+        "origin": "Mediterranean",
+        "destination": "Jerusalem",
+        "originPlaceId": "place-mediterranean",
+        "destinationPlaceId": "place-j",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Blue",
+        "links": [
+          "MOV-023",
+          "POP-045"
+        ]
+      },
+      {
+        "id": "MOV-050",
+        "eventId": "EVT-0093",
+        "startYear": 1882,
+        "endYear": 1903,
+        "dateDisplay": "1882–1903 CE",
+        "origin": "Yemen",
+        "destination": "Land of Israel",
+        "originPlaceId": "place-yemen",
+        "destinationPlaceId": "place-israel",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Blue",
+        "links": [
+          "CHG-028",
+          "MOV-040",
+          "POP-068"
+        ]
+      },
+      {
+        "id": "MOV-051",
+        "eventId": null,
+        "startYear": 1904,
+        "endYear": 1914,
+        "dateDisplay": "1904–14 CE",
+        "origin": "Yemen",
+        "destination": "Land of Israel",
+        "originPlaceId": "place-yemen",
+        "destinationPlaceId": "place-israel",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Blue",
+        "links": [
+          "MOV-043",
+          "POP-071"
+        ]
+      },
+      {
+        "id": "MOV-052",
+        "eventId": "EVT-0071",
+        "startYear": 1654,
+        "endYear": null,
+        "dateDisplay": "1654 CE",
+        "origin": "Recife",
+        "destination": "Amsterdam",
+        "originPlaceId": "place-recife",
+        "destinationPlaceId": "place-amsterdam",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "MOV-029",
+          "POP-047"
+        ]
+      },
+      {
+        "id": "MOV-053",
+        "eventId": "EVT-0071",
+        "startYear": 1654,
+        "endYear": null,
+        "dateDisplay": "1654 CE",
+        "origin": "Recife",
+        "destination": "Curaçao",
+        "originPlaceId": "place-recife",
+        "destinationPlaceId": "place-curacao",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "MOV-029",
+          "POP-051"
+        ]
+      },
+      {
+        "id": "MOV-054",
+        "eventId": "EVT-0071",
+        "startYear": 1654,
+        "endYear": null,
+        "dateDisplay": "1654 CE",
+        "origin": "Recife",
+        "destination": "Barbados",
+        "originPlaceId": "place-recife",
+        "destinationPlaceId": "place-barbados",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "MOV-029",
+          "POP-054"
+        ]
+      },
+      {
+        "id": "MOV-055",
+        "eventId": "EVT-0071",
+        "startYear": 1654,
+        "endYear": 1654,
+        "dateDisplay": "Sept 1654 CE",
+        "origin": "Recife",
+        "destination": "New Amsterdam",
+        "originPlaceId": "place-recife",
+        "destinationPlaceId": "place-new-amsterdam",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "MOV-029",
+          "POP-050"
+        ]
+      },
+      {
+        "id": "MOV-056",
+        "eventId": "EVT-0059",
+        "startYear": 1492,
+        "endYear": null,
+        "dateDisplay": "1492 CE",
+        "origin": "Spain",
+        "destination": "Portugal",
+        "originPlaceId": "place-spain",
+        "destinationPlaceId": "place-portugal",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-014",
+          "MOV-020"
+        ]
+      },
+      {
+        "id": "MOV-057",
+        "eventId": "EVT-0059",
+        "startYear": 1492,
+        "endYear": null,
+        "dateDisplay": "1492 CE",
+        "origin": "Spain",
+        "destination": "North Africa (Maghreb)",
+        "originPlaceId": "place-spain",
+        "destinationPlaceId": "place-maghreb",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-014",
+          "MOV-020"
+        ]
+      },
+      {
+        "id": "MOV-058",
+        "eventId": "EVT-0059",
+        "startYear": 1492,
+        "endYear": null,
+        "dateDisplay": "1492 CE",
+        "origin": "Spain",
+        "destination": "Italy",
+        "originPlaceId": "place-spain",
+        "destinationPlaceId": "place-italy",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-014",
+          "MOV-020"
+        ]
+      },
+      {
+        "id": "MOV-059",
+        "eventId": "EVT-0059",
+        "startYear": 1492,
+        "endYear": null,
+        "dateDisplay": "1492 CE",
+        "origin": "Spain",
+        "destination": "Ottoman lands",
+        "originPlaceId": "place-spain",
+        "destinationPlaceId": "place-ottoman-lands",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-014",
+          "MOV-020"
         ]
       }
     ],
@@ -6978,6 +7984,1784 @@
         "placeId": "place-galilee",
         "meanwhile": "In China, the Han dynasty, which ruled for about 400 years, ends in 220 CE.",
         "meanwhileStatus": "approved"
+      },
+      {
+        "id": "POP-019",
+        "recordId": "POP-019",
+        "type": "Community",
+        "date": "224–638 CE",
+        "title": "Babylonia is a leading center of Jewish life",
+        "description": "Under the Sasanian Persian Empire, Babylonia was one of the largest and most important Jewish centers in the world. Its Jewish scholars taught in great schools and shaped Jewish law and study for centuries.",
+        "status": "draft",
+        "startYear": 224,
+        "endYear": 638,
+        "placeId": "place-b"
+      },
+      {
+        "id": "CHG-006",
+        "recordId": "CHG-006",
+        "type": "Event",
+        "date": "415 CE",
+        "title": "Alexandria's Jews are forced out",
+        "description": "In 415 CE, many of the Jews of Alexandria were forced to leave the city. Alexandria had been one of the greatest Jewish centers in the world for more than 700 years.",
+        "status": "draft",
+        "startYear": 415,
+        "endYear": null,
+        "placeId": "place-alexNode",
+        "mapSymbol": {
+          "text": "Black square",
+          "kind": "blackSquare",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0040",
+        "recordId": "EVT-0040",
+        "type": "Event",
+        "date": "614 CE",
+        "title": "Persia conquers Jerusalem",
+        "description": "In 614 CE, the Persian army of the Sasanian Empire captured Jerusalem from the Byzantine Empire. Jews continued to live in the Land under its new ruler.",
+        "status": "draft",
+        "startYear": 614,
+        "endYear": null,
+        "placeId": "place-j",
+        "meanwhile": "In China, the Sui dynasty begins building the Grand Canal in 605 CE to carry grain and travelers across the land.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "POP-038",
+        "recordId": "POP-038",
+        "type": "Community",
+        "date": "622 CE",
+        "title": "Jews live in Medina",
+        "description": "When Muhammad arrived in the city of Medina in 622 CE, large Jewish groups already lived there. At that time the city was called Yathrib.",
+        "status": "draft",
+        "startYear": 622,
+        "endYear": null,
+        "placeId": "place-medina"
+      },
+      {
+        "id": "EVT-0041",
+        "recordId": "EVT-0041",
+        "type": "Event",
+        "date": "628 CE",
+        "title": "The Byzantines take back Jerusalem",
+        "description": "In 628 to 630 CE, the Byzantine Empire won back Jerusalem and the Land of Israel from Persia. It was another change of rulers for the Jews who lived there.",
+        "status": "draft",
+        "startYear": 628,
+        "endYear": null,
+        "placeId": "place-j",
+        "meanwhile": "In China, the monk Xuanzang sets out around 629 CE on a journey of about 16 years to India to bring back Buddhist books.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0042",
+        "recordId": "EVT-0042",
+        "type": "Event",
+        "date": "634 CE",
+        "title": "Muslim armies conquer the Land of Israel",
+        "description": "Between 634 and 638 CE, Muslim armies conquered the Land of Israel from the Byzantine Empire. Jews continued to live in the Land under Muslim rule.",
+        "status": "draft",
+        "startYear": 634,
+        "endYear": null,
+        "placeId": "place-israel",
+        "meanwhile": "In England, a ship filled with treasure is buried at Sutton Hoo around 625 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0043",
+        "recordId": "EVT-0043",
+        "type": "Event",
+        "date": "641 CE",
+        "title": "Muslim armies conquer Egypt",
+        "description": "In 641 and 642 CE, Muslim armies conquered Egypt, including the great city of Alexandria. Jewish communities there carried on under their new rulers.",
+        "status": "draft",
+        "startYear": 641,
+        "endYear": null,
+        "placeId": "place-egypt",
+        "meanwhile": "In Mexico, a boy of 12 named Pakal becomes ruler of the Maya city of Palenque in 615 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0044",
+        "recordId": "EVT-0044",
+        "type": "Event",
+        "date": "c. 650 CE",
+        "title": "Muslim rule replaces Persian rule in Iraq",
+        "description": "Around 650 CE, Muslim rule replaced Sasanian Persian rule in Babylonia, now Iraq. The large Jewish community there kept its place as a leading center of Jewish life.",
+        "status": "draft",
+        "startYear": 650,
+        "endYear": null,
+        "placeId": "place-b",
+        "meanwhile": "In Japan, the Taika Reform of 645 CE gives the emperor more power over the land.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "POP-025",
+        "recordId": "POP-025",
+        "type": "Community",
+        "date": "700–1100 CE",
+        "title": "Iraq stays a great center of Jewish learning",
+        "description": "From about 700 to 1100 CE, Iraq, the old land of Babylonia, remained one of the largest and most important Jewish centers in the world. Jewish leaders and teachers there were respected by Jews across the Muslim world.",
+        "status": "draft",
+        "startYear": 700,
+        "endYear": 1100,
+        "placeId": "place-b"
+      },
+      {
+        "id": "POP-026",
+        "recordId": "POP-026",
+        "type": "Community",
+        "date": "700–1100 CE",
+        "title": "Jews live across Persia",
+        "description": "Between 700 and 1100 CE, Jewish communities spread across Persia, the land of modern Iran. They formed a wide network of towns and trade connections.",
+        "status": "draft",
+        "startYear": 700,
+        "endYear": 1100,
+        "placeId": "place-persia"
+      },
+      {
+        "id": "POP-027",
+        "recordId": "POP-027",
+        "type": "Community",
+        "date": "700–1100 CE",
+        "title": "Jewish life continues in the Land of Israel and Syria",
+        "description": "Jews continued to live in the Land of Israel and Syria after the Muslim conquest. Their communities carried on in towns and cities across the region.",
+        "status": "draft",
+        "startYear": 700,
+        "endYear": 1100,
+        "placeId": "place-israel"
+      },
+      {
+        "id": "POP-028",
+        "recordId": "POP-028",
+        "type": "Community",
+        "date": "700–1100 CE",
+        "title": "Egypt keeps a large Jewish community",
+        "description": "From 700 to 1100 CE, Egypt kept a large Jewish community. Its cities were home to Jewish families, scholars and merchants.",
+        "status": "draft",
+        "startYear": 700,
+        "endYear": 1100,
+        "placeId": "place-egypt"
+      },
+      {
+        "id": "POP-029",
+        "recordId": "POP-029",
+        "type": "Community",
+        "date": "8th–11th century CE",
+        "title": "Jewish life grows across North Africa",
+        "description": "From the 8th to the 11th century, the Maghreb, the lands of North Africa west of Egypt, grew into a large Jewish center. Many towns there had Jewish neighborhoods.",
+        "status": "draft",
+        "startYear": 700,
+        "endYear": 1100,
+        "placeId": "place-maghreb"
+      },
+      {
+        "id": "POP-031",
+        "recordId": "POP-031",
+        "type": "Community",
+        "date": "700–1100 CE",
+        "title": "Jewish life grows in al-Andalus",
+        "description": "In al-Andalus, the Muslim-ruled part of Spain and Portugal, the Jewish population grew large and strong between 700 and 1100 CE. Jews there worked as scholars, doctors, merchants and officials.",
+        "status": "draft",
+        "startYear": 700,
+        "endYear": 1100,
+        "placeId": "place-iberia"
+      },
+      {
+        "id": "POP-032",
+        "recordId": "POP-032",
+        "type": "Community",
+        "date": "700–1100 CE",
+        "title": "Jewish communities last in southern Italy and Sicily",
+        "description": "From 700 to 1100 CE, large Jewish communities lived in southern Italy and on the island of Sicily. They stayed there for centuries.",
+        "status": "draft",
+        "startYear": 700,
+        "endYear": 1100,
+        "placeId": "place-sicily"
+      },
+      {
+        "id": "POP-033",
+        "recordId": "POP-033",
+        "type": "Community",
+        "date": "700–1100 CE",
+        "title": "Jewish towns appear across Central Asia",
+        "description": "By the 8th and 9th centuries, Jewish communities lived in Central Asia and Khorasan, along the old trade roads. Towns such as Balkh, Khwarezm and Merv had Jewish residents.",
+        "status": "draft",
+        "startYear": 700,
+        "endYear": 1100,
+        "placeId": "place-central-asia"
+      },
+      {
+        "id": "POP-034",
+        "recordId": "POP-034",
+        "type": "Community",
+        "date": "700–1100 CE",
+        "title": "Jews live in Yemen",
+        "description": "Jewish families kept living in Yemen from 700 to 1100 CE. Jews had already lived in Yemen for centuries before this time.",
+        "status": "draft",
+        "startYear": 700,
+        "endYear": 1100,
+        "placeId": "place-yemen"
+      },
+      {
+        "id": "POP-036",
+        "recordId": "POP-036",
+        "type": "Community",
+        "date": "700–1100 CE",
+        "title": "Jewish communities in southern France",
+        "description": "From 700 to 1100 CE, Jews continued to live in the towns of southern France. Their communities stayed in the region for centuries.",
+        "status": "draft",
+        "startYear": 700,
+        "endYear": 1100,
+        "placeId": "place-s-france"
+      },
+      {
+        "id": "POP-037",
+        "recordId": "POP-037",
+        "type": "Community",
+        "date": "700–1100 CE",
+        "title": "Ashkenazi Jews take root on the Rhine",
+        "description": "Between 700 and 1100 CE, a new Jewish population grew along the Rhine River and in Germany. These Jews are called Ashkenazi, from the Hebrew name for Germany.",
+        "status": "draft",
+        "startYear": 700,
+        "endYear": 1100,
+        "placeId": "place-rhineland"
+      },
+      {
+        "id": "EVT-0045",
+        "recordId": "EVT-0045",
+        "type": "Event",
+        "date": "711 CE",
+        "title": "Muslim armies cross into Spain",
+        "description": "In 711 CE, Muslim armies crossed from North Africa into Iberia. Over the next years they took most of Spain and Portugal, and the Jewish communities there came under Muslim rule.",
+        "status": "draft",
+        "startYear": 711,
+        "endYear": null,
+        "placeId": "place-iberia",
+        "meanwhile": "In Japan, the city of Nara becomes the capital in 710 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "POP-030",
+        "recordId": "POP-030",
+        "type": "Community",
+        "date": "c. 800–1057 CE",
+        "title": "Kairouan becomes a major Jewish center",
+        "description": "From about 800 to 1057 CE, the city of Kairouan, in what is now Tunisia, was a major center of Jewish life in North Africa. Its Jewish community was known for its scholars and its trade.",
+        "status": "draft",
+        "startYear": 800,
+        "endYear": 1057,
+        "placeId": "place-kairouan"
+      },
+      {
+        "id": "POP-035",
+        "recordId": "POP-035",
+        "type": "Community",
+        "date": "9th–10th century CE",
+        "title": "Jewish traders connect with western India",
+        "description": "By the 9th and 10th centuries, records show Jews living and trading in western India. They were part of the busy sea routes of the Indian Ocean.",
+        "status": "draft",
+        "startYear": 800,
+        "endYear": 1000,
+        "placeId": "place-malabar"
+      },
+      {
+        "id": "EVT-0046",
+        "recordId": "EVT-0046",
+        "type": "Movement",
+        "date": "c. 900 CE",
+        "title": "Jews move from North Africa to Egypt",
+        "description": "Beginning around 900 CE, Jewish families moved from the Maghreb, in North Africa, to Egypt. They joined the Jewish communities already living in Egypt.",
+        "status": "draft",
+        "startYear": 900,
+        "endYear": 1100,
+        "placeId": "place-egypt",
+        "movementIds": [
+          "MOV-009"
+        ]
+      },
+      {
+        "id": "POP-042",
+        "recordId": "POP-042",
+        "type": "Community",
+        "date": "11th–13th century CE",
+        "title": "Jews settle in Poland",
+        "description": "From the 11th to the 13th century, a Jewish presence grew in Poland. Jewish settlers, many from German lands, found new homes there.",
+        "status": "draft",
+        "startYear": 1000,
+        "endYear": 1300,
+        "placeId": "place-poland"
+      },
+      {
+        "id": "EVT-0047",
+        "recordId": "EVT-0047",
+        "type": "Movement",
+        "date": "c. 1080–1240 CE",
+        "title": "Jewish merchants link Egypt, Aden and India",
+        "description": "From about 1080 to 1240, Jewish merchants traded by sea between Egypt, Aden and India. Their letters and business papers were saved in the Cairo Geniza, a storeroom for old documents.",
+        "status": "draft",
+        "startYear": 1080,
+        "endYear": null,
+        "placeId": "place-cairo"
+      },
+      {
+        "id": "CHG-007",
+        "recordId": "CHG-007",
+        "type": "Community",
+        "date": "1096 CE",
+        "title": "Speyer's Jews are mostly protected",
+        "description": "In 1096, Crusaders attacked the Jews of Speyer in the Rhineland. Most of the community was protected, though some Jews were killed.",
+        "status": "draft",
+        "startYear": 1096,
+        "endYear": null,
+        "placeId": "place-speyer"
+      },
+      {
+        "id": "DES-005",
+        "recordId": "DES-005",
+        "type": "Event",
+        "date": "1096 CE",
+        "title": "Worms' Jewish community is devastated",
+        "description": "In 1096, Crusaders gathered in the Rhineland to march toward Jerusalem, and they attacked Jewish communities along the way. In Worms, many Jews were killed and the community was devastated. Jews later returned and rebuilt it.",
+        "status": "draft",
+        "startYear": 1096,
+        "endYear": null,
+        "placeId": "place-worms",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "DES-006",
+        "recordId": "DES-006",
+        "type": "Event",
+        "date": "1096 CE",
+        "title": "Mainz's Jewish community is devastated",
+        "description": "In May 1096, Crusaders attacked the Jews of Mainz, one of the great Jewish centers of the Rhineland. Many were killed, and the community was devastated. Jews later returned to Mainz and began again.",
+        "status": "draft",
+        "startYear": 1096,
+        "endYear": null,
+        "placeId": "place-mainz",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "POP-039",
+        "recordId": "POP-039",
+        "type": "Community",
+        "date": "1100–1300 CE",
+        "title": "The Rhineland communities recover and grow",
+        "description": "After the attacks of 1096, the Jewish communities of Speyer, Worms and Mainz were re-established and grew. They are known as the ShUM communities, a name made from the first letters of the three cities in Hebrew.",
+        "status": "draft",
+        "startYear": 1100,
+        "endYear": 1300,
+        "placeId": "place-rhineland"
+      },
+      {
+        "id": "POP-041",
+        "recordId": "POP-041",
+        "type": "Community",
+        "date": "12th–13th century CE",
+        "title": "Jewish communities spread across England",
+        "description": "In the 1100s and 1200s, Jewish communities lived in many English towns, not only in London. They lasted until the expulsion of 1290.",
+        "status": "draft",
+        "startYear": 1100,
+        "endYear": 1300,
+        "placeId": "place-england"
+      },
+      {
+        "id": "CHG-008",
+        "recordId": "CHG-008",
+        "type": "Community",
+        "date": "1148 CE",
+        "title": "Jewish life shrinks under the Almohads",
+        "description": "In 1148 CE, the Almohad rulers took control of parts of Spain and North Africa. Jews under their rule were pressed to convert, and the Jewish population shrank.",
+        "status": "draft",
+        "startYear": 1148,
+        "endYear": null,
+        "placeId": "place-iberia"
+      },
+      {
+        "id": "EVT-0048",
+        "recordId": "EVT-0048",
+        "type": "Movement",
+        "date": "1182 CE",
+        "title": "France's king expels the Jews",
+        "description": "In 1182, King Philip II expelled the Jews from the royal lands of France. They were forced to leave their homes.",
+        "status": "draft",
+        "startYear": 1182,
+        "endYear": null,
+        "placeId": "place-france",
+        "movementIds": [
+          "MOV-011"
+        ]
+      },
+      {
+        "id": "DES-007",
+        "recordId": "DES-007",
+        "type": "Event",
+        "date": "1190 CE",
+        "title": "York's Jewish community is destroyed",
+        "description": "In 1190, a mob attacked the Jews of York, England. Many Jews sought safety in a royal tower called Clifford's Tower, and most of them died there. The Jewish community of York was destroyed.",
+        "status": "draft",
+        "startYear": 1190,
+        "endYear": null,
+        "placeId": "place-york",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "CHG-009",
+        "recordId": "CHG-009",
+        "type": "Community",
+        "date": "1198 CE",
+        "title": "Jews may return to the French royal lands",
+        "description": "In 1198, King Philip II of France allowed Jews to return to the lands he ruled directly. He had expelled them in 1182. Jewish life began again in the royal towns.",
+        "status": "draft",
+        "startYear": 1198,
+        "endYear": null,
+        "placeId": "place-france"
+      },
+      {
+        "id": "POP-040",
+        "recordId": "POP-040",
+        "type": "Community",
+        "date": "Early 13th century CE",
+        "title": "Jews return to York",
+        "description": "In the early 1200s, Jews came back to York, and the community began again. It joined the other Jewish communities of England.",
+        "status": "draft",
+        "startYear": 1200,
+        "endYear": null,
+        "placeId": "place-york"
+      },
+      {
+        "id": "EVT-0049",
+        "recordId": "EVT-0049",
+        "type": "Event",
+        "date": "c. 1220 CE",
+        "title": "The ShUM communities write shared rules",
+        "description": "Around 1220, the Jewish communities of Speyer, Worms and Mainz wrote shared rules for their communal life. These rules are called the ShUM ordinances.",
+        "status": "draft",
+        "startYear": 1220,
+        "endYear": null,
+        "placeId": "place-rhineland",
+        "meanwhile": "In England, King John signs Magna Carta in 1215 CE, a charter that limits the power of the king.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0050",
+        "recordId": "EVT-0050",
+        "type": "Event",
+        "date": "1263 CE",
+        "title": "The Disputation of Barcelona",
+        "description": "In 1263, King James I of Aragon ordered a public debate in Barcelona between the Jewish scholar Moses ben Nahman, called Nachmanides, and a Christian leader named Pablo Christiani. Nachmanides defended Judaism before the king.",
+        "status": "draft",
+        "startYear": 1263,
+        "endYear": null,
+        "placeId": "place-barcelona",
+        "meanwhile": "In Italy, 17-year-old Marco Polo leaves Venice in 1271 CE for a trip to China that lasts about 24 years.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0051",
+        "recordId": "EVT-0051",
+        "type": "Event",
+        "date": "1264 CE",
+        "title": "The Statute of Kalisz",
+        "description": "In 1264, Duke Boleslaw the Pious of Greater Poland issued the Statute of Kalisz. It gave Jews legal rights and protection, and it drew Jewish settlers to Poland.",
+        "status": "draft",
+        "startYear": 1264,
+        "endYear": null,
+        "placeId": "place-kalisz",
+        "meanwhile": "In Japan, a Mongol fleet lands near Hakata Bay in 1274 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0052",
+        "recordId": "EVT-0052",
+        "type": "Event",
+        "date": "1275 CE",
+        "title": "England's Statute of the Jewry",
+        "description": "In 1275, King Edward I issued the Statute of the Jewry. It banned Jews from lending money at interest and pushed them toward farming and trade.",
+        "status": "draft",
+        "startYear": 1275,
+        "endYear": null,
+        "placeId": "place-england",
+        "meanwhile": "In China, Kublai Khan founds the Yuan dynasty in 1271 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0053",
+        "recordId": "EVT-0053",
+        "type": "Movement",
+        "date": "1290 CE",
+        "title": "England expels its Jews",
+        "description": "In 1290, King Edward I ordered all Jews to leave England. Jews who had lived there for more than 200 years went to France and to other lands across Europe.",
+        "status": "draft",
+        "startYear": 1290,
+        "endYear": null,
+        "placeId": "place-england",
+        "movementIds": [
+          "MOV-012"
+        ]
+      },
+      {
+        "id": "EVT-0054",
+        "recordId": "EVT-0054",
+        "type": "Movement",
+        "date": "c. 1300 CE",
+        "title": "Jews move from German lands to Eastern Europe",
+        "description": "Beginning around 1300, many Jews moved from the German-speaking lands to eastern and central Europe. They went east to Poland and nearby lands and built new communities.",
+        "status": "draft",
+        "startYear": 1300,
+        "endYear": 1500,
+        "placeId": "place-east-central-europe",
+        "movementIds": [
+          "MOV-015"
+        ]
+      },
+      {
+        "id": "POP-043",
+        "recordId": "POP-043",
+        "type": "Community",
+        "date": "14th–15th century CE",
+        "title": "Jewish life grows in Poland and Hungary",
+        "description": "In the 1300s and 1400s, Jewish communities in Poland and Hungary grew stronger. They became leading centers of Jewish life in Europe.",
+        "status": "draft",
+        "startYear": 1300,
+        "endYear": 1500,
+        "placeId": "place-poland"
+      },
+      {
+        "id": "EVT-0055",
+        "recordId": "EVT-0055",
+        "type": "Movement",
+        "date": "1306 CE",
+        "title": "France expels its Jews",
+        "description": "In 1306, King Philip IV ordered the Jews to leave the Kingdom of France. They scattered to many places.",
+        "status": "draft",
+        "startYear": 1306,
+        "endYear": null,
+        "placeId": "place-france",
+        "movementIds": [
+          "MOV-013"
+        ]
+      },
+      {
+        "id": "CHG-011",
+        "recordId": "CHG-011",
+        "type": "Community",
+        "date": "1315 CE",
+        "title": "Jews are allowed back into France",
+        "description": "In 1315, the king of France allowed Jews to return to his kingdom after the expulsion of 1306. Some Jewish families came back and rebuilt their communities.",
+        "status": "draft",
+        "startYear": 1315,
+        "endYear": null,
+        "placeId": "place-france"
+      },
+      {
+        "id": "EVT-0056",
+        "recordId": "EVT-0056",
+        "type": "Movement",
+        "date": "1322 CE",
+        "title": "France expels its Jews again",
+        "description": "In 1322, the Jews of France were expelled a second time. Some had returned after the expulsion of 1306.",
+        "status": "draft",
+        "startYear": 1322,
+        "endYear": null,
+        "placeId": "place-france",
+        "movementIds": [
+          "MOV-014"
+        ]
+      },
+      {
+        "id": "DES-008",
+        "recordId": "DES-008",
+        "type": "Event",
+        "date": "1348 CE",
+        "title": "Black Death violence destroys Jewish communities",
+        "description": "During the Black Death of 1348 to 1351, mobs blamed Jews for the plague. Jewish communities in many European towns were attacked, and some were destroyed. Germany and Alsace suffered some of the worst violence.",
+        "status": "draft",
+        "startYear": 1348,
+        "endYear": 1351,
+        "placeId": "place-israel",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "DES-009",
+        "recordId": "DES-009",
+        "type": "Event",
+        "date": "1391 CE",
+        "title": "Violence destroys Jewish communities in Spain",
+        "description": "In 1391, mobs attacked Jewish quarters in cities across Spain. Many Jews were killed, some communities were destroyed, and many Jews were forced to convert. Some Jews fled to safer places.",
+        "status": "draft",
+        "startYear": 1391,
+        "endYear": 1392,
+        "placeId": "place-iberia",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0057",
+        "recordId": "EVT-0057",
+        "type": "Movement",
+        "date": "1394 CE",
+        "title": "France expels its Jews once more",
+        "description": "In 1394, King Charles VI ordered the Jews out of France. It was the last of the French expulsions of the Middle Ages.",
+        "status": "draft",
+        "startYear": 1394,
+        "endYear": null,
+        "placeId": "place-france",
+        "movementIds": [
+          "MOV-017"
+        ]
+      },
+      {
+        "id": "DES-010",
+        "recordId": "DES-010",
+        "type": "Event",
+        "date": "1420 CE",
+        "title": "The Vienna Gesera",
+        "description": "In 1420 and 1421, Duke Albert V of Austria had the Jews of Vienna arrested. Many were killed or driven out, and the medieval Jewish community of Vienna was destroyed. The event is called the Vienna Gesera, which means the Vienna decree.",
+        "status": "draft",
+        "startYear": 1420,
+        "endYear": 1421,
+        "placeId": "place-vienna",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0058",
+        "recordId": "EVT-0058",
+        "type": "Movement",
+        "date": "1453 CE",
+        "title": "The Ottomans resettle Jews in Constantinople",
+        "description": "After the Ottoman Empire conquered Constantinople in 1453, the sultan ordered people from across his lands to settle in the city, including Jews. Jewish life in Constantinople, now also called Istanbul, grew again.",
+        "status": "draft",
+        "startYear": 1453,
+        "endYear": null,
+        "placeId": "place-constantinople",
+        "movementIds": [
+          "MOV-019"
+        ]
+      },
+      {
+        "id": "DES-011",
+        "recordId": "DES-011",
+        "type": "Event",
+        "date": "1475 CE",
+        "title": "Trent's Jewish community is destroyed",
+        "description": "In 1475, a Christian child named Simon was found dead in Trent, Italy, and Jews were falsely blamed. The Jews of Trent were arrested, and the community was destroyed.",
+        "status": "draft",
+        "startYear": 1475,
+        "endYear": null,
+        "placeId": "place-trent",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0059",
+        "recordId": "EVT-0059",
+        "type": "Movement",
+        "date": "1492 CE",
+        "title": "Spain expels its Jews",
+        "description": "In 1492, King Ferdinand and Queen Isabella ordered the Jews of Spain to convert or leave. Many Jews left for Portugal, North Africa, Italy and the Ottoman lands.",
+        "status": "draft",
+        "startYear": 1492,
+        "endYear": null,
+        "placeId": "place-spain",
+        "movementIds": [
+          "MOV-020"
+        ]
+      },
+      {
+        "id": "EVT-0060",
+        "recordId": "EVT-0060",
+        "type": "Movement",
+        "date": "1492 CE",
+        "title": "Sicily's Jews are expelled",
+        "description": "In 1492, the Jews of Sicily, which was ruled by the Spanish crown, were also expelled. They found new homes in several places.",
+        "status": "draft",
+        "startYear": 1492,
+        "endYear": 1493,
+        "placeId": "place-sicily",
+        "movementIds": [
+          "MOV-021"
+        ]
+      },
+      {
+        "id": "CHG-015",
+        "recordId": "CHG-015",
+        "type": "Community",
+        "date": "1496 CE",
+        "title": "Portugal's Jews are forced to convert",
+        "description": "In 1496 and 1497, the king of Portugal ordered the Jews to become Christians. Most were forced to convert, and openly Jewish life in Portugal nearly ended.",
+        "status": "draft",
+        "startYear": 1496,
+        "endYear": 1497,
+        "placeId": "place-iberia",
+        "mapSymbol": {
+          "text": "Split diamond (forced conversion to Christianity)",
+          "kind": "splitDiamond",
+          "status": "leaning"
+        }
+      },
+      {
+        "id": "EVT-0061",
+        "recordId": "EVT-0061",
+        "type": "Movement",
+        "date": "c. 1500–1650 CE",
+        "title": "Jews from Iberia and Italy move to Ottoman cities",
+        "description": "From about 1500 to 1650, Jews from Spain, Portugal and Italy moved to cities of the Ottoman Empire. They settled in places such as Istanbul and Salonica and joined Jewish communities already there.",
+        "status": "draft",
+        "startYear": 1500,
+        "endYear": 1650,
+        "placeId": "place-ottoman-lands",
+        "movementIds": [
+          "MOV-022"
+        ]
+      },
+      {
+        "id": "EVT-0062",
+        "recordId": "EVT-0062",
+        "type": "Movement",
+        "date": "c. 1500–1570 CE",
+        "title": "Jews move to Safed and Jerusalem",
+        "description": "In the early and mid-1500s, Jews from around the Mediterranean moved to the Land of Israel. Many settled in Safed, and others in Jerusalem.",
+        "status": "draft",
+        "startYear": 1500,
+        "endYear": 1570,
+        "placeId": "place-safed",
+        "movementIds": [
+          "MOV-023"
+        ]
+      },
+      {
+        "id": "EVT-0063",
+        "recordId": "EVT-0063",
+        "type": "Movement",
+        "date": "16th–17th century CE",
+        "title": "Portuguese New Christians leave Iberia",
+        "description": "In the 1500s and 1600s, many New Christians from Portugal and Spain, Jews who had been forced to convert, left Iberia. They settled in Western Europe and around the Mediterranean, where many returned openly to Judaism.",
+        "status": "draft",
+        "startYear": 1500,
+        "endYear": 1700,
+        "placeId": "place-portugal",
+        "movementIds": [
+          "MOV-024"
+        ]
+      },
+      {
+        "id": "POP-044",
+        "recordId": "POP-044",
+        "type": "Community",
+        "date": "16th century CE",
+        "title": "Jewish life grows in Istanbul and Salonica",
+        "description": "In the 1500s, Jewish newcomers settled in Istanbul, Salonica and the Ottoman Balkans. They joined Jewish communities that were already there, and these communities grew stronger.",
+        "status": "draft",
+        "startYear": 1500,
+        "endYear": 1600,
+        "placeId": "place-constantinople"
+      },
+      {
+        "id": "POP-045",
+        "recordId": "POP-045",
+        "type": "Community",
+        "date": "16th century CE",
+        "title": "Safed grows into a Jewish center",
+        "description": "In the 1500s, the town of Safed, in the Galilee, grew into a major center of Jewish life. Its Jewish population grew a great deal.",
+        "status": "draft",
+        "startYear": 1500,
+        "endYear": 1600,
+        "placeId": "place-safed"
+      },
+      {
+        "id": "EVT-0064",
+        "recordId": "EVT-0064",
+        "type": "Event",
+        "date": "1516 CE",
+        "title": "The Ottomans conquer the Land of Israel, Syria and Egypt",
+        "description": "In 1516 and 1517, the Ottoman Empire conquered Syria, the Land of Israel and Egypt. The Jews who lived there came under Ottoman rule.",
+        "status": "draft",
+        "startYear": 1516,
+        "endYear": null,
+        "placeId": "place-israel",
+        "meanwhile": "In Germany, a monk named Martin Luther posts his 95 Theses in 1517 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0065",
+        "recordId": "EVT-0065",
+        "type": "Event",
+        "date": "1516 CE",
+        "title": "Venice orders Jews into the Ghetto",
+        "description": "In 1516, the city of Venice ordered its Jews to live in one walled area called the Ghetto. The gates were locked at night. The word ghetto comes from this place.",
+        "status": "draft",
+        "startYear": 1516,
+        "endYear": null,
+        "placeId": "place-venice",
+        "meanwhile": "In England, Thomas More publishes his book Utopia in 1516 CE, about an imaginary perfect island.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0066",
+        "recordId": "EVT-0066",
+        "type": "Event",
+        "date": "1536 CE",
+        "title": "The Inquisition begins in Portugal",
+        "description": "In 1536, Portugal set up its Inquisition, a church court that hunted for secret Jewish practice. New Christians, Jews who had been forced to convert, were its main targets.",
+        "status": "draft",
+        "startYear": 1536,
+        "endYear": null,
+        "placeId": "place-portugal",
+        "meanwhile": "In India, Babur wins the Battle of Panipat in 1526 CE and founds the Mughal Empire.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0067",
+        "recordId": "EVT-0067",
+        "type": "Event",
+        "date": "1555 CE",
+        "title": "Rome orders its Jews into a ghetto",
+        "description": "In 1555, Pope Paul IV ordered the Jews of Rome to live in a walled ghetto. He also forced them to wear special hats or badges.",
+        "status": "draft",
+        "startYear": 1555,
+        "endYear": null,
+        "placeId": "place-romeNode",
+        "meanwhile": "In Russia, workers begin building Saint Basil's Cathedral in Moscow in 1555 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0068",
+        "recordId": "EVT-0068",
+        "type": "Movement",
+        "date": "1569 CE",
+        "title": "The popes expel Jews from most Papal lands",
+        "description": "In 1569 and 1593, popes ordered Jews out of most of the Papal States, the lands the Church ruled in Italy. Jews were allowed to stay in only a few cities, such as Rome.",
+        "status": "draft",
+        "startYear": 1569,
+        "endYear": 1593,
+        "placeId": "place-papal-states",
+        "movementIds": [
+          "MOV-025"
+        ]
+      },
+      {
+        "id": "EVT-0069",
+        "recordId": "EVT-0069",
+        "type": "Movement",
+        "date": "c. 1590 CE",
+        "title": "Jews travel to Amsterdam",
+        "description": "Around 1590, Jews from Portugal, Spain and other European ports began sailing to Amsterdam. They came as merchants and as families looking for a safer home.",
+        "status": "draft",
+        "startYear": 1590,
+        "endYear": null,
+        "placeId": "place-amsterdam",
+        "movementIds": [
+          "MOV-026"
+        ]
+      },
+      {
+        "id": "POP-046",
+        "recordId": "POP-046",
+        "type": "Community",
+        "date": "c. 1590 CE",
+        "title": "Livorno grows quickly",
+        "description": "In the 1590s, the rulers of Livorno, a port in Italy, offered special privileges to attract merchants, including Jews. The Jewish community there grew rapidly.",
+        "status": "draft",
+        "startYear": 1590,
+        "endYear": null,
+        "placeId": "place-livorno"
+      },
+      {
+        "id": "POP-047",
+        "recordId": "POP-047",
+        "type": "Community",
+        "date": "c. 1590 CE",
+        "title": "A Portuguese Jewish community begins in Amsterdam",
+        "description": "Around 1590, Portuguese Jews began to settle in Amsterdam, in the Dutch Republic. Many came from families that had been forced to convert in Portugal. They formed an openly Jewish community.",
+        "status": "draft",
+        "startYear": 1590,
+        "endYear": null,
+        "placeId": "place-amsterdam"
+      },
+      {
+        "id": "POP-048",
+        "recordId": "POP-048",
+        "type": "Community",
+        "date": "Early 1600s CE",
+        "title": "Ashkenazi Jews come to Amsterdam",
+        "description": "In the early 1600s, Jews from Central and Eastern Europe, called Ashkenazim, also began to settle in Amsterdam. They lived alongside the Portuguese Jews who had arrived earlier.",
+        "status": "draft",
+        "startYear": 1600,
+        "endYear": null,
+        "placeId": "place-amsterdam"
+      },
+      {
+        "id": "POP-052",
+        "recordId": "POP-052",
+        "type": "Community",
+        "date": "17th–18th century CE",
+        "title": "Suriname has a growing Jewish community",
+        "description": "In the 1600s, a Jewish community grew in Suriname, on the northern coast of South America, and about 570 Jews lived there in 1694. That year, about 40 sugar plantations owned mostly by Jews were worked by about 9,000 enslaved Africans. Slavery was central to the colony's economy, and planters of many backgrounds took part in it.",
+        "status": "draft",
+        "startYear": 1600,
+        "endYear": null,
+        "placeId": "place-suriname"
+      },
+      {
+        "id": "POP-054",
+        "recordId": "POP-054",
+        "type": "Community",
+        "date": "17th century CE",
+        "title": "Jews settle in Barbados",
+        "description": "In the 1600s, Jews built an established community on the island of Barbados. It was one of several Caribbean islands where Jewish communities took root.",
+        "status": "draft",
+        "startYear": 1600,
+        "endYear": 1700,
+        "placeId": "place-barbados"
+      },
+      {
+        "id": "EVT-0070",
+        "recordId": "EVT-0070",
+        "type": "Movement",
+        "date": "1630s CE",
+        "title": "Jews sail from Amsterdam to Dutch Brazil",
+        "description": "Starting in the 1630s, Jews sailed from Amsterdam and the Atlantic world to Dutch-ruled Brazil. Many settled in Recife, where they built a Jewish community. Ships now linked Amsterdam, the Mediterranean and Brazil.",
+        "status": "draft",
+        "startYear": 1630,
+        "endYear": null,
+        "placeId": "place-recife",
+        "movementIds": [
+          "MOV-027"
+        ]
+      },
+      {
+        "id": "POP-049",
+        "recordId": "POP-049",
+        "type": "Community",
+        "date": "1630s CE",
+        "title": "The first Jewish community in the Americas",
+        "description": "In the 1630s, Jews in Recife, in Dutch-ruled Brazil, formed the first openly organized Jewish community in the Americas. It lasted until 1654, when Portugal took the town back.",
+        "status": "draft",
+        "startYear": 1630,
+        "endYear": 1654,
+        "placeId": "place-recife"
+      },
+      {
+        "id": "DES-012",
+        "recordId": "DES-012",
+        "type": "Event",
+        "date": "1648 CE",
+        "title": "Khmelnytsky's uprising devastates Jewish towns",
+        "description": "In 1648, a Cossack uprising led by Bohdan Khmelnytsky swept across Ukraine and nearby lands. Jewish communities were attacked, many Jews were killed, and some towns were destroyed. Jews who survived often fled to safer places.",
+        "status": "draft",
+        "startYear": 1648,
+        "endYear": 1659,
+        "placeId": "place-poland",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "CHG-018",
+        "recordId": "CHG-018",
+        "type": "Community",
+        "date": "1650–1765 CE",
+        "title": "Jewish life in Poland-Lithuania recovers",
+        "description": "After the destruction of the 1640s and 1650s, the Jewish population of Poland-Lithuania recovered and grew. A census-based count of 1764 and 1765 shows about 750,000 Jews.",
+        "status": "draft",
+        "startYear": 1650,
+        "endYear": 1765,
+        "placeId": "place-poland"
+      },
+      {
+        "id": "POP-051",
+        "recordId": "POP-051",
+        "type": "Community",
+        "date": "1651 CE",
+        "title": "Curaçao's Jewish community grows",
+        "description": "Jews began settling on the island of Curaçao in 1651, and the Mikvé Israel congregation was founded in 1659. Curaçao grew into one of the major Jewish centers of the Caribbean.",
+        "status": "draft",
+        "startYear": 1651,
+        "endYear": null,
+        "placeId": "place-curacao"
+      },
+      {
+        "id": "EVT-0071",
+        "recordId": "EVT-0071",
+        "type": "Movement",
+        "date": "1654 CE",
+        "title": "The Jews of Recife are scattered",
+        "description": "In 1654, Portugal took Recife back from the Dutch, and the Jews of Recife had to leave. Most returned to Amsterdam, and others went to the Caribbean, including Curaçao. One small group of 23 reached New Amsterdam, now New York.",
+        "status": "draft",
+        "startYear": 1654,
+        "endYear": null,
+        "placeId": "place-recife",
+        "movementIds": [
+          "MOV-029"
+        ]
+      },
+      {
+        "id": "POP-050",
+        "recordId": "POP-050",
+        "type": "Community",
+        "date": "1654 CE",
+        "title": "Jews reach New Amsterdam",
+        "description": "In September 1654, 23 Jewish refugees arrived in New Amsterdam, now New York City. They had fled Recife after Portugal took it back. Governor Peter Stuyvesant opposed them, but Dutch West India Company leaders let them stay.",
+        "status": "draft",
+        "startYear": 1654,
+        "endYear": null,
+        "placeId": "place-new-amsterdam"
+      },
+      {
+        "id": "POP-053",
+        "recordId": "POP-053",
+        "type": "Community",
+        "date": "1655 CE",
+        "title": "Jamaica's Jewish community grows",
+        "description": "After 1655, when England took Jamaica from Spain, the Jewish community on the island grew. Jamaica became another Caribbean home for Jewish families.",
+        "status": "draft",
+        "startYear": 1655,
+        "endYear": null,
+        "placeId": "place-jamaica"
+      },
+      {
+        "id": "POP-055",
+        "recordId": "POP-055",
+        "type": "Community",
+        "date": "1655 CE",
+        "title": "Jews return to England",
+        "description": "In 1655 and 1656, England quietly allowed Jews to live there openly again, more than 360 years after the expulsion of 1290. A Jewish community began to grow in London.",
+        "status": "draft",
+        "startYear": 1655,
+        "endYear": null,
+        "placeId": "place-london"
+      },
+      {
+        "id": "POP-056",
+        "recordId": "POP-056",
+        "type": "Community",
+        "date": "1658 CE",
+        "title": "Jews settle in Newport",
+        "description": "In 1658, Jews began settling in Newport, Rhode Island. Their community later built the Touro Synagogue, which still stands today.",
+        "status": "draft",
+        "startYear": 1658,
+        "endYear": null,
+        "placeId": "place-newport"
+      },
+      {
+        "id": "EVT-0072",
+        "recordId": "EVT-0072",
+        "type": "Event",
+        "date": "1666 CE",
+        "title": "Sabbatai Zevi",
+        "description": "In 1666, the Ottoman sultan arrested Sabbatai Zevi, a man many Jews believed was the Messiah. Under pressure, he converted to Islam. Hopes among Jews across Europe and the Middle East were shattered.",
+        "status": "draft",
+        "startYear": 1666,
+        "endYear": null,
+        "placeId": "place-edirne",
+        "meanwhile": "In London, the Great Fire burns much of the city in 1666 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0073",
+        "recordId": "EVT-0073",
+        "type": "Movement",
+        "date": "1669 CE",
+        "title": "Vienna expels its Jews",
+        "description": "In 1669 and 1670, Emperor Leopold I ordered the Jews of Vienna to leave. Jewish families were forced out of the city.",
+        "status": "draft",
+        "startYear": 1669,
+        "endYear": 1670,
+        "placeId": "place-vienna",
+        "movementIds": [
+          "MOV-030"
+        ]
+      },
+      {
+        "id": "POP-058",
+        "recordId": "POP-058",
+        "type": "Community",
+        "date": "1695 CE",
+        "title": "Jews settle in Charleston",
+        "description": "A Jewish resident of Charleston, South Carolina, is documented in 1695. In 1749, the community organized the congregation Kahal Kadosh Beth Elohim. Around 1800, about 500 Jews lived in Charleston.",
+        "status": "draft",
+        "startYear": 1695,
+        "endYear": null,
+        "placeId": "place-charleston"
+      },
+      {
+        "id": "EVT-0074",
+        "recordId": "EVT-0074",
+        "type": "Event",
+        "date": "18th century CE",
+        "title": "Hasidism begins to spread",
+        "description": "In the 1700s, a new Jewish movement called Hasidism rose in Eastern Europe. It stressed joy, prayer and closeness to God.",
+        "status": "draft",
+        "startYear": 1700,
+        "endYear": null,
+        "placeId": "place-medzhybizh",
+        "meanwhile": "In Russia, Tsar Peter the Great founds the city of Saint Petersburg in 1703 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "POP-057",
+        "recordId": "POP-057",
+        "type": "Community",
+        "date": "1733 CE",
+        "title": "Savannah's first Jewish settlers arrive",
+        "description": "In July 1733, 42 Jews arrived in Savannah, Georgia, aboard a ship called the William and Sarah. They were among the first settlers of the new colony.",
+        "status": "draft",
+        "startYear": 1733,
+        "endYear": null,
+        "placeId": "place-savannah"
+      },
+      {
+        "id": "POP-059",
+        "recordId": "POP-059",
+        "type": "Community",
+        "date": "1740s CE",
+        "title": "A Jewish community forms in Philadelphia",
+        "description": "Beginning in the 1740s, Jewish families formed a community in Philadelphia, Pennsylvania. It grew into one of the main Jewish centers of colonial America.",
+        "status": "draft",
+        "startYear": 1740,
+        "endYear": null,
+        "placeId": "place-philadelphia"
+      },
+      {
+        "id": "EVT-0075",
+        "recordId": "EVT-0075",
+        "type": "Movement",
+        "date": "1744 CE",
+        "title": "Prague's Jews are expelled",
+        "description": "In 1744, Empress Maria Theresa ordered the Jews out of Prague. They were allowed to return in 1748.",
+        "status": "draft",
+        "startYear": 1744,
+        "endYear": 1745,
+        "placeId": "place-prague",
+        "movementIds": [
+          "MOV-031"
+        ]
+      },
+      {
+        "id": "CHG-017",
+        "recordId": "CHG-017",
+        "type": "Community",
+        "date": "1748 CE",
+        "title": "Jews return to Prague",
+        "description": "In 1748, Jews were allowed back into Prague after being expelled in 1744. They returned and rebuilt their community.",
+        "status": "draft",
+        "startYear": 1748,
+        "endYear": null,
+        "placeId": "place-prague"
+      },
+      {
+        "id": "CHG-019",
+        "recordId": "CHG-019",
+        "type": "Community",
+        "date": "1772 CE",
+        "title": "The partitions of Poland",
+        "description": "From 1772 to 1795, Russia, Prussia and Austria divided up Poland. Jewish towns stayed where they were, but their Jewish residents now lived under new rulers.",
+        "status": "draft",
+        "startYear": 1772,
+        "endYear": 1795,
+        "placeId": "place-poland"
+      },
+      {
+        "id": "EVT-0076",
+        "recordId": "EVT-0076",
+        "type": "Movement",
+        "date": "1777 CE",
+        "title": "Hasidic Jews move to Safed",
+        "description": "In 1777, a group of about 300 Hasidic Jews from Belarus and Lithuania traveled to the Land of Israel. They settled in Safed.",
+        "status": "draft",
+        "startYear": 1777,
+        "endYear": null,
+        "placeId": "place-safed",
+        "movementIds": [
+          "MOV-032"
+        ]
+      },
+      {
+        "id": "EVT-0077",
+        "recordId": "EVT-0077",
+        "type": "Event",
+        "date": "1782 CE",
+        "title": "Joseph II of Austria eases rules for Jews",
+        "description": "In 1782, Emperor Joseph II of Austria issued Toleration Patents that eased some limits on Jews. Jews gained more freedom to study, work and trade.",
+        "status": "draft",
+        "startYear": 1782,
+        "endYear": null,
+        "placeId": "place-vienna",
+        "meanwhile": "In France, the first people fly in a hot-air balloon built by the Montgolfier brothers in 1783 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0078",
+        "recordId": "EVT-0078",
+        "type": "Event",
+        "date": "1791 CE",
+        "title": "France gives its Jews citizenship",
+        "description": "In 1791, revolutionary France gave Jews full rights as citizens. France was the first major European nation to do so.",
+        "status": "draft",
+        "startYear": 1791,
+        "endYear": null,
+        "placeId": "place-paris",
+        "meanwhile": "In Haiti, enslaved people begin the uprising in 1791 CE that wins the country its freedom.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "CHG-020",
+        "recordId": "CHG-020",
+        "type": "Community",
+        "date": "19th century CE",
+        "title": "The Jewish population of the Pale grows fast",
+        "description": "In the 1800s, the Jewish population of the Russian Empire grew dramatically. Most of these Jews lived in the Pale of Settlement.",
+        "status": "draft",
+        "startYear": 1800,
+        "endYear": 1900,
+        "placeId": "place-poland"
+      },
+      {
+        "id": "EVT-0079",
+        "recordId": "EVT-0079",
+        "type": "Movement",
+        "date": "Early 1800s CE",
+        "title": "Jews move to Odessa and other big cities",
+        "description": "In the 1800s, many Jews left small towns in the Pale of Settlement and moved to Odessa and other large cities. They went to find work and new opportunities.",
+        "status": "draft",
+        "startYear": 1800,
+        "endYear": 1900,
+        "placeId": "place-odessa",
+        "movementIds": [
+          "MOV-033"
+        ]
+      },
+      {
+        "id": "EVT-0080",
+        "recordId": "EVT-0080",
+        "type": "Movement",
+        "date": "Early 1800s CE",
+        "title": "Baghdadi Jews move to India",
+        "description": "In the 1800s, Jewish merchants and families from Baghdad and other parts of the Middle East moved to India. They built communities in cities such as Bombay and Calcutta.",
+        "status": "draft",
+        "startYear": 1800,
+        "endYear": 1900,
+        "placeId": "place-bombay",
+        "movementIds": [
+          "MOV-035"
+        ]
+      },
+      {
+        "id": "POP-060",
+        "recordId": "POP-060",
+        "type": "Community",
+        "date": "Early 1800s CE",
+        "title": "Odessa becomes a major Jewish center",
+        "description": "In 1851, about 17,000 Jews lived in Odessa, a port on the Black Sea. By 1892, there were more than 124,000. Odessa had become one of the major Jewish centers of the Russian Empire.",
+        "status": "draft",
+        "startYear": 1800,
+        "endYear": null,
+        "placeId": "place-odessa"
+      },
+      {
+        "id": "POP-061",
+        "recordId": "POP-061",
+        "type": "Community",
+        "date": "19th century CE",
+        "title": "Baghdadi Jews build communities in Bombay and Calcutta",
+        "description": "In the 1800s, Jews from Baghdad and nearby lands settled in the Indian port cities of Bombay and Calcutta. Their communities grew stronger with trade.",
+        "status": "draft",
+        "startYear": 1800,
+        "endYear": 1900,
+        "placeId": "place-bombay"
+      },
+      {
+        "id": "POP-065",
+        "recordId": "POP-065",
+        "type": "Community",
+        "date": "19th century CE",
+        "title": "Morocco is a major Jewish center",
+        "description": "In the 1800s, Morocco was one of the major centers of Jewish life. Many Moroccan Jews lived in walled Jewish quarters called mellahs.",
+        "status": "draft",
+        "startYear": 1800,
+        "endYear": 1900,
+        "placeId": "place-morocco"
+      },
+      {
+        "id": "POP-066",
+        "recordId": "POP-066",
+        "type": "Community",
+        "date": "19th century CE",
+        "title": "Jews remain strong in Yemen and Aden",
+        "description": "Jewish communities in Yemen and in the port of Aden continued through the 1800s and grew stronger. Yemen's Jews had lived in the region for many centuries.",
+        "status": "draft",
+        "startYear": 1800,
+        "endYear": 1900,
+        "placeId": "place-yemen"
+      },
+      {
+        "id": "EVT-0081",
+        "recordId": "EVT-0081",
+        "type": "Event",
+        "date": "1804 CE",
+        "title": "Russia sets the borders of the Pale of Settlement",
+        "description": "In 1804 and 1835, Russia set the borders of the Pale of Settlement, the region where most Jews were allowed to live. Jews needed special permission to live outside it. Russia had been limiting where Jews could settle since 1791.",
+        "status": "draft",
+        "startYear": 1804,
+        "endYear": null,
+        "placeId": "place-pale-of-settlement",
+        "meanwhile": "In France, Napoleon crowns himself emperor in 1804 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0082",
+        "recordId": "EVT-0082",
+        "type": "Movement",
+        "date": "1808 CE",
+        "title": "The Perushim move to the Land of Israel",
+        "description": "In 1808, a group of Jews called the Perushim began moving from Lithuania and Belarus to the Land of Israel. They were followers of the great scholar known as the Vilna Gaon.",
+        "status": "draft",
+        "startYear": 1808,
+        "endYear": 1810,
+        "placeId": "place-israel",
+        "movementIds": [
+          "MOV-034"
+        ]
+      },
+      {
+        "id": "EVT-0083",
+        "recordId": "EVT-0083",
+        "type": "Movement",
+        "date": "1820 CE",
+        "title": "Jews from Central Europe move to the United States",
+        "description": "Beginning around 1820, many Jews moved from Central Europe to the United States. They came to find work and a better life.",
+        "status": "draft",
+        "startYear": 1820,
+        "endYear": 1880,
+        "placeId": "place-us",
+        "movementIds": [
+          "MOV-037"
+        ]
+      },
+      {
+        "id": "POP-063",
+        "recordId": "POP-063",
+        "type": "Community",
+        "date": "1820–1880 CE",
+        "title": "The Jewish population of the United States grows",
+        "description": "In 1820, about 3,000 Jews lived in the United States. By 1880, as many as 300,000 lived there.",
+        "status": "draft",
+        "startYear": 1820,
+        "endYear": 1880,
+        "placeId": "place-us"
+      },
+      {
+        "id": "CHG-021",
+        "recordId": "CHG-021",
+        "type": "Event",
+        "date": "1834 CE",
+        "title": "Safed is attacked and plundered",
+        "description": "In 1834, attackers plundered Safed and robbed its Jews. The Jewish community lost people and property, but it survived.",
+        "status": "draft",
+        "startYear": 1834,
+        "endYear": null,
+        "placeId": "place-safed"
+      },
+      {
+        "id": "CHG-022",
+        "recordId": "CHG-022",
+        "type": "Event",
+        "date": "1837 CE",
+        "title": "An earthquake strikes Safed",
+        "description": "On January 1, 1837, a powerful earthquake destroyed much of Safed. Many of those who died were Jews, and the community shrank. It survived and began to rebuild.",
+        "status": "draft",
+        "startYear": 1837,
+        "endYear": null,
+        "placeId": "place-safed"
+      },
+      {
+        "id": "CHG-023",
+        "recordId": "CHG-023",
+        "type": "Event",
+        "date": "1839 CE",
+        "title": "Mashhad's Jews are forced to convert",
+        "description": "In 1839, a mob attacked the Jewish quarter of Mashhad, in Persia, and killed about 32 Jews. The roughly 2,000 Jews who remained were forced to convert to Islam outwardly. Many kept their Jewish traditions in secret.",
+        "status": "draft",
+        "startYear": 1839,
+        "endYear": null,
+        "placeId": "place-mashhad",
+        "mapSymbol": {
+          "text": "Purple diamond (forced conversion, other faith)",
+          "kind": "purpleDiamond",
+          "status": "leaning"
+        }
+      },
+      {
+        "id": "EVT-0084",
+        "recordId": "EVT-0084",
+        "type": "Event",
+        "date": "1840 CE",
+        "title": "The Damascus Affair",
+        "description": "In 1840, Jewish leaders in Damascus were arrested and tortured after they were falsely accused of murdering a Christian monk. Jewish leaders around the world spoke out, and the accused were freed.",
+        "status": "draft",
+        "startYear": 1840,
+        "endYear": null,
+        "placeId": "place-damascus",
+        "meanwhile": "In Britain, the world's first postage stamp, the Penny Black, goes on sale in 1840 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0085",
+        "recordId": "EVT-0085",
+        "type": "Movement",
+        "date": "1845 CE",
+        "title": "Jewish merchants move from India to Shanghai",
+        "description": "Beginning in 1845, Jewish merchants from India moved to Shanghai to trade. Many belonged to Baghdadi families.",
+        "status": "draft",
+        "startYear": 1845,
+        "endYear": null,
+        "placeId": "place-shanghai",
+        "movementIds": [
+          "MOV-036"
+        ]
+      },
+      {
+        "id": "POP-062",
+        "recordId": "POP-062",
+        "type": "Community",
+        "date": "1845 CE",
+        "title": "Shanghai gets a lasting Jewish community",
+        "description": "Beginning in 1845, Jewish merchants settled in Shanghai, China. Their community lasted and grew.",
+        "status": "draft",
+        "startYear": 1845,
+        "endYear": null,
+        "placeId": "place-shanghai"
+      },
+      {
+        "id": "EVT-0086",
+        "recordId": "EVT-0086",
+        "type": "Event",
+        "date": "1856 CE",
+        "title": "Ottoman Jews gain equal rights",
+        "description": "Between 1856 and 1869, the Ottoman Empire passed reforms that made Jews and other non-Muslims equal citizens under the law. This was part of a wider set of Ottoman reforms called the Tanzimat.",
+        "status": "draft",
+        "startYear": 1856,
+        "endYear": null,
+        "placeId": "place-constantinople",
+        "meanwhile": "In Egypt, the Suez Canal opens in 1869 CE, linking the Mediterranean Sea to the Red Sea.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0087",
+        "recordId": "EVT-0087",
+        "type": "Event",
+        "date": "1858 CE",
+        "title": "Jews can sit in the British Parliament",
+        "description": "In 1858, Britain removed the last barrier that kept Jews from sitting in Parliament. Lionel de Rothschild, who had been elected years earlier, could finally take his seat.",
+        "status": "draft",
+        "startYear": 1858,
+        "endYear": null,
+        "placeId": "place-london",
+        "meanwhile": "In 1858, the first telegraph message crosses the Atlantic Ocean by undersea cable, from Britain to North America.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "CHG-024",
+        "recordId": "CHG-024",
+        "type": "Community",
+        "date": "1860 CE",
+        "title": "Jews build outside Jerusalem's Old City walls",
+        "description": "In 1860, Mishkenot Sha'ananim became the first Jewish neighborhood built outside the walls of Jerusalem's Old City. Jerusalem soon began to spread beyond its walls.",
+        "status": "draft",
+        "startYear": 1860,
+        "endYear": null,
+        "placeId": "place-j"
+      },
+      {
+        "id": "EVT-0088",
+        "recordId": "EVT-0088",
+        "type": "Event",
+        "date": "1860 CE",
+        "title": "The Alliance Israélite Universelle is founded",
+        "description": "In 1860, Jewish leaders in France founded the Alliance Israélite Universelle. It worked to protect Jewish rights and to open schools for Jews around the world.",
+        "status": "draft",
+        "startYear": 1860,
+        "endYear": null,
+        "placeId": "place-paris",
+        "meanwhile": "In Italy, Giuseppe Garibaldi leads about 1,000 volunteers in 1860 CE to help unite the country.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0089",
+        "recordId": "EVT-0089",
+        "type": "Event",
+        "date": "1867 CE",
+        "title": "Jews gain equal rights in Central Europe",
+        "description": "Between 1867 and 1871, Austria-Hungary, Germany and Italy gave Jews equal rights as citizens. Jews could now enter more schools and professions.",
+        "status": "draft",
+        "startYear": 1867,
+        "endYear": null,
+        "placeId": "place-central-europe",
+        "meanwhile": "In North America, Canada becomes a country in 1867 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0090",
+        "recordId": "EVT-0090",
+        "type": "Event",
+        "date": "1870 CE",
+        "title": "The Crémieux Decree",
+        "description": "In 1870, France's Crémieux Decree made the Jews of Algeria French citizens. Adolphe Crémieux, a French Jewish lawyer and politician, helped write it.",
+        "status": "draft",
+        "startYear": 1870,
+        "endYear": null,
+        "placeId": "place-algeria",
+        "meanwhile": "In Russia, Dmitri Mendeleev publishes his periodic table of the elements in 1869 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "CHG-025",
+        "recordId": "CHG-025",
+        "type": "Community",
+        "date": "1878 CE",
+        "title": "Petah Tikva is founded",
+        "description": "In 1878, Jewish settlers founded Petah Tikva, a farming village. The first settlement collapsed within a few years, but the village was later settled again.",
+        "status": "draft",
+        "startYear": 1878,
+        "endYear": 1880,
+        "placeId": "place-petah-tikva"
+      },
+      {
+        "id": "POP-064",
+        "recordId": "POP-064",
+        "type": "Community",
+        "date": "1880 CE",
+        "title": "About 25,000 Jews live in the Land of Israel",
+        "description": "By 1880, about 23,000 to 26,000 Jews lived in the Land of Israel. Jews had lived there for thousands of years, long before the First Aliyah began.",
+        "status": "draft",
+        "startYear": 1880,
+        "endYear": null,
+        "placeId": "place-israel"
+      },
+      {
+        "id": "POP-067",
+        "recordId": "POP-067",
+        "type": "Community",
+        "date": "1880 CE",
+        "title": "The Bene Israel are established in western India",
+        "description": "By 1880, the Bene Israel, a Jewish community in western India, were firmly established. They lived mainly in the Konkan region and in Bombay.",
+        "status": "draft",
+        "startYear": 1880,
+        "endYear": null,
+        "placeId": "place-bene-israel"
+      },
+      {
+        "id": "CHG-027",
+        "recordId": "CHG-027",
+        "type": "Community",
+        "date": "1881 CE",
+        "title": "Britain, Canada and South Africa gain Jewish communities",
+        "description": "From 1881 to 1914, large numbers of Jews from Eastern Europe settled in Britain, Canada and South Africa. Their Jewish communities grew quickly.",
+        "status": "draft",
+        "startYear": 1881,
+        "endYear": 1914,
+        "placeId": "place-london"
+      },
+      {
+        "id": "CHG-029",
+        "recordId": "CHG-029",
+        "type": "Event",
+        "date": "1881 CE",
+        "title": "Pogroms strike Jewish towns in Russia",
+        "description": "From 1881 to 1884, mobs attacked Jewish towns across the Russian Empire in violent riots called pogroms. Homes and shops were destroyed. The attacks led many Jews to leave.",
+        "status": "draft",
+        "startYear": 1881,
+        "endYear": 1884,
+        "placeId": "place-poland",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0091",
+        "recordId": "EVT-0091",
+        "type": "Movement",
+        "date": "1881 CE",
+        "title": "Eastern European Jews move to America",
+        "description": "Starting in 1881, huge numbers of Jews left Eastern Europe for the United States. More than 200,000 arrived in the 1880s and more than 300,000 in the 1890s, according to the Library of Congress.",
+        "status": "draft",
+        "startYear": 1881,
+        "endYear": 1914,
+        "placeId": "place-us",
+        "movementIds": [
+          "MOV-038"
+        ]
+      },
+      {
+        "id": "EVT-0092",
+        "recordId": "EVT-0092",
+        "type": "Movement",
+        "date": "1881 CE",
+        "title": "Yemenite Jews travel to Jerusalem and Jaffa",
+        "description": "In 1881 and 1882, about 200 Jews from Yemen traveled to the Land of Israel. They went to Jerusalem and Jaffa.",
+        "status": "draft",
+        "startYear": 1881,
+        "endYear": 1882,
+        "placeId": "place-j",
+        "movementIds": [
+          "MOV-039"
+        ]
+      },
+      {
+        "id": "EVT-0093",
+        "recordId": "EVT-0093",
+        "type": "Movement",
+        "date": "1882 CE",
+        "title": "The First Aliyah",
+        "description": "In 1882, the First Aliyah began. Over about 20 years, around 30,000 Jews, from Eastern Europe and Yemen, moved to the Land of Israel. Aliyah means going up in Hebrew.",
+        "status": "draft",
+        "startYear": 1882,
+        "endYear": 1903,
+        "placeId": "place-israel",
+        "movementIds": [
+          "MOV-040"
+        ]
+      },
+      {
+        "id": "POP-068",
+        "recordId": "POP-068",
+        "type": "Community",
+        "date": "1882 CE",
+        "title": "New farming villages rise in the Land of Israel",
+        "description": "Starting in 1882, Jewish settlers founded new farming villages in the Land of Israel. These villages strengthened the Jewish population already living there.",
+        "status": "draft",
+        "startYear": 1882,
+        "endYear": null,
+        "placeId": "place-israel"
+      },
+      {
+        "id": "EVT-0094",
+        "recordId": "EVT-0094",
+        "type": "Movement",
+        "date": "1889 CE",
+        "title": "Jews sail from Eastern Europe to Argentina",
+        "description": "Beginning in 1889, Jews from Eastern Europe sailed to Argentina to start new lives. The first organized group of 820 Russian Jews arrived that year.",
+        "status": "draft",
+        "startYear": 1889,
+        "endYear": null,
+        "placeId": "place-argentina",
+        "movementIds": [
+          "MOV-041"
+        ]
+      },
+      {
+        "id": "POP-069",
+        "recordId": "POP-069",
+        "type": "Community",
+        "date": "1889 CE",
+        "title": "Argentina's Jewish farming colonies grow",
+        "description": "In 1889, Jewish farming colonies began in Argentina. The Jewish population there grew rapidly in the years that followed.",
+        "status": "draft",
+        "startYear": 1889,
+        "endYear": null,
+        "placeId": "place-argentina"
+      },
+      {
+        "id": "EVT-0095",
+        "recordId": "EVT-0095",
+        "type": "Movement",
+        "date": "c. 1890 CE",
+        "title": "Bukharan Jews move to Jerusalem",
+        "description": "In the late 1800s, Jews from Bukhara traveled across Central Asia to Jerusalem. Many settled in the city and formed a community of their own.",
+        "status": "draft",
+        "startYear": 1890,
+        "endYear": 1899,
+        "placeId": "place-j",
+        "movementIds": [
+          "MOV-042"
+        ]
+      },
+      {
+        "id": "EVT-0096",
+        "recordId": "EVT-0096",
+        "type": "Event",
+        "date": "1891 CE",
+        "title": "The Jewish Colonization Association is founded",
+        "description": "In 1891, Baron Maurice de Hirsch founded the Jewish Colonization Association. It helped Jews from Eastern Europe settle as farmers in places such as Argentina.",
+        "status": "draft",
+        "startYear": 1891,
+        "endYear": null,
+        "placeId": "place-london",
+        "meanwhile": "In Russia, workers begin building the Trans-Siberian Railway in 1891 CE, the longest railway in the world.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "POP-070",
+        "recordId": "POP-070",
+        "type": "Community",
+        "date": "1892 CE",
+        "title": "The Bukharan Quarter is built in Jerusalem",
+        "description": "In 1892, Jews from Bukhara, in Central Asia, founded the Bukharan Quarter in Jerusalem. It added to the Jewish population of the city.",
+        "status": "draft",
+        "startYear": 1892,
+        "endYear": null,
+        "placeId": "place-j"
+      },
+      {
+        "id": "EVT-0097",
+        "recordId": "EVT-0097",
+        "type": "Event",
+        "date": "1894 CE",
+        "title": "The Dreyfus Affair",
+        "description": "In 1894, Alfred Dreyfus, a Jewish army officer in France, was falsely convicted of treason. The case divided France and showed how strong anti-Jewish feeling remained.",
+        "status": "draft",
+        "startYear": 1894,
+        "endYear": null,
+        "placeId": "place-paris",
+        "meanwhile": "In Greece, the first modern Olympic Games open in Athens in 1896 CE.",
+        "meanwhileStatus": "draft"
+      },
+      {
+        "id": "EVT-0098",
+        "recordId": "EVT-0098",
+        "type": "Event",
+        "date": "1897 CE",
+        "title": "The First Zionist Congress",
+        "description": "In August 1897, Theodor Herzl brought Jewish leaders to Basel, Switzerland, for the first Zionist Congress. They aimed to create a Jewish homeland in the Land of Israel.",
+        "status": "draft",
+        "startYear": 1897,
+        "endYear": null,
+        "placeId": "place-basel",
+        "meanwhile": "In France, the Lumière brothers show movies to a paying audience for the first time in 1895 CE.",
+        "meanwhileStatus": "draft"
       }
     ]
   },
