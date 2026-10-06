@@ -224,8 +224,8 @@ def build_eras(wb, places, all_ids, rep):
     for r in raw['Camera Stops'] or []:
         sid = str(r.get('stop')) if r.get('stop') is not None else None
         label = f'STOP-{sid}'
-        if not sid or not re.fullmatch(r'[4-7]\.\d{1,2}', sid):
-            rep.reject('Camera Stops', label, r['_row'], 'stop number is not like 4.1 (era 4 to 7)'); continue
+        if not sid or not re.fullmatch(r'[4-7]\.\d{1,2}[ab]?', sid):
+            rep.reject('Camera Stops', label, r['_row'], 'stop number is not like 4.1 or 7.11a (era 4 to 7)'); continue
         if r.get('era') != int(sid.split('.')[0]) or r.get('era') not in ok_eras:
             rep.reject('Camera Stops', label, r['_row'], f'era {r.get("era")!r} does not match the stop number or is not a loaded era'); continue
         if num(r.get('start')) is None:
@@ -250,7 +250,7 @@ def build_eras(wb, places, all_ids, rep):
                       'centerPlaceId': c, 'centerLat': by_id[c]['lat'], 'centerLon': by_id[c]['lon'], 'role': role,
                       'framePlaceIds': fr, 'reachDeg': round(reach, 1), 'viewDeg': round(min(VIEW_MAX, max(VIEW_MIN, want)), 1),
                       'fits': fits, 'recordIds': links(r.get('records')), 'status': st})
-    stops.sort(key=lambda x: (x['startYear'], [int(p) for p in x['stop'].split('.')]))
+    stops.sort(key=lambda x: (x['startYear'], [(int(m.group(1)), m.group(2)) for m in re.finditer(r'(\d+)([ab]?)', x['stop'])]))
     for a, b in zip(stops, stops[1:]):
         if a['startYear'] == b['startYear']:
             rep.warn('Camera Stops', b['id'], 0, f'starts in the same year as {a["id"]} ({a["startYear"]}); by year the camera shows {b["id"]}, and cards in {a["id"]} turn the globe on their own')
@@ -312,7 +312,8 @@ def build(wb, rep):
         if r['lat'] is not None: placed.add(r['id'])
         places.append({'id': r['id'], 'historicalName': r['historicalName'], 'modernName': r['modernName'],
                        'role': r['role'], 'lat': r['lat'], 'lon': r['lon'],
-                       'landOfIsrael': str(r['landOfIsrael'] or '').lower() == 'yes'})
+                       'landOfIsrael': str(r['landOfIsrael'] or '').lower() == 'yes',
+                       **({'cameraOnly': True} if r['id'].startswith('place-cam-') else {})})
 
     def years(tab, r, need_start=True):
         s, e = r.get('start'), r.get('end')

@@ -267,6 +267,17 @@ with tempfile.TemporaryDirectory() as td:
     before = histE.read_text(); p, rep = run(xe, histE)
     check('era tabs: second run on the same export changes nothing', histE.read_text() == before and 'No changes' in p.stdout)
 
+    def split(d):
+        d['Camera Stops'] += [stop_row('7.2a', 7, 1750, 'place-a', 'region', '(this place only)'), stop_row('7.2b', 7, 1751, 'place-b-c', 'settlement', '(this place only)'),
+                              stop_row('7.10', 7, 1760, 'place-a', 'region', '(this place only)')]
+        d['Camera Stops'] = [r for r in d['Camera Stops']]
+    xs = td / 'split.xlsx'; era_book(x1, xs, split)
+    histS = td / 'histS.json'; histS.write_text(json.dumps(engine, indent=2, ensure_ascii=False), encoding='utf-8')
+    p, rep = run(xs, histS)
+    ids_s = [x['stop'] for x in json.loads(histS.read_text())['sheet']['cameraStops']]
+    check('split stops like 7.2a and 7.2b load, in year order, and 7.10 sorts after 7.2b',
+          p.returncode == 0 and ids_s[-3:] == ['7.2a', '7.2b', '7.10'] and not [r for r in rep['rejects'] if r['tab'] == 'Camera Stops'], (ids_s, rep['rejects']))
+
     p, rep = run(x1, hist)
     check('an export with no era tabs still loads, says so, and writes no era sections',
           p.returncode == 0 and 'eras' not in json.loads(hist.read_text())['sheet'] and any(w['tab'] == 'Camera Stops' and 'not in this export' in w['note'] for w in rep['warnings']))
