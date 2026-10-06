@@ -50,3 +50,5 @@ Quiz page (Oct 6, 2026):
 Common Era rule (Oct 6, 2026):
 - ce.js: CE years are written as the bare year (1654, not 1654 CE) everywhere on the globe; BCE stays; "CE" is kept only inside a string that also says BCE. The rule lives in engine.js (plainCE, plainCEDeep, yearLabel) and runs once on load; the quiz applies the same rule and keeps CE when its timeline crosses BCE. The loader prints an informational count of Sheet text that still says "CE" (never a reject).
 - follow.js can report one card "not in view" when it runs at the same time as reg.js (CPU load); rerun it alone before treating it as real.
+
+Quiz link (Oct 6, 2026): quizlink.js checks the "Take a Quiz" pill in the globe header: label and href, tap size (44 px desktop and iPad, 38 px phones), no overlap with the other controls, no horizontal scroll at 1440, 820, 390 and 320 px wide, and that a click opens the quiz. On phones the pill wraps to its own row, which moves the card title about 46 px lower (the iPhone SE title below the fold is the old baseline).
