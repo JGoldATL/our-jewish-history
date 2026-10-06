@@ -21,7 +21,11 @@ function validateHistory(data){
 }
 function assertHistory(data){const errors=validateHistory(data);if(errors.length)throw new Error('Historical dataset: '+errors.join('; '));}
 function indexData(data){return {places:new Map(data.places.map(p=>[p.id,p])),sources:new Map(data.sources.map(s=>[s.id,s]))};}
-function yearLabel(y){return y<0?Math.abs(y)+' BCE':y===0?'1 BCE / 1 CE':y+' CE';}
+// Project rule: Common Era years are written as the bare year (1654, not 1654 CE). BCE always stays. "CE" is kept only inside a string that also says BCE,
+// so a span such as "200 BCE to 70 CE" stays clear.
+function plainCE(s){return typeof s==='string'&&/\bCE\b/.test(s)&&!/\bBCE\b/.test(s)?s.replace(/\s+CE\b/g,''):s;}
+function plainCEDeep(o){if(Array.isArray(o)){for(let i=0;i<o.length;i++){const v=o[i];if(typeof v==='string')o[i]=plainCE(v);else if(v&&typeof v==='object')plainCEDeep(v);}}else if(o&&typeof o==='object'){for(const k of Object.keys(o)){const v=o[k];if(typeof v==='string')o[k]=plainCE(v);else if(v&&typeof v==='object')plainCEDeep(v);}}return o;}
+function yearLabel(y){return y<0?Math.abs(y)+' BCE':y===0?'1 BCE / 1 CE':String(y);}
 function fw(y,s,p,n){if(y<s||y>n)return 0;if(y<=p)return Math.max(.12,(y-s)/(p-s||1));return Math.max(0,1-(y-p)/(n-p||1));}
 function lastState(y,states,key='date'){let found=null;for(const s of states||[])if(s[key]<=y&&(!found||s[key]>=found[key]))found=s;return found;}
 function activeAt(r,y){return y>=r.startDate&&(r.endDate==null||y<r.endDate);}

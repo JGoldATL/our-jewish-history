@@ -2520,10 +2520,10 @@
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.2",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
       "sheetModified": "2026-10-06T17:55:00Z",
-      "exportSha256": "bbb413caf6b4641e",
+      "exportSha256": "c9dd83ee802ad249",
       "mode": "preview",
       "counts": {
-        "places": 96,
+        "places": 97,
         "events": 90,
         "communities": 117,
         "movements": 67,
@@ -2531,7 +2531,7 @@
         "evidence": 20,
         "cards": 166,
         "eras": 7,
-        "cameraStops": 37,
+        "cameraStops": 38,
         "eraAssignment": 264,
         "questions": 21
       }
@@ -3404,6 +3404,16 @@
         "lat": 14.65,
         "lon": -61,
         "landOfIsrael": false
+      },
+      {
+        "id": "place-cam-caribbean",
+        "historicalName": "Caribbean (camera centre only)",
+        "modernName": "Open ocean, no place",
+        "role": "region",
+        "lat": 22,
+        "lon": -58,
+        "landOfIsrael": false,
+        "cameraOnly": true
       }
     ],
     "events": [
@@ -5413,7 +5423,9 @@
           "kind": "blackSquare",
           "status": "locked"
         },
-        "noEngineFields": true
+        "engine": {
+          "footprintRadiusKm": 0
+        }
       },
       {
         "id": "DES-008",
@@ -5566,7 +5578,9 @@
           "kind": "blackSquare",
           "status": "locked"
         },
-        "noEngineFields": true
+        "engine": {
+          "footprintRadiusKm": 0
+        }
       },
       {
         "id": "CHG-015",
@@ -5584,7 +5598,9 @@
           "kind": "splitDiamond",
           "status": "leaning"
         },
-        "noEngineFields": true
+        "engine": {
+          "footprintRadiusKm": 0
+        }
       },
       {
         "id": "POP-044",
@@ -10973,8 +10989,8 @@
         "status": "approved"
       },
       {
-        "id": "STOP-6.7",
-        "stop": "6.7",
+        "id": "STOP-6.7a",
+        "stop": "6.7a",
         "era": 6,
         "startYear": 1654,
         "label": "The Recife dispersal, 1654",
@@ -11002,6 +11018,34 @@
           "POP-050",
           "POP-051",
           "POP-054"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-6.7b",
+        "stop": "6.7b",
+        "era": 6,
+        "startYear": 1654,
+        "label": "The Caribbean route, 1654",
+        "centerPlaceId": "place-cam-caribbean",
+        "centerLat": 22,
+        "centerLon": -58,
+        "role": "region",
+        "framePlaceIds": [
+          "place-recife",
+          "place-jamaica",
+          "place-cape-st-anthony",
+          "place-new-amsterdam",
+          "place-barbados",
+          "place-curacao"
+        ],
+        "reachDeg": 37.6,
+        "viewDeg": 43.3,
+        "fits": true,
+        "recordIds": [
+          "MOV-064",
+          "MOV-065",
+          "MOV-066"
         ],
         "status": "approved"
       },

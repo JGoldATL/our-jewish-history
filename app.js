@@ -213,7 +213,7 @@ function render(){
   drawGlobe();
   const boxes=placeLabels(labels,layers.label,scale,obstacles);for(const l of geoLabels()){const fs=l.kind==='waterLabel'?13:11,w=l.text.length*fs*(l.kind==='waterLabel'?0.55:0.78),h=fs*1.2,b={x:l.x-w/2,y:l.y-h,w,h};if(boxes.some(o=>b.x<o.x+o.w&&b.x+b.w>o.x&&b.y<o.y+o.h&&b.y+b.h>o.y))continue;boxes.push(b);const t=el('text',{x:l.x.toFixed(1),y:l.y.toFixed(1),'text-anchor':'middle',class:l.kind==='waterLabel'?'seaName':'regionName'},layers.label);t.textContent=l.kind==='waterLabel'?l.text:l.text.toUpperCase();}
   // panel
-  $('year').innerHTML=`${Math.abs(dy)}<span>${dy<0?'BCE':'CE'}</span>`;$('era').textContent=eraLabel(y,frame);
+  $('year').innerHTML=dy<0?`${Math.abs(dy)}<span>BCE</span>`:`${Math.abs(dy)}`;   // project rule: CE years are the bare year$('era').textContent=eraLabel(y,frame);
   drawArcLive();
   
   // (if the user turned the globe and then moved the timeline, turnToRecord brings the action into view)
@@ -377,7 +377,7 @@ function addSheetEras(){
 function eraLabel(y,frame){const r=selected?.record;if(r&&ERA_OF.size){const m=milestones.find(k=>k.record===r),e=m&&Math.round(y)===m.date&&m.date>=200?ERA_OF.get(r.id):null;if(e>=3&&ERA_NAME.has(e))return ERA_NAME.get(e);}return frame.era?.title||'';}
 async function boot(){
   try{
-    const res=await fetch('data/history.json');DATA=await res.json();try{GEO=await (await fetch('data/geo.json')).json();}catch(_){GEO=null;}assertHistory(DATA);addSheetMovements();addSheetEras();$('arcSlider').setAttribute('aria-valuemin',DATA.timeline.start);$('arcSlider').setAttribute('aria-valuemax',DATA.timeline.end);INDEX=indexData(DATA);
+    const res=await fetch('data/history.json');DATA=plainCEDeep(await res.json());try{GEO=await (await fetch('data/geo.json')).json();}catch(_){GEO=null;}assertHistory(DATA);addSheetMovements();addSheetEras();$('arcSlider').setAttribute('aria-valuemin',DATA.timeline.start);$('arcSlider').setAttribute('aria-valuemax',DATA.timeline.end);INDEX=indexData(DATA);
     buildTimeline();buildMilestones();initGL();initInteraction();
     position=posForYear(DATA.presentation?.openingYear??-1208);$('version').textContent='Globe preview · data from '+(DATA.presentation?.version||'Alpha');
     layout();

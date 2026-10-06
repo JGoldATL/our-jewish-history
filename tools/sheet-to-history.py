@@ -636,6 +636,15 @@ def main(argv=None):
         print(f'Movements tab has no column for: {missing_optional["Movements"]}')
     print(f'Movements with both arrow ends as Place IDs (can be drawn): {report["movementsWithArrowEnds"]} of {len(sections["movements"])}')
     print(f'POP/CHG records with no engine fields (no shading until supplied): {report["recordsWithNoEngineFields"]}')
+    # Project rule: Common Era years are written as the bare year. The site strips " CE" for display, so old text still shows correctly;
+    # this count tells the dataset chat how much text still carries it (informational, never a reject).
+    import re as _re
+    def _ce(o):
+        if isinstance(o, str): return 1 if _re.search(r'\d\s+CE\b|century\s+CE\b', o) and not _re.search(r'\bBCE\b', o) else 0
+        if isinstance(o, list): return sum(_ce(x) for x in o)
+        if isinstance(o, dict): return sum(_ce(x) for x in o.values())
+        return 0
+    print(f'Text values that still say "CE" after a year (the site shows the bare year; new text should omit CE): {_ce(sections)}')
 
     if a.report:
         Path(a.report).write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding='utf-8')

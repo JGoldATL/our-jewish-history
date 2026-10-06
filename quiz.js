@@ -6,7 +6,9 @@ const ERAS=['Biblical era','Second Temple & Rome','Medieval & Modern'];
 const LETTERS='ABCDE';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
-const fy=y=>y<0?`${(-y).toLocaleString()} BCE`:`${y} CE`;
+// Project rule: CE years are written as the bare year. A timeline that also holds BCE years keeps "CE" so the order stays clear.
+const plainCE=s=>typeof s==='string'&&/\bCE\b/.test(s)&&!/\bBCE\b/.test(s)?s.replace(/\s+CE\b/g,''):s;
+const fy=(y,keepCE)=>y<0?`${(-y).toLocaleString()} BCE`:keepCE?`${y} CE`:`${y}`;
 const shuffle=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];}return a;};
 
 let BANK=[],seen=new Set(),round=[],i=0,score=0,draftsShown=false;
@@ -102,10 +104,10 @@ function end(){
   dots();
   fly(round.map(q=>[q.lat,q.lon]));
   const span=round[round.length-1].jewishYear-round[0].jewishYear;
-  let tl='';
+  let tl='';const cross=round.some(q=>q.jewishYear<0||q.worldYear<0);
   round.forEach((q,n)=>{
     if(n>0){const g=q.jewishYear-round[n-1].jewishYear;tl+=`<li class="gap">${g===0?'Same year…':`${g.toLocaleString()} years later…`}</li>`;}
-    tl+=`<li><div class="yr">${fy(q.jewishYear)}</div><div class="ev">${esc(q.jewishEvent)}</div><div class="mw">Meanwhile: ${esc(q.worldAnchor)}, ${fy(q.worldYear)}</div></li>`;
+    tl+=`<li><div class="yr">${fy(q.jewishYear,cross)}</div><div class="ev">${esc(q.jewishEvent)}</div><div class="mw">Meanwhile: ${esc(q.worldAnchor)}, ${fy(q.worldYear,cross)}</div></li>`;
   });
   $('stage').innerHTML=`<div class="card end">
     <h2>You just traveled ${span.toLocaleString()} years of Jewish history.</h2>
@@ -159,7 +161,7 @@ async function boot(){
   try{hist=await (await fetch('data/history.json')).json();}catch(_){hist=null;}
   try{land=await (await fetch('data/quiz-land.json')).json();}catch(_){land=null;}
   initGlobe(land);
-  const all=(hist&&hist.sheet&&hist.sheet.questions)||[];
+  const all=((hist&&hist.sheet&&hist.sheet.questions)||[]).map(x=>JSON.parse(JSON.stringify(x,(k,v)=>plainCE(v))));
   const pick=pickQuestions(all,hist&&hist.sheet&&hist.sheet.meta,location.search);
   BANK=pick.list;draftsShown=pick.drafts;
   if(draftsShown)$('mode').textContent='Preview · draft questions included · ';
