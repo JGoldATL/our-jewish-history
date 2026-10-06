@@ -2473,6 +2473,150 @@
       "scope": "Mediterranean",
       "centerX": 690,
       "centerY": 300
+    },
+    {
+      "startDate": 200,
+      "scale": 0.84,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Near East, Egypt and Babylonia",
+      "centerX": 765,
+      "centerY": 307
+    },
+    {
+      "startDate": 600,
+      "scale": 0.84,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Near East, Egypt and Babylonia",
+      "centerX": 765,
+      "centerY": 307
+    },
+    {
+      "startDate": 700,
+      "scale": 0.58,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Mediterranean, North Africa, Iberia and Persia",
+      "centerX": 645,
+      "centerY": 245
+    },
+    {
+      "startDate": 900,
+      "scale": 0.58,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Mediterranean, North Africa, Iberia and Persia",
+      "centerX": 645,
+      "centerY": 245
+    },
+    {
+      "startDate": 1000,
+      "scale": 0.87,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Western and Central Europe with the Mediterranean",
+      "centerX": 375,
+      "centerY": 147
+    },
+    {
+      "startDate": 1450,
+      "scale": 0.87,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Western and Central Europe with the Mediterranean",
+      "centerX": 375,
+      "centerY": 147
+    },
+    {
+      "startDate": 1480,
+      "scale": 0.76,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Iberia, Italy and the Ottoman lands",
+      "centerX": 405,
+      "centerY": 221
+    },
+    {
+      "startDate": 1590,
+      "scale": 0.76,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Iberia, Italy and the Ottoman lands",
+      "centerX": 405,
+      "centerY": 221
+    },
+    {
+      "startDate": 1600,
+      "scale": 0.58,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Atlantic world",
+      "centerX": -150,
+      "centerY": 343
+    },
+    {
+      "startDate": 1700,
+      "scale": 0.58,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Atlantic world",
+      "centerX": -150,
+      "centerY": 343
+    },
+    {
+      "startDate": 1710,
+      "scale": 0.58,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Europe",
+      "centerX": 225,
+      "centerY": 172
+    },
+    {
+      "startDate": 1810,
+      "scale": 0.58,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Europe",
+      "centerX": 225,
+      "centerY": 172
+    },
+    {
+      "startDate": 1820,
+      "scale": 0.65,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Eastern Europe and the Land of Israel",
+      "centerX": 525,
+      "centerY": 172
+    },
+    {
+      "startDate": 1870,
+      "scale": 0.65,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Eastern Europe and the Land of Israel",
+      "centerX": 525,
+      "centerY": 172
+    },
+    {
+      "startDate": 1878,
+      "scale": 0.58,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Europe, the Mediterranean and the Land of Israel",
+      "centerX": 375,
+      "centerY": 196
+    },
+    {
+      "startDate": 1897,
+      "scale": 0.58,
+      "translateX": 0,
+      "translateY": 0,
+      "scope": "Europe, the Mediterranean and the Land of Israel",
+      "centerX": 375,
+      "centerY": 196
     }
   ],
   "timeline": {
