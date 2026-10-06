@@ -36,3 +36,8 @@ A sharper relief (Pass B) only has to replace images/src/relief-region.jpg and r
 
 
 arrows.js: Sheet arrows. Every Movement with both ends ready is drawn (none twice, none that an engine arrow already draws); the New Amsterdam branch rule holds; the 587 BCE arrow appears on the globe.
+
+Pass 2 (Eras 4 to 7, Oct 6, 2026):
+- load.py also covers the Eras, Camera Stops and Era Assignment tabs: the zoom rule (farthest frame Place x 1.15, floored by Role 12 or 24, clamped 10..45), unfit frames warn and clamp, bad rows are rejected with a reason, missing tabs are tolerated, a damaged Camera Stops tab stops the load. 57 checks, all pass.
+- reg.js: the sweep runs to DATA.timeline.end (1897) and is camera-independent (it turns the globe to a missing arrow before counting a mismatch). It reports yearsWithArrowOffCamera, which is informational: an arrow hidden only because the camera is elsewhere.
+- follow.js: the card walk covers every card (164 of 164 in order, then back).

@@ -84,6 +84,24 @@ OPTIONAL_MOVEMENT_COLS = dict(originPlaceId='Origin place ID', destinationPlaceI
 SECTION_OF_TAB = {'Events': 'events', 'Communities': 'communities', 'Movements': 'movements',
                   'Context & Voyages': 'context', 'Evidence': 'evidence', 'Places': 'places'}
 
+# Era and camera tabs (added with master v0.2.2). They are optional as a whole (an older export has none of them), but a tab
+# that is present must carry every expected column: a damaged tab stops the load, it is never loosened to fit.
+ERA_TABS = {
+    'Eras': dict(era='Era', name='Era name (proposed)', start='Start year', startDisplay='Start (display)',
+                 lastYear='Last year inside era', summary='Summary line (one sentence, proposed)',
+                 centerPlaceId='Opening camera centre (Place ID)', frame='Frame must keep on screen (Place IDs)',
+                 status='Status'),
+    'Camera Stops': dict(stop='Stop', era='Era', start='Start year', label='Stop label (proposed)',
+                         centerPlaceId='Camera centre (Place ID)', role='Centre scale (Places Role)',
+                         frame='Frame must keep on screen (Place IDs)', records='Justifying Sheet records (IDs)',
+                         status='Status'),
+    'Era Assignment': dict(id='Record ID', era='Era (recommended boundaries)', runsPast='Runs past era end?'),
+}
+# Camera zoom rule (approved by Jeffrey Oct 6, 2026). The Sheet has no zoom numbers, only a centre Place and the Places that
+# must stay on screen. half-width (degrees of arc, the engine's own unit) = distance from the centre to the farthest frame
+# place x 1.15, never below a floor set by the centre's Role (settlement 12, region 24), clamped to the engine's 10..45.
+VIEW_MARGIN, VIEW_FLOOR, VIEW_MIN, VIEW_MAX = 1.15, {'settlement': 12.0, 'region': 24.0}, 10.0, 45.0
+
 
 def clean(v):
     if isinstance(v, str):
@@ -141,6 +159,112 @@ class Report:
 
     def warn(self, tab, rid, row, why):
         self.warnings.append({'tab': tab, 'id': rid, 'row': row, 'note': why})
+
+
+def arc_deg(a, b):
+    """Great-circle distance in degrees between two (lat, lon) points."""
+    import math
+    p1, l1, p2, l2 = map(math.radians, (a[0], a[1], b[0], b[1]))
+    c = math.sin(p1) * math.sin(p2) + math.cos(p1) * math.cos(p2) * math.cos(l1 - l2)
+    return math.degrees(math.acos(max(-1.0, min(1.0, c))))
+
+
+def read_optional_tab(wb, tab, cols):
+    """Rows of an era/camera tab, or None when the workbook has no such tab. Present but damaged = stop."""
+    if tab not in wb.sheetnames:
+        return None
+    rows, _ = read_tab(wb, tab, cols)
+    return rows
+
+
+def build_eras(wb, places, all_ids, rep):
+    """Eras, Camera Stops and Era Assignment -> three sections. Nothing is guessed: a bad row is rejected with its reason."""
+    by_id = {p['id']: p for p in places if p['lat'] is not None}
+    raw = {t: read_optional_tab(wb, t, c) for t, c in ERA_TABS.items()}
+    for t, v in raw.items():
+        if v is None:
+            rep.warn(t, '-', 0, f'tab "{t}" is not in this export; no {t.lower()} loaded')
+    status_of = lambda v: (str(v).strip().lower() if v else '')
+
+    def frame_ids(tab, r, label):
+        txt = str(r.get('frame') or '').strip()
+        if not txt or txt.startswith('('):  # "(this place only)" = no extra frame places
+            return []
+        ids = [x.strip() for x in txt.split(';') if x.strip()]
+        bad = [i for i in ids if i not in by_id]
+        if bad:
+            rep.reject(tab, label, r['_row'], f'frame place IDs not in Places (or without coordinates): {bad}'); return None
+        return ids
+
+    eras = []
+    for r in raw['Eras'] or []:
+        n, label = r.get('era'), f"ERA-{r.get('era')}"
+        if not isinstance(n, int) or not 1 <= n <= 7:
+            rep.reject('Eras', label, r['_row'], f'era number is not 1 to 7: {n!r}'); continue
+        if num(r.get('start')) is None or not r.get('name'):
+            rep.reject('Eras', label, r['_row'], 'era needs a name and a numeric start year'); continue
+        st = status_of(r.get('status'))
+        reference = st.startswith('reference only')
+        if not reference and st not in ('approved', 'draft'):
+            rep.reject('Eras', label, r['_row'], f'status {r.get("status")!r} is not approved, draft or reference only'); continue
+        e = {'id': label, 'era': n, 'name': r['name'], 'startYear': r['start'], 'startDisplay': r.get('startDisplay'),
+             'lastYear': r.get('lastYear'), 'summary': r.get('summary'), 'status': 'reference' if reference else st}
+        if not reference:
+            c = r.get('centerPlaceId')
+            if c not in by_id:
+                rep.reject('Eras', label, r['_row'], f'opening camera centre {c!r} is not a Place with coordinates'); continue
+            fr = frame_ids('Eras', r, label)
+            if fr is None: continue
+            e.update(centerPlaceId=c, framePlaceIds=fr)
+        eras.append(e)
+    eras.sort(key=lambda e: e['era'])
+    ok_eras = {e['era'] for e in eras}
+
+    stops = []
+    for r in raw['Camera Stops'] or []:
+        sid = str(r.get('stop')) if r.get('stop') is not None else None
+        label = f'STOP-{sid}'
+        if not sid or not re.fullmatch(r'[4-7]\.\d{1,2}', sid):
+            rep.reject('Camera Stops', label, r['_row'], 'stop number is not like 4.1 (era 4 to 7)'); continue
+        if r.get('era') != int(sid.split('.')[0]) or r.get('era') not in ok_eras:
+            rep.reject('Camera Stops', label, r['_row'], f'era {r.get("era")!r} does not match the stop number or is not a loaded era'); continue
+        if num(r.get('start')) is None:
+            rep.reject('Camera Stops', label, r['_row'], f'start year is not a number: {r.get("start")!r}'); continue
+        st = status_of(r.get('status'))
+        if st not in ('approved', 'draft'):
+            rep.reject('Camera Stops', label, r['_row'], f'status {r.get("status")!r} is not approved or draft'); continue
+        c, role = r.get('centerPlaceId'), status_of(r.get('role'))
+        if c not in by_id:
+            rep.reject('Camera Stops', label, r['_row'], f'camera centre {c!r} is not a Place with coordinates'); continue
+        if role not in VIEW_FLOOR:
+            rep.reject('Camera Stops', label, r['_row'], f'centre scale {r.get("role")!r} is not settlement or region'); continue
+        fr = frame_ids('Camera Stops', r, label)
+        if fr is None: continue
+        reach = max([arc_deg((by_id[c]['lat'], by_id[c]['lon']), (by_id[i]['lat'], by_id[i]['lon'])) for i in fr] + [0.0])
+        want = max(reach * VIEW_MARGIN, VIEW_FLOOR[role])
+        fits = want <= VIEW_MAX
+        if not fits:
+            rep.warn('Camera Stops', label, r['_row'],
+                     f'the frame reaches {reach:.0f} degrees from the centre, so the view would need {want:.0f} degrees of half-width; the engine shows at most {VIEW_MAX:.0f}, so the view is clamped and part of the frame is off screen')
+        stops.append({'id': label, 'stop': sid, 'era': r['era'], 'startYear': r['start'], 'label': r.get('label'),
+                      'centerPlaceId': c, 'centerLat': by_id[c]['lat'], 'centerLon': by_id[c]['lon'], 'role': role,
+                      'framePlaceIds': fr, 'reachDeg': round(reach, 1), 'viewDeg': round(min(VIEW_MAX, max(VIEW_MIN, want)), 1),
+                      'fits': fits, 'recordIds': links(r.get('records')), 'status': st})
+    stops.sort(key=lambda x: (x['startYear'], [int(p) for p in x['stop'].split('.')]))
+    for a, b in zip(stops, stops[1:]):
+        if a['startYear'] == b['startYear']:
+            rep.warn('Camera Stops', b['id'], 0, f'starts in the same year as {a["id"]} ({a["startYear"]}); by year the camera shows {b["id"]}, and cards in {a["id"]} turn the globe on their own')
+
+    assign = []
+    for r in raw['Era Assignment'] or []:
+        rid, e = r.get('id'), str(r.get('era') or '').strip()
+        m = re.fullmatch(r'Era ([1-7])', e)
+        if not m and not e.startswith('After 1897'):
+            rep.reject('Era Assignment', rid, r['_row'], f'era {e!r} is not Era 1 to 7 or After 1897'); continue
+        if rid not in all_ids:
+            rep.warn('Era Assignment', rid, r['_row'], 'record ID is not in the Sheet tabs this loader reads')
+        assign.append({'id': rid, 'era': int(m.group(1)) if m else None, 'runsPast': r.get('runsPast')})
+    return eras, stops, assign
 
 
 def build(wb, rep):
@@ -333,6 +457,10 @@ def build(wb, rep):
     cards.sort(key=lambda c: (c['startYear'], c['id']))
     sections = {'places': places, 'events': events, 'communities': communities, 'movements': movements,
                 'context': context, 'evidence': evidence, 'cards': cards}
+    eras, stops, assign = build_eras(wb, places, all_ids, rep)
+    if eras or stops or assign:
+        sections.update({'eras': eras, 'cameraStops': stops, 'eraAssignment': assign})
+
     return sections, missing_optional
 
 

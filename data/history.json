@@ -2392,22 +2392,6 @@
     {
       "startDate": 135,
       "title": "Jewish life continues in Judea/Galilee, Babylonia and the Roman world"
-    },
-    {
-      "startDate": 200,
-      "title": "[PLACEHOLDER Era 4 – name and start year pending Jeffrey]"
-    },
-    {
-      "startDate": 1000,
-      "title": "[PLACEHOLDER Era 5 – name and start year pending Jeffrey]"
-    },
-    {
-      "startDate": 1492,
-      "title": "[PLACEHOLDER Era 6 – name and start year pending Jeffrey]"
-    },
-    {
-      "startDate": 1700,
-      "title": "[PLACEHOLDER Era 7 – name and start year pending Jeffrey]"
     }
   ],
   "cameraStates": [
@@ -2473,150 +2457,6 @@
       "scope": "Mediterranean",
       "centerX": 690,
       "centerY": 300
-    },
-    {
-      "startDate": 200,
-      "scale": 0.84,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Near East, Egypt and Babylonia",
-      "centerX": 765,
-      "centerY": 307
-    },
-    {
-      "startDate": 600,
-      "scale": 0.84,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Near East, Egypt and Babylonia",
-      "centerX": 765,
-      "centerY": 307
-    },
-    {
-      "startDate": 700,
-      "scale": 0.58,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Mediterranean, North Africa, Iberia and Persia",
-      "centerX": 645,
-      "centerY": 245
-    },
-    {
-      "startDate": 900,
-      "scale": 0.58,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Mediterranean, North Africa, Iberia and Persia",
-      "centerX": 645,
-      "centerY": 245
-    },
-    {
-      "startDate": 1000,
-      "scale": 0.87,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Western and Central Europe with the Mediterranean",
-      "centerX": 375,
-      "centerY": 147
-    },
-    {
-      "startDate": 1450,
-      "scale": 0.87,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Western and Central Europe with the Mediterranean",
-      "centerX": 375,
-      "centerY": 147
-    },
-    {
-      "startDate": 1480,
-      "scale": 0.76,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Iberia, Italy and the Ottoman lands",
-      "centerX": 405,
-      "centerY": 221
-    },
-    {
-      "startDate": 1590,
-      "scale": 0.76,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Iberia, Italy and the Ottoman lands",
-      "centerX": 405,
-      "centerY": 221
-    },
-    {
-      "startDate": 1600,
-      "scale": 0.58,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Atlantic world",
-      "centerX": -150,
-      "centerY": 343
-    },
-    {
-      "startDate": 1700,
-      "scale": 0.58,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Atlantic world",
-      "centerX": -150,
-      "centerY": 343
-    },
-    {
-      "startDate": 1710,
-      "scale": 0.58,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Europe",
-      "centerX": 225,
-      "centerY": 172
-    },
-    {
-      "startDate": 1810,
-      "scale": 0.58,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Europe",
-      "centerX": 225,
-      "centerY": 172
-    },
-    {
-      "startDate": 1820,
-      "scale": 0.65,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Eastern Europe and the Land of Israel",
-      "centerX": 525,
-      "centerY": 172
-    },
-    {
-      "startDate": 1870,
-      "scale": 0.65,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Eastern Europe and the Land of Israel",
-      "centerX": 525,
-      "centerY": 172
-    },
-    {
-      "startDate": 1878,
-      "scale": 0.58,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Europe, the Mediterranean and the Land of Israel",
-      "centerX": 375,
-      "centerY": 196
-    },
-    {
-      "startDate": 1897,
-      "scale": 0.58,
-      "translateX": 0,
-      "translateY": 0,
-      "scope": "Europe, the Mediterranean and the Land of Israel",
-      "centerX": 375,
-      "centerY": 196
     }
   ],
   "timeline": {
@@ -2679,8 +2519,8 @@
       "schema": "sheet-1",
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.1",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-10-05T21:00:00Z",
-      "exportSha256": "e717e48b86aff550",
+      "sheetModified": "2026-10-06T04:31:46Z",
+      "exportSha256": "d2929e45a9c94e58",
       "mode": "preview",
       "counts": {
         "places": 89,
@@ -2689,7 +2529,10 @@
         "movements": 59,
         "context": 43,
         "evidence": 20,
-        "cards": 164
+        "cards": 164,
+        "eras": 7,
+        "cameraStops": 36,
+        "eraAssignment": 264
       }
     },
     "places": [
@@ -9922,6 +9765,2290 @@
         "placeId": "place-basel",
         "meanwhile": "In France, the Lumière brothers show movies to a paying audience for the first time in 1895 CE.",
         "meanwhileStatus": "draft"
+      }
+    ],
+    "eras": [
+      {
+        "id": "ERA-1",
+        "era": 1,
+        "name": "Origins and the two kingdoms",
+        "startYear": -2000,
+        "startDisplay": "c. 2000 BCE",
+        "lastYear": -587,
+        "summary": "Not re-proposed here. Name and boundary from the earlier Pass 2 proposal (approved as a direction).",
+        "status": "reference"
+      },
+      {
+        "id": "ERA-2",
+        "era": 2,
+        "name": "Exile, return and the Hellenistic world",
+        "startYear": -586,
+        "startDisplay": "587/586 BCE",
+        "lastYear": -168,
+        "summary": "Not re-proposed here. Name and boundary from the earlier Pass 2 proposal (approved as a direction).",
+        "status": "reference"
+      },
+      {
+        "id": "ERA-3",
+        "era": 3,
+        "name": "Rome and the Diaspora revolts",
+        "startYear": -167,
+        "startDisplay": "167 BCE",
+        "lastYear": 199,
+        "summary": "Not re-proposed here. Name and boundary from the earlier Pass 2 proposal (approved as a direction).",
+        "status": "reference"
+      },
+      {
+        "id": "ERA-4",
+        "era": 4,
+        "name": "Babylonia, Byzantium and the Islamic world",
+        "startYear": 200,
+        "startDisplay": "200 CE",
+        "lastYear": 1095,
+        "summary": "From the Mishnah at 200 CE through the Persian, Byzantine and Muslim conquests, Jewish life centers on Babylonia, Egypt, North Africa and al-Andalus.",
+        "status": "approved",
+        "centerPlaceId": "place-mediterranean",
+        "framePlaceIds": [
+          "place-iberia",
+          "place-b",
+          "place-egypt",
+          "place-maghreb"
+        ]
+      },
+      {
+        "id": "ERA-5",
+        "era": 5,
+        "name": "Medieval Europe and Iberia",
+        "startYear": 1096,
+        "startDisplay": "1096 CE",
+        "lastYear": 1491,
+        "summary": "Jewish communities grow in the Rhineland, France, England and Poland, but are attacked and expelled again and again, and many move east.",
+        "status": "approved",
+        "centerPlaceId": "place-central-europe",
+        "framePlaceIds": [
+          "place-england",
+          "place-france",
+          "place-barcelona",
+          "place-kalisz",
+          "place-constantinople"
+        ]
+      },
+      {
+        "id": "ERA-6",
+        "era": 6,
+        "name": "Expulsions and the new diasporas",
+        "startYear": 1492,
+        "startDisplay": "1492 CE",
+        "lastYear": 1699,
+        "summary": "After Spain expels its Jews in 1492, Jews build new communities in Ottoman cities, Safed, Amsterdam and the Americas.",
+        "status": "approved",
+        "centerPlaceId": "place-spain",
+        "framePlaceIds": [
+          "place-portugal",
+          "place-maghreb",
+          "place-italy",
+          "place-ottoman-lands"
+        ]
+      },
+      {
+        "id": "ERA-7",
+        "era": 7,
+        "name": "Eastern Europe, new rights and mass migration",
+        "startYear": 1700,
+        "startDisplay": "1700 CE",
+        "lastYear": 1897,
+        "summary": "Hasidism spreads and the Pale of Settlement grows, Jews gain legal rights in Western and Central Europe, and large numbers move to America and the Land of Israel, until the First Zionist Congress in 1897.",
+        "status": "approved",
+        "centerPlaceId": "place-poland",
+        "framePlaceIds": [
+          "place-medzhybizh",
+          "place-prague",
+          "place-odessa",
+          "place-pale-of-settlement"
+        ]
+      }
+    ],
+    "cameraStops": [
+      {
+        "id": "STOP-4.1",
+        "stop": "4.1",
+        "era": 4,
+        "startYear": 200,
+        "label": "Galilee and Babylonia",
+        "centerPlaceId": "place-galilee",
+        "centerLat": 32.8,
+        "centerLon": 35.5,
+        "role": "region",
+        "framePlaceIds": [
+          "place-b"
+        ],
+        "reachDeg": 7.5,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "CHG-005",
+          "EVT-0030",
+          "POP-017",
+          "POP-019"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-4.2",
+        "stop": "4.2",
+        "era": 4,
+        "startYear": 415,
+        "label": "Alexandria",
+        "centerPlaceId": "place-alexNode",
+        "centerLat": 31.2,
+        "centerLon": 29.92,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-egypt"
+        ],
+        "reachDeg": 1.6,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "CHG-006",
+          "POP-024"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-4.3",
+        "stop": "4.3",
+        "era": 4,
+        "startYear": 614,
+        "label": "Jerusalem and the Land of Israel",
+        "centerPlaceId": "place-j",
+        "centerLat": 31.778,
+        "centerLon": 35.235,
+        "role": "region",
+        "framePlaceIds": [
+          "place-israel"
+        ],
+        "reachDeg": 0.1,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0040",
+          "EVT-0041",
+          "EVT-0042"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-4.4",
+        "stop": "4.4",
+        "era": 4,
+        "startYear": 641,
+        "label": "Egypt",
+        "centerPlaceId": "place-egypt",
+        "centerLat": 30,
+        "centerLon": 31.2,
+        "role": "region",
+        "framePlaceIds": [],
+        "reachDeg": 0.0,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0043",
+          "POP-028"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-4.5",
+        "stop": "4.5",
+        "era": 4,
+        "startYear": 650,
+        "label": "Babylonia / Iraq",
+        "centerPlaceId": "place-b",
+        "centerLat": 32.54,
+        "centerLon": 44.42,
+        "role": "region",
+        "framePlaceIds": [],
+        "reachDeg": 0.0,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0044",
+          "POP-025"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-4.6",
+        "stop": "4.6",
+        "era": 4,
+        "startYear": 711,
+        "label": "Iberia / al-Andalus",
+        "centerPlaceId": "place-iberia",
+        "centerLat": 39.5,
+        "centerLon": -4,
+        "role": "region",
+        "framePlaceIds": [],
+        "reachDeg": 0.0,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0045",
+          "POP-031"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-4.7",
+        "stop": "4.7",
+        "era": 4,
+        "startYear": 800,
+        "label": "North Africa and Egypt",
+        "centerPlaceId": "place-kairouan",
+        "centerLat": 35.678,
+        "centerLon": 10.096,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-maghreb",
+          "place-egypt"
+        ],
+        "reachDeg": 18.6,
+        "viewDeg": 21.4,
+        "fits": true,
+        "recordIds": [
+          "EVT-0046",
+          "MOV-009",
+          "POP-029",
+          "POP-030"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-4.8",
+        "stop": "4.8",
+        "era": 4,
+        "startYear": 1080,
+        "label": "Cairo, Aden and India",
+        "centerPlaceId": "place-cairo",
+        "centerLat": 30.005,
+        "centerLon": 31.231,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-yemen",
+          "place-malabar"
+        ],
+        "reachDeg": 46.4,
+        "viewDeg": 45.0,
+        "fits": false,
+        "recordIds": [
+          "EVT-0047"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-5.1",
+        "stop": "5.1",
+        "era": 5,
+        "startYear": 1096,
+        "label": "The Rhineland",
+        "centerPlaceId": "place-rhineland",
+        "centerLat": 50,
+        "centerLon": 8.3,
+        "role": "region",
+        "framePlaceIds": [
+          "place-worms",
+          "place-mainz",
+          "place-speyer"
+        ],
+        "reachDeg": 0.7,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "CHG-007",
+          "DES-005",
+          "DES-006",
+          "EVT-0049",
+          "POP-039"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-5.2",
+        "stop": "5.2",
+        "era": 5,
+        "startYear": 1182,
+        "label": "France",
+        "centerPlaceId": "place-france",
+        "centerLat": 48.85,
+        "centerLon": 2.35,
+        "role": "region",
+        "framePlaceIds": [],
+        "reachDeg": 0.0,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "CHG-009",
+          "EVT-0048",
+          "MOV-011"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-5.3",
+        "stop": "5.3",
+        "era": 5,
+        "startYear": 1190,
+        "label": "England",
+        "centerPlaceId": "place-england",
+        "centerLat": 52.5,
+        "centerLon": -1.5,
+        "role": "region",
+        "framePlaceIds": [
+          "place-york"
+        ],
+        "reachDeg": 1.5,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "DES-007",
+          "EVT-0052",
+          "EVT-0053",
+          "MOV-012",
+          "POP-041"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-5.4",
+        "stop": "5.4",
+        "era": 5,
+        "startYear": 1263,
+        "label": "Barcelona",
+        "centerPlaceId": "place-barcelona",
+        "centerLat": 41.385,
+        "centerLon": 2.173,
+        "role": "settlement",
+        "framePlaceIds": [],
+        "reachDeg": 0.0,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0050"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-5.5",
+        "stop": "5.5",
+        "era": 5,
+        "startYear": 1264,
+        "label": "Kalisz and the move east",
+        "centerPlaceId": "place-kalisz",
+        "centerLat": 51.76,
+        "centerLon": 18.09,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-german-lands",
+          "place-east-central-europe"
+        ],
+        "reachDeg": 5.4,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0051",
+          "EVT-0054",
+          "MOV-015",
+          "POP-042",
+          "POP-043"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-5.6",
+        "stop": "5.6",
+        "era": 5,
+        "startYear": 1306,
+        "label": "France again",
+        "centerPlaceId": "place-france",
+        "centerLat": 48.85,
+        "centerLon": 2.35,
+        "role": "region",
+        "framePlaceIds": [],
+        "reachDeg": 0.0,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0055",
+          "EVT-0056",
+          "EVT-0057",
+          "MOV-013",
+          "MOV-014",
+          "MOV-017"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-5.7",
+        "stop": "5.7",
+        "era": 5,
+        "startYear": 1391,
+        "label": "Iberia, 1391",
+        "centerPlaceId": "place-iberia",
+        "centerLat": 39.5,
+        "centerLon": -4,
+        "role": "region",
+        "framePlaceIds": [],
+        "reachDeg": 0.0,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "CHG-013",
+          "DES-009"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-5.8",
+        "stop": "5.8",
+        "era": 5,
+        "startYear": 1453,
+        "label": "Constantinople",
+        "centerPlaceId": "place-constantinople",
+        "centerLat": 41.01,
+        "centerLon": 28.98,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-ottoman-lands"
+        ],
+        "reachDeg": 5.0,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0058",
+          "MOV-019"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-6.1",
+        "stop": "6.1",
+        "era": 6,
+        "startYear": 1492,
+        "label": "Spain, 1492",
+        "centerPlaceId": "place-spain",
+        "centerLat": 40,
+        "centerLon": -4,
+        "role": "region",
+        "framePlaceIds": [
+          "place-portugal",
+          "place-maghreb",
+          "place-italy",
+          "place-ottoman-lands"
+        ],
+        "reachDeg": 29.9,
+        "viewDeg": 34.3,
+        "fits": true,
+        "recordIds": [
+          "CHG-014",
+          "CHG-015",
+          "EVT-0059",
+          "EVT-0060",
+          "MOV-020",
+          "MOV-056",
+          "MOV-057",
+          "MOV-058",
+          "MOV-059"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-6.2",
+        "stop": "6.2",
+        "era": 6,
+        "startYear": 1500,
+        "label": "Ottoman cities and Safed",
+        "centerPlaceId": "place-ottoman-lands",
+        "centerLat": 39,
+        "centerLon": 35,
+        "role": "region",
+        "framePlaceIds": [
+          "place-iberia",
+          "place-safed",
+          "place-constantinople"
+        ],
+        "reachDeg": 30.0,
+        "viewDeg": 34.5,
+        "fits": true,
+        "recordIds": [
+          "EVT-0061",
+          "EVT-0062",
+          "MOV-022",
+          "MOV-023",
+          "MOV-048",
+          "MOV-049",
+          "POP-044",
+          "POP-045"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-6.3",
+        "stop": "6.3",
+        "era": 6,
+        "startYear": 1516,
+        "label": "Italy: the ghettos and the papal expulsions",
+        "centerPlaceId": "place-venice",
+        "centerLat": 45.446,
+        "centerLon": 12.326,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-romeNode",
+          "place-papal-states"
+        ],
+        "reachDeg": 3.5,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0065",
+          "EVT-0067",
+          "EVT-0068",
+          "MOV-025"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-6.4",
+        "stop": "6.4",
+        "era": 6,
+        "startYear": 1536,
+        "label": "Portugal",
+        "centerPlaceId": "place-portugal",
+        "centerLat": 39.6,
+        "centerLon": -8,
+        "role": "region",
+        "framePlaceIds": [],
+        "reachDeg": 0.0,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "CHG-015",
+          "EVT-0063",
+          "EVT-0066",
+          "MOV-024"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-6.5",
+        "stop": "6.5",
+        "era": 6,
+        "startYear": 1590,
+        "label": "Amsterdam",
+        "centerPlaceId": "place-amsterdam",
+        "centerLat": 52.37,
+        "centerLon": 4.9,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-iberia"
+        ],
+        "reachDeg": 14.3,
+        "viewDeg": 16.4,
+        "fits": true,
+        "recordIds": [
+          "EVT-0069",
+          "MOV-026",
+          "POP-047",
+          "POP-048"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-6.6",
+        "stop": "6.6",
+        "era": 6,
+        "startYear": 1630,
+        "label": "Amsterdam to Dutch Brazil",
+        "centerPlaceId": "place-recife",
+        "centerLat": -8.05,
+        "centerLon": -34.88,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-amsterdam"
+        ],
+        "reachDeg": 69.3,
+        "viewDeg": 45.0,
+        "fits": false,
+        "recordIds": [
+          "EVT-0070",
+          "MOV-027",
+          "POP-049"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-6.7",
+        "stop": "6.7",
+        "era": 6,
+        "startYear": 1654,
+        "label": "The Recife dispersal, 1654",
+        "centerPlaceId": "place-recife",
+        "centerLat": -8.05,
+        "centerLon": -34.88,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-amsterdam",
+          "place-curacao",
+          "place-barbados",
+          "place-new-amsterdam"
+        ],
+        "reachDeg": 69.3,
+        "viewDeg": 45.0,
+        "fits": false,
+        "recordIds": [
+          "EVT-0071",
+          "MOV-029",
+          "MOV-052",
+          "MOV-053",
+          "MOV-054",
+          "MOV-055",
+          "POP-050",
+          "POP-051",
+          "POP-054"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-6.8",
+        "stop": "6.8",
+        "era": 6,
+        "startYear": 1666,
+        "label": "Edirne and Vienna",
+        "centerPlaceId": "place-edirne",
+        "centerLat": 41.677,
+        "centerLon": 26.556,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-vienna"
+        ],
+        "reachDeg": 9.7,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0072",
+          "EVT-0073",
+          "MOV-030"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-7.1",
+        "stop": "7.1",
+        "era": 7,
+        "startYear": 1700,
+        "label": "Medzhybizh, Hasidism",
+        "centerPlaceId": "place-medzhybizh",
+        "centerLat": 49.447,
+        "centerLon": 27.41,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-poland"
+        ],
+        "reachDeg": 4.3,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0074"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-7.2",
+        "stop": "7.2",
+        "era": 7,
+        "startYear": 1744,
+        "label": "Prague",
+        "centerPlaceId": "place-prague",
+        "centerLat": 50.08,
+        "centerLon": 14.44,
+        "role": "settlement",
+        "framePlaceIds": [],
+        "reachDeg": 0.0,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "CHG-017",
+          "EVT-0075",
+          "MOV-031"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-7.3",
+        "stop": "7.3",
+        "era": 7,
+        "startYear": 1777,
+        "label": "Eastern Europe to Safed",
+        "centerPlaceId": "place-poland",
+        "centerLat": 52,
+        "centerLon": 22,
+        "role": "region",
+        "framePlaceIds": [
+          "place-safed"
+        ],
+        "reachDeg": 21.4,
+        "viewDeg": 24.6,
+        "fits": true,
+        "recordIds": [
+          "EVT-0076",
+          "MOV-032"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-7.4",
+        "stop": "7.4",
+        "era": 7,
+        "startYear": 1782,
+        "label": "Rights in Western and Central Europe",
+        "centerPlaceId": "place-vienna",
+        "centerLat": 48.21,
+        "centerLon": 16.37,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-paris",
+          "place-london"
+        ],
+        "reachDeg": 11.1,
+        "viewDeg": 12.8,
+        "fits": true,
+        "recordIds": [
+          "EVT-0077",
+          "EVT-0078",
+          "EVT-0087",
+          "EVT-0088",
+          "EVT-0089"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-7.5",
+        "stop": "7.5",
+        "era": 7,
+        "startYear": 1800,
+        "label": "Odessa and the Pale",
+        "centerPlaceId": "place-odessa",
+        "centerLat": 46.48,
+        "centerLon": 30.73,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-pale-of-settlement"
+        ],
+        "reachDeg": 6.5,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "CHG-020",
+          "EVT-0079",
+          "EVT-0081",
+          "MOV-033",
+          "POP-060"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-7.6",
+        "stop": "7.6",
+        "era": 7,
+        "startYear": 1808,
+        "label": "Perushim to the Land of Israel",
+        "centerPlaceId": "place-poland",
+        "centerLat": 52,
+        "centerLon": 22,
+        "role": "region",
+        "framePlaceIds": [
+          "place-israel"
+        ],
+        "reachDeg": 22.3,
+        "viewDeg": 25.6,
+        "fits": true,
+        "recordIds": [
+          "EVT-0082",
+          "MOV-034"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-7.7",
+        "stop": "7.7",
+        "era": 7,
+        "startYear": 1820,
+        "label": "Central Europe to the United States",
+        "centerPlaceId": "place-central-europe",
+        "centerLat": 49,
+        "centerLon": 16,
+        "role": "region",
+        "framePlaceIds": [
+          "place-us"
+        ],
+        "reachDeg": 74.1,
+        "viewDeg": 45.0,
+        "fits": false,
+        "recordIds": [
+          "EVT-0083",
+          "MOV-037",
+          "POP-063"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-7.8",
+        "stop": "7.8",
+        "era": 7,
+        "startYear": 1845,
+        "label": "Baghdad to India to Shanghai",
+        "centerPlaceId": "place-bombay",
+        "centerLat": 19.08,
+        "centerLon": 72.88,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-b",
+          "place-shanghai"
+        ],
+        "reachDeg": 45.3,
+        "viewDeg": 45.0,
+        "fits": false,
+        "recordIds": [
+          "EVT-0080",
+          "EVT-0085",
+          "MOV-035",
+          "MOV-036",
+          "POP-061",
+          "POP-062"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-7.9",
+        "stop": "7.9",
+        "era": 7,
+        "startYear": 1881,
+        "label": "Eastern Europe to America",
+        "centerPlaceId": "place-eastern-europe",
+        "centerLat": 50,
+        "centerLon": 32,
+        "role": "region",
+        "framePlaceIds": [
+          "place-us"
+        ],
+        "reachDeg": 80.3,
+        "viewDeg": 45.0,
+        "fits": false,
+        "recordIds": [
+          "CHG-026",
+          "EVT-0091",
+          "MOV-038"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-7.10",
+        "stop": "7.10",
+        "era": 7,
+        "startYear": 1881,
+        "label": "The move to the Land of Israel",
+        "centerPlaceId": "place-j",
+        "centerLat": 31.778,
+        "centerLon": 35.235,
+        "role": "region",
+        "framePlaceIds": [
+          "place-yemen",
+          "place-eastern-europe",
+          "place-central-asia"
+        ],
+        "reachDeg": 25.1,
+        "viewDeg": 28.8,
+        "fits": true,
+        "recordIds": [
+          "EVT-0092",
+          "EVT-0093",
+          "EVT-0095",
+          "MOV-039",
+          "MOV-040",
+          "MOV-042",
+          "MOV-050",
+          "POP-068",
+          "POP-070"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-7.11",
+        "stop": "7.11",
+        "era": 7,
+        "startYear": 1889,
+        "label": "Eastern Europe to Argentina",
+        "centerPlaceId": "place-argentina",
+        "centerLat": -34.6,
+        "centerLon": -58.4,
+        "role": "region",
+        "framePlaceIds": [
+          "place-eastern-europe"
+        ],
+        "reachDeg": 116.0,
+        "viewDeg": 45.0,
+        "fits": false,
+        "recordIds": [
+          "EVT-0094",
+          "MOV-041",
+          "POP-069"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-7.12",
+        "stop": "7.12",
+        "era": 7,
+        "startYear": 1897,
+        "label": "Basel, the First Zionist Congress",
+        "centerPlaceId": "place-basel",
+        "centerLat": 47.559,
+        "centerLon": 7.588,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-london",
+          "place-paris"
+        ],
+        "reachDeg": 6.4,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0096",
+          "EVT-0097",
+          "EVT-0098"
+        ],
+        "status": "approved"
+      }
+    ],
+    "eraAssignment": [
+      {
+        "id": "EVT-0001",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0002",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-001",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0003",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "POP-001",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0004",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0005",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0006",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0007",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0008",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0009",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-002",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-046",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-047",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "POP-002",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0011",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-003",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "POP-003",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0010",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0012",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "POP-004",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0013",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0015",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-004",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "POP-005",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-005",
+        "era": 1,
+        "runsPast": "Runs into Era 2"
+      },
+      {
+        "id": "EVT-0014",
+        "era": 1,
+        "runsPast": "Runs into Era 2"
+      },
+      {
+        "id": "EVT-0016",
+        "era": 2,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-006",
+        "era": 2,
+        "runsPast": null
+      },
+      {
+        "id": "POP-006",
+        "era": 2,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0017",
+        "era": 2,
+        "runsPast": null
+      },
+      {
+        "id": "POP-007",
+        "era": 2,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0018",
+        "era": 2,
+        "runsPast": null
+      },
+      {
+        "id": "POP-010",
+        "era": 2,
+        "runsPast": "Runs into Era 3"
+      },
+      {
+        "id": "EVT-0019",
+        "era": 2,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-044",
+        "era": 2,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0020",
+        "era": 2,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-045",
+        "era": 2,
+        "runsPast": "Runs into Era 3"
+      },
+      {
+        "id": "POP-008",
+        "era": 2,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0023",
+        "era": 2,
+        "runsPast": "Runs into Era 3"
+      },
+      {
+        "id": "EVT-0021",
+        "era": 2,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-007",
+        "era": 2,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0022",
+        "era": 2,
+        "runsPast": "Runs into Era 3"
+      },
+      {
+        "id": "POP-012",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0024",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "POP-014",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "POP-009",
+        "era": 3,
+        "runsPast": "Runs into Era 4"
+      },
+      {
+        "id": "POP-011",
+        "era": 3,
+        "runsPast": "Runs into Era 4"
+      },
+      {
+        "id": "POP-013",
+        "era": 3,
+        "runsPast": "Runs into Era 4"
+      },
+      {
+        "id": "EVT-0026",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0025",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-008",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "POP-015",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-001",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-002",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "DES-001",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0027",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "DES-002",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "DES-003",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "DES-004",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0028",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-003",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-004",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0029",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "POP-016",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "LOC-001",
+        "era": 3,
+        "runsPast": "Runs into Era 4"
+      },
+      {
+        "id": "CHG-005",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0030",
+        "era": 3,
+        "runsPast": null
+      },
+      {
+        "id": "POP-017",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "POP-018",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "POP-020",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "POP-021",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "POP-022",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "POP-023",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "POP-024",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "POP-019",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-006",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0040",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "POP-038",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0041",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0042",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0043",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0044",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "POP-025",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "POP-026",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "POP-027",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "POP-028",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "POP-029",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "POP-031",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "POP-032",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "POP-033",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "POP-034",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "POP-036",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "POP-037",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "EVT-0045",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "POP-030",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "POP-035",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0046",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "MOV-009",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "POP-042",
+        "era": 4,
+        "runsPast": "Runs into Era 5"
+      },
+      {
+        "id": "EVT-0047",
+        "era": 4,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-007",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "DES-005",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "DES-006",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "POP-039",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "POP-041",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-008",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-010",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0048",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-011",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "DES-007",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-009",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "POP-040",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0049",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0050",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0051",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0052",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-010",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0053",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-012",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0054",
+        "era": 5,
+        "runsPast": "Runs into Era 6"
+      },
+      {
+        "id": "MOV-015",
+        "era": 5,
+        "runsPast": "Runs into Era 6"
+      },
+      {
+        "id": "POP-043",
+        "era": 5,
+        "runsPast": "Runs into Era 6"
+      },
+      {
+        "id": "EVT-0055",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-013",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-011",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0056",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-014",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-012",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "DES-008",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-013",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "DES-009",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-016",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0057",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-017",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "DES-010",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-018",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0058",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-019",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "DES-011",
+        "era": 5,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-014",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0059",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0060",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-020",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-021",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-056",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-057",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-058",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-059",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-015",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0061",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0062",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0063",
+        "era": 6,
+        "runsPast": "Runs into Era 7"
+      },
+      {
+        "id": "MOV-022",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-023",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-024",
+        "era": 6,
+        "runsPast": "Runs into Era 7"
+      },
+      {
+        "id": "MOV-048",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-049",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "POP-044",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "POP-045",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0064",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0065",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0066",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0067",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0068",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-025",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0069",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-026",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "POP-046",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "POP-047",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "POP-048",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "POP-052",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "POP-054",
+        "era": 6,
+        "runsPast": "Runs into Era 7"
+      },
+      {
+        "id": "EVT-0070",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-027",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "POP-049",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-016",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "DES-012",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-028",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-018",
+        "era": 6,
+        "runsPast": "Runs into Era 7"
+      },
+      {
+        "id": "POP-051",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0071",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-029",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-052",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-053",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-054",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-055",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "POP-050",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "POP-053",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "POP-055",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "POP-056",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0072",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0073",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-030",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "POP-058",
+        "era": 6,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0074",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "POP-057",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "POP-059",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0075",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-031",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-017",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-019",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0076",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-032",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0077",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0078",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-020",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "EVT-0079",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "EVT-0080",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "MOV-033",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "MOV-035",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "POP-060",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "POP-061",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "POP-065",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "POP-066",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "EVT-0081",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0082",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-034",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0083",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-037",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "POP-063",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-021",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-022",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-023",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0084",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0085",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-036",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "POP-062",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0086",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0087",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-024",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0088",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0089",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0090",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-025",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "POP-064",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "POP-067",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-026",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "CHG-027",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "CHG-028",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "CHG-029",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0091",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "EVT-0092",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-038",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "MOV-039",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0093",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "MOV-040",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "MOV-050",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "POP-068",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0094",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-041",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "POP-069",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0095",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "MOV-042",
+        "era": 7,
+        "runsPast": "Runs past 1897"
+      },
+      {
+        "id": "EVT-0096",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "POP-070",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0097",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0098",
+        "era": 7,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-030",
+        "era": null,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-043",
+        "era": null,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-051",
+        "era": null,
+        "runsPast": null
+      },
+      {
+        "id": "CHG-031",
+        "era": null,
+        "runsPast": null
+      },
+      {
+        "id": "POP-071",
+        "era": null,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0031",
+        "era": null,
+        "runsPast": null
       }
     ]
   },

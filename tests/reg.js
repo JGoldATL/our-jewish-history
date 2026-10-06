@@ -4,10 +4,21 @@ const p=await b.newPage({viewport:{width:1440,height:900}});const errs=[];p.on('
 await p.goto(''+(process.env.SITE||'http://localhost:8778/')+'');await p.waitForTimeout(2500);
 out.validate=await p.evaluate(()=>{try{const r=validateHistory(DATA);return Array.isArray(r)?r.length+' issues':JSON.stringify(r).slice(0,200)}catch(e){return 'ERR '+e.message}});
 // integer-year sweep, start to DATA.timeline.end: engine says visible vs drawn
-out.sweep=await p.evaluate(()=>{dismissPrompt();let miss=[],years=0;for(let y=-2000;y<=DATA.timeline.end;y++){setYearExact(y);years++;const f=computeFrame(y);
- const wantM=f.movements.filter(m=>m.visible&&m.opacity>.01).length,gotM=document.querySelectorAll('#lRoute .route').length;
+out.sweep=await p.evaluate(()=>{dismissPrompt();let miss=[],off=[],years=0;for(let y=-2000;y<=DATA.timeline.end;y++){setYearExact(y);years++;const f=computeFrame(y);
+ const want=f.movements.filter(m=>m.visible&&m.opacity>.01),wantM=want.length,gotM=document.querySelectorAll('#lRoute .route').length;
  const wantE=f.events.filter(e=>e.opacity>.02).length,gotE=document.querySelectorAll('#lMark .event').length;
- if(wantM!==gotM||wantE!==gotE)miss.push([y,wantM,gotM,wantE,gotE]);}return {years,mismatches:miss.length,sample:miss.slice(0,12)}});
+ let bad=wantE!==gotE;
+ if(wantM!==gotM){   // the story camera (which follows the stops) may not show every arrow: turn the globe to each missing arrow; only an arrow that still does not draw is a real mismatch
+  const drawn=new Set([...document.querySelectorAll('#lRoute .route')].map(e=>e.getAttribute('aria-label')));let stillMissing=0,hidden=0;
+  for(const fm of want){const m=DATA.movements.find(r=>r.id===fm.id);if(drawn.has(m.title))continue;
+   const a=m.originCoordinates||INDEX.places.get(m.origin).coordinates,b=m.destinationCoordinates||INDEX.places.get(m.destination).coordinates;
+   const [lo,la]=svgToLonLat([(a[0]+b[0])/2,(a[1]+b[1])/2]);view.lon=lo;view.lat=la;view.deg=45;view.manual=true;render();
+   if([...document.querySelectorAll('#lRoute .route')].some(e=>e.getAttribute('aria-label')===m.title))hidden++;else stillMissing++;
+   view.manual=false;}
+  if(stillMissing)bad=true;else if(hidden)off.push([y,hidden]);
+  setYearExact(y);}
+ if(bad)miss.push([y,wantM,gotM,wantE,gotE]);}
+ return {years,mismatches:miss.length,sample:miss.slice(0,12),yearsWithArrowOffCamera:off.length}});
 // endpoints
 out.endpoints=await p.evaluate(()=>{setPos(0);const a=Math.round(currentYear());setPos(1);const z=Math.round(currentYear());return [a,z]});
 // cards: all milestone types, wording rules

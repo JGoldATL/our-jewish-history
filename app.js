@@ -212,7 +212,7 @@ function render(){
   drawGlobe();
   const boxes=placeLabels(labels,layers.label,scale,obstacles);for(const l of geoLabels()){const fs=l.kind==='waterLabel'?13:11,w=l.text.length*fs*(l.kind==='waterLabel'?0.55:0.78),h=fs*1.2,b={x:l.x-w/2,y:l.y-h,w,h};if(boxes.some(o=>b.x<o.x+o.w&&b.x+b.w>o.x&&b.y<o.y+o.h&&b.y+b.h>o.y))continue;boxes.push(b);const t=el('text',{x:l.x.toFixed(1),y:l.y.toFixed(1),'text-anchor':'middle',class:l.kind==='waterLabel'?'seaName':'regionName'},layers.label);t.textContent=l.kind==='waterLabel'?l.text:l.text.toUpperCase();}
   // panel
-  $('year').innerHTML=`${Math.abs(dy)}<span>${dy<0?'BCE':'CE'}</span>`;$('era').textContent=frame.era?.title||'';
+  $('year').innerHTML=`${Math.abs(dy)}<span>${dy<0?'BCE':'CE'}</span>`;$('era').textContent=eraLabel(y,frame);
   drawArcLive();
   
   // (if the user turned the globe and then moved the timeline, turnToRecord brings the action into view)
@@ -346,9 +346,25 @@ function addSheetMovements(){
   }
   DATA.movements=DATA.movements.concat(added);
 }
+// Eras 4-7 and the camera from 200 CE come from the Sheet (Eras, Camera Stops, Era Assignment tabs). The loader has already turned each
+// stop's frame into a zoom (viewDeg); Eras 1-3 and the camera before 200 CE are untouched. Add ?engine=1 to see the old behaviour.
+let ERA_OF=new Map(),ERA_NAME=new Map();
+function addSheetEras(){
+  const S=DATA.sheet;if(!S?.eras?.length||/[?&]engine=1/.test(location.search))return;
+  ERA_NAME=new Map(S.eras.map(e=>[e.era,e.name]));ERA_OF=new Map((S.eraAssignment||[]).map(a=>[a.id,a.era]));
+  DATA.eras=DATA.eras.concat(S.eras.filter(e=>e.era>=4&&e.status==='approved').sort((a,b)=>a.startYear-b.startYear).map(e=>({startDate:e.startYear,title:e.name})));
+  const stops=(S.cameraStops||[]).filter(s=>s.status==='approved');if(!stops.length)return;
+  const st=DATA.cameraStates,last=st[st.length-1],T=10,xy=(lon,lat)=>[(lon+15)*15,(58-lat)*650/53];
+  const mk=(s,y)=>{const [cx,cy]=xy(s.centerLon,s.centerLat);return {startDate:y,scale:26/s.viewDeg,translateX:0,translateY:0,scope:s.label,centerX:cx,centerY:cy};};
+  const add=[];if(last.startDate<stops[0].startYear-30)add.push({...last,startDate:stops[0].startYear-30});   // keep the antiquity view until 30 years before the first stop
+  stops.forEach((s,i)=>{add.push(mk(s,s.startYear));const n=stops[i+1];if(n&&n.startYear-s.startYear>T)add.push(mk(s,n.startYear-T));});   // hold each view, then move to the next one over its last 10 years
+  DATA.cameraStates=st.concat(add);
+}
+// From 200 CE the era label of an open card follows the Era Assignment tab (a card on a boundary year closes the earlier era); otherwise by year.
+function eraLabel(y,frame){const r=selected?.record;if(r&&ERA_OF.size){const m=milestones.find(k=>k.record===r),e=m&&Math.round(y)===m.date&&m.date>=200?ERA_OF.get(r.id):null;if(e>=3&&ERA_NAME.has(e))return ERA_NAME.get(e);}return frame.era?.title||'';}
 async function boot(){
   try{
-    const res=await fetch('data/history.json');DATA=await res.json();try{GEO=await (await fetch('data/geo.json')).json();}catch(_){GEO=null;}assertHistory(DATA);addSheetMovements();INDEX=indexData(DATA);
+    const res=await fetch('data/history.json');DATA=await res.json();try{GEO=await (await fetch('data/geo.json')).json();}catch(_){GEO=null;}assertHistory(DATA);addSheetMovements();addSheetEras();INDEX=indexData(DATA);
     buildTimeline();buildMilestones();initGL();initInteraction();
     position=posForYear(DATA.presentation?.openingYear??-1208);$('version').textContent='Globe preview · data from '+(DATA.presentation?.version||'Alpha');
     layout();

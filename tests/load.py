@@ -206,5 +206,98 @@ with tempfile.TemporaryDirectory() as td:
     p, _ = run(x5, hist)
     check('missing expected column stops the load with a clear message', p.returncode != 0 and 'missing expected columns' in (p.stdout + p.stderr))
 
+    # ---- Eras, Camera Stops, Era Assignment (master v0.2.2) ----
+    ERA_HEAD = ['Era', 'Era name (proposed)', 'Start year', 'Start (display)', 'Last year inside era', 'Start anchored on (Sheet records)',
+                'Summary line (one sentence, proposed)', 'Opening camera centre (Place ID)', 'Centre place name', 'Centre latitude',
+                'Centre longitude', 'Frame must keep on screen (Place IDs)', 'Derived extent of centre plus frame', 'Camera stops (count)',
+                'Status', 'Open decision or note']
+    STOP_HEAD = ['Stop', 'Era', 'Start year', 'Start (display)', 'Start year taken from', 'Stop label (proposed)', 'Camera centre (Place ID)',
+                 'Centre place name', 'Centre latitude', 'Centre longitude', 'Centre scale (Places Role)', 'Frame must keep on screen (Place IDs)',
+                 'Derived extent of centre plus frame', 'Justifying Sheet records (IDs)', 'Record details (Sheet text)', 'Notes',
+                 'If a decision flips', 'Status']
+    ASSIGN_HEAD = ['Record ID', 'Tab', 'Headline / title', 'Date (display)', 'Start year', 'End year', 'Place ID (or origin to destination)',
+                   'Era (recommended boundaries)', 'Runs past era end?', 'Note']
+    def era_row(n, name, start, centre, frame, status='Approved'):
+        r = [None] * 16; r[0], r[1], r[2], r[4], r[14], r[15] = n, name, start, start + 99, status, S
+        if centre: r[7], r[11] = centre, frame
+        return r
+    def stop_row(sid, era, start, centre, role, frame, status='Approved'):
+        r = [None] * 18; r[0], r[1], r[2], r[6], r[10], r[11], r[13], r[15], r[17] = sid, era, start, centre, role, frame, 'EVT-0001; POP-001', S, status
+        return r
+    def era_book(src, dst, mutate=None):
+        d = {'Eras': [era_row(1, 'One', -2000, None, None) + [], era_row(2, 'Two', -600, None, None), era_row(3, 'Three', -167, None, None),
+                      era_row(4, 'Four', 200, 'place-a', 'place-b-c'), era_row(5, 'Five', 1096, 'place-a', '(this place only)'),
+                      era_row(6, 'Six', 1492, 'place-a', 'place-b-c'), era_row(7, 'Seven', 1700, 'place-b-c', 'place-a')],
+             'Camera Stops': [stop_row('4.1', 4, 200, 'place-a', 'region', 'place-b-c'),
+                              stop_row('4.2', 4, 300, 'place-b-c', 'settlement', '(this place only)'),
+                              stop_row('7.1', 7, 1700, 'place-a', 'region', 'place-far')],
+             'Era Assignment': [['EVT-0001', 'Events', 'x', 'x', -700, None, 'place-a', 'Era 1', None, S],
+                                ['EVT-0002', 'Events', 'x', 'x', -600, None, 'place-b-c', 'Era 2', 'Runs into Era 3', S],
+                                ['POP-001', 'Communities', 'x', 'x', 1900, None, 'place-a', 'After 1897 (outside main timeline)', 'Runs past 1897', S]]}
+        d['Eras'][0][14] = 'Reference only (earlier proposal)'
+        for r in d['Eras'][:3]: r[14] = 'Reference only (earlier proposal)'
+        if mutate: mutate(d)
+        wb = openpyxl.load_workbook(src)
+        wb['Places'].append(['place-far', 'Far', 'far', 'region', -35.0, -58.0, 'No', S])
+        for tab, head in (('Eras', ERA_HEAD), ('Camera Stops', STOP_HEAD), ('Era Assignment', ASSIGN_HEAD)):
+            if tab in d:
+                ws = wb.create_sheet(tab); ws.append(head)
+                for r in d[tab]: ws.append(r)
+        wb.save(dst)
+
+    xe = td / 'eras.xlsx'; era_book(x1, xe)
+    histE = td / 'histE.json'; histE.write_text(json.dumps(engine, indent=2, ensure_ascii=False), encoding='utf-8')
+    p, rep = run(xe, histE)
+    outE = json.loads(histE.read_text()); shE = outE['sheet']
+    check('era tabs: loader runs, nothing rejected from the three era tabs', p.returncode == 0 and not [r for r in rep['rejects'] if r['tab'] in ('Eras', 'Camera Stops', 'Era Assignment')], (p.stderr[-200:], rep['rejects']))
+    check('era tabs: seven eras, three stops, three assignments load',
+          [e['era'] for e in shE['eras']] == [1, 2, 3, 4, 5, 6, 7] and len(shE['cameraStops']) == 3 and len(shE['eraAssignment']) == 3)
+    check('era tabs: eras 1 to 3 are reference rows with no camera', all(e['status'] == 'reference' and 'centerPlaceId' not in e for e in shE['eras'][:3]))
+    check('era tabs: eras 4 to 7 carry centre and frame', shE['eras'][3]['centerPlaceId'] == 'place-a' and shE['eras'][3]['framePlaceIds'] == ['place-b-c'] and shE['eras'][4]['framePlaceIds'] == [])
+    st = {x['stop']: x for x in shE['cameraStops']}
+    check('zoom rule: small frame takes the region floor (24)', st['4.1']['viewDeg'] == 24.0 and st['4.1']['fits'] is True, st['4.1'])
+    check('zoom rule: "this place only" settlement takes its floor (12)', st['4.2']['viewDeg'] == 12.0 and st['4.2']['framePlaceIds'] == [], st['4.2'])
+    check('zoom rule: a frame beyond 45 degrees is clamped, flagged and reported',
+          st['7.1']['viewDeg'] == 45.0 and st['7.1']['fits'] is False and st['7.1']['reachDeg'] > 100
+          and any(w['id'] == 'STOP-7.1' and 'clamped' in w['note'] for w in rep['warnings']), st['7.1'])
+    check('stop records link by ID and the centre carries its coordinates', st['4.1']['recordIds'] == ['EVT-0001', 'POP-001'] and st['4.1']['centerLat'] == 31.0)
+    check('era assignment: era number, After 1897 as none, runs-past text kept',
+          {a['id']: (a['era'], a['runsPast']) for a in shE['eraAssignment']} == {'EVT-0001': (1, None), 'EVT-0002': (2, 'Runs into Era 3'), 'POP-001': (None, 'Runs past 1897')})
+    check('era tabs: engine keys untouched and no internal text leaks', all(outE[k] == engine[k] for k in engine) and SECRET not in histE.read_text())
+    before = histE.read_text(); p, rep = run(xe, histE)
+    check('era tabs: second run on the same export changes nothing', histE.read_text() == before and 'No changes' in p.stdout)
+
+    p, rep = run(x1, hist)
+    check('an export with no era tabs still loads, says so, and writes no era sections',
+          p.returncode == 0 and 'eras' not in json.loads(hist.read_text())['sheet'] and any(w['tab'] == 'Camera Stops' and 'not in this export' in w['note'] for w in rep['warnings']))
+
+    def bad(d):
+        d['Camera Stops'] += [stop_row('4.3', 4, 400, 'place-nowhere', 'region', '(this place only)'),
+                              stop_row('4.4', 4, 450, 'place-a', 'region', 'place-ghost'),
+                              stop_row('5.1', 4, 500, 'place-a', 'region', '(this place only)'),
+                              stop_row('4.5', 4, 'soon', 'place-a', 'region', '(this place only)'),
+                              stop_row('4.6', 4, 600, 'place-a', 'town', '(this place only)'),
+                              stop_row('4.7', 4, 650, 'place-a', 'region', '(this place only)', status='maybe'),
+                              stop_row('4.8', 4, 1700, 'place-a', 'region', '(this place only)')]      # same year as 7.1? no: era 4, year 1700
+        d['Eras'][5][7] = 'place-nowhere'
+        d['Era Assignment'].append(['EVT-0009', 'Events', 'x', 'x', 5, None, 'place-a', 'Era 9', None, S])
+    xb = td / 'bad.xlsx'; era_book(x1, xb, bad)
+    histB = td / 'histB.json'; histB.write_text(json.dumps(engine, indent=2, ensure_ascii=False), encoding='utf-8')
+    p, rep = run(xb, histB)
+    rj = {(r['tab'], r['id']): r['reason'] for r in rep['rejects']}
+    shB = json.loads(histB.read_text())['sheet']
+    check('bad stop centre / frame / number / era / start / role / status are each rejected with a reason',
+          all(k in rj for k in [('Camera Stops', f'STOP-{n}') for n in ('4.3', '4.4', '5.1', '4.5', '4.6', '4.7')]), sorted(rj))
+    check('rejected stops are left out, good ones kept', {x['stop'] for x in shB['cameraStops']} >= {'4.1', '4.2', '7.1'} and not any(x['stop'] in ('4.3', '4.4', '5.1', '4.5', '4.6', '4.7') for x in shB['cameraStops']))
+    check('an era whose centre is not a Place is rejected, not guessed', ('Eras', 'ERA-6') in rj and 6 not in [e['era'] for e in shB['eras']])
+    check('an unknown era in Era Assignment is rejected', ('Era Assignment', 'EVT-0009') in rj)
+    check('two stops in the same year are warned about, neither dropped',
+          any(w['id'] == 'STOP-7.1' and 'same year' in w['note'] for w in rep['warnings']) or any('same year' in w['note'] for w in rep['warnings']))
+
+    xd = td / 'damaged.xlsx'; era_book(x1, xd)
+    wb = openpyxl.load_workbook(xd); ws = wb['Camera Stops']; ws.delete_cols(3, 1); wb.save(xd)
+    p, _ = run(xd, hist)
+    check('a Camera Stops tab missing a column stops the load (never loosened)', p.returncode != 0 and 'missing expected columns' in (p.stdout + p.stderr) and 'Camera Stops' in (p.stdout + p.stderr))
+
 print('\n%s' % ('ALL PASS' if not fails else 'FAILED: ' + '; '.join(fails)))
 sys.exit(1 if fails else 0)

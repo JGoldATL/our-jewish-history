@@ -27,8 +27,8 @@ for(const [name,dev,all] of [['desktop',devices['Desktop Chrome'],true],['iphone
   r.zoomBefore=z0;r.zoomKept=Math.abs(r.zoom-z0)<.002;rows.push(r);}
  const missed=rows.filter(r=>!r.inView||r.animating),zoomChanged=rows.filter(r=>!r.zoomKept).map(r=>`${r.title} (${r.zoomBefore}→${r.zoom}, deg ${r.deg}, ${r.n} places)`);
  // 2b. every card is reachable: from the first card, Next visits every card once, in order; Previous walks back; no duplicates by title
- if(name==='desktop'){const walk=await p.evaluate(async()=>{closeStory();setYearExact(-2000);const want=milestones.map(m=>m.record.id),got=[];selectMilestone(0);got.push(selected.record.id);for(let i=0;i<60;i++){const before=selected.record.id;step(1);if(selected.record.id===before)break;got.push(selected.record.id);}
-   const back=[];for(let i=0;i<60;i++){const before=selected.record.id;step(-1);if(selected.record.id===before)break;back.push(selected.record.id);}
+ if(name==='desktop'){const walk=await p.evaluate(async()=>{closeStory();setYearExact(-2000);const want=milestones.map(m=>m.record.id),got=[];selectMilestone(0);got.push(selected.record.id);for(let i=0;i<want.length+5;i++){const before=selected.record.id;step(1);if(selected.record.id===before)break;got.push(selected.record.id);}
+   const back=[];for(let i=0;i<want.length+5;i++){const before=selected.record.id;step(-1);if(selected.record.id===before)break;back.push(selected.record.id);}
    const titles=milestones.map(m=>m.type+'|'+m.record.title),dup=titles.filter((t,i)=>titles.indexOf(t)!==i);
    const destroyedTitles=milestones.filter(m=>m.type==='destruction').map(m=>m.record.title),changeClash=milestones.filter(m=>m.type==='change'&&destroyedTitles.includes(m.record.title)).map(m=>m.record.title);
    return {cards:want.length,reached:got.length,inOrder:JSON.stringify(got)===JSON.stringify(want),backOk:back.length===want.length-1&&JSON.stringify(back)===JSON.stringify(want.slice(0,-1).reverse()),dup,changeClash};});
