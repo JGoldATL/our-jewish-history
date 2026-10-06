@@ -2330,7 +2330,7 @@
   ],
   "eras": [
     {
-      "startDate": -1300,
+      "startDate": -2000,
       "title": "Before the traditional Exodus narrative"
     },
     {
@@ -2396,7 +2396,7 @@
   ],
   "cameraStates": [
     {
-      "startDate": -1300,
+      "startDate": -2000,
       "scale": 1.82,
       "translateX": -10,
       "translateY": 3,
@@ -2460,7 +2460,7 @@
     }
   ],
   "timeline": {
-    "start": -1300,
+    "start": -2000,
     "end": 200,
     "range": 10000,
     "quietWeight": 0.12,
@@ -2468,12 +2468,15 @@
     "changeWeight": 1.25,
     "changeRadius": 7,
     "ticks": [
+      -2000,
       -1300,
       -720,
       -539,
       -205,
       200
-    ]
+    ],
+    "earlyUntil": -1300,
+    "earlyQuietWeight": 0.03
   },
   "concentrationStyles": {
     "very small": 0.1,
@@ -2510,5 +2513,4496 @@
     "tourDurationMs": 20000,
     "version": "Alpha 1.13",
     "worldContext": []
-  }
+  },
+  "sheet": {
+    "meta": {
+      "schema": "sheet-1",
+      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.1",
+      "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
+      "sheetModified": "2026-10-05T21:00:00Z",
+      "exportSha256": "1e81e0aa30e54b91",
+      "mode": "preview",
+      "counts": {
+        "places": 76,
+        "events": 31,
+        "communities": 115,
+        "movements": 45,
+        "context": 43,
+        "evidence": 20,
+        "cards": 33
+      }
+    },
+    "places": [
+      {
+        "id": "place-israel",
+        "historicalName": "Israel / Canaan",
+        "modernName": "Israel / Palestinian territories",
+        "role": "region",
+        "lat": 31.9,
+        "lon": 35.2,
+        "landOfIsrael": true
+      },
+      {
+        "id": "place-j",
+        "historicalName": "Jerusalem / Judea",
+        "modernName": "Jerusalem",
+        "role": "region",
+        "lat": 31.778,
+        "lon": 35.235,
+        "landOfIsrael": true
+      },
+      {
+        "id": "place-lachish",
+        "historicalName": "Lachish",
+        "modernName": "Tel Lachish, Israel",
+        "role": "settlement",
+        "lat": 31.565,
+        "lon": 34.849,
+        "landOfIsrael": true
+      },
+      {
+        "id": "place-b",
+        "historicalName": "Babylonia",
+        "modernName": "Iraq",
+        "role": "region",
+        "lat": 32.54,
+        "lon": 44.42,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-e",
+        "historicalName": "Elephantine",
+        "modernName": "Aswan, Egypt",
+        "role": "settlement",
+        "lat": 24.09,
+        "lon": 32.89,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-alexNode",
+        "historicalName": "Alexandria",
+        "modernName": "Alexandria, Egypt",
+        "role": "settlement",
+        "lat": 31.2,
+        "lon": 29.92,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-cyreneNode",
+        "historicalName": "Cyrenaica",
+        "modernName": "Eastern Libya",
+        "role": "region",
+        "lat": 32.82,
+        "lon": 21.86,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-asiaNode",
+        "historicalName": "Asia Minor (Lydia/Phrygia)",
+        "modernName": "Western Turkey",
+        "role": "region",
+        "lat": 38.5,
+        "lon": 29,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-romeNode",
+        "historicalName": "Rome",
+        "modernName": "Rome, Italy",
+        "role": "settlement",
+        "lat": 41.9,
+        "lon": 12.5,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-cyprusNode",
+        "historicalName": "Cyprus",
+        "modernName": "Cyprus",
+        "role": "settlement",
+        "lat": 35.1,
+        "lon": 33.4,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-adensity",
+        "historicalName": "Assyrian sphere",
+        "modernName": "Northern Iraq",
+        "role": "region",
+        "lat": 36.36,
+        "lon": 43.15,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-egypt",
+        "historicalName": "Egypt",
+        "modernName": "Egypt",
+        "role": "region",
+        "lat": 30,
+        "lon": 31.2,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-qumran",
+        "historicalName": "Qumran",
+        "modernName": "West Bank (Dead Sea)",
+        "role": "settlement",
+        "lat": 31.741,
+        "lon": 35.459,
+        "landOfIsrael": true
+      },
+      {
+        "id": "place-galilee",
+        "historicalName": "Galilee",
+        "modernName": "Northern Israel",
+        "role": "region",
+        "lat": 32.8,
+        "lon": 35.5,
+        "landOfIsrael": true
+      },
+      {
+        "id": "place-samaria",
+        "historicalName": "Samaria",
+        "modernName": "Sebastia, West Bank",
+        "role": "settlement",
+        "lat": 32.276,
+        "lon": 35.19,
+        "landOfIsrael": true
+      },
+      {
+        "id": "place-syria",
+        "historicalName": "Syria",
+        "modernName": "Syria",
+        "role": "region",
+        "lat": 35,
+        "lon": 38,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-greece",
+        "historicalName": "Greece / Aegean / Crete",
+        "modernName": "Greece",
+        "role": "region",
+        "lat": 38,
+        "lon": 23.7,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-italy",
+        "historicalName": "Italy",
+        "modernName": "Italy",
+        "role": "region",
+        "lat": 42.5,
+        "lon": 12.5,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-maghreb",
+        "historicalName": "North Africa",
+        "modernName": "Maghreb",
+        "role": "region",
+        "lat": 34,
+        "lon": 5,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-persia",
+        "historicalName": "Persia",
+        "modernName": "Iran",
+        "role": "region",
+        "lat": 32.4,
+        "lon": 53.7,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-kairouan",
+        "historicalName": "Kairouan",
+        "modernName": "Tunisia",
+        "role": "settlement",
+        "lat": 35.678,
+        "lon": 10.096,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-iberia",
+        "historicalName": "Iberia / al-Andalus",
+        "modernName": "Spain and Portugal",
+        "role": "region",
+        "lat": 39.5,
+        "lon": -4,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-sicily",
+        "historicalName": "Southern Italy / Sicily",
+        "modernName": "Sicily",
+        "role": "region",
+        "lat": 37.6,
+        "lon": 14,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-central-asia",
+        "historicalName": "Central Asia / Khorasan",
+        "modernName": "Uzbekistan / Afghanistan / Turkmenistan",
+        "role": "region",
+        "lat": 38,
+        "lon": 65,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-yemen",
+        "historicalName": "Yemen",
+        "modernName": "Yemen",
+        "role": "region",
+        "lat": 15.5,
+        "lon": 47.5,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-malabar",
+        "historicalName": "Western India (Cochin / Malabar)",
+        "modernName": "Kerala, India",
+        "role": "region",
+        "lat": 9.97,
+        "lon": 76.28,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-s-france",
+        "historicalName": "Southern France",
+        "modernName": "Languedoc / Provence",
+        "role": "region",
+        "lat": 43.6,
+        "lon": 4,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-rhineland",
+        "historicalName": "Rhineland",
+        "modernName": "Germany",
+        "role": "region",
+        "lat": 50,
+        "lon": 8.3,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-medina",
+        "historicalName": "Medina (Yathrib)",
+        "modernName": "Saudi Arabia",
+        "role": "settlement",
+        "lat": 24.47,
+        "lon": 39.61,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-worms",
+        "historicalName": "Worms",
+        "modernName": "Germany",
+        "role": "settlement",
+        "lat": 49.633,
+        "lon": 8.35,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-mainz",
+        "historicalName": "Mainz",
+        "modernName": "Germany",
+        "role": "settlement",
+        "lat": 50,
+        "lon": 8.27,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-speyer",
+        "historicalName": "Speyer",
+        "modernName": "Germany",
+        "role": "settlement",
+        "lat": 49.317,
+        "lon": 8.43,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-france",
+        "historicalName": "French royal domain",
+        "modernName": "France",
+        "role": "region",
+        "lat": 48.85,
+        "lon": 2.35,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-york",
+        "historicalName": "York",
+        "modernName": "England",
+        "role": "settlement",
+        "lat": 53.96,
+        "lon": -1.08,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-england",
+        "historicalName": "England",
+        "modernName": "England",
+        "role": "region",
+        "lat": 52.5,
+        "lon": -1.5,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-poland",
+        "historicalName": "Poland / Polish-Lithuanian lands",
+        "modernName": "Poland, Ukraine, Lithuania, Belarus",
+        "role": "region",
+        "lat": 52,
+        "lon": 22,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-vienna",
+        "historicalName": "Vienna",
+        "modernName": "Austria",
+        "role": "settlement",
+        "lat": 48.21,
+        "lon": 16.37,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-trent",
+        "historicalName": "Trent",
+        "modernName": "Trento, Italy",
+        "role": "settlement",
+        "lat": 46.07,
+        "lon": 11.12,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-constantinople",
+        "historicalName": "Constantinople / Istanbul",
+        "modernName": "Istanbul, Turkey",
+        "role": "settlement",
+        "lat": 41.01,
+        "lon": 28.98,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-safed",
+        "historicalName": "Safed",
+        "modernName": "Tzfat, Israel",
+        "role": "settlement",
+        "lat": 32.965,
+        "lon": 35.496,
+        "landOfIsrael": true
+      },
+      {
+        "id": "place-livorno",
+        "historicalName": "Livorno",
+        "modernName": "Italy",
+        "role": "settlement",
+        "lat": 43.55,
+        "lon": 10.31,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-amsterdam",
+        "historicalName": "Amsterdam",
+        "modernName": "Netherlands",
+        "role": "settlement",
+        "lat": 52.37,
+        "lon": 4.9,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-recife",
+        "historicalName": "Recife / Mauricia",
+        "modernName": "Brazil",
+        "role": "settlement",
+        "lat": -8.05,
+        "lon": -34.88,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-new-amsterdam",
+        "historicalName": "New Amsterdam",
+        "modernName": "New York, USA",
+        "role": "settlement",
+        "lat": 40.71,
+        "lon": -74.01,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-curacao",
+        "historicalName": "Curaçao",
+        "modernName": "Curaçao",
+        "role": "settlement",
+        "lat": 12.17,
+        "lon": -68.99,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-suriname",
+        "historicalName": "Suriname (Jodensavanne)",
+        "modernName": "Suriname",
+        "role": "settlement",
+        "lat": 5.4,
+        "lon": -55.3,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-jamaica",
+        "historicalName": "Jamaica",
+        "modernName": "Jamaica",
+        "role": "region",
+        "lat": 18.1,
+        "lon": -77.3,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-barbados",
+        "historicalName": "Barbados",
+        "modernName": "Barbados",
+        "role": "region",
+        "lat": 13.19,
+        "lon": -59.54,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-london",
+        "historicalName": "London",
+        "modernName": "England",
+        "role": "settlement",
+        "lat": 51.51,
+        "lon": -0.13,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-newport",
+        "historicalName": "Newport",
+        "modernName": "Rhode Island, USA",
+        "role": "settlement",
+        "lat": 41.49,
+        "lon": -71.31,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-savannah",
+        "historicalName": "Savannah",
+        "modernName": "Georgia, USA",
+        "role": "settlement",
+        "lat": 32.08,
+        "lon": -81.09,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-charleston",
+        "historicalName": "Charleston",
+        "modernName": "South Carolina, USA",
+        "role": "settlement",
+        "lat": 32.78,
+        "lon": -79.93,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-philadelphia",
+        "historicalName": "Philadelphia",
+        "modernName": "Pennsylvania, USA",
+        "role": "settlement",
+        "lat": 39.95,
+        "lon": -75.17,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-prague",
+        "historicalName": "Prague",
+        "modernName": "Czechia",
+        "role": "settlement",
+        "lat": 50.08,
+        "lon": 14.44,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-odessa",
+        "historicalName": "Odessa",
+        "modernName": "Ukraine",
+        "role": "settlement",
+        "lat": 46.48,
+        "lon": 30.73,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-mashhad",
+        "historicalName": "Mashhad",
+        "modernName": "Iran",
+        "role": "settlement",
+        "lat": 36.3,
+        "lon": 59.6,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-bombay",
+        "historicalName": "Bombay / Calcutta",
+        "modernName": "Mumbai / Kolkata, India",
+        "role": "settlement",
+        "lat": 19.08,
+        "lon": 72.88,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-shanghai",
+        "historicalName": "Shanghai",
+        "modernName": "China",
+        "role": "settlement",
+        "lat": 31.23,
+        "lon": 121.47,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-us",
+        "historicalName": "United States",
+        "modernName": "United States",
+        "role": "region",
+        "lat": 39.8,
+        "lon": -98.6,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-petah-tikva",
+        "historicalName": "Petah Tikva",
+        "modernName": "Israel",
+        "role": "settlement",
+        "lat": 32.09,
+        "lon": 34.89,
+        "landOfIsrael": true
+      },
+      {
+        "id": "place-morocco",
+        "historicalName": "Morocco",
+        "modernName": "Morocco",
+        "role": "region",
+        "lat": 32,
+        "lon": -6,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-bene-israel",
+        "historicalName": "Bene Israel (western India)",
+        "modernName": "Konkan, India",
+        "role": "region",
+        "lat": 18.5,
+        "lon": 73,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-argentina",
+        "historicalName": "Argentina",
+        "modernName": "Argentina",
+        "role": "region",
+        "lat": -34.6,
+        "lon": -58.4,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-kishinev",
+        "historicalName": "Kishinev",
+        "modernName": "Chișinău, Moldova",
+        "role": "settlement",
+        "lat": 47.01,
+        "lon": 28.86,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-tel-aviv",
+        "historicalName": "Tel Aviv",
+        "modernName": "Israel",
+        "role": "settlement",
+        "lat": 32.08,
+        "lon": 34.78,
+        "landOfIsrael": true
+      },
+      {
+        "id": "place-sepphoris",
+        "historicalName": "Sepphoris / Tzippori",
+        "modernName": "Tzippori, Israel",
+        "role": "settlement",
+        "lat": 32.753,
+        "lon": 35.279,
+        "landOfIsrael": true
+      },
+      {
+        "id": "place-assyria-west",
+        "historicalName": "Assyrian sphere, west branch",
+        "modernName": null,
+        "role": "region",
+        "lat": 35,
+        "lon": 42,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-assyria-central",
+        "historicalName": "Assyrian sphere, central branch",
+        "modernName": null,
+        "role": "region",
+        "lat": 35.6,
+        "lon": 43,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-assyria-east",
+        "historicalName": "Assyrian sphere, east branch",
+        "modernName": null,
+        "role": "region",
+        "lat": 34.4,
+        "lon": 47,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-german-lands",
+        "historicalName": "German-speaking lands",
+        "modernName": "Germany, Austria, Switzerland, Bohemia",
+        "role": "region",
+        "lat": 50,
+        "lon": 10,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-east-central-europe",
+        "historicalName": "East-central Europe",
+        "modernName": "Poland, Bohemia, Hungary",
+        "role": "region",
+        "lat": 50,
+        "lon": 19,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-ottoman-lands",
+        "historicalName": "Ottoman lands",
+        "modernName": null,
+        "role": "region",
+        "lat": 39,
+        "lon": 35,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-mediterranean",
+        "historicalName": "Mediterranean",
+        "modernName": null,
+        "role": "region",
+        "lat": 35,
+        "lon": 18,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-pale-of-settlement",
+        "historicalName": "Pale of Settlement",
+        "modernName": "Lithuania, Belarus, Ukraine, Poland, Moldova",
+        "role": "region",
+        "lat": 52.5,
+        "lon": 27,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-central-europe",
+        "historicalName": "Central Europe",
+        "modernName": null,
+        "role": "region",
+        "lat": 49,
+        "lon": 16,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-eastern-europe",
+        "historicalName": "Eastern Europe",
+        "modernName": null,
+        "role": "region",
+        "lat": 50,
+        "lon": 32,
+        "landOfIsrael": false
+      }
+    ],
+    "events": [
+      {
+        "id": "EVT-0001",
+        "startYear": -2000,
+        "endYear": null,
+        "dateDisplay": "c. 2000 BCE",
+        "placeId": "place-israel",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0002",
+        "startYear": -1250,
+        "endYear": -1190,
+        "dateDisplay": "Traditional chronology",
+        "placeId": "place-egypt",
+        "movementIds": [
+          "MOV-001"
+        ],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Dotted route",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0003",
+        "startYear": -1208,
+        "endYear": null,
+        "dateDisplay": "c. 1208 BCE",
+        "placeId": "place-israel",
+        "movementIds": [],
+        "evidenceIds": [
+          "EVD-001"
+        ],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0004",
+        "startYear": -1200,
+        "endYear": -1000,
+        "dateDisplay": "c. 1200–1000 BCE",
+        "placeId": "place-israel",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0005",
+        "startYear": -1000,
+        "endYear": null,
+        "dateDisplay": "c. 1000 BCE",
+        "placeId": "place-j",
+        "movementIds": [],
+        "evidenceIds": [
+          "EVD-003"
+        ],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0006",
+        "startYear": -960,
+        "endYear": null,
+        "dateDisplay": "10th century BCE",
+        "placeId": "place-j",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0007",
+        "startYear": -930,
+        "endYear": null,
+        "dateDisplay": "c. 930 BCE",
+        "placeId": "place-israel",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0008",
+        "startYear": -850,
+        "endYear": null,
+        "dateDisplay": "9th century BCE",
+        "placeId": "place-israel",
+        "movementIds": [],
+        "evidenceIds": [
+          "EVD-002"
+        ],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0009",
+        "startYear": -740,
+        "endYear": -720,
+        "dateDisplay": "740–720 BCE",
+        "placeId": "place-israel",
+        "movementIds": [
+          "MOV-002"
+        ],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Red arrow (MOV-002)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0010",
+        "startYear": -700,
+        "endYear": null,
+        "dateDisplay": "c. 700 BCE",
+        "placeId": "place-j",
+        "movementIds": [],
+        "evidenceIds": [
+          "EVD-004",
+          "EVD-005"
+        ],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0011",
+        "startYear": -701,
+        "endYear": -701,
+        "dateDisplay": "701 BCE",
+        "placeId": "place-lachish",
+        "movementIds": [
+          "MOV-003"
+        ],
+        "evidenceIds": [
+          "EVD-006"
+        ],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0012",
+        "startYear": -600,
+        "endYear": null,
+        "dateDisplay": "late 7th–early 6th c. BCE",
+        "placeId": "place-j",
+        "movementIds": [],
+        "evidenceIds": [
+          "EVD-007"
+        ],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0013",
+        "startYear": -597,
+        "endYear": -597,
+        "dateDisplay": "597 BCE",
+        "placeId": "place-j",
+        "movementIds": [
+          "MOV-004"
+        ],
+        "evidenceIds": [
+          "EVD-008"
+        ],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Red arrow (MOV-004)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0014",
+        "startYear": -586,
+        "endYear": -586,
+        "dateDisplay": "587/586 BCE",
+        "placeId": "place-j",
+        "movementIds": [
+          "MOV-005"
+        ],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Red arrow (MOV-005)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0015",
+        "startYear": -597,
+        "endYear": null,
+        "dateDisplay": "6th century BCE onward",
+        "placeId": "place-b",
+        "movementIds": [
+          "MOV-004"
+        ],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Blue presence",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0016",
+        "startYear": -539,
+        "endYear": -538,
+        "dateDisplay": "539–538 BCE",
+        "placeId": "place-b",
+        "movementIds": [
+          "MOV-006"
+        ],
+        "evidenceIds": [
+          "EVD-009"
+        ],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Blue arrow (MOV-006)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0017",
+        "startYear": -516,
+        "endYear": null,
+        "dateDisplay": "516 BCE",
+        "placeId": "place-j",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0018",
+        "startYear": -495,
+        "endYear": -399,
+        "dateDisplay": "5th century BCE",
+        "placeId": "place-e",
+        "movementIds": [],
+        "evidenceIds": [
+          "EVD-010"
+        ],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Blue presence; no arrow",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0019",
+        "startYear": -320,
+        "endYear": -275,
+        "dateDisplay": "c. 320–275 BCE",
+        "placeId": "place-alexNode",
+        "movementIds": [
+          "MOV-044"
+        ],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Blue, major",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0020",
+        "startYear": -300,
+        "endYear": null,
+        "dateDisplay": "Ptolemaic period",
+        "placeId": "place-cyreneNode",
+        "movementIds": [
+          "MOV-045"
+        ],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Blue presence",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0021",
+        "startYear": -210,
+        "endYear": -205,
+        "dateDisplay": "c. 210–205 BCE",
+        "placeId": "place-asiaNode",
+        "movementIds": [
+          "MOV-007"
+        ],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Arrow colour not stated",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0022",
+        "startYear": -167,
+        "endYear": -164,
+        "dateDisplay": "167–164 BCE",
+        "placeId": "place-j",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0023",
+        "startYear": -250,
+        "endYear": 68,
+        "dateDisplay": "c. 3rd century BCE – 1st century CE",
+        "placeId": "place-qumran",
+        "movementIds": [],
+        "evidenceIds": [
+          "EVD-011",
+          "EVD-017"
+        ],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0024",
+        "startYear": -150,
+        "endYear": null,
+        "dateDisplay": "By c. 150 BCE",
+        "placeId": "place-romeNode",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Blue presence",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0025",
+        "startYear": -63,
+        "endYear": -62,
+        "dateDisplay": "63 BCE",
+        "placeId": "place-j",
+        "movementIds": [
+          "MOV-008"
+        ],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Red arrow (MOV-008)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0026",
+        "startYear": -100,
+        "endYear": null,
+        "dateDisplay": "Late Hellenistic / Roman",
+        "placeId": "place-cyprusNode",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Blue presence",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0027",
+        "startYear": 70,
+        "endYear": 70,
+        "dateDisplay": "70 CE",
+        "placeId": "place-j",
+        "movementIds": [],
+        "evidenceIds": [
+          "EVD-018"
+        ],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0028",
+        "startYear": 115,
+        "endYear": 117,
+        "dateDisplay": "115–117 CE",
+        "placeId": "place-alexNode",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Red octagon x3",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0029",
+        "startYear": 132,
+        "endYear": 135,
+        "dateDisplay": "132–135 CE",
+        "placeId": "place-j",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0030",
+        "startYear": 200,
+        "endYear": null,
+        "dateDisplay": "c. 200 CE",
+        "placeId": "place-galilee",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0031",
+        "startYear": 1947,
+        "endYear": 1956,
+        "dateDisplay": "1947–1956",
+        "placeId": "place-qumran",
+        "movementIds": [],
+        "evidenceIds": [
+          "EVD-011"
+        ],
+        "hasCard": false
+      }
+    ],
+    "communities": [
+      {
+        "id": "POP-001",
+        "family": "POP",
+        "startYear": -1208,
+        "endYear": null,
+        "dateDisplay": "c. 1208 BCE",
+        "placeId": "place-israel",
+        "links": [
+          "EVD-001",
+          "EVT-0003"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-002",
+        "family": "POP",
+        "startYear": -722,
+        "endYear": null,
+        "dateDisplay": "After 722 BCE",
+        "placeId": "place-samaria",
+        "links": [
+          "EVT-0009",
+          "MOV-002"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-003",
+        "family": "POP",
+        "startYear": -701,
+        "endYear": null,
+        "dateDisplay": "701 BCE",
+        "placeId": "place-j",
+        "links": [
+          "EVT-0011",
+          "MOV-003"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-004",
+        "family": "POP",
+        "startYear": -600,
+        "endYear": null,
+        "dateDisplay": "6th century BCE",
+        "placeId": "place-j",
+        "links": [
+          "EVT-0013",
+          "EVT-0014",
+          "MOV-004",
+          "MOV-005"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-005",
+        "family": "POP",
+        "startYear": -597,
+        "endYear": null,
+        "dateDisplay": "6th century BCE onward",
+        "placeId": "place-b",
+        "links": [
+          "EVT-0015"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-006",
+        "family": "POP",
+        "startYear": -539,
+        "endYear": null,
+        "dateDisplay": "Persian period",
+        "placeId": "place-j",
+        "links": [
+          "EVT-0016",
+          "MOV-006"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-007",
+        "family": "POP",
+        "startYear": -500,
+        "endYear": null,
+        "dateDisplay": "5th century BCE",
+        "placeId": "place-e",
+        "links": [
+          "CTX-001",
+          "EVT-0018"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-008",
+        "family": "POP",
+        "startYear": -300,
+        "endYear": null,
+        "dateDisplay": "3rd century BCE onward",
+        "placeId": "place-alexNode",
+        "links": [
+          "EVT-0019",
+          "MOV-044"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-009",
+        "family": "POP",
+        "startYear": -146,
+        "endYear": 324,
+        "dateDisplay": "Hellenistic / Roman period",
+        "placeId": "place-asiaNode",
+        "links": [
+          "EVT-0021",
+          "MOV-007"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-010",
+        "family": "POP",
+        "startYear": -323,
+        "endYear": -146,
+        "dateDisplay": "Hellenistic period",
+        "placeId": "place-syria",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-011",
+        "family": "POP",
+        "startYear": -146,
+        "endYear": 324,
+        "dateDisplay": "Hellenistic / Roman period",
+        "placeId": "place-cyreneNode",
+        "links": [
+          "EVT-0020",
+          "MOV-045"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-012",
+        "family": "POP",
+        "startYear": -160,
+        "endYear": 30,
+        "dateDisplay": "Late Hellenistic / Roman period",
+        "placeId": "place-cyprusNode",
+        "links": [
+          "EVT-0026"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-013",
+        "family": "POP",
+        "startYear": -146,
+        "endYear": 324,
+        "dateDisplay": "Hellenistic / Roman period",
+        "placeId": "place-greece",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-014",
+        "family": "POP",
+        "startYear": -150,
+        "endYear": null,
+        "dateDisplay": "By the mid-2nd century BCE",
+        "placeId": "place-romeNode",
+        "links": [
+          "EVT-0024"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-015",
+        "family": "POP",
+        "startYear": -63,
+        "endYear": null,
+        "dateDisplay": "After 63 BCE",
+        "placeId": "place-romeNode",
+        "links": [
+          "EVT-0025",
+          "MOV-008"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-001",
+        "family": "CHG",
+        "startYear": 38,
+        "endYear": null,
+        "dateDisplay": "38 CE",
+        "placeId": "place-alexNode",
+        "links": [
+          "POP-008"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "DES-001",
+        "family": "DES",
+        "startYear": 70,
+        "endYear": null,
+        "dateDisplay": "70 CE",
+        "placeId": "place-j",
+        "links": [
+          "CTX-002",
+          "EVT-0027"
+        ],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "CHG-002",
+        "family": "CHG",
+        "startYear": 70,
+        "endYear": null,
+        "dateDisplay": "After 70 CE",
+        "placeId": "place-j",
+        "links": [
+          "EVT-0027"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "DES-002",
+        "family": "DES",
+        "startYear": 115,
+        "endYear": 117,
+        "dateDisplay": "115 CE (115–117)",
+        "placeId": "place-alexNode",
+        "links": [
+          "EVT-0028"
+        ],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "DES-003",
+        "family": "DES",
+        "startYear": 115,
+        "endYear": 117,
+        "dateDisplay": "115 CE (115–117)",
+        "placeId": "place-cyreneNode",
+        "links": [
+          "EVT-0028"
+        ],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "DES-004",
+        "family": "DES",
+        "startYear": 115,
+        "endYear": 117,
+        "dateDisplay": "115 CE (115–117)",
+        "placeId": "place-cyprusNode",
+        "links": [
+          "EVT-0028"
+        ],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "CHG-003",
+        "family": "CHG",
+        "startYear": 117,
+        "endYear": null,
+        "dateDisplay": "After 117 CE",
+        "placeId": "place-alexNode",
+        "links": [
+          "DES-002"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-004",
+        "family": "CHG",
+        "startYear": 132,
+        "endYear": 135,
+        "dateDisplay": "132–135 CE",
+        "placeId": "place-j",
+        "links": [
+          "EVT-0029"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-016",
+        "family": "POP",
+        "startYear": 135,
+        "endYear": null,
+        "dateDisplay": "After 135 CE",
+        "placeId": "place-galilee",
+        "links": [
+          "EVT-0029",
+          "EVT-0030"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-017",
+        "family": "POP",
+        "startYear": 200,
+        "endYear": 400,
+        "dateDisplay": "200–400 CE",
+        "placeId": "place-galilee",
+        "links": [
+          "EVT-0030"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-018",
+        "family": "POP",
+        "startYear": 200,
+        "endYear": 600,
+        "dateDisplay": "200–600 CE",
+        "placeId": "place-j",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-019",
+        "family": "POP",
+        "startYear": 224,
+        "endYear": 638,
+        "dateDisplay": "224–638 CE",
+        "placeId": "place-b",
+        "links": [
+          "POP-005"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-005",
+        "family": "CHG",
+        "startYear": 200,
+        "endYear": 600,
+        "dateDisplay": "3rd–6th century CE",
+        "placeId": "place-b",
+        "links": [
+          "POP-019"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-020",
+        "family": "POP",
+        "startYear": 200,
+        "endYear": 700,
+        "dateDisplay": "200–700 CE",
+        "placeId": "place-asiaNode",
+        "links": [
+          "POP-009"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-021",
+        "family": "POP",
+        "startYear": 200,
+        "endYear": 700,
+        "dateDisplay": "200–700 CE",
+        "placeId": "place-greece",
+        "links": [
+          "POP-013"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-022",
+        "family": "POP",
+        "startYear": 200,
+        "endYear": 700,
+        "dateDisplay": "200–700 CE",
+        "placeId": "place-italy",
+        "links": [
+          "POP-014"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-023",
+        "family": "POP",
+        "startYear": 200,
+        "endYear": 700,
+        "dateDisplay": "200–700 CE",
+        "placeId": "place-maghreb",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-024",
+        "family": "POP",
+        "startYear": 200,
+        "endYear": 700,
+        "dateDisplay": "200–700 CE",
+        "placeId": "place-egypt",
+        "links": [
+          "POP-008"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-006",
+        "family": "CHG",
+        "startYear": 415,
+        "endYear": null,
+        "dateDisplay": "415 CE",
+        "placeId": "place-alexNode",
+        "links": [
+          "POP-008"
+        ],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Candidate: black square (data rule OPEN)",
+          "kind": "blackSquare",
+          "status": "candidate"
+        },
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-025",
+        "family": "POP",
+        "startYear": 700,
+        "endYear": 1100,
+        "dateDisplay": "700–1100 CE",
+        "placeId": "place-b",
+        "links": [
+          "POP-019"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-026",
+        "family": "POP",
+        "startYear": 700,
+        "endYear": 1100,
+        "dateDisplay": "700–1100 CE",
+        "placeId": "place-persia",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-027",
+        "family": "POP",
+        "startYear": 700,
+        "endYear": 1100,
+        "dateDisplay": "700–1100 CE",
+        "placeId": "place-israel",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-028",
+        "family": "POP",
+        "startYear": 700,
+        "endYear": 1100,
+        "dateDisplay": "700–1100 CE",
+        "placeId": "place-egypt",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-029",
+        "family": "POP",
+        "startYear": 700,
+        "endYear": 1100,
+        "dateDisplay": "8th–11th century CE",
+        "placeId": "place-maghreb",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-030",
+        "family": "POP",
+        "startYear": 800,
+        "endYear": 1057,
+        "dateDisplay": "c. 800–1057 CE",
+        "placeId": "place-kairouan",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-031",
+        "family": "POP",
+        "startYear": 700,
+        "endYear": 1100,
+        "dateDisplay": "700–1100 CE",
+        "placeId": "place-iberia",
+        "links": [
+          "CTX-010"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-032",
+        "family": "POP",
+        "startYear": 700,
+        "endYear": 1100,
+        "dateDisplay": "700–1100 CE",
+        "placeId": "place-sicily",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-033",
+        "family": "POP",
+        "startYear": 700,
+        "endYear": 1100,
+        "dateDisplay": "700–1100 CE",
+        "placeId": "place-central-asia",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-034",
+        "family": "POP",
+        "startYear": 700,
+        "endYear": 1100,
+        "dateDisplay": "700–1100 CE",
+        "placeId": "place-yemen",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-035",
+        "family": "POP",
+        "startYear": 800,
+        "endYear": 1000,
+        "dateDisplay": "By the 9th–10th century CE",
+        "placeId": "place-malabar",
+        "links": [
+          "VOY-002",
+          "VOY-003"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-036",
+        "family": "POP",
+        "startYear": 700,
+        "endYear": 1100,
+        "dateDisplay": "700–1100 CE",
+        "placeId": "place-s-france",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-037",
+        "family": "POP",
+        "startYear": 700,
+        "endYear": 1100,
+        "dateDisplay": "700–1100 CE",
+        "placeId": "place-rhineland",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-038",
+        "family": "POP",
+        "startYear": 622,
+        "endYear": null,
+        "dateDisplay": "When Muhammad arrived (7th century CE)",
+        "placeId": "place-medina",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "DES-005",
+        "family": "DES",
+        "startYear": 1096,
+        "endYear": null,
+        "dateDisplay": "1096 CE",
+        "placeId": "place-worms",
+        "links": [],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "DES-006",
+        "family": "DES",
+        "startYear": 1096,
+        "endYear": null,
+        "dateDisplay": "1096 CE",
+        "placeId": "place-mainz",
+        "links": [],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "CHG-007",
+        "family": "CHG",
+        "startYear": 1096,
+        "endYear": null,
+        "dateDisplay": "1096 CE",
+        "placeId": "place-speyer",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-039",
+        "family": "POP",
+        "startYear": 1100,
+        "endYear": 1300,
+        "dateDisplay": "1100–1300 CE",
+        "placeId": "place-rhineland",
+        "links": [
+          "DES-005",
+          "DES-006"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-008",
+        "family": "CHG",
+        "startYear": 1148,
+        "endYear": null,
+        "dateDisplay": "After 1148 CE",
+        "placeId": "place-iberia",
+        "links": [
+          "MOV-010"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-009",
+        "family": "CHG",
+        "startYear": 1198,
+        "endYear": null,
+        "dateDisplay": "1198 CE",
+        "placeId": "place-france",
+        "links": [
+          "MOV-011"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "DES-007",
+        "family": "DES",
+        "startYear": 1190,
+        "endYear": null,
+        "dateDisplay": "1190 CE",
+        "placeId": "place-york",
+        "links": [],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "POP-040",
+        "family": "POP",
+        "startYear": 1200,
+        "endYear": null,
+        "dateDisplay": "Early 13th century CE",
+        "placeId": "place-york",
+        "links": [
+          "DES-007"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-041",
+        "family": "POP",
+        "startYear": 1100,
+        "endYear": 1300,
+        "dateDisplay": "12th–13th century CE",
+        "placeId": "place-england",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-042",
+        "family": "POP",
+        "startYear": 1000,
+        "endYear": 1300,
+        "dateDisplay": "11th–13th century CE",
+        "placeId": "place-poland",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-010",
+        "family": "CHG",
+        "startYear": 1290,
+        "endYear": null,
+        "dateDisplay": "1290 CE",
+        "placeId": "place-england",
+        "links": [
+          "MOV-012"
+        ],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Candidate: black square (data rule OPEN)",
+          "kind": "blackSquare",
+          "status": "candidate"
+        },
+        "noEngineFields": true
+      },
+      {
+        "id": "DES-008",
+        "family": "DES",
+        "startYear": 1348,
+        "endYear": 1351,
+        "dateDisplay": "1348–1351 CE (cluster)",
+        "placeId": "place-israel",
+        "links": [],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "CHG-011",
+        "family": "CHG",
+        "startYear": 1315,
+        "endYear": null,
+        "dateDisplay": "1315 CE",
+        "placeId": "place-france",
+        "links": [
+          "MOV-013"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-012",
+        "family": "CHG",
+        "startYear": 1348,
+        "endYear": 1351,
+        "dateDisplay": "1348–1351 CE",
+        "placeId": "place-rhineland",
+        "links": [
+          "DES-008"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-043",
+        "family": "POP",
+        "startYear": 1300,
+        "endYear": 1500,
+        "dateDisplay": "14th–15th century CE",
+        "placeId": "place-poland",
+        "links": [
+          "MOV-015"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "DES-009",
+        "family": "DES",
+        "startYear": 1391,
+        "endYear": 1392,
+        "dateDisplay": "1391–1392 CE (cluster)",
+        "placeId": "place-iberia",
+        "links": [],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "CHG-013",
+        "family": "CHG",
+        "startYear": 1391,
+        "endYear": null,
+        "dateDisplay": "After 1391 CE",
+        "placeId": "place-iberia",
+        "links": [
+          "DES-009"
+        ],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Split diamond (forced conversion to Christianity)",
+          "kind": "splitDiamond",
+          "status": "leaning"
+        },
+        "noEngineFields": true
+      },
+      {
+        "id": "DES-010",
+        "family": "DES",
+        "startYear": 1420,
+        "endYear": 1421,
+        "dateDisplay": "1420–1421 CE",
+        "placeId": "place-vienna",
+        "links": [
+          "MOV-018"
+        ],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "DES-011",
+        "family": "DES",
+        "startYear": 1475,
+        "endYear": null,
+        "dateDisplay": "1475 CE",
+        "placeId": "place-trent",
+        "links": [],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "CHG-014",
+        "family": "CHG",
+        "startYear": 1492,
+        "endYear": null,
+        "dateDisplay": "1492 CE",
+        "placeId": "place-iberia",
+        "links": [
+          "MOV-020"
+        ],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Candidate: black square (data rule OPEN)",
+          "kind": "blackSquare",
+          "status": "candidate"
+        },
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-015",
+        "family": "CHG",
+        "startYear": 1496,
+        "endYear": 1497,
+        "dateDisplay": "1496–1497 CE",
+        "placeId": "place-iberia",
+        "links": [
+          "CHG-014"
+        ],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Split diamond (forced conversion to Christianity)",
+          "kind": "splitDiamond",
+          "status": "leaning"
+        },
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-044",
+        "family": "POP",
+        "startYear": 1500,
+        "endYear": 1600,
+        "dateDisplay": "16th century CE",
+        "placeId": "place-constantinople",
+        "links": [
+          "MOV-022"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-045",
+        "family": "POP",
+        "startYear": 1500,
+        "endYear": 1600,
+        "dateDisplay": "16th century CE",
+        "placeId": "place-safed",
+        "links": [
+          "MOV-023"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-046",
+        "family": "POP",
+        "startYear": 1590,
+        "endYear": null,
+        "dateDisplay": "From c. 1590s CE",
+        "placeId": "place-livorno",
+        "links": [
+          "CTX-021"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-047",
+        "family": "POP",
+        "startYear": 1590,
+        "endYear": null,
+        "dateDisplay": "From c. 1590 CE",
+        "placeId": "place-amsterdam",
+        "links": [
+          "MOV-026"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-048",
+        "family": "POP",
+        "startYear": 1600,
+        "endYear": null,
+        "dateDisplay": "Early 1600s CE",
+        "placeId": "place-amsterdam",
+        "links": [
+          "POP-047"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-049",
+        "family": "POP",
+        "startYear": 1630,
+        "endYear": 1654,
+        "dateDisplay": "1630s–1654 CE",
+        "placeId": "place-recife",
+        "links": [
+          "MOV-027",
+          "MOV-029"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "DES-012",
+        "family": "DES",
+        "startYear": 1648,
+        "endYear": 1659,
+        "dateDisplay": "1648–1650s CE (cluster)",
+        "placeId": "place-poland",
+        "links": [
+          "CHG-016"
+        ],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "CHG-016",
+        "family": "CHG",
+        "startYear": 1648,
+        "endYear": 1659,
+        "dateDisplay": "1648–1650s CE",
+        "placeId": "place-poland",
+        "links": [
+          "MOV-028"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-050",
+        "family": "POP",
+        "startYear": 1654,
+        "endYear": null,
+        "dateDisplay": "From 1654 CE",
+        "placeId": "place-new-amsterdam",
+        "links": [
+          "MOV-029"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-051",
+        "family": "POP",
+        "startYear": 1651,
+        "endYear": null,
+        "dateDisplay": "17th–18th century CE",
+        "placeId": "place-curacao",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-052",
+        "family": "POP",
+        "startYear": 1600,
+        "endYear": null,
+        "dateDisplay": "17th–18th century CE",
+        "placeId": "place-suriname",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-053",
+        "family": "POP",
+        "startYear": 1655,
+        "endYear": null,
+        "dateDisplay": "After 1655 CE",
+        "placeId": "place-jamaica",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-054",
+        "family": "POP",
+        "startYear": 1600,
+        "endYear": 1700,
+        "dateDisplay": "17th century CE",
+        "placeId": "place-barbados",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-055",
+        "family": "POP",
+        "startYear": 1655,
+        "endYear": null,
+        "dateDisplay": "From 1655–56 CE",
+        "placeId": "place-london",
+        "links": [
+          "CHG-010",
+          "CTX-022"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-056",
+        "family": "POP",
+        "startYear": 1658,
+        "endYear": null,
+        "dateDisplay": "From 1658 CE",
+        "placeId": "place-newport",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-057",
+        "family": "POP",
+        "startYear": 1733,
+        "endYear": null,
+        "dateDisplay": "From 1733 CE",
+        "placeId": "place-savannah",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-058",
+        "family": "POP",
+        "startYear": 1695,
+        "endYear": null,
+        "dateDisplay": "From the 1690s / 1749 CE",
+        "placeId": "place-charleston",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-059",
+        "family": "POP",
+        "startYear": 1740,
+        "endYear": null,
+        "dateDisplay": "From the 1740s CE",
+        "placeId": "place-philadelphia",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-017",
+        "family": "CHG",
+        "startYear": 1748,
+        "endYear": null,
+        "dateDisplay": "1748 CE",
+        "placeId": "place-prague",
+        "links": [
+          "MOV-031"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-018",
+        "family": "CHG",
+        "startYear": 1650,
+        "endYear": 1765,
+        "dateDisplay": "1650–1765 CE",
+        "placeId": "place-poland",
+        "links": [
+          "CHG-016"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-019",
+        "family": "CHG",
+        "startYear": 1772,
+        "endYear": 1795,
+        "dateDisplay": "1772–1795 CE",
+        "placeId": "place-poland",
+        "links": [
+          "CTX-025"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-020",
+        "family": "CHG",
+        "startYear": 1800,
+        "endYear": 1900,
+        "dateDisplay": "19th century CE",
+        "placeId": "place-poland",
+        "links": [
+          "CTX-029"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-060",
+        "family": "POP",
+        "startYear": 1800,
+        "endYear": null,
+        "dateDisplay": "From the early 19th century CE",
+        "placeId": "place-odessa",
+        "links": [
+          "MOV-033"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-021",
+        "family": "CHG",
+        "startYear": 1834,
+        "endYear": null,
+        "dateDisplay": "1834 CE",
+        "placeId": "place-safed",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-022",
+        "family": "CHG",
+        "startYear": 1837,
+        "endYear": null,
+        "dateDisplay": "1837 CE",
+        "placeId": "place-safed",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-023",
+        "family": "CHG",
+        "startYear": 1839,
+        "endYear": null,
+        "dateDisplay": "1839 CE",
+        "placeId": "place-mashhad",
+        "links": [],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Purple diamond (forced conversion, other faith)",
+          "kind": "purpleDiamond",
+          "status": "leaning"
+        },
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-061",
+        "family": "POP",
+        "startYear": 1800,
+        "endYear": 1900,
+        "dateDisplay": "19th century CE",
+        "placeId": "place-bombay",
+        "links": [
+          "MOV-035"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-062",
+        "family": "POP",
+        "startYear": 1845,
+        "endYear": null,
+        "dateDisplay": "From 1845 CE",
+        "placeId": "place-shanghai",
+        "links": [
+          "MOV-036"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-024",
+        "family": "CHG",
+        "startYear": 1860,
+        "endYear": null,
+        "dateDisplay": "From 1860 CE",
+        "placeId": "place-j",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-063",
+        "family": "POP",
+        "startYear": 1820,
+        "endYear": 1880,
+        "dateDisplay": "1820–1880 CE",
+        "placeId": "place-us",
+        "links": [
+          "MOV-037"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-064",
+        "family": "POP",
+        "startYear": 1880,
+        "endYear": null,
+        "dateDisplay": "By 1880 CE",
+        "placeId": "place-israel",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-025",
+        "family": "CHG",
+        "startYear": 1878,
+        "endYear": 1880,
+        "dateDisplay": "1878–1880 CE",
+        "placeId": "place-petah-tikva",
+        "links": [
+          "CTX-036"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-065",
+        "family": "POP",
+        "startYear": 1800,
+        "endYear": 1900,
+        "dateDisplay": "19th century CE",
+        "placeId": "place-morocco",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-066",
+        "family": "POP",
+        "startYear": 1800,
+        "endYear": 1900,
+        "dateDisplay": "19th century CE",
+        "placeId": "place-yemen",
+        "links": [
+          "POP-034"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-067",
+        "family": "POP",
+        "startYear": 1880,
+        "endYear": null,
+        "dateDisplay": "By 1880 CE",
+        "placeId": "place-bene-israel",
+        "links": [
+          "POP-035"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-029",
+        "family": "CHG",
+        "startYear": 1881,
+        "endYear": 1884,
+        "dateDisplay": "1881–1884 CE (cluster)",
+        "placeId": "place-poland",
+        "links": [],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        },
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-068",
+        "family": "POP",
+        "startYear": 1882,
+        "endYear": null,
+        "dateDisplay": "From 1882 CE",
+        "placeId": "place-israel",
+        "links": [
+          "MOV-040"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-069",
+        "family": "POP",
+        "startYear": 1889,
+        "endYear": null,
+        "dateDisplay": "From 1889 CE",
+        "placeId": "place-argentina",
+        "links": [
+          "MOV-041"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-070",
+        "family": "POP",
+        "startYear": 1892,
+        "endYear": null,
+        "dateDisplay": "From 1892 CE",
+        "placeId": "place-j",
+        "links": [
+          "MOV-042"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-030",
+        "family": "CHG",
+        "startYear": 1903,
+        "endYear": null,
+        "dateDisplay": "1903 CE",
+        "placeId": "place-kishinev",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-031",
+        "family": "CHG",
+        "startYear": 1905,
+        "endYear": 1906,
+        "dateDisplay": "1905–1906 CE (cluster)",
+        "placeId": "place-poland",
+        "links": [],
+        "hasCard": false,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        },
+        "noEngineFields": true
+      },
+      {
+        "id": "POP-071",
+        "family": "POP",
+        "startYear": 1909,
+        "endYear": null,
+        "dateDisplay": "From 1909 CE",
+        "placeId": "place-tel-aviv",
+        "links": [
+          "MOV-043"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-026",
+        "family": "CHG",
+        "startYear": 1881,
+        "endYear": 1914,
+        "dateDisplay": "1881–1914 CE",
+        "placeId": "place-us",
+        "links": [
+          "MOV-038"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-027",
+        "family": "CHG",
+        "startYear": 1881,
+        "endYear": 1914,
+        "dateDisplay": "1881–1914 CE",
+        "placeId": "place-london",
+        "links": [],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-028",
+        "family": "CHG",
+        "startYear": 1881,
+        "endYear": 1914,
+        "dateDisplay": "1881–1914 CE",
+        "placeId": "place-israel",
+        "links": [
+          "MOV-040",
+          "MOV-043"
+        ],
+        "hasCard": false,
+        "noEngineFields": true
+      },
+      {
+        "id": "LOC-001",
+        "family": "LOC",
+        "startYear": 150,
+        "endYear": 400,
+        "dateDisplay": "2nd–4th century CE",
+        "placeId": "place-sepphoris",
+        "links": [
+          "POP-016",
+          "POP-017"
+        ],
+        "hasCard": false
+      }
+    ],
+    "movements": [
+      {
+        "id": "MOV-001",
+        "eventId": "EVT-0002",
+        "startYear": -1250,
+        "endYear": -1190,
+        "dateDisplay": "Traditional chronology",
+        "origin": "Egypt",
+        "destination": "Canaan",
+        "originPlaceId": "place-egypt",
+        "destinationPlaceId": "place-israel",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Dotted (traditional)",
+        "links": [
+          "POP-001"
+        ]
+      },
+      {
+        "id": "MOV-002",
+        "eventId": "EVT-0009",
+        "startYear": -722,
+        "endYear": -720,
+        "dateDisplay": "722–720 BCE",
+        "origin": "Northern Israel (Samaria)",
+        "destination": "Assyrian sphere (schematic)",
+        "originPlaceId": "place-samaria",
+        "destinationPlaceId": "place-assyria-west",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "POP-002"
+        ]
+      },
+      {
+        "id": "MOV-003",
+        "eventId": "EVT-0011",
+        "startYear": -701,
+        "endYear": null,
+        "dateDisplay": "701 BCE",
+        "origin": "Judah",
+        "destination": "Several short routes, generally NW/W/SW; need not leave the region",
+        "originPlaceId": "place-j",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red (short routes)",
+        "links": [
+          "POP-003"
+        ]
+      },
+      {
+        "id": "MOV-004",
+        "eventId": "EVT-0013",
+        "startYear": -597,
+        "endYear": null,
+        "dateDisplay": "597 BCE",
+        "origin": "Judah / Jerusalem",
+        "destination": "Babylonia",
+        "originPlaceId": "place-j",
+        "destinationPlaceId": "place-b",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "POP-004",
+          "POP-005"
+        ]
+      },
+      {
+        "id": "MOV-005",
+        "eventId": "EVT-0014",
+        "startYear": -587,
+        "endYear": -586,
+        "dateDisplay": "587/586 BCE",
+        "origin": "Judah / Jerusalem",
+        "destination": "Babylonia",
+        "originPlaceId": "place-j",
+        "destinationPlaceId": "place-b",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "POP-004",
+          "POP-005"
+        ]
+      },
+      {
+        "id": "MOV-006",
+        "eventId": "EVT-0016",
+        "startYear": -539,
+        "endYear": null,
+        "dateDisplay": "After 539 BCE",
+        "origin": "Babylonia",
+        "destination": "Judea / Yehud",
+        "originPlaceId": "place-b",
+        "destinationPlaceId": "place-j",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Blue",
+        "links": [
+          "POP-006"
+        ]
+      },
+      {
+        "id": "MOV-007",
+        "eventId": "EVT-0021",
+        "startYear": -210,
+        "endYear": -205,
+        "dateDisplay": "c. 210–205 BCE",
+        "origin": "Mesopotamia / Babylonia",
+        "destination": "Lydia / Phrygia",
+        "originPlaceId": "place-b",
+        "destinationPlaceId": "place-asiaNode",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal (relocation)",
+        "links": [
+          "POP-009"
+        ]
+      },
+      {
+        "id": "MOV-008",
+        "eventId": "EVT-0025",
+        "startYear": -63,
+        "endYear": -62,
+        "dateDisplay": "63/62 BCE",
+        "origin": "Judea",
+        "destination": "Rome",
+        "originPlaceId": "place-j",
+        "destinationPlaceId": "place-romeNode",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "POP-015"
+        ]
+      },
+      {
+        "id": "MOV-009",
+        "eventId": null,
+        "startYear": 900,
+        "endYear": 1100,
+        "dateDisplay": "10th–11th century CE",
+        "origin": "Maghreb / North Africa",
+        "destination": "Egypt",
+        "originPlaceId": "place-maghreb",
+        "destinationPlaceId": "place-egypt",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "POP-028",
+          "POP-029"
+        ]
+      },
+      {
+        "id": "MOV-010",
+        "eventId": null,
+        "startYear": 1148,
+        "endYear": 1170,
+        "dateDisplay": "Mid-12th century CE",
+        "origin": "Almohad Iberia / North Africa",
+        "destination": "Branching; only where documented",
+        "originPlaceId": "place-iberia",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-008"
+        ]
+      },
+      {
+        "id": "MOV-011",
+        "eventId": null,
+        "startYear": 1182,
+        "endYear": null,
+        "dateDisplay": "1182 CE",
+        "origin": "French royal domain",
+        "destination": "Not specified",
+        "originPlaceId": "place-france",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-009"
+        ]
+      },
+      {
+        "id": "MOV-012",
+        "eventId": null,
+        "startYear": 1290,
+        "endYear": null,
+        "dateDisplay": "1290 CE",
+        "origin": "England",
+        "destination": "Continental Europe",
+        "originPlaceId": "place-england",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-010"
+        ]
+      },
+      {
+        "id": "MOV-013",
+        "eventId": null,
+        "startYear": 1306,
+        "endYear": null,
+        "dateDisplay": "1306 CE",
+        "origin": "Kingdom of France",
+        "destination": "Branching",
+        "originPlaceId": "place-france",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red (branching)",
+        "links": [
+          "CHG-011"
+        ]
+      },
+      {
+        "id": "MOV-014",
+        "eventId": null,
+        "startYear": 1322,
+        "endYear": null,
+        "dateDisplay": "1322 CE",
+        "origin": "France",
+        "destination": "Not specified",
+        "originPlaceId": "place-france",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red",
+        "links": []
+      },
+      {
+        "id": "MOV-015",
+        "eventId": null,
+        "startYear": 1300,
+        "endYear": 1500,
+        "dateDisplay": "14th–15th century CE",
+        "origin": "German-speaking lands",
+        "destination": "East-central Europe",
+        "originPlaceId": "place-german-lands",
+        "destinationPlaceId": "place-east-central-europe",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal (several routes)",
+        "links": [
+          "POP-043"
+        ]
+      },
+      {
+        "id": "MOV-016",
+        "eventId": null,
+        "startYear": 1391,
+        "endYear": null,
+        "dateDisplay": "After 1391 CE",
+        "origin": "Iberia",
+        "destination": "Documented safer destinations",
+        "originPlaceId": "place-iberia",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-013"
+        ]
+      },
+      {
+        "id": "MOV-017",
+        "eventId": null,
+        "startYear": 1394,
+        "endYear": null,
+        "dateDisplay": "1394 CE",
+        "origin": "France",
+        "destination": "Not specified",
+        "originPlaceId": "place-france",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red",
+        "links": []
+      },
+      {
+        "id": "MOV-018",
+        "eventId": null,
+        "startYear": 1420,
+        "endYear": 1421,
+        "dateDisplay": "1420–21 CE",
+        "origin": "Austria / Vienna",
+        "destination": "Not specified",
+        "originPlaceId": "place-vienna",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red",
+        "links": [
+          "DES-010"
+        ]
+      },
+      {
+        "id": "MOV-019",
+        "eventId": null,
+        "startYear": 1453,
+        "endYear": null,
+        "dateDisplay": "After 1453 CE",
+        "origin": "Ottoman lands",
+        "destination": "Constantinople",
+        "originPlaceId": "place-ottoman-lands",
+        "destinationPlaceId": "place-constantinople",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "POP-044"
+        ]
+      },
+      {
+        "id": "MOV-020",
+        "eventId": null,
+        "startYear": 1492,
+        "endYear": null,
+        "dateDisplay": "1492 CE",
+        "origin": "Spain",
+        "destination": "Portugal; North Africa; Italy; Ottoman lands; other documented destinations",
+        "originPlaceId": "place-iberia",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-014"
+        ]
+      },
+      {
+        "id": "MOV-021",
+        "eventId": null,
+        "startYear": 1492,
+        "endYear": 1493,
+        "dateDisplay": "1492–93 CE",
+        "origin": "Sicily",
+        "destination": "Branching",
+        "originPlaceId": "place-sicily",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red (branching)",
+        "links": []
+      },
+      {
+        "id": "MOV-022",
+        "eventId": null,
+        "startYear": 1500,
+        "endYear": 1650,
+        "dateDisplay": "c. 1500–1650 CE",
+        "origin": "Iberia; Italy",
+        "destination": "Ottoman cities",
+        "originPlaceId": "place-iberia",
+        "destinationPlaceId": "place-ottoman-lands",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal (relocation)",
+        "links": [
+          "POP-044"
+        ]
+      },
+      {
+        "id": "MOV-023",
+        "eventId": null,
+        "startYear": 1500,
+        "endYear": 1570,
+        "dateDisplay": "Early / mid-1500s CE",
+        "origin": "Mediterranean",
+        "destination": "Safed; Jerusalem",
+        "originPlaceId": "place-mediterranean",
+        "destinationPlaceId": "place-safed",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Blue",
+        "links": [
+          "POP-045"
+        ]
+      },
+      {
+        "id": "MOV-024",
+        "eventId": null,
+        "startYear": 1500,
+        "endYear": 1700,
+        "dateDisplay": "16th–17th century CE",
+        "origin": "Portugal; Iberia",
+        "destination": "Western Europe; Mediterranean",
+        "originPlaceId": "place-iberia",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red (persecution-driven flight)",
+        "links": [
+          "CHG-015",
+          "CTX-019"
+        ]
+      },
+      {
+        "id": "MOV-025",
+        "eventId": null,
+        "startYear": 1569,
+        "endYear": 1593,
+        "dateDisplay": "1569 / 1593 CE",
+        "origin": "Papal territories",
+        "destination": "Not specified",
+        "originPlaceId": "place-italy",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red",
+        "links": [
+          "POP-046"
+        ]
+      },
+      {
+        "id": "MOV-026",
+        "eventId": null,
+        "startYear": 1590,
+        "endYear": null,
+        "dateDisplay": "From c. 1590 CE",
+        "origin": "Iberian and European ports",
+        "destination": "Amsterdam",
+        "originPlaceId": "place-iberia",
+        "destinationPlaceId": "place-amsterdam",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal (relocation)",
+        "links": [
+          "POP-047"
+        ]
+      },
+      {
+        "id": "MOV-027",
+        "eventId": null,
+        "startYear": 1630,
+        "endYear": null,
+        "dateDisplay": "1630s onward CE",
+        "origin": "Amsterdam / Atlantic",
+        "destination": "Dutch Brazil (Recife)",
+        "originPlaceId": "place-amsterdam",
+        "destinationPlaceId": "place-recife",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal (relocation)",
+        "links": [
+          "POP-049"
+        ]
+      },
+      {
+        "id": "MOV-028",
+        "eventId": null,
+        "startYear": 1648,
+        "endYear": 1659,
+        "dateDisplay": "1648–1650s CE",
+        "origin": "Ukraine / Polish-Lithuanian lands",
+        "destination": "Documented destinations",
+        "originPlaceId": "place-poland",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-016",
+          "DES-012"
+        ]
+      },
+      {
+        "id": "MOV-029",
+        "eventId": null,
+        "startYear": 1654,
+        "endYear": null,
+        "dateDisplay": "1654 CE",
+        "origin": "Recife",
+        "destination": "Multiple Atlantic destinations incl. New Amsterdam",
+        "originPlaceId": "place-recife",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red (persecution-driven flight)",
+        "links": [
+          "POP-050"
+        ]
+      },
+      {
+        "id": "MOV-030",
+        "eventId": null,
+        "startYear": 1669,
+        "endYear": 1670,
+        "dateDisplay": "1669–70 CE",
+        "origin": "Vienna",
+        "destination": "Not specified",
+        "originPlaceId": "place-vienna",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red",
+        "links": []
+      },
+      {
+        "id": "MOV-031",
+        "eventId": null,
+        "startYear": 1744,
+        "endYear": 1745,
+        "dateDisplay": "1744–45 CE",
+        "origin": "Prague",
+        "destination": "Not specified",
+        "originPlaceId": "place-prague",
+        "destinationPlaceId": null,
+        "arrowEndsReady": false,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-017"
+        ]
+      },
+      {
+        "id": "MOV-032",
+        "eventId": null,
+        "startYear": 1777,
+        "endYear": null,
+        "dateDisplay": "1777 CE",
+        "origin": "Belarus / Lithuania region",
+        "destination": "Safed",
+        "originPlaceId": "place-poland",
+        "destinationPlaceId": "place-safed",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Blue",
+        "links": []
+      },
+      {
+        "id": "MOV-033",
+        "eventId": null,
+        "startYear": 1800,
+        "endYear": 1900,
+        "dateDisplay": "19th century CE",
+        "origin": "Pale of Settlement",
+        "destination": "Odessa; large cities",
+        "originPlaceId": "place-pale-of-settlement",
+        "destinationPlaceId": "place-odessa",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "POP-060"
+        ]
+      },
+      {
+        "id": "MOV-034",
+        "eventId": null,
+        "startYear": 1808,
+        "endYear": 1810,
+        "dateDisplay": "1808–10 CE",
+        "origin": "Lithuania / Belarus",
+        "destination": "Land of Israel",
+        "originPlaceId": "place-poland",
+        "destinationPlaceId": "place-israel",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Blue",
+        "links": []
+      },
+      {
+        "id": "MOV-035",
+        "eventId": null,
+        "startYear": 1800,
+        "endYear": 1900,
+        "dateDisplay": "19th century CE",
+        "origin": "Iraq / Middle East",
+        "destination": "India",
+        "originPlaceId": "place-b",
+        "destinationPlaceId": "place-bombay",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal (relocation)",
+        "links": [
+          "POP-061"
+        ]
+      },
+      {
+        "id": "MOV-036",
+        "eventId": null,
+        "startYear": 1845,
+        "endYear": null,
+        "dateDisplay": "From 1845 CE",
+        "origin": "India",
+        "destination": "Shanghai",
+        "originPlaceId": "place-bombay",
+        "destinationPlaceId": "place-shanghai",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "POP-062"
+        ]
+      },
+      {
+        "id": "MOV-037",
+        "eventId": null,
+        "startYear": 1820,
+        "endYear": 1880,
+        "dateDisplay": "1820–1880 CE",
+        "origin": "Central Europe",
+        "destination": "United States",
+        "originPlaceId": "place-central-europe",
+        "destinationPlaceId": "place-us",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "POP-063"
+        ]
+      },
+      {
+        "id": "MOV-038",
+        "eventId": null,
+        "startYear": 1881,
+        "endYear": 1914,
+        "dateDisplay": "1881–1914 CE",
+        "origin": "Eastern Europe",
+        "destination": "United States",
+        "originPlaceId": "place-eastern-europe",
+        "destinationPlaceId": "place-us",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal (red only for specific persecution-driven flight records)",
+        "links": [
+          "CHG-026"
+        ]
+      },
+      {
+        "id": "MOV-039",
+        "eventId": null,
+        "startYear": 1881,
+        "endYear": 1882,
+        "dateDisplay": "1881–82 CE",
+        "origin": "Yemen",
+        "destination": "Jerusalem; Jaffa",
+        "originPlaceId": "place-yemen",
+        "destinationPlaceId": "place-j",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Blue",
+        "links": []
+      },
+      {
+        "id": "MOV-040",
+        "eventId": null,
+        "startYear": 1882,
+        "endYear": 1903,
+        "dateDisplay": "1882–1903 CE",
+        "origin": "Eastern Europe; Yemen",
+        "destination": "Land of Israel",
+        "originPlaceId": "place-eastern-europe",
+        "destinationPlaceId": "place-israel",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Blue (multiple routes)",
+        "links": [
+          "CHG-028",
+          "POP-068"
+        ]
+      },
+      {
+        "id": "MOV-041",
+        "eventId": null,
+        "startYear": 1889,
+        "endYear": null,
+        "dateDisplay": "From 1889 CE",
+        "origin": "Eastern Europe",
+        "destination": "Argentina",
+        "originPlaceId": "place-eastern-europe",
+        "destinationPlaceId": "place-argentina",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal (relocation)",
+        "links": [
+          "POP-069"
+        ]
+      },
+      {
+        "id": "MOV-042",
+        "eventId": null,
+        "startYear": 1890,
+        "endYear": 1899,
+        "dateDisplay": "1890s CE",
+        "origin": "Bukhara / Central Asia",
+        "destination": "Jerusalem",
+        "originPlaceId": "place-central-asia",
+        "destinationPlaceId": "place-j",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Blue",
+        "links": [
+          "POP-070"
+        ]
+      },
+      {
+        "id": "MOV-043",
+        "eventId": null,
+        "startYear": 1904,
+        "endYear": 1914,
+        "dateDisplay": "1904–14 CE",
+        "origin": "Eastern Europe; Yemen",
+        "destination": "Land of Israel",
+        "originPlaceId": "place-eastern-europe",
+        "destinationPlaceId": "place-israel",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Blue",
+        "links": [
+          "POP-071"
+        ]
+      },
+      {
+        "id": "MOV-044",
+        "eventId": "EVT-0019",
+        "startYear": -320,
+        "endYear": -275,
+        "dateDisplay": "c. 320–275 BCE",
+        "origin": "Judea",
+        "destination": "Egypt (schematic: Alexandria)",
+        "originPlaceId": "place-j",
+        "destinationPlaceId": "place-alexNode",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "POP-008"
+        ]
+      },
+      {
+        "id": "MOV-045",
+        "eventId": "EVT-0020",
+        "startYear": -300,
+        "endYear": -30,
+        "dateDisplay": "Ptolemaic period",
+        "origin": "Egypt (schematic: Alexandria)",
+        "destination": "Cyrenaica",
+        "originPlaceId": "place-alexNode",
+        "destinationPlaceId": "place-cyreneNode",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal (relocation)",
+        "links": [
+          "POP-011"
+        ]
+      }
+    ],
+    "context": [
+      {
+        "id": "CTX-001",
+        "family": "CTX",
+        "startYear": -500,
+        "dateDisplay": "5th century BCE",
+        "links": [
+          "POP-007"
+        ]
+      },
+      {
+        "id": "CTX-002",
+        "family": "CTX",
+        "startYear": 70,
+        "dateDisplay": "70 CE",
+        "links": [
+          "DES-001"
+        ]
+      },
+      {
+        "id": "CTX-003",
+        "family": "CTX",
+        "startYear": 135,
+        "dateDisplay": "After 135 CE",
+        "links": [
+          "CHG-004",
+          "POP-016"
+        ]
+      },
+      {
+        "id": "CTX-004",
+        "family": "CTX",
+        "startYear": 224,
+        "dateDisplay": "224 CE",
+        "links": [
+          "POP-019"
+        ]
+      },
+      {
+        "id": "CTX-005",
+        "family": "CTX",
+        "startYear": 614,
+        "dateDisplay": "614 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-006",
+        "family": "CTX",
+        "startYear": 628,
+        "dateDisplay": "628–630 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-007",
+        "family": "CTX",
+        "startYear": 634,
+        "dateDisplay": "634–638 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-008",
+        "family": "CTX",
+        "startYear": 641,
+        "dateDisplay": "641–642 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-009",
+        "family": "CTX",
+        "startYear": 650,
+        "dateDisplay": "c. 650 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-010",
+        "family": "CTX",
+        "startYear": 711,
+        "dateDisplay": "711 CE",
+        "links": [
+          "POP-031"
+        ]
+      },
+      {
+        "id": "CTX-011",
+        "family": "CTX",
+        "startYear": 1000,
+        "dateDisplay": "c. 1000 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-013",
+        "family": "CTX",
+        "startYear": 1220,
+        "dateDisplay": "c. 1220 CE",
+        "links": [
+          "POP-039"
+        ]
+      },
+      {
+        "id": "CTX-014",
+        "family": "CTX",
+        "startYear": 1263,
+        "dateDisplay": "1263 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-015",
+        "family": "CTX",
+        "startYear": 1264,
+        "dateDisplay": "1264 CE",
+        "links": [
+          "POP-042"
+        ]
+      },
+      {
+        "id": "CTX-016",
+        "family": "CTX",
+        "startYear": 1275,
+        "dateDisplay": "1275 CE",
+        "links": [
+          "POP-041"
+        ]
+      },
+      {
+        "id": "CTX-017",
+        "family": "CTX",
+        "startYear": 1516,
+        "dateDisplay": "1516–17 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-018",
+        "family": "CTX",
+        "startYear": 1516,
+        "dateDisplay": "1516 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-019",
+        "family": "CTX",
+        "startYear": 1536,
+        "dateDisplay": "1536 CE",
+        "links": [
+          "MOV-024"
+        ]
+      },
+      {
+        "id": "CTX-020",
+        "family": "CTX",
+        "startYear": 1555,
+        "dateDisplay": "1555 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-021",
+        "family": "CTX",
+        "startYear": 1591,
+        "dateDisplay": "1591–93 CE",
+        "links": [
+          "POP-046"
+        ]
+      },
+      {
+        "id": "CTX-022",
+        "family": "CTX",
+        "startYear": 1655,
+        "dateDisplay": "1655–56 CE",
+        "links": [
+          "POP-055"
+        ]
+      },
+      {
+        "id": "CTX-023",
+        "family": "CTX",
+        "startYear": 1666,
+        "dateDisplay": "1666 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-024",
+        "family": "CTX",
+        "startYear": 1700,
+        "dateDisplay": "18th century CE",
+        "links": [
+          "MOV-032"
+        ]
+      },
+      {
+        "id": "CTX-025",
+        "family": "CTX",
+        "startYear": 1772,
+        "dateDisplay": "1772–95 CE",
+        "links": [
+          "CHG-019"
+        ]
+      },
+      {
+        "id": "CTX-026",
+        "family": "CTX",
+        "startYear": 1782,
+        "dateDisplay": "1782 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-027",
+        "family": "CTX",
+        "startYear": 1791,
+        "dateDisplay": "1791 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-028",
+        "family": "CTX",
+        "startYear": 1791,
+        "dateDisplay": "1791 onward CE",
+        "links": [
+          "CTX-029"
+        ]
+      },
+      {
+        "id": "CTX-029",
+        "family": "CTX",
+        "startYear": 1804,
+        "dateDisplay": "1804 / 1835 CE",
+        "links": [
+          "CHG-020"
+        ]
+      },
+      {
+        "id": "CTX-030",
+        "family": "CTX",
+        "startYear": 1840,
+        "dateDisplay": "1840 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-031",
+        "family": "CTX",
+        "startYear": 1856,
+        "dateDisplay": "1856–69 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-032",
+        "family": "CTX",
+        "startYear": 1858,
+        "dateDisplay": "1858 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-033",
+        "family": "CTX",
+        "startYear": 1860,
+        "dateDisplay": "1860 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-034",
+        "family": "CTX",
+        "startYear": 1867,
+        "dateDisplay": "1867–71 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-035",
+        "family": "CTX",
+        "startYear": 1870,
+        "dateDisplay": "1870 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-036",
+        "family": "CTX",
+        "startYear": 1878,
+        "dateDisplay": "1878 CE",
+        "links": [
+          "CHG-025"
+        ]
+      },
+      {
+        "id": "CTX-037",
+        "family": "CTX",
+        "startYear": 1891,
+        "dateDisplay": "1891 CE",
+        "links": [
+          "POP-069"
+        ]
+      },
+      {
+        "id": "CTX-038",
+        "family": "CTX",
+        "startYear": 1894,
+        "dateDisplay": "1894–1906 CE",
+        "links": []
+      },
+      {
+        "id": "CTX-039",
+        "family": "CTX",
+        "startYear": 1897,
+        "dateDisplay": "1897 CE",
+        "links": []
+      },
+      {
+        "id": "VOY-001",
+        "family": "VOY",
+        "startYear": -950,
+        "dateDisplay": "c. 10th century BCE (traditional)",
+        "links": [
+          "POP-035"
+        ]
+      },
+      {
+        "id": "VOY-002",
+        "family": "VOY",
+        "startYear": 800,
+        "dateDisplay": "9th century CE",
+        "links": [
+          "POP-035"
+        ]
+      },
+      {
+        "id": "VOY-003",
+        "family": "VOY",
+        "startYear": 1080,
+        "dateDisplay": "c. 1080–1240 CE",
+        "links": [
+          "EVD-020"
+        ]
+      },
+      {
+        "id": "VOY-004",
+        "family": "VOY",
+        "startYear": 1600,
+        "dateDisplay": "17th century CE",
+        "links": [
+          "MOV-027"
+        ]
+      },
+      {
+        "id": "VOY-005",
+        "family": "VOY",
+        "startYear": 1800,
+        "dateDisplay": "19th century CE",
+        "links": [
+          "MOV-036"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "EVD-001",
+        "startYear": -1208,
+        "endYear": -1208,
+        "links": [
+          "EVT-0003"
+        ]
+      },
+      {
+        "id": "EVD-002",
+        "startYear": -850,
+        "endYear": -830,
+        "links": [
+          "EVT-0008"
+        ]
+      },
+      {
+        "id": "EVD-003",
+        "startYear": -850,
+        "endYear": -800,
+        "links": [
+          "EVT-0005"
+        ]
+      },
+      {
+        "id": "EVD-004",
+        "startYear": -710,
+        "endYear": -700,
+        "links": [
+          "EVT-0010"
+        ]
+      },
+      {
+        "id": "EVD-005",
+        "startYear": -710,
+        "endYear": -700,
+        "links": [
+          "EVT-0010"
+        ]
+      },
+      {
+        "id": "EVD-006",
+        "startYear": -700,
+        "endYear": -681,
+        "links": [
+          "EVT-0011"
+        ]
+      },
+      {
+        "id": "EVD-007",
+        "startYear": -650,
+        "endYear": -575,
+        "links": [
+          "EVT-0012"
+        ]
+      },
+      {
+        "id": "EVD-008",
+        "startYear": -597,
+        "endYear": -560,
+        "links": [
+          "EVT-0013"
+        ]
+      },
+      {
+        "id": "EVD-009",
+        "startYear": -539,
+        "endYear": -530,
+        "links": [
+          "EVT-0016"
+        ]
+      },
+      {
+        "id": "EVD-010",
+        "startYear": -495,
+        "endYear": -399,
+        "links": [
+          "EVT-0018"
+        ]
+      },
+      {
+        "id": "EVD-011",
+        "startYear": -150,
+        "endYear": 68,
+        "links": [
+          "EVT-0023",
+          "EVT-0031"
+        ]
+      },
+      {
+        "id": "EVD-012",
+        "startYear": -125,
+        "endYear": -125,
+        "links": [
+          "EVT-0023"
+        ]
+      },
+      {
+        "id": "EVD-013",
+        "startYear": -50,
+        "endYear": -50,
+        "links": [
+          "EVT-0023"
+        ]
+      },
+      {
+        "id": "EVD-014",
+        "startYear": -100,
+        "endYear": -75,
+        "links": [
+          "EVT-0023"
+        ]
+      },
+      {
+        "id": "EVD-015",
+        "startYear": -25,
+        "endYear": 50,
+        "links": [
+          "EVT-0023"
+        ]
+      },
+      {
+        "id": "EVD-016",
+        "startYear": -30,
+        "endYear": -1,
+        "links": [
+          "EVT-0023"
+        ]
+      },
+      {
+        "id": "EVD-017",
+        "startYear": -103,
+        "endYear": -76,
+        "links": [
+          "EVT-0023"
+        ]
+      },
+      {
+        "id": "EVD-018",
+        "startYear": 81,
+        "endYear": 82,
+        "links": [
+          "EVT-0027"
+        ]
+      },
+      {
+        "id": "EVD-019",
+        "startYear": -1020,
+        "endYear": -980,
+        "links": []
+      },
+      {
+        "id": "EVD-020",
+        "startYear": 900,
+        "endYear": 1300,
+        "links": [
+          "VOY-003"
+        ]
+      }
+    ],
+    "cards": [
+      {
+        "id": "EVT-0001",
+        "recordId": "EVT-0001",
+        "type": "Event",
+        "date": "c. 2000 BCE",
+        "title": "Abraham journeys to Canaan",
+        "description": "The Torah tells how Abraham left his home in Mesopotamia and traveled to Canaan. Jewish tradition honors him as the first of the patriarchs.",
+        "status": "approved",
+        "startYear": -2000,
+        "endYear": null,
+        "placeId": "place-israel",
+        "meanwhile": "In Egypt, the Great Pyramid of Giza had already stood for about 560 years.",
+        "meanwhileStatus": "approved"
+      },
+      {
+        "id": "EVT-0002",
+        "recordId": "EVT-0002",
+        "type": "Movement",
+        "date": "c. 1250 BCE",
+        "title": "The Exodus from Egypt",
+        "description": "The Torah tells how the Israelites, led by Moses, left slavery in Egypt and traveled toward Canaan. Jews retell this story every year at Passover.",
+        "status": "approved",
+        "startYear": -1250,
+        "endYear": -1190,
+        "placeId": "place-egypt",
+        "movementIds": [
+          "MOV-001"
+        ],
+        "mapSymbol": {
+          "text": "Dotted route",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0003",
+        "recordId": "EVT-0003",
+        "type": "Archaeology",
+        "date": "c. 1208 BCE",
+        "title": "The Merneptah Stele names Israel",
+        "description": "A stone monument set up by the Egyptian king Merneptah mentions a people called Israel living in Canaan. It is one of the earliest known written mentions of Israel.",
+        "status": "approved",
+        "startYear": -1208,
+        "endYear": null,
+        "placeId": "place-israel",
+        "evidenceIds": [
+          "EVD-001"
+        ]
+      },
+      {
+        "id": "EVT-0004",
+        "recordId": "EVT-0004",
+        "type": "Community",
+        "date": "c. 1200–1000 BCE",
+        "title": "Villages rise in the hills of Canaan",
+        "description": "Between about 1200 and 1000 BCE, many small villages appeared in the hill country of Canaan. They are the communities of the early Israelites.",
+        "status": "approved",
+        "startYear": -1200,
+        "endYear": -1000,
+        "placeId": "place-israel"
+      },
+      {
+        "id": "EVT-0005",
+        "recordId": "EVT-0005",
+        "type": "Event",
+        "date": "c. 1000 BCE",
+        "title": "David makes Jerusalem his capital",
+        "description": "The Bible tells how David became king and made Jerusalem his capital. Jerusalem became the center of Jewish life.",
+        "status": "approved",
+        "startYear": -1000,
+        "endYear": null,
+        "placeId": "place-j",
+        "meanwhile": "In Peru, builders are raising the great temple center of Chavin de Huantar around 1000 BCE.",
+        "meanwhileStatus": "approved",
+        "evidenceIds": [
+          "EVD-003"
+        ]
+      },
+      {
+        "id": "EVT-0006",
+        "recordId": "EVT-0006",
+        "type": "Event",
+        "date": "10th century BCE",
+        "title": "Solomon builds the First Temple",
+        "description": "The Bible says King Solomon built the First Temple in Jerusalem. It became the holiest place in Jewish life.",
+        "status": "approved",
+        "startYear": -960,
+        "endYear": null,
+        "placeId": "place-j",
+        "meanwhile": "In Nigeria, the Nok people begin making clay sculptures around 900 BCE.",
+        "meanwhileStatus": "approved"
+      },
+      {
+        "id": "EVT-0007",
+        "recordId": "EVT-0007",
+        "type": "Event",
+        "date": "c. 930 BCE",
+        "title": "The kingdom splits in two",
+        "description": "After Solomon, the Israelite kingdom divided. Israel was in the north, and Judah, with Jerusalem, was in the south.",
+        "status": "approved",
+        "startYear": -930,
+        "endYear": null,
+        "placeId": "place-israel",
+        "meanwhile": "In Greece, legend says the city of Sparta is founded around 900 BCE.",
+        "meanwhileStatus": "approved"
+      },
+      {
+        "id": "EVT-0008",
+        "recordId": "EVT-0008",
+        "type": "Archaeology",
+        "date": "9th century BCE",
+        "title": "Neighbors write about the kingdom of Israel",
+        "description": "A stone monument from the nearby kingdom of Moab, the Mesha Stele, names Israel and its king Omri.",
+        "status": "approved",
+        "startYear": -850,
+        "endYear": null,
+        "placeId": "place-israel",
+        "evidenceIds": [
+          "EVD-002"
+        ]
+      },
+      {
+        "id": "EVT-0009",
+        "recordId": "EVT-0009",
+        "type": "Event",
+        "date": "722 BCE",
+        "title": "Assyria conquers the kingdom of Israel",
+        "description": "The Assyrian empire conquered Samaria, the capital of the northern kingdom of Israel. Many people were taken to other parts of the Assyrian empire. Others stayed in the land.",
+        "status": "approved",
+        "startYear": -740,
+        "endYear": -720,
+        "placeId": "place-israel",
+        "meanwhile": "In Italy, legend says Romulus founds the city of Rome in 753 BCE.",
+        "meanwhileStatus": "approved",
+        "movementIds": [
+          "MOV-002"
+        ],
+        "mapSymbol": {
+          "text": "Red arrow (MOV-002)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0011",
+        "recordId": "EVT-0011",
+        "type": "Event",
+        "date": "701 BCE",
+        "title": "Assyria invades Judah and captures Lachish",
+        "description": "King Sennacherib of Assyria invaded Judah and captured the city of Lachish. Carvings in his palace show the siege. Jerusalem was not taken.",
+        "status": "approved",
+        "startYear": -701,
+        "endYear": -701,
+        "placeId": "place-lachish",
+        "meanwhile": "In Greece, people begin writing with an alphabet by about 750 BCE.",
+        "meanwhileStatus": "approved",
+        "movementIds": [
+          "MOV-003"
+        ],
+        "evidenceIds": [
+          "EVD-006"
+        ]
+      },
+      {
+        "id": "EVT-0010",
+        "recordId": "EVT-0010",
+        "type": "Archaeology",
+        "date": "c. 700 BCE",
+        "title": "Hezekiah's Tunnel",
+        "description": "Workers cut a long tunnel under Jerusalem to bring water from a spring into the city. An ancient inscription describes the two teams of diggers meeting in the middle.",
+        "status": "approved",
+        "startYear": -700,
+        "endYear": null,
+        "placeId": "place-j",
+        "evidenceIds": [
+          "EVD-004",
+          "EVD-005"
+        ]
+      },
+      {
+        "id": "EVT-0012",
+        "recordId": "EVT-0012",
+        "type": "Archaeology",
+        "date": "Late 7th–early 6th century BCE",
+        "title": "The Ketef Hinnom silver scrolls",
+        "description": "Two tiny silver scrolls found in a burial cave in Jerusalem hold words from the Priestly Blessing. They are among the oldest known texts of the Bible.",
+        "status": "approved",
+        "startYear": -600,
+        "endYear": null,
+        "placeId": "place-j",
+        "evidenceIds": [
+          "EVD-007"
+        ]
+      },
+      {
+        "id": "EVT-0013",
+        "recordId": "EVT-0013",
+        "type": "Movement",
+        "date": "597 BCE",
+        "title": "Babylon takes Judeans into exile",
+        "description": "The Babylonian army captured Jerusalem and took King Jehoiachin and many leading people to Babylonia.",
+        "status": "approved",
+        "startYear": -597,
+        "endYear": -597,
+        "placeId": "place-j",
+        "movementIds": [
+          "MOV-004"
+        ],
+        "evidenceIds": [
+          "EVD-008"
+        ],
+        "mapSymbol": {
+          "text": "Red arrow (MOV-004)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0015",
+        "recordId": "EVT-0015",
+        "type": "Community",
+        "date": "6th century BCE onward",
+        "title": "A Jewish community grows in Babylonia",
+        "description": "Judeans in Babylonia built homes, farmed and kept their traditions. Babylonia became a lasting center of Jewish life.",
+        "status": "approved",
+        "startYear": -597,
+        "endYear": null,
+        "placeId": "place-b",
+        "movementIds": [
+          "MOV-004"
+        ],
+        "mapSymbol": {
+          "text": "Blue presence",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0014",
+        "recordId": "EVT-0014",
+        "type": "Event",
+        "date": "586 BCE",
+        "title": "Babylon destroys Jerusalem and the First Temple",
+        "description": "After a long siege, the Babylonians burned Jerusalem and the First Temple. More Judeans were taken to Babylonia. Others stayed in Judah.",
+        "status": "approved",
+        "startYear": -586,
+        "endYear": -586,
+        "placeId": "place-j",
+        "meanwhile": "In the Greek city of Miletus, the thinker Thales predicts a solar eclipse in 585 BCE that stops a battle between the Lydians and Medes.",
+        "meanwhileStatus": "approved",
+        "movementIds": [
+          "MOV-005"
+        ],
+        "mapSymbol": {
+          "text": "Red arrow (MOV-005)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0016",
+        "recordId": "EVT-0016",
+        "type": "Event",
+        "date": "539 BCE",
+        "title": "Cyrus the Great lets the Jews return",
+        "description": "In 539 BCE, the Persian king Cyrus the Great issued the Edict of Cyrus allowing the Jews to return to Jerusalem and the Land of Judah, which was made a self-governing Jewish province under the new Persian Empire.",
+        "status": "approved",
+        "startYear": -539,
+        "endYear": -538,
+        "placeId": "place-b",
+        "meanwhile": "In China, Confucius, the famous teacher, is born in 551 BCE.",
+        "meanwhileStatus": "approved",
+        "movementIds": [
+          "MOV-006"
+        ],
+        "evidenceIds": [
+          "EVD-009"
+        ],
+        "mapSymbol": {
+          "text": "Blue arrow (MOV-006)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0017",
+        "recordId": "EVT-0017",
+        "type": "Event",
+        "date": "516 BCE",
+        "title": "Second Temple completed",
+        "description": "The Jews who returned from Babylonia rebuilt the Temple in Jerusalem. It was completed in 516 BCE and stood for nearly 600 years.",
+        "status": "approved",
+        "startYear": -516,
+        "endYear": null,
+        "placeId": "place-j",
+        "meanwhile": "In Greece, the city of Athens starts one of the first democracies in 508 BCE.",
+        "meanwhileStatus": "approved"
+      },
+      {
+        "id": "EVT-0018",
+        "recordId": "EVT-0018",
+        "type": "Community",
+        "date": "5th century BCE",
+        "title": "A Jewish community on Elephantine",
+        "description": "Letters on papyrus from Elephantine, an island in the Nile in southern Egypt, show a Jewish community with its own temple. They asked leaders in Jerusalem for help to rebuild it.",
+        "status": "approved",
+        "startYear": -495,
+        "endYear": -399,
+        "placeId": "place-e",
+        "evidenceIds": [
+          "EVD-010"
+        ],
+        "mapSymbol": {
+          "text": "Blue presence; no arrow",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0019",
+        "recordId": "EVT-0019",
+        "type": "Community",
+        "date": "c. 320 BCE",
+        "title": "Alexandria grows into a great Jewish center",
+        "description": "After Ptolemy I took power in Egypt, many Judeans came to live there. Alexandria became one of the largest Jewish communities in the world.",
+        "status": "approved",
+        "startYear": -320,
+        "endYear": -275,
+        "placeId": "place-alexNode",
+        "movementIds": [
+          "MOV-044"
+        ],
+        "mapSymbol": {
+          "text": "Blue, major",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0020",
+        "recordId": "EVT-0020",
+        "type": "Community",
+        "date": "Ptolemaic period",
+        "title": "Jews settle in Cyrenaica",
+        "description": "Under the Ptolemies, Jewish families settled in Cyrenaica, in what is now Libya, and a lasting community grew there.",
+        "status": "approved",
+        "startYear": -300,
+        "endYear": null,
+        "placeId": "place-cyreneNode",
+        "movementIds": [
+          "MOV-045"
+        ],
+        "mapSymbol": {
+          "text": "Blue presence",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0023",
+        "recordId": "EVT-0023",
+        "type": "Archaeology",
+        "date": "3rd century BCE – 1st century CE",
+        "title": "The Dead Sea Scrolls are written",
+        "description": "Over several centuries, Jews wrote and copied hundreds of scrolls. They include some of the oldest known copies of books of the Hebrew Bible.",
+        "status": "approved",
+        "startYear": -250,
+        "endYear": 68,
+        "placeId": "place-qumran",
+        "evidenceIds": [
+          "EVD-011",
+          "EVD-017"
+        ]
+      },
+      {
+        "id": "EVT-0021",
+        "recordId": "EVT-0021",
+        "type": "Movement",
+        "date": "c. 210 BCE",
+        "title": "Jewish families resettled in Asia Minor",
+        "description": "King Antiochus III moved Jewish families from Babylonia to Lydia and Phrygia in Asia Minor. The historian Josephus records the story.",
+        "status": "approved",
+        "startYear": -210,
+        "endYear": -205,
+        "placeId": "place-asiaNode",
+        "movementIds": [
+          "MOV-007"
+        ],
+        "mapSymbol": {
+          "text": "Arrow colour not stated",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0022",
+        "recordId": "EVT-0022",
+        "type": "Event",
+        "date": "167 BCE",
+        "title": "The Maccabees revolt",
+        "description": "Jews led by Judah Maccabee rose up against King Antiochus IV, who had banned Jewish practice. In 164 BCE they took back the Temple and rededicated it, the story told at Hanukkah.",
+        "status": "approved",
+        "startYear": -167,
+        "endYear": -164,
+        "placeId": "place-j",
+        "meanwhile": "In Egypt, priests honor their king with the decree that is carved on the Rosetta Stone in 196 BCE.",
+        "meanwhileStatus": "approved"
+      },
+      {
+        "id": "EVT-0024",
+        "recordId": "EVT-0024",
+        "type": "Community",
+        "date": "By c. 150 BCE",
+        "title": "Jews live in Rome",
+        "description": "Jews were living in Rome by about 150 BCE, long before Rome took control of Judea.",
+        "status": "approved",
+        "startYear": -150,
+        "endYear": null,
+        "placeId": "place-romeNode",
+        "mapSymbol": {
+          "text": "Blue presence",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0026",
+        "recordId": "EVT-0026",
+        "type": "Community",
+        "date": "Hellenistic and Roman periods",
+        "title": "Jews live on Cyprus",
+        "description": "Jewish communities lived on Cyprus during the Hellenistic and Roman periods.",
+        "status": "approved",
+        "startYear": -100,
+        "endYear": null,
+        "placeId": "place-cyprusNode",
+        "mapSymbol": {
+          "text": "Blue presence",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0025",
+        "recordId": "EVT-0025",
+        "type": "Movement",
+        "date": "63 BCE",
+        "title": "Rome takes control of Judea",
+        "description": "The Roman general Pompey captured Jerusalem. Judea came under Roman control, and some captives were taken to Rome.",
+        "status": "approved",
+        "startYear": -63,
+        "endYear": -62,
+        "placeId": "place-j",
+        "movementIds": [
+          "MOV-008"
+        ],
+        "mapSymbol": {
+          "text": "Red arrow (MOV-008)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0027",
+        "recordId": "EVT-0027",
+        "type": "Event",
+        "date": "70 CE",
+        "title": "Romans destroy Jerusalem and the Second Temple",
+        "description": "The historian Josephus tells how Roman forces destroyed Jerusalem and the Second Temple. Many Jews were killed, and survivors were enslaved. Jewish communities elsewhere in the land carried on.",
+        "status": "approved",
+        "startYear": 70,
+        "endYear": 70,
+        "placeId": "place-j",
+        "meanwhile": "In Italy, Mount Vesuvius erupts and buries the city of Pompeii in 79 CE.",
+        "meanwhileStatus": "approved",
+        "evidenceIds": [
+          "EVD-018"
+        ],
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "DES-002",
+        "recordId": "DES-002",
+        "type": "Event",
+        "date": "115 CE",
+        "title": "Alexandria's Jewish community devastated",
+        "description": "In 115 CE, Jews in Egypt and other Roman lands rose up against Roman rule. This is called the Diaspora Revolt. In Alexandria, attacks and the Roman crackdown killed many Jews and devastated the Jewish community.",
+        "status": "approved",
+        "startYear": 115,
+        "endYear": 117,
+        "placeId": "place-alexNode",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "DES-003",
+        "recordId": "DES-003",
+        "type": "Event",
+        "date": "115 CE",
+        "title": "Cyrenaica's Jewish communities devastated",
+        "description": "In 115 CE, Jews rose up against Roman rule in what is called the Diaspora Revolt. Rome crushed the revolt with mass killing, and the Jewish communities of Cyrenaica were devastated.",
+        "status": "approved",
+        "startYear": 115,
+        "endYear": 117,
+        "placeId": "place-cyreneNode",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "DES-004",
+        "recordId": "DES-004",
+        "type": "Event",
+        "date": "115 CE",
+        "title": "Cyprus's Jewish community destroyed and banned",
+        "description": "In 115 CE, Jews rose up against Roman rule in what is called the Diaspora Revolt, and the revolt spread to Cyprus. Jewish life on the island was devastated by killing. The Roman historian Cassius Dio reports that Jews were then banned from landing on Cyprus.",
+        "status": "approved",
+        "startYear": 115,
+        "endYear": 117,
+        "placeId": "place-cyprusNode",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0028",
+        "recordId": "EVT-0028",
+        "type": "Event",
+        "date": "115 CE",
+        "title": "Diaspora Revolt",
+        "description": "Beginning in Libya and spread to Egypt, Israel, Cyprus, and Babylon, forty-five years after the Temple's destruction and 15 years before the Bar Kokhba Revolt, Jews revolted against Roman Emperor Trajan contributing to Trajan's JewHate.",
+        "status": "approved",
+        "startYear": 115,
+        "endYear": 117,
+        "placeId": "place-alexNode",
+        "meanwhile": "In Britain, the Romans begin building Hadrian's Wall in 122 CE to guard the edge of their empire.",
+        "meanwhileStatus": "approved",
+        "mapSymbol": {
+          "text": "Red octagon x3",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0029",
+        "recordId": "EVT-0029",
+        "type": "Event",
+        "date": "132 CE",
+        "title": "The Bar Kokhba revolt",
+        "description": "Jews led by Shimon bar Kokhba rose up against Rome in Judea. Rome crushed the revolt in 135 CE and Judea suffered terribly. Jewish life continued, and the Galilee became its center.",
+        "status": "approved",
+        "startYear": 132,
+        "endYear": 135,
+        "placeId": "place-j",
+        "meanwhile": "In China, Zhang Heng builds a bronze earthquake detector in 132 CE.",
+        "meanwhileStatus": "approved"
+      },
+      {
+        "id": "EVT-0030",
+        "recordId": "EVT-0030",
+        "type": "Event",
+        "date": "c. 200 CE",
+        "title": "The Mishnah is written down",
+        "description": "In the Galilee, Rabbi Judah the Prince gathered Jewish oral teachings into a written book, the Mishnah.",
+        "status": "approved",
+        "startYear": 200,
+        "endYear": null,
+        "placeId": "place-galilee",
+        "meanwhile": "In China, the Han dynasty, which ruled for about 400 years, ends in 220 CE.",
+        "meanwhileStatus": "approved"
+      }
+    ]
+  },
+  "cardLinks": {
+    "exodus": "EVT-0002",
+    "assyria": "EVT-0009",
+    "assyria2": "EVT-0009",
+    "assyria3": "EVT-0009",
+    "d": "EVT-0013",
+    "r": "EVT-0016",
+    "asiaMovement": "EVT-0021",
+    "romeMovement": "EVT-0025",
+    "egyptMovement": "EVT-0019",
+    "cyreneMovement": "EVT-0020",
+    "lachish": "EVT-0011",
+    "destruction-jerusalem70": "EVT-0027",
+    "destruction-alexandria117": "DES-002",
+    "destruction-cyrene117": "DES-003",
+    "destruction-cyprus117": "DES-004",
+    "e": "EVT-0018",
+    "alexNode": "EVT-0019",
+    "cyreneNode": "EVT-0020",
+    "romeNode": "EVT-0024",
+    "cyprusNode": "EVT-0026",
+    "b": "EVT-0015"
+  },
+  "cardLinksNote": "Maps an engine map object (arrow, community, symbol) to the Sheet card shown when it is clicked. Movement links follow the Sheet Movements tab (eventId) and the Oct 5 Place ID mapping; the rest are matched by place and title. Objects not listed open their own engine text. Review with the dataset chat."
 }

@@ -8,18 +8,25 @@ Headless-browser checks for the globe (Playwright + Chromium). Run from the repo
     NODE_PATH=$(npm root -g) node tests/sym.js     # symbols, revolt timing, key, sources
     NODE_PATH=$(npm root -g) node tests/pause.js   # Play / Pause on touch devices, icon shapes
     NODE_PATH=$(npm root -g) node tests/follow.js  # Previous / Next turn the globe to the card's place
+    NODE_PATH=$(npm root -g) node tests/links.js   # clicking a map object opens its Sheet card (data.cardLinks)
+
+    python3 tests/load.py                          # Sheet loader (tools/sheet-to-history.py); needs: pip install openpyxl
+
+load.py builds a tiny workbook with planted internal text and checks: only public fields reach history.json, drafts load in preview and
+are dropped by --public, a re-run of the same export changes nothing, an edit touches only its own record, bad records are rejected with a
+reason (never silently fixed). It does not need the real Sheet. Loading the real Sheet: see the header of tools/sheet-to-history.py.
 
 Set SITE=... to test another address. Screenshots go to tests/out/reg/ (not committed).
 
 What a passing run looks like (Oct 2, 2026, commit 19e63bc):
-- reg.js: validate "0 issues"; sweep 1501 years, 0 mismatches; endpoints [-1300, 200];
-  36 cards, kinds only Event / Community / Movement, bad []; no page errors
+- reg.js: validate "0 issues"; sweep 2201 years, 0 mismatches; endpoints [-2000, 200];
+  33 cards (the Sheet's cards, from data/history.json "sheet"; add ?engine=1 to see the old 30-card engine list), kinds Event / Community / Movement / Archaeology, bad []; no page errors
   (Google Fonts may fail to load in a sandbox; that is the network, not the site);
   iPhone / iPad portrait / iPad landscape: no errors, no sideways scroll.
 - lay.js: iPhone and iPad portrait: pageScrolls false, titleVisible true; no errors.
 - sym.js: symbols 0 at 69 CE, 1 at 70-114 CE, 4 from 115 CE; Hidabroot source listed.
 - pause.js: every device ends labelled Play, stopped: true, and the Play and Pause icons are drawn shapes of the same colour and height (no text characters).
-- follow.js: every reachable card's place is on the front of the globe and on screen after Next, the user's zoom is kept unless the place cannot fit, Previous works, and touching the globe cancels a turn.
+- follow.js: Next visits all 33 cards once in order and Previous walks back; every card's place is on the front of the globe and on screen after Next, the user's zoom is kept unless the place cannot fit, Previous works, and touching the globe cancels a turn.
 
 Always also look at the screenshots: the checks cannot judge appearance.
 

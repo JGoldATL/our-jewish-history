@@ -3,15 +3,15 @@ const {chromium,devices}=require('playwright');const S=process.argv[2]||'tests/o
 const p=await b.newPage({viewport:{width:1440,height:900}});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error')errs.push(m.text())});p.on('requestfailed',r=>errs.push('FAIL '+r.url()));
 await p.goto(''+(process.env.SITE||'http://localhost:8778/')+'');await p.waitForTimeout(2500);
 out.validate=await p.evaluate(()=>{try{const r=validateHistory(DATA);return Array.isArray(r)?r.length+' issues':JSON.stringify(r).slice(0,200)}catch(e){return 'ERR '+e.message}});
-// 1501 integer-year sweep: engine says visible vs drawn
-out.sweep=await p.evaluate(()=>{dismissPrompt();let miss=[],years=0;for(let y=-1300;y<=200;y++){setYearExact(y);years++;const f=computeFrame(y);
+// 2201 integer-year sweep: engine says visible vs drawn
+out.sweep=await p.evaluate(()=>{dismissPrompt();let miss=[],years=0;for(let y=-2000;y<=200;y++){setYearExact(y);years++;const f=computeFrame(y);
  const wantM=f.movements.filter(m=>m.visible&&m.opacity>.01).length,gotM=document.querySelectorAll('#lRoute .route').length;
  const wantE=f.events.filter(e=>e.opacity>.02).length,gotE=document.querySelectorAll('#lMark .event').length;
  if(wantM!==gotM||wantE!==gotE)miss.push([y,wantM,gotM,wantE,gotE]);}return {years,mismatches:miss.length,sample:miss.slice(0,12)}});
 // endpoints
 out.endpoints=await p.evaluate(()=>{setPos(0);const a=Math.round(currentYear());setPos(1);const z=Math.round(currentYear());return [a,z]});
 // cards: all milestone types, wording rules
-out.cards=await p.evaluate(()=>{const kinds={},bad=[];for(const m of milestones){fillStory(m.record,m.type,true);const k=$('storyKicker').textContent;kinds[k]=(kinds[k]||0)+1;const t=$('story').innerText;if(/source|debated|related|still here/i.test(t))bad.push(m.record.id);if(!['Event','Community','Movement','Archaeology'].includes(k))bad.push('kind:'+k);}return {count:milestones.length,kinds,bad}});
+out.cards=await p.evaluate(()=>{const kinds={},bad=[];for(const m of milestones){fillStory(m.record,m.type,true);const k=$('storyKicker').textContent.replace(/ · Draft$/,'');kinds[k]=(kinds[k]||0)+1;const t=$('story').innerText;if(/source|debated|related|still here/i.test(t))bad.push(m.record.id);if(!['Event','Community','Movement','Archaeology'].includes(k))bad.push('kind:'+k);}return {count:milestones.length,kinds,bad}});
 // date checks + screenshots
 for(const y of [-1208,-722,-586,-500,-63,200]){await p.evaluate(y=>{closeStory();setYearExact(y)},y);await p.waitForTimeout(300);await p.screenshot({path:`${S}/reg/d${y}.png`});}
 // playback

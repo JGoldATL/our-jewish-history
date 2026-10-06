@@ -101,16 +101,29 @@ function ribbon(pts,tail,neck,headLen,headHalf){
 }
 
 /* ---------- timeline (same nonlinear weighting as Alpha 1.13) ---------- */
-let years=[],positions=[],position=0,milestones=[];
+let years=[],positions=[],position=0,milestones=[],GROUPS=new Map();
 function buildTimeline(){const cfg=DATA.timeline;let dist=0;years=[];positions=[];const dates=[...DATA.populations.flatMap(p=>(p.states||[]).map(s=>s.date)),...DATA.populationChanges.map(c=>c.startDate),...DATA.historicalEvents.map(e=>e.dateRange.start)];
   const movers=DATA.movements.filter(m=>canRenderMovement(m));
-  for(let y=cfg.start;y<=cfg.end;y++){years.push(y);positions.push(dist);const move=Math.max(0,...movers.map(m=>fw(y,...movementWindow(m))));const change=Math.max(0,...dates.map(d=>Math.max(0,1-Math.abs(y-d)/cfg.changeRadius)));dist+=cfg.quietWeight+cfg.movementWeight*move+cfg.changeWeight*change;}
+  for(let y=cfg.start;y<=cfg.end;y++){years.push(y);positions.push(dist);const move=Math.max(0,...movers.map(m=>fw(y,...movementWindow(m))));const change=Math.max(0,...dates.map(d=>Math.max(0,1-Math.abs(y-d)/cfg.changeRadius)));dist+=(cfg.earlyUntil!=null&&y<cfg.earlyUntil?cfg.earlyQuietWeight:cfg.quietWeight)+cfg.movementWeight*move+cfg.changeWeight*change;}
   const tot=positions.at(-1);positions=positions.map(p=>p/tot);}
 const posForYear=y=>positions[Math.max(0,Math.min(years.length-1,Math.round(y)-DATA.timeline.start))];
 function yearAt(pos){pos=Math.max(0,Math.min(1,pos));let lo=0,hi=positions.length-1;while(lo<hi){const m=(lo+hi)>>1;if(positions[m]<pos)lo=m+1;else hi=m;}if(lo===0)return years[0];const a=positions[lo-1],b=positions[lo];return years[lo-1]+(pos-a)/(b-a||1);}
-function buildMilestones(){milestones=[];const add=(col,type)=>{for(const r of col){const date=type==='movement'?(r.dateRange?.start??r.rendering?.window?.[1]):type==='event'?r.dateRange?.start:r.startDate;if(Number.isFinite(date)&&date>=DATA.timeline.start&&date<=DATA.timeline.end)milestones.push({record:r,type,date});}};
+// Cards come from the master Sheet (data/history.json "sheet" section: every card the loader kept, in Sheet order within a year).
+// The engine records still draw the map (communities, arrows, symbols); they no longer decide which cards exist. Add ?engine=1 to the address to see the old engine card list.
+let SHEETPLACES=new Map();
+function sheetCardMilestones(){const sc=DATA.sheet?.cards;if(!sc?.length||/[?&]engine=1/.test(location.search))return null;
+  SHEETPLACES=new Map((DATA.sheet.places||[]).map(p=>[p.id,p]));
+  // A card dated before the timeline begins (Abraham, c. 2000 BCE) is placed at the first year of the timeline; its own date still shows on the card.
+  return sc.map(c=>({record:c,type:'sheet',date:Math.max(DATA.timeline.start,Math.round(c.startYear))})).filter(m=>Number.isFinite(m.date)&&m.date<=DATA.timeline.end).sort((a,b)=>a.date-b.date);}
+function buildMilestones(){milestones=[];GROUPS=new Map();const fromSheet=sheetCardMilestones();if(fromSheet){milestones=fromSheet;return;}const add=(col,type)=>{for(const r of col){const date=type==='movement'?(r.dateRange?.start??r.rendering?.window?.[1]):type==='event'?r.dateRange?.start:r.startDate;if(Number.isFinite(date)&&date>=DATA.timeline.start&&date<=DATA.timeline.end)milestones.push({record:r,type,date});}};
   add(DATA.populations,'population');add(DATA.movements,'movement');add(DATA.historicalEvents,'event');add(DATA.communityDestructions,'destruction');add(DATA.populationChanges,'change');milestones.sort((a,b)=>a.date-b.date);
+  // One card per event. (1) Branches of one event (same title and date, e.g. the three Assyrian routes) share a single card; the card shows all branches.
+  // (2) A destruction card replaces the community-change card about the same event (same title): destruction, murder and exile come first.
+  GROUPS=new Map();const destroyed=new Set(milestones.filter(m=>m.type==='destruction').map(m=>m.record.title)),first=new Map();
+  milestones=milestones.filter(m=>{if(m.type==='change'&&destroyed.has(m.record.title))return false;
+    if(m.type==='movement'){const k=m.date+'|'+m.record.title,f=first.get(k);if(f){GROUPS.get(f.record).push(m.record);GROUPS.set(m.record,GROUPS.get(f.record));return false;}first.set(k,m);GROUPS.set(m.record,[m.record]);}return true;});
 }
+const sameCard=(r,q)=>!!r&&!!q&&(r===q||(GROUPS.get(r)||[]).includes(q));
 
 /* ---------- state ---------- */
 let trails=false,tour=null,selected=null,promptOpen=true,lastAutoIdx=-1;
@@ -136,7 +149,7 @@ function drawArcStatic(){
   el('path',{d:arcD(0,1),class:'arcHalo'},g);el('path',{d:arcD(0,1),class:'arcTrack'},g);el('path',{d:arcD(0,1),class:'arcHit',id:'arcHit'},g);
   const seen=new Set();
   milestones.forEach((m,i)=>{if(seen.has(m.date))return;seen.add(m.date);const [x,y]=arcPt(posForYear(m.date));const c=el('circle',{cx:x,cy:y,r:3,class:'notch'},g);c.dataset.i=i;});
-  const placed=[];for(const yr of [-1300,-1208,-722,-586,-539,-332,-205,-63,70,117,200]){const pos=posForYear(yr),[x,y]=arcPt(pos,ARC.narrow?16:22),a=arcAngle(pos);if(x<44||x>ARC.w-44)continue;if(placed.some(([px,py])=>Math.hypot(px-x,py-y)<46)&&yr!==200&&yr!==-1300)continue;if(yr!==200&&Math.hypot(x-arcPt(1,22)[0],y-arcPt(1,22)[1])<46)continue;placed.push([x,y]);const t=el('text',{x,y,class:'tick','text-anchor':Math.cos(a)<-0.3?'end':Math.cos(a)>0.3?'start':'middle','dominant-baseline':Math.sin(a)>0.5?'hanging':'middle'},g);t.textContent=yearLabel(yr).replace(' / 1 CE','');const bb=t.getBBox();if(bb.x<4)t.setAttribute('x',x+4-bb.x);else if(bb.x+bb.width>ARC.w-4)t.setAttribute('x',x-(bb.x+bb.width-ARC.w+4));}
+  const placed=[];for(const yr of [-2000,-1300,-1208,-722,-586,-539,-332,-205,-63,70,117,200]){const pos=posForYear(yr),[x,y]=arcPt(pos,ARC.narrow?16:22),a=arcAngle(pos);if(x<44||x>ARC.w-44)continue;if(placed.some(([px,py])=>Math.hypot(px-x,py-y)<46)&&yr!==200&&yr!==-1300)continue;if(yr!==200&&Math.hypot(x-arcPt(1,22)[0],y-arcPt(1,22)[1])<46)continue;placed.push([x,y]);const t=el('text',{x,y,class:'tick','text-anchor':Math.cos(a)<-0.3?'end':Math.cos(a)>0.3?'start':'middle','dominant-baseline':Math.sin(a)>0.5?'hanging':'middle'},g);t.textContent=yearLabel(yr).replace(' / 1 CE','');const bb=t.getBBox();if(bb.x<4)t.setAttribute('x',x+4-bb.x);else if(bb.x+bb.width>ARC.w-4)t.setAttribute('x',x-(bb.x+bb.width-ARC.w+4));}
 }
 function drawArcLive(){const g=$('arcLive');g.replaceChildren();el('path',{d:arcD(0,Math.max(0.0001,position)),class:'arcFill'},g);const [x,y]=arcPt(position);el('circle',{cx:x,cy:y,r:11,class:'bead'},g);const s=$('arcSlider');s.setAttribute('aria-valuenow',Math.round(currentYear()));s.setAttribute('aria-valuetext',yearLabel(Math.round(currentYear())));}
 function posFromPointer(e){const r=$('arc').getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let a=Math.atan2(y-ARC.cy,x-ARC.cx);if(a<-Math.PI/2)a+=2*Math.PI;const p=(a-ARC.a0)/(ARC.a1-ARC.a0);return Math.max(0,Math.min(1,p));}
@@ -171,7 +184,7 @@ function render(){
   const labels=[];drawGeo(layers.geo);
   for(const st of frame.populations){const p=DATA.populations.find(r=>r.id===st.id);if(!st.visible||st.intensity<=0.01)continue;
     if(p.geographicFootprint){const pts=parseFootprint(p.geographicFootprint).map(P);if(pts.some(q=>q.vis)){const a=Math.min(.95,st.intensity*1.15)*(st.uncertain?.6:1);wctx.save();wctx.shadowColor=`rgba(0,0,0,${a.toFixed(3)})`;wctx.shadowBlur=washBlur*2;wctx.shadowOffsetX=20000;wctx.beginPath();pts.forEach((q,i)=>{const x=q.x*WS-20000,y=q.y*WS;i?wctx.lineTo(x,y):wctx.moveTo(x,y);});wctx.closePath();wctx.fillStyle='#000';wctx.fill();wctx.restore();}}
-    const r=p.rendering||{};if(r.node&&st.nodeOpacity>0.05&&p.coordinates){const q=P(p.coordinates);if(!q.vis)continue;const isSel=selected&&(selected.record===p||selected.record.populationId===p.id||(selected.type==='movement'&&[selected.record.origin,selected.record.destination].includes(p.place)));const g=el('g',{class:'anchor'+(st.uncertain?' uncertain':'')+(isSel?' selected':''),transform:`translate(${q.x.toFixed(1)} ${q.y.toFixed(1)})`,opacity:Math.max(.35,st.nodeOpacity).toFixed(2),tabindex:0,role:'button','aria-label':p.title},layers.mark);if(r.ring)el('circle',{r:9*Math.max(.8,scale),class:'ring'},g);el('circle',{r:4.6*Math.max(.8,scale),class:'dot'},g);g.addEventListener('click',()=>{if(!dragMoved)openStory(p,'population');});g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openStory(p,'population');}});
+    const r=p.rendering||{};if(r.node&&st.nodeOpacity>0.05&&p.coordinates){const q=P(p.coordinates);if(!q.vis)continue;const isSel=selected&&(isCardOf(p)||selected.record===p||selected.record.populationId===p.id||(selected.type==='movement'&&[selected.record.origin,selected.record.destination].includes(p.place)));const g=el('g',{class:'anchor'+(st.uncertain?' uncertain':'')+(isSel?' selected':''),transform:`translate(${q.x.toFixed(1)} ${q.y.toFixed(1)})`,opacity:Math.max(.35,st.nodeOpacity).toFixed(2),tabindex:0,role:'button','aria-label':p.title},layers.mark);if(r.ring)el('circle',{r:9*Math.max(.8,scale),class:'ring'},g);el('circle',{r:4.6*Math.max(.8,scale),class:'dot'},g);g.addEventListener('click',()=>{if(!dragMoved)openStory(p,'population');});g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openStory(p,'population');}});
       if(r.label&&st.nodeOpacity>.08)labels.push({text:r.label,x:q.x,y:q.y,side:r.labelSide||'right',prio:['j','b','alexNode','israel'].includes(p.id)?2:1,record:p});}
   }
   // movement routes
@@ -183,13 +196,13 @@ function render(){
     if(traditional){el('path',{d,class:'routeTrad'},g);}
     else{const [c1,c2]=COLORS[fm.color]||COLORS['#6d6256'];const gid='rg-'+m.id;const lg=el('linearGradient',{id:gid,class:'dyn',x1:0,y1:0,x2:0,y2:1},defs);el('stop',{offset:0,'stop-color':c1},lg);el('stop',{offset:1,'stop-color':c2},lg);
       el('path',{d,class:'routeShadow',transform:`translate(${2*scale} ${3.5*scale})`},g);el('path',{d,fill:`url(#${gid})`,class:'routeBody'},g);}
-    if(selected?.record===m)g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(m,'movement');});g.addEventListener('keydown',e=>{if(e.key==='Enter'){openStory(m,'movement');}});}
+    if(sameCard(selected?.record,m)||isCardOf(m))g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(m,'movement');});g.addEventListener('keydown',e=>{if(e.key==='Enter'){openStory(m,'movement');}});}
   // historical events (e.g. Lachish)
   for(const fe of frame.events){if(fe.opacity<=.02)continue;const e=DATA.historicalEvents.find(r=>r.id===fe.id);const pl=INDEX.places.get(e.place);const q=P(pl?.coordinates||e.rendering.position);if(!q.vis)continue;const g=el('g',{class:'event',transform:`translate(${q.x} ${q.y})`,opacity:fe.opacity.toFixed(2),tabindex:0,role:'button','aria-label':e.title},layers.mark);el('rect',{x:-5,y:-5,width:10,height:10,transform:'rotate(45)',class:'eventMark'},g);g.addEventListener('click',()=>{if(!dragMoved)openStory(e,'event');});if(e.rendering?.label)labels.push({text:e.rendering.label,x:q.x,y:q.y,side:'below',prio:0,record:e});}
   // community symbols: anchored at the community's own place
   const symSize=Math.max(30,40*scale),obstacles=[];
   for(const fd of frame.destructions){const c=DATA.communityDestructions.find(r=>r.id===fd.id),past=trails&&c.startDate<=y;if(!fd.visible&&!past)continue;const pop=DATA.populations.find(p=>p.id===c.populationId);const q=P(pop?.coordinates||INDEX.places.get(c.place).coordinates);if(!q.vis)continue;
-    const g=communitySymbol(layers.mark,'destroyed',symSize);const sx=q.x+symSize*.62,sy=q.y-symSize*.62;obstacles.push({x:sx-symSize/2,y:sy-symSize/2,w:symSize,h:symSize});g.setAttribute('transform',`translate(${sx.toFixed(1)} ${sy.toFixed(1)})`);g.setAttribute('opacity',fd.visible?1:.5);g.setAttribute('tabindex',0);g.setAttribute('role','button');g.setAttribute('aria-label',c.title);if(selected?.record===c)g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(c,'destruction');});}
+    const g=communitySymbol(layers.mark,'destroyed',symSize);const sx=q.x+symSize*.62,sy=q.y-symSize*.62;obstacles.push({x:sx-symSize/2,y:sy-symSize/2,w:symSize,h:symSize});g.setAttribute('transform',`translate(${sx.toFixed(1)} ${sy.toFixed(1)})`);g.setAttribute('opacity',fd.visible?1:.5);g.setAttribute('tabindex',0);g.setAttribute('role','button');g.setAttribute('aria-label',c.title);if(selected?.record===c||isCardOf(c))g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(c,'destruction');});}
   for(const c of DATA.populationChanges){if(!canRenderConversion(c))continue;const vis=activeAt(c,y),past=trails&&c.startDate<=y;if(!vis&&!past)continue;const pop=DATA.populations.find(p=>p.id===c.populationId);const q=P(pop.coordinates);if(!q.vis)continue;const g=communitySymbol(layers.mark,'converted',symSize,c);g.setAttribute('transform',`translate(${(q.x+symSize*.62).toFixed(1)} ${(q.y-symSize*.62).toFixed(1)})`);g.setAttribute('opacity',vis?1:.5);g.addEventListener('click',()=>openStory(c,'change'));}
   drawGlobe();
   const boxes=placeLabels(labels,layers.label,scale,obstacles);for(const l of geoLabels()){const fs=l.kind==='waterLabel'?13:11,w=l.text.length*fs*(l.kind==='waterLabel'?0.55:0.78),h=fs*1.2,b={x:l.x-w/2,y:l.y-h,w,h};if(boxes.some(o=>b.x<o.x+o.w&&b.x+b.w>o.x&&b.y<o.y+o.h&&b.y+b.h>o.y))continue;boxes.push(b);const t=el('text',{x:l.x.toFixed(1),y:l.y.toFixed(1),'text-anchor':'middle',class:l.kind==='waterLabel'?'seaName':'regionName'},layers.label);t.textContent=l.kind==='waterLabel'?l.text:l.text.toUpperCase();}
@@ -210,9 +223,11 @@ function placeLabels(list,parent,scale,obstacles=[]){const boxes=[...obstacles];
 function lastMilestoneIdx(y){let idx=-1;for(let i=0;i<milestones.length;i++)if(milestones[i].date<=y)idx=i;return idx;}
 
 /* ---------- story ---------- */
-function openStory(record,type){stopTour();dismissPrompt();selected={record,type};fillStory(record,type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
-function fillStory(record,type,user){const kind={movement:'Movement',population:'Community',change:'Community',destruction:'Event',event:'Event'}[type]||'';
-  $('storyKicker').textContent=kind;$('storyDate').textContent=record.date||'';$('storyTitle').textContent=record.title||record.historicalPlaceName||'';$('storyText').textContent=record.story||'';
+// An engine map object that has a Sheet card (DATA.cardLinks) opens that card; the object lights up while its card is open.
+const isCardOf=r=>selected?.type==='sheet'&&DATA.cardLinks?.[r.id]===selected.record.id;
+function openStory(record,type){if(type!=='sheet'&&milestones[0]?.type==='sheet'){const cid=DATA.cardLinks?.[record.id],m=cid&&milestones.find(x=>x.record.id===cid);if(m){record=m.record;type='sheet';}}stopTour();dismissPrompt();selected={record,type};fillStory(record,type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
+function fillStory(record,type,user){const kind=type==='sheet'?record.type:{movement:'Movement',population:'Community',change:'Community',destruction:'Event',event:'Event'}[type]||'';
+  $('storyKicker').textContent=kind+(type==='sheet'&&record.status==='draft'?' · Draft':'');$('storyDate').textContent=record.date||'';$('storyTitle').textContent=record.title||record.historicalPlaceName||'';$('storyText').textContent=type==='sheet'?record.description||'':record.story||'';
   const mw=kind==='Event'&&record.meanwhile;$('storyMeanwhile').hidden=!mw;$('storyMeanwhileText').textContent=mw?' '+record.meanwhile:'';
   $('closeStory').hidden=!user;$('story').classList.toggle('pinned',!!user);}
 function openSources(){const list=$('allSources');if(!list.childElementCount){for(const src of [...DATA.sources].sort((a,b)=>(a.title||'').localeCompare(b.title||''))){const row=document.createElement('li');const a=document.createElement(src.url?'a':'span');if(src.url){a.href=src.url;a.target='_blank';a.rel='noopener';}a.textContent=src.title||src.id;row.appendChild(a);if(src.supports){const sm=document.createElement('small');sm.textContent=src.supports;row.appendChild(sm);}list.appendChild(row);}}$('sourcesDlg').hidden=false;$('sourcesClose').focus();}
@@ -234,16 +249,17 @@ function setPlayUI(playing){$('playIco').setAttribute('d',playing?ICO_PAUSE:ICO_
 let turnAnim=null;
 function cancelTurn(){if(turnAnim!=null)cancelAnimationFrame(turnAnim);turnAnim=null;}
 function recordPlaces(record,type){const pl=id=>INDEX.places.get(id)?.coordinates;
-  if(type==='movement')return [record.originCoordinates||pl(record.origin),record.destinationCoordinates||pl(record.destination)].filter(Boolean);
+  if(type==='movement'){const g=GROUPS.get(record)||[record];return [g[0].originCoordinates||pl(g[0].origin),...g.map(r=>r.destinationCoordinates||pl(r.destination))].filter(Boolean);}
   if(type==='event')return [pl(record.place)||record.rendering?.position].filter(Boolean);
   const pop=DATA.populations.find(p=>p.id===(type==='population'?record.id:record.populationId));
   return [type==='population'?record.coordinates||pl(record.place):pop?.coordinates||pl(pop?.place)||pl(record.place)].filter(Boolean);}
 function meanLonLat(pts){let x=0,y=0,z=0;for(const [lo,la] of pts){const a=lo*D2R,b=la*D2R;x+=Math.cos(b)*Math.cos(a);y+=Math.cos(b)*Math.sin(a);z+=Math.sin(b);}return [Math.atan2(y,x)/D2R,Math.atan2(z,Math.hypot(x,y))/D2R];}
 function placesFit(pts,s){const keep={lon:view.lon,lat:view.lat,zoom:view.zoom,R:view.R,deg:view.deg};Object.assign(view,{lon:s.lon,lat:s.lat,zoom:s.zoom,R:view.baseR*s.zoom,deg:s.deg});
   const st=$('stage'),w=st.clientWidth,h=st.clientHeight,m=Math.min(44,w*.08);const ok=pts.every(([lo,la])=>{const q=project(lo,la);return q.vis&&q.depth<1&&q.x>=m&&q.x<=w-m&&q.y>=m&&q.y<=h-m;});Object.assign(view,keep);return ok;}
+function recordLonLats(record,type){if(type==='sheet'){const p=SHEETPLACES.get(record.placeId);return p&&Number.isFinite(p.lat)&&Number.isFinite(p.lon)?[[p.lon,p.lat]]:[];}return recordPlaces(record,type).map(svgToLonLat);}
 function turnToRecord(record,type){
   if(!view.manual)return;                       // the story camera is still in charge and already follows the story
-  const pts=recordPlaces(record,type).map(svgToLonLat);if(!pts.length)return;
+  const pts=recordLonLats(record,type);if(!pts.length)return;
   const [lon,lat]=pts.length>1?meanLonLat(pts):pts[0];const to={lon,lat:Math.max(-70,Math.min(80,lat)),zoom:view.zoom,deg:view.deg};
   if(!placesFit(pts,to)){while(to.zoom>ZMIN+.01&&!placesFit(pts,to))to.zoom=Math.max(ZMIN,to.zoom*.9);   // first zoom out to the default,
     while(to.deg<45&&!placesFit(pts,to))to.deg=Math.min(45,to.deg*1.12);}                                // then show more of the globe
@@ -291,7 +307,10 @@ function initInteraction(){
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('sourcesDlg').hidden){$('sourcesDlg').hidden=true;return;}if(!$('key').hidden){$('key').hidden=true;return;}if(promptOpen){dismissPrompt();return;}if(selected)closeStory();}});
   window.addEventListener('resize',()=>requestAnimationFrame(layout));
 }
-function step(dir){const y=Math.round(currentYear());let i=lastMilestoneIdx(y);if(dir>0){i=milestones.findIndex(m=>m.date>y);if(i<0)return;}else{while(i>=0&&milestones[i].date>=y)i--;if(i<0)return;}selectMilestone(i);}
+function step(dir){const y=Math.round(currentYear());let i=selected?milestones.findIndex(m=>m.type===selected.type&&sameCard(m.record,selected.record)):-1;   // from the open card, go to the next / previous card (cards that share a year are all reached)
+  if(i<0){i=lastMilestoneIdx(y);if(dir>0){i=milestones.findIndex(m=>m.date>y);if(i<0)return;}else{while(i>=0&&milestones[i].date>=y)i--;if(i<0)return;}}
+  else{i+=dir;if(i<0||i>=milestones.length)return;}
+  selectMilestone(i);}
 function selectMilestone(i){const m=milestones[i];if(!m)return;stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();turnToRecord(m.record,m.type);if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
 
 /* ---------- boot ---------- */
