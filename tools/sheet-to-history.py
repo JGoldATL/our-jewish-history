@@ -97,6 +97,14 @@ ERA_TABS = {
                          status='Status'),
     'Era Assignment': dict(id='Record ID', era='Era (recommended boundaries)', runsPast='Runs past era end?'),
 }
+# Quiz questions ("When in the World?", master v0.2.3). The tab is optional as a whole; a present tab must carry every expected
+# column. The Notes column is never read, so it can never reach the public file.
+QUESTION_COLS = dict(id='Q-ID', status='Status', mode='Core or Random', era='Era', style='Style', place='Place', lat='Lat', lon='Lon',
+                     question='Question', a='Choice A', b='Choice B', c='Choice C', d='Choice D', e='Choice E', correct='Correct',
+                     quick='Quick take', deep='Deep dive', jewishEvent='Jewish event', jewishYear='Jewish year',
+                     worldAnchor='World anchor', worldYear='World year')
+QUESTION_ERAS = ('Biblical era', 'Second Temple & Rome', 'Medieval & Modern')
+ORDER_STYLE = 'put these in order'
 # Camera zoom rule (approved by Jeffrey Oct 6, 2026). The Sheet has no zoom numbers, only a centre Place and the Places that
 # must stay on screen. half-width (degrees of arc, the engine's own unit) = distance from the centre to the farthest frame
 # place x 1.15, never below a floor set by the centre's Role (settlement 12, region 24), clamped to the engine's 10..45.
@@ -265,6 +273,66 @@ def build_eras(wb, places, all_ids, rep):
             rep.warn('Era Assignment', rid, r['_row'], 'record ID is not in the Sheet tabs this loader reads')
         assign.append({'id': rid, 'era': int(m.group(1)) if m else None, 'runsPast': r.get('runsPast')})
     return eras, stops, assign
+
+
+def build_questions(wb, rep):
+    """Questions tab -> list of quiz questions, or None when the export has no such tab. Bad rows are rejected with a reason."""
+    rows = read_optional_tab(wb, 'Questions', QUESTION_COLS)
+    if rows is None:
+        rep.warn('Questions', '-', 0, 'tab "Questions" is not in this export; no quiz questions loaded')
+        return None
+    out, seen = [], set()
+    for r in rows:
+        qid = str(r.get('id') or '').strip()
+        bad = lambda why: rep.reject('Questions', qid or '(no id)', r['_row'], why)
+        if not re.fullmatch(r'Q\d{3,}', qid):
+            bad('Q-ID is not like Q001'); continue
+        if qid in seen:
+            bad('duplicate Q-ID'); continue
+        st = str(r.get('status') or '').strip().lower()
+        if st not in ('approved', 'draft'):
+            bad(f'status {r.get("status")!r} is not Approved or Draft'); continue
+        mode = str(r.get('mode') or '').strip().lower()
+        if mode not in ('core', 'random'):
+            bad(f'Core or Random is {r.get("mode")!r}'); continue
+        if r.get('era') not in QUESTION_ERAS:
+            bad(f'era {r.get("era")!r} is not one of {list(QUESTION_ERAS)}'); continue
+        for k, name in (('style', 'Style'), ('place', 'Place'), ('question', 'Question'), ('quick', 'Quick take'),
+                        ('jewishEvent', 'Jewish event'), ('worldAnchor', 'World anchor')):
+            if not str(r.get(k) or '').strip():
+                bad(f'{name} is empty'); break
+        else:
+            lat, lon, jy, wy = num(r.get('lat')), num(r.get('lon')), num(r.get('jewishYear')), num(r.get('worldYear'))
+            if lat is None or lon is None or not (-90 <= lat <= 90 and -180 <= lon <= 180):
+                bad(f'Lat/Lon are not valid coordinates: {r.get("lat")!r}, {r.get("lon")!r}'); continue
+            if jy is None or wy is None:
+                bad(f'Jewish year or World year is not a number: {r.get("jewishYear")!r}, {r.get("worldYear")!r}'); continue
+            choices = [str(r[k]).strip() for k in 'abcde' if r.get(k) not in (None, '')]
+            order = str(r.get('style')).strip().lower() == ORDER_STYLE
+            corr = str(r.get('correct') or '').strip()
+            if order:
+                if corr.lower() != 'in listed order':
+                    bad(f'a "Put these in order" question needs Correct = "In listed order", not {corr!r}'); continue
+                if len(choices) < 3:
+                    bad('a "Put these in order" question needs at least 3 items'); continue
+                correct = 'order'
+            else:
+                letter = corr.upper()
+                if letter not in ('A', 'B', 'C', 'D', 'E'):
+                    bad(f'Correct {corr!r} is not a letter A to E'); continue
+                if len(choices) < 2:
+                    bad('a multiple-choice question needs at least 2 choices'); continue
+                if not str(r.get('abcde'[ 'ABCDE'.index(letter)]) or '').strip():
+                    bad(f'Correct is {letter} but Choice {letter} is empty'); continue
+                correct = letter
+            seen.add(qid)
+            out.append({'id': qid, 'status': st, 'mode': mode, 'era': r['era'], 'style': str(r['style']).strip(),
+                        'place': str(r['place']).strip(), 'lat': lat, 'lon': lon, 'question': str(r['question']).strip(),
+                        'choices': choices, 'correct': correct, 'quickTake': str(r['quick']).strip(),
+                        'deepDive': str(r.get('deep') or '').strip(), 'jewishEvent': str(r['jewishEvent']).strip(),
+                        'jewishYear': jy, 'worldAnchor': str(r['worldAnchor']).strip(), 'worldYear': wy})
+    out.sort(key=lambda q: q['id'])
+    return out
 
 
 def build(wb, rep):
@@ -461,6 +529,9 @@ def build(wb, rep):
     eras, stops, assign = build_eras(wb, places, all_ids, rep)
     if eras or stops or assign:
         sections.update({'eras': eras, 'cameraStops': stops, 'eraAssignment': assign})
+    questions = build_questions(wb, rep)
+    if questions is not None:
+        sections['questions'] = questions
 
     return sections, missing_optional
 
@@ -473,6 +544,8 @@ def public_view(sections):
     for c in out['cards']:
         if c.get('meanwhile') and c.get('meanwhileStatus') != 'approved':
             c.pop('meanwhile'); c.pop('meanwhileStatus')
+    if 'questions' in out:
+        out['questions'] = [q for q in out['questions'] if q['status'] == 'approved']
     for sec in ('events', 'communities'):
         for r in out[sec]:
             r['hasCard'] = r['id'] in keep

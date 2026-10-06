@@ -41,3 +41,8 @@ Pass 2 (Eras 4 to 7, Oct 6, 2026):
 - load.py also covers the Eras, Camera Stops and Era Assignment tabs: the zoom rule (farthest frame Place x 1.15, floored by Role 12 or 24, clamped 10..45), unfit frames warn and clamp, bad rows are rejected with a reason, missing tabs are tolerated, a damaged Camera Stops tab stops the load. 57 checks, all pass.
 - reg.js: the sweep runs to DATA.timeline.end (1897) and is camera-independent (it turns the globe to a missing arrow before counting a mismatch). It reports yearsWithArrowOffCamera, which is informational: an arrow hidden only because the camera is elsewhere.
 - follow.js: the card walk covers every card (164 of 164 in order, then back).
+
+Quiz page (Oct 6, 2026):
+- quiz.js test: `NODE_PATH=$(npm root -g) node tests/quiz.js` (server on :8778). d3 and topojson are served from local copies (VEND, default /tmp/claude-0/vend/node_modules; `npm i d3@7.9.0 topojson-client@3` there) because the sandbox cannot reach cdnjs. Covers: Approved-only rule (production, ?drafts=1, preview, public), "not ready" message, one question per era with three different Styles in chronological order, multiple-choice lock/green/red, put-in-order with "You had #N", verdict wording, Dive deeper reveal, button text, end screen headline/score/timeline/gap lines/survey/buttons, Play 3 more, era pools, reduced motion, no horizontal scroll at 390 and 320 px, 44 px tap targets.
+- load.py also covers the Questions tab (valid rows, each bad row rejected with a reason, Notes never leaks, public keeps Approved only).
+- follow.js prints "cards not in view" in follow mode on the committed data too (informational, unchanged by the quiz); the walk itself passes.

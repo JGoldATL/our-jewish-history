@@ -278,6 +278,40 @@ with tempfile.TemporaryDirectory() as td:
     check('split stops like 7.2a and 7.2b load, in year order, and 7.10 sorts after 7.2b',
           p.returncode == 0 and ids_s[-3:] == ['7.2a', '7.2b', '7.10'] and not [r for r in rep['rejects'] if r['tab'] == 'Camera Stops'], (ids_s, rep['rejects']))
 
+    # Quiz questions tab
+    QHEAD = ['Q-ID', 'Status', 'Core or Random', 'Era', 'Style', 'Place', 'Lat', 'Lon', 'Question', 'Choice A', 'Choice B', 'Choice C', 'Choice D',
+             'Choice E', 'Correct', 'Quick take', 'Deep dive', 'Jewish event', 'Jewish year', 'World anchor', 'World year', 'Notes']
+    def qrow(qid, status='Approved', era='Second Temple & Rome', style='Closer to', ch=('One', 'Two', 'Three', 'Four', None), correct='B', **kw):
+        r = [qid, status, 'Random', era, style, 'Jerusalem', 31.78, 35.22, 'Question text?', *ch, correct, 'Quick.', 'Deep.', 'Jewish thing', 70, 'World thing', 79, SECRET]
+        for k, v in kw.items(): r[QHEAD.index(k)] = v
+        return r
+    def q_book(dst, rows):
+        wb = openpyxl.load_workbook(x1); ws = wb.create_sheet('Questions'); ws.append(QHEAD)
+        for r in rows: ws.append(r)
+        wb.save(dst)
+    xq = td / 'quiz.xlsx'
+    q_book(xq, [qrow('Q001'), qrow('Q002', status='Draft', era='Biblical era'),
+                qrow('Q003', style='Put these in order', ch=('A', 'B', 'C', 'D', None), correct='In listed order'),
+                qrow('Q004', era='Middle Ages'), qrow('Q005', correct='Z'), qrow('Q006', style='Put these in order', correct='B'),
+                qrow('Q007', correct='E'), qrow('Q008', **{'Jewish year': 'soon'}), qrow('Q009', Lat=123), qrow('Q001')])
+    histQ = td / 'histQ.json'; histQ.write_text(json.dumps(engine, indent=2, ensure_ascii=False), encoding='utf-8')
+    p, rep = run(xq, histQ)
+    qs = {q['id']: q for q in json.loads(histQ.read_text())['sheet'].get('questions', [])}
+    check('questions: valid rows load (drafts too in preview)', sorted(qs) == ['Q001', 'Q002', 'Q003'], sorted(qs))
+    check('questions: multiple choice and order rows carry the right answer', qs['Q001']['correct'] == 'B' and qs['Q001']['choices'] == ['One', 'Two', 'Three', 'Four'] and qs['Q003']['correct'] == 'order')
+    qrej = {r['id']: r['reason'] for r in rep['rejects'] if r['tab'] == 'Questions'}
+    check('questions: bad era, bad letter, order without the order text, empty answer, bad year, bad lat and a duplicate are each rejected with a reason',
+          set(qrej) >= {'Q004', 'Q005', 'Q006', 'Q007', 'Q008', 'Q009', 'Q001'} and all(qrej.values()), qrej)
+    check('questions: the Notes column never reaches the file', SECRET not in histQ.read_text())
+    pubQ = td / 'pubQ.json'; p, rep = run(xq, histQ, '--public', '--out', str(pubQ))
+    pq = {q['id'] for q in json.loads(pubQ.read_text())['sheet']['questions']}
+    check('questions: a public build keeps Approved questions only', pq == {'Q001', 'Q003'} and SECRET not in pubQ.read_text(), pq)
+    p, rep = run(x1, hist)
+    check('questions: an export with no Questions tab still loads and warns', p.returncode == 0 and any(w['tab'] == 'Questions' for w in rep['warnings']))
+    wb = openpyxl.load_workbook(xq); wb['Questions'].cell(1, 9).value = 'Question (renamed)'; xqb = td / 'quiz_bad.xlsx'; wb.save(xqb)
+    p, rep = run(xqb, histQ)
+    check('questions: a Questions tab missing a column stops the load', p.returncode != 0 and 'Questions' in (p.stderr + p.stdout))
+
     p, rep = run(x1, hist)
     check('an export with no era tabs still loads, says so, and writes no era sections',
           p.returncode == 0 and 'eras' not in json.loads(hist.read_text())['sheet'] and any(w['tab'] == 'Camera Stops' and 'not in this export' in w['note'] for w in rep['warnings']))
