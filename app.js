@@ -210,7 +210,8 @@ function render(){
   $('year').innerHTML=`${Math.abs(dy)}<span>${dy<0?'BCE':'CE'}</span>`;$('era').textContent=frame.era?.title||'';
   drawArcLive();
   
-  const idx=lastMilestoneIdx(dy);if(!selected){if(idx!==lastAutoIdx){lastAutoIdx=idx;if(idx>=0)fillStory(milestones[idx].record,milestones[idx].type,false);}}
+  // (if the user turned the globe and then moved the timeline, turnToRecord brings the action into view)
+  const idx=lastMilestoneIdx(dy);if(!selected){if(idx!==lastAutoIdx){lastAutoIdx=idx;if(idx>=0){fillStory(milestones[idx].record,milestones[idx].type,false);turnToRecord(milestones[idx].record,milestones[idx].type);}}}
 }
 function drawGeo(g){if(!GEO)return;const line=(pts,cls)=>{let d='',pen=false;for(const [lo,la] of pts){const q=project(lo,la);if(!q.vis){pen=false;continue;}d+=(pen?' L':' M')+q.x.toFixed(1)+','+q.y.toFixed(1);pen=true;}if(d)el('path',{d,class:cls},g);};
   for(const c of GEO.coast)line(c,'coast');for(const r of GEO.rivers)line(r,'river');}
@@ -258,7 +259,7 @@ function placesFit(pts,s){const keep={lon:view.lon,lat:view.lat,zoom:view.zoom,R
   const st=$('stage'),w=st.clientWidth,h=st.clientHeight,m=Math.min(44,w*.08);const ok=pts.every(([lo,la])=>{const q=project(lo,la);return q.vis&&q.depth<1&&q.x>=m&&q.x<=w-m&&q.y>=m&&q.y<=h-m;});Object.assign(view,keep);return ok;}
 function recordLonLats(record,type){if(type==='sheet'){const p=SHEETPLACES.get(record.placeId);return p&&Number.isFinite(p.lat)&&Number.isFinite(p.lon)?[[p.lon,p.lat]]:[];}return recordPlaces(record,type).map(svgToLonLat);}
 function turnToRecord(record,type){
-  if(!view.manual)return;                       // the story camera is still in charge and already follows the story
+  if(!view.manual)return;cancelTurn();                       // the story camera is still in charge and already follows the story
   const pts=recordLonLats(record,type);if(!pts.length)return;
   const [lon,lat]=pts.length>1?meanLonLat(pts):pts[0];const to={lon,lat:Math.max(-70,Math.min(80,lat)),zoom:view.zoom,deg:view.deg};
   if(!placesFit(pts,to)){while(to.zoom>ZMIN+.01&&!placesFit(pts,to))to.zoom=Math.max(ZMIN,to.zoom*.9);   // first zoom out to the default,
