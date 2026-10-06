@@ -2520,13 +2520,13 @@
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.2",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
       "sheetModified": "2026-10-06T17:55:00Z",
-      "exportSha256": "c9848315e4d9c795",
+      "exportSha256": "bbb413caf6b4641e",
       "mode": "preview",
       "counts": {
         "places": 96,
         "events": 90,
         "communities": 117,
-        "movements": 63,
+        "movements": 67,
         "context": 43,
         "evidence": 20,
         "cards": 166,
@@ -7313,6 +7313,79 @@
         "links": [
           "CHG-014",
           "MOV-020"
+        ]
+      },
+      {
+        "id": "MOV-064",
+        "eventId": "EVT-0071",
+        "startYear": 1654,
+        "endYear": 1654,
+        "dateDisplay": "Feb 1654 CE",
+        "origin": "Recife",
+        "destination": "Jamaica",
+        "originPlaceId": "place-recife",
+        "destinationPlaceId": "place-jamaica",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Dotted (contested route)",
+        "links": [
+          "MOV-029",
+          "MOV-055",
+          "POP-050"
+        ]
+      },
+      {
+        "id": "MOV-065",
+        "eventId": "EVT-0071",
+        "startYear": 1654,
+        "endYear": 1654,
+        "dateDisplay": "Spring 1654 CE",
+        "origin": "Jamaica",
+        "destination": "Cape St. Anthony (western Cuba)",
+        "originPlaceId": "place-jamaica",
+        "destinationPlaceId": "place-cape-st-anthony",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Dotted (contested route)",
+        "links": [
+          "MOV-029",
+          "MOV-055",
+          "POP-050"
+        ]
+      },
+      {
+        "id": "MOV-066",
+        "eventId": "EVT-0071",
+        "startYear": 1654,
+        "endYear": 1654,
+        "dateDisplay": "Sept 1654 CE",
+        "origin": "Cape St. Anthony (western Cuba)",
+        "destination": "New Amsterdam",
+        "originPlaceId": "place-cape-st-anthony",
+        "destinationPlaceId": "place-new-amsterdam",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "MOV-029",
+          "MOV-055",
+          "POP-050"
+        ]
+      },
+      {
+        "id": "MOV-067",
+        "eventId": "EVT-0071",
+        "startYear": 1654,
+        "endYear": 1654,
+        "dateDisplay": "1654 CE",
+        "origin": "Amsterdam",
+        "destination": "Barbados",
+        "originPlaceId": "place-amsterdam",
+        "destinationPlaceId": "place-barbados",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "MOV-029",
+          "MOV-052",
+          "MOV-054",
+          "POP-054"
         ]
       },
       {
