@@ -71,7 +71,7 @@ async function answer(p,wantRight){
     const {p:a}=await page(browser);await a.waitForSelector('.card');
     ok((await a.$eval('#mode',e=>e.textContent))==='','approved questions: no draft marker in the footer');
     await a.context().close();
-    const {p:b}=await page(browser,{fixture:h=>{h.sheet.questions.forEach(q=>q.status='draft');}});await b.waitForSelector('.card');
+    const {p:b}=await page(browser,{fixture:h=>{h.sheet.meta.mode='preview';h.sheet.questions.forEach(q=>q.status='draft');}});await b.waitForSelector('.card');
     ok(/Preview · draft questions included/.test(await b.$eval('#mode',e=>e.textContent)),'preview with only drafts: footer marks drafts');
     await b.context().close();
   }
