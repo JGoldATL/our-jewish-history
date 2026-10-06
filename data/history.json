@@ -2521,7 +2521,7 @@
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
       "sheetModified": "2026-10-06T17:55:00Z",
       "exportSha256": "c9dd83ee802ad249",
-      "mode": "preview",
+      "mode": "public",
       "counts": {
         "places": 97,
         "events": 90,
@@ -2529,7 +2529,7 @@
         "movements": 67,
         "context": 43,
         "evidence": 20,
-        "cards": 166,
+        "cards": 164,
         "eras": 7,
         "cameraStops": 38,
         "eraAssignment": 264,
@@ -6353,7 +6353,7 @@
           "MOV-029",
           "MOV-061"
         ],
-        "hasCard": true,
+        "hasCard": false,
         "engine": {
           "concentration": "very small",
           "presenceStatus": "documented",
@@ -6371,7 +6371,7 @@
           "MOV-029",
           "MOV-060"
         ],
-        "hasCard": true,
+        "hasCard": false,
         "engine": {
           "concentration": "very small",
           "presenceStatus": "probable",
@@ -8605,9 +8605,7 @@
         "status": "approved",
         "startYear": 614,
         "endYear": null,
-        "placeId": "place-j",
-        "meanwhile": "In China, the Sui dynasty begins building the Grand Canal in 605 CE to carry grain and travelers across the land.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-j"
       },
       {
         "id": "POP-038",
@@ -8631,9 +8629,7 @@
         "status": "approved",
         "startYear": 628,
         "endYear": null,
-        "placeId": "place-j",
-        "meanwhile": "In China, the monk Xuanzang sets out around 629 CE on a journey of about 16 years to India to bring back Buddhist books.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-j"
       },
       {
         "id": "EVT-0042",
@@ -8645,9 +8641,7 @@
         "status": "approved",
         "startYear": 634,
         "endYear": null,
-        "placeId": "place-israel",
-        "meanwhile": "In England, a ship filled with treasure is buried at Sutton Hoo around 625 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-israel"
       },
       {
         "id": "EVT-0043",
@@ -8659,9 +8653,7 @@
         "status": "approved",
         "startYear": 641,
         "endYear": null,
-        "placeId": "place-egypt",
-        "meanwhile": "In Mexico, a boy of 12 named Pakal becomes ruler of the Maya city of Palenque in 615 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-egypt"
       },
       {
         "id": "EVT-0044",
@@ -8673,9 +8665,7 @@
         "status": "approved",
         "startYear": 650,
         "endYear": null,
-        "placeId": "place-b",
-        "meanwhile": "In Japan, the Taika Reform of 645 CE gives the emperor more power over the land.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-b"
       },
       {
         "id": "POP-025",
@@ -8819,9 +8809,7 @@
         "status": "approved",
         "startYear": 711,
         "endYear": null,
-        "placeId": "place-iberia",
-        "meanwhile": "In Japan, the city of Nara becomes the capital in 710 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-iberia"
       },
       {
         "id": "POP-030",
@@ -9034,9 +9022,7 @@
         "status": "approved",
         "startYear": 1220,
         "endYear": null,
-        "placeId": "place-rhineland",
-        "meanwhile": "In England, King John signs Magna Carta in 1215 CE, a charter that limits the power of the king.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-rhineland"
       },
       {
         "id": "EVT-0050",
@@ -9048,9 +9034,7 @@
         "status": "approved",
         "startYear": 1263,
         "endYear": null,
-        "placeId": "place-barcelona",
-        "meanwhile": "In Italy, 17-year-old Marco Polo leaves Venice in 1271 CE for a trip to China that lasts about 24 years.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-barcelona"
       },
       {
         "id": "EVT-0051",
@@ -9062,9 +9046,7 @@
         "status": "approved",
         "startYear": 1264,
         "endYear": null,
-        "placeId": "place-kalisz",
-        "meanwhile": "In Japan, a Mongol fleet lands near Hakata Bay in 1274 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-kalisz"
       },
       {
         "id": "EVT-0052",
@@ -9076,9 +9058,7 @@
         "status": "approved",
         "startYear": 1275,
         "endYear": null,
-        "placeId": "place-england",
-        "meanwhile": "In China, Kublai Khan founds the Yuan dynasty in 1271 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-england"
       },
       {
         "id": "EVT-0053",
@@ -9388,9 +9368,7 @@
         "status": "approved",
         "startYear": 1516,
         "endYear": null,
-        "placeId": "place-israel",
-        "meanwhile": "In Germany, a monk named Martin Luther posts his 95 Theses in 1517 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-israel"
       },
       {
         "id": "EVT-0065",
@@ -9402,9 +9380,7 @@
         "status": "approved",
         "startYear": 1516,
         "endYear": null,
-        "placeId": "place-venice",
-        "meanwhile": "In England, Thomas More publishes his book Utopia in 1516 CE, about an imaginary perfect island.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-venice"
       },
       {
         "id": "EVT-0066",
@@ -9416,9 +9392,7 @@
         "status": "approved",
         "startYear": 1536,
         "endYear": null,
-        "placeId": "place-portugal",
-        "meanwhile": "In India, Babur wins the Battle of Panipat in 1526 CE and founds the Mughal Empire.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-portugal"
       },
       {
         "id": "EVT-0067",
@@ -9430,9 +9404,7 @@
         "status": "approved",
         "startYear": 1555,
         "endYear": null,
-        "placeId": "place-romeNode",
-        "meanwhile": "In Russia, workers begin building Saint Basil's Cathedral in Moscow in 1555 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-romeNode"
       },
       {
         "id": "EVT-0068",
@@ -9620,30 +9592,6 @@
         "placeId": "place-new-amsterdam"
       },
       {
-        "id": "POP-072",
-        "recordId": "POP-072",
-        "type": "Community",
-        "date": "1654 CE",
-        "title": "Jews settle in Martinique",
-        "description": "In 1654, Jews who had left Dutch Brazil began settling on Martinique, a French island in the Caribbean. One of them, Benjamin d'Acosta de Andrade, had lived in Dutch Brazil before Portugal took it back. The terms of the surrender let Jews leave Brazil with their belongings and their money.",
-        "status": "draft",
-        "startYear": 1654,
-        "endYear": null,
-        "placeId": "place-martinique"
-      },
-      {
-        "id": "POP-073",
-        "recordId": "POP-073",
-        "type": "Community",
-        "date": "1654 CE",
-        "title": "Jews settle in Guadeloupe",
-        "description": "After Portugal took Recife back in 1654, some of the Jews who left Dutch Brazil went to Guadeloupe, a French island in the Caribbean. The terms of the surrender let Jews leave Brazil with their belongings and their money. They began a Jewish community on the island.",
-        "status": "draft",
-        "startYear": 1654,
-        "endYear": null,
-        "placeId": "place-guadeloupe"
-      },
-      {
         "id": "POP-053",
         "recordId": "POP-053",
         "type": "Community",
@@ -9689,9 +9637,7 @@
         "status": "approved",
         "startYear": 1666,
         "endYear": null,
-        "placeId": "place-edirne",
-        "meanwhile": "In London, the Great Fire burns much of the city in 1666 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-edirne"
       },
       {
         "id": "EVT-0073",
@@ -9730,9 +9676,7 @@
         "status": "approved",
         "startYear": 1700,
         "endYear": null,
-        "placeId": "place-medzhybizh",
-        "meanwhile": "In Russia, Tsar Peter the Great founds the city of Saint Petersburg in 1703 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-medzhybizh"
       },
       {
         "id": "POP-057",
@@ -9822,9 +9766,7 @@
         "status": "approved",
         "startYear": 1782,
         "endYear": null,
-        "placeId": "place-vienna",
-        "meanwhile": "In France, the first people fly in a hot-air balloon built by the Montgolfier brothers in 1783 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-vienna"
       },
       {
         "id": "EVT-0078",
@@ -9836,9 +9778,7 @@
         "status": "approved",
         "startYear": 1791,
         "endYear": null,
-        "placeId": "place-paris",
-        "meanwhile": "In Haiti, enslaved people begin the uprising in 1791 CE that wins the country its freedom.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-paris"
       },
       {
         "id": "CHG-020",
@@ -9940,9 +9880,7 @@
         "status": "approved",
         "startYear": 1804,
         "endYear": null,
-        "placeId": "place-pale-of-settlement",
-        "meanwhile": "In France, Napoleon crowns himself emperor in 1804 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-pale-of-settlement"
       },
       {
         "id": "EVT-0082",
@@ -10037,9 +9975,7 @@
         "status": "approved",
         "startYear": 1840,
         "endYear": null,
-        "placeId": "place-damascus",
-        "meanwhile": "In Britain, the world's first postage stamp, the Penny Black, goes on sale in 1840 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-damascus"
       },
       {
         "id": "EVT-0085",
@@ -10078,9 +10014,7 @@
         "status": "approved",
         "startYear": 1856,
         "endYear": null,
-        "placeId": "place-constantinople",
-        "meanwhile": "In Egypt, the Suez Canal opens in 1869 CE, linking the Mediterranean Sea to the Red Sea.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-constantinople"
       },
       {
         "id": "EVT-0087",
@@ -10092,9 +10026,7 @@
         "status": "approved",
         "startYear": 1858,
         "endYear": null,
-        "placeId": "place-london",
-        "meanwhile": "In 1858, the first telegraph message crosses the Atlantic Ocean by undersea cable, from Britain to North America.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-london"
       },
       {
         "id": "CHG-024",
@@ -10118,9 +10050,7 @@
         "status": "approved",
         "startYear": 1860,
         "endYear": null,
-        "placeId": "place-paris",
-        "meanwhile": "In Italy, Giuseppe Garibaldi leads about 1,000 volunteers in 1860 CE to help unite the country.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-paris"
       },
       {
         "id": "EVT-0089",
@@ -10132,9 +10062,7 @@
         "status": "approved",
         "startYear": 1867,
         "endYear": null,
-        "placeId": "place-central-europe",
-        "meanwhile": "In North America, Canada becomes a country in 1867 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-central-europe"
       },
       {
         "id": "EVT-0090",
@@ -10146,9 +10074,7 @@
         "status": "approved",
         "startYear": 1870,
         "endYear": null,
-        "placeId": "place-algeria",
-        "meanwhile": "In Russia, Dmitri Mendeleev publishes his periodic table of the elements in 1869 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-algeria"
       },
       {
         "id": "CHG-025",
@@ -10324,9 +10250,7 @@
         "status": "approved",
         "startYear": 1891,
         "endYear": null,
-        "placeId": "place-london",
-        "meanwhile": "In Russia, workers begin building the Trans-Siberian Railway in 1891 CE, the longest railway in the world.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-london"
       },
       {
         "id": "POP-070",
@@ -10350,9 +10274,7 @@
         "status": "approved",
         "startYear": 1894,
         "endYear": null,
-        "placeId": "place-paris",
-        "meanwhile": "In Greece, the first modern Olympic Games open in Athens in 1896 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-paris"
       },
       {
         "id": "EVT-0098",
@@ -10364,9 +10286,7 @@
         "status": "approved",
         "startYear": 1897,
         "endYear": null,
-        "placeId": "place-basel",
-        "meanwhile": "In France, the Lumière brothers show movies to a paying audience for the first time in 1895 CE.",
-        "meanwhileStatus": "draft"
+        "placeId": "place-basel"
       }
     ],
     "eras": [
