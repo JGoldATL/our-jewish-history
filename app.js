@@ -4,7 +4,7 @@
    ported verbatim from Alpha 1.13, so historical behaviour is unchanged. */
 const $=id=>document.getElementById(id);
 const NS='http://www.w3.org/2000/svg';
-let DATA=null,INDEX=null,GEO=null;
+let DATA=null,INDEX=null,GEO=null,SHEETPL=new Map();
 const D2R=Math.PI/180;
 const svgToLonLat=([x,y])=>[x/15-15,58-y*53/650];
 
@@ -149,7 +149,7 @@ function drawArcStatic(){
   el('path',{d:arcD(0,1),class:'arcHalo'},g);el('path',{d:arcD(0,1),class:'arcTrack'},g);el('path',{d:arcD(0,1),class:'arcHit',id:'arcHit'},g);
   const seen=new Set();
   milestones.forEach((m,i)=>{if(seen.has(m.date))return;seen.add(m.date);const [x,y]=arcPt(posForYear(m.date));const c=el('circle',{cx:x,cy:y,r:3,class:'notch'},g);c.dataset.i=i;});
-  const placed=[];for(const yr of [-2000,-1300,-1208,-722,-586,-539,-332,-205,-63,70,117,200]){const pos=posForYear(yr),[x,y]=arcPt(pos,ARC.narrow?16:22),a=arcAngle(pos);if(x<44||x>ARC.w-44)continue;if(placed.some(([px,py])=>Math.hypot(px-x,py-y)<46)&&yr!==200&&yr!==-1300)continue;if(yr!==200&&Math.hypot(x-arcPt(1,22)[0],y-arcPt(1,22)[1])<46)continue;placed.push([x,y]);const t=el('text',{x,y,class:'tick','text-anchor':Math.cos(a)<-0.3?'end':Math.cos(a)>0.3?'start':'middle','dominant-baseline':Math.sin(a)>0.5?'hanging':'middle'},g);t.textContent=yearLabel(yr).replace(' / 1 CE','');const bb=t.getBBox();if(bb.x<4)t.setAttribute('x',x+4-bb.x);else if(bb.x+bb.width>ARC.w-4)t.setAttribute('x',x-(bb.x+bb.width-ARC.w+4));}
+  const placed=[];const lateYears=DATA.timeline.end>200?[...DATA.eras.filter(e=>e.startDate>200).map(e=>e.startDate)]:[];for(const yr of [-2000,-1300,-1208,-722,-586,-539,-332,-205,-63,70,117,200,...lateYears]){const pos=posForYear(yr),[x,y]=arcPt(pos,ARC.narrow?16:22),a=arcAngle(pos);if(x<44||x>ARC.w-44)continue;if(placed.some(([px,py])=>Math.hypot(px-x,py-y)<46)&&yr!==200&&yr!==-1300)continue;if(yr!==200&&Math.hypot(x-arcPt(1,22)[0],y-arcPt(1,22)[1])<46)continue;placed.push([x,y]);const t=el('text',{x,y,class:'tick','text-anchor':Math.cos(a)<-0.3?'end':Math.cos(a)>0.3?'start':'middle','dominant-baseline':Math.sin(a)>0.5?'hanging':'middle'},g);t.textContent=yearLabel(yr).replace(' / 1 CE','');const bb=t.getBBox();if(bb.x<4)t.setAttribute('x',x+4-bb.x);else if(bb.x+bb.width>ARC.w-4)t.setAttribute('x',x-(bb.x+bb.width-ARC.w+4));}
 }
 function drawArcLive(){const g=$('arcLive');g.replaceChildren();el('path',{d:arcD(0,Math.max(0.0001,position)),class:'arcFill'},g);const [x,y]=arcPt(position);el('circle',{cx:x,cy:y,r:11,class:'bead'},g);const s=$('arcSlider');s.setAttribute('aria-valuenow',Math.round(currentYear()));s.setAttribute('aria-valuetext',yearLabel(Math.round(currentYear())));}
 function posFromPointer(e){const r=$('arc').getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let a=Math.atan2(y-ARC.cy,x-ARC.cx);if(a<-Math.PI/2)a+=2*Math.PI;const p=(a-ARC.a0)/(ARC.a1-ARC.a0);return Math.max(0,Math.min(1,p));}
@@ -161,10 +161,11 @@ function followCamera(y){if(view.manual)return;const s=DATA.cameraStates;let i=0
 /* ---------- symbols ---------- */
 // Community symbols (locked 2 Oct 2026, Map-Icon-Decisions): shape + color carry the meaning, never color alone.
 // Murdered community = red octagon; forced conversion = purple diamond; forced conversion to Christianity = split diamond (half star, half cross).
-const SYM_SHAPE={octagon:'M15.71,6.51 L6.51,15.71 L-6.51,15.71 L-15.71,6.51 L-15.71,-6.51 L-6.51,-15.71 L6.51,-15.71 L15.71,-6.51 Z',diamond:'M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z'};
+const SYM_SHAPE={octagon:'M15.71,6.51 L6.51,15.71 L-6.51,15.71 L-15.71,6.51 L-15.71,-6.51 L-6.51,-15.71 L6.51,-15.71 L15.71,-6.51 Z',diamond:'M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z',square:'M-13,-13 H13 V13 H-13 Z'};
 const SYM_CREAM='#FFF3DC',SYM_PURPLE='#5A3B7A';let symClip=0;
 function hexagram(r){const h=(r*.866).toFixed(2),q=(r/2).toFixed(2);return `M0,${-r} L${h},${q} L-${h},${q} Z M0,${r} L-${h},-${q} L${h},-${q} Z`;}
 function drawSymbol(inner,kind,record){const outline={class:'symShape',stroke:'#1B2328','stroke-width':1.2,'stroke-linejoin':'round'},star={fill:'none',stroke:SYM_CREAM,'stroke-width':1.6,'stroke-linejoin':'round'};
+  if(kind==='noLonger'){el('path',{...outline,d:SYM_SHAPE.square,fill:'#20272B'},inner);el('path',{...star,d:hexagram(10.4)},inner);return;}
   if(kind==='destroyed'){el('path',{...outline,d:SYM_SHAPE.octagon,fill:'#8C2A24'},inner);el('path',{...star,d:hexagram(10.4)},inner);return;}
   if(record?.conversionReligion!=='Christianity'){el('path',{...outline,d:SYM_SHAPE.diamond,fill:SYM_PURPLE},inner);el('path',{...star,d:hexagram(8.4)},inner);return;}
   const L='symClip'+(++symClip),R='symClip'+(++symClip),defs=el('defs',{},inner);el('rect',{x:-20,y:-20,width:20,height:40},el('clipPath',{id:L},defs));el('rect',{x:0,y:-20,width:20,height:40},el('clipPath',{id:R},defs));
@@ -195,7 +196,7 @@ function render(){
     const g=el('g',{class:'route',opacity:op.toFixed(3),tabindex:0,role:'button','aria-label':m.title},layers.route);
     if(traditional){el('path',{d,class:'routeTrad'},g);}
     else{const [c1,c2]=COLORS[fm.color]||COLORS['#6d6256'];const gid='rg-'+m.id;const lg=el('linearGradient',{id:gid,class:'dyn',x1:0,y1:0,x2:0,y2:1},defs);el('stop',{offset:0,'stop-color':c1},lg);el('stop',{offset:1,'stop-color':c2},lg);
-      el('path',{d,class:'routeShadow',transform:`translate(${2*scale} ${3.5*scale})`},g);el('path',{d,fill:`url(#${gid})`,class:'routeBody'},g);}
+      el('path',{d,class:'routeShadow',transform:`translate(${2*scale} ${3.5*scale})`},g);el('path',{d,fill:`url(#${gid})`,class:'routeBody'+(m.contested?' contested':'')},g);}
     if(sameCard(selected?.record,m)||isCardOf(m))g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(m,'movement');});g.addEventListener('keydown',e=>{if(e.key==='Enter'){openStory(m,'movement');}});}
   // historical events (e.g. Lachish)
   for(const fe of frame.events){if(fe.opacity<=.02)continue;const e=DATA.historicalEvents.find(r=>r.id===fe.id);const pl=INDEX.places.get(e.place);const q=P(pl?.coordinates||e.rendering.position);if(!q.vis)continue;const g=el('g',{class:'event',transform:`translate(${q.x} ${q.y})`,opacity:fe.opacity.toFixed(2),tabindex:0,role:'button','aria-label':e.title},layers.mark);el('rect',{x:-5,y:-5,width:10,height:10,transform:'rotate(45)',class:'eventMark'},g);g.addEventListener('click',()=>{if(!dragMoved)openStory(e,'event');});if(e.rendering?.label)labels.push({text:e.rendering.label,x:q.x,y:q.y,side:'below',prio:0,record:e});}
@@ -203,18 +204,36 @@ function render(){
   const symSize=Math.max(30,40*scale),obstacles=[];
   for(const fd of frame.destructions){const c=DATA.communityDestructions.find(r=>r.id===fd.id),past=trails&&c.startDate<=y;if(!fd.visible&&!past)continue;const pop=DATA.populations.find(p=>p.id===c.populationId);const q=P(pop?.coordinates||INDEX.places.get(c.place).coordinates);if(!q.vis)continue;
     const g=communitySymbol(layers.mark,'destroyed',symSize);const sx=q.x+symSize*.62,sy=q.y-symSize*.62;obstacles.push({x:sx-symSize/2,y:sy-symSize/2,w:symSize,h:symSize});g.setAttribute('transform',`translate(${sx.toFixed(1)} ${sy.toFixed(1)})`);g.setAttribute('opacity',fd.visible?1:.5);g.setAttribute('tabindex',0);g.setAttribute('role','button');g.setAttribute('aria-label',c.title);if(selected?.record===c||isCardOf(c))g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(c,'destruction');});}
+  // "Community no longer exists": black square at the place, from its year. Display window (a design choice, not history): full for 20 years, fading out by 30.
+  for(const c of (DATA.sheet?.communities||[])){if(c.mapSymbol?.kind!=='blackSquare'||/[?&]engine=1/.test(location.search))continue;const pp=SHEETPL.get(c.placeId);if(!Number.isFinite(pp?.lat))continue;const age=y-c.startYear,past=trails&&age>=0;let op=age<0?0:age<=20?1:Math.max(0,1-(age-20)/10);if(past)op=Math.max(op,.5);if(op<=.01)continue;
+    const q=P([(pp.lon+15)*15,(58-pp.lat)*650/53]);if(!q.vis)continue;const g=communitySymbol(layers.mark,'noLonger',symSize);const sx=q.x+symSize*.62,sy=q.y-symSize*.62;obstacles.push({x:sx-symSize/2,y:sy-symSize/2,w:symSize,h:symSize});g.setAttribute('transform',`translate(${sx.toFixed(1)} ${sy.toFixed(1)})`);g.setAttribute('opacity',op.toFixed(2));g.setAttribute('tabindex',0);g.setAttribute('role','button');g.setAttribute('aria-label','Community no longer exists: '+(pp.historicalName||c.placeId)+', '+c.dateDisplay);
+    const card=DATA.sheet.cards.find(k=>k.id===c.id);if(card){if(selected?.record===card)g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(card,'sheet');});}}
   for(const c of DATA.populationChanges){if(!canRenderConversion(c))continue;const vis=activeAt(c,y),past=trails&&c.startDate<=y;if(!vis&&!past)continue;const pop=DATA.populations.find(p=>p.id===c.populationId);const q=P(pop.coordinates);if(!q.vis)continue;const g=communitySymbol(layers.mark,'converted',symSize,c);g.setAttribute('transform',`translate(${(q.x+symSize*.62).toFixed(1)} ${(q.y-symSize*.62).toFixed(1)})`);g.setAttribute('opacity',vis?1:.5);g.addEventListener('click',()=>openStory(c,'change'));}
+  addSheetPlaceLabels(frame,labels,layers.mark,P,scale);
   drawGlobe();
   const boxes=placeLabels(labels,layers.label,scale,obstacles);for(const l of geoLabels()){const fs=l.kind==='waterLabel'?13:11,w=l.text.length*fs*(l.kind==='waterLabel'?0.55:0.78),h=fs*1.2,b={x:l.x-w/2,y:l.y-h,w,h};if(boxes.some(o=>b.x<o.x+o.w&&b.x+b.w>o.x&&b.y<o.y+o.h&&b.y+b.h>o.y))continue;boxes.push(b);const t=el('text',{x:l.x.toFixed(1),y:l.y.toFixed(1),'text-anchor':'middle',class:l.kind==='waterLabel'?'seaName':'regionName'},layers.label);t.textContent=l.kind==='waterLabel'?l.text:l.text.toUpperCase();}
   // panel
-  $('year').innerHTML=`${Math.abs(dy)}<span>${dy<0?'BCE':'CE'}</span>`;$('era').textContent=frame.era?.title||'';
+  $('year').innerHTML=dy<0?`${Math.abs(dy)}<span>BCE</span>`:`${Math.abs(dy)}`;   // project rule: CE years are the bare year$('era').textContent=eraLabel(y,frame);
   drawArcLive();
   
-  const idx=lastMilestoneIdx(dy);if(!selected){if(idx!==lastAutoIdx){lastAutoIdx=idx;if(idx>=0)fillStory(milestones[idx].record,milestones[idx].type,false);}}
+  // (if the user turned the globe and then moved the timeline, turnToRecord brings the action into view)
+  const idx=lastMilestoneIdx(dy);if(!selected){if(idx!==lastAutoIdx){lastAutoIdx=idx;if(idx>=0){fillStory(milestones[idx].record,milestones[idx].type,false);turnToRecord(milestones[idx].record,milestones[idx].type);}}}
 }
 function drawGeo(g){if(!GEO)return;const line=(pts,cls)=>{let d='',pen=false;for(const [lo,la] of pts){const q=project(lo,la);if(!q.vis){pen=false;continue;}d+=(pen?' L':' M')+q.x.toFixed(1)+','+q.y.toFixed(1);pen=true;}if(d)el('path',{d,class:cls},g);};
   for(const c of GEO.coast)line(c,'coast');for(const r of GEO.rivers)line(r,'river');}
 function geoLabels(){if(!GEO)return [];const out=[];for(const [text,kind,lo,la] of GEO.labels){const q=project(lo,la);if(q.vis&&q.depth<1.05)out.push({text,x:q.x,y:q.y,kind});}return out;}
+// Step d: names for Sheet Places. Only places that a visible arrow starts or ends at, or that the open Sheet card sits on, and only when no
+// label with the same name is already queued; camera-only Places (place-cam-*) are never drawn.
+function addSheetPlaceLabels(frame,labels,mark,P,scale){
+  if(!SHEETPL.size)return;
+  const want=new Set();for(const fm of frame.movements){if(!fm.visible||fm.opacity<.3)continue;const m=DATA.movements.find(r=>r.id===fm.id);if(!m)continue;for(const id of [m.origin,m.destination])if(typeof id==='string')want.add(id);}
+  const sp=selected?.record?.placeId;if(typeof sp==='string')want.add(sp);
+  const have=new Set(labels.map(l=>String(l.text).toLowerCase()));
+  for(const id of want){const pl=SHEETPL.get(id);if(!pl||pl.cameraOnly||pl.lat==null||pl.lon==null)continue;const text=String(pl.historicalName||'').split(/\s*[\/(]/)[0].trim();if(!text||have.has(text.toLowerCase()))continue;
+    const q=P([(pl.lon+15)*15,(58-pl.lat)*650/53]);if(!q.vis)continue;have.add(text.toLowerCase());
+    el('circle',{cx:q.x.toFixed(1),cy:q.y.toFixed(1),r:(3.4*Math.max(.8,scale)).toFixed(1),fill:'#1A1410',stroke:'#FFF2DE','stroke-width':2,'pointer-events':'none'},mark);
+    labels.push({text,x:q.x,y:q.y,side:'right',prio:1});}
+}
 function placeLabels(list,parent,scale,obstacles=[]){const boxes=[...obstacles];const fs=Math.max(12,15*Math.min(1.15,scale));list.sort((a,b)=>b.prio-a.prio);
   for(const l of list){const w=l.text.length*fs*0.56,h=fs*1.1;const cand=l.side==='left'?[['end',-12,4],['start',12,4],['middle',0,fs+10]]:l.side==='below'?[['middle',0,fs+10],['start',12,4],['end',-12,4]]:[['start',12,4],['end',-12,4],['middle',0,fs+10],['middle',0,-14]];
     let placed=null;for(const [anchor,dx,dy] of cand){const x0=anchor==='start'?l.x+dx:anchor==='end'?l.x+dx-w:l.x-w/2,y0=l.y+dy-h*.8;const b={x:x0,y:y0,w,h};if(!boxes.some(o=>b.x<o.x+o.w&&b.x+b.w>o.x&&b.y<o.y+o.h&&b.y+b.h>o.y)){placed=[anchor,l.x+dx,l.y+dy];boxes.push(b);break;}}
@@ -258,7 +277,7 @@ function placesFit(pts,s){const keep={lon:view.lon,lat:view.lat,zoom:view.zoom,R
   const st=$('stage'),w=st.clientWidth,h=st.clientHeight,m=Math.min(44,w*.08);const ok=pts.every(([lo,la])=>{const q=project(lo,la);return q.vis&&q.depth<1&&q.x>=m&&q.x<=w-m&&q.y>=m&&q.y<=h-m;});Object.assign(view,keep);return ok;}
 function recordLonLats(record,type){if(type==='sheet'){const p=SHEETPLACES.get(record.placeId);return p&&Number.isFinite(p.lat)&&Number.isFinite(p.lon)?[[p.lon,p.lat]]:[];}return recordPlaces(record,type).map(svgToLonLat);}
 function turnToRecord(record,type){
-  if(!view.manual)return;                       // the story camera is still in charge and already follows the story
+  if(!view.manual)return;cancelTurn();                       // the story camera is still in charge and already follows the story
   const pts=recordLonLats(record,type);if(!pts.length)return;
   const [lon,lat]=pts.length>1?meanLonLat(pts):pts[0];const to={lon,lat:Math.max(-70,Math.min(80,lat)),zoom:view.zoom,deg:view.deg};
   if(!placesFit(pts,to)){while(to.zoom>ZMIN+.01&&!placesFit(pts,to))to.zoom=Math.max(ZMIN,to.zoom*.9);   // first zoom out to the default,
@@ -314,9 +333,51 @@ function step(dir){const y=Math.round(currentYear());let i=selected?milestones.f
 function selectMilestone(i){const m=milestones[i];if(!m)return;stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();turnToRecord(m.record,m.type);if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
 
 /* ---------- boot ---------- */
+
+// Sheet arrows: Movements with both ends ready are added to the engine's movement list so they use the same drawing, fading and timeline code.
+// Movements that an engine arrow already draws (same Event ID) are skipped, so nothing is drawn twice.
+function addSheetMovements(){
+  const S=DATA.sheet;if(!S?.movements?.length||/[?&]engine=1/.test(location.search))return;
+  const pl=new Map((S.places||[]).map(p=>[p.id,p]));SHEETPL=pl;
+  const covered=new Set(DATA.movements.map(m=>DATA.cardLinks?.[m.id]).filter(Boolean));
+  const xy=p=>[(p.lon+15)*15,(58-p.lat)*650/53];
+  const ok=m=>m.arrowEndsReady&&!covered.has(m.eventId)&&[m.originPlaceId,m.destinationPlaceId].every(id=>Number.isFinite(pl.get(id)?.lat)&&Number.isFinite(pl.get(id)?.lon));
+  const ready=new Map(S.movements.filter(ok).map(m=>[m.id,m]));
+  // Branch rule (dataset chat): the New Amsterdam arrow (23 refugees) draws only together with the Amsterdam, Curacao and Barbados branches.
+  const needs={'MOV-055':['MOV-052','MOV-053','MOV-054']};
+  for(const [id,req] of Object.entries(needs))if(ready.has(id)&&!req.every(r=>ready.has(r)))ready.delete(id);
+  const sib=new Map();for(const m of ready.values()){const k=(m.eventId||m.id)+'|'+m.originPlaceId;(sib.get(k)||sib.set(k,[]).get(k)).push(m.id);}
+  const added=[];
+  for(const m of ready.values()){
+    const a=xy(pl.get(m.originPlaceId)),b=xy(pl.get(m.destinationPlaceId)),grp=sib.get((m.eventId||m.id)+'|'+m.originPlaceId),i=grp.indexOf(m.id);
+    const bend=grp.length>1?(i-(grp.length-1)/2)*0.22:0.12,dx=b[0]-a[0],dy=b[1]-a[1];
+    const control=[(a[0]+b[0])/2-dy*bend,(a[1]+b[1])/2+dx*bend];
+    const t=m.arrowTreatment||'',color=/^Red/.test(t)?'#a33b32':/^Blue/.test(t)?'#275d9b':'#6d6256';
+    const o=pl.get(m.originPlaceId),d=pl.get(m.destinationPlaceId),end=m.endYear??m.startYear;
+    added.push({id:m.id,sheetArrow:true,contested:/^Dotted/i.test(t),color,title:`${o.historicalName||m.origin} to ${d.historicalName||m.destination}`,date:m.dateDisplay,dateRange:{start:m.startYear,end},origin:m.originPlaceId,destination:m.destinationPlaceId,originCoordinates:a,destinationCoordinates:b,rendering:{control},movementType:null,evidenceStatus:'',story:'',sourceIds:[]});
+    if(m.eventId&&S.cards.some(c=>c.id===m.eventId)){DATA.cardLinks=DATA.cardLinks||{};DATA.cardLinks[m.id]=m.eventId;}
+  }
+  DATA.movements=DATA.movements.concat(added);
+}
+// Eras 4-7 and the camera from 200 CE come from the Sheet (Eras, Camera Stops, Era Assignment tabs). The loader has already turned each
+// stop's frame into a zoom (viewDeg); Eras 1-3 and the camera before 200 CE are untouched. Add ?engine=1 to see the old behaviour.
+let ERA_OF=new Map(),ERA_NAME=new Map();
+function addSheetEras(){
+  const S=DATA.sheet;if(!S?.eras?.length||/[?&]engine=1/.test(location.search))return;
+  ERA_NAME=new Map(S.eras.map(e=>[e.era,e.name]));ERA_OF=new Map((S.eraAssignment||[]).map(a=>[a.id,a.era]));
+  DATA.eras=DATA.eras.concat(S.eras.filter(e=>e.era>=4&&e.status==='approved').sort((a,b)=>a.startYear-b.startYear).map(e=>({startDate:e.startYear,title:e.name})));
+  const stops=(S.cameraStops||[]).filter(s=>s.status==='approved');if(!stops.length)return;
+  const st=DATA.cameraStates,last=st[st.length-1],T=10,xy=(lon,lat)=>[(lon+15)*15,(58-lat)*650/53];
+  const mk=(s,y)=>{const [cx,cy]=xy(s.centerLon,s.centerLat);return {startDate:y,scale:26/s.viewDeg,translateX:0,translateY:0,scope:s.label,centerX:cx,centerY:cy};};
+  const add=[];if(last.startDate<stops[0].startYear-30)add.push({...last,startDate:stops[0].startYear-30});   // keep the antiquity view until 30 years before the first stop
+  stops.forEach((s,i)=>{add.push(mk(s,s.startYear));const n=stops[i+1];if(n&&n.startYear-s.startYear>T)add.push(mk(s,n.startYear-T));});   // hold each view, then move to the next one over its last 10 years
+  DATA.cameraStates=st.concat(add);
+}
+// From 200 CE the era label of an open card follows the Era Assignment tab (a card on a boundary year closes the earlier era); otherwise by year.
+function eraLabel(y,frame){const r=selected?.record;if(r&&ERA_OF.size){const m=milestones.find(k=>k.record===r),e=m&&Math.round(y)===m.date&&m.date>=200?ERA_OF.get(r.id):null;if(e>=3&&ERA_NAME.has(e))return ERA_NAME.get(e);}return frame.era?.title||'';}
 async function boot(){
   try{
-    const res=await fetch('data/history.json');DATA=await res.json();try{GEO=await (await fetch('data/geo.json')).json();}catch(_){GEO=null;}assertHistory(DATA);INDEX=indexData(DATA);
+    const res=await fetch('data/history.json');DATA=plainCEDeep(await res.json());try{GEO=await (await fetch('data/geo.json')).json();}catch(_){GEO=null;}assertHistory(DATA);addSheetMovements();addSheetEras();$('arcSlider').setAttribute('aria-valuemin',DATA.timeline.start);$('arcSlider').setAttribute('aria-valuemax',DATA.timeline.end);INDEX=indexData(DATA);
     buildTimeline();buildMilestones();initGL();initInteraction();
     position=posForYear(DATA.presentation?.openingYear??-1208);$('version').textContent='Globe preview · data from '+(DATA.presentation?.version||'Alpha');
     layout();

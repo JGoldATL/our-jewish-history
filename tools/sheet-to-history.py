@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Load the Jewish Continuity master dataset (Google Sheet export) into data/history.json.
 
-SOURCE OF TRUTH: the Google Sheet "Jewish_Continuity_Master_Dataset_v0.2.1" (linked in the project
+SOURCE OF TRUTH: the Google Sheet "Jewish_Continuity_Master_Dataset_v0.2.2" (linked in the project
 instructions). The build sandbox cannot reach Google, so this script reads an .xlsx export of that
 Sheet. Export it fresh each time (File > Download > .xlsx, or ask the dataset chat's Drive connection).
 Never commit the export: a committed copy would be an old copy.
@@ -50,6 +50,7 @@ SYMBOL_KINDS = [  # only the locked/leaning shapes get a kind; everything else s
     (re.compile(r'^Red octagon', re.I), 'octagon', 'locked'),
     (re.compile(r'^Split diamond', re.I), 'splitDiamond', 'leaning'),
     (re.compile(r'^Purple diamond', re.I), 'purpleDiamond', 'leaning'),
+    (re.compile(r'^Black square$', re.I), 'blackSquare', 'locked'),  # approved by Jeffrey Oct 5: community no longer exists
     (re.compile(r'^Candidate:\s*black square', re.I), 'blackSquare', 'candidate'),
 ]
 
@@ -82,6 +83,32 @@ OPTIONAL_COMMUNITY_COLS = dict(concentration='Concentration', presenceStatus='Pr
 OPTIONAL_MOVEMENT_COLS = dict(originPlaceId='Origin place ID', destinationPlaceId='Destination place ID')
 SECTION_OF_TAB = {'Events': 'events', 'Communities': 'communities', 'Movements': 'movements',
                   'Context & Voyages': 'context', 'Evidence': 'evidence', 'Places': 'places'}
+
+# Era and camera tabs (added with master v0.2.2). They are optional as a whole (an older export has none of them), but a tab
+# that is present must carry every expected column: a damaged tab stops the load, it is never loosened to fit.
+ERA_TABS = {
+    'Eras': dict(era='Era', name='Era name (proposed)', start='Start year', startDisplay='Start (display)',
+                 lastYear='Last year inside era', summary='Summary line (one sentence, proposed)',
+                 centerPlaceId='Opening camera centre (Place ID)', frame='Frame must keep on screen (Place IDs)',
+                 status='Status'),
+    'Camera Stops': dict(stop='Stop', era='Era', start='Start year', label='Stop label (proposed)',
+                         centerPlaceId='Camera centre (Place ID)', role='Centre scale (Places Role)',
+                         frame='Frame must keep on screen (Place IDs)', records='Justifying Sheet records (IDs)',
+                         status='Status'),
+    'Era Assignment': dict(id='Record ID', era='Era (recommended boundaries)', runsPast='Runs past era end?'),
+}
+# Quiz questions ("When in the World?", master v0.2.3). The tab is optional as a whole; a present tab must carry every expected
+# column. The Notes column is never read, so it can never reach the public file.
+QUESTION_COLS = dict(id='Q-ID', status='Status', mode='Core or Random', era='Era', style='Style', place='Place', lat='Lat', lon='Lon',
+                     question='Question', a='Choice A', b='Choice B', c='Choice C', d='Choice D', e='Choice E', correct='Correct',
+                     quick='Quick take', deep='Deep dive', jewishEvent='Jewish event', jewishYear='Jewish year',
+                     worldAnchor='World anchor', worldYear='World year')
+QUESTION_ERAS = ('Biblical era', 'Second Temple & Rome', 'Medieval & Modern')
+ORDER_STYLE = 'put these in order'
+# Camera zoom rule (approved by Jeffrey Oct 6, 2026). The Sheet has no zoom numbers, only a centre Place and the Places that
+# must stay on screen. half-width (degrees of arc, the engine's own unit) = distance from the centre to the farthest frame
+# place x 1.15, never below a floor set by the centre's Role (settlement 12, region 24), clamped to the engine's 10..45.
+VIEW_MARGIN, VIEW_FLOOR, VIEW_MIN, VIEW_MAX = 1.15, {'settlement': 12.0, 'region': 24.0}, 10.0, 45.0
 
 
 def clean(v):
@@ -142,6 +169,172 @@ class Report:
         self.warnings.append({'tab': tab, 'id': rid, 'row': row, 'note': why})
 
 
+def arc_deg(a, b):
+    """Great-circle distance in degrees between two (lat, lon) points."""
+    import math
+    p1, l1, p2, l2 = map(math.radians, (a[0], a[1], b[0], b[1]))
+    c = math.sin(p1) * math.sin(p2) + math.cos(p1) * math.cos(p2) * math.cos(l1 - l2)
+    return math.degrees(math.acos(max(-1.0, min(1.0, c))))
+
+
+def read_optional_tab(wb, tab, cols):
+    """Rows of an era/camera tab, or None when the workbook has no such tab. Present but damaged = stop."""
+    if tab not in wb.sheetnames:
+        return None
+    rows, _ = read_tab(wb, tab, cols)
+    return rows
+
+
+def build_eras(wb, places, all_ids, rep):
+    """Eras, Camera Stops and Era Assignment -> three sections. Nothing is guessed: a bad row is rejected with its reason."""
+    by_id = {p['id']: p for p in places if p['lat'] is not None}
+    raw = {t: read_optional_tab(wb, t, c) for t, c in ERA_TABS.items()}
+    for t, v in raw.items():
+        if v is None:
+            rep.warn(t, '-', 0, f'tab "{t}" is not in this export; no {t.lower()} loaded')
+    status_of = lambda v: (str(v).strip().lower() if v else '')
+
+    def frame_ids(tab, r, label):
+        txt = str(r.get('frame') or '').strip()
+        if not txt or txt.startswith('('):  # "(this place only)" = no extra frame places
+            return []
+        ids = [x.strip() for x in txt.split(';') if x.strip()]
+        bad = [i for i in ids if i not in by_id]
+        if bad:
+            rep.reject(tab, label, r['_row'], f'frame place IDs not in Places (or without coordinates): {bad}'); return None
+        return ids
+
+    eras = []
+    for r in raw['Eras'] or []:
+        n, label = r.get('era'), f"ERA-{r.get('era')}"
+        if not isinstance(n, int) or not 1 <= n <= 7:
+            rep.reject('Eras', label, r['_row'], f'era number is not 1 to 7: {n!r}'); continue
+        if num(r.get('start')) is None or not r.get('name'):
+            rep.reject('Eras', label, r['_row'], 'era needs a name and a numeric start year'); continue
+        st = status_of(r.get('status'))
+        reference = st.startswith('reference only')
+        if not reference and st not in ('approved', 'draft'):
+            rep.reject('Eras', label, r['_row'], f'status {r.get("status")!r} is not approved, draft or reference only'); continue
+        e = {'id': label, 'era': n, 'name': r['name'], 'startYear': r['start'], 'startDisplay': r.get('startDisplay'),
+             'lastYear': r.get('lastYear'), 'summary': r.get('summary'), 'status': 'reference' if reference else st}
+        if not reference:
+            c = r.get('centerPlaceId')
+            if c not in by_id:
+                rep.reject('Eras', label, r['_row'], f'opening camera centre {c!r} is not a Place with coordinates'); continue
+            fr = frame_ids('Eras', r, label)
+            if fr is None: continue
+            e.update(centerPlaceId=c, framePlaceIds=fr)
+        eras.append(e)
+    eras.sort(key=lambda e: e['era'])
+    ok_eras = {e['era'] for e in eras}
+
+    stops = []
+    for r in raw['Camera Stops'] or []:
+        sid = str(r.get('stop')) if r.get('stop') is not None else None
+        label = f'STOP-{sid}'
+        if not sid or not re.fullmatch(r'[4-7]\.\d{1,2}[ab]?', sid):
+            rep.reject('Camera Stops', label, r['_row'], 'stop number is not like 4.1 or 7.11a (era 4 to 7)'); continue
+        if r.get('era') != int(sid.split('.')[0]) or r.get('era') not in ok_eras:
+            rep.reject('Camera Stops', label, r['_row'], f'era {r.get("era")!r} does not match the stop number or is not a loaded era'); continue
+        if num(r.get('start')) is None:
+            rep.reject('Camera Stops', label, r['_row'], f'start year is not a number: {r.get("start")!r}'); continue
+        st = status_of(r.get('status'))
+        if st not in ('approved', 'draft'):
+            rep.reject('Camera Stops', label, r['_row'], f'status {r.get("status")!r} is not approved or draft'); continue
+        c, role = r.get('centerPlaceId'), status_of(r.get('role'))
+        if c not in by_id:
+            rep.reject('Camera Stops', label, r['_row'], f'camera centre {c!r} is not a Place with coordinates'); continue
+        if role not in VIEW_FLOOR:
+            rep.reject('Camera Stops', label, r['_row'], f'centre scale {r.get("role")!r} is not settlement or region'); continue
+        fr = frame_ids('Camera Stops', r, label)
+        if fr is None: continue
+        reach = max([arc_deg((by_id[c]['lat'], by_id[c]['lon']), (by_id[i]['lat'], by_id[i]['lon'])) for i in fr] + [0.0])
+        want = max(reach * VIEW_MARGIN, VIEW_FLOOR[role])
+        fits = want <= VIEW_MAX
+        if not fits:
+            rep.warn('Camera Stops', label, r['_row'],
+                     f'the frame reaches {reach:.0f} degrees from the centre, so the view would need {want:.0f} degrees of half-width; the engine shows at most {VIEW_MAX:.0f}, so the view is clamped and part of the frame is off screen')
+        stops.append({'id': label, 'stop': sid, 'era': r['era'], 'startYear': r['start'], 'label': r.get('label'),
+                      'centerPlaceId': c, 'centerLat': by_id[c]['lat'], 'centerLon': by_id[c]['lon'], 'role': role,
+                      'framePlaceIds': fr, 'reachDeg': round(reach, 1), 'viewDeg': round(min(VIEW_MAX, max(VIEW_MIN, want)), 1),
+                      'fits': fits, 'recordIds': links(r.get('records')), 'status': st})
+    stops.sort(key=lambda x: (x['startYear'], [(int(m.group(1)), m.group(2)) for m in re.finditer(r'(\d+)([ab]?)', x['stop'])]))
+    for a, b in zip(stops, stops[1:]):
+        if a['startYear'] == b['startYear']:
+            rep.warn('Camera Stops', b['id'], 0, f'starts in the same year as {a["id"]} ({a["startYear"]}); by year the camera shows {b["id"]}, and cards in {a["id"]} turn the globe on their own')
+
+    assign = []
+    for r in raw['Era Assignment'] or []:
+        rid, e = r.get('id'), str(r.get('era') or '').strip()
+        m = re.fullmatch(r'Era ([1-7])', e)
+        if not m and not e.startswith('After 1897'):
+            rep.reject('Era Assignment', rid, r['_row'], f'era {e!r} is not Era 1 to 7 or After 1897'); continue
+        if rid not in all_ids:
+            rep.warn('Era Assignment', rid, r['_row'], 'record ID is not in the Sheet tabs this loader reads')
+        assign.append({'id': rid, 'era': int(m.group(1)) if m else None, 'runsPast': r.get('runsPast')})
+    return eras, stops, assign
+
+
+def build_questions(wb, rep):
+    """Questions tab -> list of quiz questions, or None when the export has no such tab. Bad rows are rejected with a reason."""
+    rows = read_optional_tab(wb, 'Questions', QUESTION_COLS)
+    if rows is None:
+        rep.warn('Questions', '-', 0, 'tab "Questions" is not in this export; no quiz questions loaded')
+        return None
+    out, seen = [], set()
+    for r in rows:
+        qid = str(r.get('id') or '').strip()
+        bad = lambda why: rep.reject('Questions', qid or '(no id)', r['_row'], why)
+        if not re.fullmatch(r'Q\d{3,}', qid):
+            bad('Q-ID is not like Q001'); continue
+        if qid in seen:
+            bad('duplicate Q-ID'); continue
+        st = str(r.get('status') or '').strip().lower()
+        if st not in ('approved', 'draft'):
+            bad(f'status {r.get("status")!r} is not Approved or Draft'); continue
+        mode = str(r.get('mode') or '').strip().lower()
+        if mode not in ('core', 'random'):
+            bad(f'Core or Random is {r.get("mode")!r}'); continue
+        if r.get('era') not in QUESTION_ERAS:
+            bad(f'era {r.get("era")!r} is not one of {list(QUESTION_ERAS)}'); continue
+        for k, name in (('style', 'Style'), ('place', 'Place'), ('question', 'Question'), ('quick', 'Quick take'),
+                        ('jewishEvent', 'Jewish event'), ('worldAnchor', 'World anchor')):
+            if not str(r.get(k) or '').strip():
+                bad(f'{name} is empty'); break
+        else:
+            lat, lon, jy, wy = num(r.get('lat')), num(r.get('lon')), num(r.get('jewishYear')), num(r.get('worldYear'))
+            if lat is None or lon is None or not (-90 <= lat <= 90 and -180 <= lon <= 180):
+                bad(f'Lat/Lon are not valid coordinates: {r.get("lat")!r}, {r.get("lon")!r}'); continue
+            if jy is None or wy is None:
+                bad(f'Jewish year or World year is not a number: {r.get("jewishYear")!r}, {r.get("worldYear")!r}'); continue
+            choices = [str(r[k]).strip() for k in 'abcde' if r.get(k) not in (None, '')]
+            order = str(r.get('style')).strip().lower() == ORDER_STYLE
+            corr = str(r.get('correct') or '').strip()
+            if order:
+                if corr.lower() != 'in listed order':
+                    bad(f'a "Put these in order" question needs Correct = "In listed order", not {corr!r}'); continue
+                if len(choices) < 3:
+                    bad('a "Put these in order" question needs at least 3 items'); continue
+                correct = 'order'
+            else:
+                letter = corr.upper()
+                if letter not in ('A', 'B', 'C', 'D', 'E'):
+                    bad(f'Correct {corr!r} is not a letter A to E'); continue
+                if len(choices) < 2:
+                    bad('a multiple-choice question needs at least 2 choices'); continue
+                if not str(r.get('abcde'[ 'ABCDE'.index(letter)]) or '').strip():
+                    bad(f'Correct is {letter} but Choice {letter} is empty'); continue
+                correct = letter
+            seen.add(qid)
+            out.append({'id': qid, 'status': st, 'mode': mode, 'era': r['era'], 'style': str(r['style']).strip(),
+                        'place': str(r['place']).strip(), 'lat': lat, 'lon': lon, 'question': str(r['question']).strip(),
+                        'choices': choices, 'correct': correct, 'quickTake': str(r['quick']).strip(),
+                        'deepDive': str(r.get('deep') or '').strip(), 'jewishEvent': str(r['jewishEvent']).strip(),
+                        'jewishYear': jy, 'worldAnchor': str(r['worldAnchor']).strip(), 'worldYear': wy})
+    out.sort(key=lambda q: q['id'])
+    return out
+
+
 def build(wb, rep):
     raw, missing_optional = {}, {'Communities': [], 'Movements': []}
     for tab, cols in TABS.items():
@@ -187,7 +380,8 @@ def build(wb, rep):
         if r['lat'] is not None: placed.add(r['id'])
         places.append({'id': r['id'], 'historicalName': r['historicalName'], 'modernName': r['modernName'],
                        'role': r['role'], 'lat': r['lat'], 'lon': r['lon'],
-                       'landOfIsrael': str(r['landOfIsrael'] or '').lower() == 'yes'})
+                       'landOfIsrael': str(r['landOfIsrael'] or '').lower() == 'yes',
+                       **({'cameraOnly': True} if r['id'].startswith('place-cam-') else {})})
 
     def years(tab, r, need_start=True):
         s, e = r.get('start'), r.get('end')
@@ -211,7 +405,8 @@ def build(wb, rep):
 
     def make_card(tab, r, rid_extra=None):
         title = r.get('cardTitle')
-        if not any(r.get(k) for k in ('cardType', 'cardDate', 'cardTitle', 'cardDescription', 'cardStatus')):
+        # No card text at all (a Card status alone does not make a card) means no card was intended: stay silent.
+        if not any(r.get(k) for k in ('cardType', 'cardDate', 'cardTitle', 'cardDescription')):
             return None
         missing = [n for n, k in (('card type', 'cardType'), ('card date', 'cardDate'), ('card title', 'cardTitle'),
                                   ('card description', 'cardDescription'), ('card status', 'cardStatus')) if not r.get(k)]
@@ -332,6 +527,13 @@ def build(wb, rep):
     cards.sort(key=lambda c: (c['startYear'], c['id']))
     sections = {'places': places, 'events': events, 'communities': communities, 'movements': movements,
                 'context': context, 'evidence': evidence, 'cards': cards}
+    eras, stops, assign = build_eras(wb, places, all_ids, rep)
+    if eras or stops or assign:
+        sections.update({'eras': eras, 'cameraStops': stops, 'eraAssignment': assign})
+    questions = build_questions(wb, rep)
+    if questions is not None:
+        sections['questions'] = questions
+
     return sections, missing_optional
 
 
@@ -343,6 +545,8 @@ def public_view(sections):
     for c in out['cards']:
         if c.get('meanwhile') and c.get('meanwhileStatus') != 'approved':
             c.pop('meanwhile'); c.pop('meanwhileStatus')
+    if 'questions' in out:
+        out['questions'] = [q for q in out['questions'] if q['status'] == 'approved']
     for sec in ('events', 'communities'):
         for r in out[sec]:
             r['hasCard'] = r['id'] in keep
@@ -385,7 +589,7 @@ def main(argv=None):
     new = {k: v for k, v in sections.items()}
     d = diff(old, new)
 
-    meta = {'schema': SCHEMA, 'source': 'Google Sheet Jewish_Continuity_Master_Dataset_v0.2.1',
+    meta = {'schema': SCHEMA, 'source': 'Google Sheet Jewish_Continuity_Master_Dataset_v0.2.2',
             'sheetFileId': '1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8',
             'sheetModified': a.sheet_modified or (hist.get('sheet') or {}).get('meta', {}).get('sheetModified'),
             'exportSha256': hashlib.sha256(xlsx.read_bytes()).hexdigest()[:16],
@@ -432,6 +636,15 @@ def main(argv=None):
         print(f'Movements tab has no column for: {missing_optional["Movements"]}')
     print(f'Movements with both arrow ends as Place IDs (can be drawn): {report["movementsWithArrowEnds"]} of {len(sections["movements"])}')
     print(f'POP/CHG records with no engine fields (no shading until supplied): {report["recordsWithNoEngineFields"]}')
+    # Project rule: Common Era years are written as the bare year. The site strips " CE" for display, so old text still shows correctly;
+    # this count tells the dataset chat how much text still carries it (informational, never a reject).
+    import re as _re
+    def _ce(o):
+        if isinstance(o, str): return 1 if _re.search(r'\d\s+CE\b|century\s+CE\b', o) and not _re.search(r'\bBCE\b', o) else 0
+        if isinstance(o, list): return sum(_ce(x) for x in o)
+        if isinstance(o, dict): return sum(_ce(x) for x in o.values())
+        return 0
+    print(f'Text values that still say "CE" after a year (the site shows the bare year; new text should omit CE): {_ce(sections)}')
 
     if a.report:
         Path(a.report).write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding='utf-8')

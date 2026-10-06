@@ -33,3 +33,20 @@ Always also look at the screenshots: the checks cannot judge appearance.
 Map building (not a test): tools/build-map.py rebuilds images/tex-region.jpg, images/tex-world.jpg and the coast in data/geo.json
 from Natural Earth land and lakes; the baked relief it works from is in images/src/. See the header of that file for the commands.
 A sharper relief (Pass B) only has to replace images/src/relief-region.jpg and relief-world.jpg.
+
+
+arrows.js: Sheet arrows. Every Movement with both ends ready is drawn (none twice, none that an engine arrow already draws); the New Amsterdam branch rule holds; the 587 BCE arrow appears on the globe.
+
+Pass 2 (Eras 4 to 7, Oct 6, 2026):
+- load.py also covers the Eras, Camera Stops and Era Assignment tabs: the zoom rule (farthest frame Place x 1.15, floored by Role 12 or 24, clamped 10..45), unfit frames warn and clamp, bad rows are rejected with a reason, missing tabs are tolerated, a damaged Camera Stops tab stops the load. 57 checks, all pass.
+- reg.js: the sweep runs to DATA.timeline.end (1897) and is camera-independent (it turns the globe to a missing arrow before counting a mismatch). It reports yearsWithArrowOffCamera, which is informational: an arrow hidden only because the camera is elsewhere.
+- follow.js: the card walk covers every card (164 of 164 in order, then back).
+
+Quiz page (Oct 6, 2026):
+- quiz.js test: `NODE_PATH=$(npm root -g) node tests/quiz.js` (server on :8778). d3 and topojson are served from local copies (VEND, default /tmp/claude-0/vend/node_modules; `npm i d3@7.9.0 topojson-client@3` there) because the sandbox cannot reach cdnjs. Covers: Approved-only rule (production, ?drafts=1, preview, public), "not ready" message, one question per era with three different Styles in chronological order, multiple-choice lock/green/red, put-in-order with "You had #N", verdict wording, Dive deeper reveal, button text, end screen headline/score/timeline/gap lines/survey/buttons, Play 3 more, era pools, reduced motion, no horizontal scroll at 390 and 320 px, 44 px tap targets.
+- load.py also covers the Questions tab (valid rows, each bad row rejected with a reason, Notes never leaks, public keeps Approved only).
+- follow.js prints "cards not in view" in follow mode on the committed data too (informational, unchanged by the quiz); the walk itself passes.
+
+Common Era rule (Oct 6, 2026):
+- ce.js: CE years are written as the bare year (1654, not 1654 CE) everywhere on the globe; BCE stays; "CE" is kept only inside a string that also says BCE. The rule lives in engine.js (plainCE, plainCEDeep, yearLabel) and runs once on load; the quiz applies the same rule and keeps CE when its timeline crosses BCE. The loader prints an informational count of Sheet text that still says "CE" (never a reject).
+- follow.js can report one card "not in view" when it runs at the same time as reg.js (CPU load); rerun it alone before treating it as real.

@@ -27,8 +27,8 @@ for(const [name,dev,all] of [['desktop',devices['Desktop Chrome'],true],['iphone
   r.zoomBefore=z0;r.zoomKept=Math.abs(r.zoom-z0)<.002;rows.push(r);}
  const missed=rows.filter(r=>!r.inView||r.animating),zoomChanged=rows.filter(r=>!r.zoomKept).map(r=>`${r.title} (${r.zoomBefore}→${r.zoom}, deg ${r.deg}, ${r.n} places)`);
  // 2b. every card is reachable: from the first card, Next visits every card once, in order; Previous walks back; no duplicates by title
- if(name==='desktop'){const walk=await p.evaluate(async()=>{closeStory();setYearExact(-2000);const want=milestones.map(m=>m.record.id),got=[];selectMilestone(0);got.push(selected.record.id);for(let i=0;i<60;i++){const before=selected.record.id;step(1);if(selected.record.id===before)break;got.push(selected.record.id);}
-   const back=[];for(let i=0;i<60;i++){const before=selected.record.id;step(-1);if(selected.record.id===before)break;back.push(selected.record.id);}
+ if(name==='desktop'){const walk=await p.evaluate(async()=>{closeStory();setYearExact(-2000);const want=milestones.map(m=>m.record.id),got=[];selectMilestone(0);got.push(selected.record.id);for(let i=0;i<want.length+5;i++){const before=selected.record.id;step(1);if(selected.record.id===before)break;got.push(selected.record.id);}
+   const back=[];for(let i=0;i<want.length+5;i++){const before=selected.record.id;step(-1);if(selected.record.id===before)break;back.push(selected.record.id);}
    const titles=milestones.map(m=>m.type+'|'+m.record.title),dup=titles.filter((t,i)=>titles.indexOf(t)!==i);
    const destroyedTitles=milestones.filter(m=>m.type==='destruction').map(m=>m.record.title),changeClash=milestones.filter(m=>m.type==='change'&&destroyedTitles.includes(m.record.title)).map(m=>m.record.title);
    return {cards:want.length,reached:got.length,inOrder:JSON.stringify(got)===JSON.stringify(want),backOk:back.length===want.length-1&&JSON.stringify(back)===JSON.stringify(want.slice(0,-1).reverse()),dup,changeClash};});
@@ -38,6 +38,13 @@ for(const [name,dev,all] of [['desktop',devices['Desktop Chrome'],true],['iphone
  await p.evaluate(()=>{view.lon+=150;view.lat=30;view.manual=true;render();});await press('#next');await p.waitForTimeout(200);const mid=await p.evaluate(()=>turnAnim!=null);
  await p.evaluate(()=>stopTour());const cancelled=await p.evaluate(()=>turnAnim===null);
  if(name==='desktop'||name==='iphone'){await p.screenshot({path:`tests/out/follow-${name}.png`});}
- const ok=before.manual&&!missed.length&&prev.inView&&mid&&cancelled&&!errs.length;if(!ok)bad++;
+ // 4. the user turns the globe away, then moves the timeline by hand: the globe goes to the place of action for that year
+ const scrubMiss=[];const sc=await p.evaluate(()=>milestones.map(m=>m.date));const uniq=[...new Set(sc)].slice(0,all?99:6);
+ for(const y of uniq){await p.evaluate(()=>{stopTour();closeStory();view.lon+=140;view.lat=-40;view.manual=true;render();});await p.waitForTimeout(150);
+  await p.evaluate(y=>{stopTour();selected=null;setPos(posForYear(y));},y);await p.waitForTimeout(1100);
+  const r=await p.evaluate(()=>{const i=lastMilestoneIdx(Math.round(currentYear())),m=milestones[i],pts=recordLonLats(m.record,m.type),st=$('stage'),w=st.clientWidth,h=st.clientHeight;return {title:m.record.title,inView:pts.every(([lo,la])=>{const q=project(lo,la);return q.vis&&q.x>0&&q.x<w&&q.y>0&&q.y<h;})};});
+  if(!r.inView)scrubMiss.push(y+' '+r.title);}
+ console.log(name,'timeline scrub: action not brought into view:',JSON.stringify(scrubMiss));
+ const ok=before.manual&&!missed.length&&!scrubMiss.length&&prev.inView&&mid&&cancelled&&!errs.length;if(!ok)bad++;
  console.log(name,JSON.stringify({before,cards:rows.length,notInView:missed.map(r=>r.title),zoomChanged,prevInView:prev.inView,turnWasRunning:mid,cancelled,errs}),ok?'PASS':'FAIL');await c.close();}
 await b.close();process.exit(bad?1:0);})();

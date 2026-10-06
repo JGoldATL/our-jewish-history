@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>When in the World? · Jewish Journeys</title>
+<style>
+/* "When in the World?" quiz. Its own section of Jewish Journeys, so it has its own dusk palette (plum and amber) instead of the globe's navy.
+   Layout: one card per screen, phone first. Fonts are the site's locked families: Georgia for headings, questions and quick takes; Arial for everything else. */
+:root{
+  --bg:#1a1029; --surface:#251838; --raise:#2f2047; --line:#46325f;
+  --ink:#f4eff9; --muted:#bcaed0; --gold:#f2a65a; --right:#6fd8a4; --right-bg:#1f3a33; --wrong:#f39a92; --wrong-bg:#47222f;
+  --sea:#2c1e45; --land:#7a63a0; --rim:#5a4580;
+  --serif:Georgia,"Times New Roman",serif; --sans:Arial,Helvetica,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+body{min-height:100svh}
+[hidden]{display:none!important}
+.wrap{max-width:560px;margin:0 auto;padding:20px 16px 48px;padding-bottom:max(48px,env(safe-area-inset-bottom))}
+.brand{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;position:sticky;top:0;z-index:2;background:var(--bg);padding:8px 0;padding-top:max(8px,env(safe-area-inset-top))}
+.brand h1{font-family:var(--serif);font-weight:600;font-size:1.5rem;margin:0;color:var(--gold)}
+.brand span{display:block;margin-top:2px;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+#globe{width:88px;height:88px;flex:none}
+.dots{display:flex;gap:6px;margin-bottom:14px}
+.dots i{flex:1;height:4px;border-radius:2px;background:var(--line)}
+.dots i.on{background:var(--gold)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.eyebrow{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.place{color:var(--gold)}
+.qt{font-family:var(--serif);font-size:1.35rem;line-height:1.3;margin:0 0 18px;text-wrap:balance}
+.hint{font-size:.85rem;color:var(--muted);margin:-8px 0 12px}
+.choices{display:grid;gap:10px}
+.choice{display:flex;gap:12px;align-items:center;width:100%;min-height:48px;text-align:left;font:inherit;color:var(--ink);background:var(--raise);border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
+.choice:hover:not(:disabled){border-color:var(--gold)}
+.choice .n{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:700;background:var(--bg);color:var(--muted)}
+.choice.picked .n{background:var(--gold);color:var(--bg)}
+.choice.right{background:var(--right-bg);border-color:var(--right)}
+.choice.right .n{background:var(--right);color:var(--bg)}
+.choice.wrong{background:var(--wrong-bg);border-color:var(--wrong)}
+.choice.wrong .n{background:var(--wrong);color:var(--bg)}
+.choice:disabled{cursor:default}
+.yours{margin-left:auto;font-size:.78rem;font-weight:700;color:var(--wrong);white-space:nowrap}
+.result{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
+.verdict{font-weight:700;margin-bottom:4px;line-height:1.4}
+.verdict.ok{color:var(--right)} .verdict.no{color:var(--wrong)}
+.quick{font-family:var(--serif);font-size:1.15rem;line-height:1.4;margin:0 0 12px}
+.more{margin-left:4px;font-family:var(--serif);font-style:italic;font-size:1.05rem;color:var(--gold);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.deep{color:var(--muted);margin:0 0 14px;font-size:.98rem}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;font-weight:700;border:0;border-radius:999px;min-height:44px;padding:11px 22px;cursor:pointer;background:var(--gold);color:var(--bg);text-decoration:none;display:inline-flex;align-items:center}
+.btn.ghost{background:none;color:var(--gold);border:1px solid var(--gold)}
+.choice:focus-visible,.btn:focus-visible,.more:focus-visible,.pill:focus-visible,.foot a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.end h2{font-family:var(--serif);font-size:1.6rem;line-height:1.25;margin:0 0 4px;text-wrap:balance}
+.end .score{color:var(--muted);margin:0 0 20px}
+.tl{list-style:none;margin:0 0 22px;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.tl li{position:relative;padding-left:30px;padding-bottom:6px}
+.tl li::before{content:"";position:absolute;left:1px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px var(--surface)}
+.tl .yr{font-size:.78rem;letter-spacing:.06em;color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums}
+.tl .ev{font-family:var(--serif);font-size:1.1rem}
+.tl .mw{font-size:.9rem;color:var(--muted)}
+.tl li.gap{font-size:.8rem;color:var(--muted);font-style:italic;padding-bottom:14px}
+.tl li.gap::before{display:none}
+.survey{border-top:1px solid var(--line);padding-top:16px;margin-bottom:18px}
+.survey p{margin:0 0 10px;font-size:.95rem}
+.pill{font:inherit;font-size:.9rem;min-height:44px;background:var(--raise);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer}
+.pill.sel{border-color:var(--gold);color:var(--gold)}
+.foot{margin-top:16px;font-size:.75rem;color:var(--muted);text-align:center}
+.foot a{color:var(--gold)}
+.msg{padding:20px;text-align:center;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.card{animation:in .25s ease-out}@keyframes in{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><div><h1>When in the World?</h1><span id="count"></span></div><canvas id="globe" width="176" height="176" aria-label="Globe showing where this question takes place" role="img"></canvas></div>
+  <div class="dots" id="dots"></div>
+  <div id="stage" aria-live="polite"></div>
+  <p class="foot"><span id="mode"></span><a href="index.html">Back to the globe</a></p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="quiz.js"></script>
+</body>
+</html>

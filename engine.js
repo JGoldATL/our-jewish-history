@@ -21,14 +21,18 @@ function validateHistory(data){
 }
 function assertHistory(data){const errors=validateHistory(data);if(errors.length)throw new Error('Historical dataset: '+errors.join('; '));}
 function indexData(data){return {places:new Map(data.places.map(p=>[p.id,p])),sources:new Map(data.sources.map(s=>[s.id,s]))};}
-function yearLabel(y){return y<0?Math.abs(y)+' BCE':y===0?'1 BCE / 1 CE':y+' CE';}
+// Project rule: Common Era years are written as the bare year (1654, not 1654 CE). BCE always stays. "CE" is kept only inside a string that also says BCE,
+// so a span such as "200 BCE to 70 CE" stays clear.
+function plainCE(s){return typeof s==='string'&&/\bCE\b/.test(s)&&!/\bBCE\b/.test(s)?s.replace(/\s+CE\b/g,''):s;}
+function plainCEDeep(o){if(Array.isArray(o)){for(let i=0;i<o.length;i++){const v=o[i];if(typeof v==='string')o[i]=plainCE(v);else if(v&&typeof v==='object')plainCEDeep(v);}}else if(o&&typeof o==='object'){for(const k of Object.keys(o)){const v=o[k];if(typeof v==='string')o[k]=plainCE(v);else if(v&&typeof v==='object')plainCEDeep(v);}}return o;}
+function yearLabel(y){return y<0?Math.abs(y)+' BCE':y===0?'1 BCE / 1 CE':String(y);}
 function fw(y,s,p,n){if(y<s||y>n)return 0;if(y<=p)return Math.max(.12,(y-s)/(p-s||1));return Math.max(0,1-(y-p)/(n-p||1));}
 function lastState(y,states,key='date'){let found=null;for(const s of states||[])if(s[key]<=y&&(!found||s[key]>=found[key]))found=s;return found;}
 function activeAt(r,y){return y>=r.startDate&&(r.endDate==null||y<r.endDate);}
 function opacityAt(y,states,smooth=0){let last=-1;for(let i=0;i<(states||[]).length;i++)if(y>=states[i][0])last=i;if(last<0)return 0;const [date,value]=states[last];if(!smooth||last===0)return value;const before=states[last-1][1],t=Math.min(1,Math.max(0,(y-date)/smooth));return before+(value-before)*t;}
 function movementWindow(m){if(m.rendering?.window)return m.rendering.window;const start=m.dateRange?.start??m.eventDateRange?.start,end=m.dateRange?.end??start;if(!Number.isFinite(start))return null;return [start-8,(start+end)/2,end+8];}
-function canRenderMovement(m,data=DATA){if(m.rendering?.enabled===false||!movementWindow(m))return false;const idx=data===DATA?INDEX:indexData(data);const origin=m.originCoordinates||idx.places.get(m.origin)?.coordinates,dest=m.destinationCoordinates||idx.places.get(m.destination)?.coordinates;return !!(origin&&dest&&(m.destination!=null||m.regionalDisplacement===true)&&(m.evidenceStatus==='traditional account'||(m.provenanceStatus==='documented movement'&&(m.sourceIds||[]).length>0&&['well documented','historically established, details uncertain'].includes(m.evidenceStatus))));}
-function movementColor(m,data=DATA){const traditional=m.evidenceStatus==='traditional account';if(traditional)return '#6d6256';const destination=data.places.find(p=>p.id===m.destination);if(destination?.isLandOfIsrael)return '#275d9b';if(['forced removal','expulsion','flight'].includes(m.movementType)||['persecution','antisemitic violence'].includes(m.cause))return '#a33b32';return '#6d6256';}
+function canRenderMovement(m,data=DATA){if(m.rendering?.enabled===false||!movementWindow(m))return false;const idx=data===DATA?INDEX:indexData(data);const origin=m.originCoordinates||idx.places.get(m.origin)?.coordinates,dest=m.destinationCoordinates||idx.places.get(m.destination)?.coordinates;return !!(origin&&dest&&(m.destination!=null||m.regionalDisplacement===true)&&(m.sheetArrow===true||m.evidenceStatus==='traditional account'||(m.provenanceStatus==='documented movement'&&(m.sourceIds||[]).length>0&&['well documented','historically established, details uncertain'].includes(m.evidenceStatus))));}
+function movementColor(m,data=DATA){if(m.color)return m.color;const traditional=m.evidenceStatus==='traditional account';if(traditional)return '#6d6256';const destination=data.places.find(p=>p.id===m.destination);if(destination?.isLandOfIsrael)return '#275d9b';if(['forced removal','expulsion','flight'].includes(m.movementType)||['persecution','antisemitic violence'].includes(m.cause))return '#a33b32';return '#6d6256';}
 function resolvePopulation(p,y,data=DATA){
  const status={presenceStatus:p.presenceStatus,concentration:p.concentration,continuityStatus:p.continuityStatus,...lastState(y,p.states)};
  const applicable=data.populationChanges.filter(c=>c.populationId===p.id&&activeAt(c,y)).sort((a,b)=>a.startDate-b.startDate);
