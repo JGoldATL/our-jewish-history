@@ -2392,6 +2392,22 @@
     {
       "startDate": 135,
       "title": "Jewish life continues in Judea/Galilee, Babylonia and the Roman world"
+    },
+    {
+      "startDate": 200,
+      "title": "[PLACEHOLDER Era 4 – name and start year pending Jeffrey]"
+    },
+    {
+      "startDate": 1000,
+      "title": "[PLACEHOLDER Era 5 – name and start year pending Jeffrey]"
+    },
+    {
+      "startDate": 1492,
+      "title": "[PLACEHOLDER Era 6 – name and start year pending Jeffrey]"
+    },
+    {
+      "startDate": 1700,
+      "title": "[PLACEHOLDER Era 7 – name and start year pending Jeffrey]"
     }
   ],
   "cameraStates": [
@@ -2461,7 +2477,7 @@
   ],
   "timeline": {
     "start": -2000,
-    "end": 200,
+    "end": 1897,
     "range": 10000,
     "quietWeight": 0.12,
     "movementWeight": 2.8,
