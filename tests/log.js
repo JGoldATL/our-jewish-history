@@ -1,5 +1,5 @@
 // Quiz answer logging test (v0.4.0). Run: NODE_PATH=$(npm root -g) node tests/log.js   (server on :8778 from the repo root)
-// The logger URL is blank in the source until the Worker exists, so the test swaps in a fake address and captures what the page sends.
+// The test swaps the real Worker address for a fake one (or blank), so it never posts to the live Worker, and captures what the page sends.
 const {chromium}=require('playwright');
 const fs=require('fs'),path=require('path');
 const VEND=process.env.VEND||'/tmp/claude-0/vend/node_modules';
@@ -22,12 +22,12 @@ async function open(browser,{url,withUrl=true,logMode='ok',draftFixture=false}){
     const fp=path.join(process.cwd(),f);
     if(!fs.existsSync(fp))return r.fulfill({status:404,body:''});
     let body=fs.readFileSync(fp);
-    if(f==='quiz.js'&&withUrl)body=body.toString().replace("const LOG_URL='';","const LOG_URL='"+FAKE+"';");
+    if(f==='quiz.js')body=body.toString().replace(/const LOG_URL='[^']*';/,"const LOG_URL='"+(withUrl?FAKE:'')+"';");
     r.fulfill({contentType:MIME[path.extname(fp)]||'application/octet-stream',body});
   });
   await p.route(/localhost:8778\/quiz\.js/,async r=>{
     const res=await r.fetch();let body=await res.text();
-    if(withUrl)body=body.replace("const LOG_URL='';","const LOG_URL='"+FAKE+"';");
+    body=body.replace(/const LOG_URL='[^']*';/,"const LOG_URL='"+(withUrl?FAKE:'')+"';");
     r.fulfill({response:res,body});
   });
   await p.route(FAKE,r=>{

@@ -16,8 +16,8 @@ let BANK=[],seen=new Set(),round=[],i=0,score=0,draftsShown=false;
 // ---------- anonymous answer logging (v0.4.0) ----------
 // One random id per page visit, held only in memory (no cookie, no storage). No names, emails or IP addresses are sent.
 // Fire-and-forget: never awaited, every error swallowed, so a blocked or failing logger can never slow or break the quiz.
-// Logs only on the live site (or with ?logtest=1, whose ids start "test-" so they can be deleted). Does nothing until LOG_URL is set.
-const LOG_URL='';
+// Logs only on the live site (or with ?logtest=1, whose ids start "test-" so they can be deleted). Does nothing if LOG_URL is blank.
+const LOG_URL='https://patient-sound-f420journeysquiz-log.jeffreyagold-bbd.workers.dev/';
 const VISIT=(()=>{try{const a=new Uint8Array(10);crypto.getRandomValues(a);return [...a].map(x=>(x%36).toString(36)).join('')+Date.now().toString(36);}catch(e){return '';}})();
 const LOG_TEST=/[?&]logtest=1\b/.test(location.search);
 function logRow(o){
