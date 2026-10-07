@@ -10,3 +10,14 @@ CREATE TABLE IF NOT EXISTS responses (
   survey TEXT                                   -- A lot / Somewhat / Not really (latest tap per visit counts)
 );
 CREATE INDEX IF NOT EXISTS idx_responses_visit ON responses(visit_id);
+
+-- Lock table: the real definition of every approved question. The Worker trusts this, never the browser.
+-- Fill it with:  python3 tools/question_lock.py > worker/question_lock.sql   then apply that file to the database.
+-- A question missing here is refused (fail closed), so re-apply after the question bank changes.
+CREATE TABLE IF NOT EXISTS question_lock (
+  id TEXT PRIMARY KEY, era TEXT NOT NULL, style TEXT NOT NULL,
+  kind TEXT NOT NULL CHECK (kind IN ('mc','order')),
+  n INTEGER NOT NULL CHECK (n BETWEEN 2 AND 5),
+  correct_idx INTEGER                           -- multiple choice: index of the right choice; ordering questions: NULL (right = 0,1,2,...)
+);
+CREATE INDEX IF NOT EXISTS idx_responses_ts ON responses(ts);

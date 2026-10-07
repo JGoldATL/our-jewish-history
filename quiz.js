@@ -99,7 +99,7 @@ function show(){
 
 function finish(ok,pick,seq){
   const q=round[i];if(ok)score++;
-  logRow({kind:'answer',question_id:q.id,era:q.era,style:q.style,picked:seq?seq.join(','):String(pick),correct:ok?1:0});
+  logRow({kind:'answer',question_id:q.id,picked:seq?seq.join(','):String(pick)});
   const answer=q.correct==='order'?'':q.choices[LETTERS.indexOf(q.correct)];
   let v;
   if(ok)v='You got it.';

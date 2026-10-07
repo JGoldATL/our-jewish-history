@@ -68,9 +68,9 @@ async function play(p){
     const a=posts.filter(x=>x.kind==='answer'),s=posts.filter(x=>x.kind==='survey');
     ok(a.length===3,'3 answer rows ('+a.length+')');ok(s.length===1&&s[0].survey==='Somewhat','1 survey row, "Somewhat"');
     ok(new Set(posts.map(x=>x.visit_id)).size===1&&/^test-[a-z0-9]{12,32}$/.test(posts[0].visit_id),'one visit id, starts "test-" ('+posts[0].visit_id+')');
-    const allowed=['visit_id','kind','question_id','era','style','picked','correct','survey'];
+    const allowed=['visit_id','kind','question_id','picked','survey'];
     ok(posts.every(x=>Object.keys(x).every(k=>allowed.includes(k))),'only the planned fields are sent: '+[...new Set(posts.flatMap(Object.keys))].join(','));
-    ok(a.every(x=>/^Q\d+$/.test(x.question_id)&&(x.correct===0||x.correct===1)&&/^[0-9]{1,2}(,[0-9]{1,2})*$/.test(x.picked)),'answer rows well formed');
+    ok(a.every(x=>/^Q\d+$/.test(x.question_id)&&/^[0-9](,[0-9])*$/.test(x.picked)),'answer rows well formed (era, style and right/wrong are not sent; the Worker looks them up)');
     ok(errs.length===0,'no page errors');await ctx.close();
   }
   { // 2b. an ordering question sends the tap order (rounds are random, so try fresh rounds until one has an ordering question)
@@ -80,7 +80,7 @@ async function play(p){
       if(seen.some(Boolean))found=posts.filter(x=>x.kind==='answer')[seen.findIndex(Boolean)];
       await ctx.close();
     }
-    ok(found&&/^[0-9](,[0-9])+$/.test(found.picked),'ordering question sends the tap order ('+(found&&found.picked)+', correct '+(found&&found.correct)+')');
+    ok(found&&/^[0-9](,[0-9])+$/.test(found.picked),'ordering question sends the tap order ('+(found&&found.picked)+')');
   }
   { // 3. pretend production host logs without ?logtest and without "test-"
     const {p,errs,posts,ctx}=await open(browser,{url:'https://jgoldatl.github.io/quiz.html'});await play(p);await p.waitForTimeout(400);
