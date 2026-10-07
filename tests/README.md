@@ -55,3 +55,5 @@ Quiz link (Oct 6, 2026): quizlink.js checks the "Take a Quiz" pill in the globe 
 
 ## Header regroup (tests/header.js)
 Run: `NODE_PATH=$(npm root -g) node tests/header.js` (server on 8778). Checks at 10 widths from 1440 to 360 px that Play lives in the story nav (between Previous and Next), the header holds Take a Quiz, Map key, the toggle and Reset, desktop (over 960 px) is one row, narrower is title + Quiz on row 1 and controls on row 2, and nothing is off screen. At 360 px or less the controls may wrap to a third row (not checked). At 900 px or less the story nav sticks to the bottom of the panel.
+
+Quiz answer logging (v0.4.0): NODE_PATH=$(npm root -g) node tests/log.js   # fake logger address; checks what is sent, when, and that a failing logger never blocks the quiz

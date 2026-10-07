@@ -13,6 +13,22 @@ const shuffle=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(M
 
 let BANK=[],seen=new Set(),round=[],i=0,score=0,draftsShown=false;
 
+// ---------- anonymous answer logging (v0.4.0) ----------
+// One random id per page visit, held only in memory (no cookie, no storage). No names, emails or IP addresses are sent.
+// Fire-and-forget: never awaited, every error swallowed, so a blocked or failing logger can never slow or break the quiz.
+// Logs only on the live site (or with ?logtest=1, whose ids start "test-" so they can be deleted). Does nothing until LOG_URL is set.
+const LOG_URL='';
+const VISIT=(()=>{try{const a=new Uint8Array(10);crypto.getRandomValues(a);return [...a].map(x=>(x%36).toString(36)).join('')+Date.now().toString(36);}catch(e){return '';}})();
+const LOG_TEST=/[?&]logtest=1\b/.test(location.search);
+function logRow(o){
+  try{
+    if(!LOG_URL||!VISIT||draftsShown)return;
+    if(!LOG_TEST&&location.hostname!=='jgoldatl.github.io')return;
+    const body=JSON.stringify(Object.assign({visit_id:(LOG_TEST?'test-':'')+VISIT},o));
+    fetch(LOG_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body,keepalive:true}).catch(()=>{});
+  }catch(e){}
+}
+
 // ---------- data ----------
 // Production rule: only Approved questions are dealt. Drafts can be tested with ?drafts=1, and a preview build whose questions are all still
 // drafts shows them too (marked in the footer), so the preview is never an empty page. A public build never contains drafts at all.
@@ -74,15 +90,16 @@ function show(){
           if(at!==k){const y=document.createElement('span');y.className='yours';y.textContent=`You had #${at+1}`;x.appendChild(y);}
         });
         const box=document.querySelector('.choices');btns.sort((a,b)=>a.dataset.k-b.dataset.k).forEach(x=>box.appendChild(x));
-        finish(ok);
+        finish(ok,undefined,seq);
       }
     });
   }
   btns[0].focus({preventScroll:true});
 }
 
-function finish(ok,pick){
+function finish(ok,pick,seq){
   const q=round[i];if(ok)score++;
+  logRow({kind:'answer',question_id:q.id,era:q.era,style:q.style,picked:seq?seq.join(','):String(pick),correct:ok?1:0});
   const answer=q.correct==='order'?'':q.choices[LETTERS.indexOf(q.correct)];
   let v;
   if(ok)v='You got it.';
@@ -119,6 +136,7 @@ function end(){
   document.querySelectorAll('#sv .pill').forEach(p=>p.onclick=()=>{
     document.querySelectorAll('#sv .pill').forEach(x=>{x.classList.remove('sel');x.setAttribute('aria-pressed','false');});
     p.classList.add('sel');p.setAttribute('aria-pressed','true');
+    logRow({kind:'survey',survey:p.textContent});
   });
   $('again').onclick=start;
   $('again').focus({preventScroll:true});
