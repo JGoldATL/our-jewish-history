@@ -20,12 +20,15 @@ let BANK=[],seen=new Set(),round=[],i=0,score=0,draftsShown=false;
 const LOG_URL='https://patient-sound-f420journeysquiz-log.jeffreyagold-bbd.workers.dev/';
 const VISIT=(()=>{try{const a=new Uint8Array(10);crypto.getRandomValues(a);return [...a].map(x=>(x%36).toString(36)).join('')+Date.now().toString(36);}catch(e){return '';}})();
 const LOG_TEST=/[?&]logtest=1\b/.test(location.search);
+function logNote(t){try{let n=document.getElementById('logNote');if(!n){n=document.createElement('div');n.id='logNote';n.style.cssText='position:fixed;left:8px;bottom:8px;z-index:9;background:#222;color:#fff;font:12px system-ui;padding:6px 10px;border-radius:6px;max-width:90vw';document.body.appendChild(n);}n.textContent=t;}catch(e){}}
 function logRow(o){
   try{
     if(!LOG_URL||!VISIT||draftsShown)return;
     if(!LOG_TEST&&location.hostname!=='jgoldatl.github.io')return;
     const body=JSON.stringify(Object.assign({visit_id:(LOG_TEST?'test-':'')+VISIT},o));
-    fetch(LOG_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body,keepalive:true}).catch(()=>{});
+    const p=fetch(LOG_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body,keepalive:true});
+    if(LOG_TEST)p.then(r=>logNote('log test: Worker replied '+r.status+(r.status===204?' (saved)':' (refused)'))).catch(e=>logNote('log test: could not reach the Worker ('+(e&&e.message||'blocked')+')'));
+    else p.catch(()=>{});
   }catch(e){}
 }
 
