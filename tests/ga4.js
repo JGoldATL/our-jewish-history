@@ -1,4 +1,4 @@
-// GA4 tag test (v0.3.1). Run: NODE_PATH=$(npm root -g) node tests/ga4.js   (server on :8778 from the repo root)
+// GA4 tag test (v0.3.2). Run: NODE_PATH=$(npm root -g) node tests/ga4.js   (server on :8778 from the repo root)
 // Checks: tag requested only on the production host, on every .html page; no GoatCounter; blocked tag never breaks a page; page never sends quiz data to Google.
 const {chromium}=require('playwright');const fs=require('fs'),path=require('path');
 const VEND=process.env.VEND||'/tmp/claude-0/vend/node_modules';

@@ -13,6 +13,7 @@ USAGE
     python3 tools/sheet-to-history.py EXPORT.xlsx --public --out data/history.public.json
                                                                   # public build: approved cards only
     options: --history PATH (default data/history.json)  --report PATH (write the full report as JSON)
+             --sheet-name NAME (the Sheet's file name, e.g. Jewish_Continuity_Master_Dataset_v0.2.3; the footer shows its version)
              --sheet-modified ISO (Sheet's last-modified time, recorded in meta)
 
 WHAT IT DOES TO history.json
@@ -573,6 +574,7 @@ def main(argv=None):
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--report')
     ap.add_argument('--sheet-modified')
+    ap.add_argument('--sheet-name', default='Jewish_Continuity_Master_Dataset_v0.2.3', help="Sheet file name; its vN.N.N is shown in the site footer")
     a = ap.parse_args(argv)
 
     xlsx = Path(a.xlsx)
@@ -589,7 +591,7 @@ def main(argv=None):
     new = {k: v for k, v in sections.items()}
     d = diff(old, new)
 
-    meta = {'schema': SCHEMA, 'source': 'Google Sheet Jewish_Continuity_Master_Dataset_v0.2.2',
+    meta = {'schema': SCHEMA, 'source': 'Google Sheet ' + a.sheet_name,
             'sheetFileId': '1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8',
             'sheetModified': a.sheet_modified or (hist.get('sheet') or {}).get('meta', {}).get('sheetModified'),
             'exportSha256': hashlib.sha256(xlsx.read_bytes()).hexdigest()[:16],
@@ -599,7 +601,8 @@ def main(argv=None):
     prev_mode = (hist.get('sheet') or {}).get('meta', {}).get('mode')
     # Only touch the file when records changed (or the mode changed); a re-run of the same export is a no-op.
     out_hist = dict(hist)
-    if changed_any or prev_mode != meta['mode'] or 'sheet' not in hist:
+    prev_source = (hist.get('sheet') or {}).get('meta', {}).get('source')
+    if changed_any or prev_mode != meta['mode'] or prev_source != meta['source'] or 'sheet' not in hist:
         out_hist['sheet'] = {'meta': meta, **sections}
     else:
         out_hist['sheet'] = hist['sheet']

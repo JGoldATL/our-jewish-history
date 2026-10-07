@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION='0.3.1';
+const APP_VERSION='0.3.2';
 /* Jewish Journeys · Globe preview
    Rendering layer only. Records, validation, frame resolution and evidence rules come from engine.js,
    ported verbatim from Alpha 1.13, so historical behaviour is unchanged. */
@@ -380,7 +380,7 @@ async function boot(){
   try{
     const res=await fetch('data/history.json');DATA=plainCEDeep(await res.json());try{GEO=await (await fetch('data/geo.json')).json();}catch(_){GEO=null;}assertHistory(DATA);addSheetMovements();addSheetEras();$('arcSlider').setAttribute('aria-valuemin',DATA.timeline.start);$('arcSlider').setAttribute('aria-valuemax',DATA.timeline.end);INDEX=indexData(DATA);
     buildTimeline();buildMilestones();initGL();initInteraction();
-    position=posForYear(DATA.presentation?.openingYear??-1208);$('version').textContent='v'+APP_VERSION+' · Globe preview · data from '+(DATA.presentation?.version||'Alpha');
+    position=posForYear(DATA.presentation?.openingYear??-1208);$('version').textContent='v'+APP_VERSION+' · Globe preview · data from Sheet '+(((DATA.sheet?.meta?.source||'').match(/v\d+(?:\.\d+)+/)||[])[0]||DATA.presentation?.version||'Alpha');
     layout();
   }catch(err){$('error').hidden=false;$('error').textContent='The map could not load: '+err.message;console.error(err);}
 }

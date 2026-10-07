@@ -2517,10 +2517,10 @@
   "sheet": {
     "meta": {
       "schema": "sheet-1",
-      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.2",
+      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.3",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-10-06T17:55:00Z",
-      "exportSha256": "26dfe91805461553",
+      "sheetModified": "2026-10-07T22:13:00Z",
+      "exportSha256": "78c32eea1a8bb450",
       "mode": "public",
       "counts": {
         "places": 97,
@@ -12929,9 +12929,9 @@
         ],
         "correct": "order",
         "quickTake": "When Abraham went down to Egypt, the pyramids were already antiques.",
-        "deepDive": "The Great Pyramid (around 2560 BCE) was already about 700 years old when Abraham, by traditional dating, was born. Genesis says Abraham went down to Egypt during a famine, so he may have seen it. Centuries later, Alexander conquered Judea in 332 BCE. A Talmudic legend says he bowed to the High Priest, and Jews named sons Alexander in his honor.",
+        "deepDive": "The Great Pyramid (around 2560 BCE) was already more than 500 years old when Abraham, by traditional dating, was born. Genesis says Abraham went down to Egypt during a famine, so he may have seen it. Centuries later, Alexander conquered Judea in 332 BCE. A Talmudic legend says he bowed to the High Priest, and Jews named sons Alexander in his honor.",
         "jewishEvent": "Abraham (traditional)",
-        "jewishYear": -1800,
+        "jewishYear": -2000,
         "worldAnchor": "Great Pyramid built",
         "worldYear": -2560
       },
@@ -13162,7 +13162,7 @@
         "place": "Babylon",
         "lat": 32.54,
         "lon": 44.42,
-        "question": "When Cyrus let the Jews return home in 538 BCE, what was happening in the world?",
+        "question": "When Cyrus let the Jews return home in 539 BCE, what was happening in the world?",
         "choices": [
           "Confucius was a teenager",
           "Rome was an empire",
@@ -13171,9 +13171,9 @@
         ],
         "correct": "A",
         "quickTake": "Cyrus sent the Jews home while Confucius was in middle school.",
-        "deepDive": "Confucius was about 13 when Cyrus of Persia let the Jews go home and rebuild in 538 BCE. Isaiah calls Cyrus G-d's “anointed,” mashiach, the only non-Jew in the Bible given that title. Ezra counts about 42,000 people in the first return. Cyrus's own decree, the Cyrus Cylinder, sits in the British Museum.",
+        "deepDive": "Confucius was about 13 when Cyrus of Persia let the Jews go home and rebuild in 539 BCE. Isaiah calls Cyrus G-d's “anointed,” mashiach, the only non-Jew in the Bible given that title. Ezra counts about 42,000 people in the first return. Cyrus's own decree, the Cyrus Cylinder, sits in the British Museum.",
         "jewishEvent": "Cyrus lets the Jews go home",
-        "jewishYear": -538,
+        "jewishYear": -539,
         "worldAnchor": "Confucius born",
         "worldYear": -551
       },
