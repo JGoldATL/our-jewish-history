@@ -16,6 +16,6 @@ for(const [name,vp,min] of [['desktop',{width:1440,height:900},44],['ipad',{widt
   ok(r.vis&&!r.hs,name+': fully on screen, no horizontal scroll');
   ok(!errs.length,name+': no page errors');
   if(name==='desktop'||name==='iphone')await p.screenshot({path:`/tmp/claude-0/comps/final-${name.replace(' ','')}.png`,clip:{x:0,y:0,width:vp.width,height:name==='desktop'?120:330}});
-  if(name==='desktop'){await Promise.all([p.waitForURL(/quiz\.html/),p.click('#quizLink')]);ok(await p.waitForSelector('#stage .card',{timeout:8000}).then(()=>true,()=>false),'click opens the quiz page and a question shows');}
+  if(name==='desktop'){await Promise.all([p.waitForURL(/quiz\.html/),p.click('#quizLink')]);ok(await p.waitForSelector('#stage .card',{timeout:8000}).then(()=>true,()=>false),'click opens the quiz page and the start screen shows');}
   await p.context().close();}
 await b.close();console.log(fails?fails+' FAILED':'ALL PASS');process.exit(fails?1:0);})();

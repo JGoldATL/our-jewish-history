@@ -31,12 +31,12 @@ async function open(browser,url,{block=false}={}){
   }
   { // quiz still completes with the tag blocked, and nothing about answers goes to Google
     const r=await open(browser,'https://jgoldatl.github.io/quiz.html',{block:true});
-    for(let n=0;n<3;n++){await r.p.waitForSelector('.choice:not([disabled])');const order=await r.p.evaluate(()=>!!document.querySelector('.hint'));
+    await r.p.click('#startBtn');for(let n=0;n<3;n++){await r.p.waitForSelector('.choice:not([disabled])');const order=await r.p.evaluate(()=>!!document.querySelector('.hint'));
       if(order){const k=await r.p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await r.p.click(`.choice[data-k="${i}"]`);}else await r.p.click('.choice');await r.p.click('#next');}
     await r.p.waitForSelector('.pill');const done=await r.p.$eval('.score',e=>e.textContent);
     ok(/of 3 right/.test(done)&&r.errs.length===0,'quiz completes with the tag blocked ('+done.trim()+')');await r.ctx.close();
     const q=await open(browser,'https://jgoldatl.github.io/quiz.html');
-    for(let n=0;n<3;n++){await q.p.waitForSelector('.choice:not([disabled])');const order=await q.p.evaluate(()=>!!document.querySelector('.hint'));
+    await q.p.click('#startBtn');for(let n=0;n<3;n++){await q.p.waitForSelector('.choice:not([disabled])');const order=await q.p.evaluate(()=>!!document.querySelector('.hint'));
       if(order){const k=await q.p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await q.p.click(`.choice[data-k="${i}"]`);}else await q.p.click('.choice');await q.p.click('#next');}
     await q.p.waitForSelector('.pill');await q.p.click('.pill >> nth=1');await q.p.waitForTimeout(400);
     ok(q.gtag.every(u=>!/question_id|picked|visit_id|survey/i.test(u)),'no quiz answer, visit id or survey text in any Google request');await q.ctx.close();

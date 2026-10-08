@@ -314,6 +314,20 @@ with tempfile.TemporaryDirectory() as td:
     p, rep = run(xqb, histQ)
     check('questions: a Questions tab missing a column stops the load', p.returncode != 0 and 'Questions' in (p.stderr + p.stdout))
 
+    # Optional "Choice years" column (v0.4.0)
+    wb = openpyxl.load_workbook(xq); ws = wb['Questions']; col = ws.max_column + 1; ws.cell(1, col).value = 'Choice years'
+    for rr in range(2, ws.max_row + 1):
+        qid = ws.cell(rr, 1).value
+        ws.cell(rr, col).value = {'Q001': '-2560|79|476|570', 'Q002': '1|2|3', 'Q003': '1|2|3|4'}.get(qid) if rr != ws.max_row else None
+    ws.cell(2, col).value = '-2560|79|476|570'; ws.cell(3, col).value = '1|2|3'; ws.cell(4, col).value = '1|2|3|4'
+    xcy = td / 'quiz_cy.xlsx'; wb.save(xcy); histCY = td / 'histCY.json'; histCY.write_text(json.dumps(engine, indent=2, ensure_ascii=False), encoding='utf-8')
+    p, rep = run(xcy, histCY)
+    cq = {q['id']: q for q in json.loads(histCY.read_text())['sheet']['questions']}
+    check('choice years: a good column loads as one year per choice (BCE negative)', cq['Q001'].get('choiceYears') == [-2560, 79, 476, 570], cq['Q001'].get('choiceYears'))
+    check('choice years: a wrong count is ignored with a warning, the question still loads', 'choiceYears' not in cq['Q002'] and any(w['id'] == 'Q002' for w in rep['warnings']), rep['warnings'])
+    check('choice years: ignored on a "Put these in order" question', 'choiceYears' not in cq['Q003'])
+    check('questions: without the Choice years column nothing changes', 'choiceYears' not in qs['Q001'])
+
     p, rep = run(x1, hist)
     check('an export with no era tabs still loads, says so, and writes no era sections',
           p.returncode == 0 and 'eras' not in json.loads(hist.read_text())['sheet'] and any(w['tab'] == 'Camera Stops' and 'not in this export' in w['note'] for w in rep['warnings']))

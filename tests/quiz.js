@@ -19,6 +19,7 @@ async function page(browser,opts={}){
     await p.route(/data\/history\.json/,r=>r.fulfill({contentType:'application/json',body:JSON.stringify(h)}));
   }
   await p.goto(opts.url||URL);
+  if(!opts.intro){await p.waitForSelector('#startBtn, .msg');if(await p.$('#startBtn'))await p.click('#startBtn');}   // v0.4.0 start screen
   return {p,errs,ctx};
 }
 const eyebrow=p=>p.$eval('.eyebrow',e=>e.textContent);

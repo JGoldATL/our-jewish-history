@@ -60,3 +60,8 @@ Quiz answer logging (v0.4.0): NODE_PATH=$(npm root -g) node tests/log.js   # fak
 - ga4.js: GA4 tag loads only on the production host, on every page, never breaks a page, never carries quiz data.
 undo.js: ordering-question undo, Back to the globe pill, tab icon links.
 endyears.js: end-screen year labels (no CE, no comma, BCE kept) over 80 rounds.
+
+v0.4.0 (Oct 8, 2026): tests/v040.js covers the start screen and Default | Academic toggle, the tagged wrong-answer lines (it injects Choice years through a fixture),
+the Academic plain correction, the share line rules (S1 only when the 539 BCE question was answered right; perfect and zero lines only at those scores),
+the Academic share, the share and copy fallbacks, and the footer version. Takes about 4 minutes; run it alone. tests/load.py also checks the optional "Choice years" column.
+The older quiz tests click the Start button first.

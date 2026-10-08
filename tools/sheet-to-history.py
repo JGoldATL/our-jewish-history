@@ -104,6 +104,9 @@ QUESTION_COLS = dict(id='Q-ID', status='Status', mode='Core or Random', era='Era
                      question='Question', a='Choice A', b='Choice B', c='Choice C', d='Choice D', e='Choice E', correct='Correct',
                      quick='Quick take', deep='Deep dive', jewishEvent='Jewish event', jewishYear='Jewish year',
                      worldAnchor='World anchor', worldYear='World year')
+# Optional column (v0.4.0): "Choice years" = one year per choice A..E, separated by "|", blank where a choice has no date (BCE negative).
+# It lets the quiz show a tagged wrong-answer line (close / far) and the correct choice's date. Absent or damaged = the quiz falls back to the plain correction.
+OPTIONAL_QUESTION_COLS = dict(choiceYears='Choice years')
 QUESTION_ERAS = ('Biblical era', 'Second Temple & Rome', 'Medieval & Modern')
 ORDER_STYLE = 'put these in order'
 # Camera zoom rule (approved by Jeffrey Oct 6, 2026). The Sheet has no zoom numbers, only a centre Place and the Places that
@@ -278,10 +281,10 @@ def build_eras(wb, places, all_ids, rep):
 
 def build_questions(wb, rep):
     """Questions tab -> list of quiz questions, or None when the export has no such tab. Bad rows are rejected with a reason."""
-    rows = read_optional_tab(wb, 'Questions', QUESTION_COLS)
-    if rows is None:
+    if 'Questions' not in wb.sheetnames:
         rep.warn('Questions', '-', 0, 'tab "Questions" is not in this export; no quiz questions loaded')
         return None
+    rows, _ = read_tab(wb, 'Questions', QUESTION_COLS, OPTIONAL_QUESTION_COLS)
     out, seen = [], set()
     for r in rows:
         qid = str(r.get('id') or '').strip()
@@ -326,12 +329,28 @@ def build_questions(wb, rep):
                 if not str(r.get('abcde'[ 'ABCDE'.index(letter)]) or '').strip():
                     bad(f'Correct is {letter} but Choice {letter} is empty'); continue
                 correct = letter
+            cy = None
+            raw_cy = r.get('choiceYears')
+            if raw_cy not in (None, '') and not order:
+                parts = [p.strip() for p in str(raw_cy).split('|')]
+                try:
+                    vals = [None if p == '' else float(p) for p in parts]
+                    vals = [int(v) if v is not None and v == int(v) else v for v in vals]
+                except ValueError:
+                    vals = None
+                if vals is None or len(vals) != len(choices):
+                    rep.warn('Questions', qid, r['_row'], f'Choice years {raw_cy!r} does not give one year (or blank) per choice; ignored')
+                elif vals[ 'ABCDE'.index(correct)] is None:
+                    rep.warn('Questions', qid, r['_row'], 'Choice years has no year for the correct choice; ignored')
+                else:
+                    cy = vals
             seen.add(qid)
             out.append({'id': qid, 'status': st, 'mode': mode, 'era': r['era'], 'style': str(r['style']).strip(),
                         'place': str(r['place']).strip(), 'lat': lat, 'lon': lon, 'question': str(r['question']).strip(),
                         'choices': choices, 'correct': correct, 'quickTake': str(r['quick']).strip(),
                         'deepDive': str(r.get('deep') or '').strip(), 'jewishEvent': str(r['jewishEvent']).strip(),
-                        'jewishYear': jy, 'worldAnchor': str(r['worldAnchor']).strip(), 'worldYear': wy})
+                        'jewishYear': jy, 'worldAnchor': str(r['worldAnchor']).strip(), 'worldYear': wy,
+                        **({'choiceYears': cy} if cy else {})})
     out.sort(key=lambda q: q['id'])
     return out
 

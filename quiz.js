@@ -13,6 +13,40 @@ const fy=y=>y<0?`${-y} BCE`:`${y}`;
 const shuffle=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];}return a;};
 
 let BANK=[],seen=new Set(),round=[],i=0,score=0,draftsShown=false;
+// v0.4.0 tone: 'default' is the funnier voice, 'academic' is plain. In memory only, so every page load (and every friend's link) opens in Default.
+let tone='default',lastW=null,results=[];
+
+// ---------- approved line bank (Voice Guide section 10, approved by the CEO Oct 7, 2026) ----------
+// The site only ever picks from these lines; none are written on the fly. S2 and S3 were cut. No emoji.
+// Wrong-answer lines: tag is close (within 25 years), far (300 years or more) or any. {correct} and {guess} are year labels, {gap} is a number of years.
+const W=[
+ {id:'W1',tag:'far',t:'You said {guess}. It was {correct}. Off by {gap} years, which in ancient history is basically a rounding error.'},
+ {id:'W2',tag:'close',t:'Close. It was {correct}. History would call that a near miss.'},
+ {id:'W3',tag:'far',t:'It was {correct}. You were off by {gap} years. History is patient, and so is this quiz.'},
+ {id:'W4',tag:'any',t:'It was {correct}. The timeline has seen worse guesses.'},
+ {id:'W5',tag:'any',t:'Not quite. It was {correct}. The timeline is not offended.'},
+ {id:'W6',tag:'any',t:'The blur strikes again. It was {correct}.'},
+ {id:'W7',tag:'any',t:'It was {correct}. Confidence noted. Accuracy pending.'},
+ {id:'W8',tag:'any',t:'Not this time. It was {correct}. The next question is a fresh start.'},
+ {id:'W9',tag:'any',t:'It was {correct}, not {guess}. Now it is on your map.'},
+ {id:'W10',tag:'any',t:'You said {guess}. It was {correct}. Good news: you are now one of the few who know.'}
+];
+const CLOSE_MAX=25,FAR_MIN=300;
+// Share lines (funnier tone only). S1 names an event, so it is used only when that question was in the round and answered correctly (Voice Guide 7g).
+const S=[
+ {id:'S1',event:'Q052',t:'539 BCE: a Persian king let the exiles go home. Ancient empires rarely did that, so write it down.'},
+ {id:'S4',t:'{score} of 3 on When in the World? Beat that.'},
+ {id:'S5',t:'{score} of 3 in about 90 seconds. Jewish history, placed in world time. Your turn.'},
+ {id:'S6',only:'perfect',t:'3 of 3. I would like it noted that I did not use Google.'},
+ {id:'S7',only:'zero',t:'I got 0 of 3. Nowhere to go but up. Your turn.'},
+ {id:'S8',t:'{score} of 3. Not bad for someone who still mixes up centuries. Your turn.'},
+ {id:'S9',t:'{score} of 3 on When in the World? I accept congratulations or competition. Your turn.'},
+ {id:'S10',t:'Think you can place a Jewish event in world history? I got {score} of 3. Prove it.'}
+];
+// Academic share: the score and a neutral line, never an event (Voice Guide 7e). This neutral line is new wording and awaits the CEO's approval.
+const ACADEMIC_SHARE='{score} of 3 on When in the World? Jewish history, placed in world time.';
+const pickOne=a=>a[Math.floor(Math.random()*a.length)];
+const fill=(t,o)=>t.replace(/\{(\w+)\}/g,(m,k)=>o[k]);
 
 // ---------- anonymous answer logging (v0.4.0) ----------
 // One random id per page visit, held only in memory (no cookie, no storage). No names, emails or IP addresses are sent.
@@ -58,8 +92,23 @@ function deal(){
   best.forEach(q=>seen.add(q.id));
   return best.sort((a,b)=>a.jewishYear-b.jewishYear);
 }
-function start(){round=deal();i=0;score=0;show();}
-function dots(){$('dots').innerHTML=round.map((_,k)=>`<i class="${k<=i?'on':''}"></i>`).join('');$('count').textContent=i<round.length?`${i+1} of ${round.length}`:'';}
+function start(){round=deal();i=0;score=0;results=[];lastW=null;show();}
+
+// ---------- start screen (v0.4.0): the Default | Academic toggle lives here and nowhere else ----------
+function intro(){
+  dots();$('count').textContent='';
+  $('stage').innerHTML=`<div class="card intro">
+    <p class="qt">Place Jewish history in world time. Three questions.</p>
+    <div class="tone" role="group" aria-label="Tone"><button type="button" class="seg" data-tone="default" aria-pressed="true">Default</button><button type="button" class="seg" data-tone="academic" aria-pressed="false">Academic</button></div>
+    <div class="row"><button type="button" class="btn" id="startBtn">Start</button></div></div>`;
+  tone='default';
+  document.querySelectorAll('.tone .seg').forEach(b=>b.onclick=()=>{
+    tone=b.dataset.tone;
+    document.querySelectorAll('.tone .seg').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+  });
+  $('startBtn').onclick=start;$('startBtn').focus({preventScroll:true});
+}
+function dots(){$('dots').innerHTML=(round||[]).map((_,k)=>`<i class="${k<=i?'on':''}"></i>`).join('');$('count').textContent=i<round.length?`${i+1} of ${round.length}`:'';}
 
 // ---------- question screen (locked) ----------
 function show(){
@@ -106,17 +155,39 @@ function show(){
   btns[0].focus({preventScroll:true});
 }
 
+// Picks a wrong-answer line by tag. A line is used only when every number it needs is known: {correct} needs the correct choice's year,
+// {guess} and {gap} need the picked choice's year too (Sheet column "Choice years"). Returns null when no line can be built truthfully.
+function wrongLine(q,pick){
+  const cy=q.choiceYears,right=LETTERS.indexOf(q.correct);
+  if(!cy||cy[right]==null)return null;
+  const correct=cy[right],guess=pick!=null?cy[pick]:null,known=guess!=null;
+  const gap=known?Math.abs(guess-correct):null;
+  const tag=known?(gap<=CLOSE_MAX?'close':gap>=FAR_MIN?'far':'any'):'any';
+  let pool=W.filter(w=>(w.tag===tag||w.tag==='any')&&(known||!/\{(guess|gap)\}/.test(w.t)));
+  if(tag==='any')pool=pool.filter(w=>w.tag==='any');
+  pool=pool.filter(w=>w.id!==lastW);
+  if(!pool.length)return null;
+  const w=pickOne(pool);lastW=w.id;
+  return fill(w.t,{correct:fy(correct),guess:known?fy(guess):'',gap:known?gap.toLocaleString():''});
+}
+
 function finish(ok,pick,seq){
   const q=round[i];if(ok)score++;
+  results[i]=ok;
   logRow({kind:'answer',question_id:q.id,picked:seq?seq.join(','):String(pick)});
   const answer=q.correct==='order'?'':q.choices[LETTERS.indexOf(q.correct)];
-  let v;
+  let v,dateline='';
   if(ok)v='You got it.';
   else if(q.correct==='order')v='Not quite. Here’s the real order, earliest first.';
-  else v=`Not quite. You picked “${esc(q.choices[pick])}.” The answer is “${esc(answer)}.”`;
+  else{
+    const fun=tone==='default'?wrongLine(q,pick):null;
+    v=fun?`${esc(fun)} The answer is “${esc(answer)}.”`:`Not quite. You picked “${esc(q.choices[pick])}.” The answer is “${esc(answer)}.”`;
+    // Every wrong answer shows the right date. A tagged line carries it already; otherwise the Jewish event's date is shown under the verdict.
+    if(!fun)dateline=`<p class="dateline">In Jewish history: ${esc(q.jewishEvent)}, ${fy(q.jewishYear)}.</p>`;
+  }
   const last=i>=round.length-1;
   $('res').innerHTML=`<div class="result">
-    <div class="verdict ${ok?'ok':'no'}">${v}</div>
+    <div class="verdict ${ok?'ok':'no'}">${v}</div>${dateline}
     <p class="quick">${esc(q.quickTake)}${q.deepDive?' <button type="button" class="more" id="more" aria-expanded="false" aria-controls="deep">Dive deeper →</button>':''}</p>
     ${q.deepDive?`<p class="deep" id="deep" hidden>${esc(q.deepDive)}</p>`:''}
     <div class="row"><button type="button" class="btn" id="next">${last?'See your journey':'Next question'}</button>${last?'<a class="btn" href="index.html">Back to the globe</a>':''}</div></div>`;
@@ -138,6 +209,7 @@ function end(){
   $('stage').innerHTML=`<div class="card end">
     <h2>You just traveled ${span.toLocaleString()} years of Jewish history.</h2>
     <p class="score">${score} of ${round.length} right</p>
+    <div class="row share"><button type="button" class="btn ghost" id="share">Share your score</button><span id="shareMsg" class="sharemsg" role="status"></span></div>
     <ul class="tl">${tl}</ul>
     <div class="survey"><p id="svq">Did comparing Jewish history with familiar world history help you understand when these events happened?</p>
       <div class="row" id="sv" role="group" aria-labelledby="svq">${['A lot','Somewhat','Not really'].map(a=>`<button type="button" class="pill" aria-pressed="false">${a}</button>`).join('')}</div></div>
@@ -147,8 +219,29 @@ function end(){
     p.classList.add('sel');p.setAttribute('aria-pressed','true');
     logRow({kind:'survey',survey:p.textContent});
   });
+  $('share').onclick=doShare;
   $('again').onclick=start;
   $('again').focus({preventScroll:true});
+}
+
+// ---------- share (v0.4.0) ----------
+// Default tone: one line from the approved bank. Academic: the score and a neutral line, never the event. The link is the bare quiz address
+// (no query string), so a friend always opens in Default. The phone's own share screen is used where it exists; otherwise the text is copied.
+function shareText(){
+  const n=score,total=round.length,perfect=n===total,zero=n===0;
+  if(tone==='academic')return fill(ACADEMIC_SHARE,{score:n});
+  const hit=round.some((q,k)=>results[k]&&q.id==='Q052');
+  const pool=S.filter(l=>(!l.event||(l.event==='Q052'&&hit))&&(!l.only||(l.only==='perfect'&&perfect)||(l.only==='zero'&&zero)));
+  return fill(pickOne(pool).t,{score:n});
+}
+function quizLink(){try{const u=new URL(location.href);u.search='';u.hash='';return u.href;}catch(e){return location.href;}}
+async function doShare(){
+  const text=shareText(),url=quizLink(),msg=m=>{try{$('shareMsg').textContent=m;}catch(e){}};
+  try{
+    if(navigator.share){await navigator.share({text,url});return;}
+  }catch(e){if(e&&e.name==='AbortError')return;}
+  try{await navigator.clipboard.writeText(text+' '+url);msg('Copied. Paste it anywhere.');}
+  catch(e){msg(text+' '+url);}
 }
 
 // ---------- small globe (locked) ----------
@@ -193,8 +286,8 @@ async function boot(){
   BANK=pick.list;draftsShown=pick.drafts;
   if(draftsShown)$('mode').textContent='Preview · draft questions included · ';
   if(!BANK.length){$('stage').innerHTML='<div class="card msg">The questions are not ready yet. Please check back soon.</div>';return;}
-  start();
+  intro();
 }
-window.__quiz={pickQuestions,deal:()=>deal(),get bank(){return BANK;}};
+window.__quiz={pickQuestions,deal:()=>deal(),get bank(){return BANK;},get tone(){return tone;}};
 boot();
 })();

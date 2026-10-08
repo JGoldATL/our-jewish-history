@@ -74,6 +74,13 @@ body{min-height:100svh}
 .survey p{margin:0 0 10px;font-size:.95rem}
 .pill{font:inherit;font-size:.9rem;min-height:44px;background:var(--raise);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer}
 .pill.sel{border-color:var(--gold);color:var(--gold)}
+.tone{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin:0 0 18px}
+.seg{font:inherit;font-size:.9rem;min-height:44px;padding:6px 18px;background:none;color:var(--muted);border:0;cursor:pointer}
+.seg[aria-pressed="true"]{background:var(--gold);color:var(--bg);font-weight:700}
+.seg:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.dateline{margin:0 0 8px;font-size:.9rem;color:var(--muted)}
+.share{margin:-8px 0 18px}
+.sharemsg{font-size:.85rem;color:var(--muted)}
 .foot{margin-top:16px;font-size:.75rem;color:var(--muted);text-align:center}
 .foot a{color:var(--gold)}
 .msg{padding:20px;text-align:center;color:var(--muted)}

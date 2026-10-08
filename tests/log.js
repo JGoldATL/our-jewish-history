@@ -38,6 +38,7 @@ async function open(browser,{url,withUrl=true,logMode='ok',draftFixture=false}){
     // 'hang': never answered
   });
   await p.goto(url);
+  await p.waitForSelector('#startBtn');await p.click('#startBtn');   // v0.4.0 start screen
   await p.waitForSelector('.choice');
   return {p,errs,posts,ctx};
 }
