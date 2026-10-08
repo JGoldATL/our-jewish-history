@@ -132,9 +132,12 @@ def read_tab(wb, tab, cols, optional=None):
     if missing:
         raise SystemExit(f'Tab "{tab}" is missing expected columns: {missing}')
     use = dict(cols)
+    lower = {str(h).strip().lower(): h for h in pos}
     for k, h in (optional or {}).items():
         if h in pos:
             use[k] = h
+        elif h.lower() in lower:  # same name, different capitals ("Choice Years" vs "Choice years")
+            use[k] = lower[h.lower()]
     rows = []
     for rnum, r in enumerate(ws.iter_rows(min_row=2, values_only=True), start=2):
         if not r or r[0] in (None, ''):
@@ -142,7 +145,7 @@ def read_tab(wb, tab, cols, optional=None):
         rec = {k: clean(r[pos[h]]) if pos[h] < len(r) else None for k, h in use.items()}
         rec['_row'] = rnum
         rows.append(rec)
-    return rows, sorted(set((optional or {}).values()) - set(pos))
+    return rows, sorted(h for h in set((optional or {}).values()) if h not in pos and h.lower() not in lower)
 
 
 def links(s):

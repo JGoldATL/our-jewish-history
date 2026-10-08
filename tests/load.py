@@ -315,7 +315,7 @@ with tempfile.TemporaryDirectory() as td:
     check('questions: a Questions tab missing a column stops the load', p.returncode != 0 and 'Questions' in (p.stderr + p.stdout))
 
     # Optional "Choice years" column (v0.4.0)
-    wb = openpyxl.load_workbook(xq); ws = wb['Questions']; col = ws.max_column + 1; ws.cell(1, col).value = 'Choice years'
+    wb = openpyxl.load_workbook(xq); ws = wb['Questions']; col = ws.max_column + 1; ws.cell(1, col).value = 'Choice Years'
     for rr in range(2, ws.max_row + 1):
         qid = ws.cell(rr, 1).value
         ws.cell(rr, col).value = {'Q001': '-2560|79|476|570', 'Q002': '1|2|3', 'Q003': '1|2|3|4'}.get(qid) if rr != ws.max_row else None

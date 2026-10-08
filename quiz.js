@@ -20,7 +20,7 @@ let tone='default',lastW=null,results=[];
 // The site only ever picks from these lines; none are written on the fly. S2 and S3 were cut. No emoji.
 // Wrong-answer lines: tag is close (within 25 years), far (300 years or more) or any. {correct} and {guess} are year labels, {gap} is a number of years.
 const W=[
- {id:'W1',tag:'far',t:'You said {guess}. It was {correct}. Off by {gap} years, which in ancient history is basically a rounding error.'},
+ {id:'W1',tag:'far',t:'Off by {gap} years. It was {correct}, not {guess}. In ancient history, that is basically a rounding error.'},
  {id:'W2',tag:'close',t:'Close. It was {correct}. History would call that a near miss.'},
  {id:'W3',tag:'far',t:'It was {correct}. You were off by {gap} years. History is patient, and so is this quiz.'},
  {id:'W4',tag:'any',t:'It was {correct}. The timeline has seen worse guesses.'},
@@ -29,7 +29,7 @@ const W=[
  {id:'W7',tag:'any',t:'It was {correct}. Confidence noted. Accuracy pending.'},
  {id:'W8',tag:'any',t:'Not this time. It was {correct}. The next question is a fresh start.'},
  {id:'W9',tag:'any',t:'It was {correct}, not {guess}. Now it is on your map.'},
- {id:'W10',tag:'any',t:'You said {guess}. It was {correct}. Good news: you are now one of the few who know.'}
+ {id:'W10',tag:'any',t:'It was {correct}, not {guess}. Good news: you are now one of the few who know.'}
 ];
 const CLOSE_MAX=25,FAR_MIN=300;
 // Share lines (funnier tone only). S1 names an event, so it is used only when that question was in the round and answered correctly (Voice Guide 7g).
