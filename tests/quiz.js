@@ -145,10 +145,9 @@ async function answer(p,wantRight){
   ok(yrs.length===3,'timeline has 3 stops: '+yrs.join(' | '));
   const num=s=>/BCE/.test(s)?-parseInt(s.replace(/,/g,'')):parseInt(s.replace(/,/g,''));
   const ny=yrs.map(num);ok(ny[0]<=ny[1]&&ny[1]<=ny[2],'timeline in chronological order');
-  const anyBCE=yrs.some(y=>/BCE/.test(y));
-  ok(anyBCE?yrs.every(y=>/ (BCE|CE)$/.test(y)):yrs.every(y=>!/CE/.test(y)),'CE rule: bare years unless the timeline crosses BCE ('+yrs.join(' | ')+')');
+  ok(yrs.every(y=>/^\d+( BCE)?$/.test(y)),'year labels: bare Common Era years, BCE kept, no CE and no thousands comma ('+yrs.join(' | ')+')');
   const mw=await p.$$eval('.tl .mw',e=>e.map(x=>x.textContent));
-  ok(mw.every(s=>/^Meanwhile: .+, [\d,]+( BCE| CE)?$/.test(s)),'meanwhile lines: '+mw.join(' | '));
+  ok(mw.every(s=>/^Meanwhile: .+, \d+( BCE)?$/.test(s)),'meanwhile lines: '+mw.join(' | '));
   const gaps=await p.$$eval('.tl .gap',e=>e.map(x=>x.textContent));
   ok(gaps.length===2&&gaps.every(g=>/years later…$|^Same year…$/.test(g)),'gap lines: '+gaps.join(' | '));
   const span=ny[2]-ny[0];

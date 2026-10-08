@@ -59,3 +59,4 @@ Run: `NODE_PATH=$(npm root -g) node tests/header.js` (server on 8778). Checks at
 Quiz answer logging (v0.4.0): NODE_PATH=$(npm root -g) node tests/log.js   # fake logger address; checks what is sent, when, and that a failing logger never blocks the quiz
 - ga4.js: GA4 tag loads only on the production host, on every page, never breaks a page, never carries quiz data.
 undo.js: ordering-question undo, Back to the globe pill, tab icon links.
+endyears.js: end-screen year labels (no CE, no comma, BCE kept) over 80 rounds.
