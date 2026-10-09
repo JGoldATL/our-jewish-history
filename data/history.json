@@ -2520,7 +2520,7 @@
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.3",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
       "sheetModified": "2026-10-07T22:13:00Z",
-      "exportSha256": "78c32eea1a8bb450",
+      "exportSha256": "332435867373b6cf",
       "mode": "public",
       "counts": {
         "places": 97,
@@ -2533,7 +2533,7 @@
         "eras": 7,
         "cameraStops": 38,
         "eraAssignment": 264,
-        "questions": 21
+        "questions": 43
       }
     },
     "places": [
@@ -12725,7 +12725,13 @@
         "jewishEvent": "Second Temple destroyed",
         "jewishYear": 70,
         "worldAnchor": "Vesuvius buries Pompeii",
-        "worldYear": 79
+        "worldYear": 79,
+        "choiceYears": [
+          -2560,
+          79,
+          476,
+          570
+        ]
       },
       {
         "id": "Q003",
@@ -12773,7 +12779,13 @@
         "jewishEvent": "Bar Kokhba revolt",
         "jewishYear": 132,
         "worldAnchor": "Hadrian's Wall begun",
-        "worldYear": 122
+        "worldYear": 122,
+        "choiceYears": [
+          80,
+          122,
+          330,
+          -25
+        ]
       },
       {
         "id": "Q036",
@@ -12887,7 +12899,11 @@
         "jewishEvent": "First Hanukkah",
         "jewishYear": -164,
         "worldAnchor": "First recorded Christmas",
-        "worldYear": 336
+        "worldYear": 336,
+        "choiceYears": [
+          -164,
+          336
+        ]
       },
       {
         "id": "Q041",
@@ -12909,7 +12925,11 @@
         "jewishEvent": "Babylonian Talmud completed",
         "jewishYear": 500,
         "worldAnchor": "Muhammad born",
-        "worldYear": 570
+        "worldYear": 570,
+        "choiceYears": [
+          500,
+          570
+        ]
       },
       {
         "id": "Q042",
@@ -13029,7 +13049,13 @@
         "jewishEvent": "Solomon dedicates the First Temple",
         "jewishYear": -957,
         "worldAnchor": "Zhou dynasty begins",
-        "worldYear": -1046
+        "worldYear": -1046,
+        "choiceYears": [
+          -1046,
+          80,
+          793,
+          -51
+        ]
       },
       {
         "id": "Q047",
@@ -13053,7 +13079,13 @@
         "jewishEvent": "Babylonian exile",
         "jewishYear": -586,
         "worldAnchor": "Ishtar Gate built",
-        "worldYear": -575
+        "worldYear": -575,
+        "choiceYears": [
+          -575,
+          -447,
+          80,
+          -2560
+        ]
       },
       {
         "id": "Q048",
@@ -13127,7 +13159,13 @@
         "jewishEvent": "State of Israel founded",
         "jewishYear": 1948,
         "worldAnchor": "Gandhi assassinated",
-        "worldYear": 1948
+        "worldYear": 1948,
+        "choiceYears": [
+          1948,
+          1969,
+          1941,
+          1989
+        ]
       },
       {
         "id": "Q051",
@@ -13151,7 +13189,13 @@
         "jewishEvent": "France makes Jews citizens",
         "jewishYear": 1791,
         "worldAnchor": "US Bill of Rights",
-        "worldYear": 1791
+        "worldYear": 1791,
+        "choiceYears": [
+          1791,
+          1776,
+          1863,
+          1215
+        ]
       },
       {
         "id": "Q052",
@@ -13200,6 +13244,535 @@
         "jewishYear": 1290,
         "worldAnchor": "Marco Polo returns",
         "worldYear": 1295
+      },
+      {
+        "id": "Q055",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Role Match",
+        "place": "Vienna",
+        "lat": 48.21,
+        "lon": 16.37,
+        "question": "Sherlock Holmes caught fictional criminals, but what Holocaust survivor tracked down Nazi criminals?",
+        "choices": [
+          "Simon Wiesenthal",
+          "Frederick Abberline",
+          "Allan Pinkerton",
+          "J. Edgar Hoover"
+        ],
+        "correct": "A",
+        "quickTake": "Wiesenthal's weapon was a filing cabinet, and he used it for decades.",
+        "deepDive": "Wiesenthal was born in 1908 and survived several Nazi camps. In 1961 he opened a documentation center in Vienna, collected files on Nazi criminals, and pushed governments to put them on trial. In 1963 he found the Austrian policeman who arrested Anne Frank, and in 1967 he helped track Treblinka's commandant to Brazil. Elie Wiesel, Primo Levi and Viktor Frankl were survivors too; they bore witness through their writing.",
+        "jewishEvent": "Wiesenthal opens his Vienna documentation center",
+        "jewishYear": 1961,
+        "worldAnchor": "Sherlock Holmes first appears",
+        "worldYear": 1887
+      },
+      {
+        "id": "Q056",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Role Match",
+        "place": "Jerusalem",
+        "lat": 31.78,
+        "lon": 35.22,
+        "question": "Noah Webster wrote the dictionary of American English. Who wrote the dictionary that brought Hebrew back to life?",
+        "choices": [
+          "Noa Tishby",
+          "Louis Brandeis",
+          "Eliezer Ben-Yehuda",
+          "Franz Kafka"
+        ],
+        "correct": "C",
+        "quickTake": "Webster polished a living language. Ben-Yehuda brought one back.",
+        "deepDive": "Although all Jewish and powerful users of words, Kafka, Brandeis and Tishby have Ben-Yehuda to thank for modern day Hebrew. Ben-Yehuda moved to Jerusalem in 1881 and insisted on speaking only Hebrew at home. His son became the first native Hebrew speaker in modern times. For nearly 2,000 years Hebrew had lived mainly in prayer and study. It is the only language revived as a mother tongue, and about 9 million people speak it today.",
+        "jewishEvent": "Ben-Yehuda moves to Jerusalem to revive Hebrew",
+        "jewishYear": 1881,
+        "worldAnchor": "Webster publishes his American Dictionary",
+        "worldYear": 1828
+      },
+      {
+        "id": "Q057",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Role Match",
+        "place": "Vienna",
+        "lat": 48.21,
+        "lon": 16.37,
+        "question": "Thomas Paine's pamphlet “Common Sense” sparked America. Whose pamphlet sparked the Jewish state?",
+        "choices": [
+          "Levi Strauss",
+          "Theodor Herzl",
+          "David Lee Roth",
+          "Ruth Bader Ginsburg"
+        ],
+        "correct": "B",
+        "quickTake": "In 1896 Herzl wrote that Jews cannot continue to live among other nations since their presence inevitably gives rise to hostility.",
+        "deepDive": "Herzl, a Viennese journalist who had covered the Dreyfus trial in Paris, concluded that Jews needed a state of their own. He published “The Jewish State” in 1896 and convened the First Zionist Congress in Basel in 1897. He died in 1904. Israel was founded in 1948.",
+        "jewishEvent": "Herzl publishes The Jewish State",
+        "jewishYear": 1896,
+        "worldAnchor": "Thomas Paine publishes Common Sense",
+        "worldYear": 1776
+      },
+      {
+        "id": "Q058",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Role Match",
+        "place": "Jerusalem",
+        "lat": 31.78,
+        "lon": 35.22,
+        "question": "Margaret Thatcher was Britain's “Iron Lady.” Who led Israel a decade before her, after teaching school in Milwaukee?",
+        "choices": [
+          "Ruth Bader Ginsburg",
+          "Gal Gadot",
+          "Barbra Streisand",
+          "Golda Meir"
+        ],
+        "correct": "D",
+        "quickTake": "Before the Iron Lady, there was a Milwaukee schoolteacher.",
+        "deepDive": "Golda was born in Kyiv in 1898, grew up in Milwaukee, and taught school there before moving to the Land of Israel in 1921. She signed Israel's Declaration of Independence and became prime minister in 1969, the world's third woman to hold that office.",
+        "jewishEvent": "Golda Meir becomes prime minister",
+        "jewishYear": 1969,
+        "worldAnchor": "Margaret Thatcher becomes prime minister",
+        "worldYear": 1979
+      },
+      {
+        "id": "Q059",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Role Match",
+        "place": "New York",
+        "lat": 40.69,
+        "lon": -74.04,
+        "question": "Francis Scott Key wrote words that became an American symbol. Whose words are on the Statue of Liberty?",
+        "choices": [
+          "Gertrude Stein",
+          "Emma Lazarus",
+          "Gloria Steinem",
+          "Judy Blume"
+        ],
+        "correct": "B",
+        "quickTake": "“Give me your tired, your poor” was written by a Jewish poet.",
+        "deepDive": "Emma Lazarus wrote “The New Colossus” in 1883 to help raise money for the statue's pedestal. She was moved in part by Jews fleeing pogroms in Russia. Her words were mounted inside the pedestal in 1903, 16 years after she died.",
+        "jewishEvent": "Emma Lazarus writes The New Colossus",
+        "jewishYear": 1883,
+        "worldAnchor": "Francis Scott Key writes The Star-Spangled Banner",
+        "worldYear": 1814
+      },
+      {
+        "id": "Q060",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Role Match",
+        "place": "Minneapolis",
+        "lat": 44.97,
+        "lon": -93.27,
+        "question": "What Hall of Fame pitcher sat out Game 1 of the 1965 World Series because of Yom Kippur?",
+        "choices": [
+          "Sandy Koufax",
+          "Hank Greenberg",
+          "Shawn Green",
+          "Kevin Youkilis"
+        ],
+        "correct": "A",
+        "quickTake": "Koufax sat out Yom Kippur, then won the Series and its MVP.",
+        "deepDive": "While Koufax is the most recognizable instance, Greenberg, Green and Youkilis all sat on Yom Kippur. Game 1 of the '65 Series fell on Yom Kippur, and Koufax observed the holiday instead of pitching. He lost Game 2, then threw shutouts in Games 5 and 7 to win the Series. Hank Greenberg had faced the same choice in 1934: he played on Rosh Hashanah and sat out Yom Kippur.",
+        "jewishEvent": "Sandy Koufax sits out Game 1 on Yom Kippur",
+        "jewishYear": 1965,
+        "worldAnchor": "Eric Liddell refuses to run on a Sunday",
+        "worldYear": 1924
+      },
+      {
+        "id": "Q061",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Analogy",
+        "place": "Budapest",
+        "lat": 47.5,
+        "lon": 19.04,
+        "question": "If Harriet Tubman was known for freeing slaves, what was Raoul Wallenberg known for?",
+        "choices": [
+          "Handing out protective passports that saved tens of thousands of Budapest's Jews",
+          "Founding the Red Cross",
+          "Hunting Nazi criminals",
+          "Building Israel's air force"
+        ],
+        "correct": "A",
+        "quickTake": "Tubman ran a railroad. Wallenberg ran rescues on paper.",
+        "deepDive": "Raoul Wallenberg, a Christian Swedish diplomat, reached Budapest in July 1944, as Hungary's Jews were being deported to Auschwitz. He issued protective passports and set up dozens of safe houses under the Swedish flag. In January 1945 he was taken by the Soviets and never seen again. Israel honors him as Righteous Among the Nations.",
+        "jewishEvent": "Wallenberg arrives in Budapest",
+        "jewishYear": 1944,
+        "worldAnchor": "Harriet Tubman begins her rescue missions",
+        "worldYear": 1850
+      },
+      {
+        "id": "Q062",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Analogy",
+        "place": "Addis Ababa",
+        "lat": 9.03,
+        "lon": 38.74,
+        "question": "If Harriet Tubman is known for the Underground Railroad, what is Operation Solomon known for?",
+        "choices": [
+          "Flying more than 14,000 Ethiopian Jews to Israel in about 36 hours",
+          "Oliver Stone's Magnum Opus",
+          "King Solomon version of Hasbro's famous kid's game.",
+          "All of the Above"
+        ],
+        "correct": "A",
+        "quickTake": "One El Al 747 carried more than 1,000 people, a world record.",
+        "deepDive": "In May 1991, as rebels closed in on Addis Ababa, Israel flew more than 14,000 Ethiopian Jews to Israel in roughly 36 hours. Seats were pulled out to fit more people. Ethiopia's Jews, known as Beta Israel, had lived apart from the rest of the Jewish world for centuries.",
+        "jewishEvent": "Operation Solomon airlifts Ethiopian Jews",
+        "jewishYear": 1991,
+        "worldAnchor": "Harriet Tubman begins her rescue missions",
+        "worldYear": 1850
+      },
+      {
+        "id": "Q063",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Straight Up",
+        "place": "Aden",
+        "lat": 12.78,
+        "lon": 45.04,
+        "question": "What was Operation Magic Carpet?",
+        "choices": [
+          "How Queen Sheeba delivered the magic Carpet to King Solomon",
+          "The airlift that brought about 49,000 Yemenite Jews to Israel",
+          "David Copperfield's new magic show",
+          "Carpet cleaner. You knew you shouldn't have been eating in the living room"
+        ],
+        "correct": "B",
+        "quickTake": "Many had never seen an airplane. Many saw in the planes the “eagles' wings” of Exodus.",
+        "deepDive": "In 1949–50, about 49,000 Jews from Yemen were flown to the new State of Israel, most of them from Aden. Many had walked for weeks to reach the transit camp. The operation's official name was “On Wings of Eagles,” from Exodus 19:4.",
+        "jewishEvent": "Operation Magic Carpet airlifts Yemenite Jews",
+        "jewishYear": 1949,
+        "worldAnchor": "Berlin Airlift ends",
+        "worldYear": 1949
+      },
+      {
+        "id": "Q064",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Analogy",
+        "place": "New Amsterdam",
+        "lat": 40.71,
+        "lon": -74,
+        "question": "The Mayflower brought Pilgrims seeking religious freedom in 1620. What ship docked in New Amsterdam in 1654 with Jews seeking the same?",
+        "choices": [
+          "The Nina",
+          "Maid of the Mist",
+          "The Queen Mary",
+          "St. Cathrien"
+        ],
+        "correct": "D",
+        "quickTake": "23 Jews landed in 1654 forced to agree to not receive any support at all from the established settlers.",
+        "deepDive": "In September 1654, 23 Jews fleeing Portuguese-ruled Brazil arrived in New Amsterdam. Governor Peter Stuyvesant wanted them out, but the Dutch West India Company let them stay. Their congregation, Shearith Israel, still meets in New York today.",
+        "jewishEvent": "Jews arrive in New Amsterdam",
+        "jewishYear": 1654,
+        "worldAnchor": "The Mayflower lands at Plymouth",
+        "worldYear": 1620
+      },
+      {
+        "id": "Q065",
+        "status": "approved",
+        "mode": "random",
+        "era": "Biblical era",
+        "style": "Myth or Fact",
+        "place": "Giza",
+        "lat": 29.98,
+        "lon": 31.13,
+        "question": "Myth or fact: Israelite slaves built the pyramids.",
+        "choices": [
+          "Myth",
+          "Fact"
+        ],
+        "correct": "A",
+        "quickTake": "The pyramids were already ancient before Abraham took Isaac up the hill. Jews built Egyptian cities, not the pyramids.",
+        "deepDive": "The Great Pyramid was finished around 2560 BCE, many centuries before any Israelite was in Egypt. Excavations near Giza show it was built by organized Egyptian work crews who lived in villages nearby. Exodus 1:11 says the Israelites built the store cities of Pithom and Raamses.",
+        "jewishEvent": "The Exodus from Egypt (traditional date)",
+        "jewishYear": -1313,
+        "worldAnchor": "Great Pyramid built",
+        "worldYear": -2560
+      },
+      {
+        "id": "Q067",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Myth or Fact",
+        "place": "Palos de la Frontera",
+        "lat": 37.23,
+        "lon": -6.89,
+        "question": "Myth or fact: Columbus's interpreter on his first voyage was born Jewish.",
+        "choices": [
+          "Myth",
+          "Fact"
+        ],
+        "correct": "B",
+        "quickTake": "Columbus brought a Hebrew speaker to talk to the Asian courts he thought he'd find. Turns out it was lucky for the translator because Isabella and Ferdinand were about to kick all the Jews out of Spain",
+        "deepDive": "Luis de Torres is described in most accounts as born Jewish and baptized shortly before the voyage. He spoke Hebrew, Aramaic and some Arabic, which Columbus expected would be useful in Asia. The fleet sailed on August 3, 1492, just days after the deadline for Spain's Jews to leave.",
+        "jewishEvent": "Luis de Torres sails with Columbus",
+        "jewishYear": 1492,
+        "worldAnchor": "Columbus sails",
+        "worldYear": 1492
+      },
+      {
+        "id": "Q068",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Two Truths and a Lie",
+        "place": "Córdoba",
+        "lat": 37.89,
+        "lon": -4.78,
+        "question": "Maimonides: which is not true?",
+        "choices": [
+          "He served as a physician to Saladin's ministers",
+          "He wrote his famous “Guide for the Perplexed” in Arabic",
+          "He was born in Spain",
+          "He was the Rabbi who walked into a bar with the priest and deacon"
+        ],
+        "correct": "D",
+        "quickTake": "It's unproven if he write the job, but the rest is true: doctor, philosopher, and he wrote in Arabic.",
+        "deepDive": "Maimonides was born in Córdoba around 1138. His family fled persecution and settled in Egypt, where he became a physician in the court of Saladin's vizier. He wrote the Guide in Judeo-Arabic, Arabic in Hebrew letters. His Mishneh Torah is still studied worldwide.",
+        "jewishEvent": "Maimonides is born in Córdoba",
+        "jewishYear": 1138,
+        "worldAnchor": "Southern Song makes Hangzhou its capital",
+        "worldYear": 1138
+      },
+      {
+        "id": "Q069",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Two Truths and a Lie",
+        "place": "Berlin",
+        "lat": 52.52,
+        "lon": 13.4,
+        "question": "Albert Einstein: which is not true?",
+        "choices": [
+          "He was offered the presidency of Israel",
+          "He won his Nobel Prize for the theory of relativity",
+          "He left Germany in 1933 and never went back"
+        ],
+        "correct": "B",
+        "quickTake": "Trick question! He was offered the presidency. He left Germany in 1933, but his Nobel was for the photoelectric effect, not relativity.",
+        "deepDive": "Einstein won the 1921 Nobel Prize in Physics for explaining the photoelectric effect. He was abroad when the Nazis took power in 1933 and never returned to Germany. In 1952 Israel offered him its presidency, and he politely declined.",
+        "jewishEvent": "Einstein wins the Nobel Prize in Physics",
+        "jewishYear": 1921,
+        "worldAnchor": "Insulin is first isolated",
+        "worldYear": 1921
+      },
+      {
+        "id": "Q072",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Time machine",
+        "place": "Cairo",
+        "lat": 30,
+        "lon": 31.23,
+        "question": "At the time of Jewish philosopher Maimonides was prescribing chicken soup to patients, which of these is happening on the other side of the world?",
+        "choices": [
+          "The Aztecs found Tenochtitlan - 1325",
+          "Erik the Red Discovers Greenland - 982",
+          "Minamoto no Yoritom, Japan's first shogun, takes power - 1192",
+          "King John signs the Magna Carta - 1215"
+        ],
+        "correct": "C",
+        "quickTake": "While Maimonides finished the Guide for the Perplexed, Japan's samurai were taking over the country.",
+        "deepDive": "Maimonides wrote the Guide for the Perplexed in Judeo-Arabic, Arabic in Hebrew letters, between about 1185 and 1190, while living in Egypt and serving as a physician. In 1192 Minamoto no Yoritomo took the title of shogun, and the samurai government he founded in Kamakura ran Japan for about 140 years. Maimonides died in 1204 and was buried in Tiberias. The Magna Carta came 11 years later, in 1215.",
+        "jewishEvent": "Maimonides finishes the Guide for the Perplexed",
+        "jewishYear": 1190,
+        "worldAnchor": "Yoritomo becomes Japan's first shogun",
+        "worldYear": 1192,
+        "choiceYears": [
+          1325,
+          982,
+          1192,
+          1215
+        ]
+      },
+      {
+        "id": "Q074",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Myth or Fact",
+        "place": "Philadelphia",
+        "lat": 39.95,
+        "lon": -75.16,
+        "question": "Myth or fact: Haym Salomon, who helped finance the American Revolution, died a rich man.",
+        "choices": [
+          "Myth",
+          "Fact"
+        ],
+        "correct": "A",
+        "quickTake": "He helped fund a revolution and died broke. Congress never repaid him.",
+        "deepDive": "Haym Salomon was born in Poland in 1740 and came to New York in 1775. The British arrested him as a spy in 1776. In Philadelphia he brokered bills of exchange for Superintendent of Finance Robert Morris, turning French and Dutch loans into cash for the new government. He died in 1785 at age 44, in debt, after the government and private borrowers failed to repay what they owed him. He had also given the largest single donation toward the building of Mikveh Israel, in 1782.",
+        "jewishEvent": "Haym Salomon dies in Philadelphia",
+        "jewishYear": 1785,
+        "worldAnchor": "Treaty of Paris ends the Revolutionary War",
+        "worldYear": 1783
+      },
+      {
+        "id": "Q075",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Same year",
+        "place": "Charlestown, Massachusetts",
+        "lat": 42.38,
+        "lon": -71.06,
+        "question": "Judah Touro gave $10,000 in 1840 to help finish the Bunker Hill Monument. What else happened that year?",
+        "choices": [
+          "Fort Sumter is fired on",
+          "Morse's telegraph carries its first message",
+          "Gold is found at Sutter's Mill",
+          "The world's first postage stamp, The Penny Black, goes on sale."
+        ],
+        "correct": "D",
+        "quickTake": "Touro sent a $10,000 check the same year Britain invented the postage stamp.",
+        "deepDive": "The monument had stalled for lack of money. Amos Lawrence offered $10,000 if others raised the other half, and Judah Touro of New Orleans met the challenge with a check for $10,000, asking to stay anonymous. The monument was finished in 1843.",
+        "jewishEvent": "Judah Touro gives $10,000 to the Bunker Hill Monument",
+        "jewishYear": 1840,
+        "worldAnchor": "The Penny Black goes on sale",
+        "worldYear": 1840,
+        "choiceYears": [
+          1861,
+          1844,
+          1848,
+          1840
+        ]
+      },
+      {
+        "id": "Q076",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Put these in order",
+        "place": "Basel",
+        "lat": 47.56,
+        "lon": 7.59,
+        "question": "Put these in order, earliest first.",
+        "choices": [
+          "The First Zionist Congress",
+          "Lebanon Gains Independence",
+          "Syria Gains Independence",
+          "Jordan Gains Independence"
+        ],
+        "correct": "order",
+        "quickTake": "Theodor Herzl's 1897 Zionist Conference was 50 years before Israel's neighbors were granted statehood.",
+        "deepDive": "The First Zionist Congress met in Basel from August 29 to 31, with about 200 delegates. Herzl wrote in his diary: At Basel I founded the Jewish State.\nLebanon gained independence from Vichy France in 1943; Syria gained independence from France in 1943; Jordan was created out of the British Mandate for Palestine (same organization that formed Israel in 1948)",
+        "jewishEvent": "First Zionist Congress meets in Basel",
+        "jewishYear": 1897,
+        "worldAnchor": "Dracula is published",
+        "worldYear": 1897
+      },
+      {
+        "id": "Q077",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Could have",
+        "place": "Cairo",
+        "lat": 30,
+        "lon": 31.23,
+        "question": "True or false: Maimonides could have thrown candy at Genghis Khan's Bar Mitzvah.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": "A",
+        "quickTake": "Maimonides died in 1204, two years before Temujin became Genghis Khan.",
+        "deepDive": "Maimonides was born in Córdoba in 1138 and died in Egypt in 1204. Genghis Khan was born about 1162 and was proclaimed ruler of the Mongols in 1206, so the two overlapped by more than 40 years. The Mongols stormed into the Muslim world in 1219, 15 years after Maimonides died.",
+        "jewishEvent": "Maimonides dies in Egypt",
+        "jewishYear": 1204,
+        "worldAnchor": "Genghis Khan is proclaimed ruler of the Mongols",
+        "worldYear": 1206
+      },
+      {
+        "id": "Q078",
+        "status": "approved",
+        "mode": "random",
+        "era": "Biblical era",
+        "style": "Could have",
+        "place": "Jerusalem",
+        "lat": 31.78,
+        "lon": 35.22,
+        "question": "True or false: the Prophet Isaiah could have thrown discuss in the ancient Olympic Games.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": "A",
+        "quickTake": "The Olympics were 36 years old when Isaiah started prophesying, and there is no archeological evidence of Elijah's high school, college or Olympic discus gold medals.",
+        "deepDive": "The ancient Olympics are traditionally dated to 776 BCE. Isaiah began his mission in Jerusalem around 740 BCE, the year King Uzziah died, and prophesied for about forty years under four kings. His words are on a wall across from the United Nations: They shall beat their swords into plowshares. Nobody records him leaving Judah, so he could have gone, not that he did.",
+        "jewishEvent": "Isaiah begins to prophesy",
+        "jewishYear": -740,
+        "worldAnchor": "First ancient Olympic Games",
+        "worldYear": -776
+      },
+      {
+        "id": "Q079",
+        "status": "approved",
+        "mode": "random",
+        "era": "Second Temple & Rome",
+        "style": "Which came first?",
+        "place": "Jerusalem",
+        "lat": 31.78,
+        "lon": 35.22,
+        "question": "Which came first: Hillel's Passover sandwich or the Earl of Sandwich's sandwich?",
+        "choices": [
+          "Hillel's Passover sandwich",
+          "The Earl of Sandwich's sandwich"
+        ],
+        "correct": "A",
+        "quickTake": "Hillel's sandwich beat the Earl's by about 1,800 years.",
+        "deepDive": "Hillel the Elder led the Sanhedrin from about 30 BCE to 10 CE. At the Passover seder, Jews still eat matzah and bitter herbs together in what is called the Hillel sandwich, recalling that he ate the Passover offering with them, based on Numbers 9:11. John Montagu, the 4th Earl of Sandwich (1718 to 1792), gave his name to the sandwich that is eaten at every lunch counter. He was said to have ordered beef between slices of bread so he could keep playing cards.",
+        "jewishEvent": "Hillel leads the Sanhedrin",
+        "jewishYear": -30,
+        "worldAnchor": "The Earl of Sandwich's sandwich",
+        "worldYear": 1762,
+        "choiceYears": [
+          -30,
+          1762
+        ]
+      },
+      {
+        "id": "Q080",
+        "status": "approved",
+        "mode": "random",
+        "era": "Biblical era",
+        "style": "Could have",
+        "place": "Mount Carmel",
+        "lat": 32.73,
+        "lon": 35.05,
+        "question": "True or false: The prophet Elijah could have served boiled peanuts at his bar mitzvah.",
+        "choices": [
+          "True",
+          "False"
+        ],
+        "correct": "A",
+        "quickTake": "True, but two problems: no peanuts in the Middle East, and no bar mitzvah parties for another 2,000 years. Elijah's guests got figs and dates.",
+        "deepDive": "Elijah lived around 860 BCE. Peanuts were already growing in South America, but they didn't sail across the ocean until after Columbus, and boiled peanuts didn't become a Southern classic until much later. The bar mitzvah party showed up in medieval Europe. Elijah got the last laugh, though: he's invited to every Passover Seder, and nobody makes him bring a snack.",
+        "jewishEvent": "Elijah on Mount Carmel",
+        "jewishYear": -860,
+        "worldAnchor": "Peanuts cross the Atlantic after Columbus",
+        "worldYear": 1500
       }
     ]
   },

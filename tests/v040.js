@@ -110,7 +110,7 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
       }
       await ctx.close();
     }
-    const {p,ctx}=await open(b,{fix:h=>{h.sheet.questions=h.sheet.questions.filter(q=>KEEP.includes(q.id));}});
+    const {p,ctx}=await open(b,{fix:h=>{h.sheet.questions=h.sheet.questions.filter(q=>KEEP.includes(q.id));h.sheet.questions.forEach(q=>{delete q.choiceYears;});}});
     await p.click('#startBtn');const o=await play(p,[1,3,2]);
     ok(o.every(x=>/^Not quite\. You picked/.test(x.verdict)&&/In Jewish history: .+, \d/.test(x.date)),'Default without Choice years: plain correction and the Jewish event date, never an invented line');
     await ctx.close();

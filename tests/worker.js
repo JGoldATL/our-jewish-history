@@ -14,7 +14,7 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
   const env={DB};
   const lock=Object.fromEntries(raw.prepare('SELECT * FROM question_lock').all().map(r=>[r.id,r]));
   const ids=Object.keys(lock);
-  ok(ids.length===21,'21 locked questions ('+ids.length+')');
+  ok(ids.length===43,'43 locked questions ('+ids.length+')');
   const mc4=ids.find(i=>lock[i].kind==='mc'&&lock[i].n===4),mc5=ids.find(i=>lock[i].kind==='mc'&&lock[i].n===5),ord=ids.find(i=>lock[i].kind==='order');
   ok(mc4&&mc5&&ord,'bank has 4-choice ('+mc4+'), 5-choice ('+mc5+') and ordering ('+ord+') questions');
   let v=0;const visit=()=>'abcdefghij'+String(100000+(v++)).padStart(6,'0');

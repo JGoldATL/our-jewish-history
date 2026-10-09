@@ -167,7 +167,7 @@ async function answer(p,wantRight){
   const used={};
   async function ids(){return p.evaluate(()=>[...window.__quiz.bank].length);}
   const E=await p.evaluate(()=>window.__quiz.bank.reduce((m,q)=>(m[q.era]=(m[q.era]||0)+1,m),{}));
-  ok(E['Biblical era']===5&&E['Second Temple & Rome']===11&&E['Medieval & Modern']===5,'era pools 5 / 11 / 5 '+JSON.stringify(E));
+  ok(E['Biblical era']===8&&E['Second Temple & Rome']===12&&E['Medieval & Modern']===23,'era pools 8 / 12 / 23 '+JSON.stringify(E));
   const placeSeen={};
   const track=async rows=>{};
   // use deal() directly for speed: it records seen ids
