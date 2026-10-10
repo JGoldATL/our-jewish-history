@@ -24,5 +24,5 @@ await p.evaluate(()=>setYearExact(1654));await p.waitForTimeout(1200);
 const dashed=await p.evaluate(()=>[...document.querySelectorAll('g.route .routeBody.contested')].length);
 const expectDashed=await p.evaluate(()=>DATA.movements.filter(m=>m.contested).length);
 console.log('contested (Dotted) arrows in data:',expectDashed,'dashed on screen at 1654 (camera may hide one at the edge):',dashed);
-const ok2=expectDashed===2&&dashed>=1;
+const ok2=expectDashed===3&&dashed>=1;   // 3 contested: MOV-068 (Abraham, Ur to Canaan) joined the two already there
 console.log(ok&&ok2?'PASS':'FAIL',errs);await b.close();process.exit(ok&&ok2?0:1)})();
