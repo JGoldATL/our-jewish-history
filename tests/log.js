@@ -70,9 +70,14 @@ async function play(p){
     const a=posts.filter(x=>x.kind==='answer'),s=posts.filter(x=>x.kind==='survey');
     ok(a.length===3,'3 answer rows ('+a.length+')');ok(s.length===1&&s[0].survey==='Somewhat','1 survey row, "Somewhat"');
     ok(new Set(posts.map(x=>x.visit_id)).size===1&&/^test-[a-z0-9]{12,32}$/.test(posts[0].visit_id),'one visit id, starts "test-" ('+posts[0].visit_id+')');
-    const allowed=['visit_id','kind','question_id','picked','survey'];
+    const allowed=['visit_id','round_id','kind','question_id','picked','survey'];
     ok(posts.every(x=>Object.keys(x).every(k=>allowed.includes(k))),'only the planned fields are sent: '+[...new Set(posts.flatMap(Object.keys))].join(','));
     ok(a.every(x=>/^Q\d+$/.test(x.question_id)&&/^[0-9](,[0-9])*$/.test(x.picked)),'answer rows well formed (era, style and right/wrong are not sent; the Worker looks them up)');
+    ok(posts.every(x=>/^[a-z0-9]{8,32}$/.test(x.round_id))&&new Set(posts.map(x=>x.round_id)).size===1,'v0.4.3: all 4 rows of the round share one round_id ('+posts[0].round_id+')');
+    // Play 3 more: a new round gets a new round_id, same visit
+    await p.click('#again');const n0=posts.length;await play(p);await p.waitForTimeout(400);
+    const r2=posts.slice(n0);
+    ok(r2.length===4&&new Set(r2.map(x=>x.round_id)).size===1&&r2[0].round_id!==posts[0].round_id&&r2[0].visit_id===posts[0].visit_id,'v0.4.3: "Play 3 more" starts a new round_id within the same visit');
     ok(errs.length===0,'no page errors');await ctx.close();
   }
   { // 2b. an ordering question sends the tap order (rounds are random, so try fresh rounds until one has an ordering question)

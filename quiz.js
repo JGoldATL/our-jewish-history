@@ -54,13 +54,15 @@ const fill=(t,o)=>t.replace(/\{(\w+)\}/g,(m,k)=>o[k]);
 // Logs only on the live site (or with ?logtest=1, whose ids start "test-" so they can be deleted). Does nothing if LOG_URL is blank.
 const LOG_URL='https://patient-sound-f420journeysquiz-log.jeffreyagold-bbd.workers.dev/';
 const VISIT=(()=>{try{const a=new Uint8Array(10);crypto.getRandomValues(a);return [...a].map(x=>(x%36).toString(36)).join('')+Date.now().toString(36);}catch(e){return '';}})();
+let ROUND='';   // v0.4.3: a new random tag for each round of 3, so answers and the survey tap can be grouped by round
+function newRound(){try{const a=new Uint8Array(8);crypto.getRandomValues(a);ROUND=[...a].map(x=>(x%36).toString(36)).join('');}catch(e){ROUND='';}}
 const LOG_TEST=/[?&]logtest=1\b/.test(location.search);
 function logNote(t){try{let n=document.getElementById('logNote');if(!n){n=document.createElement('div');n.id='logNote';n.style.cssText='position:fixed;left:8px;bottom:8px;z-index:9;background:#222;color:#fff;font:12px system-ui;padding:6px 10px;border-radius:6px;max-width:90vw';document.body.appendChild(n);}n.textContent=t;}catch(e){}}
 function logRow(o){
   try{
     if(!LOG_URL||!VISIT||draftsShown)return;
     if(!LOG_TEST&&location.hostname!=='jgoldatl.github.io')return;
-    const body=JSON.stringify(Object.assign({visit_id:(LOG_TEST?'test-':'')+VISIT},o));
+    const body=JSON.stringify(Object.assign({visit_id:(LOG_TEST?'test-':'')+VISIT},ROUND?{round_id:ROUND}:{},o));
     const p=fetch(LOG_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body,keepalive:true});
     if(LOG_TEST)p.then(r=>logNote('log test: Worker replied '+r.status+(r.status===204?' (saved)':' (refused)'))).catch(e=>logNote('log test: could not reach the Worker ('+(e&&e.message||'blocked')+')'));
     else p.catch(()=>{});
@@ -92,7 +94,7 @@ function deal(){
   best.forEach(q=>seen.add(q.id));
   return best.sort((a,b)=>a.jewishYear-b.jewishYear);
 }
-function start(){round=deal();i=0;score=0;results=[];lastW=null;show();}
+function start(){newRound();round=deal();i=0;score=0;results=[];lastW=null;show();}
 
 // ---------- start screen (v0.4.0, DORMANT since v0.4.1: not called at boot; Academic returns later) ----------
 function intro(){
