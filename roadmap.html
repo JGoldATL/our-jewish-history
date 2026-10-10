@@ -8,7 +8,7 @@
 <script>
 if(location.hostname==='jgoldatl.github.io'){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-W0VSWJ8FCS';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config','G-W0VSWJ8FCS');}
 </script>
-<title>Strategy · Our Jewish Journey</title>
+<title>Roadmap · Our Jewish Journey</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -23,20 +23,22 @@ h1{font-family:Georgia,"Times New Roman",serif;font-weight:600;font-size:1.5rem;
 .pill:focus-visible,.alt a:focus-visible{outline:2px solid #f2a65a;outline-offset:2px}
 .frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--night2)}
 .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.empty{position:absolute;inset:0;margin:0;display:flex;align-items:center;justify-content:center;color:var(--muted)}
 .alt{margin:12px 0 0;font-size:.85rem;color:var(--muted)}
 .alt a{color:var(--amber)}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><h1>Strategy</h1><a class="pill" href="index.html" id="backGlobe">Back to the globe</a></div>
+  <div class="top"><h1>Roadmap</h1><a class="pill" href="index.html" id="backGlobe">Back to the globe</a></div>
   <div id="gateMount"></div>
   <div id="gated" hidden>
-  <div class="frame"><iframe id="deck" title="Our Jewish Journey executive summary" data-src="https://docs.google.com/presentation/d/1Z4MahsifP0Z_ZOW7O8yQaCDR0XHLPHbVJjyyITAUWaQ/embed?start=false&loop=false&delayms=3000" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" ></iframe></div>
-  <p class="alt">Deck not showing? <a id="deckOpen" href="https://docs.google.com/presentation/d/1Z4MahsifP0Z_ZOW7O8yQaCDR0XHLPHbVJjyyITAUWaQ/view" target="_blank" rel="noopener">Open it in Google Slides</a>.</p>
+  <div class="frame" id="roadFrame"><iframe id="road" title="Our Jewish Journey roadmap" data-src="" hidden></iframe><p class="empty" id="roadEmpty">The roadmap will appear here.</p></div>
+  <p class="alt" id="roadAlt" hidden>Not showing? <a id="roadOpen" href="#" target="_blank" rel="noopener">Open it in a new tab</a>.</p>
   </div>
 </div>
-<script>window.onGateOpen=function(){var d=document.getElementById('deck');if(d&&!d.src)d.src=d.getAttribute('data-src');};</script>
+<script>var ROADMAP_URL='';   // paste the roadmap embed link here when the strategy chat provides it
+window.onGateOpen=function(){if(!ROADMAP_URL)return;var d=document.getElementById('road');d.src=ROADMAP_URL;d.hidden=false;document.getElementById('roadEmpty').hidden=true;var o=document.getElementById('roadOpen');o.href=ROADMAP_URL;document.getElementById('roadAlt').hidden=false;};</script>
 <script src="gate.js"></script>
 <script src="nav.js"></script>
 </body>

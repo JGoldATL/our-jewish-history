@@ -1,4 +1,4 @@
-// Site nav (bottom left, collapsible) on the globe, the quiz and the Strategy page; Strategy page embeds the deck.
+// Site nav (bottom left, collapsible) on the globe, quiz, Strategy, Roadmap and Feedback pages; Strategy page embeds the deck (gate pre-opened for these checks; tests/gate.js covers the gate).
 const {chromium}=require('playwright');
 const SITE=process.env.SITE||'http://localhost:8778/';
 const DECK='1Z4MahsifP0Z_ZOW7O8yQaCDR0XHLPHbVJjyyITAUWaQ';
@@ -6,8 +6,8 @@ const DECK='1Z4MahsifP0Z_ZOW7O8yQaCDR0XHLPHbVJjyyITAUWaQ';
 const ck=(n,ok,x)=>{out.push((ok?'ok   ':'FAIL ')+n+(x!==undefined?' '+JSON.stringify(x):''));if(!ok)fail++;};
 const devs=[['iPhone',{width:390,height:844}],['iPad',{width:820,height:1180}],['desktop',{width:1280,height:800}]];
 for(const [dn,vp] of devs){
- for(const pg of ['index.html','quiz.html?logtest=0','strategy.html']){
-  const ctx=await b.newContext({viewport:vp,hasTouch:dn!=='desktop'});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
+ for(const pg of ['index.html','quiz.html?logtest=0','strategy.html','roadmap.html','feedback.html']){
+  const ctx=await b.newContext({viewport:vp,hasTouch:dn!=='desktop'});await ctx.addInitScript(()=>{try{sessionStorage.setItem('ojj-gate','1')}catch(e){}});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
   await p.route('**/docs.google.com/**',r=>r.fulfill({status:200,contentType:'text/html',body:'<p>deck</p>'}));
   await p.goto(SITE+pg);await p.waitForTimeout(pg==='index.html'?2500:900);
   if(pg==='index.html')await p.evaluate(()=>{try{dismissPrompt()}catch(e){}});
@@ -16,7 +16,7 @@ for(const [dn,vp] of devs){
   const box=await btn.boundingBox();ck(t+': bottom left',box&&box.x<120&&box.y>vp.height-140&&box.y+box.height<=vp.height,box&&{x:Math.round(box.x),y:Math.round(box.y)});
   ck(t+': menu starts closed',await p.locator('#siteNavMenu').isHidden()&&(await btn.getAttribute('aria-expanded'))==='false');
   await btn.click();ck(t+': tap opens',await p.locator('#siteNavMenu').isVisible()&&(await btn.getAttribute('aria-expanded'))==='true');
-  const links=await p.$$eval('#siteNavMenu a',a=>a.map(x=>x.getAttribute('href')));ck(t+': links',JSON.stringify(links)==='["strategy.html"]',links);
+  const links=await p.$$eval('#siteNavMenu a',a=>a.map(x=>x.getAttribute('href')));ck(t+': links',JSON.stringify(links)==='["feedback.html","roadmap.html","strategy.html"]',links);
   const mb=await p.locator('#siteNavMenu').boundingBox();ck(t+': menu on screen',mb&&mb.x>=0&&mb.y>=0&&mb.x+mb.width<=vp.width,mb&&{x:Math.round(mb.x),y:Math.round(mb.y)});
   await p.keyboard.press('Escape');ck(t+': Escape closes',await p.locator('#siteNavMenu').isHidden());
   await btn.click();await p.mouse.click(vp.width-20,60);ck(t+': tap outside closes',await p.locator('#siteNavMenu').isHidden());
@@ -28,6 +28,6 @@ for(const [dn,vp] of devs){
    const fr=await p.locator('.frame').boundingBox();ck(t+': deck fits width',fr.width<=vp.width&&Math.abs(fr.width/fr.height-16/9)<0.05,{w:Math.round(fr.width),h:Math.round(fr.height)});
    ck(t+': noindex',(await p.getAttribute('meta[name=robots]','content'))==='noindex');
    await p.locator('#backGlobe').click();await p.waitForTimeout(500);ck(t+': back to globe',/\/(index\.html)?$/.test(p.url()),p.url());}
-  if(pg==='index.html'){await btn.click();await Promise.all([p.waitForURL('**/strategy.html'),p.locator('#siteNavMenu a').click()]);ck(t+': nav opens Strategy',/strategy\.html$/.test(p.url()));}
+  if(pg==='index.html'){await btn.click();await Promise.all([p.waitForURL('**/strategy.html'),p.locator('#siteNavMenu a[href="strategy.html"]').click()]);ck(t+': nav opens Strategy',/strategy\.html$/.test(p.url()));}
   await ctx.close();}}
 console.log(out.join('\n'));console.log(fail?'FAIL '+fail:'PASS');await b.close();process.exit(fail?1:0);})();

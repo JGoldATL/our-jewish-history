@@ -4,11 +4,13 @@
 // Trust rule: the browser sends only a visit id, a question id and its pick. Era, style and right/wrong come from the question_lock table.
 
 const ALLOW_ORIGIN = 'https://jgoldatl.github.io';
-const MAX_BODY = 1024;           // bytes
+const MAX_BODY = 4096;           // bytes (feedback messages can reach 1000 characters)
 const MAX_ROWS_PER_VISIT = 60;   // a real visit is a handful of rows
 const MAX_PER_QUESTION = 3;      // one visit may meet a question again only after its pool resets
 const MAX_ROWS_PER_HOUR = 1500;  // whole-site ceiling; refuses new rows until the hour turns over
 const SURVEY = ['A lot', 'Somewhat', 'Not really'];
+const TOPICS = ['Idea', 'Problem', 'Question', 'Praise'];   // feedback page
+const MAX_FEEDBACK_PER_VISIT = 5, MAX_FEEDBACK_PER_HOUR = 100;
 
 const cors = (origin) => ({
   'Access-Control-Allow-Origin': origin === ALLOW_ORIGIN ? origin : ALLOW_ORIGIN,
@@ -25,6 +27,10 @@ function shape(b) {
   const visit = str(b.visit_id, /^(test-)?[a-z0-9]{12,32}$/, 37);
   if (!visit) return null;
   const rnd = str(b.round_id, /^[a-z0-9]{8,32}$/, 32);   // optional: which round of 3 this row belongs to
+  if (b.kind === 'feedback') {
+    const message = typeof b.message === 'string' ? b.message.trim() : '';
+    return TOPICS.includes(b.topic) && message.length >= 3 && message.length <= 1000 ? { visit, kind: 'feedback', topic: b.topic, message } : null;
+  }
   if (b.kind === 'survey') return SURVEY.includes(b.survey) ? { visit, rnd, kind: 'survey', survey: b.survey } : null;
   if (b.kind === 'answer') {
     const q = str(b.question_id, /^Q[0-9]{1,6}$/, 8);
@@ -59,6 +65,14 @@ export default {
       const row = shape(JSON.parse(text));
       if (!row) return reply(400, origin);
 
+      if (row.kind === 'feedback') {
+        const fh = await env.DB.prepare("SELECT COUNT(*) AS n FROM feedback WHERE ts >= strftime('%Y-%m-%dT%H:%M:%SZ','now','-1 hour')").first();
+        if (fh && fh.n >= MAX_FEEDBACK_PER_HOUR) return reply(429, origin);
+        const fv = await env.DB.prepare('SELECT COUNT(*) AS n FROM feedback WHERE visit_id = ?').bind(row.visit).first();
+        if (fv && fv.n >= MAX_FEEDBACK_PER_VISIT) return reply(429, origin);
+        await env.DB.prepare('INSERT INTO feedback (visit_id, topic, message) VALUES (?, ?, ?)').bind(row.visit, row.topic, row.message).run();
+        return reply(204, origin);
+      }
       const hour = await env.DB.prepare("SELECT COUNT(*) AS n FROM responses WHERE ts >= strftime('%Y-%m-%dT%H:%M:%SZ','now','-1 hour')").first();
       if (hour && hour.n >= MAX_ROWS_PER_HOUR) return reply(429, origin);
       const visit = await env.DB.prepare('SELECT COUNT(*) AS n FROM responses WHERE visit_id = ?').bind(row.visit).first();

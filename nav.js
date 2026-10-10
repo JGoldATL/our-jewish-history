@@ -1,9 +1,10 @@
-/* Site nav: a small collapsible menu at the bottom left. Loaded by index.html, quiz.html and strategy.html.
+/* Site nav: a small collapsible menu at the bottom left. Loaded by index.html, quiz.html, strategy.html, roadmap.html and feedback.html.
    To add a page later (Feedback, Roadmap), add one line to PAGES. Nothing else changes. */
 (function(){
   var PAGES=[
+    {label:'Feedback',href:'feedback.html'},
+    {label:'Roadmap',href:'roadmap.html'},
     {label:'Strategy',href:'strategy.html'}
-    /* {label:'Feedback',href:'feedback.html'}, {label:'Roadmap',href:'roadmap.html'} come in later passes */
   ];
   if(!PAGES.length)return;
   var here=(location.pathname.split('/').pop()||'index.html');
