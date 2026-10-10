@@ -30,13 +30,21 @@ h1{font-family:Georgia,"Times New Roman",serif;font-weight:600;font-size:1.5rem;
 <body>
 <div class="wrap">
   <div class="top"><h1>Strategy</h1><a class="pill" href="index.html" id="backGlobe">Back to the globe</a></div>
-  <div id="gateMount"></div>
+  <div id="gateMount" data-page="strategy"></div>
   <div id="gated" hidden>
-  <div class="frame"><iframe id="deck" title="Our Jewish Journey executive summary" data-src="https://docs.google.com/presentation/d/1Z4MahsifP0Z_ZOW7O8yQaCDR0XHLPHbVJjyyITAUWaQ/embed?start=false&loop=false&delayms=3000" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" ></iframe></div>
-  <p class="alt">Deck not showing? <a id="deckOpen" href="https://docs.google.com/presentation/d/1Z4MahsifP0Z_ZOW7O8yQaCDR0XHLPHbVJjyyITAUWaQ/view" target="_blank" rel="noopener">Open it in Google Slides</a>.</p>
+  <div class="frame"><iframe id="deck" title="Our Jewish Journey executive summary"  allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" ></iframe></div>
+  <p class="alt"><span id="deckMsg"></span> Deck not showing? <a id="deckOpen" href="#" target="_blank" rel="noopener">Open it in Google Slides</a>.</p>
   </div>
 </div>
-<script>window.onGateOpen=function(){var d=document.getElementById('deck');if(d&&!d.src)d.src=d.getAttribute('data-src');};</script>
+<script>
+// The Slides link is not in this page. After the gate accepts the password, the Worker returns it.
+window.onGateOpen=function(){
+  OJJ_GATE.api('/link?name=strategy').then(function(r){
+    var d=document.getElementById('deck'),a=document.getElementById('deckOpen');
+    if(r.status===200&&r.data.url){var u=r.data.url;d.src=u.replace(/\/(view|edit)(\?.*)?$/,'/embed?start=false&loop=false&delayms=3000');a.href=u.replace(/\/embed.*$/,'/view');}
+    else if(r.status!==401){document.getElementById('deckMsg').textContent='The deck is not available right now.';}
+  }).catch(function(){document.getElementById('deckMsg').textContent='Could not load the deck. Check your connection.';});
+};</script>
 <script src="gate.js"></script>
 <script src="version.js"></script>
 <script src="nav.js"></script>

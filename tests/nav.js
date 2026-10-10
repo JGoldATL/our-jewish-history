@@ -1,15 +1,16 @@
-// Site nav (bottom left, collapsible) on the globe, quiz, Strategy, Roadmap and Feedback pages; Strategy page embeds the deck (gate pre-opened for these checks; tests/gate.js covers the gate).
+// Site nav (bottom left, collapsible) on the globe, quiz, Strategy, Roadmap and Feedback pages; Strategy page embeds the deck (the gate is opened with the dummy code against the real Worker code; tests/gate.js covers the gate).
 const {chromium}=require('playwright');
-const SITE=process.env.SITE||'http://localhost:8778/';
-const DECK='1Z4MahsifP0Z_ZOW7O8yQaCDR0XHLPHbVJjyyITAUWaQ';
-(async()=>{const b=await chromium.launch({args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']});const out=[];let fail=0;
+const SITE=process.env.SITE||'http://localhost:8778/';const MW=require('./mockworker');
+const DECK='TESTDECK';
+(async()=>{const mw=await MW.start(process.env.SEED||'/tmp/claude-0/rm/seed.csv');const b=await chromium.launch({args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']});const out=[];let fail=0;
 const ck=(n,ok,x)=>{out.push((ok?'ok   ':'FAIL ')+n+(x!==undefined?' '+JSON.stringify(x):''));if(!ok)fail++;};
 const devs=[['iPhone',{width:390,height:844}],['iPad',{width:820,height:1180}],['desktop',{width:1280,height:800}]];
 for(const [dn,vp] of devs){
  for(const pg of ['index.html','quiz.html?logtest=0','strategy.html','roadmap.html','feedback.html']){
-  const ctx=await b.newContext({viewport:vp,hasTouch:dn!=='desktop'});await ctx.addInitScript(()=>{try{sessionStorage.setItem('ojj-gate','1')}catch(e){}});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
+  const ctx=await b.newContext({viewport:vp,hasTouch:dn!=='desktop'});await mw.attach(ctx);const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
   await p.route('**/docs.google.com/**',r=>r.fulfill({status:200,contentType:'text/html',body:'<p>deck</p>'}));
   await p.goto(SITE+pg);await p.waitForTimeout(pg==='index.html'?2500:900);
+  if(/^(strategy|roadmap)/.test(pg)){await p.fill('#gatePw',MW.CODE);await p.keyboard.press('Enter');await p.waitForTimeout(800);}
   if(pg==='index.html')await p.evaluate(()=>{try{dismissPrompt()}catch(e){}});
   const t=dn+' '+pg.split('?')[0];
   const btn=p.locator('#siteNavBtn');ck(t+': More button visible',await btn.isVisible());

@@ -10,7 +10,7 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
   const lockSql=execFileSync('python3',['tools/question_lock.py'],{encoding:'utf8'});
   ok(lockSql===fs.readFileSync('worker/question_lock.sql','utf8'),'worker/question_lock.sql is up to date with data/history.json');
   const raw=new DatabaseSync(':memory:');raw.exec(fs.readFileSync('worker/schema.sql','utf8'));raw.exec(lockSql);
-  const DB={prepare:sql=>({first:async()=>raw.prepare(sql).get(),bind:(...a)=>({first:async()=>raw.prepare(sql).get(...a),run:async()=>raw.prepare(sql).run(...a)})})};
+  const DB=require('./dbshim').make(raw);
   const env={DB};
   const lock=Object.fromEntries(raw.prepare('SELECT * FROM question_lock').all().map(r=>[r.id,r]));
   const ids=Object.keys(lock);
