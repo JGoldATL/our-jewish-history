@@ -4,7 +4,10 @@
 // Trust rule: the browser sends only a visit id, a question id and its pick. Era, style and right/wrong come from the question_lock table.
 
 const ALLOW_ORIGIN = 'https://jgoldatl.github.io';
-const MAX_BODY = 4096;           // bytes (feedback messages can reach 1000 characters)
+const MAX_BODY = 1000000;        // bytes: only feedback rows with a photo come near this
+const MAX_BODY_OTHER = 4096;     // answers and surveys are tiny
+const MAX_IMAGE_CHARS = 900000;  // a photo, shrunk and base64-encoded by the page, stays well under this
+const MAX_IMAGES_PER_VISIT = 2, MAX_IMAGES_PER_HOUR = 20;
 const MAX_ROWS_PER_VISIT = 60;   // a real visit is a handful of rows
 const MAX_PER_QUESTION = 3;      // one visit may meet a question again only after its pool resets
 const MAX_ROWS_PER_HOUR = 1500;  // whole-site ceiling; refuses new rows until the hour turns over
@@ -29,7 +32,9 @@ function shape(b) {
   const rnd = str(b.round_id, /^[a-z0-9]{8,32}$/, 32);   // optional: which round of 3 this row belongs to
   if (b.kind === 'feedback') {
     const message = typeof b.message === 'string' ? b.message.trim() : '';
-    return TOPICS.includes(b.topic) && message.length >= 3 && message.length <= 1000 ? { visit, kind: 'feedback', topic: b.topic, message } : null;
+    const image = typeof b.image === 'string' && b.image.length <= MAX_IMAGE_CHARS && /^data:image\/jpeg;base64,\/9j\/[A-Za-z0-9+\/]+={0,2}$/.test(b.image) ? b.image : null;   // JPEG only (the page converts)
+    if (b.image !== undefined && b.image !== null && !image) return null;                     // a bad photo refuses the whole message
+    return TOPICS.includes(b.topic) && message.length >= 3 && message.length <= 1000 ? { visit, kind: 'feedback', topic: b.topic, message, image } : null;
   }
   if (b.kind === 'survey') return SURVEY.includes(b.survey) ? { visit, rnd, kind: 'survey', survey: b.survey } : null;
   if (b.kind === 'answer') {
@@ -64,13 +69,20 @@ export default {
       if (text.length > MAX_BODY) return reply(413, origin);
       const row = shape(JSON.parse(text));
       if (!row) return reply(400, origin);
+      if (row.kind !== 'feedback' && text.length > MAX_BODY_OTHER) return reply(413, origin);
 
       if (row.kind === 'feedback') {
         const fh = await env.DB.prepare("SELECT COUNT(*) AS n FROM feedback WHERE ts >= strftime('%Y-%m-%dT%H:%M:%SZ','now','-1 hour')").first();
         if (fh && fh.n >= MAX_FEEDBACK_PER_HOUR) return reply(429, origin);
         const fv = await env.DB.prepare('SELECT COUNT(*) AS n FROM feedback WHERE visit_id = ?').bind(row.visit).first();
         if (fv && fv.n >= MAX_FEEDBACK_PER_VISIT) return reply(429, origin);
-        await env.DB.prepare('INSERT INTO feedback (visit_id, topic, message) VALUES (?, ?, ?)').bind(row.visit, row.topic, row.message).run();
+        if (row.image) {
+          const ih = await env.DB.prepare("SELECT COUNT(*) AS n FROM feedback WHERE image IS NOT NULL AND ts >= strftime('%Y-%m-%dT%H:%M:%SZ','now','-1 hour')").first();
+          if (ih && ih.n >= MAX_IMAGES_PER_HOUR) return reply(429, origin);
+          const iv = await env.DB.prepare('SELECT COUNT(*) AS n FROM feedback WHERE visit_id = ? AND image IS NOT NULL').bind(row.visit).first();
+          if (iv && iv.n >= MAX_IMAGES_PER_VISIT) return reply(429, origin);
+        }
+        await env.DB.prepare('INSERT INTO feedback (visit_id, topic, message, image) VALUES (?, ?, ?, ?)').bind(row.visit, row.topic, row.message, row.image).run();
         return reply(204, origin);
       }
       const hour = await env.DB.prepare("SELECT COUNT(*) AS n FROM responses WHERE ts >= strftime('%Y-%m-%dT%H:%M:%SZ','now','-1 hour')").first();

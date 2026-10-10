@@ -7,6 +7,7 @@
     {label:'Strategy',href:'strategy.html'}
   ];
   if(!PAGES.length)return;
+  function stamp(){if(document.getElementById('version')||document.getElementById('siteVer'))return;var v=document.createElement('div');v.id='siteVer';v.textContent='v'+(window.SITE_VERSION||'');v.style.cssText='position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));font:11.5px system-ui,sans-serif;color:#A9B4B8;opacity:.8;pointer-events:none;z-index:20';document.body.appendChild(v);}
   var here=(location.pathname.split('/').pop()||'index.html');
   var css=
   '.sn{position:relative;display:inline-block;font:inherit;z-index:30}'+
@@ -41,6 +42,7 @@
     var foot=document.querySelector('footer.foot');
     if(foot){foot.insertBefore(box,foot.firstChild);}   /* globe page: sits in the footer, bottom left */
     else{box.classList.add('fixed');document.body.appendChild(box);document.body.style.paddingBottom='56px';}
+    stamp();
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })();

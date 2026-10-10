@@ -49,9 +49,22 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
   ok(await fb('x'.repeat(1001))===400,'a 1001-character message is refused');
   ok(await fb('ab')===400&&await fb('   ')===400,'too-short or blank messages are refused');
   ok(await fb('hello there','Rant')===400,'unknown topic refused');
-  const n0=frows().length;await fb('ok message','Praise',{email:'a@b.c',name:'Bob'});ok(Object.keys(frows().at(-1)).sort().join()==='id,message,topic,ts,visit_id','extra fields (email, name) are dropped; only id, ts, visit, topic, message exist');
+  const n0=frows().length;await fb('ok message','Praise',{email:'a@b.c',name:'Bob'});ok(Object.keys(frows().at(-1)).sort().join()==='id,image,message,topic,ts,visit_id','extra fields (email, name) are dropped; only id, ts, visit, topic, message, image exist');
   ok(frows().length===n0+1&&rows().every(r=>r.kind!=='feedback'),'feedback never lands in the answers table');
   for(let i=0;i<5;i++)await fb('another '+i);ok(await fb('one too many')===429,'more than 5 feedback messages per visit are refused (429)');
+
+  // photo on a feedback message: JPEG data URL only, size and count capped, never allowed on answers or surveys
+  const J='data:image/jpeg;base64,/9j/'+'A'.repeat(2000)+'==';
+  const G=visit();const fbi=(img,m='with a photo')=>post({visit_id:G,kind:'feedback',topic:'Problem',message:m,image:img});
+  ok(await fbi(J)===204&&frows().at(-1).image===J,'a JPEG photo is stored with the message');
+  ok(await post({visit_id:visit(),kind:'feedback',topic:'Idea',message:'no photo here'})===204&&frows().at(-1).image===null,'a message with no photo stores null');
+  ok(await fbi('data:image/png;base64,iVBORw0KGgo=')===400,'a PNG data URL is refused (the page converts to JPEG)');
+  ok(await fbi('data:text/html;base64,/9j/AAAA')===400&&await fbi('javascript:alert(1)')===400&&await fbi(123)===400,'non-image and script-looking values are refused');
+  ok(await fbi('data:image/jpeg;base64,/9j/'+'A'.repeat(900000))===400,'a photo over the size cap is refused');
+  ok(await fbi(J,'second photo')===204&&await fbi(J,'third photo')===429,'more than 2 photos per visit are refused (429)');
+  ok(await post({visit_id:visit(),kind:'survey',survey:'A lot',image:J})===204&&rows().at(-1).kind==='survey','a photo sent with a survey tap is ignored');
+  ok(await post({visit_id:visit(),kind:'answer',question_id:mc4,picked:'0',pad:'x'.repeat(5000)})===413,'a large body on an answer is refused (413)');
+  ok(await post('x'.repeat(1100000))===413,'a body over 1 MB is refused (413)');
 
   // trust: the browser's claims are ignored
   const B=visit();
@@ -75,7 +88,7 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
   await bad('short visit id',post({visit_id:'abc',kind:'survey',survey:'A lot'}));
   await bad('unknown kind',post({visit_id:visit(),kind:'delete'}));
   await bad('broken JSON',post('{nope'));
-  ok(await post('x'.repeat(5000))===413,'oversized body refused (413)');
+  ok(await post('x'.repeat(1100000))===413,'oversized body refused (413)');
   ok(await W.fetch(new Request('https://x/'),env).then(r=>r.status)===405,'GET refused (405)');
   ok(await W.fetch(new Request('https://x/',{method:'OPTIONS',headers:{Origin:'https://jgoldatl.github.io'}}),env).then(r=>r.status)===204,'OPTIONS answered');
   ok(raw.prepare('SELECT COUNT(*) n FROM sqlite_master WHERE name=\'responses\'').get().n===1,'table intact after injection attempt');

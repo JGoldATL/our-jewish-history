@@ -33,6 +33,10 @@ select:focus-visible,textarea:focus-visible,.send:focus-visible{outline:2px soli
 .send{margin-top:16px;width:100%;height:48px;border-radius:999px;border:1px solid var(--amber);background:var(--amber);color:var(--night);font-size:15px;font-weight:600;cursor:pointer}
 .send[disabled]{opacity:.55;cursor:default}
 .count{margin:6px 0 0;font-size:.8rem;color:var(--muted);text-align:right}
+input[type=file]{box-sizing:border-box;width:100%;font:inherit;font-size:15px;color:var(--muted)}
+.thumb{margin-top:10px;display:flex;align-items:center;gap:12px}.thumb[hidden]{display:none}
+.thumb img{max-width:120px;max-height:120px;border-radius:8px;border:1px solid var(--line)}
+.rm{height:44px;padding:0 16px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:transparent;color:var(--text);font-size:14px;cursor:pointer}
 .status{min-height:1.3em;margin:12px 0 0;font-size:.92rem}
 .status.ok{color:#9FD3A8}.status.bad{color:#F08A7B}
 </style>
@@ -40,12 +44,15 @@ select:focus-visible,textarea:focus-visible,.send:focus-visible{outline:2px soli
 <div class="wrap">
   <div class="top"><h1>Feedback</h1><a class="pill" href="index.html" id="backGlobe">Back to the globe</a></div>
   <form class="card" id="fbForm" autocomplete="off">
-    <p>Tell us what worked, what confused you, or what you would like to see. It is anonymous: please do not include your name, email or other personal details.</p>
+    <p>Tell us what worked, what confused you, or what you would like to see. It is anonymous: please do not include your name, email or other personal details, and check that a screenshot or photo does not show any.</p>
     <label for="fbTopic">This is a</label>
     <select id="fbTopic"><option>Idea</option><option>Problem</option><option>Question</option><option>Praise</option></select>
     <label for="fbMsg">Your message</label>
     <textarea id="fbMsg" maxlength="1000" required></textarea>
     <p class="count" id="fbCount">0 / 1000</p>
+    <label for="fbImg">Add a screenshot or photo (optional)</label>
+    <input id="fbImg" type="file" accept="image/*">
+    <div class="thumb" id="fbThumb" hidden><img id="fbPrev" alt="Your attached image"><button type="button" class="rm" id="fbRm">Remove image</button></div>
     <button class="send" id="fbSend" type="submit" disabled>Send feedback</button>
     <p class="status" id="fbStatus" role="status"></p>
   </form>
@@ -56,6 +63,23 @@ select:focus-visible,textarea:focus-visible,.send:focus-visible{outline:2px soli
   var TEST=/[?&]logtest=1\b/.test(location.search),PROD=location.hostname==='jgoldatl.github.io';
   var visit='';try{var a=new Uint8Array(10);crypto.getRandomValues(a);visit=Array.prototype.map.call(a,function(x){return (x%36).toString(36);}).join('')+Date.now().toString(36);}catch(e){}
   var m=document.getElementById('fbMsg'),t=document.getElementById('fbTopic'),b=document.getElementById('fbSend'),s=document.getElementById('fbStatus'),c=document.getElementById('fbCount');
+  var img='',fi=document.getElementById('fbImg'),th=document.getElementById('fbThumb'),pv=document.getElementById('fbPrev');
+  function clearImg(){img='';fi.value='';th.hidden=true;pv.removeAttribute('src');}
+  document.getElementById('fbRm').addEventListener('click',clearImg);
+  // shrink the picture on the phone first: longest side 1280 px, JPEG, so it stays small and always a safe format
+  fi.addEventListener('change',function(){
+    var f=fi.files&&fi.files[0];if(!f)return;s.className='status';s.textContent='';
+    if(!/^image\//.test(f.type)){clearImg();s.className='status bad';s.textContent='Please choose an image.';return;}
+    var u=URL.createObjectURL(f),im=new Image();
+    im.onload=function(){try{var k=Math.min(1,1280/Math.max(im.width,im.height)),cv=document.createElement('canvas');cv.width=Math.max(1,Math.round(im.width*k));cv.height=Math.max(1,Math.round(im.height*k));
+        var x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cv.width,cv.height);x.drawImage(im,0,0,cv.width,cv.height);
+        var d=cv.toDataURL('image/jpeg',0.72);
+        if(d.length>880000){d=cv.toDataURL('image/jpeg',0.5);}
+        if(d.length>880000){clearImg();s.className='status bad';s.textContent='That image is too large. Please choose a smaller one.';}
+        else{img=d;pv.src=d;th.hidden=false;}}catch(e){clearImg();s.className='status bad';s.textContent='Could not read that image.';}
+      URL.revokeObjectURL(u);};
+    im.onerror=function(){clearImg();s.className='status bad';s.textContent='Could not read that image. Try a screenshot or a JPEG or PNG photo.';URL.revokeObjectURL(u);};
+    im.src=u;});
   function upd(){var n=m.value.trim().length;c.textContent=m.value.length+' / 1000';b.disabled=n<3;}
   m.addEventListener('input',upd);upd();
   document.getElementById('fbForm').addEventListener('submit',function(ev){
@@ -63,13 +87,14 @@ select:focus-visible,textarea:focus-visible,.send:focus-visible{outline:2px soli
     if(!visit){s.className='status bad';s.textContent='Could not send. Please try again later.';return;}
     if(!PROD&&!TEST){s.className='status ok';s.textContent='Preview only: nothing was sent from this address.';return;}
     b.disabled=true;
-    fetch(LOG_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({visit_id:(TEST?'test-':'')+visit,kind:'feedback',topic:t.value,message:m.value.trim()})})
-      .then(function(r){if(r.status===204){s.className='status ok';s.textContent='Thank you. Your feedback was sent.';m.value='';upd();}
-        else{s.className='status bad';s.textContent=r.status===429?'Too many messages for now. Please try again later.':'Could not send. Please try again.';b.disabled=false;}})
+    fetch(LOG_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({visit_id:(TEST?'test-':'')+visit,kind:'feedback',topic:t.value,message:m.value.trim(),image:img||undefined})})
+      .then(function(r){if(r.status===204){s.className='status ok';s.textContent='Thank you. Your feedback was sent.';m.value='';clearImg();upd();}
+        else{s.className='status bad';s.textContent=r.status===429?'Too many messages for now. Please try again later.':(r.status===413||r.status===400)&&img?'Could not send with that image. Remove it or try another.':'Could not send. Please try again.';b.disabled=false;}})
       .catch(function(){s.className='status bad';s.textContent='Could not send. Please check your connection and try again.';b.disabled=false;});
   });
 })();
 </script>
+<script src="version.js"></script>
 <script src="nav.js"></script>
 </body>
 </html>

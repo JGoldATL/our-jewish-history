@@ -30,6 +30,17 @@ for(const pg of ['strategy.html','roadmap.html']){
  await p.goto(SITE+'feedback.html?logtest=1');await p.waitForTimeout(300);await p.selectOption('#fbTopic','Idea');await p.fill('#fbMsg','Please add a family search.');await p.click('#fbSend');await p.waitForTimeout(500);
  ck('feedback: ?logtest=1 sends one row with only the planned fields',posts.length===1&&Object.keys(posts[0]).sort().join()==='kind,message,topic,visit_id'&&posts[0].kind==='feedback'&&posts[0].topic==='Idea'&&/^test-[a-z0-9]{12,32}$/.test(posts[0].visit_id),posts[0]);
  ck('feedback: thanks shown and box cleared',/Thank you/.test(await p.textContent('#fbStatus'))&&(await p.inputValue('#fbMsg'))==='');
+ // photo: a big PNG is shrunk to a JPEG data URL, shown as a thumbnail, sent with the message, and removable
+ await p.goto(SITE+'feedback.html?logtest=1');await p.waitForTimeout(300);
+ const png=await p.evaluate(()=>{const c=document.createElement('canvas');c.width=3000;c.height=2000;const x=c.getContext('2d');x.fillStyle='#39c';x.fillRect(0,0,3000,2000);x.fillStyle='#fc3';x.fillRect(200,200,1500,900);return c.toDataURL('image/png').split(',')[1];});
+ await p.setInputFiles('#fbImg',{name:'shot.png',mimeType:'image/png',buffer:Buffer.from(png,'base64')});await p.waitForTimeout(700);
+ ck('feedback: photo shows a thumbnail',await p.locator('#fbThumb').isVisible());
+ await p.click('#fbRm');ck('feedback: Remove image clears it',await p.locator('#fbThumb').isHidden());
+ await p.setInputFiles('#fbImg',{name:'shot.png',mimeType:'image/png',buffer:Buffer.from(png,'base64')});await p.waitForTimeout(700);
+ await p.fill('#fbMsg','Screenshot attached');posts.length=0;await p.click('#fbSend');await p.waitForTimeout(600);
+ const im=posts[0]&&posts[0].image;ck('feedback: photo sent as a JPEG data URL under the size cap',!!im&&im.startsWith('data:image/jpeg;base64,/9j/')&&im.length<880000,im&&im.length);
+ const dim=await p.evaluate(src=>new Promise(r=>{const i=new Image();i.onload=()=>r([i.width,i.height]);i.src=src;}),im);ck('feedback: longest side shrunk to 1280',Math.max(...dim)===1280,dim);
+ ck('feedback: thumbnail cleared after sending',await p.locator('#fbThumb').isHidden());
  const sw=await p.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+1);ck('feedback: no sideways scroll',!sw);
  ck('feedback: no page errors',errs.length===0,errs);await ctx.close();}
 console.log(fail?'FAIL '+fail:'PASS');await b.close();process.exit(fail?1:0);})();
