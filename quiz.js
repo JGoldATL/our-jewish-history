@@ -121,15 +121,26 @@ function show(){
     <p class="qt">${esc(q.question)}</p>
     ${isOrder?'<p class="hint">Tap them from earliest to latest.</p>':''}
     <div class="choices">${opts.map((o,n)=>`<button type="button" class="choice" data-k="${o.k}"><span class="n">${isOrder?'':LETTERS[n]}</span><span>${esc(o.c)}</span></button>`).join('')}</div>
+    <div class="row subrow" id="subrow"><button type="button" class="btn" id="submit" disabled>Submit</button></div>
     <div id="res"></div></div>`;
   const btns=[...document.querySelectorAll('.choice')];
+  const sub=$('submit');
   if(!isOrder){
+    // v0.4.1: a tap selects (and can be changed); Submit locks the answer in
+    let pickK=null;
     btns.forEach(b=>b.onclick=()=>{
-      const k=+b.dataset.k,ok=k===right;
-      btns.forEach(x=>{x.disabled=true;if(+x.dataset.k===right)x.classList.add('right');});
-      if(!ok)b.classList.add('wrong');
-      finish(ok,k);
+      pickK=+b.dataset.k;
+      btns.forEach(x=>{const on=x===b;x.classList.toggle('sel',on);x.setAttribute('aria-pressed',String(on));});
+      sub.disabled=false;
     });
+    sub.onclick=()=>{
+      if(pickK==null)return;
+      const k=pickK,ok=k===right;
+      $('subrow').remove();
+      btns.forEach(x=>{x.disabled=true;x.classList.remove('sel');x.removeAttribute('aria-pressed');if(+x.dataset.k===right)x.classList.add('right');});
+      if(!ok)btns.find(x=>+x.dataset.k===k).classList.add('wrong');
+      finish(ok,k);
+    };
   }else{
     const seq=[];
     btns.forEach(b=>b.onclick=()=>{
@@ -137,10 +148,15 @@ function show(){
         // tap a placed item again to take it back out; the ones after it move up one place
         seq.splice(seq.indexOf(+b.dataset.k),1);b.classList.remove('picked');b.querySelector('.n').textContent='';
         seq.forEach((k,n)=>{btns.find(x=>+x.dataset.k===k).querySelector('.n').textContent=n+1;});
+        sub.disabled=seq.length!==q.choices.length;
         return;
       }
       seq.push(+b.dataset.k);b.classList.add('picked');b.querySelector('.n').textContent=seq.length;
+      sub.disabled=seq.length!==q.choices.length;
+    });
+    sub.onclick=()=>{
       if(seq.length===q.choices.length){
+        $('subrow').remove();
         const ok=seq.every((k,n)=>k===n);
         btns.forEach(x=>{
           x.disabled=true;const k=+x.dataset.k;x.classList.remove('picked');x.querySelector('.n').textContent=k+1;
@@ -150,7 +166,7 @@ function show(){
         const box=document.querySelector('.choices');btns.sort((a,b)=>a.dataset.k-b.dataset.k).forEach(x=>box.appendChild(x));
         finish(ok,undefined,seq);
       }
-    });
+    };
   }
   btns[0].focus({preventScroll:true});
 }

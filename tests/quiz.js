@@ -31,6 +31,7 @@ async function answer(p,wantRight){
     const n=await p.$$eval('.choice',b=>b.length);
     const ks=[...Array(n).keys()];if(!wantRight)ks.reverse();
     for(const k of ks)await p.click(`.choice[data-k="${k}"]`);
+    await p.click('#submit');
     return 'order';
   }
   const q=await p.evaluate(()=>window.__quiz&&0);
@@ -101,6 +102,7 @@ async function answer(p,wantRight){
         const right=(n!==1);
         if(!right){ks.reverse();}
         for(const k of ks)await p.click(`.choice[data-k="${k}"]`);
+        await p.click('#submit');
         const v=await p.$eval('.verdict',e=>e.textContent);
         ok(right?v==='You got it.':v==='Not quite. Here’s the real order, earliest first.',`${label} q${n+1} order verdict "${v}"`);
         if(!right){ok((await p.$$('.yours')).length>0,'order: "You had #N" shown');
@@ -111,7 +113,7 @@ async function answer(p,wantRight){
         const correct=await p.evaluate(()=>{const q=window.__quiz.bank;return null;});
         // first choice, whatever it is
         const before=await p.$$eval('.choice',b=>b.map(x=>x.textContent.slice(1)));
-        await p.click('.choice:nth-child(1)');
+        await p.click('.choice:nth-child(1)');await p.click('#submit');
         const marks=await p.$$eval('.choice',b=>b.map(x=>({r:x.classList.contains('right'),w:x.classList.contains('wrong'),d:x.disabled})));
         ok(marks.every(m=>m.d),`${label} q${n+1} choices lock after one tap`);
         ok(marks.filter(m=>m.r).length===1,'exactly one green');

@@ -13,7 +13,7 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
   for(let r=0;r<80;r++){
     await p.goto('http://localhost:8778/quiz.html');await p.waitForSelector('.choice');
     for(let k=0;k<3;k++){
-      if(await p.$('.hint')){for(const c of await p.$$('.choice'))await c.click();}else await p.click('.choice');
+      if(await p.$('.hint')){for(const c of await p.$$('.choice'))await c.click();}else await p.click('.choice');await p.click('#submit');
       await p.click('#next');if(k<2)await p.waitForSelector('.choice');
     }
     await p.waitForSelector('.end');rounds++;

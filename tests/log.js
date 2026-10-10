@@ -49,6 +49,7 @@ async function play(p){
     const order=await p.evaluate(()=>!!document.querySelector('.hint'));seen.push(order);
     if(order){const k=await p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await p.click(`.choice[data-k="${i}"]`);}
     else await p.click('.choice');
+    await p.click('#submit');
     await p.click('#next');
   }
   await p.waitForSelector('.pill');

@@ -35,6 +35,7 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
     const q=await p.evaluate(()=>({order:!!document.querySelector('.hint')}));
     if(q.order){const k=await p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await p.click(`.choice[data-k="${i}"]`);}
     else await p.click(`.choice[data-k="${picks[n]}"]`);
+    await p.click('#submit');
     out.push({verdict:await p.$eval('.verdict',e=>e.textContent),date:await p.$eval('.result',e=>(e.querySelector('.dateline')||{}).textContent||''),eyebrow:await p.$eval('.eyebrow',e=>e.textContent)});
     await p.click('#next');
   }
@@ -112,6 +113,7 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
         const info=await p.evaluate(()=>{const qs=window.__quiz.bank;const txt=document.querySelector('.qt').textContent;const q=qs.find(x=>x.question===txt);return {order:!!document.querySelector('.hint'),right:q?'ABCDE'.indexOf(q.correct):0,n:document.querySelectorAll('.choice').length};});
         if(info.order){const k=info.n;for(let i=0;i<k;i++)await p.click(`.choice[data-k="${i}"]`);}
         else await p.click(`.choice[data-k="${label==='all right'?info.right:(info.right+1)%info.n}"]`);
+        await p.click('#submit');
         await p.click('#next');
       }
       await p.waitForSelector('.end');
@@ -137,20 +139,20 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
   { // fallback: no share screen -> copy; both fail -> the text is shown; cancel -> nothing copied
     let c=await open(b,{share:'none',clip:'ok',fix:fixtureShare});
     for(let n=0;n<3;n++){await c.p.waitForSelector('.choice:not([disabled])');const order=await c.p.evaluate(()=>!!document.querySelector('.hint'));
-      if(order){const k=await c.p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await c.p.click(`.choice[data-k="${i}"]`);}else await c.p.click('.choice');await c.p.click('#next');}
+      if(order){const k=await c.p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await c.p.click(`.choice[data-k="${i}"]`);}else await c.p.click('.choice');await c.p.click('#submit');await c.p.click('#next');}
     await c.p.waitForSelector('.end');await c.p.click('#share');await c.p.waitForTimeout(80);
     const cp=await c.p.evaluate(()=>window.__copied);ok(cp.length===1&&/http:\/\/localhost:8778\/quiz\.html$/.test(cp[0]),'no share screen: the line and link are copied');
     ok(/Copied/.test(await c.p.$eval('#shareMsg',e=>e.textContent)),'a confirmation shows');
     await c.ctx.close();
     c=await open(b,{share:'none',clip:'fail',fix:fixtureShare});
     for(let n=0;n<3;n++){await c.p.waitForSelector('.choice:not([disabled])');const order=await c.p.evaluate(()=>!!document.querySelector('.hint'));
-      if(order){const k=await c.p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await c.p.click(`.choice[data-k="${i}"]`);}else await c.p.click('.choice');await c.p.click('#next');}
+      if(order){const k=await c.p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await c.p.click(`.choice[data-k="${i}"]`);}else await c.p.click('.choice');await c.p.click('#submit');await c.p.click('#next');}
     await c.p.waitForSelector('.end');await c.p.click('#share');await c.p.waitForTimeout(80);
     ok(/quiz\.html/.test(await c.p.$eval('#shareMsg',e=>e.textContent))&&c.errs.length===0,'copy blocked: the text is shown so it can be copied by hand, no page errors');
     await c.ctx.close();
     c=await open(b,{share:'abort',clip:'ok',fix:fixtureShare});
     for(let n=0;n<3;n++){await c.p.waitForSelector('.choice:not([disabled])');const order=await c.p.evaluate(()=>!!document.querySelector('.hint'));
-      if(order){const k=await c.p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await c.p.click(`.choice[data-k="${i}"]`);}else await c.p.click('.choice');await c.p.click('#next');}
+      if(order){const k=await c.p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await c.p.click(`.choice[data-k="${i}"]`);}else await c.p.click('.choice');await c.p.click('#submit');await c.p.click('#next');}
     await c.p.waitForSelector('.end');await c.p.click('#share');await c.p.waitForTimeout(80);
     ok((await c.p.evaluate(()=>window.__copied)).length===0,'share screen cancelled: nothing is copied');
     await c.ctx.close();

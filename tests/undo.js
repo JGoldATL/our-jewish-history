@@ -21,7 +21,7 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
     await p.goto('http://localhost:8778/quiz.html');await p.waitForSelector('.choice');
     for(let k=0;k<3;k++){
       if(await p.$('.hint')){found=true;break;}
-      await p.click('.choice');await p.click('#next');
+      await p.click('.choice');await p.click('#submit');await p.click('#next');
     }
   }
   ok(found,'reached an ordering question');
@@ -36,7 +36,8 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
   ok(!(await p.$('#res .result')),'nothing is submitted while items are being undone');
   // finish the ordering and reach the last question
   for(const c of await p.$$('.choice:not(.picked)'))await c.click();
-  ok(!!(await p.$('#res .result')),'full order submits');
+  ok(!(await p.$('#res .result')),'a full order waits for Submit (v0.4.1)');await p.click('#submit');
+  ok(!!(await p.$('#res .result')),'full order submits on Submit');
   // play on to the last question
   for(let g=0;g<4;g++){
     const t=await p.textContent('#next');
@@ -48,7 +49,7 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
     }
     ok(!(await p.$('#res a[href="index.html"]')),'earlier questions have no Back pill');
     await p.click('#next');await p.waitForSelector('.choice');
-    if(await p.$('.hint')){for(const c of await p.$$('.choice'))await c.click();}else await p.click('.choice');
+    if(await p.$('.hint')){for(const c of await p.$$('.choice'))await c.click();await p.click('#submit');}else await p.click('.choice');await p.click('#submit');
   }
   ok(errs.length===0,'no page errors '+errs.join(';'));
   await b.close();console.log(fails?'FAILURES: '+fails:'ALL PASS');process.exit(fails?1:0);
