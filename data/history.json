@@ -2509,7 +2509,9 @@
     "Legacy SVG opacity values remain rendering parameters; they are not numerical demographic estimates."
   ],
   "presentation": {
-    "openingYear": -1208,
+    "openingYear": -2000,
+    "openingCard": "EVT-0001",
+    "openingFocus": {"label": "Ur of the Chaldees", "lat": 30.96, "lon": 46.10, "note": "Camera start only. Ur is not yet a place in the Sheet and Abraham has no route record; coordinates are the usual identification, Tell el-Muqayyar. Awaiting the dataset chat."},
     "tourDurationMs": 20000,
     "version": "Alpha 1.13",
     "worldContext": []

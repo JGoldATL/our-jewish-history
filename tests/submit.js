@@ -47,5 +47,20 @@ async function open(b,keepOrder){
     ok(/^Not quite/.test(await p.$eval('.verdict',e=>e.textContent))&&await p.$('#submit')===null,'order: Submit reveals, and the re-placed item (now last) is what was judged');
     ok(errs.length===0,'no page errors');await ctx.close();
   }
+  { // the footer text link goes when a Back to the globe pill is on screen (last question's result, end screen)
+    const {p,ctx,errs}=await open(b,false);
+    const vis=async()=>await p.$eval('#backLink',e=>!e.hidden&&getComputedStyle(e).display!=='none');
+    for(let n=0;n<3;n++){
+      await p.waitForSelector('.choice:not([disabled])');
+      ok(await vis(),'question '+(n+1)+': the footer Back to the globe link shows');
+      await p.click('.choice[data-k="0"]');await p.click('#submit');
+      const last=n===2;
+      ok((await vis())===!last,last?'last question result: footer link hidden, the pill is there':'question '+(n+1)+' result: footer link still shows');
+      await p.click('#next');
+    }
+    await p.waitForSelector('.end');
+    ok(!(await vis())&&await p.$('.end a[href="index.html"]')!==null,'end screen: footer link hidden, one Back to the globe pill');
+    ok(errs.length===0,'no page errors');await ctx.close();
+  }
   await b.close();console.log(fails?fails+' FAILED':'ALL PASS');process.exit(fails?1:0);
 })();

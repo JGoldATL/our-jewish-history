@@ -287,6 +287,26 @@ function turnToRecord(record,type){
   const set=e=>{view.lon=from.lon+dl*e;view.lat=from.lat+(to.lat-from.lat)*e;view.deg=from.deg+(to.deg-from.deg)*e;view.zoom=from.zoom+(to.zoom-from.zoom)*e;view.R=view.baseR*view.zoom;render();};
   if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){set(1);return;}
   const t0=performance.now(),ms=800,tick=now=>{const t=Math.min(1,(now-t0)/ms);set(t*t*(3-2*t));turnAnim=t<1?requestAnimationFrame(tick):null;};turnAnim=requestAnimationFrame(tick);}
+// v0.4.1: the globe opens at the first card (Abraham, c. 2000 BCE). The camera starts on Ur (presentation.openingFocus) and turns to the era camera's own view of that year,
+// then hands control back to the era camera, so scrubbing the timeline behaves exactly as before. No new camera system.
+function openAtStart(){
+  const P=DATA.presentation||{};if(!P.openingCard||!milestones.length)return;
+  const i=milestones.findIndex(m=>m.record.id===P.openingCard);if(i<0)return;
+  const F=P.openingFocus,m=milestones[i];
+  stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);
+  view.manual=false;render();                                                    // the era camera's own view of this year
+  if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});
+  if(!F||!Number.isFinite(F.lat)||!Number.isFinite(F.lon)||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)return;
+  const to={lon:view.lon,lat:view.lat,deg:view.deg,zoom:view.zoom};
+  view.manual=true;view.lon=F.lon;view.lat=F.lat;view.deg=15;view.zoom=1;view.R=view.baseR;render();   // start on Ur
+  const from={lon:view.lon,lat:view.lat,deg:view.deg,zoom:view.zoom},dl=(((to.lon-from.lon+180)%360)+360)%360-180;
+  setTimeout(()=>{
+    if(!view.manual||selected?.record!==m.record)return;
+    const t0=performance.now(),ms=2200,tick=now=>{const t=Math.min(1,(now-t0)/ms),e=t*t*(3-2*t);
+      view.lon=from.lon+dl*e;view.lat=from.lat+(to.lat-from.lat)*e;view.deg=from.deg+(to.deg-from.deg)*e;view.zoom=from.zoom+(to.zoom-from.zoom)*e;view.R=view.baseR*view.zoom;
+      if(t<1){render();turnAnim=requestAnimationFrame(tick);}else{turnAnim=null;view.manual=false;render();}};   // any touch cancels the turn and keeps the visitor's view
+    turnAnim=requestAnimationFrame(tick);},500);
+}
 function dismissPrompt(){if(!promptOpen)return;promptOpen=false;$('prompt').hidden=true;$('panel').classList.remove('inviting');$('play').hidden=false;$('options').hidden=false;}
 function reset(){stopTour();dismissPrompt();selected=null;lastAutoIdx=-1;position=0;view.manual=true;const j=svgToLonLat(INDEX.places.get('place-j').coordinates);view.lon=j[0];view.lat=j[1];view.deg=15;setZoom(1);}
 
@@ -382,6 +402,7 @@ async function boot(){
     buildTimeline();buildMilestones();initGL();initInteraction();
     position=posForYear(DATA.presentation?.openingYear??-1208);$('version').textContent='v'+APP_VERSION+' · Globe preview · data from Sheet '+(((DATA.sheet?.meta?.source||'').match(/v\d+(?:\.\d+)+/)||[])[0]||DATA.presentation?.version||'Alpha');
     layout();
+    openAtStart();
   }catch(err){$('error').hidden=false;$('error').textContent='The map could not load: '+err.message;console.error(err);}
 }
 boot();

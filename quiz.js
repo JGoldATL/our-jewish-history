@@ -112,7 +112,7 @@ function dots(){$('dots').innerHTML=(round||[]).map((_,k)=>`<i class="${k<=i?'on
 
 // ---------- question screen (locked) ----------
 function show(){
-  dots();
+  dots();$('backLink').hidden=false;
   const q=round[i],isOrder=q.correct==='order',right=isOrder?-1:LETTERS.indexOf(q.correct);
   fly([[q.lat,q.lon]]);
   const opts=isOrder?shuffle(q.choices.map((c,k)=>({c,k}))):q.choices.map((c,k)=>({c,k}));
@@ -202,6 +202,7 @@ function finish(ok,pick,seq){
     if(!fun)dateline=`<p class="dateline">In Jewish history: ${esc(q.jewishEvent)}, ${fy(q.jewishYear)}.</p>`;
   }
   const last=i>=round.length-1;
+  if(last)$('backLink').hidden=true;   // the Back to the globe pill is on screen, so the text link goes
   $('res').innerHTML=`<div class="result">
     <div class="verdict ${ok?'ok':'no'}">${v}</div>${dateline}
     <p class="quick">${esc(q.quickTake)}${q.deepDive?' <button type="button" class="more" id="more" aria-expanded="false" aria-controls="deep">Dive deeper →</button>':''}</p>
@@ -214,7 +215,7 @@ function finish(ok,pick,seq){
 
 // ---------- end screen (locked) ----------
 function end(){
-  dots();
+  dots();$('backLink').hidden=true;
   fly(round.map(q=>[q.lat,q.lon]));
   const span=round[round.length-1].jewishYear-round[0].jewishYear;
   let tl='';
