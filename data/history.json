@@ -2511,7 +2511,6 @@
   "presentation": {
     "openingYear": -2000,
     "openingCard": "EVT-0001",
-    "openingFocus": {"label": "Ur of the Chaldees", "lat": 30.96, "lon": 46.10, "note": "Camera start only. Ur is not yet a place in the Sheet and Abraham has no route record; coordinates are the usual identification, Tell el-Muqayyar. Awaiting the dataset chat."},
     "tourDurationMs": 20000,
     "version": "Alpha 1.13",
     "worldContext": []
@@ -2519,23 +2518,23 @@
   "sheet": {
     "meta": {
       "schema": "sheet-1",
-      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.3",
+      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.4.1",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
       "sheetModified": "2026-10-07T22:13:00Z",
-      "exportSha256": "332435867373b6cf",
+      "exportSha256": "228f405852b1b15d",
       "mode": "public",
       "counts": {
-        "places": 97,
+        "places": 98,
         "events": 90,
         "communities": 117,
-        "movements": 67,
+        "movements": 68,
         "context": 43,
         "evidence": 20,
         "cards": 166,
         "eras": 7,
         "cameraStops": 38,
-        "eraAssignment": 264,
-        "questions": 43
+        "eraAssignment": 265,
+        "questions": 44
       }
     },
     "places": [
@@ -3416,6 +3415,15 @@
         "lon": -58,
         "landOfIsrael": false,
         "cameraOnly": true
+      },
+      {
+        "id": "place-ur",
+        "historicalName": "Ur (Ur of the Chaldees)",
+        "modernName": "Tell el-Muqayyar, southern Iraq",
+        "role": "origin (Abraham's starting point)",
+        "lat": 30.96,
+        "lon": 46.1,
+        "landOfIsrael": false
       }
     ],
     "events": [
@@ -3425,7 +3433,9 @@
         "endYear": null,
         "dateDisplay": "c. 2000 BCE",
         "placeId": "place-israel",
-        "movementIds": [],
+        "movementIds": [
+          "MOV-068"
+        ],
         "evidenceIds": [],
         "hasCard": true
       },
@@ -3433,7 +3443,7 @@
         "id": "EVT-0002",
         "startYear": -1250,
         "endYear": -1190,
-        "dateDisplay": "Traditional chronology",
+        "dateDisplay": "c. 1250 BCE",
         "placeId": "place-egypt",
         "movementIds": [
           "MOV-001"
@@ -3516,7 +3526,7 @@
         "id": "EVT-0009",
         "startYear": -740,
         "endYear": -720,
-        "dateDisplay": "740–720 BCE",
+        "dateDisplay": "722 BCE",
         "placeId": "place-israel",
         "movementIds": [
           "MOV-002"
@@ -3560,7 +3570,7 @@
         "id": "EVT-0012",
         "startYear": -600,
         "endYear": null,
-        "dateDisplay": "late 7th–early 6th c. BCE",
+        "dateDisplay": "Late 7th–early 6th century BCE",
         "placeId": "place-j",
         "movementIds": [],
         "evidenceIds": [
@@ -3591,7 +3601,7 @@
         "id": "EVT-0014",
         "startYear": -586,
         "endYear": -586,
-        "dateDisplay": "587/586 BCE",
+        "dateDisplay": "586 BCE",
         "placeId": "place-j",
         "movementIds": [
           "MOV-005"
@@ -3625,7 +3635,7 @@
         "id": "EVT-0016",
         "startYear": -539,
         "endYear": -538,
-        "dateDisplay": "539–538 BCE",
+        "dateDisplay": "539 BCE",
         "placeId": "place-b",
         "movementIds": [
           "MOV-006"
@@ -3671,7 +3681,7 @@
         "id": "EVT-0019",
         "startYear": -320,
         "endYear": -275,
-        "dateDisplay": "c. 320–275 BCE",
+        "dateDisplay": "c. 320 BCE",
         "placeId": "place-alexNode",
         "movementIds": [
           "MOV-044"
@@ -3705,7 +3715,7 @@
         "id": "EVT-0021",
         "startYear": -210,
         "endYear": -205,
-        "dateDisplay": "c. 210–205 BCE",
+        "dateDisplay": "c. 210 BCE",
         "placeId": "place-asiaNode",
         "movementIds": [
           "MOV-007"
@@ -3722,7 +3732,7 @@
         "id": "EVT-0022",
         "startYear": -167,
         "endYear": -164,
-        "dateDisplay": "167–164 BCE",
+        "dateDisplay": "167 BCE",
         "placeId": "place-j",
         "movementIds": [],
         "evidenceIds": [],
@@ -3732,7 +3742,7 @@
         "id": "EVT-0023",
         "startYear": -250,
         "endYear": 68,
-        "dateDisplay": "c. 3rd century BCE – 1st century CE",
+        "dateDisplay": "3rd century BCE – 1st century CE",
         "placeId": "place-qumran",
         "movementIds": [],
         "evidenceIds": [
@@ -3777,7 +3787,7 @@
         "id": "EVT-0026",
         "startYear": -100,
         "endYear": null,
-        "dateDisplay": "Late Hellenistic / Roman",
+        "dateDisplay": "Hellenistic and Roman periods",
         "placeId": "place-cyprusNode",
         "movementIds": [],
         "evidenceIds": [],
@@ -3809,7 +3819,7 @@
         "id": "EVT-0028",
         "startYear": 115,
         "endYear": 117,
-        "dateDisplay": "115–117 CE",
+        "dateDisplay": "115 CE",
         "placeId": "place-alexNode",
         "movementIds": [],
         "evidenceIds": [],
@@ -3824,7 +3834,7 @@
         "id": "EVT-0029",
         "startYear": 132,
         "endYear": 135,
-        "dateDisplay": "132–135 CE",
+        "dateDisplay": "132 CE",
         "placeId": "place-j",
         "movementIds": [],
         "evidenceIds": [],
@@ -7474,6 +7484,22 @@
           "MOV-052",
           "POP-046"
         ]
+      },
+      {
+        "id": "MOV-068",
+        "eventId": "EVT-0001",
+        "startYear": -2000,
+        "endYear": null,
+        "dateDisplay": "c. 2000 BCE",
+        "origin": "Ur of the Chaldees",
+        "destination": "Israel / Canaan",
+        "originPlaceId": "place-ur",
+        "destinationPlaceId": "place-israel",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Dotted (traditional)",
+        "links": [
+          "EVT-0001"
+        ]
       }
     ],
     "context": [
@@ -7998,7 +8024,10 @@
         "endYear": null,
         "placeId": "place-israel",
         "meanwhile": "In Egypt, the Great Pyramid of Giza had already stood for about 560 years.",
-        "meanwhileStatus": "approved"
+        "meanwhileStatus": "approved",
+        "movementIds": [
+          "MOV-068"
+        ]
       },
       {
         "id": "EVT-0002",
@@ -10407,9 +10436,9 @@
         "era": 4,
         "name": "Babylonia, Byzantium and the Islamic world",
         "startYear": 200,
-        "startDisplay": "200 CE",
+        "startDisplay": 200,
         "lastYear": 1095,
-        "summary": "From the Mishnah at 200 CE through the Persian, Byzantine and Muslim conquests, Jewish life centers on Babylonia, Egypt, North Africa and al-Andalus.",
+        "summary": "From the Mishnah at 200 through the Persian, Byzantine and Muslim conquests, Jewish life centers on Babylonia, Egypt, North Africa and al-Andalus.",
         "status": "approved",
         "centerPlaceId": "place-mediterranean",
         "framePlaceIds": [
@@ -10424,7 +10453,7 @@
         "era": 5,
         "name": "Medieval Europe and Iberia",
         "startYear": 1096,
-        "startDisplay": "1096 CE",
+        "startDisplay": 1096,
         "lastYear": 1491,
         "summary": "Jewish communities grow in the Rhineland, France, England and Poland, but are attacked and expelled again and again, and many move east.",
         "status": "approved",
@@ -10442,7 +10471,7 @@
         "era": 6,
         "name": "Expulsions and the new diasporas",
         "startYear": 1492,
-        "startDisplay": "1492 CE",
+        "startDisplay": 1492,
         "lastYear": 1699,
         "summary": "After Spain expels its Jews in 1492, Jews build new communities in Ottoman cities, Safed, Amsterdam and the Americas.",
         "status": "approved",
@@ -10459,7 +10488,7 @@
         "era": 7,
         "name": "Eastern Europe, new rights and mass migration",
         "startYear": 1700,
-        "startDisplay": "1700 CE",
+        "startDisplay": 1700,
         "lastYear": 1897,
         "summary": "Hasidism spreads and the Pale of Settlement grows, Jews gain legal rights in Western and Central Europe, and large numbers move to America and the Land of Israel, until the First Zionist Congress in 1897.",
         "status": "approved",
@@ -11385,6 +11414,11 @@
     "eraAssignment": [
       {
         "id": "EVT-0001",
+        "era": 1,
+        "runsPast": null
+      },
+      {
+        "id": "MOV-068",
         "era": 1,
         "runsPast": null
       },
@@ -13246,6 +13280,30 @@
         "jewishYear": 1290,
         "worldAnchor": "Marco Polo returns",
         "worldYear": 1295
+      },
+      {
+        "id": "Q054",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Role Match",
+        "place": "Roanoke Island",
+        "lat": 35.93,
+        "lon": -75.71,
+        "question": "Sir Walter Raleigh sent colonists to Roanoke Island in 1585. Which Jew sailed with them, becoming the first known Jew in English North America?",
+        "choices": [
+          "Joachim Gans",
+          "Louis Brandeis",
+          "Julius Rosenwald",
+          "David Levy Yulee"
+        ],
+        "correct": "A",
+        "quickTake": "Gans reached America 35 years before the Mayflower.",
+        "deepDive": "Joachim Gans was a metallurgist from Prague, hired as the mineral expert for Raleigh's 1585 colony on Roanoke Island, in today's North Carolina. He worked with the scientist Thomas Harriot and helped set up a copper-smelting workshop at the fort; archaeologists have found traces of it. Brandeis became the first Jewish Supreme Court Justice in 1916, Rosenwalk co-owned Sears and was a first to offer employee profit sharing and in 1851 Yulee became the first United States Senator.",
+        "jewishEvent": "Joachim Gans arrives at Roanoke Island",
+        "jewishYear": 1585,
+        "worldAnchor": "Francis Drake completes his voyage around the world",
+        "worldYear": 1580
       },
       {
         "id": "Q055",
