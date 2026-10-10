@@ -25,7 +25,7 @@ async function open(b,{url='http://localhost:8778/quiz.html',fix,share,clip}={})
     if(clip==='ok')Object.defineProperty(navigator,'clipboard',{value:{writeText:async t=>{window.__copied.push(t);}},configurable:true});
     else Object.defineProperty(navigator,'clipboard',{value:{writeText:async()=>{throw new Error('no');}},configurable:true});
   },{share,clip});
-  await p.goto(url);await p.waitForSelector('#startBtn');
+  await p.goto(url);await p.waitForSelector('.choice');
   return {p,errs,ctx};
 }
 const play=async(p,picks)=>{ // picks: array of letter indexes per question in dealt order, or 'right'
@@ -42,29 +42,21 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
 };
 (async()=>{
   const b=await chromium.launch();
-  // 1. start screen and toggle
+  // 1. v0.4.1: the quiz pops up. The first question shows on load; no start screen, no Default | Academic pill, Default tone.
   for(const w of [390,320]){
     const ctx=await b.newContext({viewport:{width:w,height:700}});const p=await ctx.newPage();
-    await p.route(/fonts\.|googletagmanager|workers\.dev|cdnjs/,r=>r.abort());await p.goto('http://localhost:8778/quiz.html');await p.waitForSelector('#startBtn');
-    const r=await p.evaluate(()=>{const segs=[...document.querySelectorAll('.tone .seg')],t=document.querySelector('.tone').getBoundingClientRect();
-      return {words:segs.map(s=>s.textContent),pressed:segs.map(s=>s.getAttribute('aria-pressed')),oneLine:segs.every(s=>s.getBoundingClientRect().top===segs[0].getBoundingClientRect().top),
-        h:Math.min(...segs.map(s=>s.getBoundingClientRect().height)),inside:t.left>=0&&t.right<=innerWidth,hs:document.documentElement.scrollWidth>innerWidth,
-        explain:document.querySelector('.tone').parentElement.querySelectorAll('.tone ~ p, .tone + small').length,tone:window.__quiz&&window.__quiz.tone};});
-    ok(r.words.join('|')==='Default|Academic'&&r.pressed.join('|')==='true|false',w+' px: two words, Default selected on arrival');
-    ok(r.oneLine&&r.inside&&!r.hs,w+' px: pill on one line, on screen, no sideways scroll');
-    ok(Math.round(r.h)>=44,w+' px: tap target '+r.h+' px');
+    await p.route(/fonts\.|googletagmanager|workers\.dev|cdnjs/,r=>r.abort());await p.goto('http://localhost:8778/quiz.html');await p.waitForSelector('.choice');
+    const r=await p.evaluate(()=>({q:!!document.querySelector('.qt'),choices:document.querySelectorAll('.choice').length,count:document.getElementById('count').textContent,
+      noToggle:!document.querySelector('.tone')&&!document.querySelector('.seg')&&!document.getElementById('startBtn'),hs:document.documentElement.scrollWidth>innerWidth,tone:window.__quiz&&window.__quiz.tone}));
+    ok(r.q&&r.choices>=2&&r.count==='1 of 3',w+' px: the first question is on screen as soon as the page opens ('+r.count+')');
+    ok(r.noToggle,w+' px: no start screen, no Default | Academic pill');
+    ok(r.tone==='default',w+' px: tone is Default');
+    ok(!r.hs,w+' px: no sideways scroll');
     await p.close();await ctx.close();
   }
-  { // toggle holds for the round; a fresh load (friend's link) is Default again
-    const {p,ctx}=await open(b,{fix:h=>{h.sheet.questions=h.sheet.questions.filter(q=>KEEP.includes(q.id));h.sheet.questions.forEach(q=>q.choiceYears=YEARS[q.id]);}});
-    await p.click('.seg[data-tone="academic"]');
-    ok(await p.$eval('.seg[data-tone="academic"]',e=>e.getAttribute('aria-pressed'))==='true'&&await p.$eval('.seg[data-tone="default"]',e=>e.getAttribute('aria-pressed'))==='false','tapping Academic switches the pill');
-    await p.click('#startBtn');
-    ok(await p.evaluate(()=>window.__quiz.tone)==='academic','the choice is held once the round starts');
-    ok(await p.$('.tone')===null,'no toggle after the start screen');
-    await ctx.close();
+  { // a friend's link opens the first question in Default
     const f=await open(b,{url:'http://localhost:8778/quiz.html?from=friend'});
-    ok(await f.p.$eval('.seg[data-tone="default"]',e=>e.getAttribute('aria-pressed'))==='true','a friend\'s link opens in Default');
+    ok(await f.p.evaluate(()=>window.__quiz.tone)==='default'&&await f.p.$('.tone')===null,'a friend\'s link opens straight to a question, in Default');
     await f.ctx.close();
   }
   // 2. wrong-answer lines, many rounds
@@ -72,7 +64,7 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
   let nClose=0,nFar=0,nAny=0,badTag=[],noDate=[],repeats=0,prev=null,emoji=[],ce=[];
   for(let r=0;r<30;r++){
     const {p,errs,ctx}=await open(b,{fix:h=>{h.sheet.questions=h.sheet.questions.filter(q=>KEEP.includes(q.id));h.sheet.questions.forEach(q=>q.choiceYears=YEARS[q.id]);}});
-    await p.click('#startBtn');
+    
     // dealt order is chronological: Q046 (957 BCE), Q021 (132), Q050 (1948). Wrong picks: Colosseum 80 (far), Pantheon -25 (D, gap 105 = any), Pearl Harbor 1941 (close)
     const o=await play(p,[1,3,2]);
     const [a,c2,d]=o;
@@ -100,18 +92,9 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
   ok(ce.length===0,'no "CE" in any wrong-answer line');
   ok(emoji.length===0,'no emoji in any wrong-answer line');
   ok(noDate.length===0,'no unfilled placeholders'+(noDate.length?': '+noDate[0]:''));
-  { // no Choice years -> plain correction plus the Jewish event's date, in Default; Academic always plain plus date
-    for(const t of ['default','academic']){
-      const {p,ctx}=await open(b,{fix:h=>{h.sheet.questions=h.sheet.questions.filter(q=>KEEP.includes(q.id));h.sheet.questions.forEach(q=>q.choiceYears=YEARS[q.id]);}});
-      await p.click(`.seg[data-tone="${t}"]`);await p.click('#startBtn');
-      const o=await play(p,[1,3,2]);
-      if(t==='academic'){
-        ok(o.every(x=>/^Not quite\. You picked/.test(x.verdict)&&/In Jewish history: /.test(x.date)),'Academic: plain correction with the right date on every wrong answer');
-      }
-      await ctx.close();
-    }
+  { // no Choice years -> plain correction plus the Jewish event's date, in Default (Academic is dormant in v0.4.1)
     const {p,ctx}=await open(b,{fix:h=>{h.sheet.questions=h.sheet.questions.filter(q=>KEEP.includes(q.id));h.sheet.questions.forEach(q=>{delete q.choiceYears;});}});
-    await p.click('#startBtn');const o=await play(p,[1,3,2]);
+    const o=await play(p,[1,3,2]);
     ok(o.every(x=>/^Not quite\. You picked/.test(x.verdict)&&/In Jewish history: .+, \d/.test(x.date)),'Default without Choice years: plain correction and the Jewish event date, never an invented line');
     await ctx.close();
   }
@@ -122,7 +105,7 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
   for(const [label,picks] of [['all wrong',null],['all right',null]]){
     for(let r=0;r<18;r++){
       const {p,ctx}=await open(b,{url:'http://localhost:8778/quiz.html?x=1#y',share:'ok',fix:fixtureShare});
-      await p.click('#startBtn');
+      
       // answer by reading the dealt question's correct letter from the bank
       for(let n=0;n<3;n++){
         await p.waitForSelector('.choice:not([disabled])');
@@ -151,31 +134,21 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
   ok(s1Right>0,'the 539 BCE line can show when that question was answered right ('+s1Right+')');
   ok(perfectOnly&&zeroOnly,'perfect-score and zero-score lines only at those scores');
   ok(seen.size>=4,'several different share lines come up ('+seen.size+')');
-  { // Academic: score plus a neutral line, never an event
-    const {p,ctx}=await open(b,{share:'ok',fix:fixtureShare});await p.click('.seg[data-tone="academic"]');await p.click('#startBtn');
-    for(let n=0;n<3;n++){await p.waitForSelector('.choice:not([disabled])');const order=await p.evaluate(()=>!!document.querySelector('.hint'));
-      if(order){const k=await p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await p.click(`.choice[data-k="${i}"]`);}else await p.click('.choice');await p.click('#next');}
-    await p.waitForSelector('.end');const score=await p.$eval('.score',e=>+e.textContent.match(/(\d) of/)[1]);
-    await p.click('#share');await p.waitForTimeout(80);const t=(await p.evaluate(()=>window.__shared))[0].text;
-    ok(t===`${score} of 3 on When in the World? Jewish history, placed in world time.`,'Academic share is the score plus a neutral line: '+t);
-    ok(!/Persian|539|exiles|Temple/.test(t),'Academic share names no event');
-    await ctx.close();
-  }
   { // fallback: no share screen -> copy; both fail -> the text is shown; cancel -> nothing copied
-    let c=await open(b,{share:'none',clip:'ok',fix:fixtureShare});await c.p.click('#startBtn');
+    let c=await open(b,{share:'none',clip:'ok',fix:fixtureShare});
     for(let n=0;n<3;n++){await c.p.waitForSelector('.choice:not([disabled])');const order=await c.p.evaluate(()=>!!document.querySelector('.hint'));
       if(order){const k=await c.p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await c.p.click(`.choice[data-k="${i}"]`);}else await c.p.click('.choice');await c.p.click('#next');}
     await c.p.waitForSelector('.end');await c.p.click('#share');await c.p.waitForTimeout(80);
     const cp=await c.p.evaluate(()=>window.__copied);ok(cp.length===1&&/http:\/\/localhost:8778\/quiz\.html$/.test(cp[0]),'no share screen: the line and link are copied');
     ok(/Copied/.test(await c.p.$eval('#shareMsg',e=>e.textContent)),'a confirmation shows');
     await c.ctx.close();
-    c=await open(b,{share:'none',clip:'fail',fix:fixtureShare});await c.p.click('#startBtn');
+    c=await open(b,{share:'none',clip:'fail',fix:fixtureShare});
     for(let n=0;n<3;n++){await c.p.waitForSelector('.choice:not([disabled])');const order=await c.p.evaluate(()=>!!document.querySelector('.hint'));
       if(order){const k=await c.p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await c.p.click(`.choice[data-k="${i}"]`);}else await c.p.click('.choice');await c.p.click('#next');}
     await c.p.waitForSelector('.end');await c.p.click('#share');await c.p.waitForTimeout(80);
     ok(/quiz\.html/.test(await c.p.$eval('#shareMsg',e=>e.textContent))&&c.errs.length===0,'copy blocked: the text is shown so it can be copied by hand, no page errors');
     await c.ctx.close();
-    c=await open(b,{share:'abort',clip:'ok',fix:fixtureShare});await c.p.click('#startBtn');
+    c=await open(b,{share:'abort',clip:'ok',fix:fixtureShare});
     for(let n=0;n<3;n++){await c.p.waitForSelector('.choice:not([disabled])');const order=await c.p.evaluate(()=>!!document.querySelector('.hint'));
       if(order){const k=await c.p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await c.p.click(`.choice[data-k="${i}"]`);}else await c.p.click('.choice');await c.p.click('#next');}
     await c.p.waitForSelector('.end');await c.p.click('#share');await c.p.waitForTimeout(80);

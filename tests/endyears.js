@@ -11,7 +11,7 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
   await p.route(/fonts\.|googletagmanager|workers\.dev/,r=>r.abort());
   let rounds=0,cross=0,ceHits=[],commaHits=[],labels=0,seen2000=false,seen2560=false,bareCE=0,minus=[];
   for(let r=0;r<80;r++){
-    await p.goto('http://localhost:8778/quiz.html');await p.click('#startBtn');await p.waitForSelector('.choice');
+    await p.goto('http://localhost:8778/quiz.html');await p.waitForSelector('.choice');
     for(let k=0;k<3;k++){
       if(await p.$('.hint')){for(const c of await p.$$('.choice'))await c.click();}else await p.click('.choice');
       await p.click('#next');if(k<2)await p.waitForSelector('.choice');

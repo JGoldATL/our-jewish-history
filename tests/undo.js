@@ -18,7 +18,7 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
   // find a round that opens on an ordering question: play until one shows
   let found=false;
   for(let t=0;t<60&&!found;t++){
-    await p.goto('http://localhost:8778/quiz.html');await p.click('#startBtn');await p.waitForSelector('.choice');
+    await p.goto('http://localhost:8778/quiz.html');await p.waitForSelector('.choice');
     for(let k=0;k<3;k++){
       if(await p.$('.hint')){found=true;break;}
       await p.click('.choice');await p.click('#next');

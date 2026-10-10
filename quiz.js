@@ -94,7 +94,7 @@ function deal(){
 }
 function start(){round=deal();i=0;score=0;results=[];lastW=null;show();}
 
-// ---------- start screen (v0.4.0): the Default | Academic toggle lives here and nowhere else ----------
+// ---------- start screen (v0.4.0, DORMANT since v0.4.1: not called at boot; Academic returns later) ----------
 function intro(){
   dots();$('count').textContent='';
   $('stage').innerHTML=`<div class="card intro">
@@ -286,7 +286,9 @@ async function boot(){
   BANK=pick.list;draftsShown=pick.drafts;
   if(draftsShown)$('mode').textContent='Preview · draft questions included · ';
   if(!BANK.length){$('stage').innerHTML='<div class="card msg">The questions are not ready yet. Please check back soon.</div>';return;}
-  intro();
+  // v0.4.1: the quiz pops up. The first question shows as soon as the page opens; no start screen, no tone toggle. Default tone only.
+  // intro() (Default | Academic start screen) is kept dormant for the Academic return; call it here instead of start() to bring it back.
+  start();
 }
 window.__quiz={pickQuestions,deal:()=>deal(),get bank(){return BANK;},get tone(){return tone;}};
 boot();
