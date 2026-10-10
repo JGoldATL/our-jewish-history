@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION='0.4.0';
+const APP_VERSION='0.4.1';
 /* Jewish Journeys · Globe preview
    Rendering layer only. Records, validation, frame resolution and evidence rules come from engine.js,
    ported verbatim from Alpha 1.13, so historical behaviour is unchanged. */
