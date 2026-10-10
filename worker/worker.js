@@ -19,16 +19,17 @@ const cors = (origin) => ({
 const reply = (status, origin) => new Response(null, { status, headers: cors(origin) });
 const str = (v, re, max) => (typeof v === 'string' && v.length <= max && re.test(v) ? v : null);
 
-// Shape check only. Returns { visit, kind, q, picked, survey } or null. Unknown fields are dropped.
+// Shape check only. Returns { visit, rnd, kind, q, picked, survey } or null. Unknown fields are dropped.
 function shape(b) {
   if (!b || typeof b !== 'object') return null;
   const visit = str(b.visit_id, /^(test-)?[a-z0-9]{12,32}$/, 37);
   if (!visit) return null;
-  if (b.kind === 'survey') return SURVEY.includes(b.survey) ? { visit, kind: 'survey', survey: b.survey } : null;
+  const rnd = str(b.round_id, /^[a-z0-9]{8,32}$/, 32);   // optional: which round of 3 this row belongs to
+  if (b.kind === 'survey') return SURVEY.includes(b.survey) ? { visit, rnd, kind: 'survey', survey: b.survey } : null;
   if (b.kind === 'answer') {
     const q = str(b.question_id, /^Q[0-9]{1,6}$/, 8);
     const picked = str(b.picked, /^[0-9](,[0-9]){0,4}$/, 9);
-    return q && picked ? { visit, kind: 'answer', q, picked } : null;
+    return q && picked ? { visit, rnd, kind: 'answer', q, picked } : null;
   }
   return null;
 }
@@ -64,7 +65,7 @@ export default {
       if (visit && visit.n >= MAX_ROWS_PER_VISIT) return reply(429, origin);
 
       if (row.kind === 'survey') {
-        await env.DB.prepare("INSERT INTO responses (visit_id, kind, survey) VALUES (?, 'survey', ?)").bind(row.visit, row.survey).run();
+        await env.DB.prepare("INSERT INTO responses (visit_id, round_id, kind, survey) VALUES (?, ?, 'survey', ?)").bind(row.visit, row.rnd, row.survey).run();
         return reply(204, origin);
       }
       const lock = await env.DB.prepare('SELECT era, style, kind, n, correct_idx FROM question_lock WHERE id = ?').bind(row.q).first();
@@ -74,8 +75,8 @@ export default {
       const same = await env.DB.prepare("SELECT COUNT(*) AS n FROM responses WHERE visit_id = ? AND question_id = ? AND kind = 'answer'").bind(row.visit, row.q).first();
       if (same && same.n >= MAX_PER_QUESTION) return reply(429, origin);
       await env.DB.prepare(
-        "INSERT INTO responses (visit_id, kind, question_id, era, style, picked, correct) VALUES (?, 'answer', ?, ?, ?, ?, ?)"
-      ).bind(row.visit, row.q, lock.era, lock.style, j.picked, j.correct).run();
+        "INSERT INTO responses (visit_id, round_id, kind, question_id, era, style, picked, correct) VALUES (?, ?, 'answer', ?, ?, ?, ?, ?)"
+      ).bind(row.visit, row.rnd, row.q, lock.era, lock.style, j.picked, j.correct).run();
       return reply(204, origin);
     } catch (e) {
       return reply(400, origin);

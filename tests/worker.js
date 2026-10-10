@@ -34,6 +34,13 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
   ok(await post({visit_id:visit(),kind:'survey',survey:'A lot'})===204&&last().survey==='A lot'&&last().question_id===null,'survey tap stored');
   ok(await post({visit_id:'test-'+visit(),kind:'survey',survey:'Somewhat'})===204,'"test-" visit id accepted');
 
+  // v0.4.3: round_id groups the 3 answers and the survey tap of one round
+  const R=visit();
+  ok(await ans(R,mc4,'0',{round_id:'abcd1234ef'})===204&&last().round_id==='abcd1234ef','answer stores a valid round_id');
+  ok(await post({visit_id:R,round_id:'abcd1234ef',kind:'survey',survey:'A lot'})===204&&last().round_id==='abcd1234ef','survey tap stores the same round_id');
+  ok(await ans(R,mc5,'0',{round_id:'BAD ID!!'})===204&&last().round_id===null,'a malformed round_id is dropped, the row still saves');
+  ok(await ans(R,ord,[...Array(lock[ord].n).keys()].join(','),{})===204&&last().round_id===null,'rows without a round_id (older pages) still save');
+
   // trust: the browser's claims are ignored
   const B=visit();
   ok(await ans(B,mc4,String((lock[mc4].correct_idx+1)%4),{correct:1,era:'Made up era',style:'Made up style',ip:'1.2.3.4',name:'Bob'})===204,'extra fields do not block a valid pick');

@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS responses (
   question_id TEXT, era TEXT, style TEXT,
   picked TEXT,                                  -- choice number, or the tap order for ordering questions (e.g. "2,0,1")
   correct INTEGER CHECK (correct IN (0,1)),
+  round_id TEXT,                                -- v0.4.3: random per round of 3 (null on older rows)
   survey TEXT                                   -- A lot / Somewhat / Not really (latest tap per visit counts)
 );
 CREATE INDEX IF NOT EXISTS idx_responses_visit ON responses(visit_id);
@@ -21,3 +22,6 @@ CREATE TABLE IF NOT EXISTS question_lock (
   correct_idx INTEGER                           -- multiple choice: index of the right choice; ordering questions: NULL (right = 0,1,2,...)
 );
 CREATE INDEX IF NOT EXISTS idx_responses_ts ON responses(ts);
+
+-- v0.4.3 migration for an existing database (already applied to journeysquiz):
+-- ALTER TABLE responses ADD COLUMN round_id TEXT;
