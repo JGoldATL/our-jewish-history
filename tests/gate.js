@@ -29,71 +29,81 @@ for(const pg of ['strategy.html','roadmap.html']){
  ck('storage blocked: still opens and loads rows',(await p.locator('#tbody tr').count())===69&&errs.length===0,errs);await ctx.close();}
 // expired token: any call relocks the page
 {const {ctx,p}=await mk();await p.goto(SITE+'roadmap.html');await p.waitForTimeout(400);await unlock(p);await p.evaluate(()=>sessionStorage.setItem('ojj-gate-token','gate.1.'+'0'.repeat(64)));
- await p.click('#histBtn');await p.waitForTimeout(500);ck('expired token: login comes back with a plain message',await p.locator('#gatePw').isVisible()&&/session ended/i.test(await p.textContent('#gateErr')));await ctx.close();}
+ await p.evaluate(()=>OJJ_GATE.api('/roadmap'));await p.waitForTimeout(500);ck('expired token: login comes back with a plain message',await p.locator('#gatePw').isVisible()&&/session ended/i.test(await p.textContent('#gateErr')));await ctx.close();}
 
-// ---- roadmap page
+// ---- roadmap page: visitor view (password only)
 {const {ctx,p,errs}=await mk({width:400,height:800});await p.goto(SITE+'roadmap.html');await p.waitForTimeout(400);await unlock(p);
  const heads=await p.$$eval('#thead th',a=>a.map(x=>x.textContent));
- ck('roadmap: 14 columns in the required order',heads.join('|')==='ID|Feature|About the feature|Area|Recommended version|My version|Status|Priority|Depends on|Gate|Effort|Owner|Source|Notes',heads);
- ck('roadmap: meta line shows 69 of 69',/^69 of 69 features/.test(await p.textContent('#meta')),await p.textContent('#meta'));
- // phone layout
- ck('roadmap 400px: page does not scroll sideways (only the table does)',!(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1)));
- await p.evaluate(()=>window.scrollTo(0,document.body.scrollHeight));await p.waitForTimeout(150);const nb=await p.locator('#siteNavBtn').boundingBox();const tw=await p.locator('#tw').boundingBox();ck('roadmap 400px: nav tab does not cover the table',nb&&tw&&(nb.y>=tw.y+tw.height-1||nb.x+nb.width<=tw.x||nb.y+nb.height<=tw.y),{nb,tw});
- const ctl=await p.$$eval('.bar > *, .bar button, .bar select, .bar input',a=>a.filter(x=>x.offsetParent).map(x=>{const r=x.getBoundingClientRect();return [r.left,r.right,r.bottom,r.height];}));
- ck('roadmap 400px: every control fits the screen and is at least 44 high',ctl.every(c=>c[0]>=0&&c[1]<=400&&c[3]>=43),ctl.filter(c=>c[1]>400||c[3]<43));
- await p.evaluate(()=>window.scrollTo(0,0));
- // filters + search
- await p.selectOption('#fStatus','Live');ck('roadmap: status filter Live shows 12',(await p.locator('#tbody tr').count())===12);
- await p.selectOption('#fStatus','');await p.selectOption('#fArea','Quiz');const qn=await p.locator('#tbody tr').count();ck('roadmap: area filter narrows rows',qn>0&&qn<69,qn);
- await p.selectOption('#fArea','');await p.fill('#q','zzzzqqq');ck('roadmap: search with no match shows none',(await p.locator('#tbody tr').count())===0);await p.fill('#q','');
- ck('roadmap: cleared filters show all 69 again',(await p.locator('#tbody tr').count())===69);
- // columns chooser
- await p.click('#colsBtn');await p.locator('#colsPop label',{hasText:'Notes'}).locator('input').uncheck();await p.keyboard.press('Escape');
- ck('roadmap: hiding Notes removes the column',!(await p.$$eval('#thead th',a=>a.map(x=>x.textContent))).includes('Notes'));
- await p.reload();await p.waitForTimeout(700);ck('roadmap: hidden column remembered after reload',!(await p.$$eval('#thead th',a=>a.map(x=>x.textContent))).includes('Notes'));
- await p.click('#colsBtn');await p.locator('#colsPop label',{hasText:'Notes'}).locator('input').check();await p.keyboard.press('Escape');
- // edit
- const v0=vers();const f24=mw.raw.prepare("SELECT status FROM roadmap_features WHERE id='F-024'").get().status;
- await p.locator('#tbody tr',{hasText:'F-024'}).first().click();await p.waitForTimeout(200);
- ck('roadmap: tapping a row opens the edit panel',await p.locator('#pnl').isVisible());
- ck('roadmap: priority is disabled for a non-admin',await p.locator('#f_priority').isDisabled());
- await p.selectOption('#f_status','In build');await p.fill('#f_name','Tester');await p.click('#sheet .btn.pri');await p.waitForTimeout(700);
- ck('roadmap: one save makes exactly one new version with the right summary',vers()===v0+1&&mw.raw.prepare('SELECT summary FROM roadmap_versions ORDER BY version_id DESC LIMIT 1').get().summary==='F-024 status '+f24+' to In build');
- ck('roadmap: the change shows in the table and the panel closes',await p.locator('#pnl').isHidden()&&/In build/.test(await p.locator('#tbody tr',{hasText:'F-024'}).first().textContent()));
- ck('roadmap: saved message shows',/Saved as version/.test(await p.textContent('#gmsg')),await p.textContent('#gmsg'));
- // text is plain text, never markup
- await p.locator('#tbody tr',{hasText:'F-025'}).first().click();await p.fill('#f_notes','<b id="boom">x</b><script>window.__x=1</script>');await p.click('#sheet .btn.pri');await p.waitForTimeout(600);
- ck('roadmap: markup in a field is shown as text, not run',(await p.locator('#boom').count())===0&&!(await p.evaluate(()=>window.__x)));
- // nothing-changed save
- await p.locator('#tbody tr',{hasText:'F-026'}).first().click();const vN=vers();await p.click('#sheet .btn.pri');await p.waitForTimeout(300);ck('roadmap: saving with nothing changed makes no version',vers()===vN&&/Nothing changed/.test(await p.textContent('#sheet')));await p.keyboard.press('Escape');
- // history + restore
- await p.click('#histBtn');await p.waitForTimeout(500);const items=await p.locator('.vl li').count();ck('roadmap: history lists every version',items===vers(),items);
- ck('roadmap: history dates show Eastern time',/ET/.test(await p.locator('.vl li').first().textContent()));
- await p.locator('.vl li').last().locator('button').click();await p.waitForTimeout(500);
- ck('roadmap: an old version opens read only',/read only/.test(await p.textContent('#sheet'))&&(await p.locator('#sheet input[type=text]').count())===1);
- const vR=vers();await p.locator('#sheet .btn.pri').click();ck('roadmap: first tap on Restore only asks to confirm',vers()===vR&&/confirm/i.test(await p.locator('#sheet .btn.pri').textContent()));
- await p.locator('#sheet .btn.pri').click();await p.waitForTimeout(800);
- ck('roadmap: second tap restores as a NEW version (nothing deleted)',vers()===vR+1&&mw.raw.prepare("SELECT status FROM roadmap_features WHERE id='F-024'").get().status===f24);
- // export
- const [dl]=await Promise.all([p.waitForEvent('download'),p.click('#expBtn')]);const txt=require('fs').readFileSync(await dl.path(),'utf8');
- ck('roadmap: export CSV has the seed header and 69 data rows',txt.startsWith('id,feature,about,area,rec,mine,status,deps,gate,effort,owner,source,notes,order,priority')&&txt.trim().split(/\r?\n/).length>=70,txt.split(/\r?\n/)[0]);
- // priority admin
- ck('roadmap: Import CSV hidden for non-admin',await p.locator('#impLbl').isHidden());
- await p.click('#admBtn');await p.fill('#f_adm','nope');await p.click('#sheet .btn.pri');await p.waitForTimeout(500);ck('roadmap: wrong admin code is refused',/Incorrect admin code/.test(await p.textContent('#sheet')));
+ ck('visitor: columns are ID, Feature, About, Recommended version, Status, Comments',heads.join('|')==='ID|Feature|About the feature|Recommended version|Status|Comments',heads);
+ ck('visitor: help text shown',(await p.textContent('#help')).trim()==='How you can help: Add comments in the appropriate cell. Recommend features.');
+ ck('visitor: no search box, no owner filter, no admin buttons',await p.locator('#q').isHidden()&&await p.locator('#fOwner').isHidden()&&await p.locator('#admBar').isHidden()&&await p.locator('#colsBtn').isHidden()&&await p.locator('#expBtn').isHidden()&&await p.locator('#histBtn').isHidden());
+ ck('visitor: no Source, Notes, Owner or Priority text anywhere on the page',!/Master doc s|WebDev-Handoff|Version plan/.test(await p.content()));
+ const sb=await p.locator('#sugBtn').boundingBox(),fb=await p.locator('#fStatus').boundingBox();ck('visitor: Recommend a feature is on its own row, below the filters, right aligned',sb.y>fb.y+fb.height&&Math.abs(sb.x+sb.width-(400-16))<4,{sb,fb});
+ ck('visitor 400px: page does not scroll sideways',!(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1)));
+ await p.evaluate(()=>window.scrollTo(0,document.body.scrollHeight));await p.waitForTimeout(150);const nb=await p.locator('#siteNavBtn').boundingBox(),tw=await p.locator('#tw').boundingBox();
+ ck('visitor 400px: nav tab does not cover the table',nb&&tw&&(nb.y>=tw.y+tw.height-1||nb.x+nb.width<=tw.x||nb.y+nb.height<=tw.y),{nb,tw});await p.evaluate(()=>window.scrollTo(0,0));
+ const ctl=await p.$$eval('.bar button,.bar select,.pill',a=>a.filter(x=>x.offsetParent).map(x=>{const r=x.getBoundingClientRect();return [r.left,r.right,r.height];}));
+ ck('visitor 400px: controls fit the screen and are 44 high',ctl.every(c=>c[0]>=0&&c[1]<=400&&c[2]>=43),ctl.filter(c=>c[1]>400||c[2]<43));
+ await p.selectOption('#fStatus','Live');ck('visitor: status filter Live shows 12',(await p.locator('#tbody tr').count())===12);
+ await p.selectOption('#fStatus','');await p.selectOption('#fArea','Quiz');const qn=await p.locator('#tbody tr').count();ck('visitor: area filter narrows rows',qn>0&&qn<69,qn);await p.selectOption('#fArea','');
+ ck('visitor: comment cells invite a tap',/Tap to comment/.test(await p.locator('#tbody tr').first().locator('td.comments').textContent()));
+ // comment
+ const v0=vers();await p.locator('#tbody tr',{hasText:'F-002'}).first().click();await p.waitForTimeout(200);
+ ck('visitor: tapping a row opens details with a comment box (no edit fields)',await p.locator('#c_text').isVisible()&&(await p.locator('#f_status').count())===0);
+ await p.click('#sheet .btn.pri');ck('visitor: an empty comment is refused with a message',/write a comment/.test(await p.textContent('#sheet')));
+ await p.fill('#c_text','<b id="boom">hi</b> Please add a hint.');await p.fill('#c_name','Dana');await p.click('#sheet .btn.pri');await p.waitForTimeout(700);
+ ck('visitor: the comment is saved with the name; no roadmap version created',mw.raw.prepare("SELECT name,comment FROM roadmap_comments WHERE feature_id='F-002'").get().name==='Dana'&&vers()===v0);
+ ck('visitor: the Comments cell now shows it, as text not markup',/1 comment/.test(await p.locator('#tbody tr',{hasText:'F-002'}).first().locator('td.comments').textContent())&&(await p.locator('#boom').count())===0);
+ ck('visitor: thank-you message',/Thank you/.test(await p.textContent('#gmsg')));
+ // recommend a feature
+ await p.click('#sugBtn');const labs=await p.$$eval('#sheet label',a=>a.map(x=>x.textContent));
+ ck('visitor: Recommend form asks name, accomplishes, about, vision',['Feature name','What the feature accomplishes','About the feature','Your vision for how it works','Your name (optional)'].every((x,i)=>labs[i]===x),labs);
+ await p.click('#sheet .btn.pri');ck('visitor: Recommend needs the first two boxes',/fill in the feature name/.test(await p.textContent('#sheet')));
+ await p.fill('#s_feature','Family tree view');await p.fill('#s_acc','Shows how families connect.');await p.fill('#s_about','A simple tree.');await p.fill('#s_vision','Tap a name, see the place.');await p.fill('#s_name','Sam');await p.click('#sheet .btn.pri');await p.waitForTimeout(700);
+ const sug=mw.raw.prepare('SELECT * FROM roadmap_suggestions').get();ck('visitor: the idea is saved with all four answers',sug&&sug.feature==='Family tree view'&&sug.accomplishes.startsWith('Shows')&&sug.about==='A simple tree.'&&sug.vision.startsWith('Tap a name')&&sug.name==='Sam',sug);
+ ck('visitor: thanks shown and panel closed',/Thank you/.test(await p.textContent('#gmsg'))&&await p.locator('#pnl').isHidden());
+ // a hand-made call from the visitor's browser cannot edit
+ const r=await p.evaluate(()=>OJJ_GATE.api('/roadmap/save',{method:'POST',body:{base_version:1,changes:[{id:'F-002',field:'status',value:'Idea'}]}}));ck('visitor: direct call to edit a row is refused (403)',r.status===403&&r.data.error==='admin_only',r);
+ const r2=await p.evaluate(()=>OJJ_GATE.api('/roadmap/versions'));ck('visitor: direct call for the version history is refused (403)',r2.status===403,r2);
+ ck('visitor: no page errors',errs.length===0,errs);await ctx.close();}
+// ---- roadmap page: admin view (?admin plus the admin code)
+{const {ctx,p,errs}=await mk({width:1000,height:800});await p.goto(SITE+'roadmap.html?admin');await p.waitForTimeout(400);await unlock(p);
+ ck('admin view before unlock: admin buttons show but the data is still the visitor set',await p.locator('#admBar').isVisible()&&(await p.$$eval('#thead th',a=>a.length))===6);
+ await p.click('#histBtn');await p.waitForTimeout(200);ck('admin view: history asks to unlock first',/Unlock admin first/.test(await p.textContent('#gmsg')));
+ await p.click('#admBtn');await p.fill('#f_adm','nope');await p.click('#sheet .btn.pri');await p.waitForTimeout(500);ck('admin: wrong admin code is refused',/Incorrect admin code/.test(await p.textContent('#sheet')));
  await p.fill('#f_adm',MW.ADMIN);await p.click('#sheet .btn.pri');await p.waitForTimeout(800);
- ck('roadmap: admin code unlocks priority and import',await p.locator('#impLbl').isVisible()&&/priority unlocked/.test(await p.textContent('#meta')));
- await p.locator('#tbody tr',{hasText:'F-001'}).first().click();ck('roadmap: priority is editable for the admin',await p.locator('#f_priority').isEnabled());
- await p.selectOption('#f_priority','P1');await p.click('#sheet .btn.pri');await p.waitForTimeout(700);
- ck('roadmap: admin priority saved',mw.raw.prepare("SELECT priority FROM roadmap_features WHERE id='F-001'").get().priority==='P1');
- // import
+ const heads=await p.$$eval('#thead th',a=>a.map(x=>x.textContent));
+ ck('admin: all 14 columns plus Comments, in the required order',heads.join('|')==='ID|Feature|About the feature|Area|Recommended version|My version|Status|Priority|Depends on|Gate|Effort|Owner|Source|Notes|Comments',heads);
+ ck('admin: search, owner filter and Import CSV appear',await p.locator('#q').isVisible()&&await p.locator('#fOwner').isVisible()&&await p.locator('#impLbl').isVisible());
+ await p.fill('#q','zzzzqqq');ck('admin: search with no match shows none',(await p.locator('#tbody tr').count())===0);await p.fill('#q','');ck('admin: cleared search shows 69',(await p.locator('#tbody tr').count())===69);
+ await p.click('#colsBtn');await p.locator('#colsPop label',{hasText:'Notes'}).locator('input').uncheck();await p.keyboard.press('Escape');
+ ck('admin: hiding Notes removes the column',!(await p.$$eval('#thead th',a=>a.map(x=>x.textContent))).includes('Notes'));
+ await p.click('#colsBtn');await p.locator('#colsPop label',{hasText:'Notes'}).locator('input').check();await p.keyboard.press('Escape');
+ const v0=vers();const f24=mw.raw.prepare("SELECT status FROM roadmap_features WHERE id='F-024'").get().status;
+ await p.locator('#tbody tr',{hasText:'F-024'}).first().click();await p.waitForTimeout(200);ck('admin: tapping a row opens the edit panel',await p.locator('#f_status').isVisible()&&await p.locator('#f_priority').isEnabled());
+ await p.selectOption('#f_status','In build');await p.fill('#f_name','Tester');await p.click('#sheet .btn.pri');await p.waitForTimeout(700);
+ ck('admin: one save makes exactly one new version with the right summary',vers()===v0+1&&mw.raw.prepare('SELECT summary FROM roadmap_versions ORDER BY version_id DESC LIMIT 1').get().summary==='F-024 status '+f24+' to In build');
+ ck('admin: change shows and panel closes',await p.locator('#pnl').isHidden()&&/In build/.test(await p.locator('#tbody tr',{hasText:'F-024'}).first().textContent()));
+ await p.locator('#tbody tr',{hasText:'F-025'}).first().click();await p.fill('#f_notes','<b id="boom2">x</b><script>window.__x=1</script>');await p.click('#sheet .btn.pri');await p.waitForTimeout(600);
+ ck('admin: markup in a field is shown as text, not run',(await p.locator('#boom2').count())===0&&!(await p.evaluate(()=>window.__x)));
+ await p.locator('#tbody tr',{hasText:'F-026'}).first().click();const vN=vers();await p.click('#sheet .btn.pri');await p.waitForTimeout(300);ck('admin: saving with nothing changed makes no version',vers()===vN&&/Nothing changed/.test(await p.textContent('#sheet')));await p.keyboard.press('Escape');
+ // admin deletes a visitor comment
+ await p.locator('#tbody tr',{hasText:'F-002'}).first().click();await p.waitForTimeout(200);ck('admin: the edit panel lists the visitor comment with a Delete button',await p.locator('#sheet .cm button').count()===1);
+ await p.locator('#sheet .cm button').click();await p.waitForTimeout(800);ck('admin: Delete removes the comment',mw.raw.prepare('SELECT COUNT(*) n FROM roadmap_comments').get().n===0);
+ await p.click('#histBtn');await p.waitForTimeout(500);ck('admin: history lists every version',(await p.locator('.vl li').count())===vers());
+ ck('admin: history dates show Eastern time',/ET/.test(await p.locator('.vl li').first().textContent()));
+ await p.locator('.vl li').last().locator('button').click();await p.waitForTimeout(500);ck('admin: an old version opens read only',/read only/.test(await p.textContent('#sheet')));
+ const vR=vers();await p.locator('#sheet .btn.pri').click();ck('admin: first tap on Restore only asks to confirm',vers()===vR&&/confirm/i.test(await p.locator('#sheet .btn.pri').textContent()));
+ await p.locator('#sheet .btn.pri').click();await p.waitForTimeout(800);ck('admin: second tap restores as a NEW version',vers()===vR+1&&mw.raw.prepare("SELECT status FROM roadmap_features WHERE id='F-024'").get().status===f24);
+ const [dl]=await Promise.all([p.waitForEvent('download'),p.click('#expBtn')]);const txt=require('fs').readFileSync(await dl.path(),'utf8');
+ ck('admin: export CSV has the seed header and 69 rows',txt.startsWith('id,feature,about,area,rec,mine,status,deps,gate,effort,owner,source,notes,order,priority')&&txt.trim().split(/\r?\n/).length>=70);
+ await p.click('#sugListBtn');await p.waitForTimeout(500);ck('admin: Suggestions lists the visitor idea',/Family tree view/.test(await p.textContent('#sheet'))&&/Tap a name/.test(await p.textContent('#sheet')));await p.keyboard.press('Escape');
+ await p.locator('#tbody tr',{hasText:'F-001'}).first().click();await p.selectOption('#f_priority','P1');await p.click('#sheet .btn.pri');await p.waitForTimeout(700);
+ ck('admin: priority saved',mw.raw.prepare("SELECT priority FROM roadmap_features WHERE id='F-001'").get().priority==='P1');
  const fs=require('fs'),csv=txt.replace(/\r?\n$/,'').split(/\r?\n/).slice(0,4).join('\r\n')+'\r\n';fs.writeFileSync('/tmp/imp-test.csv',csv);
  p.on('dialog',d=>d.accept('Admin'));await p.setInputFiles('#impFile','/tmp/imp-test.csv');await p.waitForTimeout(900);
- ck('roadmap: admin CSV import replaces the rows (3 rows)',mw.raw.prepare('SELECT COUNT(*) n FROM roadmap_features').get().n===3&&/Imported 3 rows/.test(await p.textContent('#gmsg')),await p.textContent('#gmsg'));
- ck('roadmap: no page errors',errs.length===0,errs);await ctx.close();}
-// priority lock on the wire: even a hand-made call from a normal browser is refused
-{const {ctx,p}=await mk();await p.goto(SITE+'roadmap.html');await p.waitForTimeout(400);await unlock(p);
- const r=await p.evaluate(()=>OJJ_GATE.api('/roadmap/save',{method:'POST',body:{base_version:1,changes:[{id:'F-002',field:'priority',value:'P2'}]}}));
- ck('direct route call to set priority without admin: 403',r.status===403&&r.data.error==='priority_locked',r);await ctx.close();}
+ ck('admin: CSV import replaces the rows (3 rows)',mw.raw.prepare('SELECT COUNT(*) n FROM roadmap_features').get().n===3&&/Imported 3 rows/.test(await p.textContent('#gmsg')),await p.textContent('#gmsg'));
+ ck('admin: no page errors',errs.length===0,errs);await ctx.close();}
 // nav and Back to the globe from the private pages
 {const {ctx,p}=await mk();await p.goto(SITE+'roadmap.html');await p.waitForTimeout(400);
  ck('roadmap: shared nav and Back to the globe are available while locked',await p.locator('#siteNavBtn').isVisible()&&await p.locator('#backGlobe').isVisible());
