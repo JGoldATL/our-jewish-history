@@ -77,7 +77,7 @@
   }
   function load(msg){
     return api('/roadmap').then(function(r){
-      if(r.status===200){st.rows=r.data.rows;st.comments=r.data.comments||{};st.cfg=r.data.config;st.version=r.data.version;st.admin=!!r.data.admin;if(!st.admin&&OJJ_GATE.getAdmin())OJJ_GATE.setAdmin('');st.adminView=/[?&]admin\b/.test(location.search)||st.admin;buildFilters();render();say(msg||'');}
+      if(r.status===200){st.rows=r.data.rows;st.comments=r.data.comments||{};st.cfg=r.data.config;st.version=r.data.version;st.admin=!!r.data.admin;if(!st.admin&&OJJ_GATE.getAdmin())OJJ_GATE.setAdmin('');st.adminView=/[?&]admin\b/.test(location.search)||st.admin;buildFilters();render();say(msg||'');loadCounts();}
       else if(r.status!==401){say('Could not load the roadmap. Please try again.','bad');}
     }).catch(function(){say('Could not reach the server. Check your connection.','bad');});}
 
@@ -124,27 +124,37 @@
         if(x.status===200){closePanel();say('Thank you. Your feature idea was sent.','ok');}
         else{send.disabled=false;msg.className='msg bad';msg.textContent=x.status===429?'Too many ideas right now. Please try again later.':'Could not send. Please try again.';}
       }).catch(function(){send.disabled=false;msg.className='msg bad';msg.textContent='Could not reach the server.';});};};
+  // ---------- new / total counts (admin, F-081) ----------
+  var NB={cmtListBtn:'comment',sugListBtn:'suggestion',fbListBtn:'feedback'},seen={comment:0,suggestion:0,feedback:0};
+  function loadCounts(){if(!st.admin)return Promise.resolve();
+    return api('/roadmap/counts').then(function(r){if(r.status!==200)return;
+      Object.keys(NB).forEach(function(id){var b=$(id),c=r.data[NB[id]];if(!b||!c)return;seen[NB[id]]=c.last_id;
+        var sp=b.querySelector('.nb');if(!sp){sp=h('span',{class:'nb'});b.appendChild(sp);}
+        sp.textContent=' '+c.fresh+'/'+c.total;sp.setAttribute('aria-label',c.fresh+' new of '+c.total+' total');sp.style.cssText='margin-left:6px;font-size:.85em;opacity:'+(c.fresh?'1':'.7')+';font-weight:'+(c.fresh?'700':'400');});
+      if(window.OJJ_NAV_COUNTS)window.OJJ_NAV_COUNTS();}).catch(function(){});}
+  function markSeen(kind){api('/roadmap/seen',{method:'POST',body:{kinds:[kind]}}).then(loadCounts);}
+  function newTag(){return h('span',{class:'w',text:'NEW',style:'color:#f2a65a;font-weight:700;margin-right:6px'});}
   function closeBtn(){var c=h('button',{class:'btn',type:'button',text:'Close'});c.onclick=closePanel;return h('div',{class:'acts'},[c]);}
   $('sugListBtn').onclick=function(){needAdmin(function(){
-    api('/roadmap/suggestions').then(function(r){if(r.status!==200){say('Could not load suggested features.','bad');return;}
+    var was=seen.suggestion;api('/roadmap/suggestions').then(function(r){if(r.status!==200){say('Could not load suggested features.','bad');return;}
       var nodes=[];if(!r.data.suggestions.length)nodes.push(h('p',{class:'meta',text:'No suggested features yet.'}));
-      r.data.suggestions.forEach(function(x){var d=h('div',{class:'cm'});d.appendChild(archBtn('suggestion',x.id,function(){$('sugListBtn').click();}));d.appendChild(h('h3',{text:x.feature}));
+      r.data.suggestions.forEach(function(x){var d=h('div',{class:'cm'});d.appendChild(archBtn('suggestion',x.id,function(){$('sugListBtn').click();}));var hh=h('h3',{});if(x.id>was)hh.appendChild(newTag());hh.appendChild(document.createTextNode(x.feature));d.appendChild(hh);
         [['What it accomplishes',x.accomplishes],['About',x.about],['Vision',x.vision]].forEach(function(p){if(p[1]){d.appendChild(h('span',{class:'w',text:p[0]+': '+p[1]}));}});
         d.appendChild(h('span',{class:'w',text:(x.name?x.name+' · ':'')+eastern(x.ts)}));nodes.push(d);});
-      nodes.push(closeBtn());panel('Suggested features ('+r.data.suggestions.length+')',nodes);});});};
+      nodes.push(closeBtn());panel('Suggested features ('+r.data.suggestions.length+')',nodes);markSeen('suggestion');});});};
   $('cmtListBtn').onclick=function(){needAdmin(function(){
-    var byId={};st.rows.forEach(function(r){byId[r.id]=r;});var ids=Object.keys(st.comments).filter(function(i){return st.comments[i].length;}).sort(),nodes=[],total=0;
+    var byId={};st.rows.forEach(function(r){byId[r.id]=r;});var was=seen.comment,isNew=function(i){return st.comments[i].some(function(c){return c.id>was;});},ids=Object.keys(st.comments).filter(function(i){return st.comments[i].length;}).sort(function(a,b){return (isNew(b)-isNew(a))||(a<b?-1:a>b?1:0);}),nodes=[],total=0;
     if(!ids.length)nodes.push(h('p',{class:'meta',text:'No comments yet.'}));
     ids.forEach(function(id){var d=h('div',{class:'cm'});d.appendChild(h('h3',{text:id+' · '+(byId[id]?byId[id].feature:'')}));
-      st.comments[id].forEach(function(c){total++;var line=h('div',{class:'cm'});var x=h('button',{type:'button',text:'Delete'});x.onclick=function(){x.disabled=true;api('/roadmap/comment/delete',{method:'POST',body:{id:c.id}}).then(function(){load().then(function(){$('cmtListBtn').click();});});};line.appendChild(x);line.appendChild(archBtn('comment',c.id,function(){$('cmtListBtn').click();}));line.appendChild(document.createTextNode(c.comment));line.appendChild(h('span',{class:'w',text:(c.name?c.name+' · ':'')+eastern(c.ts)}));d.appendChild(line);});nodes.push(d);});
-    nodes.push(closeBtn());panel('Comments ('+total+')',nodes);});};
+      st.comments[id].forEach(function(c){total++;var line=h('div',{class:'cm'});var x=h('button',{type:'button',text:'Delete'});x.onclick=function(){x.disabled=true;api('/roadmap/comment/delete',{method:'POST',body:{id:c.id}}).then(function(){load().then(function(){$('cmtListBtn').click();});});};line.appendChild(x);line.appendChild(archBtn('comment',c.id,function(){$('cmtListBtn').click();}));if(c.id>was)line.appendChild(newTag());line.appendChild(document.createTextNode(c.comment));line.appendChild(h('span',{class:'w',text:(c.name?c.name+' · ':'')+eastern(c.ts)}));d.appendChild(line);});nodes.push(d);});
+    nodes.push(closeBtn());panel('Comments ('+total+')',nodes);markSeen('comment');});};
   $('fbListBtn').onclick=function(){needAdmin(function(){
-    api('/roadmap/feedback').then(function(r){if(r.status!==200){say('Could not load feedback.','bad');return;}
+    var was=seen.feedback;api('/roadmap/feedback').then(function(r){if(r.status!==200){say('Could not load feedback.','bad');return;}
       var nodes=[];if(!r.data.feedback.length)nodes.push(h('p',{class:'meta',text:'No feedback yet.'}));
-      r.data.feedback.forEach(function(f){var d=h('div',{class:'cm'});d.appendChild(archBtn('feedback',f.id,function(){$('fbListBtn').click();}));d.appendChild(h('h3',{text:f.topic+' · '+eastern(f.ts)}));d.appendChild(document.createTextNode(f.message));
+      r.data.feedback.forEach(function(f){var d=h('div',{class:'cm'});d.appendChild(archBtn('feedback',f.id,function(){$('fbListBtn').click();}));var hf=h('h3',{});if(f.id>was)hf.appendChild(newTag());hf.appendChild(document.createTextNode(f.topic+' · '+eastern(f.ts)));d.appendChild(hf);d.appendChild(document.createTextNode(f.message));
         if(f.has_image){var b=h('button',{type:'button',text:'Show photo',style:'float:none;margin:8px 0 0;display:block'});b.onclick=function(){b.disabled=true;api('/roadmap/feedback/image?id='+f.id).then(function(x){if(x.status===200&&/^data:image\/jpeg;base64,/.test(x.data.image)){var im=h('img',{alt:'Photo sent with this feedback'});im.src=x.data.image;d.appendChild(im);b.remove();}else{b.disabled=false;b.textContent='Photo not available';}});};d.appendChild(b);}
         nodes.push(d);});
-      nodes.push(closeBtn());panel('Feedback results ('+r.data.feedback.length+')',nodes);});});};
+      nodes.push(closeBtn());panel('Feedback results ('+r.data.feedback.length+')',nodes);markSeen('feedback');});});};
 
   $('arcListBtn').onclick=function(){needAdmin(function(){
     api('/roadmap/archive').then(function(r){if(r.status!==200){say('Could not load the archive.','bad');return;}

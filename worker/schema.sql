@@ -80,3 +80,6 @@ CREATE TABLE IF NOT EXISTS visits (
   device_type TEXT, browser TEXT, os TEXT, lang TEXT, tz TEXT, screen TEXT, ref TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_visits_device ON visits(device_id);
+
+-- v0.6.4 (F-081): last list the admin opened, per kind, so the new-count is shared across devices. The Worker also creates it on first use.
+CREATE TABLE IF NOT EXISTS admin_seen (kind TEXT PRIMARY KEY, last_id INTEGER NOT NULL DEFAULT 0, ts TEXT);

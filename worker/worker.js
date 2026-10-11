@@ -245,6 +245,32 @@ async function handleSite(req, env, url, origin) {
     await env.DB.prepare('DELETE FROM ' + ARCH[b.kind] + ' WHERE id = ? AND archived = 1').bind(b.id).run();
     return json(200, { ok: true }, origin);
   }
+  // F-081: new/total counts for the admin. "New" = not archived and newer than the last time the admin opened that list. The last-opened marker lives in D1, so it is shared across devices.
+  const SEEN = { comment: 'roadmap_comments', suggestion: 'roadmap_suggestions', feedback: 'feedback' };   // fixed table names; the request never supplies SQL
+  const seenTable = () => env.DB.prepare('CREATE TABLE IF NOT EXISTS admin_seen (kind TEXT PRIMARY KEY, last_id INTEGER NOT NULL DEFAULT 0, ts TEXT)').run();
+  if (path === '/roadmap/counts' && req.method === 'GET') {
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
+    await seenTable();
+    const out = {};
+    for (const [k, t] of Object.entries(SEEN)) {
+      const s = await env.DB.prepare('SELECT last_id FROM admin_seen WHERE kind = ?').bind(k).first();
+      const last = s ? s.last_id : 0;
+      const c = await env.DB.prepare('SELECT COUNT(*) AS total, COALESCE(SUM(CASE WHEN id > ? THEN 1 ELSE 0 END), 0) AS fresh FROM ' + t + ' WHERE archived = 0').bind(last).first();
+      out[k] = { total: c.total, fresh: c.fresh, last_id: last };
+    }
+    return json(200, out, origin);
+  }
+  if (path === '/roadmap/seen' && req.method === 'POST') {
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
+    const b = await body(2000);
+    const kinds = Array.isArray(b.kinds) ? b.kinds : [];
+    if (!kinds.length || kinds.some((k) => !SEEN[k])) return json(400, { error: 'bad_request' }, origin);
+    await seenTable();
+    for (const k of kinds) {
+      await env.DB.prepare("INSERT INTO admin_seen (kind, last_id, ts) VALUES (?, (SELECT COALESCE(MAX(id), 0) FROM " + SEEN[k] + "), strftime('%Y-%m-%dT%H:%M:%SZ','now')) ON CONFLICT(kind) DO UPDATE SET last_id = excluded.last_id, ts = excluded.ts").bind(k).run();
+    }
+    return json(200, { ok: true }, origin);
+  }
   if (path === '/roadmap/suggest' && req.method === 'POST') {          // "Recommend a feature"
     const b = await body(8000);
     const v = {};
