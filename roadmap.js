@@ -145,6 +145,28 @@
       nodes.push(closeBtn());panel('Feedback results ('+r.data.feedback.length+')',nodes);});});};
 
   // ---------- edit (admin) ----------
+  $('statsBtn').onclick=function(){needAdmin(function(){
+    api('/roadmap/stats').then(function(x){
+      if(x.status!==200){panel('Quiz and visitor results',[h('p',{class:'msg bad',text:'Could not load the results.'}),closeBtn()]);return;}
+      var d=x.data,q=d.quiz||{},v=d.visits||{},nodes=[];
+      function pct(a,b){return b?Math.round(100*a/b)+'%':'n/a';}
+      function big(list){var w=h('div',{class:'big'});list.forEach(function(p){w.appendChild(h('div',{},[h('b',{text:String(p[1])}),h('span',{text:p[0]})]));});return w;}
+      function tbl(title,rows,cols){nodes.push(h('h3',{class:'sh',text:title}));if(!rows||!rows.length){nodes.push(h('p',{class:'meta',text:'Nothing yet.'}));return;}
+        var t=h('table',{class:'st'});rows.forEach(function(r){var tr=h('tr');cols.forEach(function(c){tr.appendChild(h('td',{text:String(c(r))}));});t.appendChild(tr);});nodes.push(t);}
+      nodes.push(big([['People who answered',q.people||0],['Answers',q.answers||0],['Rounds played',q.rounds||0],['Right answers',pct(q.right||0,q.answers||0)]]));
+      nodes.push(h('h3',{class:'sh',text:'Visits'}));
+      if(d.visits_table)nodes.push(big([['Visits recorded',v.visits||0],['Different devices',v.devices||0],['Devices that came back',d.returning||0],['Visits, last 7 days',(d.last7||{}).visits||0]]));
+      else nodes.push(h('p',{class:'meta',text:'Visit details are not available yet (the visits table is missing).'}));
+      var kn=function(r){return r.k;},nn=function(r){return r.n;};
+      tbl('How they rated it',d.survey,[kn,nn]);
+      tbl('Right answers by era',d.eras,[kn,function(r){return r.n+' answers';},function(r){return pct(r.right||0,r.n);}]);
+      tbl('Hardest questions (5 or more answers)',d.hardest,[kn,function(r){return r.n+' answers';},function(r){return pct(r.right||0,r.n);}]);
+      if(d.visits_table){tbl('Countries',d.where.country,[kn,nn]);tbl('Regions',d.where.region,[kn,nn]);tbl('Cities',d.where.city,[kn,nn]);
+        tbl('Device type',d.using.device,[kn,nn]);tbl('Browsers',d.using.browser,[kn,nn]);tbl('Operating systems',d.using.os,[kn,nn]);tbl('Languages',d.using.lang,[kn,nn]);tbl('Where they came from',d.ref,[kn,nn]);}
+      nodes.push(h('p',{class:'meta',text:'Test visits are left out. Visit details are saved only when someone answers a question or taps the rating.'}));
+      nodes.push(closeBtn());panel('Quiz and visitor results',nodes);
+    }).catch(function(){panel('Quiz and visitor results',[h('p',{class:'msg bad',text:'Could not reach the server.'}),closeBtn()]);});
+  });};
   function openCmts(r){
     var close=h('button',{class:'btn',type:'button',text:'Close'});
     panel(r.id+' · '+r.feature+' · comments',[commentsBlock(r,true,function(){closePanel();load();}),h('div',{class:'acts'},[close])]);close.onclick=closePanel;}
