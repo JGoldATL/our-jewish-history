@@ -177,6 +177,17 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
  .prompt p{font-size:21px}
 }
 @media (max-width:380px){.pill{padding:0 8px;font-size:12px}.seg button{padding:0 5px;font-size:11.5px}.top{column-gap:6px}}
+/* F-080: phone held upright. The card must be visible without dragging, and the page must say there is more below. */
+@media (max-width:620px) and (orientation:portrait){
+ .foot>.sn+span{display:none}   /* the Drag hint: this rule used to target span:first-child, which stopped matching when the More menu was added */
+ .foot{flex-wrap:nowrap;align-items:center;padding-top:6px}
+ .footR{flex:1 1 auto;min-width:0;justify-content:flex-end;gap:10px}
+ #version{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
+ #stage{height:min(calc(84vw + 60px),42svh)}
+ #story.pinned{padding:14px 18px}#story{gap:8px}
+ #panel>div:first-child::after{content:"Swipe up for the card \25B2";margin-left:auto;align-self:center;font-size:12px;letter-spacing:.3px;color:var(--amber)}
+ #panel.scrolled>div:first-child::after,#panel.inviting>div:first-child::after{display:none}
+}
 /* F-075: short landscape screens (iPad landscape): keep the footer, hint and More menu in view with no fold. */
 @media (orientation:landscape) and (min-width:901px) and (max-height:1100px){
  :root{--sh:150px}
@@ -247,4 +258,5 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 <script src="engine.js"></script>
 <script src="version.js"></script>
 <script src="app.js"></script>
+<script>(function(){var p=document.getElementById("panel");if(p)p.addEventListener("scroll",function(){p.classList.toggle("scrolled",p.scrollTop>8);},{passive:true});})();</script>
 <script src="nav.js"></script>
