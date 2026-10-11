@@ -66,15 +66,17 @@ td.id{white-space:nowrap;color:var(--amber)}td.comments{min-width:170px;max-widt
 </style>
 <body>
 <div class="wrap">
-  <div class="top"><h1>Roadmap</h1><p class="help" id="help">Help shape the roadmap: tap any feature to leave a comment, or recommend a feature of your own.</p><a class="pill" href="index.html" id="backGlobe">Back to the globe</a></div>
+  <div class="top"><h1>Roadmap</h1><p class="help" id="help">How you can help: Add comments in the appropriate cell. Recommend features.</p><a class="pill" href="index.html" id="backGlobe">Back to the globe</a></div>
   <div id="gateMount" data-page="roadmap"></div>
   <div id="gated" hidden>
-    <div class="bar">
+    <div class="bar" id="qbar" hidden>
       <input type="search" id="q" placeholder="Search the roadmap" aria-label="Search the roadmap" hidden>
-      <select id="fArea" aria-label="Filter by area"></select><select id="fStatus" aria-label="Filter by status"></select>
-      <select id="fVer" aria-label="Filter by version"></select><select id="fOwner" aria-label="Filter by owner" hidden></select>
+      <select id="fOwner" aria-label="Filter by owner" hidden></select>
     </div>
-    <div class="bar right"><button class="btn pri" id="sugBtn" type="button">Recommend a feature</button></div>
+    <div class="bar right">
+      <select id="fArea" aria-label="Filter by area"></select><select id="fStatus" aria-label="Filter by status"></select>
+      <select id="fVer" aria-label="Filter by version"></select><button class="btn pri" id="sugBtn" type="button">Recommend a feature</button>
+    </div>
     <div class="bar" id="admBar" hidden>
       <button class="btn" id="colsBtn" type="button" aria-expanded="false">Columns</button>
       <button class="btn" id="histBtn" type="button">Version history</button>
