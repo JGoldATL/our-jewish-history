@@ -63,7 +63,7 @@ for(const pg of ['strategy.html','roadmap.html']){
  const sug=mw.raw.prepare('SELECT * FROM roadmap_suggestions').get();ck('visitor: the idea is saved with all four answers',sug&&sug.feature==='Family tree view'&&sug.accomplishes.startsWith('Shows')&&sug.about==='A simple tree.'&&sug.vision.startsWith('Tap a name')&&sug.name==='Sam',sug);
  ck('visitor: thanks shown and panel closed',/Thank you/.test(await p.textContent('#gmsg'))&&await p.locator('#pnl').isHidden());
  // team tools: each asks for the admin code
- ck('visitor: Team tools row shows View comments, Suggested features, Feedback results and Quiz and visitor results',(await p.$$eval('#tools button',a=>a.map(x=>x.textContent))).join('|')==='View comments|Suggested features|Feedback results|Quiz and visitor results');
+ ck('visitor: Team tools row shows View comments, Suggested features, Feedback results, Archive and Quiz and visitor results',(await p.$$eval('#tools button',a=>a.map(x=>x.textContent))).join('|')==='View comments|Suggested features|Feedback results|Archive|Quiz and visitor results');
  ck('visitor 400px: Team tools fit the screen',await p.$$eval('#tools button',a=>a.every(x=>{const r=x.getBoundingClientRect();return r.left>=0&&r.right<=400&&r.height>=43;})));
  await p.click('#cmtListBtn');await p.waitForTimeout(300);ck('visitor: View comments asks for the admin code',await p.locator('#f_adm').isVisible()&&/admin code/i.test(await p.textContent('#sheet')));
  await p.fill('#f_adm','wrong');await p.click('#sheet .btn.pri');await p.waitForTimeout(500);ck('visitor: a wrong admin code is refused and nothing is shown',/Incorrect admin code/.test(await p.textContent('#sheet'))&&!/Comments \(/.test(await p.textContent('#sheet')));
@@ -101,8 +101,8 @@ for(const pg of ['strategy.html','roadmap.html']){
  ck('admin: markup in a field is shown as text, not run',(await p.locator('#boom2').count())===0&&!(await p.evaluate(()=>window.__x)));
  {const vN=vers();await p.locator('#tbody tr',{hasText:'F-026'}).first().locator('td.notes').click();await p.keyboard.press('Escape');await p.waitForTimeout(300);ck('admin: Escape cancels an edit and makes no version',vers()===vN&&await p.locator('td.editing').count()===0);}
  // admin deletes a visitor comment
- await p.locator('#tbody tr',{hasText:'F-002'}).first().locator('td.comments').click();await p.waitForTimeout(200);ck('admin: the comments cell opens the visitor comment with a Delete button',await p.locator('#sheet .cm button').count()===1);
- await p.locator('#sheet .cm button').click();await p.waitForTimeout(800);ck('admin: Delete removes the comment',mw.raw.prepare('SELECT COUNT(*) n FROM roadmap_comments').get().n===0);
+ await p.locator('#tbody tr',{hasText:'F-002'}).first().locator('td.comments').click();await p.waitForTimeout(200);ck('admin: the comments cell opens the visitor comment with Archive and Delete buttons',await p.locator('#sheet .cm button').count()===2);
+ await p.locator('#sheet .cm button',{hasText:'Delete'}).click();await p.waitForTimeout(800);ck('admin: Delete removes the comment',mw.raw.prepare('SELECT COUNT(*) n FROM roadmap_comments').get().n===0);
  {const ids=async()=>p.$$eval('#tbody td.id',a=>a.map(x=>x.textContent));
   await p.locator('#thead th',{hasText:'ID'}).locator('button').click();const up=await ids();ck('admin: first click on ID sorts ascending',up.slice().sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).join()===up.join()&&(await p.getAttribute('#thead th:first-child','aria-sort'))==='ascending');
   await p.locator('#thead th',{hasText:'ID'}).locator('button').click();const dn=await ids();ck('admin: second click sorts descending',dn.join()===up.slice().reverse().join());
