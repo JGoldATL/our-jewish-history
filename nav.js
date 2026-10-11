@@ -22,7 +22,9 @@
   '.sn-menu[hidden]{display:none}'+
   '.sn-menu a{display:flex;align-items:center;min-height:40px;padding:0 12px;border-radius:10px;color:#EFE6D3;font-size:14px;text-decoration:none}'+
   '.sn-menu a:hover{background:rgba(239,230,211,.1)}'+
-  '.sn-menu a[aria-current="page"]{color:#f2a65a;font-weight:600}';
+  '.sn-menu a[aria-current="page"]{color:#f2a65a;font-weight:600}'+
+  '.sn-bad{margin-left:8px;font-size:11.5px;line-height:1;padding:3px 7px;border-radius:999px;border:1px solid rgba(239,230,211,.3);color:#A9B4B8}'+
+  '.sn-bad.new{background:#f2a65a;border-color:#f2a65a;color:#0E1822;font-weight:700}';
   var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
 
   var box=document.createElement('div');box.className='sn';box.id='siteNav';
@@ -30,7 +32,15 @@
   btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-controls','siteNavMenu');
   btn.innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 3h10M1 6h10M1 9h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>More';
   var menu=document.createElement('nav');menu.className='sn-menu';menu.id='siteNavMenu';menu.hidden=true;menu.setAttribute('aria-label','More pages');
-  PAGES.forEach(function(p){var a=document.createElement('a');a.href=p.href;a.textContent=p.label;if(p.href===here)a.setAttribute('aria-current','page');menu.appendChild(a);});
+  PAGES.forEach(function(p){var a=document.createElement('a');a.href=p.href;a.textContent=p.label;a.setAttribute('data-nav',p.label);if(p.href===here)a.setAttribute('aria-current','page');menu.appendChild(a);});
+  /* F-081: admin only. With an admin token in this tab, show new/total next to Feedback and Roadmap. Visitors have no token, so nothing is fetched or shown. */
+  function ss(k){try{return sessionStorage.getItem(k)||'';}catch(e){return '';}}
+  function badge(label,n,t){var a=menu.querySelector('[data-nav="'+label+'"]');if(!a)return;var b=a.querySelector('.sn-bad');if(!b){b=document.createElement('span');b.className='sn-bad';a.appendChild(b);}
+    b.textContent=n+'/'+t;b.className='sn-bad'+(n>0?' new':'');b.setAttribute('aria-label',n+' new of '+t+' total');}
+  function counts(){var g=ss('ojj-gate-token'),ad=ss('ojj-admin-token');if(!g||!ad||!window.fetch)return;
+    fetch('https://patient-sound-f420journeysquiz-log.jeffreyagold-bbd.workers.dev/roadmap/counts',{headers:{'X-Gate-Token':g,'X-Admin-Token':ad}}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+      if(!d)return;badge('Feedback',d.feedback.fresh,d.feedback.total);badge('Roadmap',d.comment.fresh+d.suggestion.fresh,d.comment.total+d.suggestion.total);}).catch(function(){});}
+  window.OJJ_NAV_COUNTS=counts;
   box.appendChild(btn);box.appendChild(menu);
 
   function set(open){menu.hidden=!open;btn.setAttribute('aria-expanded',open?'true':'false');}
@@ -42,7 +52,7 @@
     var foot=document.querySelector('footer.foot');
     if(foot){foot.insertBefore(box,foot.firstChild);}   /* globe page: sits in the footer, bottom left */
     else{box.classList.add('fixed');document.body.appendChild(box);document.body.style.paddingBottom='56px';}
-    stamp();
+    stamp();counts();
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })();
