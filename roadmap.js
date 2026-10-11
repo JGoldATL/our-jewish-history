@@ -87,14 +87,27 @@
         if(x.status===200){closePanel();say('Thank you. Your feature idea was sent.','ok');}
         else{send.disabled=false;msg.className='msg bad';msg.textContent=x.status===429?'Too many ideas right now. Please try again later.':'Could not send. Please try again.';}
       }).catch(function(){send.disabled=false;msg.className='msg bad';msg.textContent='Could not reach the server.';});};};
-  $('sugListBtn').onclick=function(){
-    if(!st.admin){say('Unlock admin first.','bad');return;}
-    api('/roadmap/suggestions').then(function(r){if(r.status!==200){say('Could not load suggestions.','bad');return;}
-      var nodes=[];if(!r.data.suggestions.length)nodes.push(h('p',{class:'meta',text:'No suggestions yet.'}));
-      r.data.suggestions.forEach(function(x){var d=h('div',{class:'cm'});d.appendChild(h('b',{text:x.feature}));
-        [['Accomplishes',x.accomplishes],['About',x.about],['Vision',x.vision]].forEach(function(p){if(p[1]){d.appendChild(h('span',{class:'w',text:p[0]+': '+p[1]}));}});
+  function closeBtn(){var c=h('button',{class:'btn',type:'button',text:'Close'});c.onclick=closePanel;return h('div',{class:'acts'},[c]);}
+  $('sugListBtn').onclick=function(){needAdmin(function(){
+    api('/roadmap/suggestions').then(function(r){if(r.status!==200){say('Could not load suggested features.','bad');return;}
+      var nodes=[];if(!r.data.suggestions.length)nodes.push(h('p',{class:'meta',text:'No suggested features yet.'}));
+      r.data.suggestions.forEach(function(x){var d=h('div',{class:'cm'});d.appendChild(h('h3',{text:x.feature}));
+        [['What it accomplishes',x.accomplishes],['About',x.about],['Vision',x.vision]].forEach(function(p){if(p[1]){d.appendChild(h('span',{class:'w',text:p[0]+': '+p[1]}));}});
         d.appendChild(h('span',{class:'w',text:(x.name?x.name+' · ':'')+eastern(x.ts)}));nodes.push(d);});
-      var close=h('button',{class:'btn',type:'button',text:'Close'});close.onclick=closePanel;nodes.push(h('div',{class:'acts'},[close]));panel('Suggestions',nodes);});};
+      nodes.push(closeBtn());panel('Suggested features ('+r.data.suggestions.length+')',nodes);});});};
+  $('cmtListBtn').onclick=function(){needAdmin(function(){
+    var byId={};st.rows.forEach(function(r){byId[r.id]=r;});var ids=Object.keys(st.comments).filter(function(i){return st.comments[i].length;}).sort(),nodes=[],total=0;
+    if(!ids.length)nodes.push(h('p',{class:'meta',text:'No comments yet.'}));
+    ids.forEach(function(id){var d=h('div',{class:'cm'});d.appendChild(h('h3',{text:id+' · '+(byId[id]?byId[id].feature:'')}));
+      st.comments[id].forEach(function(c){total++;var line=h('div',{class:'cm'});var x=h('button',{type:'button',text:'Delete'});x.onclick=function(){x.disabled=true;api('/roadmap/comment/delete',{method:'POST',body:{id:c.id}}).then(function(){load().then(function(){$('cmtListBtn').click();});});};line.appendChild(x);line.appendChild(document.createTextNode(c.comment));line.appendChild(h('span',{class:'w',text:(c.name?c.name+' · ':'')+eastern(c.ts)}));d.appendChild(line);});nodes.push(d);});
+    nodes.push(closeBtn());panel('Comments ('+total+')',nodes);});};
+  $('fbListBtn').onclick=function(){needAdmin(function(){
+    api('/roadmap/feedback').then(function(r){if(r.status!==200){say('Could not load feedback.','bad');return;}
+      var nodes=[];if(!r.data.feedback.length)nodes.push(h('p',{class:'meta',text:'No feedback yet.'}));
+      r.data.feedback.forEach(function(f){var d=h('div',{class:'cm'});d.appendChild(h('h3',{text:f.topic+' · '+eastern(f.ts)}));d.appendChild(document.createTextNode(f.message));
+        if(f.has_image){var b=h('button',{type:'button',text:'Show photo',style:'float:none;margin:8px 0 0;display:block'});b.onclick=function(){b.disabled=true;api('/roadmap/feedback/image?id='+f.id).then(function(x){if(x.status===200&&/^data:image\/jpeg;base64,/.test(x.data.image)){var im=h('img',{alt:'Photo sent with this feedback'});im.src=x.data.image;d.appendChild(im);b.remove();}else{b.disabled=false;b.textContent='Photo not available';}});};d.appendChild(b);}
+        nodes.push(d);});
+      nodes.push(closeBtn());panel('Feedback results ('+r.data.feedback.length+')',nodes);});});};
 
   // ---------- edit (admin) ----------
   function field(f,r){
@@ -148,11 +161,13 @@
   $('expBtn').onclick=function(){if(!st.admin){say('Unlock admin first.','bad');return;}var H=['id','feature','about','area','rec','mine','status','deps','gate','effort','owner','source','notes','order','priority'];
     var out=[H.join(',')].concat(st.rows.map(function(r){return H.map(function(k){return csvCell(k==='order'?r.sort_order:r[k]);}).join(',');})).join('\r\n');
     var a=h('a',{href:URL.createObjectURL(new Blob([out+'\r\n'],{type:'text/csv'})),download:'roadmap-v'+st.version+'.csv'});document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);};
-  $('admBtn').onclick=function(){
+  function askAdmin(then){
     var inp=h('input',{id:'f_adm',type:'password',autocomplete:'off',autocapitalize:'off',spellcheck:'false'}),go=h('button',{class:'btn pri',type:'button',text:'Unlock'}),cancel=h('button',{class:'btn',type:'button',text:'Cancel'}),msg=h('p',{class:'msg',role:'status'});
-    panel('Admin unlock',[h('p',{class:'meta',text:'Only the admin can edit rows, set Priority, see history, restore and import. Enter the admin code to unlock this for this visit.'}),h('label',{for:'f_adm',text:'Admin code'}),inp,h('div',{class:'acts'},[go,cancel]),msg]);cancel.onclick=closePanel;
-    var run=function(){go.disabled=true;api('/admin',{method:'POST',body:{code:inp.value}}).then(function(x){if(x.status===200&&x.data.admin_token){OJJ_GATE.setAdmin(x.data.admin_token);closePanel();load('Admin unlocked.');}else{go.disabled=false;inp.value='';msg.className='msg bad';msg.textContent=x.status===401?'Incorrect admin code.':'Could not check the code right now.';}}).catch(function(){go.disabled=false;msg.className='msg bad';msg.textContent='Could not reach the server.';});};
-    go.onclick=run;inp.addEventListener('keydown',function(e){if(e.key==='Enter')run();});};
+    panel('Admin unlock',[h('p',{class:'meta',text:'This is for the site admin. Enter the admin code to continue.'}),h('label',{for:'f_adm',text:'Admin code'}),inp,h('div',{class:'acts'},[go,cancel]),msg]);cancel.onclick=closePanel;
+    var run=function(){go.disabled=true;api('/admin',{method:'POST',body:{code:inp.value}}).then(function(x){if(x.status===200&&x.data.admin_token){OJJ_GATE.setAdmin(x.data.admin_token);closePanel();load('Admin unlocked.').then(function(){if(then)then();});}else{go.disabled=false;inp.value='';msg.className='msg bad';msg.textContent=x.status===401?'Incorrect admin code.':'Could not check the code right now.';}}).catch(function(){go.disabled=false;msg.className='msg bad';msg.textContent='Could not reach the server.';});};
+    go.onclick=run;inp.addEventListener('keydown',function(e){if(e.key==='Enter')run();});}
+  function needAdmin(fn){if(st.admin)fn();else askAdmin(fn);}
+  $('admBtn').onclick=function(){askAdmin();};
   function parseCsv(t){var rows=[],row=[],f='',q=false;t=t.replace(/^﻿/,'');for(var i=0;i<t.length;i++){var c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++;}else q=false;}else f+=c;}else if(c==='"')q=true;else if(c===','){row.push(f);f='';}else if(c==='\n'||c==='\r'){if(c==='\r'&&t[i+1]==='\n')i++;row.push(f);f='';if(row.length>1||row[0]!=='')rows.push(row);row=[];}else f+=c;}row.push(f);if(row.length>1||row[0]!=='')rows.push(row);return rows;}
   $('impFile').addEventListener('change',function(){
     var file=this.files&&this.files[0];this.value='';if(!file)return;
