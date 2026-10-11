@@ -196,7 +196,7 @@ async function handleSite(req, env, url, origin) {
   if (path === '/roadmap' && req.method === 'GET') {
     const admin = await isAdmin();
     const rows = await allRows(env);
-    const cr = ((await env.DB.prepare('SELECT id, feature_id, ts, name, comment FROM roadmap_comments ORDER BY id').all()).results || []);
+    const cr = ((await env.DB.prepare('SELECT id, feature_id, ts, name, comment FROM roadmap_comments WHERE archived = 0 ORDER BY id').all()).results || []);
     const comments = {};
     for (const c of cr) (comments[c.feature_id] = comments[c.feature_id] || []).push({ id: c.id, ts: c.ts, name: c.name, comment: c.comment });
     return json(200, { config: RM_CONFIG, rows: admin ? rows : rows.map((r) => pick(r, RM_PUBLIC)), comments, version: await latestVersion(env), admin }, origin);
@@ -208,7 +208,7 @@ async function handleSite(req, env, url, origin) {
     if (typeof b.feature_id !== 'string' || !(await env.DB.prepare('SELECT id FROM roadmap_features WHERE id = ?').bind(b.feature_id).first())) return json(400, { error: 'unknown_row' }, origin);
     const hr = await env.DB.prepare("SELECT COUNT(*) AS n FROM roadmap_comments WHERE ts >= strftime('%Y-%m-%dT%H:%M:%SZ','now','-1 hour')").first();
     if (hr && hr.n >= RM_MAX_COMMENTS_PER_HOUR) return json(429, { error: 'slow_down' }, origin);
-    const rw = await env.DB.prepare('SELECT COUNT(*) AS n FROM roadmap_comments WHERE feature_id = ?').bind(b.feature_id).first();
+    const rw = await env.DB.prepare('SELECT COUNT(*) AS n FROM roadmap_comments WHERE feature_id = ? AND archived = 0').bind(b.feature_id).first();
     if (rw && rw.n >= RM_MAX_COMMENTS_PER_ROW) return json(429, { error: 'row_full' }, origin);
     const r = await env.DB.prepare('INSERT INTO roadmap_comments (feature_id, name, comment) VALUES (?, ?, ?)').bind(b.feature_id, cleanName(b.name), text).run();
     return json(200, { id: r.meta.last_row_id }, origin);
@@ -218,6 +218,31 @@ async function handleSite(req, env, url, origin) {
     const b = await body(2000);
     if (!Number.isInteger(b.id)) return json(400, { error: 'bad_id' }, origin);
     await env.DB.prepare('DELETE FROM roadmap_comments WHERE id = ?').bind(b.id).run();
+    return json(200, { ok: true }, origin);
+  }
+  // Archive: admin only. Archived items leave the visitor Roadmap and the Team tools lists; they can be restored or deleted for good.
+  const ARCH = { comment: 'roadmap_comments', suggestion: 'roadmap_suggestions', feedback: 'feedback' };   // fixed table names; the request never supplies SQL
+  if (path === '/roadmap/archive' && req.method === 'GET') {
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
+    const all = async (sql) => ((await env.DB.prepare(sql).all()).results || []);
+    return json(200, {
+      comments: await all('SELECT id, feature_id, ts, name, comment FROM roadmap_comments WHERE archived = 1 ORDER BY archived_ts DESC, id DESC LIMIT 200'),
+      suggestions: await all('SELECT id, ts, name, feature, accomplishes, about, vision FROM roadmap_suggestions WHERE archived = 1 ORDER BY archived_ts DESC, id DESC LIMIT 200'),
+      feedback: await all('SELECT id, ts, topic, message, (image IS NOT NULL) AS has_image FROM feedback WHERE archived = 1 ORDER BY archived_ts DESC, id DESC LIMIT 200'),
+    }, origin);
+  }
+  if (path === '/roadmap/archive' && req.method === 'POST') {
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
+    const b = await body(2000);
+    if (!ARCH[b.kind] || !Number.isInteger(b.id) || (b.archived !== 0 && b.archived !== 1)) return json(400, { error: 'bad_request' }, origin);
+    await env.DB.prepare('UPDATE ' + ARCH[b.kind] + " SET archived = ?, archived_ts = CASE WHEN ? = 1 THEN strftime('%Y-%m-%dT%H:%M:%SZ','now') ELSE NULL END WHERE id = ?").bind(b.archived, b.archived, b.id).run();
+    return json(200, { ok: true }, origin);
+  }
+  if (path === '/roadmap/archive/delete' && req.method === 'POST') {   // permanent, and only for items already in the archive
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
+    const b = await body(2000);
+    if (!ARCH[b.kind] || !Number.isInteger(b.id)) return json(400, { error: 'bad_request' }, origin);
+    await env.DB.prepare('DELETE FROM ' + ARCH[b.kind] + ' WHERE id = ? AND archived = 1').bind(b.id).run();
     return json(200, { ok: true }, origin);
   }
   if (path === '/roadmap/suggest' && req.method === 'POST') {          // "Recommend a feature"
@@ -254,12 +279,12 @@ async function handleSite(req, env, url, origin) {
   }
   if (path === '/roadmap/suggestions' && req.method === 'GET') {
     if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
-    const r = await env.DB.prepare('SELECT id, ts, name, feature, accomplishes, about, vision FROM roadmap_suggestions ORDER BY id DESC LIMIT 200').all();
+    const r = await env.DB.prepare('SELECT id, ts, name, feature, accomplishes, about, vision FROM roadmap_suggestions WHERE archived = 0 ORDER BY id DESC LIMIT 200').all();
     return json(200, { suggestions: r.results || [] }, origin);
   }
   if (path === '/roadmap/feedback' && req.method === 'GET') {          // feedback-page messages, newest first; photos load one at a time
     if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
-    const r = await env.DB.prepare('SELECT id, ts, topic, message, (image IS NOT NULL) AS has_image FROM feedback ORDER BY id DESC LIMIT 200').all();
+    const r = await env.DB.prepare('SELECT id, ts, topic, message, (image IS NOT NULL) AS has_image FROM feedback WHERE archived = 0 ORDER BY id DESC LIMIT 200').all();
     return json(200, { feedback: r.results || [] }, origin);
   }
   if (path === '/roadmap/feedback/image' && req.method === 'GET') {

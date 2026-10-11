@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS feedback (
   visit_id TEXT NOT NULL,
   topic TEXT NOT NULL CHECK (topic IN ('Idea','Problem','Question','Praise')),
   message TEXT NOT NULL,
-  image TEXT                                    -- optional photo or screenshot: a JPEG data URL, shrunk by the page (null when none)
+  image TEXT,                                   -- optional photo or screenshot: a JPEG data URL, shrunk by the page (null when none)
+  archived INTEGER NOT NULL DEFAULT 0, archived_ts TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_feedback_visit ON feedback(visit_id);
 
@@ -61,12 +62,14 @@ CREATE TABLE IF NOT EXISTS site_links (name TEXT PRIMARY KEY, url TEXT NOT NULL)
 CREATE TABLE IF NOT EXISTS gate_fail (id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now')));
 CREATE TABLE IF NOT EXISTS roadmap_comments (
   id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now')),
-  feature_id TEXT NOT NULL, name TEXT NOT NULL DEFAULT '', comment TEXT NOT NULL
+  feature_id TEXT NOT NULL, name TEXT NOT NULL DEFAULT '', comment TEXT NOT NULL,
+  archived INTEGER NOT NULL DEFAULT 0, archived_ts TEXT
 );
 CREATE INDEX IF NOT EXISTS roadmap_comments_feature ON roadmap_comments (feature_id);
 CREATE TABLE IF NOT EXISTS roadmap_suggestions (
   id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now')),
-  name TEXT NOT NULL DEFAULT '', feature TEXT NOT NULL, accomplishes TEXT NOT NULL, about TEXT NOT NULL DEFAULT '', vision TEXT NOT NULL DEFAULT ''
+  name TEXT NOT NULL DEFAULT '', feature TEXT NOT NULL, accomplishes TEXT NOT NULL, about TEXT NOT NULL DEFAULT '', vision TEXT NOT NULL DEFAULT '',
+  archived INTEGER NOT NULL DEFAULT 0, archived_ts TEXT
 );
 
 -- v0.6.0 visitor insights: one row per quiz visit. Created once in Cloudflare (see worker/visits.sql). No IP address and no raw User-Agent are stored.

@@ -88,12 +88,14 @@
   $('pnl').addEventListener('click',function(e){if(e.target===$('pnl'))closePanel();});
 
   // ---------- visitor view: read a row, add a comment ----------
+  function arch(kind,id,flag,again){return api('/roadmap/archive',{method:'POST',body:{kind:kind,id:id,archived:flag}}).then(function(){return load();}).then(again);}
+  function archBtn(kind,id,again){var x=h('button',{type:'button',text:'Archive'});x.onclick=function(){x.disabled=true;arch(kind,id,1,again);};return x;}
   function commentsBlock(r,canDelete,reload){
     var box=h('div'),list=cmts(r.id);
     box.appendChild(h('label',{text:'Comments ('+list.length+')'}));
     if(!list.length)box.appendChild(h('p',{class:'meta',text:'No comments yet. Be the first.'}));
     list.forEach(function(c){var d=h('div',{class:'cm'});
-      if(canDelete){var x=h('button',{type:'button',text:'Delete'});x.onclick=function(){x.disabled=true;api('/roadmap/comment/delete',{method:'POST',body:{id:c.id}}).then(function(){reload();});};d.appendChild(x);}
+      if(canDelete){var x=h('button',{type:'button',text:'Delete'});x.onclick=function(){x.disabled=true;api('/roadmap/comment/delete',{method:'POST',body:{id:c.id}}).then(function(){reload();});};d.appendChild(x);d.appendChild(archBtn('comment',c.id,function(){reload();}));}
       d.appendChild(document.createTextNode(c.comment));d.appendChild(h('span',{class:'w',text:(c.name?c.name+' · ':'')+eastern(c.ts)}));box.appendChild(d);});
     return box;}
   function openRow(r){if(st.admin&&st.adminView)return openCmts(r);
@@ -126,7 +128,7 @@
   $('sugListBtn').onclick=function(){needAdmin(function(){
     api('/roadmap/suggestions').then(function(r){if(r.status!==200){say('Could not load suggested features.','bad');return;}
       var nodes=[];if(!r.data.suggestions.length)nodes.push(h('p',{class:'meta',text:'No suggested features yet.'}));
-      r.data.suggestions.forEach(function(x){var d=h('div',{class:'cm'});d.appendChild(h('h3',{text:x.feature}));
+      r.data.suggestions.forEach(function(x){var d=h('div',{class:'cm'});d.appendChild(archBtn('suggestion',x.id,function(){$('sugListBtn').click();}));d.appendChild(h('h3',{text:x.feature}));
         [['What it accomplishes',x.accomplishes],['About',x.about],['Vision',x.vision]].forEach(function(p){if(p[1]){d.appendChild(h('span',{class:'w',text:p[0]+': '+p[1]}));}});
         d.appendChild(h('span',{class:'w',text:(x.name?x.name+' · ':'')+eastern(x.ts)}));nodes.push(d);});
       nodes.push(closeBtn());panel('Suggested features ('+r.data.suggestions.length+')',nodes);});});};
@@ -134,15 +136,28 @@
     var byId={};st.rows.forEach(function(r){byId[r.id]=r;});var ids=Object.keys(st.comments).filter(function(i){return st.comments[i].length;}).sort(),nodes=[],total=0;
     if(!ids.length)nodes.push(h('p',{class:'meta',text:'No comments yet.'}));
     ids.forEach(function(id){var d=h('div',{class:'cm'});d.appendChild(h('h3',{text:id+' · '+(byId[id]?byId[id].feature:'')}));
-      st.comments[id].forEach(function(c){total++;var line=h('div',{class:'cm'});var x=h('button',{type:'button',text:'Delete'});x.onclick=function(){x.disabled=true;api('/roadmap/comment/delete',{method:'POST',body:{id:c.id}}).then(function(){load().then(function(){$('cmtListBtn').click();});});};line.appendChild(x);line.appendChild(document.createTextNode(c.comment));line.appendChild(h('span',{class:'w',text:(c.name?c.name+' · ':'')+eastern(c.ts)}));d.appendChild(line);});nodes.push(d);});
+      st.comments[id].forEach(function(c){total++;var line=h('div',{class:'cm'});var x=h('button',{type:'button',text:'Delete'});x.onclick=function(){x.disabled=true;api('/roadmap/comment/delete',{method:'POST',body:{id:c.id}}).then(function(){load().then(function(){$('cmtListBtn').click();});});};line.appendChild(x);line.appendChild(archBtn('comment',c.id,function(){$('cmtListBtn').click();}));line.appendChild(document.createTextNode(c.comment));line.appendChild(h('span',{class:'w',text:(c.name?c.name+' · ':'')+eastern(c.ts)}));d.appendChild(line);});nodes.push(d);});
     nodes.push(closeBtn());panel('Comments ('+total+')',nodes);});};
   $('fbListBtn').onclick=function(){needAdmin(function(){
     api('/roadmap/feedback').then(function(r){if(r.status!==200){say('Could not load feedback.','bad');return;}
       var nodes=[];if(!r.data.feedback.length)nodes.push(h('p',{class:'meta',text:'No feedback yet.'}));
-      r.data.feedback.forEach(function(f){var d=h('div',{class:'cm'});d.appendChild(h('h3',{text:f.topic+' · '+eastern(f.ts)}));d.appendChild(document.createTextNode(f.message));
+      r.data.feedback.forEach(function(f){var d=h('div',{class:'cm'});d.appendChild(archBtn('feedback',f.id,function(){$('fbListBtn').click();}));d.appendChild(h('h3',{text:f.topic+' · '+eastern(f.ts)}));d.appendChild(document.createTextNode(f.message));
         if(f.has_image){var b=h('button',{type:'button',text:'Show photo',style:'float:none;margin:8px 0 0;display:block'});b.onclick=function(){b.disabled=true;api('/roadmap/feedback/image?id='+f.id).then(function(x){if(x.status===200&&/^data:image\/jpeg;base64,/.test(x.data.image)){var im=h('img',{alt:'Photo sent with this feedback'});im.src=x.data.image;d.appendChild(im);b.remove();}else{b.disabled=false;b.textContent='Photo not available';}});};d.appendChild(b);}
         nodes.push(d);});
       nodes.push(closeBtn());panel('Feedback results ('+r.data.feedback.length+')',nodes);});});};
+
+  $('arcListBtn').onclick=function(){needAdmin(function(){
+    api('/roadmap/archive').then(function(r){if(r.status!==200){say('Could not load the archive.','bad');return;}
+      var nodes=[],n=0,again=function(){$('arcListBtn').click();};
+      function item(kind,id,head,text,meta){n++;var d=h('div',{class:'cm'});
+        var del=h('button',{type:'button',text:'Delete forever'});del.onclick=function(){if(!del.dataset.a){del.dataset.a='1';del.textContent='Tap again to delete forever';return;}del.disabled=true;api('/roadmap/archive/delete',{method:'POST',body:{kind:kind,id:id}}).then(again);};
+        var res=h('button',{type:'button',text:'Restore'});res.onclick=function(){res.disabled=true;arch(kind,id,0,again);};
+        d.appendChild(del);d.appendChild(res);d.appendChild(h('h3',{text:head}));d.appendChild(document.createTextNode(text));d.appendChild(h('span',{class:'w',text:meta}));nodes.push(d);}
+      r.data.comments.forEach(function(c){item('comment',c.id,c.feature_id+' · comment',c.comment,(c.name?c.name+' · ':'')+eastern(c.ts));});
+      r.data.suggestions.forEach(function(x){item('suggestion',x.id,x.feature+' · suggested feature',x.accomplishes,(x.name?x.name+' · ':'')+eastern(x.ts));});
+      r.data.feedback.forEach(function(f){item('feedback',f.id,f.topic+' · feedback',f.message,eastern(f.ts));});
+      if(!n)nodes.push(h('p',{class:'meta',text:'The archive is empty.'}));
+      nodes.push(closeBtn());panel('Archive ('+n+')',nodes);});});};
 
   // ---------- edit (admin) ----------
   $('statsBtn').onclick=function(){needAdmin(function(){
