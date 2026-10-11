@@ -92,16 +92,22 @@ for(const pg of ['strategy.html','roadmap.html']){
  ck('admin: hiding Notes removes the column',!(await p.$$eval('#thead th',a=>a.map(x=>x.textContent))).includes('Notes'));
  await p.click('#colsBtn');await p.locator('#colsPop label',{hasText:'Notes'}).locator('input').check();await p.keyboard.press('Escape');
  const v0=vers();const f24=mw.raw.prepare("SELECT status FROM roadmap_features WHERE id='F-024'").get().status;
- await p.locator('#tbody tr',{hasText:'F-024'}).first().click();await p.waitForTimeout(200);ck('admin: tapping a row opens the edit panel',await p.locator('#f_status').isVisible()&&await p.locator('#f_priority').isEnabled());
- await p.selectOption('#f_status','In build');await p.fill('#f_name','Tester');await p.click('#sheet .btn.pri');await p.waitForTimeout(700);
+ await p.locator('#tbody tr',{hasText:'F-024'}).first().locator('td.status').click();await p.waitForTimeout(150);ck('admin: clicking a cell edits it in place, no dialog',await p.locator('td.editing select.ed').isVisible()&&await p.locator('#pnl').isHidden());
+ await p.selectOption('td.editing select.ed','In build');await p.waitForTimeout(700);
  ck('admin: one save makes exactly one new version with the right summary',vers()===v0+1&&mw.raw.prepare('SELECT summary FROM roadmap_versions ORDER BY version_id DESC LIMIT 1').get().summary==='F-024 status '+f24+' to In build');
  ck('admin: change shows and panel closes',await p.locator('#pnl').isHidden()&&/In build/.test(await p.locator('#tbody tr',{hasText:'F-024'}).first().textContent()));
- await p.locator('#tbody tr',{hasText:'F-025'}).first().click();await p.fill('#f_notes','<b id="boom2">x</b><script>window.__x=1</script>');await p.click('#sheet .btn.pri');await p.waitForTimeout(600);
+ await p.locator('#tbody tr',{hasText:'F-025'}).first().locator('td.notes').click();await p.fill('td.editing .ed','<b id="boom2">x</b><script>window.__x=1</script>');await p.keyboard.press('Control+Enter');await p.waitForTimeout(600);
  ck('admin: markup in a field is shown as text, not run',(await p.locator('#boom2').count())===0&&!(await p.evaluate(()=>window.__x)));
- await p.locator('#tbody tr',{hasText:'F-026'}).first().click();const vN=vers();await p.click('#sheet .btn.pri');await p.waitForTimeout(300);ck('admin: saving with nothing changed makes no version',vers()===vN&&/Nothing changed/.test(await p.textContent('#sheet')));await p.keyboard.press('Escape');
+ {const vN=vers();await p.locator('#tbody tr',{hasText:'F-026'}).first().locator('td.notes').click();await p.keyboard.press('Escape');await p.waitForTimeout(300);ck('admin: Escape cancels an edit and makes no version',vers()===vN&&await p.locator('td.editing').count()===0);}
  // admin deletes a visitor comment
- await p.locator('#tbody tr',{hasText:'F-002'}).first().click();await p.waitForTimeout(200);ck('admin: the edit panel lists the visitor comment with a Delete button',await p.locator('#sheet .cm button').count()===1);
+ await p.locator('#tbody tr',{hasText:'F-002'}).first().locator('td.comments').click();await p.waitForTimeout(200);ck('admin: the comments cell opens the visitor comment with a Delete button',await p.locator('#sheet .cm button').count()===1);
  await p.locator('#sheet .cm button').click();await p.waitForTimeout(800);ck('admin: Delete removes the comment',mw.raw.prepare('SELECT COUNT(*) n FROM roadmap_comments').get().n===0);
+ {const ids=async()=>p.$$eval('#tbody td.id',a=>a.map(x=>x.textContent));
+  await p.locator('#thead th',{hasText:'ID'}).locator('button').click();const up=await ids();ck('admin: first click on ID sorts ascending',up.slice().sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).join()===up.join()&&(await p.getAttribute('#thead th:first-child','aria-sort'))==='ascending');
+  await p.locator('#thead th',{hasText:'ID'}).locator('button').click();const dn=await ids();ck('admin: second click sorts descending',dn.join()===up.slice().reverse().join());
+  await p.locator('#thead th',{hasText:'ID'}).locator('button').click();ck('admin: third click returns to the saved order',(await p.getAttribute('#thead th:first-child','aria-sort'))==='none');
+  await p.locator('#thead th',{hasText:'Status'}).locator('button').click();const sv=await p.$$eval('#tbody td.status',a=>a.map(x=>x.textContent));ck('admin: Status sorts as a table would',sv.slice().sort((a,b)=>a.localeCompare(b)).join()===sv.join());
+  await p.locator('#thead th',{hasText:'Status'}).locator('button').click();await p.locator('#thead th',{hasText:'Status'}).locator('button').click();}
  await p.click('#histBtn');await p.waitForTimeout(500);ck('admin: history lists every version',(await p.locator('.vl li').count())===vers());
  ck('admin: history dates show Eastern time',/ET/.test(await p.locator('.vl li').first().textContent()));
  await p.locator('.vl li').last().locator('button').click();await p.waitForTimeout(500);ck('admin: an old version opens read only',/read only/.test(await p.textContent('#sheet')));
@@ -110,7 +116,7 @@ for(const pg of ['strategy.html','roadmap.html']){
  const [dl]=await Promise.all([p.waitForEvent('download'),p.click('#expBtn')]);const txt=require('fs').readFileSync(await dl.path(),'utf8');
  ck('admin: export CSV has the seed header and 69 rows',txt.startsWith('id,feature,about,area,rec,mine,status,deps,gate,effort,owner,source,notes,order,priority')&&txt.trim().split(/\r?\n/).length>=70);
  await p.click('#sugListBtn');await p.waitForTimeout(500);ck('admin: Suggestions lists the visitor idea',/Family tree view/.test(await p.textContent('#sheet'))&&/Tap a name/.test(await p.textContent('#sheet')));await p.keyboard.press('Escape');
- await p.locator('#tbody tr',{hasText:'F-001'}).first().click();await p.selectOption('#f_priority','P1');await p.click('#sheet .btn.pri');await p.waitForTimeout(700);
+ await p.locator('#tbody tr',{hasText:'F-001'}).first().locator('td.priority').click();await p.selectOption('td.editing select.ed','P1');await p.waitForTimeout(700);
  ck('admin: priority saved',mw.raw.prepare("SELECT priority FROM roadmap_features WHERE id='F-001'").get().priority==='P1');
  const fs=require('fs'),csv=txt.replace(/\r?\n$/,'').split(/\r?\n/).slice(0,4).join('\r\n')+'\r\n';fs.writeFileSync('/tmp/imp-test.csv',csv);
  p.on('dialog',d=>d.accept('Admin'));await p.setInputFiles('#impFile','/tmp/imp-test.csv');await p.waitForTimeout(900);
