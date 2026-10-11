@@ -35,7 +35,7 @@ for(const pg of ['strategy.html','roadmap.html']){
 {const {ctx,p,errs}=await mk({width:400,height:800});await p.goto(SITE+'roadmap.html');await p.waitForTimeout(400);await unlock(p);
  const heads=await p.$$eval('#thead th',a=>a.map(x=>x.textContent));
  ck('visitor: columns are ID, Feature, About, Recommended version, Status, Comments',heads.join('|')==='ID|Feature|About the feature|Recommended version|Status|Comments',heads);
- ck('visitor: help text shown',(await p.textContent('#help')).trim()==='How you can help: Add comments in the appropriate cell. Recommend features.');
+ ck('visitor: help text shown',(await p.textContent('#help')).trim()==='Help shape the roadmap: tap any feature to leave a comment, or recommend a feature of your own.');
  ck('visitor: no search box, no owner filter, no admin buttons',await p.locator('#q').isHidden()&&await p.locator('#fOwner').isHidden()&&await p.locator('#admBar').isHidden()&&await p.locator('#colsBtn').isHidden()&&await p.locator('#expBtn').isHidden()&&await p.locator('#histBtn').isHidden());
  ck('visitor: no Source, Notes, Owner or Priority text anywhere on the page',!/Master doc s|WebDev-Handoff|Version plan/.test(await p.content()));
  const sb=await p.locator('#sugBtn').boundingBox(),fb=await p.locator('#fStatus').boundingBox();ck('visitor: Recommend a feature is on its own row, below the filters, right aligned',sb.y>fb.y+fb.height&&Math.abs(sb.x+sb.width-(400-16))<4,{sb,fb});
@@ -58,7 +58,7 @@ for(const pg of ['strategy.html','roadmap.html']){
  // recommend a feature
  await p.click('#sugBtn');const labs=await p.$$eval('#sheet label',a=>a.map(x=>x.textContent));
  ck('visitor: Recommend form asks name, accomplishes, about, vision',['Feature name','What the feature accomplishes','About the feature','Your vision for how it works','Your name (optional)'].every((x,i)=>labs[i]===x),labs);
- await p.click('#sheet .btn.pri');ck('visitor: Recommend needs the first two boxes',/fill in the feature name/.test(await p.textContent('#sheet')));
+ await p.click('#sheet .btn.pri');ck('visitor: Recommend needs the feature name and what it accomplishes',/fill in the feature name/.test(await p.textContent('#sheet')));
  await p.fill('#s_feature','Family tree view');await p.fill('#s_acc','Shows how families connect.');await p.fill('#s_about','A simple tree.');await p.fill('#s_vision','Tap a name, see the place.');await p.fill('#s_name','Sam');await p.click('#sheet .btn.pri');await p.waitForTimeout(700);
  const sug=mw.raw.prepare('SELECT * FROM roadmap_suggestions').get();ck('visitor: the idea is saved with all four answers',sug&&sug.feature==='Family tree view'&&sug.accomplishes.startsWith('Shows')&&sug.about==='A simple tree.'&&sug.vision.startsWith('Tap a name')&&sug.name==='Sam',sug);
  ck('visitor: thanks shown and panel closed',/Thank you/.test(await p.textContent('#gmsg'))&&await p.locator('#pnl').isHidden());

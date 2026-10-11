@@ -34,7 +34,7 @@
         else td.textContent=r[c[0]]==null?'':r[c[0]];
         row.appendChild(td);});
       var go=function(){openRow(r);};row.addEventListener('click',go);row.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});tb.appendChild(row);});
-    $('meta').textContent=n+' of '+st.rows.length+' features · tap a row to read or add a comment'+(st.adminView&&st.admin?' · admin unlocked · version '+st.version:'');
+    $('meta').textContent=n+' of '+st.rows.length+' features · tap a feature to read or add a comment'+(st.adminView&&st.admin?' · admin unlocked · version '+st.version:'');
     var ab=$('admBar');ab.hidden=!st.adminView;
     $('q').hidden=!st.adminView;$('fOwner').hidden=!st.adminView;
     $('admBtn').textContent=st.admin?'Admin unlocked':'Admin unlock';$('admBtn').disabled=st.admin;
@@ -65,7 +65,7 @@
     var dl=h('dl'),pairs=[['Feature',r.feature],['About the feature',r.about],['Recommended version',r.rec],['Status',r.status]];
     pairs.forEach(function(p){dl.appendChild(h('dt',{text:p[0]}));dl.appendChild(h('dd',{text:p[1]||''}));});
     var nodes=[h('p',{class:'meta',text:r.id}),dl,commentsBlock(r,false,function(){})];
-    nodes.push(h('label',{for:'c_text',text:'Add a comment'}),h('textarea',{id:'c_text',maxlength:'500',placeholder:'Your comment (up to 500 characters)'}),h('label',{for:'c_name',text:'Your name (optional)'}),h('input',{id:'c_name',type:'text',maxlength:'60',autocomplete:'off'}));
+    nodes.push(h('label',{for:'c_text',text:'Add a comment'}),h('textarea',{id:'c_text',maxlength:'500',placeholder:'What do you think of this feature? (up to 500 characters)'}),h('label',{for:'c_name',text:'Your name (optional)'}),h('input',{id:'c_name',type:'text',maxlength:'60',autocomplete:'off'}));
     var send=h('button',{class:'btn pri',type:'button',text:'Send comment'}),close=h('button',{class:'btn',type:'button',text:'Close'}),msg=h('p',{class:'msg',role:'status'});
     nodes.push(h('div',{class:'acts'},[send,close]),msg);panel(r.id+' · '+r.feature,nodes);close.onclick=closePanel;
     send.onclick=function(){var t=$('c_text').value.trim();if(t.length<2){msg.className='msg bad';msg.textContent='Please write a comment first.';return;}
@@ -76,7 +76,7 @@
       }).catch(function(){send.disabled=false;msg.className='msg bad';msg.textContent='Could not reach the server.';});};}
   // ---------- recommend a feature ----------
   $('sugBtn').onclick=function(){
-    var f=[['s_feature','Feature name','input',150],['s_acc','What the feature accomplishes','textarea',600],['s_about','About the feature','textarea',1000],['s_vision','Your vision for how it works','textarea',1000],['s_name','Your name (optional)','input',60]],nodes=[h('p',{class:'meta',text:'Tell us about a feature you would like to see. The first two boxes are required.'})];
+    var f=[['s_feature','Feature name','input',150],['s_acc','What the feature accomplishes','textarea',600],['s_about','About the feature','textarea',1000],['s_vision','Your vision for how it works','textarea',1000],['s_name','Your name (optional)','input',60]],nodes=[h('p',{class:'meta',text:'Have an idea for the site? Tell us what it is and how you picture it working. The feature name and what it accomplishes are required; the rest helps us understand your vision.'})];
     f.forEach(function(x){nodes.push(h('label',{for:x[0],text:x[1]}));nodes.push(x[2]==='input'?h('input',{id:x[0],type:'text',maxlength:String(x[3]),autocomplete:'off'}):h('textarea',{id:x[0],maxlength:String(x[3])}));});
     var send=h('button',{class:'btn pri',type:'button',text:'Send'}),cancel=h('button',{class:'btn',type:'button',text:'Cancel'}),msg=h('p',{class:'msg',role:'status'});
     nodes.push(h('div',{class:'acts'},[send,cancel]),msg);panel('Recommend a feature',nodes);cancel.onclick=closePanel;
