@@ -23,9 +23,6 @@ h1{font-family:Georgia,"Times New Roman",serif;font-weight:600;font-size:1.5rem;
 .pill:focus-visible,.alt a:focus-visible{outline:2px solid #f2a65a;outline-offset:2px}
 .frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--night2)}
 .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.cpill{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:52px;padding:6px 22px;margin:0 0 12px;border-radius:999px;border:1px solid var(--amber);background:var(--amber);color:var(--night);text-decoration:none;text-align:center;line-height:1.15}
-.cpill .big{font-size:1.15rem;font-weight:700}.cpill .sm{font-size:.78rem;font-weight:500}
-.cpill:hover{filter:brightness(1.07)}.cpill:focus-visible{outline:2px solid #f2a65a;outline-offset:3px}.cpill[hidden]{display:none}
 .alt{margin:12px 0 0;font-size:.85rem;color:var(--muted)}
 .alt a{color:var(--amber)}
 </style>
@@ -35,7 +32,7 @@ h1{font-family:Georgia,"Times New Roman",serif;font-weight:600;font-size:1.5rem;
   <div class="top"><h1>Strategy</h1><a class="pill" href="index.html" id="backGlobe">Back to the globe</a></div>
   <div id="gateMount" data-page="strategy"></div>
   <div id="gated" hidden>
-  <a class="cpill" id="deckComment" href="#" target="_blank" rel="noopener" hidden><span class="big">Click to comment</span><span class="sm">in Google Slides</span></a>
+  <a class="pill" id="deckComment" href="#" target="_blank" rel="noopener" hidden style="margin:0 0 12px">Click to comment in Google Slides</a>
   <div class="frame"><iframe id="deck" title="Our Jewish Journey executive summary"  allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" ></iframe></div>
   <p class="alt"><span id="deckMsg"></span> Deck not showing? <a id="deckOpen" href="#" target="_blank" rel="noopener">Open it in Google Slides</a>.</p>
   </div>
@@ -45,7 +42,7 @@ h1{font-family:Georgia,"Times New Roman",serif;font-weight:600;font-size:1.5rem;
 window.onGateOpen=function(){
   OJJ_GATE.api('/link?name=strategy').then(function(r){
     var d=document.getElementById('deck'),a=document.getElementById('deckOpen');
-    if(r.status===200&&r.data.url){var u=r.data.url;d.src=u.replace(/\/(view|edit)(\?.*)?$/,'/embed?start=false&loop=false&delayms=3000');a.href=u.replace(/\/embed.*$/,'/view');var c=document.getElementById('deckComment');c.href=u.replace(/\/(view|edit|embed)(\?.*)?$/,'/edit');c.hidden=false;}
+    if(r.status===200&&r.data.url){var u=r.data.url;d.src=u.replace(/\/(view|edit)(\?.*)?$/,'/embed?start=false&loop=false&delayms=3000');a.href=u.replace(/\/embed.*$/,'/view');var c=document.getElementById('deckComment');c.href=u.replace(/\/(view|edit|embed)(\?.*)?$/,'/edit');c.hidden=false;c.style.display='inline-flex';}
     else if(r.status!==401){document.getElementById('deckMsg').textContent='The deck is not available right now.';}
   }).catch(function(){document.getElementById('deckMsg').textContent='Could not load the deck. Check your connection.';});
 };</script>
