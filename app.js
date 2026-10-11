@@ -134,7 +134,7 @@ const currentYear=()=>yearAt(position);
 let ARC={cx:0,cy:0,r:0,a0:0,a1:0};
 function layout(){
   const stage=$('stage'),w=stage.clientWidth,h=stage.clientHeight,narrow=w<620;
-  const R=narrow?Math.max(100,Math.min(w*0.42,(h-80)/2)):Math.max(150,Math.min(w*0.44,h*0.43));
+  const R=narrow?Math.max(100,Math.min(w*0.42,(h-80)/2)):Math.max(150,Math.min(w*0.44,h*0.40));
   view.baseR=R;view.R=R*view.zoom;view.cx=w/2;view.cy=narrow?R+18:Math.min(h/2-18,R+44);
   ARC={cx:view.cx,cy:view.cy,r:R+(narrow?18:34),a0:162*D2R,a1:18*D2R,w,h,narrow};
   $('ov').setAttribute('viewBox',`0 0 ${w} ${h}`);$('arc').setAttribute('viewBox',`0 0 ${w} ${h}`);
@@ -256,8 +256,8 @@ function closeStory(){selected=null;lastAutoIdx=-1;render();}
 /* ---------- playback ---------- */
 function setPos(p){position=Math.max(0,Math.min(1,p));render();}
 function setYearExact(y){position=posForYear(y);render();}
-function startTour(){stopTour();dismissPrompt();selected=null;lastAutoIdx=-1;view.manual=false;view.zoom=1;view.R=view.baseR;if(position>=0.999)position=posForYear(DATA.presentation?.openingYear??DATA.timeline.start);const from=position,dur=DATA.presentation?.tourDurationMs||20000,dwell=DATA.presentation?.cardDwellMs??2000,t0=performance.now();
-  // Play moves quickly through long gaps in history, but holds still for cardDwellMs (2 seconds) each time a card comes up, so it can be read.
+function startTour(){stopTour();dismissPrompt();selected=null;lastAutoIdx=-1;view.manual=false;view.zoom=1;view.R=view.baseR;if(position>=0.999)position=posForYear(DATA.presentation?.openingYear??DATA.timeline.start);const from=position,dur=DATA.presentation?.tourDurationMs||20000,dwell=DATA.presentation?.cardDwellMs??1500,t0=performance.now();
+  // Play moves quickly through long gaps in history, but holds still for cardDwellMs (1.5 seconds) each time a card comes up, so it can be read.
   let last=t0,prevIdx=lastMilestoneIdx(Math.round(currentYear())),dwellUntil=prevIdx>=0?t0+dwell:0;
   const step=now=>{const dt=now-last;last=now;if(now<dwellUntil){tour=requestAnimationFrame(step);return;}
     position=Math.min(1,position+dt/dur*(1-from));render();if(position>=1){stopTour();return;}
