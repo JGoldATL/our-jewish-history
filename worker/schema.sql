@@ -59,3 +59,12 @@ CREATE TABLE IF NOT EXISTS roadmap_versions (
 );
 CREATE TABLE IF NOT EXISTS site_links (name TEXT PRIMARY KEY, url TEXT NOT NULL);   -- e.g. name 'strategy' = the Slides link (keep it out of the repo)
 CREATE TABLE IF NOT EXISTS gate_fail (id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now')));
+CREATE TABLE IF NOT EXISTS roadmap_comments (
+  id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now')),
+  feature_id TEXT NOT NULL, name TEXT NOT NULL DEFAULT '', comment TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS roadmap_comments_feature ON roadmap_comments (feature_id);
+CREATE TABLE IF NOT EXISTS roadmap_suggestions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now')),
+  name TEXT NOT NULL DEFAULT '', feature TEXT NOT NULL, accomplishes TEXT NOT NULL, about TEXT NOT NULL DEFAULT '', vision TEXT NOT NULL DEFAULT ''
+);

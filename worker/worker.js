@@ -62,7 +62,8 @@ function judge(lock, picked) {
 // HONEST NOTE: this is a courtesy lock. It keeps casual visitors out and keeps the roadmap rows and the Strategy link out of the
 // page source and the repo. It is not real security: anyone who is given the code can pass it on.
 // Secrets (set by Jeffrey in Cloudflare, never written in the repo, the chat or any file): ROADMAP_CODE (opens the pages),
-// ROADMAP_ADMIN (lets one person set Priority and import CSV). Tables: roadmap_features, roadmap_versions, site_links, gate_fail.
+// ROADMAP_ADMIN (lets one person set Priority and import CSV). Tables: roadmap_features, roadmap_versions, roadmap_comments, roadmap_suggestions, site_links, gate_fail.
+// v0.5.1: a visitor with the code can read the public columns, add comments and recommend a feature. Everything else (edit, history, restore, import, priority) needs ROADMAP_ADMIN.
 const TOKEN_TTL_S = 12 * 3600;                  // a token is good for 12 hours
 const GATE_FAIL_WINDOW_MIN = 10, GATE_FAIL_MAX = 60;   // whole-site ceiling on wrong codes per 10 minutes (no IP is stored)
 const RM_CONFIG = {                              // the one place the allowed lists live; the page receives them from GET /roadmap
@@ -87,6 +88,11 @@ const RM_CONFIG = {                              // the one place the allowed li
 };
 const RM_FIELDS = Object.keys(RM_CONFIG.fields);
 const RM_COLS = ['id', ...RM_FIELDS, 'sort_order'];
+const RM_PUBLIC = ['id', 'feature', 'about', 'area', 'rec', 'status', 'sort_order'];   // what a visitor with the code sees; owner, effort, source, notes, priority etc. stay admin-only
+const RM_MAX_COMMENTS_PER_ROW = 100, RM_MAX_COMMENTS_PER_HOUR = 300, RM_MAX_SUGGESTIONS_PER_HOUR = 100;
+const SUGGEST_FIELDS = { feature: { max: 150, req: true }, accomplishes: { max: 600, req: true }, about: { max: 1000 }, vision: { max: 1000 } };
+const pick = (r, cols) => Object.fromEntries(cols.map((c) => [c, r[c]]));
+const cleanText = (v, max) => (typeof v === 'string' ? v.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, '').trim().slice(0, max + 1) : '');
 
 const json = (status, body, origin) => new Response(JSON.stringify(body), { status, headers: { ...cors(origin), 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
 const hex = (buf) => [...new Uint8Array(buf)].map((x) => x.toString(16).padStart(2, '0')).join('');
@@ -173,12 +179,58 @@ async function handleSite(req, env, url, origin) {
     const r = await env.DB.prepare('SELECT url FROM site_links WHERE name = ?').bind(name).first();
     return r ? json(200, { url: r.url }, origin) : json(404, { error: 'no_link' }, origin);
   }
-  if (path === '/roadmap' && req.method === 'GET') return json(200, { config: RM_CONFIG, rows: await allRows(env), version: await latestVersion(env), admin: await isAdmin() }, origin);
+  if (path === '/roadmap' && req.method === 'GET') {
+    const admin = await isAdmin();
+    const rows = await allRows(env);
+    const cr = ((await env.DB.prepare('SELECT id, feature_id, ts, name, comment FROM roadmap_comments ORDER BY id').all()).results || []);
+    const comments = {};
+    for (const c of cr) (comments[c.feature_id] = comments[c.feature_id] || []).push({ id: c.id, ts: c.ts, name: c.name, comment: c.comment });
+    return json(200, { config: RM_CONFIG, rows: admin ? rows : rows.map((r) => pick(r, RM_PUBLIC)), comments, version: await latestVersion(env), admin }, origin);
+  }
+  if (path === '/roadmap/comment' && req.method === 'POST') {          // anyone with the code may add a comment; nothing else is editable by them
+    const b = await body(6000);
+    const text = cleanText(b.comment, 500);
+    if (text.length < 2 || text.length > 500) return json(400, { error: 'bad_comment' }, origin);
+    if (typeof b.feature_id !== 'string' || !(await env.DB.prepare('SELECT id FROM roadmap_features WHERE id = ?').bind(b.feature_id).first())) return json(400, { error: 'unknown_row' }, origin);
+    const hr = await env.DB.prepare("SELECT COUNT(*) AS n FROM roadmap_comments WHERE ts >= strftime('%Y-%m-%dT%H:%M:%SZ','now','-1 hour')").first();
+    if (hr && hr.n >= RM_MAX_COMMENTS_PER_HOUR) return json(429, { error: 'slow_down' }, origin);
+    const rw = await env.DB.prepare('SELECT COUNT(*) AS n FROM roadmap_comments WHERE feature_id = ?').bind(b.feature_id).first();
+    if (rw && rw.n >= RM_MAX_COMMENTS_PER_ROW) return json(429, { error: 'row_full' }, origin);
+    const r = await env.DB.prepare('INSERT INTO roadmap_comments (feature_id, name, comment) VALUES (?, ?, ?)').bind(b.feature_id, cleanName(b.name), text).run();
+    return json(200, { id: r.meta.last_row_id }, origin);
+  }
+  if (path === '/roadmap/comment/delete' && req.method === 'POST') {
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
+    const b = await body(2000);
+    if (!Number.isInteger(b.id)) return json(400, { error: 'bad_id' }, origin);
+    await env.DB.prepare('DELETE FROM roadmap_comments WHERE id = ?').bind(b.id).run();
+    return json(200, { ok: true }, origin);
+  }
+  if (path === '/roadmap/suggest' && req.method === 'POST') {          // "Recommend a feature"
+    const b = await body(8000);
+    const v = {};
+    for (const [f, spec] of Object.entries(SUGGEST_FIELDS)) {
+      const t = cleanText(b[f], spec.max);
+      if (t.length > spec.max || (spec.req && t.length < 3)) return json(400, { error: 'bad_value', field: f }, origin);
+      v[f] = t;
+    }
+    const hr = await env.DB.prepare("SELECT COUNT(*) AS n FROM roadmap_suggestions WHERE ts >= strftime('%Y-%m-%dT%H:%M:%SZ','now','-1 hour')").first();
+    if (hr && hr.n >= RM_MAX_SUGGESTIONS_PER_HOUR) return json(429, { error: 'slow_down' }, origin);
+    const r = await env.DB.prepare('INSERT INTO roadmap_suggestions (name, feature, accomplishes, about, vision) VALUES (?, ?, ?, ?, ?)').bind(cleanName(b.name), v.feature, v.accomplishes, v.about, v.vision).run();
+    return json(200, { id: r.meta.last_row_id }, origin);
+  }
+  if (path === '/roadmap/suggestions' && req.method === 'GET') {
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
+    const r = await env.DB.prepare('SELECT id, ts, name, feature, accomplishes, about, vision FROM roadmap_suggestions ORDER BY id DESC LIMIT 200').all();
+    return json(200, { suggestions: r.results || [] }, origin);
+  }
   if (path === '/roadmap/versions' && req.method === 'GET') {
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
     const r = await env.DB.prepare('SELECT version_id, saved_at, saved_by_label, summary FROM roadmap_versions ORDER BY version_id DESC LIMIT 200').all();
     return json(200, { versions: r.results || [] }, origin);
   }
   if (path === '/roadmap/version' && req.method === 'GET') {
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
     const id = Number(url.searchParams.get('id'));
     const r = Number.isInteger(id) ? await env.DB.prepare('SELECT version_id, saved_at, saved_by_label, summary, snapshot FROM roadmap_versions WHERE version_id = ?').bind(id).first() : null;
     return r ? json(200, { version_id: r.version_id, saved_at: r.saved_at, saved_by_label: r.saved_by_label, summary: r.summary, rows: JSON.parse(r.snapshot) }, origin) : json(404, { error: 'no_version' }, origin);
@@ -187,7 +239,8 @@ async function handleSite(req, env, url, origin) {
   if (path === '/roadmap/save' && req.method === 'POST') {
     const b = await body();
     if (!Array.isArray(b.changes) || !b.changes.length || b.changes.length > 200) return json(400, { error: 'bad_changes' }, origin);
-    const admin = await isAdmin();
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);   // visitors can only add comments and suggestions; every other edit is the admin's
+    const admin = true;
     const rows = await allRows(env), byId = new Map(rows.map((r) => [r.id, r]));
     const applied = [];
     for (const c of b.changes) {
@@ -211,14 +264,12 @@ async function handleSite(req, env, url, origin) {
   }
 
   if (path === '/roadmap/restore' && req.method === 'POST') {
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
     const b = await body(2000);
     const id = Number(b.version_id);
     const old = Number.isInteger(id) ? await env.DB.prepare('SELECT snapshot FROM roadmap_versions WHERE version_id = ?').bind(id).first() : null;
     if (!old) return json(404, { error: 'no_version' }, origin);
-    const admin = await isAdmin();
-    const cur = new Map((await allRows(env)).map((r) => [r.id, r]));
     const rows = JSON.parse(old.snapshot).map(rowShape);
-    if (!admin) rows.forEach((r) => { r.priority = cur.has(r.id) ? cur.get(r.id).priority : ''; });   // only the admin can change Priority, even by restoring
     const stmts = [env.DB.prepare('DELETE FROM roadmap_features'), ...rows.map((r) => insertRow(env, r))];
     stmts.push(insertVersion(env, cleanName(b.name), 'Restored version ' + id, rows));
     const res = await env.DB.batch(stmts);
