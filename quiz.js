@@ -49,11 +49,19 @@ const pickOne=a=>a[Math.floor(Math.random()*a.length)];
 const fill=(t,o)=>t.replace(/\{(\w+)\}/g,(m,k)=>o[k]);
 
 // ---------- anonymous answer logging (v0.4.0) ----------
-// One random id per page visit, held only in memory (no cookie, no storage). No names, emails or IP addresses are sent.
+// v0.6.0: each row carries one random id per page visit (kept in memory) plus an anonymous device id (random, saved in this browser's localStorage so a returning device can be recognised),
+// and a few coarse details: language, time zone, screen size, device type and the referring site name. No names, emails or IP addresses are sent. The Worker adds country and region from Cloudflare and never stores the IP.
 // Fire-and-forget: never awaited, every error swallowed, so a blocked or failing logger can never slow or break the quiz.
 // Logs only on the live site (or with ?logtest=1, whose ids start "test-" so they can be deleted). Does nothing if LOG_URL is blank.
 const LOG_URL='https://patient-sound-f420journeysquiz-log.jeffreyagold-bbd.workers.dev/';
 const VISIT=(()=>{try{const a=new Uint8Array(10);crypto.getRandomValues(a);return [...a].map(x=>(x%36).toString(36)).join('')+Date.now().toString(36);}catch(e){return '';}})();
+const DEVICE=(()=>{try{let d=localStorage.getItem('ojj-device');if(!/^[a-z0-9]{16,32}$/.test(d||'')){const a=new Uint8Array(16);crypto.getRandomValues(a);d=[...a].map(x=>(x%36).toString(36)).join('');localStorage.setItem('ojj-device',d);}return d;}catch(e){return '';}})();
+const CTX=(()=>{const c={};try{if(DEVICE)c.device_id=DEVICE;}catch(e){}
+  try{const l=(navigator.language||'').split('@')[0].slice(0,20);if(/^[A-Za-z0-9-]{2,20}$/.test(l))c.lang=l;}catch(e){}
+  try{const z=Intl.DateTimeFormat().resolvedOptions().timeZone||'';if(/^[A-Za-z0-9_\/+-]{1,40}$/.test(z))c.tz=z;}catch(e){}
+  try{const w=screen.width,h=screen.height;if(w>=100&&h>=100&&w<100000&&h<100000)c.screen=Math.round(w)+'x'+Math.round(h);const m=Math.min(w,h),coarse=matchMedia('(pointer:coarse)').matches;c.dev=coarse?(m<600?'phone':'tablet'):'desktop';}catch(e){}
+  try{let r='';const u=(location.search.match(/[?&]utm_source=([A-Za-z0-9._-]{1,40})/)||[])[1];if(u)r=u.toLowerCase();else if(document.referrer){const hn=new URL(document.referrer).hostname.replace(/^www\./,'').toLowerCase();if(hn&&hn!==location.hostname)r=hn;}if(/^[a-z0-9._-]{1,60}$/.test(r))c.ref=r;}catch(e){}
+  return c;})();
 let ROUND='';   // v0.4.3: a new random tag for each round of 3, so answers and the survey tap can be grouped by round
 function newRound(){try{const a=new Uint8Array(8);crypto.getRandomValues(a);ROUND=[...a].map(x=>(x%36).toString(36)).join('');}catch(e){ROUND='';}}
 const LOG_TEST=/[?&]logtest=1\b/.test(location.search);
@@ -62,7 +70,7 @@ function logRow(o){
   try{
     if(!LOG_URL||!VISIT||draftsShown)return;
     if(!LOG_TEST&&location.hostname!=='jgoldatl.github.io')return;
-    const body=JSON.stringify(Object.assign({visit_id:(LOG_TEST?'test-':'')+VISIT},ROUND?{round_id:ROUND}:{},o));
+    const body=JSON.stringify(Object.assign({visit_id:(LOG_TEST?'test-':'')+VISIT},CTX,ROUND?{round_id:ROUND}:{},o));
     const p=fetch(LOG_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body,keepalive:true});
     if(LOG_TEST)p.then(r=>logNote('log test: Worker replied '+r.status+(r.status===204?' (saved)':' (refused)'))).catch(e=>logNote('log test: could not reach the Worker ('+(e&&e.message||'blocked')+')'));
     else p.catch(()=>{});

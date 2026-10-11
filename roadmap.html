@@ -42,8 +42,8 @@ h1{font-family:Georgia,"Times New Roman",serif;font-weight:600;font-size:1.5rem;
 .tw{overflow:auto;max-height:70vh;min-height:200px;border:1px solid var(--line);border-radius:12px;background:var(--night2);-webkit-overflow-scrolling:touch}
 table{border-collapse:separate;border-spacing:0;font-size:13px;width:max-content;min-width:100%}
 th,td{padding:8px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);max-width:300px;overflow-wrap:anywhere}
-th{position:sticky;top:0;background:#1d3142;color:var(--amber);font-weight:600;z-index:1;white-space:nowrap}
-tr.row{cursor:pointer}tr.row:hover td{background:rgba(239,230,211,.05)}
+th .sortb{background:none;border:0;color:inherit;font:inherit;padding:0;cursor:pointer;white-space:nowrap}th .sortb:hover{text-decoration:underline}th .sortb:focus-visible,td.clk:focus-visible{outline:2px solid #f2a65a;outline-offset:2px}td.clk{cursor:text}td.clk:hover{background:rgba(239,230,211,.07)}td.editing{padding:4px;min-width:140px}td.editing .ed{box-sizing:border-box;width:100%;border-radius:8px;border:1px solid #f2a65a;background:var(--night);color:var(--text);font:inherit;font-size:16px;padding:6px 8px}td.comments.clk{cursor:pointer}th{position:sticky;top:0;background:#1d3142;color:var(--amber);font-weight:600;z-index:1;white-space:nowrap}
+tr.row[role=button]{cursor:pointer}tr.row:hover td{background:rgba(239,230,211,.05)}
 td.id{white-space:nowrap;color:var(--amber)}td.comments{min-width:170px;max-width:220px;color:var(--muted)}td.comments b{color:var(--text);font-weight:600}
 .cm{margin:10px 0 0;padding:10px 12px;border-radius:10px;background:var(--night);border:1px solid var(--line);font-size:.92rem;overflow-wrap:anywhere}.cm .w{display:block;color:var(--muted);font-size:.78rem;margin-top:4px}.cm button{float:right;margin-left:8px;min-height:32px;border-radius:8px;border:1px solid var(--line);background:none;color:var(--text);cursor:pointer}
 .sheet dl{margin:0}.sheet dt{color:var(--muted);font-size:.8rem;margin:10px 0 2px}.sheet dd{margin:0;overflow-wrap:anywhere}td.about,td.notes{min-width:200px}td.about{max-width:260px}

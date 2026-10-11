@@ -1,5 +1,7 @@
 // Jewish Journeys quiz logger: Cloudflare Worker + D1 (binding name: DB).
-// Receives one anonymous row per quiz answer or survey tap. It never reads, logs or stores IP addresses, names, emails or headers.
+// Receives one anonymous row per quiz answer or survey tap. It never stores IP addresses, names, emails or raw headers.
+// v0.6.0: it also keeps ONE row per visit in `visits`: an anonymous device id (random, from the browser), country, region and city from Cloudflare,
+// and device type, browser, operating system, language, time zone, screen size and referring site. The raw User-Agent and the IP are never saved.
 // The quiz posts text/plain JSON (a "simple" request, so no CORS preflight). Replies carry no body and the quiz ignores them.
 // Trust rule: the browser sends only a visit id, a question id and its pick. Era, style and right/wrong come from the question_lock table.
 
@@ -22,6 +24,14 @@ const cors = (origin) => ({
   'Access-Control-Max-Age': '86400',
 });
 const reply = (status, origin) => new Response(null, { status, headers: cors(origin) });
+const DEV = ['phone', 'tablet', 'desktop'];
+function parseUA(ua) {                           // coarse names only; the raw User-Agent is never stored
+  ua = typeof ua === 'string' ? ua : '';
+  const os = /iPhone|iPad|iPod/.test(ua) ? 'iOS' : /Android/.test(ua) ? 'Android' : /Windows/.test(ua) ? 'Windows' : /Mac OS X|Macintosh/.test(ua) ? 'macOS' : /CrOS/.test(ua) ? 'ChromeOS' : /Linux/.test(ua) ? 'Linux' : 'Other';
+  const browser = /Edg\//.test(ua) ? 'Edge' : /OPR\/|Opera/.test(ua) ? 'Opera' : /SamsungBrowser/.test(ua) ? 'Samsung' : /Firefox|FxiOS/.test(ua) ? 'Firefox' : /CriOS|Chrome\//.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : 'Other';
+  return { os, browser };
+}
+const place = (v) => (typeof v === 'string' ? v.replace(/[\u0000-\u001f]/g, '').trim().slice(0, 60) || null : null);
 const str = (v, re, max) => (typeof v === 'string' && v.length <= max && re.test(v) ? v : null);
 
 // Shape check only. Returns { visit, rnd, kind, q, picked, survey } or null. Unknown fields are dropped.
@@ -30,17 +40,21 @@ function shape(b) {
   const visit = str(b.visit_id, /^(test-)?[a-z0-9]{12,32}$/, 37);
   if (!visit) return null;
   const rnd = str(b.round_id, /^[a-z0-9]{8,32}$/, 32);   // optional: which round of 3 this row belongs to
+  const ctx = {                                          // optional visit details; each is checked on its own and a bad one is simply dropped
+    device: str(b.device_id, /^[a-z0-9]{16,32}$/, 32), lang: str(b.lang, /^[A-Za-z0-9-]{2,20}$/, 20), tz: str(b.tz, /^[A-Za-z0-9_\/+-]{1,40}$/, 40),
+    screen: str(b.screen, /^[0-9]{3,5}x[0-9]{3,5}$/, 11), ref: str(b.ref, /^[a-z0-9._-]{1,60}$/, 60), dev: DEV.includes(b.dev) ? b.dev : null,
+  };
   if (b.kind === 'feedback') {
     const message = typeof b.message === 'string' ? b.message.trim() : '';
     const image = typeof b.image === 'string' && b.image.length <= MAX_IMAGE_CHARS && /^data:image\/jpeg;base64,\/9j\/[A-Za-z0-9+\/]+={0,2}$/.test(b.image) ? b.image : null;   // JPEG only (the page converts)
     if (b.image !== undefined && b.image !== null && !image) return null;                     // a bad photo refuses the whole message
     return TOPICS.includes(b.topic) && message.length >= 3 && message.length <= 1000 ? { visit, kind: 'feedback', topic: b.topic, message, image } : null;
   }
-  if (b.kind === 'survey') return SURVEY.includes(b.survey) ? { visit, rnd, kind: 'survey', survey: b.survey } : null;
+  if (b.kind === 'survey') return SURVEY.includes(b.survey) ? { visit, rnd, ctx, kind: 'survey', survey: b.survey } : null;
   if (b.kind === 'answer') {
     const q = str(b.question_id, /^Q[0-9]{1,6}$/, 8);
     const picked = str(b.picked, /^[0-9](,[0-9]){0,4}$/, 9);
-    return q && picked ? { visit, rnd, kind: 'answer', q, picked } : null;
+    return q && picked ? { visit, rnd, ctx, kind: 'answer', q, picked } : null;
   }
   return null;
 }
@@ -307,6 +321,15 @@ async function handleSite(req, env, url, origin) {
   return json(404, { error: 'not_found' }, origin);
 }
 
+
+async function recordVisit(env, req, row) {
+  try {
+    const cf = req.cf || {}, ua = parseUA(req.headers.get('User-Agent')), c = row.ctx || {};
+    await env.DB.prepare('INSERT OR IGNORE INTO visits (visit_id, device_id, country, region, city, device_type, browser, os, lang, tz, screen, ref) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+      .bind(row.visit, c.device, place(cf.country), place(cf.region), place(cf.city), c.dev, ua.browser, ua.os, c.lang, c.tz, c.screen, c.ref).run();
+  } catch (e) { /* visit details are a bonus; the answer still gets saved */ }
+}
+
 export default {
   async fetch(req, env) {
     const origin = req.headers.get('Origin') || '';
@@ -344,7 +367,9 @@ export default {
       const visit = await env.DB.prepare('SELECT COUNT(*) AS n FROM responses WHERE visit_id = ?').bind(row.visit).first();
       if (visit && visit.n >= MAX_ROWS_PER_VISIT) return reply(429, origin);
 
+
       if (row.kind === 'survey') {
+        await recordVisit(env, req, row);                          // one row per visit; never blocks or breaks logging
         await env.DB.prepare("INSERT INTO responses (visit_id, round_id, kind, survey) VALUES (?, ?, 'survey', ?)").bind(row.visit, row.rnd, row.survey).run();
         return reply(204, origin);
       }
@@ -354,6 +379,7 @@ export default {
       if (!j) return reply(400, origin);                          // a pick that cannot exist for this question
       const same = await env.DB.prepare("SELECT COUNT(*) AS n FROM responses WHERE visit_id = ? AND question_id = ? AND kind = 'answer'").bind(row.visit, row.q).first();
       if (same && same.n >= MAX_PER_QUESTION) return reply(429, origin);
+      await recordVisit(env, req, row);                            // only after the answer has passed every check
       await env.DB.prepare(
         "INSERT INTO responses (visit_id, round_id, kind, question_id, era, style, picked, correct) VALUES (?, ?, 'answer', ?, ?, ?, ?, ?)"
       ).bind(row.visit, row.rnd, row.q, lock.era, lock.style, j.picked, j.correct).run();

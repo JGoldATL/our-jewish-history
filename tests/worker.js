@@ -66,6 +66,25 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
   ok(await post({visit_id:visit(),kind:'answer',question_id:mc4,picked:'0',pad:'x'.repeat(5000)})===413,'a large body on an answer is refused (413)');
   ok(await post('x'.repeat(1100000))===413,'a body over 1 MB is refused (413)');
 
+
+  // v0.6.0: one row per visit with the device id, Cloudflare's coarse location and a coarse device description
+  const vrows=()=>raw.prepare('SELECT * FROM visits ORDER BY first_ts, rowid').all();
+  const withCf=(b,cf,ua)=>{const r=new Request('https://x/',{method:'POST',body:JSON.stringify(b),headers:ua?{'User-Agent':ua}:{}});Object.defineProperty(r,'cf',{value:cf});return W.fetch(r,env).then(x=>x.status);};
+  const V1=visit(),DEVID='abcd1234efgh5678ijkl';
+  ok(await withCf({visit_id:V1,kind:'answer',question_id:mc4,picked:'0',device_id:DEVID,lang:'en-US',tz:'America/New_York',screen:'1180x820',dev:'tablet',ref:'whatsapp.com'},{country:'US',region:'Georgia',city:'Atlanta'},'Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1')===204,'an answer with visit details is accepted');
+  const vr=vrows().find(x=>x.visit_id===V1);
+  ok(vr&&vr.device_id===DEVID&&vr.country==='US'&&vr.region==='Georgia'&&vr.city==='Atlanta'&&vr.device_type==='tablet'&&vr.browser==='Safari'&&vr.os==='iOS'&&vr.lang==='en-US'&&vr.tz==='America/New_York'&&vr.screen==='1180x820'&&vr.ref==='whatsapp.com','visit row has device id, country/region/city, device type, browser, OS, language, time zone, screen and referrer');
+  ok(Object.keys(vr).sort().join()==='browser,city,country,device_id,device_type,first_ts,lang,os,ref,region,screen,tz,visit_id','only those columns exist (no IP, no raw User-Agent)');
+  ok(!JSON.stringify(vrows()).match(/Mozilla|AppleWebKit|\d+\.\d+\.\d+\.\d+/),'no User-Agent text or IP-looking text is stored');
+  await withCf({visit_id:V1,kind:'survey',survey:'A lot',device_id:'zzzzzzzzzzzzzzzzzz'},{country:'CA'});
+  ok(vrows().filter(x=>x.visit_id===V1).length===1&&vrows().find(x=>x.visit_id===V1).country==='US','a second row in the same visit does not add or change the visit row');
+  const V2=visit();ok(await withCf({visit_id:V2,kind:'survey',survey:'Somewhat',device_id:DEVID},{country:'US',region:'Georgia'},'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0 Safari/537.36')===204&&vrows().filter(x=>x.device_id===DEVID).length===2,'two visits with the same device id can be linked (a returning device)');
+  const V3=visit();ok(await withCf({visit_id:V3,kind:'survey',survey:'Somewhat',device_id:'BAD ID!',lang:'<script>',tz:'x'.repeat(80),screen:'99999999x1',dev:'toaster',ref:'a b'},{})===204,'bad detail values do not block the row');
+  const v3=vrows().find(x=>x.visit_id===V3);ok(v3&&v3.device_id===null&&v3.lang===null&&v3.tz===null&&v3.screen===null&&v3.device_type===null&&v3.ref===null&&v3.country===null,'bad detail values are dropped, not stored');
+  const nV=vrows().length;await ans(visit(),'Q999','0',{device_id:DEVID});await post({visit_id:visit(),kind:'survey',survey:'Maybe',device_id:DEVID});ok(vrows().length===nV,'a refused row creates no visit row');
+  const brk={prepare:(sql)=>/INSERT OR IGNORE INTO visits/.test(sql)?{bind:()=>({run:async()=>{throw new Error('visits down')}})}:DB.prepare(sql)};
+  ok(await W.fetch(new Request('https://x/',{method:'POST',body:JSON.stringify({visit_id:visit(),kind:'survey',survey:'A lot'})}),{DB:brk}).then(r=>r.status)===204,'if the visit table fails, the answer is still saved');
+
   // trust: the browser's claims are ignored
   const B=visit();
   ok(await ans(B,mc4,String((lock[mc4].correct_idx+1)%4),{correct:1,era:'Made up era',style:'Made up style',ip:'1.2.3.4',name:'Bob'})===204,'extra fields do not block a valid pick');

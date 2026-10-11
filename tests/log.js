@@ -70,7 +70,10 @@ async function play(p){
     const a=posts.filter(x=>x.kind==='answer'),s=posts.filter(x=>x.kind==='survey');
     ok(a.length===3,'3 answer rows ('+a.length+')');ok(s.length===1&&s[0].survey==='Somewhat','1 survey row, "Somewhat"');
     ok(new Set(posts.map(x=>x.visit_id)).size===1&&/^test-[a-z0-9]{12,32}$/.test(posts[0].visit_id),'one visit id, starts "test-" ('+posts[0].visit_id+')');
-    const allowed=['visit_id','round_id','kind','question_id','picked','survey'];
+    const allowed=['visit_id','round_id','kind','question_id','picked','survey','device_id','lang','tz','screen','dev','ref'];
+    const ctxp=posts[0];ok(/^[a-z0-9]{16,32}$/.test(ctxp.device_id||'')&&/^[0-9]{3,5}x[0-9]{3,5}$/.test(ctxp.screen||'')&&['phone','tablet','desktop'].includes(ctxp.dev)&&/^[A-Za-z0-9-]{2,20}$/.test(ctxp.lang||''),'v0.6.0: every row carries a device id, language, screen size and device type ('+JSON.stringify({d:ctxp.device_id&&ctxp.device_id.slice(0,4)+'…',l:ctxp.lang,s:ctxp.screen,v:ctxp.dev,t:ctxp.tz,r:ctxp.ref})+')');
+    ok(posts.every(x=>x.device_id===ctxp.device_id),'the device id is the same on every row of the visit');
+    ok(!JSON.stringify(posts).match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/),'no IP address in anything sent');
     ok(posts.every(x=>Object.keys(x).every(k=>allowed.includes(k))),'only the planned fields are sent: '+[...new Set(posts.flatMap(Object.keys))].join(','));
     ok(a.every(x=>/^Q\d+$/.test(x.question_id)&&/^[0-9](,[0-9])*$/.test(x.picked)),'answer rows well formed (era, style and right/wrong are not sent; the Worker looks them up)');
     ok(posts.every(x=>/^[a-z0-9]{8,32}$/.test(x.round_id))&&new Set(posts.map(x=>x.round_id)).size===1,'v0.4.3: all 4 rows of the round share one round_id ('+posts[0].round_id+')');

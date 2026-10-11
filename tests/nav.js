@@ -22,7 +22,7 @@ for(const [dn,vp] of devs){
   await p.keyboard.press('Escape');ck(t+': Escape closes',await p.locator('#siteNavMenu').isHidden());
   await btn.click();await p.mouse.click(vp.width-20,60);ck(t+': tap outside closes',await p.locator('#siteNavMenu').isHidden());
   const sw=await p.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+1);ck(t+': no sideways scroll',!sw);
-  {const ver=await p.evaluate(()=>(document.getElementById('version')||document.getElementById('siteVer')||{}).textContent||'');ck(t+': version shown',/^v0\.5\.2\b/.test(ver),ver);}
+  {const ver=await p.evaluate(()=>(document.getElementById('version')||document.getElementById('siteVer')||{}).textContent||'');ck(t+': version shown',/^v0\.6\.0\b/.test(ver),ver);}
   ck(t+': no page errors',errs.length===0,errs);
   if(pg==='strategy.html'){const src=await p.getAttribute('#deck','src');ck(t+': deck embedded',src.includes('/presentation/d/'+DECK+'/embed'),src);
    {const c=p.locator('#deckComment'),g=p.locator('#backGlobe');const sty=l=>l.evaluate(e=>{const x=getComputedStyle(e);return [x.height,x.fontSize,x.borderRadius,x.borderTopColor,x.backgroundColor,x.color,x.paddingLeft].join('|')});const a=await sty(c),bb=await sty(g);ck(t+': Click to comment pill has the same height, font, border and colour as Back to the globe',await c.isVisible()&&a===bb,{a,bb});ck(t+': pill text and link',(await c.textContent()).trim()==='Click to comment in Google Slides'&&(await c.getAttribute('href')).includes('/presentation/d/'+DECK+'/edit'));}
