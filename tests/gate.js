@@ -34,11 +34,11 @@ for(const pg of ['strategy.html','roadmap.html']){
 // ---- roadmap page: visitor view (password only)
 {const {ctx,p,errs}=await mk({width:400,height:800});await p.goto(SITE+'roadmap.html');await p.waitForTimeout(400);await unlock(p);
  const heads=await p.$$eval('#thead th',a=>a.map(x=>x.textContent));
- ck('visitor: columns are ID, Feature, About, Recommended version, Status, Comments',heads.join('|')==='ID|Feature|About the feature|Recommended version|Status|Comments',heads);
- ck('visitor: help text shown',(await p.textContent('#help')).trim()==='Help shape the roadmap: tap any feature to leave a comment, or recommend a feature of your own.');
+ ck('visitor: columns are ID, Feature, About, Comments (column D), Recommended version, Status',heads.join('|')==='ID|Feature|About the feature|Comments|Recommended version|Status',heads);
+ ck('visitor: help text shown',(await p.textContent('#help')).trim()==='How you can help: Add comments in the appropriate cell. Recommend features.');
  ck('visitor: no search box, no owner filter, no admin buttons',await p.locator('#q').isHidden()&&await p.locator('#fOwner').isHidden()&&await p.locator('#admBar').isHidden()&&await p.locator('#colsBtn').isHidden()&&await p.locator('#expBtn').isHidden()&&await p.locator('#histBtn').isHidden());
  ck('visitor: no Source, Notes, Owner or Priority text anywhere on the page',!/Master doc s|WebDev-Handoff|Version plan/.test(await p.content()));
- const sb=await p.locator('#sugBtn').boundingBox(),fb=await p.locator('#fStatus').boundingBox();ck('visitor: Recommend a feature is on its own row, below the filters, right aligned',sb.y>fb.y+fb.height&&Math.abs(sb.x+sb.width-(400-16))<4,{sb,fb});
+ const sb=await p.locator('#sugBtn').boundingBox(),fb=await p.locator('#fStatus').boundingBox();ck('visitor: filters and Recommend a feature share the right-aligned row, with nothing above them',Math.abs(sb.x+sb.width-(400-16))<4&&sb.y>=fb.y-2&&sb.y<fb.y+fb.height+60&&await p.locator('#qbar').isHidden(),{sb,fb});
  ck('visitor 400px: page does not scroll sideways',!(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1)));
  await p.evaluate(()=>window.scrollTo(0,document.body.scrollHeight));await p.waitForTimeout(150);const nb=await p.locator('#siteNavBtn').boundingBox(),tw=await p.locator('#tw').boundingBox();
  ck('visitor 400px: nav tab does not cover the table',nb&&tw&&(nb.y>=tw.y+tw.height-1||nb.x+nb.width<=tw.x||nb.y+nb.height<=tw.y),{nb,tw});await p.evaluate(()=>window.scrollTo(0,0));

@@ -51,7 +51,7 @@
     if(ctl.tagName==='SELECT')ctl.addEventListener('change',function(){finish(true);});
   }
   function render(){
-    var adm=st.adminView&&st.admin,base=adm?ALL:PUB,cols=base.filter(function(c){return !(adm&&st.hidden[c[0]]);}).concat([CMT]),tr=h('tr');
+    var adm=st.adminView&&st.admin,base=adm?ALL:PUB,cols=base.filter(function(c){return !(adm&&st.hidden[c[0]]);}),tr=h('tr');if(adm)cols.push(CMT);else cols.splice(3,0,CMT);
     cols.forEach(function(c){var on=st.sort&&st.sort.k===c[0],th=h('th',{scope:'col','aria-sort':on?(st.sort.dir==='asc'?'ascending':'descending'):'none'});
       var b=h('button',{type:'button',class:'sortb',text:c[1]+(on?(st.sort.dir==='asc'?' ▲':' ▼'):''),'aria-label':'Sort by '+c[1]});b.onclick=function(){setSort(c[0]);};th.appendChild(b);tr.appendChild(th);});
     $('thead').innerHTML='';$('thead').appendChild(tr);
@@ -71,7 +71,7 @@
       tb.appendChild(row);});
     $('meta').textContent=n+' of '+st.rows.length+' features · '+(adm?'click a cell to edit it, a column heading to sort':'tap a feature to read or add a comment')+(adm?' · admin unlocked · version '+st.version:'');
     var ab=$('admBar');ab.hidden=!st.adminView;
-    $('q').hidden=!st.adminView;$('fOwner').hidden=!st.adminView;
+    $('qbar').hidden=!st.adminView;$('q').hidden=!st.adminView;$('fOwner').hidden=!st.adminView;
     $('admBtn').textContent=st.admin?'Admin unlocked':'Admin unlock';$('admBtn').disabled=st.admin;
     var imp=$('impLbl');imp.hidden=!st.admin;imp.style.display=st.admin?'inline-flex':'none';
   }
