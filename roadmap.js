@@ -51,7 +51,7 @@
     if(ctl.tagName==='SELECT')ctl.addEventListener('change',function(){finish(true);});
   }
   function render(){
-    var adm=st.adminView&&st.admin,base=adm?ALL:PUB,cols=base.filter(function(c){return !(adm&&st.hidden[c[0]]);}),tr=h('tr');if(adm)cols.push(CMT);else cols.splice(3,0,CMT);
+    var adm=st.adminView&&st.admin,base=adm?ALL:PUB,cols=base.filter(function(c){return !(adm&&st.hidden[c[0]]);}),tr=h('tr');if(adm)cols.push(CMT);else cols.splice(1,0,CMT);
     cols.forEach(function(c){var on=st.sort&&st.sort.k===c[0],th=h('th',{scope:'col','aria-sort':on?(st.sort.dir==='asc'?'ascending':'descending'):'none'});
       var b=h('button',{type:'button',class:'sortb',text:c[1]+(on?(st.sort.dir==='asc'?' ▲':' ▼'):''),'aria-label':'Sort by '+c[1]});b.onclick=function(){setSort(c[0]);};th.appendChild(b);tr.appendChild(th);});
     $('thead').innerHTML='';$('thead').appendChild(tr);

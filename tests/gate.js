@@ -34,7 +34,7 @@ for(const pg of ['strategy.html','roadmap.html']){
 // ---- roadmap page: visitor view (password only)
 {const {ctx,p,errs}=await mk({width:400,height:800});await p.goto(SITE+'roadmap.html');await p.waitForTimeout(400);await unlock(p);
  const heads=await p.$$eval('#thead th',a=>a.map(x=>x.textContent));
- ck('visitor: columns are ID, Feature, About, Comments (column D), Recommended version, Status',heads.join('|')==='ID|Feature|About the feature|Comments|Recommended version|Status',heads);
+ ck('visitor: columns are ID, Comments (column B), Feature, About, Recommended version, Status',heads.join('|')==='ID|Comments|Feature|About the feature|Recommended version|Status',heads);
  ck('visitor: help text shown',(await p.textContent('#help')).trim()==='How you can help: Add comments in the appropriate cell. Recommend features.');
  ck('visitor: no search box, no owner filter, no admin buttons',await p.locator('#q').isHidden()&&await p.locator('#fOwner').isHidden()&&await p.locator('#admBar').isHidden()&&await p.locator('#colsBtn').isHidden()&&await p.locator('#expBtn').isHidden()&&await p.locator('#histBtn').isHidden());
  ck('visitor: no Source, Notes, Owner or Priority text anywhere on the page',!/Master doc s|WebDev-Handoff|Version plan/.test(await p.content()));
