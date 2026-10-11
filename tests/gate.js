@@ -63,7 +63,7 @@ for(const pg of ['strategy.html','roadmap.html']){
  const sug=mw.raw.prepare('SELECT * FROM roadmap_suggestions').get();ck('visitor: the idea is saved with all four answers',sug&&sug.feature==='Family tree view'&&sug.accomplishes.startsWith('Shows')&&sug.about==='A simple tree.'&&sug.vision.startsWith('Tap a name')&&sug.name==='Sam',sug);
  ck('visitor: thanks shown and panel closed',/Thank you/.test(await p.textContent('#gmsg'))&&await p.locator('#pnl').isHidden());
  // team tools: each asks for the admin code
- ck('visitor: Team tools row shows View comments, Suggested features and Feedback results',(await p.$$eval('#tools button',a=>a.map(x=>x.textContent))).join('|')==='View comments|Suggested features|Feedback results');
+ ck('visitor: Team tools row shows View comments, Suggested features, Feedback results and Quiz and visitor results',(await p.$$eval('#tools button',a=>a.map(x=>x.textContent))).join('|')==='View comments|Suggested features|Feedback results|Quiz and visitor results');
  ck('visitor 400px: Team tools fit the screen',await p.$$eval('#tools button',a=>a.every(x=>{const r=x.getBoundingClientRect();return r.left>=0&&r.right<=400&&r.height>=43;})));
  await p.click('#cmtListBtn');await p.waitForTimeout(300);ck('visitor: View comments asks for the admin code',await p.locator('#f_adm').isVisible()&&/admin code/i.test(await p.textContent('#sheet')));
  await p.fill('#f_adm','wrong');await p.click('#sheet .btn.pri');await p.waitForTimeout(500);ck('visitor: a wrong admin code is refused and nothing is shown',/Incorrect admin code/.test(await p.textContent('#sheet'))&&!/Comments \(/.test(await p.textContent('#sheet')));
@@ -72,6 +72,7 @@ for(const pg of ['strategy.html','roadmap.html']){
  mw.raw.exec("INSERT INTO feedback (visit_id,topic,message,image) VALUES ('abcdefghij000001','Idea','Please add a family search.',NULL),('abcdefghij000002','Problem','The map is slow on my phone.','data:image/jpeg;base64,/9j/4AAQSkZJRg==')");
  await p.click('#fbListBtn');await p.waitForTimeout(700);ck('admin: Feedback results lists both messages (already unlocked, no second prompt)',/Feedback results \(2\)/.test(await p.textContent('#sheet'))&&/family search/.test(await p.textContent('#sheet'))&&await p.locator('#f_adm').count()===0);
  await p.locator('#sheet .cm button',{hasText:'Show photo'}).click();await p.waitForTimeout(500);ck('admin: Show photo loads the picture',await p.locator('#sheet .cm img').count()===1&&(await p.getAttribute('#sheet .cm img','src')).startsWith('data:image/jpeg;base64,'));await p.keyboard.press('Escape');
+ await p.keyboard.press('Escape');await p.click('#statsBtn');await p.waitForTimeout(700);ck('admin: Quiz and visitor results opens with the numbers',/Quiz and visitor results/.test(await p.textContent('#sheet'))&&/People who answered/.test(await p.textContent('#sheet'))&&await p.locator('#f_adm').count()===0);
  mw.raw.exec("DELETE FROM feedback");
  // a hand-made call from the visitor's browser cannot edit
  await p.evaluate(()=>OJJ_GATE.setAdmin(''));

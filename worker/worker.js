@@ -233,6 +233,25 @@ async function handleSite(req, env, url, origin) {
     const r = await env.DB.prepare('INSERT INTO roadmap_suggestions (name, feature, accomplishes, about, vision) VALUES (?, ?, ?, ?, ?)').bind(cleanName(b.name), v.feature, v.accomplishes, v.about, v.vision).run();
     return json(200, { id: r.meta.last_row_id }, origin);
   }
+  if (path === '/roadmap/stats' && req.method === 'GET') {            // admin only: quiz and visitor numbers. Test visits (ids starting "test-") are left out.
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
+    const q = async (sql) => { try { return ((await env.DB.prepare(sql).all()).results || []); } catch (e) { return null; } };
+    const one = async (sql) => { const r = await q(sql); return r && r[0] ? r[0] : {}; };
+    const REAL = "visit_id NOT LIKE 'test-%'";
+    const top = (col, n) => q('SELECT ' + col + ' AS k, COUNT(*) AS n FROM visits WHERE ' + REAL + " AND " + col + " IS NOT NULL AND " + col + " != '' GROUP BY " + col + ' ORDER BY n DESC, k LIMIT ' + n);
+    const [quiz, visitTot, devs, survey, eras, hard, country, region, city, dev, browser, os, lang, ref, last7] = await Promise.all([
+      one("SELECT COUNT(*) AS answers, SUM(correct) AS right, COUNT(DISTINCT visit_id) AS people, COUNT(DISTINCT round_id) AS rounds FROM responses WHERE kind='answer' AND " + REAL),
+      one('SELECT COUNT(*) AS visits, COUNT(DISTINCT device_id) AS devices FROM visits WHERE ' + REAL),
+      one('SELECT COUNT(*) AS back FROM (SELECT device_id FROM visits WHERE ' + REAL + " AND device_id IS NOT NULL AND device_id != '' GROUP BY device_id HAVING COUNT(*) > 1)"),
+      q("SELECT survey AS k, COUNT(*) AS n FROM responses WHERE kind='survey' AND " + REAL + " AND id IN (SELECT MAX(id) FROM responses WHERE kind='survey' GROUP BY visit_id) GROUP BY survey ORDER BY n DESC"),
+      q("SELECT era AS k, COUNT(*) AS n, SUM(correct) AS right FROM responses WHERE kind='answer' AND " + REAL + ' GROUP BY era ORDER BY era'),
+      q("SELECT question_id AS k, COUNT(*) AS n, SUM(correct) AS right FROM responses WHERE kind='answer' AND " + REAL + ' GROUP BY question_id HAVING COUNT(*) >= 5 ORDER BY (1.0 * SUM(correct) / COUNT(*)), n DESC LIMIT 5'),
+      top('country', 10), top('region', 10), top('city', 10), top('device_type', 5), top('browser', 8), top('os', 8), top('lang', 8), top('ref', 10),
+      one("SELECT COUNT(*) AS visits, COUNT(DISTINCT device_id) AS devices FROM visits WHERE " + REAL + " AND first_ts >= strftime('%Y-%m-%dT%H:%M:%SZ','now','-7 days')"),
+    ]);
+    return json(200, { quiz, visits: visitTot, returning: devs.back || 0, last7, survey: survey || [], eras: eras || [], hardest: hard || [],
+      where: { country, region, city }, using: { device: dev, browser, os, lang }, ref, visits_table: country !== null }, origin);
+  }
   if (path === '/roadmap/suggestions' && req.method === 'GET') {
     if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
     const r = await env.DB.prepare('SELECT id, ts, name, feature, accomplishes, about, vision FROM roadmap_suggestions ORDER BY id DESC LIMIT 200').all();

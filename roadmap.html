@@ -62,7 +62,7 @@ td.id{white-space:nowrap;color:var(--amber)}td.comments{min-width:170px;max-widt
 .msg{min-height:1.3em;margin:10px 0 0;font-size:.9rem}.msg.ok{color:#9FD3A8}.msg.bad{color:#F08A7B}
 .vl{list-style:none;margin:0;padding:0}.vl li button{width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);color:var(--text);font:inherit;padding:12px 4px;min-height:44px;cursor:pointer}
 .vl li button:hover{background:rgba(239,230,211,.06)}.vl .d{color:var(--muted);font-size:.8rem;display:block}
-.sheet table{font-size:12px}
+.sheet table{font-size:12px}.sheet table.st{width:100%;margin:0 0 6px}.sheet table.st td,.sheet table.st th{padding:5px 8px;max-width:none}.sheet h3.sh{font-size:.95rem;color:var(--amber);margin:16px 0 4px}.sheet .big{display:flex;flex-wrap:wrap;gap:8px}.sheet .big div{flex:1 1 130px;border:1px solid var(--line);border-radius:10px;padding:8px 10px}.sheet .big b{display:block;font-size:1.3rem}.sheet .big span{color:var(--muted);font-size:.8rem}
 </style>
 <body>
 <div class="wrap">
@@ -84,7 +84,7 @@ td.id{white-space:nowrap;color:var(--amber)}td.comments{min-width:170px;max-widt
     </div>
     <p class="meta" id="meta" role="status"></p>
     <div class="tw" id="tw"><table id="tbl"><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
-    <div class="bar tools" id="tools"><span class="meta">Team tools (admin code required):</span><button class="btn" id="cmtListBtn" type="button">View comments</button><button class="btn" id="sugListBtn" type="button">Suggested features</button><button class="btn" id="fbListBtn" type="button">Feedback results</button></div>
+    <div class="bar tools" id="tools"><span class="meta">Team tools (admin code required):</span><button class="btn" id="cmtListBtn" type="button">View comments</button><button class="btn" id="sugListBtn" type="button">Suggested features</button><button class="btn" id="fbListBtn" type="button">Feedback results</button><button class="btn" id="statsBtn" type="button">Quiz and visitor results</button></div>
     <p class="msg" id="gmsg" role="status"></p>
   </div>
 </div>

@@ -148,6 +148,19 @@ const CODE='test-code-'+Math.random().toString(36).slice(2),ADMIN='test-admin-'+
   ok((await call('GET','/roadmap/feedback/image?id=2',{gate:T,admin:A})).d.image==='data:image/jpeg;base64,/9j/AAAA'&&(await call('GET','/roadmap/feedback/image?id=1',{gate:T,admin:A})).s===404,'admin loads a photo by id; no photo gives 404');
   raw.exec("DELETE FROM feedback");
 
+  // v0.6.1: admin-only quiz and visitor results; test visits are left out
+  raw.exec("INSERT INTO question_lock (id,era,style,kind,n,correct_idx) VALUES ('qa','E1','s','mc',3,0)");
+  raw.exec("INSERT INTO responses (visit_id,kind,question_id,era,style,picked,correct,round_id) VALUES ('realvisit0000001','answer','qa','E1','s','0',1,'r1'),('realvisit0000001','answer','qa','E1','s','1',0,'r1'),('realvisit0000002','answer','qa','E1','s','0',1,'r2'),('test-visit0000001','answer','qa','E1','s','0',1,'r3'),('realvisit0000001','survey',NULL,NULL,NULL,NULL,NULL,NULL)");
+  raw.exec("UPDATE responses SET survey='A lot' WHERE kind='survey'");
+  raw.exec("INSERT INTO visits (visit_id,device_id,country,region,city,device_type,browser,os,lang,ref) VALUES ('realvisit0000001','dev0000000000001','US','Georgia','Atlanta','phone','Safari','iOS','en-US','whatsapp'),('realvisit0000002','dev0000000000001','US','Georgia','Atlanta','phone','Safari','iOS','en-US',NULL),('realvisit0000003','dev0000000000002','IL','Tel Aviv','Tel Aviv','desktop','Chrome','Windows','he',NULL),('test-visit0000001','dev0000000000009','FR','x','Paris','desktop','Chrome','Mac','fr',NULL)");
+  ok((await call('GET','/roadmap/stats',{gate:T})).s===403,'a visitor cannot read the results (403)');
+  ok((await call('GET','/roadmap/stats')).s===401,'results without a token refused (401)');
+  const stt=await call('GET','/roadmap/stats',{gate:T,admin:A});
+  ok(stt.s===200&&stt.d.quiz.answers===3&&stt.d.quiz.right===2&&stt.d.quiz.people===2&&stt.d.quiz.rounds===2,'results count answers, people and rounds without test visits '+JSON.stringify(stt.d.quiz));
+  ok(stt.d.visits.visits===3&&stt.d.visits.devices===2&&stt.d.returning===1,'results count visits, devices and returning devices without test visits '+JSON.stringify(stt.d.visits));
+  ok(stt.d.where.country[0].k==='US'&&stt.d.where.country[0].n===2&&!JSON.stringify(stt.d).includes('Paris')&&stt.d.survey[0].k==='A lot'&&stt.d.ref[0].k==='whatsapp','results list places, ratings and sources; test visit left out');
+  raw.exec("DELETE FROM responses;DELETE FROM visits;DELETE FROM question_lock");
+
   // logging endpoint still works next to the site routes; CORS allows the new headers
   ok(await W.fetch(new Request('https://x/',{method:'POST',body:'{nope'}),env).then(r=>r.status)===400,'logging route still answers (bad JSON 400)');
   const oh=await W.fetch(new Request('https://x/roadmap',{method:'OPTIONS',headers:{Origin:'https://jgoldatl.github.io'}}),env);
