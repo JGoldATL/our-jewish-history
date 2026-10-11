@@ -160,7 +160,7 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
   { // footer version on the globe page
     const ctx=await b.newContext({viewport:{width:1200,height:800}});const p=await ctx.newPage();await p.route(/fonts\.|googletagmanager/,r=>r.abort());
     await p.goto('http://localhost:8778/');await p.waitForTimeout(2500);
-    ok(/^v0\.5\.2 /.test(await p.$eval('#version',e=>e.textContent)),'footer reads v0.5.2');await ctx.close();
+    ok(/^v0\.6\.0 /.test(await p.$eval('#version',e=>e.textContent)),'footer reads v0.6.0');await ctx.close();
   }
   await b.close();console.log(fails?fails+' FAILED':'ALL PASS');process.exit(fails?1:0);
 })();
