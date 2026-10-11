@@ -29,6 +29,8 @@ h1{font-family:Georgia,"Times New Roman",serif;font-weight:600;font-size:1.5rem;
 .wrap{max-width:none;padding-left:16px;padding-right:16px;padding-bottom:72px}
 .top .help{flex:1 1 220px;margin:0;padding:8px 12px;border-radius:10px;background:rgba(239,230,211,.08);border:1px solid var(--line);color:var(--text);font-size:.95rem;text-align:center}
 .top{flex-wrap:wrap}
+.bar.tools{margin:12px 0 0;align-items:center}.bar.tools .meta{margin:0 4px 0 0}
+.cm img{display:block;max-width:100%;margin-top:8px;border-radius:8px}.cm h3{font-size:.95rem;margin:0 0 4px;color:var(--amber)}
 .bar.right{justify-content:flex-end}.bar[hidden],.bar select[hidden],.bar input[hidden]{display:none}
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
 .bar input[type=search],.bar select{height:44px;border-radius:10px;border:1px solid rgba(239,230,211,.28);background:var(--night);color:var(--text);font:inherit;font-size:15px;padding:0 10px;min-width:0}
@@ -77,12 +79,12 @@ td.id{white-space:nowrap;color:var(--amber)}td.comments{min-width:170px;max-widt
       <button class="btn" id="colsBtn" type="button" aria-expanded="false">Columns</button>
       <button class="btn" id="histBtn" type="button">Version history</button>
       <button class="btn" id="expBtn" type="button">Export CSV</button>
-      <button class="btn" id="sugListBtn" type="button">Suggestions</button>
       <button class="btn" id="admBtn" type="button">Admin unlock</button>
       <label class="btn" id="impLbl" hidden style="display:none;align-items:center">Import CSV<input type="file" id="impFile" accept=".csv,text/csv" hidden></label>
     </div>
     <p class="meta" id="meta" role="status"></p>
     <div class="tw" id="tw"><table id="tbl"><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+    <div class="bar tools" id="tools"><span class="meta">Team tools (admin code required):</span><button class="btn" id="cmtListBtn" type="button">View comments</button><button class="btn" id="sugListBtn" type="button">Suggested features</button><button class="btn" id="fbListBtn" type="button">Feedback results</button></div>
     <p class="msg" id="gmsg" role="status"></p>
   </div>
 </div>

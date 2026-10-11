@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION=window.SITE_VERSION||'0.5.1';   // set in version.js
+const APP_VERSION=window.SITE_VERSION||'0.5.2';   // set in version.js
 /* Jewish Journeys · Globe preview
    Rendering layer only. Records, validation, frame resolution and evidence rules come from engine.js,
    ported verbatim from Alpha 1.13, so historical behaviour is unchanged. */
@@ -256,8 +256,13 @@ function closeStory(){selected=null;lastAutoIdx=-1;render();}
 /* ---------- playback ---------- */
 function setPos(p){position=Math.max(0,Math.min(1,p));render();}
 function setYearExact(y){position=posForYear(y);render();}
-function startTour(){stopTour();dismissPrompt();selected=null;lastAutoIdx=-1;view.manual=false;view.zoom=1;view.R=view.baseR;if(position>=0.999)position=posForYear(DATA.presentation?.openingYear??DATA.timeline.start);const from=position,dur=DATA.presentation?.tourDurationMs||20000,t0=performance.now();
-  const step=now=>{position=Math.min(1,from+(now-t0)/dur*(1-from));render();if(position>=1){stopTour();return;}tour=requestAnimationFrame(step);};tour=requestAnimationFrame(step);setPlayUI(true);}
+function startTour(){stopTour();dismissPrompt();selected=null;lastAutoIdx=-1;view.manual=false;view.zoom=1;view.R=view.baseR;if(position>=0.999)position=posForYear(DATA.presentation?.openingYear??DATA.timeline.start);const from=position,dur=DATA.presentation?.tourDurationMs||20000,dwell=DATA.presentation?.cardDwellMs??2000,t0=performance.now();
+  // Play moves quickly through long gaps in history, but holds still for cardDwellMs (2 seconds) each time a card comes up, so it can be read.
+  let last=t0,prevIdx=lastMilestoneIdx(Math.round(currentYear())),dwellUntil=prevIdx>=0?t0+dwell:0;
+  const step=now=>{const dt=now-last;last=now;if(now<dwellUntil){tour=requestAnimationFrame(step);return;}
+    position=Math.min(1,position+dt/dur*(1-from));render();if(position>=1){stopTour();return;}
+    const idx=lastMilestoneIdx(Math.round(currentYear()));if(idx>prevIdx)dwellUntil=now+dwell;prevIdx=Math.max(prevIdx,idx);
+    tour=requestAnimationFrame(step);};tour=requestAnimationFrame(step);setPlayUI(true);}
 function stopTour(){if(tour!=null)cancelAnimationFrame(tour);tour=null;cancelTurn();setPlayUI(false);}
 // Play and Pause are drawn shapes in the same style (black, same height and weight), never text characters.
 const ICO_PLAY='M3.5,1.5 L13.5,8 L3.5,14.5 Z',ICO_PAUSE='M3.5,1.5 H6.5 V14.5 H3.5 Z M9.5,1.5 H12.5 V14.5 H9.5 Z';

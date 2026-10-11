@@ -139,6 +139,15 @@ const CODE='test-code-'+Math.random().toString(36).slice(2),ADMIN='test-admin-'+
   const bigRow=[];for(let i=0;i<101;i++)raw.exec("INSERT INTO roadmap_comments (feature_id,comment) VALUES ('F-004','c"+i+"')");
   ok((await call('POST','/roadmap/comment',{gate:T,body:{feature_id:'F-004',comment:'one more'}})).s===429,'a row holds at most 100 comments (429)');raw.exec("DELETE FROM roadmap_comments");
 
+  // v0.5.2: feedback results for the admin (photos load one at a time)
+  raw.exec("INSERT INTO feedback (visit_id,topic,message,image) VALUES ('abcdefghij000001','Idea','Please add a family search.',NULL),('abcdefghij000002','Problem','The map is slow on my phone.','data:image/jpeg;base64,/9j/AAAA')");
+  ok((await call('GET','/roadmap/feedback',{gate:T})).s===403&&(await call('GET','/roadmap/feedback/image?id=2',{gate:T})).s===403,'a visitor cannot read feedback or photos (403)');
+  ok((await call('GET','/roadmap/feedback')).s===401,'feedback list without a token refused (401)');
+  const fl=await call('GET','/roadmap/feedback',{gate:T,admin:A});
+  ok(fl.s===200&&fl.d.feedback.length===2&&fl.d.feedback[0].id>fl.d.feedback[1].id&&fl.d.feedback.find(f=>f.topic==='Problem').has_image===1&&!JSON.stringify(fl.d).includes('/9j/'),'admin gets the feedback list newest first, with has_image and no photo data in the list');
+  ok((await call('GET','/roadmap/feedback/image?id=2',{gate:T,admin:A})).d.image==='data:image/jpeg;base64,/9j/AAAA'&&(await call('GET','/roadmap/feedback/image?id=1',{gate:T,admin:A})).s===404,'admin loads a photo by id; no photo gives 404');
+  raw.exec("DELETE FROM feedback");
+
   // logging endpoint still works next to the site routes; CORS allows the new headers
   ok(await W.fetch(new Request('https://x/',{method:'POST',body:'{nope'}),env).then(r=>r.status)===400,'logging route still answers (bad JSON 400)');
   const oh=await W.fetch(new Request('https://x/roadmap',{method:'OPTIONS',headers:{Origin:'https://jgoldatl.github.io'}}),env);

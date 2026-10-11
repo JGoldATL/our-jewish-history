@@ -22,10 +22,10 @@ for(const [dn,vp] of devs){
   await p.keyboard.press('Escape');ck(t+': Escape closes',await p.locator('#siteNavMenu').isHidden());
   await btn.click();await p.mouse.click(vp.width-20,60);ck(t+': tap outside closes',await p.locator('#siteNavMenu').isHidden());
   const sw=await p.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+1);ck(t+': no sideways scroll',!sw);
-  {const ver=await p.evaluate(()=>(document.getElementById('version')||document.getElementById('siteVer')||{}).textContent||'');ck(t+': version shown',/^v0\.5\.1\b/.test(ver),ver);}
+  {const ver=await p.evaluate(()=>(document.getElementById('version')||document.getElementById('siteVer')||{}).textContent||'');ck(t+': version shown',/^v0\.5\.2\b/.test(ver),ver);}
   ck(t+': no page errors',errs.length===0,errs);
   if(pg==='strategy.html'){const src=await p.getAttribute('#deck','src');ck(t+': deck embedded',src.includes('/presentation/d/'+DECK+'/embed'),src);
-   {const c=p.locator('#deckComment');const lines=await c.locator('span').allTextContents();const fs=await c.locator('span').evaluateAll(a=>a.map(x=>parseFloat(getComputedStyle(x).fontSize)));ck(t+': Click to comment pill, two rows, top row larger',await c.isVisible()&&lines.join('|')==='Click to comment|in Google Slides'&&fs[0]>fs[1],{lines,fs});ck(t+': pill opens the deck in Google Slides edit view',(await c.getAttribute('href')).includes('/presentation/d/'+DECK+'/edit'),await c.getAttribute('href'));}
+   {const c=p.locator('#deckComment'),g=p.locator('#backGlobe');const sty=l=>l.evaluate(e=>{const x=getComputedStyle(e);return [x.height,x.fontSize,x.borderRadius,x.borderTopColor,x.backgroundColor,x.color,x.paddingLeft].join('|')});const a=await sty(c),bb=await sty(g);ck(t+': Click to comment pill has the same height, font, border and colour as Back to the globe',await c.isVisible()&&a===bb,{a,bb});ck(t+': pill text and link',(await c.textContent()).trim()==='Click to comment in Google Slides'&&(await c.getAttribute('href')).includes('/presentation/d/'+DECK+'/edit'));}
    ck(t+': fallback link',(await p.getAttribute('#deckOpen','href')).includes(DECK));
    ck(t+': current page marked',await p.locator('#siteNavMenu a[aria-current="page"]').count()===1);
    const fr=await p.locator('.frame').boundingBox();ck(t+': deck fits width',fr.width<=vp.width&&Math.abs(fr.width/fr.height-16/9)<0.05,{w:Math.round(fr.width),h:Math.round(fr.height)});

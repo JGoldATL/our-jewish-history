@@ -224,6 +224,17 @@ async function handleSite(req, env, url, origin) {
     const r = await env.DB.prepare('SELECT id, ts, name, feature, accomplishes, about, vision FROM roadmap_suggestions ORDER BY id DESC LIMIT 200').all();
     return json(200, { suggestions: r.results || [] }, origin);
   }
+  if (path === '/roadmap/feedback' && req.method === 'GET') {          // feedback-page messages, newest first; photos load one at a time
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
+    const r = await env.DB.prepare('SELECT id, ts, topic, message, (image IS NOT NULL) AS has_image FROM feedback ORDER BY id DESC LIMIT 200').all();
+    return json(200, { feedback: r.results || [] }, origin);
+  }
+  if (path === '/roadmap/feedback/image' && req.method === 'GET') {
+    if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
+    const id = Number(url.searchParams.get('id'));
+    const r = Number.isInteger(id) ? await env.DB.prepare('SELECT image FROM feedback WHERE id = ?').bind(id).first() : null;
+    return r && r.image ? json(200, { image: r.image }, origin) : json(404, { error: 'no_image' }, origin);
+  }
   if (path === '/roadmap/versions' && req.method === 'GET') {
     if (!(await isAdmin())) return json(403, { error: 'admin_only' }, origin);
     const r = await env.DB.prepare('SELECT version_id, saved_at, saved_by_label, summary FROM roadmap_versions ORDER BY version_id DESC LIMIT 200').all();
