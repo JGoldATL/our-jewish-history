@@ -27,7 +27,7 @@ button:focus-visible,select:focus-visible,a:focus-visible,[tabindex]:focus-visib
 .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 32px 0;padding-top:max(20px,env(safe-area-inset-top));flex-wrap:wrap}
 .brand{display:flex;flex-direction:column;gap:2px}
 .brand h1{margin:0;font-family:var(--serif);font-weight:700;font-size:30px;line-height:1;color:var(--cream);letter-spacing:.3px}
-.brand p{margin:0;font-size:13px;color:var(--muted)}
+.brand p{margin:2px 0 0;font:italic 600 17px var(--serif);color:var(--amber)}
 .tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;position:relative}
 .pill{height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);font-size:14px;cursor:pointer}
 .pill:hover{background:rgba(239,230,211,.12)}
@@ -173,7 +173,7 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
  #panel .mnav{position:sticky;bottom:-24px;z-index:3;padding:10px 0 12px;margin-bottom:-12px;background:linear-gradient(to bottom,rgba(14,24,34,0),rgba(14,24,34,.94) 30%)}
 }
 @media (max-width:620px){
- .brand p{display:none}.brand h1{font-size:24px}.top{gap:10px;padding:10px 16px 6px}
+ .brand p{font-size:14px;margin-top:2px}.brand h1{font-size:24px}.top{gap:10px;padding:10px 16px 6px}
  .pill,.seg button{white-space:nowrap}.pill{height:38px;padding:0 10px;font-size:12.5px}.seg{padding:3px}.seg button{height:30px;padding:0 7px;font-size:12px}
  #stage{height:min(calc(84vw + 80px),48svh)}#panel>.rule{display:none}
  #panel>div:first-child{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}.year{font-size:40px;letter-spacing:-1px}.year span{font-size:18px;margin-left:8px}.era{font-size:13px}#panel{gap:10px}#story h2{font-size:28px}
@@ -225,7 +225,20 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 
 /* ---- Movements page additions (everything above is the globe's own stylesheet, copied so the two pages match) ---- */
 #stage{display:flex;flex-direction:column;min-height:300px;touch-action:auto}
-#mapWrap{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;border-radius:18px;touch-action:none;cursor:grab;background:#111d29;border:1px solid var(--line)}
+/* Suspended map: no box. The map fades out in an oval before it reaches any edge, with faint orbit rings, a warm glow and a soft shadow beneath. */
+#mapWrap{position:relative;flex:1 1 auto;min-height:0;overflow:visible;touch-action:none;cursor:grab;background:transparent;border:0}
+#map{-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 30%,rgba(0,0,0,.78) 56%,rgba(0,0,0,.32) 80%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 30%,rgba(0,0,0,.78) 56%,rgba(0,0,0,.32) 80%,transparent 100%)}
+#mapWrap::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 20%,transparent 98%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 20%,transparent 98%);background:repeating-radial-gradient(ellipse 50% 50% at 50% 50%,rgba(255,242,222,0) 0 42px,rgba(255,242,222,.10) 42px 43px)}
+#mapWrap::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:radial-gradient(ellipse 28% 34% at 46% 46%,rgba(255,200,130,.16),rgba(255,200,130,0) 70%),radial-gradient(ellipse 34% 5% at 50% 96%,rgba(0,0,0,.5),transparent 75%)}
+#map path{filter:drop-shadow(0 0 5px rgba(242,166,90,.5))}
+.prompt .eyebrow{color:var(--amber)}
+.prompt p.t{font-size:36px;line-height:1.05;font-weight:700;text-wrap:balance;letter-spacing:-.2px}
+.prompt p.t em{font-style:italic;font-weight:600;color:var(--amber)}
+.prompt p.t .sh{display:none}
+.prompt .stats{display:flex;gap:22px;padding-top:12px;border-top:1px solid var(--line)}
+.prompt .stats div{font-size:12px;color:var(--muted);letter-spacing:.4px}
+.prompt .stats b{display:block;font:italic 600 30px var(--serif);color:var(--cream);letter-spacing:0}
+@media (max-width:620px) and (orientation:portrait){.prompt p.t{font-size:23px}.prompt p.t .lg{display:none}.prompt p.t .sh{display:inline}.prompt .stats{display:none}}
 #mapWrap.drag{cursor:grabbing}
 #map{position:absolute;inset:0;width:100%;height:100%;display:block;user-select:none;-webkit-user-select:none}
 .sel{position:absolute;left:10px;top:10px;right:10px;display:flex;gap:7px;flex-wrap:wrap;z-index:5;pointer-events:none}
@@ -277,7 +290,7 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 </head>
 <body>
 <header class="top">
-<div class="brand"><h1><a href="index.html">Our Jewish Journey</a></h1><p>Where the Jewish people went, and why</p></div>
+<div class="brand"><h1><a href="index.html">Our Jewish Journey</a></h1><p>Why did Jews spread throughout the world?</p></div>
 <div class="tools">
 <a class="pill quiz" id="quizLink" href="quiz.html"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/><ellipse cx="8" cy="8" rx="2.8" ry="6.5" fill="none" stroke="currentColor" stroke-width="1" opacity=".6"/><path d="M1.5 8h13" stroke="currentColor" stroke-width="1" opacity=".6"/><circle cx="10.3" cy="5.6" r="2" fill="#f2a65a"/></svg>Take a Quiz</a>
 <a class="pill" id="globeLink" href="index.html">Globe</a>
@@ -302,8 +315,9 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 <div class="rule"></div>
 <div class="prompt" id="prompt">
 <div class="eyebrow">Follow the journeys</div>
-<p>Watch the Jewish People move across the map, from the first exile to the modern era.</p>
+<p class="t">Watch the Jewish people <em>cover the globe</em><span class="lg">, beginning with the first exile in 722 BCE.</span><span class="sh"> from 722 BCE.</span></p>
 <div class="row"><button type="button" class="pill primary" id="introPlay"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5,1.5 L13.5,8 L3.5,14.5 Z"/></svg><span>Play the journeys</span></button><button type="button" class="pill" id="introExplore">Explore on my own &darr;</button></div>
+<div class="stats" id="stats"><div><b id="stRoutes">79</b>journeys</div><div><b id="stCauses">5</b>causes</div><div><b id="stYears">2,700+</b>years</div></div>
 </div>
 <article id="story" class="pinned"></article>
 <div class="mnav"><button type="button" class="pill" id="prev">&lsaquo; Previous</button><button type="button" class="pill primary" id="play" aria-pressed="false"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path id="playIco" d="M3.5,1.5 L13.5,8 L3.5,14.5 Z"/></svg><span id="playLbl">Play</span></button><button type="button" class="pill" id="next">Next &rsaquo;</button></div>

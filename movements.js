@@ -298,6 +298,7 @@ function reset(){
   stopPlay();F.era=null;F.cause=null;F.trails=false;SEL=null;auto=true;lastKey='';
   document.querySelectorAll('#options button').forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.trails==='on')===F.trails)));
   selectors();setYear(MINY);card();$('panel').classList.add('inviting');
+  {const e=(id,t)=>{const n=$(id);if(n)n.textContent=t;};e('stRoutes',String(ROUTES.length));e('stCauses',String(CAUSES.length));e('stYears',(Math.floor((new Date().getFullYear()-FIRST_YEAR-1)/100)*100).toLocaleString('en-US')+'+');}
   const v=followTarget();setView(v||HOME,600);
 }
 
