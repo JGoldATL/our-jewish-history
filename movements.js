@@ -129,7 +129,7 @@ function paint(){
   el('image',{href:'images/map-night.jpg',x:x0,y:y0,width:360*s,height:180*s,preserveAspectRatio:'none'},svg);
   const selEv=SEL?EVENTS.get(SEL.ev):null,selId=SEL?.id||null,selPar=SEL?.parent&&selEv?(selEv.parents||[]).find(p=>p.id===SEL.parent):null,legs=selPar?selPar.legs:null;
   const gR=el('g',{},svg),gP=el('g',{},svg),gL=el('g',{},svg),gH=el('g',{},svg);
-  let shown=0;const pins=new Map(),labels=new Map();
+  let shown=0;const pins=new Map(),cand=new Map();
   const list=ROUTES.filter(r=>pass(r)||(selEv&&r.ev===selEv.key));
   const coarse=matchMedia('(pointer:coarse)').matches;
   for(const r of list){
@@ -154,15 +154,19 @@ function paint(){
     }
     el('path',{d,fill:'none',stroke:'transparent','stroke-width':coarse?30:18,style:'cursor:pointer','data-id':r.id,role:'button','aria-label':`${shortName(r.a)} to ${shortName(r.b)}, ${yearLabel(r.start)}`},gH);
     pins.set(r.m.destinationPlaceId,[B,o,isSel]);pins.set(r.m.originPlaceId,pins.get(r.m.originPlaceId)||[A,o,false]);
-    if(inSel){labels.set(r.m.originPlaceId,A);labels.set(r.m.destinationPlaceId,B);}
-    else if(V.degW<60&&st.active)labels.set(r.m.destinationPlaceId,B);
+    if(inSel||st.active){const rk=inSel?0:2,add=(id,p,k)=>{const c=cand.get(id);if(!c||k<c.k)cand.set(id,{p,k});};add(r.m.originPlaceId,A,rk);add(r.m.destinationPlaceId,B,rk+1);}
   }
   for(const [id,[p,o,isSel]] of pins){el('circle',{cx:p[0],cy:p[1],r:isSel?7:3.8,fill:isSel?'#0E1822':OUTLINE,stroke:isSel?'#E07B6E':'none','stroke-width':isSel?3:0,opacity:Math.max(.55,o)},gP);}
-  const placed=[];
-  for(const [id,p] of labels){const name=shortName(PL.get(id)),w=name.length*7.4+8,bx={x:p[0]-w/2,y:p[1]-26,w,h:16};
-    if(placed.some(q=>bx.x<q.x+q.w&&bx.x+bx.w>q.x&&bx.y<q.y+q.h&&bx.y+bx.h>q.y))continue;   // no overlapping labels
-    placed.push(bx);
-    const t=el('text',{x:p[0],y:p[1]-11,'text-anchor':'middle','font-size':13,'font-weight':600,fill:'#EFE6D3','font-family':'Instrument Sans,Arial,sans-serif','paint-order':'stroke',stroke:'#0E1822','stroke-width':3.5,'stroke-linejoin':'round'},gL);t.textContent=name;}
+  /* Place names: every journey's start first, then its end, then the rest; a name that would overlap one already placed tries below the dot, then waits until you zoom in. */
+  const placed=[],order=[...cand].sort((x,y)=>x[1].k-y[1].k),fs=phone()?12:13;
+  for(const [id,{p}] of order){
+    const name=shortName(PL.get(id));if(!name||p[0]<6||p[0]>W-6||p[1]<6||p[1]>H-6)continue;
+    const w=name.length*(fs*.57)+8,hit=bx=>placed.some(q=>bx.x<q.x+q.w&&bx.x+bx.w>q.x&&bx.y<q.y+q.h&&bx.y+bx.h>q.y);
+    let pos=null;
+    for(const dy of [-26,8]){const bx={x:p[0]-w/2,y:p[1]+dy,w,h:fs+3};if(!hit(bx)){pos={bx,ty:dy<0?p[1]-11:p[1]+8+fs};break;}}
+    if(!pos)continue;placed.push(pos.bx);
+    const t=el('text',{x:p[0],y:pos.ty,'text-anchor':'middle','font-size':fs,'font-weight':600,fill:'#EFE6D3','font-family':'Instrument Sans,Arial,sans-serif','paint-order':'stroke',stroke:'#0E1822','stroke-width':3.5,'stroke-linejoin':'round'},gL);t.textContent=name;t.setAttribute('class','plname');
+  }
   $('count').textContent=`${shown} route${shown===1?'':'s'} shown`;
 }
 

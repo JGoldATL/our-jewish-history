@@ -12,6 +12,12 @@ ck(base.n===79,n+' 79 routes ('+base.n+')');ck(base.min===-722,n+' starts at the
 ck(JSON.stringify(base.causes.filter(Boolean))===JSON.stringify(['Deportation','Expulsion','Persecution','Relocation','Voluntary migration']),n+' five cause headings '+base.causes);
 const ids=await p.evaluate(()=>[...document.querySelectorAll('#sel .pill')].map(x=>x.textContent.replace(/\s+/g,' ').trim()));
 ck(ids.length===2&&/^Era/.test(ids[0])&&/^Cause/.test(ids[1]),n+' only Era and Cause filters '+ids);
+{await p.evaluate(()=>{MV.setYear(1654);MV.follow();});await p.waitForTimeout(700);
+ const L=await p.evaluate(()=>[...document.querySelectorAll('.plname')].map(t=>t.textContent));
+ ck(L.includes('Recife')&&L.includes('Amsterdam')&&L.includes('New Amsterdam'),n+' place names show at journey starts and ends ('+L.length+' names at 1654)');
+ const nm=await p.evaluate(()=>{const o=new Set(MV.routes.filter(r=>r.start<=1654&&1654<=r.end+15).map(r=>r.m.originPlaceId));return o.size;});
+ ck(L.length>=Math.min(6,nm),n+' at least the first starts are named');
+ await p.evaluate(()=>{MV.setYear(1654);});}
 {const tk=await p.evaluate(()=>[...document.querySelectorAll('#ticks button')].map(b=>b.textContent).join('|'));ck(tk==='Biblical|Ancient History|Middle Ages|Early Modern History|Modern History|Contemporary History',n+' era tabs are the six accepted eras ('+tk+')');
  const intro=await p.evaluate(()=>({t:document.querySelector('#prompt .t').innerText,stats:!!document.getElementById('stats')}));ck(/spread throughout the earth/.test(intro.t)&&!intro.stats,n+' intro line updated and stats row removed');
  const pr=await p.evaluate(()=>{const out=[];for(const g of MV.gaps()){if(g[1]-g[0]<150)continue;let t=0,y=g[0];while(y<g[1]){y+=MV.playRate(y)*0.016;t+=0.016;}out.push(t);}return out;});ck(pr.length>0&&pr.every(t=>t<2.2),n+' long gaps with no journeys play in about 2 seconds ('+pr.map(t=>t.toFixed(1)).join(', ')+')');}
