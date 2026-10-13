@@ -44,6 +44,14 @@ function build(){
   for(const r of ROUTES){let e=EVENTS.get(r.ev);if(!e){const c=CARDS.get(r.ev);e={key:r.ev,card:c&&(c.status==='approved'||DRAFTS)?c:null,routes:[]};EVENTS.set(r.ev,e);}e.routes.push(r);}
   for(const e of EVENTS.values()){e.routes.sort((a,b)=>a.start-b.start||a.id.localeCompare(b.id));
     e.title=e.card?.title||`${shortName(e.routes[0].a)} to ${shortName(e.routes[0].b)}`;e.start=e.card?.startYear??e.routes[0].start;}
+  /* Parent rows (no arrow of their own, e.g. MOV-054 Barbados, MOV-055 New Amsterdam): their route is the leg rows that list them in Linked records,
+     plus any earlier leg that ends where a leg begins (Recife to Amsterdam, then Amsterdam to Barbados). Tapping the parent chip lights all legs. */
+  for(const m of S.movements){
+    if(m.arrowEndsReady||!m.branch||!m.eventId)continue;const e=EVENTS.get(m.eventId);if(!e)continue;
+    const legs=new Set(e.routes.filter(r=>(r.m.links||[]).includes(m.id)).map(r=>r.id));if(!legs.size)continue;
+    for(const id of [...legs]){let L=route(id),guard=0;while(L&&L.m.originPlaceId!==m.originPlaceId&&guard++<6){const X=e.routes.find(x=>x.m.destinationPlaceId===L.m.originPlaceId&&x.start<=L.start&&!legs.has(x.id));if(!X)break;legs.add(X.id);L=X;}}
+    (e.parents||(e.parents=[])).push({id:m.id,m,legs,label:m.destination});
+  }
   MINY=Math.min(...ROUTES.map(r=>r.start));MAXY=Math.max(...ROUTES.map(r=>r.end));
 }
 const route=id=>ROUTES.find(r=>r.id===id);
@@ -99,16 +107,16 @@ function paint(){
   const defs=el('defs',{},svg);
   for(const c of new Set(ROUTES.map(r=>r.color))){const m=el('marker',{id:'ah'+c.slice(1),viewBox:'0 0 10 10',refX:'7',refY:'5',markerWidth:'4.5',markerHeight:'4.5',orient:'auto'},defs);el('path',{d:'M0,0L10,5L0,10z',fill:c},m);}
   el('image',{href:'images/map-night.jpg',x:x0,y:y0,width:360*s,height:180*s,preserveAspectRatio:'none'},svg);
-  const selEv=SEL?EVENTS.get(SEL.ev):null,selId=SEL?.id||null,gR=el('g',{},svg),gP=el('g',{},svg),gL=el('g',{},svg),gH=el('g',{},svg);
+  const selEv=SEL?EVENTS.get(SEL.ev):null,selId=SEL?.id||null,selPar=SEL?.parent&&selEv?(selEv.parents||[]).find(p=>p.id===SEL.parent):null,legs=selPar?selPar.legs:null,gR=el('g',{},svg),gP=el('g',{},svg),gL=el('g',{},svg),gH=el('g',{},svg);
   let shown=0;const pins=new Map(),labels=new Map();
   const list=ROUTES.filter(r=>pass(r)||(selEv&&r.ev===selEv.key));
   for(const r of list){
-    const inSel=selEv&&r.ev===selEv.key,isSel=r.id===selId;
+    const inSel=selEv&&r.ev===selEv.key,isSel=legs?legs.has(r.id):r.id===selId;
     let st=strength(r);
     if(inSel){st=st||{o:1,active:true};}
     if(!st)continue;
     if(!st.active&&!inSel&&selEv)continue;
-    let o=st.o;if(selEv&&!inSel)o*=.28;if(selId&&inSel&&!isSel)o=.2;
+    let o=st.o;if(selEv&&!inSel)o*=.28;if((selId||legs)&&inSel&&!isSel)o=.2;
     const A=px(r.a.lon,r.a.lat),B=px(r.b.lon,r.b.lat),dx=B[0]-A[0],dy=B[1]-A[1],C=[(A[0]+B[0])/2-dy*r.bend,(A[1]+B[1])/2+dx*r.bend];
     const d=`M${A[0].toFixed(1)},${A[1].toFixed(1)}Q${C[0].toFixed(1)},${C[1].toFixed(1)} ${B[0].toFixed(1)},${B[1].toFixed(1)}`;
     shown++;
@@ -134,8 +142,9 @@ function paint(){
 /* ---------- selection and cards ---------- */
 function selectRoute(id){const r=route(id);if(!r)return;SEL={ev:r.ev,id};card();frame();}
 function selectEvent(key){SEL={ev:key,id:null};card();frame();}
+function selectParent(id){const m=[...EVENTS.values()].find(e=>(e.parents||[]).some(p=>p.id===id));if(!m)return;SEL={ev:m.key,id:null,parent:id};card();frame();}
 function clearSel(){SEL=null;card();setView(HOME,420);}
-function frame(){const e=EVENTS.get(SEL.ev),rs=SEL.id?[route(SEL.id)]:e.routes;fit(rs.flatMap(r=>[[r.a.lon,r.a.lat],[r.b.lon,r.b.lat]]));}
+function frame(){const e=EVENTS.get(SEL.ev),P=SEL.parent&&(e.parents||[]).find(p=>p.id===SEL.parent),rs=SEL.id?[route(SEL.id)]:P?[...P.legs].map(route):e.routes;fit(rs.flatMap(r=>[[r.a.lon,r.a.lat],[r.b.lon,r.b.lat]]));}
 function chipLabels(e){const names=e.routes.map(r=>shortName(r.b)),seen={};return names.map((n,i)=>{seen[n]=(seen[n]||0)+1;return names.filter(x=>x===n).length>1?`${n} (${seen[n]})`:n;});}
 function card(){
   const c=$('card');c.hidden=false;
@@ -145,25 +154,27 @@ function card(){
       (act.length?`<div class="k" style="margin-top:14px;color:var(--amber)">Moving now</div><div class="now">${act.map(e=>`<button data-ev="${esc(e.key)}">${esc(bare(e.title))}<small>${esc(yearLabel(e.start))} · ${e.routes.length} route${e.routes.length>1?'s':''}</small></button>`).join('')}</div>`:`<p class="soon">Nothing is moving in this year. Press Play or drag the slider.</p>`);
     c.querySelectorAll('[data-ev]').forEach(b=>b.addEventListener('click',()=>selectEvent(b.dataset.ev)));return;
   }
-  const e=EVENTS.get(SEL.ev),r=SEL.id?route(SEL.id):null,labs=chipLabels(e),n=e.routes.length;
+  const e=EVENTS.get(SEL.ev),r=SEL.id?route(SEL.id):null,P=SEL.parent?(e.parents||[]).find(p=>p.id===SEL.parent):null,labs=chipLabels(e),n=e.routes.length,deep=!!(r||P);
   const cause=cap(e.routes[0].cause),kick=`${esc(cause?cause+' · ':'')}${esc(yearLabel(e.start))}`;
-  let html=`<button class="back" id="cardBack">${r&&n>1?`&larr; All ${n} routes`:'Close'}</button><div class="k">${kick}</div><h2>${esc(bare(e.title))}</h2>`;
-  if(!r){
+  let html=`<button class="back" id="cardBack">${deep&&n>1?`&larr; All ${n} routes`:'Close'}</button><div class="k">${kick}</div><h2>${esc(bare(e.title))}</h2>`;
+  if(!r&&!P){
     html+=e.card?`<p>${esc(bare(e.card.description))}</p>`:`<p>Route detail coming.</p>`;
   }else{
-    const br=r.m.branch;
+    const br=P?P.m.branch:r.m.branch;
     html+=`<div class="sub">${esc(bare(br?.subhead||('To '+shortName(r.b))))}</div>`;
     if(br){html+=`<p>${esc(bare(br.story))}</p>`;
       const tags=[br.group?br.group:'',br.mode?cap(br.mode):''].filter(Boolean);
       if(tags.length)html+=`<div class="tags">${tags.map(t=>`<span class="pill">${esc(t)}</span>`).join('')}</div>`;}
     else{html+=e.card?`<p>${esc(bare(e.card.description))}</p>`:'';html+=`<div class="soon">Route detail coming.</div>`;}
   }
-  if(n>1)html+=`<div class="chips"><button class="pill${r?'':' on'}" data-chip="">All ${n} routes</button>${e.routes.map((x,i)=>`<button class="pill${r&&x.id===r.id?' on':''}" data-chip="${esc(x.id)}">${esc(labs[i])}</button>`).join('')}</div>`;
-  const dd=r&&r.m.branch?.deepDive;
+  if(n>1){const hide=new Set((e.parents||[]).map(p=>[...p.legs].map(route).filter(x=>x&&x.m.destinationPlaceId&&shortName(x.b)===p.label).map(x=>x.id)).flat());
+    const items=e.routes.map((x,i)=>({id:x.id,label:labs[i],on:!P&&r&&x.id===r.id})).filter(x=>!hide.has(x.id)).concat((e.parents||[]).map(p=>({par:p.id,label:p.label,on:P&&P.id===p.id})));
+    html+=`<div class="chips"><button class="pill${r||P?'':' on'}" data-chip="">All ${n} routes</button>${items.map(x=>`<button class="pill${x.on?' on':''}" data-chip="${esc(x.id||'')}" ${x.par?`data-par="${esc(x.par)}"`:''}>${esc(x.label)}</button>`).join('')}</div>`;}
+  const dd=(P?P.m.branch:r&&r.m.branch)?.deepDive;
   if(dd)html+=`<details><summary>Deep dive</summary><p>${esc(bare(dd))}</p></details>`;
   c.innerHTML=html;c.scrollTop=0;
-  $('cardBack').addEventListener('click',()=>{if(r&&n>1){SEL={ev:e.key,id:null};card();frame();}else clearSel();});
-  c.querySelectorAll('[data-chip]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.chip)selectRoute(b.dataset.chip);else{SEL={ev:e.key,id:null};card();frame();}}));
+  $('cardBack').addEventListener('click',()=>{if(deep&&n>1){SEL={ev:e.key,id:null};card();frame();}else clearSel();});
+  c.querySelectorAll('[data-chip]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.par)selectParent(b.dataset.par);else if(b.dataset.chip)selectRoute(b.dataset.chip);else{SEL={ev:e.key,id:null};card();frame();}}));
 }
 
 /* ---------- selectors ---------- */
@@ -258,7 +269,7 @@ function wire(){
     const res=await fetch('data/history.json');DATA=await res.json();
     if(!DATA.sheet?.movements?.length)throw new Error('no movements');
     build();size();HOME=homeView();V={...HOME};clampView();ticks();selectors();wire();setYear(MINY);card();draw();
-    window.MV={routes:ROUTES,events:EVENTS,state:()=>({Y,V:{...V},SEL,F:{...F},playing}),selectRoute,selectEvent,setYear,minY:MINY,maxY:MAXY};
+    window.MV={routes:ROUTES,events:EVENTS,state:()=>({Y,V:{...V},SEL,F:{...F},playing}),selectRoute,selectEvent,selectParent,setYear,minY:MINY,maxY:MAXY};
   }catch(err){document.getElementById('card').innerHTML='<h2>The map could not load</h2><p>Please refresh the page.</p>';console.error(err);}
 })();
 })();

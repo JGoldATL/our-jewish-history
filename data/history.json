@@ -2522,7 +2522,7 @@
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
       "sheetModified": "2026-10-13T05:00:00Z",
       "exportSha256": "67698168807c7b91",
-      "mode": "preview",
+      "mode": "public",
       "counts": {
         "places": 117,
         "events": 95,
@@ -2530,11 +2530,11 @@
         "movements": 111,
         "context": 43,
         "evidence": 20,
-        "cards": 171,
+        "cards": 166,
         "eras": 7,
         "cameraStops": 38,
         "eraAssignment": 265,
-        "questions": 46
+        "questions": 44
       }
     },
     "places": [
@@ -4698,7 +4698,7 @@
           "MOV-073"
         ],
         "evidenceIds": [],
-        "hasCard": true
+        "hasCard": false
       },
       {
         "id": "EVT-0100",
@@ -4711,7 +4711,7 @@
           "MOV-080"
         ],
         "evidenceIds": [],
-        "hasCard": true
+        "hasCard": false
       },
       {
         "id": "EVT-0101",
@@ -4724,7 +4724,7 @@
           "MOV-084"
         ],
         "evidenceIds": [],
-        "hasCard": true
+        "hasCard": false
       },
       {
         "id": "EVT-0102",
@@ -4737,7 +4737,7 @@
           "MOV-106"
         ],
         "evidenceIds": [],
-        "hasCard": true
+        "hasCard": false
       },
       {
         "id": "EVT-0103",
@@ -4750,7 +4750,7 @@
           "MOV-051"
         ],
         "evidenceIds": [],
-        "hasCard": true
+        "hasCard": false
       }
     ],
     "communities": [
@@ -10806,26 +10806,6 @@
         "placeId": "place-iberia"
       },
       {
-        "id": "EVT-0099",
-        "recordId": "EVT-0099",
-        "type": "Movement",
-        "date": "1148–1170",
-        "title": "Jews flee the Almohads",
-        "description": "In 1148 the Almohads took Córdoba and gave Jews a choice: Islam, exile or death. Many fled to Christian Spain, Portugal, Provence and Egypt, the family of Maimonides among them.",
-        "status": "draft",
-        "startYear": 1148,
-        "endYear": 1170,
-        "placeId": "place-iberia",
-        "movementIds": [
-          "MOV-010",
-          "MOV-069",
-          "MOV-070",
-          "MOV-071",
-          "MOV-072",
-          "MOV-073"
-        ]
-      },
-      {
         "id": "EVT-0048",
         "recordId": "EVT-0048",
         "type": "Movement",
@@ -11056,22 +11036,6 @@
         }
       },
       {
-        "id": "EVT-0100",
-        "recordId": "EVT-0100",
-        "type": "Movement",
-        "date": "After 1391",
-        "title": "Jews flee the massacres of 1391",
-        "description": "In 1391 riots spread from Seville across Castile and Aragon. Thousands of Jews were killed and many more were forced to convert. Survivors who could escape fled to North Africa.",
-        "status": "draft",
-        "startYear": 1391,
-        "endYear": null,
-        "placeId": "place-iberia",
-        "movementIds": [
-          "MOV-016",
-          "MOV-080"
-        ]
-      },
-      {
         "id": "EVT-0057",
         "recordId": "EVT-0057",
         "type": "Movement",
@@ -11102,22 +11066,6 @@
           "kind": "octagon",
           "status": "locked"
         }
-      },
-      {
-        "id": "EVT-0101",
-        "recordId": "EVT-0101",
-        "type": "Movement",
-        "date": "1420–1421",
-        "title": "Austria destroys its Jewish community",
-        "description": "In 1420 and 1421 Duke Albert V imprisoned Austria's Jews, set the poor adrift, baptized children by force and burned more than 200 Jews outside Vienna. Some escaped to Bohemia.",
-        "status": "draft",
-        "startYear": 1420,
-        "endYear": 1421,
-        "placeId": "place-vienna",
-        "movementIds": [
-          "MOV-018",
-          "MOV-084"
-        ]
       },
       {
         "id": "EVT-0058",
@@ -11456,22 +11404,6 @@
           "kind": "octagon",
           "status": "locked"
         }
-      },
-      {
-        "id": "EVT-0102",
-        "recordId": "EVT-0102",
-        "type": "Movement",
-        "date": "1648–1650s",
-        "title": "Jews flee the Khmelnytsky massacres",
-        "description": "In 1648 Cossack and peasant forces under Bohdan Khmelnytsky murdered as many as 20,000 Jews across Ukraine. Survivors fled west to Poland, Lithuania, Bohemia, Moravia and beyond.",
-        "status": "draft",
-        "startYear": 1648,
-        "endYear": 1659,
-        "placeId": "place-poland",
-        "movementIds": [
-          "MOV-028",
-          "MOV-106"
-        ]
       },
       {
         "id": "CHG-018",
@@ -12272,22 +12204,6 @@
         "placeId": "place-basel",
         "meanwhile": "In France, the Lumière brothers show movies to a paying audience for the first time in 1895 CE.",
         "meanwhileStatus": "approved"
-      },
-      {
-        "id": "EVT-0103",
-        "recordId": "EVT-0103",
-        "type": "Movement",
-        "date": "1904–1914",
-        "title": "The Second Aliyah",
-        "description": "Between 1904 and 1914, about 35,000 Jews came to the Land of Israel, most from Russia and Eastern Europe and others from Yemen. They founded Tel Aviv, the first kibbutz and Hashomer.",
-        "status": "draft",
-        "startYear": 1904,
-        "endYear": 1914,
-        "placeId": "place-israel",
-        "movementIds": [
-          "MOV-043",
-          "MOV-051"
-        ]
       }
     ],
     "eras": [
@@ -15527,30 +15443,6 @@
         "worldYear": 1921
       },
       {
-        "id": "Q071",
-        "status": "draft",
-        "mode": "random",
-        "era": "Medieval & Modern",
-        "style": "Find the impostor",
-        "place": "Troyes",
-        "lat": 48.3,
-        "lon": 4.08,
-        "question": "Who was NOT alive during Rashi's lifetime?",
-        "choices": [
-          "William the Conqueror",
-          "Leif Ericson",
-          "Macbeth",
-          "Christopher Columbus"
-        ],
-        "correct": "D",
-        "quickTake": "Rashi lived through Willy, Leif and King Macbeth. Rashi died 346 years before Columbus set sail in 1492 - the same year Spain expelled it's Jews.",
-        "deepDive": "",
-        "jewishEvent": "Rashi is born in Troyes",
-        "jewishYear": 1040,
-        "worldAnchor": "Columbus sets sail",
-        "worldYear": 1492
-      },
-      {
         "id": "Q072",
         "status": "approved",
         "mode": "random",
@@ -15578,32 +15470,6 @@
           982,
           1192,
           1215
-        ]
-      },
-      {
-        "id": "Q073",
-        "status": "draft",
-        "mode": "random",
-        "era": "Medieval & Modern",
-        "style": "Which came first?",
-        "place": "Reggio di Calabria",
-        "lat": 38.11,
-        "lon": 15.65,
-        "question": "Which came first: the Gutenberg Bible or the first dated printed Hebrew book?",
-        "choices": [
-          "The Gutenberg Bible",
-          "The first dated printed Hebrew book"
-        ],
-        "correct": "A",
-        "quickTake": "Gutenberg printed first, but only by about 20 years. Rashi's Torah commentary was the first Hebrew book to carry a date.",
-        "deepDive": "The Gutenberg Bible was printed around 1455. The first dated printed Hebrew book was Rashi's commentary on the Torah, printed by Abraham Garton in Reggio di Calabria, Italy, in February 1475. Earlier Hebrew books exist, including an undated edition of Rashi printed in Rome, which is why the word dated matters. Within a few decades Jewish printers were at work across Italy, Spain and Portugal.",
-        "jewishEvent": "Rashi's Torah commentary is printed",
-        "jewishYear": 1475,
-        "worldAnchor": "Gutenberg Bible is printed",
-        "worldYear": 1455,
-        "choiceYears": [
-          1455,
-          1475
         ]
       },
       {

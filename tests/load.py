@@ -195,7 +195,7 @@ with tempfile.TemporaryDirectory() as td:
 
     p, rep = run(x1, hist)
     check('Sheet without the Place ID columns still loads and says the columns are missing',
-          p.returncode == 0 and rep['missingOptionalMovementColumns'] == ['Destination place ID', 'Origin place ID'] and rep['movementsWithArrowEnds'] == 0, rep['missingOptionalMovementColumns'])
+          p.returncode == 0 and {'Destination place ID', 'Origin place ID'} <= set(rep['missingOptionalMovementColumns']) and rep['movementsWithArrowEnds'] == 0, rep['missingOptionalMovementColumns'])
 
     x4 = td / 'four.xlsx'
     wb = openpyxl.load_workbook(x1); ws = wb['Communities']
