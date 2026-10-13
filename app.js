@@ -93,7 +93,8 @@ function routePoints(m){const a=m.originCoordinates||INDEX.places.get(m.origin).
 // Tapered ribbon: wide tail, narrower neck, broad integrated head. One clean arc; no bends.
 function ribbon(pts,tail,neck,headLen,headHalf){
   const L=[0];for(let i=1;i<pts.length;i++)L.push(L[i-1]+Math.hypot(pts[i].x-pts[i-1].x,pts[i].y-pts[i-1].y));
-  const total=L.at(-1);if(total<headLen*1.6)return null;const neckAt=total-headLen;let k=L.findIndex(v=>v>=neckAt);if(k<2)k=2;
+  let total=L.at(-1);if(total<headLen*1.6){const f=total/(headLen*1.6)*0.95;if(f<0.3)return null;tail*=f;neck*=f;headLen*=f;headHalf*=f;}   // very short arrows (e.g. 80 km) shrink to fit instead of vanishing
+  const neckAt=total-headLen;let k=L.findIndex(v=>v>=neckAt);if(k<2)k=2;
   const nrm=i=>{const p=pts[Math.max(0,i-1)],q=pts[Math.min(pts.length-1,i+1)],dx=q.x-p.x,dy=q.y-p.y,l=Math.hypot(dx,dy)||1;return [-dy/l,dx/l];};
   const left=[],right=[];for(let i=0;i<=k;i++){const w=(tail+(neck-tail)*(L[i]/neckAt))/2,n=nrm(i);left.push([pts[i].x+n[0]*w,pts[i].y+n[1]*w]);right.push([pts[i].x-n[0]*w,pts[i].y-n[1]*w]);}
   const n=nrm(k),dx=pts.at(-1).x-pts[k].x,dy=pts.at(-1).y-pts[k].y,l=Math.hypot(dx,dy)||1,tip=[pts[k].x+dx/l*headLen,pts[k].y+dy/l*headLen];

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>
+if(location.hostname==='jgoldatl.github.io'){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-W0VSWJ8FCS';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config','G-W0VSWJ8FCS');}
+</script>
+<title>Our Jewish Journey: Movements</title>
+<meta name="description" content="Follow where the Jewish people went, one era at a time, on a flat map.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Movements page (v0.7.0). Same night palette as the globe. Flat map, own time slider, one card per event, one card per branch. */
+:root{--night:#0E1822;--night2:#162634;--glow:#24394B;--cream:#F6EBD6;--text:#EFE6D3;--soft:#D2CABB;--muted:#A9B4B8;--amber:#E8B27A;--red:#E07B6E;--line:rgba(239,230,211,.2);--chip:rgba(239,230,211,.07);--panel:rgba(14,24,34,.94);
+--serif:'Cormorant Garamond',Georgia,serif;--sans:'Instrument Sans',Arial,Helvetica,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%;background:var(--night);color:var(--text);font-family:var(--sans);overflow:hidden}
+button{font-family:var(--sans);color:inherit}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+#app{position:fixed;inset:0;display:flex;flex-direction:column;background:radial-gradient(circle at 34% 46%,var(--glow) 0,var(--night2) 34%,var(--night) 70%)}
+.hdr{flex:none;display:flex;align-items:center;gap:10px;padding:max(8px,env(safe-area-inset-top)) 18px 8px;background:var(--night2);border-bottom:1px solid var(--line);min-height:54px}
+.hdr h1{margin:0 auto 0 0;font:700 21px var(--serif);color:var(--text);white-space:nowrap}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:4px;min-height:32px;padding:0 13px;border:1px solid var(--line);background:var(--chip);color:var(--text);border-radius:999px;font-size:13px;text-decoration:none;white-space:nowrap;cursor:pointer}
+.pill.on{background:var(--amber);border-color:var(--amber);color:#1A1410;font-weight:600}
+.pill b{font-weight:600;color:var(--amber)}
+.pill.on b{color:#1A1410}
+#mapWrap{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;touch-action:none;cursor:grab;background:#111d29}
+#mapWrap.drag{cursor:grabbing}
+#map{position:absolute;inset:0;width:100%;height:100%;display:block;user-select:none;-webkit-user-select:none}
+.sel{position:absolute;left:12px;top:10px;right:12px;display:flex;gap:7px;flex-wrap:wrap;z-index:5;pointer-events:none}
+.sel>*{pointer-events:auto}
+.sel .pill{background:var(--panel);backdrop-filter:blur(4px)}
+.sel .pill.on{background:var(--amber);border-color:var(--amber);color:#1A1410}
+.menu{position:absolute;z-index:9;min-width:190px;max-height:46vh;overflow:auto;padding:6px;border-radius:14px;background:rgba(18,30,41,.98);border:1px solid var(--line);box-shadow:0 14px 36px rgba(0,0,0,.5)}
+.menu button{display:flex;width:100%;text-align:left;align-items:center;min-height:38px;padding:0 12px;border:0;border-radius:10px;background:none;font-size:14px;cursor:pointer}
+.menu button:hover{background:rgba(239,230,211,.1)}
+.menu button[aria-checked="true"]{color:var(--amber);font-weight:600}
+.zoom{position:absolute;left:12px;bottom:12px;display:flex;flex-direction:column;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--panel);z-index:5}
+.zoom button{width:42px;height:40px;border:0;background:none;font-size:22px;cursor:pointer}
+.zoom button+button{border-top:1px solid var(--line)}
+.legend{position:absolute;left:66px;bottom:14px;display:flex;gap:14px;font-size:12px;color:var(--soft);z-index:4;pointer-events:none;flex-wrap:wrap}
+.legend i{display:inline-block;width:22px;border-top:3px solid var(--red);margin-right:6px;vertical-align:middle}
+.legend i.d{border-top-style:dotted}
+.count{position:absolute;right:12px;bottom:10px;font-size:12px;color:var(--muted);z-index:4;pointer-events:none}
+/* card */
+#card{position:absolute;z-index:6;right:12px;top:58px;width:352px;max-height:calc(100% - 78px);overflow:auto;padding:16px 18px 14px;border-radius:20px;background:var(--panel);border:1px solid var(--line);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+#card .back{border:0;background:none;color:var(--amber);font-size:13px;font-weight:600;padding:0 0 8px;cursor:pointer}
+#card .k{font:700 11px var(--sans);letter-spacing:2px;color:var(--red);text-transform:uppercase}
+#card h2{margin:3px 0 4px;font:700 25px/1.05 var(--serif);color:var(--cream)}
+#card .sub{font:italic 600 19px var(--serif);color:var(--amber);margin:0 0 7px}
+#card p{margin:0;color:var(--soft);font-size:14px;line-height:1.45}
+#card .soon{margin-top:8px;font-size:12px;color:var(--muted)}
+#card .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+#card .tags .pill{min-height:26px;font-size:12px;cursor:default}
+#card .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+#card .chips .pill{min-height:28px;font-size:12px}
+#card details{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}
+#card summary{cursor:pointer;font-weight:600;font-size:14px;list-style:none;display:flex;justify-content:space-between;align-items:center;min-height:30px}
+#card summary::-webkit-details-marker{display:none}
+#card summary::after{content:'\25B8';color:var(--amber)}
+#card details[open] summary::after{content:'\25BE'}
+#card details p{margin-top:8px}
+#card .now{display:grid;gap:6px;margin-top:10px}
+#card .now button{text-align:left;border:1px solid var(--line);background:var(--chip);border-radius:12px;padding:8px 12px;font-size:13px;cursor:pointer;color:var(--text)}
+#card .now small{display:block;color:var(--muted);font-size:11.5px}
+/* bottom bar */
+.bar{flex:none;background:var(--night2);border-top:1px solid var(--line);padding:10px 64px max(10px,env(safe-area-inset-bottom)) 100px;display:flex;align-items:center;gap:16px}
+.yr{font:italic 700 40px/0.9 var(--serif);color:var(--cream);min-width:128px}
+.track{position:relative;flex:1;height:44px;min-width:0}
+.track input[type=range]{position:absolute;left:0;right:0;top:0;width:100%;height:22px;margin:0;background:none;-webkit-appearance:none;appearance:none}
+.track input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:9px;background:var(--line)}
+.track input[type=range]::-moz-range-track{height:6px;border-radius:9px;background:var(--line)}
+.track input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;margin-top:-9px;border-radius:50%;background:var(--amber);border:0;box-shadow:0 0 0 4px rgba(232,178,122,.3)}
+.track input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--amber);border:0;box-shadow:0 0 0 4px rgba(232,178,122,.3)}
+.ticks{position:absolute;left:12px;right:12px;top:20px;height:22px}
+.ticks button{position:absolute;transform:translateX(-50%);border:0;background:none;color:var(--muted);font-size:10.5px;white-space:nowrap;padding:2px 3px;cursor:pointer;top:0}
+.ticks button::before{content:'';position:absolute;left:50%;top:-6px;height:6px;border-left:1px solid var(--muted)}
+.ticks button.cur{color:var(--amber);font-weight:700}
+.ctl{display:flex;align-items:center;gap:8px}
+#play{min-width:88px;min-height:40px;background:var(--amber);color:#1A1410;border:0;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer}
+.ctl .pill{min-height:36px}
+.ver{position:fixed;right:max(12px,env(safe-area-inset-right));bottom:2px}
+@media (max-width:900px){
+  #card{width:min(352px,calc(100% - 24px))}
+  .ctl .opt{display:none}
+}
+@media (max-width:620px) and (orientation:portrait){
+  .hdr{padding:max(8px,env(safe-area-inset-top)) 12px 8px}.hdr h1{font-size:15px}.hdr{gap:6px}.hdr .pill{padding:0 10px;font-size:12px;min-height:30px}
+  .sel{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.sel::-webkit-scrollbar{display:none}.sel .pill{flex:none;min-height:30px;font-size:12px}
+  #card{left:0;right:0;top:auto;bottom:0;width:auto;border-radius:20px 20px 0 0;border-left:0;border-right:0;border-bottom:0;padding:12px 16px 12px}
+  #card{max-height:none;overflow:hidden;padding-top:6px}
+  #card.open{max-height:74%;overflow:auto}
+  #card::before{content:'';display:block;width:56px;height:5px;border-radius:9px;background:var(--muted);margin:4px auto 12px;box-shadow:0 0 0 12px transparent}
+  #card h2{font-size:22px}#card .sub{font-size:17px;margin-bottom:5px}
+  #card:not(.open) p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  #card:not(.open) .tags,#card:not(.open) details,#card:not(.open) .k{display:none}
+  #card .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-top:10px}#card .chips::-webkit-scrollbar{display:none}#card .chips .pill{flex:none}
+  .legend{display:none}
+  .bar{flex-wrap:wrap;gap:6px 10px;padding:8px 12px calc(52px + env(safe-area-inset-bottom))}
+  .zoom{left:auto;right:12px;top:52px;bottom:auto}
+  .yr{font-size:32px;min-width:0}
+  .track{order:3;flex:1 0 100%}
+  .ticks button:not(.cur){display:none}
+  .ctl{margin-left:auto}
+  .count{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@keyframes flow{to{stroke-dashoffset:-40}}
+.flow{animation:flow 1.2s linear infinite}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="hdr"><h1>Our Jewish Journey</h1><a class="pill" href="index.html">Globe</a><span class="pill on" aria-current="page">Movements</span><a class="pill" href="quiz.html">Quiz</a></div>
+  <div id="mapWrap">
+    <svg id="map" role="img" aria-label="Flat map of Jewish movements over time"></svg>
+    <div class="sel" id="sel"></div>
+    <div class="zoom"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">&minus;</button><button id="zhome" aria-label="Reset the view" style="font-size:16px">&#8982;</button></div>
+    <div class="legend"><span><i></i>Documented</span><span><i class="d"></i>Traditional or contested</span></div>
+    <div class="count" id="count"></div>
+    <div id="card" aria-live="polite"></div>
+  </div>
+  <div class="bar">
+    <div class="yr" id="yr">&nbsp;</div>
+    <div class="track"><input type="range" id="slider" min="0" max="1000" value="0" aria-label="Year"><div class="ticks" id="ticks"></div></div>
+    <div class="ctl"><button class="pill" id="prevEra" aria-label="Previous era">&#9198;</button><button id="play">&#9654; Play</button><button class="pill" id="nextEra" aria-label="Next era">&#9197;</button><button class="pill opt" id="speed" aria-label="Playback speed">1&times;</button></div>
+  </div>
+</div>
+<script src="version.js"></script>
+<script src="movements.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
