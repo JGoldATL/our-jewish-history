@@ -2520,21 +2520,21 @@
       "schema": "sheet-1",
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.4.1",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-10-07T22:13:00Z",
-      "exportSha256": "228f405852b1b15d",
-      "mode": "public",
+      "sheetModified": "2026-10-13T03:25:46Z",
+      "exportSha256": "bdea749fcf2b8ee7",
+      "mode": "preview",
       "counts": {
-        "places": 98,
-        "events": 90,
+        "places": 100,
+        "events": 95,
         "communities": 117,
-        "movements": 68,
+        "movements": 87,
         "context": 43,
         "evidence": 20,
-        "cards": 166,
+        "cards": 171,
         "eras": 7,
         "cameraStops": 38,
         "eraAssignment": 265,
-        "questions": 44
+        "questions": 46
       }
     },
     "places": [
@@ -3423,6 +3423,24 @@
         "role": "origin (Abraham's starting point)",
         "lat": 30.96,
         "lon": 46.1,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-cordoba",
+        "historicalName": "Córdoba (al-Andalus)",
+        "modernName": "Córdoba, Spain",
+        "role": "settlement",
+        "lat": 37.88,
+        "lon": -4.78,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-n-france-outside-domain",
+        "historicalName": "Northern France outside the royal domain (schematic)",
+        "modernName": "Northern France",
+        "role": "region",
+        "lat": 49.6,
+        "lon": 4.2,
         "landOfIsrael": false
       }
     ],
@@ -4511,6 +4529,75 @@
         "movementIds": [],
         "evidenceIds": [],
         "hasCard": true
+      },
+      {
+        "id": "EVT-0099",
+        "startYear": 1148,
+        "endYear": 1170,
+        "dateDisplay": "1148–1170",
+        "placeId": "place-iberia",
+        "movementIds": [
+          "MOV-010",
+          "MOV-069",
+          "MOV-070",
+          "MOV-071",
+          "MOV-072",
+          "MOV-073"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0100",
+        "startYear": 1391,
+        "endYear": null,
+        "dateDisplay": "After 1391",
+        "placeId": "place-iberia",
+        "movementIds": [
+          "MOV-016",
+          "MOV-080"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0101",
+        "startYear": 1420,
+        "endYear": 1421,
+        "dateDisplay": "1420–1421",
+        "placeId": "place-vienna",
+        "movementIds": [
+          "MOV-018",
+          "MOV-084"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0102",
+        "startYear": 1648,
+        "endYear": 1659,
+        "dateDisplay": "1648–1650s",
+        "placeId": "place-poland",
+        "movementIds": [
+          "MOV-028",
+          "MOV-106"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0103",
+        "startYear": 1904,
+        "endYear": 1914,
+        "dateDisplay": "1904–1914",
+        "placeId": "place-israel",
+        "movementIds": [
+          "MOV-043",
+          "MOV-051"
+        ],
+        "evidenceIds": [],
+        "hasCard": true
       }
     ],
     "communities": [
@@ -4526,7 +4613,11 @@
           "EVT-0003"
         ],
         "hasCard": false,
-        "noEngineFields": true
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 60
+        }
       },
       {
         "id": "POP-002",
@@ -4540,7 +4631,11 @@
           "MOV-002"
         ],
         "hasCard": false,
-        "noEngineFields": true
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "probable",
+          "footprintRadiusKm": 40
+        }
       },
       {
         "id": "POP-003",
@@ -4574,7 +4669,11 @@
           "MOV-005"
         ],
         "hasCard": false,
-        "noEngineFields": true
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 60
+        }
       },
       {
         "id": "POP-005",
@@ -4587,7 +4686,11 @@
           "EVT-0015"
         ],
         "hasCard": false,
-        "noEngineFields": true
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 150
+        }
       },
       {
         "id": "POP-006",
@@ -4619,7 +4722,11 @@
           "EVT-0018"
         ],
         "hasCard": false,
-        "noEngineFields": true
+        "engine": {
+          "concentration": "very small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 20
+        }
       },
       {
         "id": "POP-008",
@@ -4633,7 +4740,11 @@
           "MOV-044"
         ],
         "hasCard": false,
-        "noEngineFields": true
+        "engine": {
+          "concentration": "major",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 250
+        }
       },
       {
         "id": "POP-009",
@@ -4647,7 +4758,11 @@
           "MOV-007"
         ],
         "hasCard": false,
-        "noEngineFields": true
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 250
+        }
       },
       {
         "id": "POP-010",
@@ -4676,7 +4791,11 @@
           "MOV-045"
         ],
         "hasCard": false,
-        "noEngineFields": true
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 200
+        }
       },
       {
         "id": "POP-012",
@@ -4689,7 +4808,11 @@
           "EVT-0026"
         ],
         "hasCard": false,
-        "noEngineFields": true
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 100
+        }
       },
       {
         "id": "POP-013",
@@ -4717,7 +4840,11 @@
           "EVT-0024"
         ],
         "hasCard": false,
-        "noEngineFields": true
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 35
+        }
       },
       {
         "id": "POP-015",
@@ -6406,7 +6533,14 @@
         "arrowTreatment": "Dotted (traditional)",
         "links": [
           "POP-001"
-        ]
+        ],
+        "branch": {
+          "subhead": "Out of Egypt",
+          "story": "The Torah tells of Israelite slaves led out of Egypt by Moses, forty years in the wilderness, and arrival at the edge of Canaan. The Exodus became the founding story of the Jewish people.",
+          "deepDive": "In the biblical account, Pharaoh enslaved the Israelites until G-d sent Moses to free them. Ten plagues, the crossing of the sea and the covenant at Sinai followed, then forty years of wandering before Joshua led the people into Canaan. The story is retold every Passover, and its command to remember being strangers in Egypt runs through Jewish law and prayer. For generations Jews have told it as their own story: we were slaves in Egypt, and we went out free.",
+          "group": "Israelite",
+          "mode": "land"
+        }
       },
       {
         "id": "MOV-002",
@@ -6422,7 +6556,14 @@
         "arrowTreatment": "Red",
         "links": [
           "POP-002"
-        ]
+        ],
+        "branch": {
+          "subhead": "Into the Assyrian empire",
+          "story": "After Samaria fell to Assyria, the people of the northern Kingdom of Israel were deported across the empire, and other conquered peoples were moved into their land.",
+          "deepDive": "In 722 BCE Samaria, capital of the northern Kingdom of Israel, fell after a three-year siege. The Assyrian king Sargon II boasted that he carried off more than 27,000 people. Deportation was Assyrian policy: break a rebellious people by scattering it, and resettle the land with strangers. The exiles of Israel never returned as a people, and later generations remembered them as the lost tribes.",
+          "group": "Israelite",
+          "mode": "land"
+        }
       },
       {
         "id": "MOV-003",
@@ -6431,7 +6572,7 @@
         "endYear": null,
         "dateDisplay": "701 BCE",
         "origin": "Judah",
-        "destination": "Several short routes, generally NW/W/SW; need not leave the region",
+        "destination": "No destination documented (held as no-draw)",
         "originPlaceId": "place-j",
         "destinationPlaceId": null,
         "arrowEndsReady": false,
@@ -6455,7 +6596,14 @@
         "links": [
           "POP-004",
           "POP-005"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Babylonia",
+          "story": "Nebuchadnezzar took Jerusalem in 597 BCE and carried King Jehoiachin to Babylon with the royal household, officials, soldiers and craftsmen. The prophet Ezekiel was among them.",
+          "deepDive": "When Jerusalem surrendered, the Babylonians removed its leadership: the young king Jehoiachin, his mother, his officials, warriors and skilled workers. Babylonian ration tablets list Jehoiachin, king of Judah, and his sons receiving oil at the royal court. The exiles were settled along the canals of Babylonia, where Ezekiel began to prophesy among them. Tablets from a town called Al-Yahudu, the town of Judah, show Judeans farming, paying taxes and raising families there.",
+          "group": "Judean",
+          "mode": "land"
+        }
       },
       {
         "id": "MOV-005",
@@ -6472,7 +6620,14 @@
         "links": [
           "POP-004",
           "POP-005"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Babylonia",
+          "story": "Babylon besieged Jerusalem, then burned the city and the First Temple. A second wave of Judeans was marched into exile, joining those taken eleven years before.",
+          "deepDive": "King Zedekiah rebelled against Babylon, and Nebuchadnezzar's army besieged Jerusalem until famine broke it. Zedekiah's sons were killed before his eyes; then he was blinded and taken in chains to Babylon. The Temple Solomon built was burned and the city walls torn down. By the rivers of Babylon the exiles wept, as the psalm remembers, yet they kept their identity, and Babylonia became a center of Jewish life for more than a thousand years.",
+          "group": "Judean",
+          "mode": "land"
+        }
       },
       {
         "id": "MOV-006",
@@ -6488,7 +6643,14 @@
         "arrowTreatment": "Blue",
         "links": [
           "POP-006"
-        ]
+        ],
+        "branch": {
+          "subhead": "Home to Judah",
+          "story": "After Cyrus of Persia conquered Babylon in 539 BCE, he allowed the exiles to go home. Some returned to Judah and rebuilt the Temple; many others chose to stay in Babylonia.",
+          "deepDive": "The Book of Ezra preserves Cyrus's decree permitting the Judeans to return and rebuild the House of G-d in Jerusalem. Returnees came in waves under leaders such as Zerubbabel, and later Ezra and Nehemiah. The Second Temple was completed around 516 BCE, and Nehemiah later rebuilt Jerusalem's walls. The return was partial. A large, thriving community stayed in Babylonia, and from then on Jewish life had two centers, the Land and the diaspora.",
+          "group": "Judean",
+          "mode": "land"
+        }
       },
       {
         "id": "MOV-007",
@@ -6504,7 +6666,14 @@
         "arrowTreatment": "Charcoal (relocation)",
         "links": [
           "POP-009"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Lydia and Phrygia",
+          "story": "The Seleucid king Antiochus III moved Jewish families from Babylonia to Lydia and Phrygia in Asia Minor, trusting them to steady a rebellious region.",
+          "deepDive": "The historian Josephus preserves a letter from Antiochus III ordering 2,000 Jewish families moved from Mesopotamia and Babylonia to the fortresses of Lydia and Phrygia. The king praised their loyalty and promised them land for houses and vineyards, the right to live by their own laws, and years free of tax. These settlers helped root the Jewish communities of Asia Minor, which later flourished in cities such as Sardis, home to one of the largest ancient synagogues ever found.",
+          "group": "Babylonian Jewish",
+          "mode": "land"
+        }
       },
       {
         "id": "MOV-008",
@@ -6520,14 +6689,20 @@
         "arrowTreatment": "Red",
         "links": [
           "POP-015"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Rome as captives",
+          "story": "When Pompey took Jerusalem in 63 BCE, Roman rule over Judea began. Captives were marched to Rome, among them King Aristobulus II and his children, paraded in Pompey's triumph.",
+          "deepDive": "Two Hasmonean brothers were fighting over the throne, and both appealed to Rome. Pompey besieged the Temple Mount, entered the Holy of Holies, and made Judea subject to Rome. He took prisoners back to Italy, and Aristobulus II and his children were displayed in his triumph. Many captives were later freed and stayed in Rome. A Jewish community already lived there, and these newcomers swelled it.",
+          "group": "Judean"
+        }
       },
       {
         "id": "MOV-009",
         "eventId": "EVT-0046",
         "startYear": 900,
         "endYear": 1100,
-        "dateDisplay": "10th–11th century CE",
+        "dateDisplay": "10th–11th century",
         "origin": "Maghreb / North Africa",
         "destination": "Egypt",
         "originPlaceId": "place-maghreb",
@@ -6537,14 +6712,20 @@
         "links": [
           "POP-028",
           "POP-029"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Egypt",
+          "story": "In the 900s and 1000s, Jewish merchants and families moved from North Africa to Egypt, following trade and the Fatimid caliphs, who made Cairo their new capital.",
+          "deepDive": "This was a migration of opportunity, not exile. When the Fatimid caliphs conquered Egypt and built Cairo, many people followed them east, Jewish traders from Kairouan and other North African cities among them. Families kept ties across the Mediterranean through letters and partnerships. The Cairo Geniza, a storeroom of discarded papers in the Ben Ezra synagogue of Fustat, preserves thousands of their letters, contracts and accounts.",
+          "group": "Maghrebi"
+        }
       },
       {
         "id": "MOV-010",
-        "eventId": null,
+        "eventId": "EVT-0099",
         "startYear": 1148,
         "endYear": 1170,
-        "dateDisplay": "Mid-12th century CE",
+        "dateDisplay": "Mid-12th century",
         "origin": "Almohad Iberia / North Africa",
         "destination": "Branching; only where documented",
         "originPlaceId": "place-iberia",
@@ -6552,7 +6733,12 @@
         "arrowEndsReady": false,
         "arrowTreatment": "Red",
         "links": [
-          "CHG-008"
+          "CHG-008",
+          "MOV-069",
+          "MOV-070",
+          "MOV-071",
+          "MOV-072",
+          "MOV-073"
         ]
       },
       {
@@ -6560,7 +6746,7 @@
         "eventId": "EVT-0048",
         "startYear": 1182,
         "endYear": null,
-        "dateDisplay": "1182 CE",
+        "dateDisplay": 1182,
         "origin": "French royal domain",
         "destination": "Not specified",
         "originPlaceId": "place-france",
@@ -6568,7 +6754,8 @@
         "arrowEndsReady": false,
         "arrowTreatment": "Red",
         "links": [
-          "CHG-009"
+          "CHG-009",
+          "MOV-110"
         ]
       },
       {
@@ -6576,7 +6763,7 @@
         "eventId": "EVT-0053",
         "startYear": 1290,
         "endYear": null,
-        "dateDisplay": "1290 CE",
+        "dateDisplay": 1290,
         "origin": "England",
         "destination": "Continental Europe",
         "originPlaceId": "place-england",
@@ -6584,7 +6771,10 @@
         "arrowEndsReady": false,
         "arrowTreatment": "Red",
         "links": [
-          "CHG-010"
+          "CHG-010",
+          "MOV-074",
+          "MOV-075",
+          "MOV-076"
         ]
       },
       {
@@ -6592,7 +6782,7 @@
         "eventId": "EVT-0055",
         "startYear": 1306,
         "endYear": null,
-        "dateDisplay": "1306 CE",
+        "dateDisplay": 1306,
         "origin": "Kingdom of France",
         "destination": "Branching",
         "originPlaceId": "place-france",
@@ -6600,7 +6790,11 @@
         "arrowEndsReady": false,
         "arrowTreatment": "Red (branching)",
         "links": [
-          "CHG-011"
+          "CHG-011",
+          "MOV-077",
+          "MOV-078",
+          "MOV-079",
+          "MOV-111"
         ]
       },
       {
@@ -6608,7 +6802,7 @@
         "eventId": "EVT-0056",
         "startYear": 1322,
         "endYear": null,
-        "dateDisplay": "1322 CE",
+        "dateDisplay": 1322,
         "origin": "France",
         "destination": "Not specified",
         "originPlaceId": "place-france",
@@ -6622,23 +6816,30 @@
         "eventId": "EVT-0054",
         "startYear": 1300,
         "endYear": 1500,
-        "dateDisplay": "14th–15th century CE",
+        "dateDisplay": "14th–15th century",
         "origin": "German-speaking lands",
         "destination": "East-central Europe",
         "originPlaceId": "place-german-lands",
-        "destinationPlaceId": "place-east-central-europe",
+        "destinationPlaceId": "place-poland",
         "arrowEndsReady": true,
         "arrowTreatment": "Charcoal (several routes)",
         "links": [
           "POP-043"
-        ]
+        ],
+        "branch": {
+          "subhead": "East to Poland and beyond",
+          "story": "Over two centuries, Jews moved east from the German lands into Poland, Bohemia and Hungary, drawn by royal charters and pushed by massacres and expulsions at home.",
+          "deepDive": "Polish rulers wanted merchants and craftsmen for their growing towns. In 1264 Duke Bolesław of Kalisz granted Jews a charter of protection, later confirmed and widened by King Casimir the Great. Meanwhile the German lands turned deadly: during the Black Death of 1348 to 1350, mobs destroyed hundreds of Jewish communities. Families moved east in many small waves, not one exodus. They carried Yiddish and their customs with them, and east-central Europe became the heartland of Ashkenazi Jewry.",
+          "group": "Ashkenazi",
+          "mode": "land"
+        }
       },
       {
         "id": "MOV-016",
-        "eventId": null,
+        "eventId": "EVT-0100",
         "startYear": 1391,
         "endYear": null,
-        "dateDisplay": "After 1391 CE",
+        "dateDisplay": "After 1391",
         "origin": "Iberia",
         "destination": "Documented safer destinations",
         "originPlaceId": "place-iberia",
@@ -6646,7 +6847,8 @@
         "arrowEndsReady": false,
         "arrowTreatment": "Red",
         "links": [
-          "CHG-013"
+          "CHG-013",
+          "MOV-080"
         ]
       },
       {
@@ -6654,21 +6856,25 @@
         "eventId": "EVT-0057",
         "startYear": 1394,
         "endYear": null,
-        "dateDisplay": "1394 CE",
+        "dateDisplay": 1394,
         "origin": "France",
         "destination": "Not specified",
         "originPlaceId": "place-france",
         "destinationPlaceId": null,
         "arrowEndsReady": false,
         "arrowTreatment": "Red",
-        "links": []
+        "links": [
+          "MOV-081",
+          "MOV-082",
+          "MOV-083"
+        ]
       },
       {
         "id": "MOV-018",
-        "eventId": null,
+        "eventId": "EVT-0101",
         "startYear": 1420,
         "endYear": 1421,
-        "dateDisplay": "1420–21 CE",
+        "dateDisplay": "1420–21",
         "origin": "Austria / Vienna",
         "destination": "Not specified",
         "originPlaceId": "place-vienna",
@@ -6676,7 +6882,8 @@
         "arrowEndsReady": false,
         "arrowTreatment": "Red",
         "links": [
-          "DES-010"
+          "DES-010",
+          "MOV-084"
         ]
       },
       {
@@ -6684,7 +6891,7 @@
         "eventId": "EVT-0058",
         "startYear": 1453,
         "endYear": null,
-        "dateDisplay": "After 1453 CE",
+        "dateDisplay": "After 1453",
         "origin": "Ottoman lands",
         "destination": "Constantinople",
         "originPlaceId": "place-ottoman-lands",
@@ -6693,14 +6900,20 @@
         "arrowTreatment": "Red",
         "links": [
           "POP-044"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Constantinople",
+          "story": "After conquering Constantinople in 1453, Sultan Mehmed II moved Jewish communities from across his lands into the city to repopulate his new capital.",
+          "deepDive": "Mehmed II wanted his capital full and prosperous again. Under the policy called sürgün, the state ordered whole communities, Muslim, Christian and Jewish, to move there. Romaniote Jews from towns in the Balkans and Anatolia were uprooted and settled in Istanbul, often keeping the name of their home town for their congregation. It was forced, but it built the community that would soon receive the exiles from Spain.",
+          "group": "Romaniote"
+        }
       },
       {
         "id": "MOV-020",
         "eventId": "EVT-0059",
         "startYear": 1492,
         "endYear": null,
-        "dateDisplay": "1492 CE",
+        "dateDisplay": 1492,
         "origin": "Spain",
         "destination": "Portugal; North Africa; Italy; Ottoman lands; other documented destinations",
         "originPlaceId": "place-spain",
@@ -6716,37 +6929,50 @@
         "eventId": "EVT-0060",
         "startYear": 1492,
         "endYear": 1493,
-        "dateDisplay": "1492–93 CE",
+        "dateDisplay": "1492–93",
         "origin": "Sicily",
         "destination": "Branching",
         "originPlaceId": "place-sicily",
         "destinationPlaceId": null,
         "arrowEndsReady": false,
         "arrowTreatment": "Red (branching)",
-        "links": []
+        "links": [
+          "MOV-085",
+          "MOV-086",
+          "MOV-087",
+          "MOV-088",
+          "MOV-089"
+        ]
       },
       {
         "id": "MOV-022",
         "eventId": "EVT-0061",
         "startYear": 1500,
         "endYear": 1650,
-        "dateDisplay": "c. 1500–1650 CE",
+        "dateDisplay": "c. 1500–1650",
         "origin": "Iberia; Italy",
         "destination": "Ottoman cities",
         "originPlaceId": "place-iberia",
-        "destinationPlaceId": "place-ottoman-lands",
+        "destinationPlaceId": "place-constantinople",
         "arrowEndsReady": true,
         "arrowTreatment": "Charcoal",
         "links": [
           "POP-044"
-        ]
+        ],
+        "branch": {
+          "subhead": "From Iberia to Ottoman cities",
+          "story": "For generations after 1492, Jews and New Christians kept leaving Iberia for Ottoman cities, where they could live openly as Jews among the communities their relatives had built.",
+          "deepDive": "The flow did not stop with the expulsion. Converts and their children who wanted to return to Judaism slipped out of Spain and Portugal, often by way of Italy or North Africa. In Salonica, Constantinople, Edirne and Safed they could practice openly. Among them was Doña Gracia Nasi, who fled Portugal and helped others escape, and her nephew Joseph Nasi, who rose high at the Ottoman court.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-023",
         "eventId": "EVT-0062",
         "startYear": 1500,
         "endYear": 1570,
-        "dateDisplay": "Early / mid-1500s CE",
+        "dateDisplay": "Early / mid-1500s",
         "origin": "Mediterranean",
         "destination": "Safed; Jerusalem",
         "originPlaceId": "place-mediterranean",
@@ -6755,14 +6981,20 @@
         "arrowTreatment": "Blue",
         "links": [
           "POP-045"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Safed",
+          "story": "In the 1500s Jews from across the Mediterranean, many of them Spanish exiles and their children, settled in Safed in the Galilee. The town became a center of Torah, Kabbalah and trade.",
+          "deepDive": "Under Ottoman rule after 1516, Safed's wool and textile trade grew, and Jewish immigrants arrived from the Ottoman lands, North Africa and Italy. The town drew great scholars: Joseph Karo wrote the Shulchan Aruch there, the code of Jewish law still in use, and Isaac Luria taught a new Kabbalah that spread across the Jewish world. Jews already lived in Safed, and the newcomers made it one of the most important Jewish communities of its age.",
+          "group": "Sephardic"
+        }
       },
       {
         "id": "MOV-024",
         "eventId": "EVT-0063",
         "startYear": 1500,
         "endYear": 1700,
-        "dateDisplay": "16th–17th century CE",
+        "dateDisplay": "16th–17th century",
         "origin": "Portugal; Iberia",
         "destination": "Western Europe; Mediterranean",
         "originPlaceId": "place-portugal",
@@ -6771,7 +7003,19 @@
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
           "CHG-015",
-          "CTX-019"
+          "CTX-019",
+          "MOV-090",
+          "MOV-091",
+          "MOV-092",
+          "MOV-093",
+          "MOV-094",
+          "MOV-095",
+          "MOV-096",
+          "MOV-097",
+          "MOV-098",
+          "MOV-099",
+          "MOV-100",
+          "MOV-101"
         ]
       },
       {
@@ -6779,7 +7023,7 @@
         "eventId": "EVT-0068",
         "startYear": 1569,
         "endYear": 1593,
-        "dateDisplay": "1569 / 1593 CE",
+        "dateDisplay": "1569 / 1593",
         "origin": "Papal territories",
         "destination": "Not specified",
         "originPlaceId": "place-papal-states",
@@ -6787,6 +7031,10 @@
         "arrowEndsReady": false,
         "arrowTreatment": "Red",
         "links": [
+          "MOV-102",
+          "MOV-103",
+          "MOV-104",
+          "MOV-105",
           "POP-046"
         ]
       },
@@ -6795,7 +7043,7 @@
         "eventId": "EVT-0069",
         "startYear": 1590,
         "endYear": null,
-        "dateDisplay": "From c. 1590 CE",
+        "dateDisplay": "From c. 1590",
         "origin": "Iberian and European ports",
         "destination": "Amsterdam",
         "originPlaceId": "place-iberia",
@@ -6804,14 +7052,21 @@
         "arrowTreatment": "Charcoal",
         "links": [
           "POP-047"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Amsterdam",
+          "story": "From about 1590, Portuguese New Christians began arriving in Amsterdam, where they could return openly to Judaism. Within a generation the city held one of the great Jewish communities of Europe.",
+          "deepDive": "The Dutch Republic, at war with Spain, valued trade over religious uniformity. Merchants from Portuguese New Christian families settled in Amsterdam and openly returned to Judaism, relearning what their grandparents had been forced to abandon. Congregations formed in the early 1600s and united in 1639. In 1675 they dedicated the great Portuguese Synagogue, which still stands. Amsterdam became a hub of trade and printing, and the base from which Jews later sailed to Brazil and the Caribbean.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-027",
         "eventId": "EVT-0070",
         "startYear": 1630,
         "endYear": null,
-        "dateDisplay": "1630s onward CE",
+        "dateDisplay": "1630s onward",
         "origin": "Amsterdam / Atlantic",
         "destination": "Dutch Brazil (Recife)",
         "originPlaceId": "place-amsterdam",
@@ -6820,14 +7075,21 @@
         "arrowTreatment": "Charcoal",
         "links": [
           "POP-049"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Dutch Brazil",
+          "story": "When the Dutch captured Recife in 1630, Jews from Amsterdam followed. In Dutch Brazil they could live openly as Jews in the Americas for the first time.",
+          "deepDive": "The Dutch West India Company took Pernambuco from Portugal, and Jewish merchants with family and language ties to Portuguese Brazil came to trade sugar and other goods. Some New Christians already living in Brazil openly returned to Judaism. In 1642 Rabbi Isaac Aboab da Fonseca arrived from Amsterdam, the first rabbi in the Americas. The community built Kahal Zur Israel, the first synagogue on American soil. It lasted until Portugal retook the colony in 1654.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-028",
-        "eventId": null,
+        "eventId": "EVT-0102",
         "startYear": 1648,
         "endYear": 1659,
-        "dateDisplay": "1648–1650s CE",
+        "dateDisplay": "1648–1650s",
         "origin": "Ukraine / Polish-Lithuanian lands",
         "destination": "Documented destinations",
         "originPlaceId": "place-poland",
@@ -6836,7 +7098,8 @@
         "arrowTreatment": "Red",
         "links": [
           "CHG-016",
-          "DES-012"
+          "DES-012",
+          "MOV-106"
         ]
       },
       {
@@ -6844,7 +7107,7 @@
         "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": null,
-        "dateDisplay": "1654 CE",
+        "dateDisplay": 1654,
         "origin": "Recife",
         "destination": "Multiple Atlantic destinations incl. New Amsterdam",
         "originPlaceId": "place-recife",
@@ -6860,21 +7123,24 @@
         "eventId": "EVT-0073",
         "startYear": 1669,
         "endYear": 1670,
-        "dateDisplay": "1669–70 CE",
+        "dateDisplay": "1669–70",
         "origin": "Vienna",
         "destination": "Not specified",
         "originPlaceId": "place-vienna",
         "destinationPlaceId": null,
         "arrowEndsReady": false,
         "arrowTreatment": "Red",
-        "links": []
+        "links": [
+          "MOV-107",
+          "MOV-108"
+        ]
       },
       {
         "id": "MOV-031",
         "eventId": "EVT-0075",
         "startYear": 1744,
         "endYear": 1745,
-        "dateDisplay": "1744–45 CE",
+        "dateDisplay": "1744–45",
         "origin": "Prague",
         "destination": "Not specified",
         "originPlaceId": "place-prague",
@@ -6882,7 +7148,8 @@
         "arrowEndsReady": false,
         "arrowTreatment": "Red",
         "links": [
-          "CHG-017"
+          "CHG-017",
+          "MOV-109"
         ]
       },
       {
@@ -6890,21 +7157,28 @@
         "eventId": "EVT-0076",
         "startYear": 1777,
         "endYear": null,
-        "dateDisplay": "1777 CE",
+        "dateDisplay": 1777,
         "origin": "Belarus / Lithuania region",
         "destination": "Safed",
         "originPlaceId": "place-poland",
         "destinationPlaceId": "place-safed",
         "arrowEndsReady": true,
         "arrowTreatment": "Blue",
-        "links": []
+        "links": [],
+        "branch": {
+          "subhead": "To Safed",
+          "story": "In 1777 a group of Hasidim led by Rabbi Menachem Mendel of Vitebsk set out for the Land of Israel. About 300 people made the journey and settled first in Safed.",
+          "deepDive": "Disciples of the Maggid of Mezeritch, the leaders Menachem Mendel of Vitebsk, Abraham of Kalisk and Israel of Polotsk brought their followers overland and by sea. They settled in Safed, and many later moved to Tiberias after friction and hardship. They lived on funds raised by Hasidim back home, a model of support that lasted for generations. Their aliyah brought Hasidism to the Land and strengthened its small Jewish communities.",
+          "group": "Ashkenazi",
+          "mode": "sea and land"
+        }
       },
       {
         "id": "MOV-033",
         "eventId": "EVT-0079",
         "startYear": 1800,
         "endYear": 1900,
-        "dateDisplay": "19th century CE",
+        "dateDisplay": "19th century",
         "origin": "Pale of Settlement",
         "destination": "Odessa; large cities",
         "originPlaceId": "place-pale-of-settlement",
@@ -6913,28 +7187,42 @@
         "arrowTreatment": "Charcoal",
         "links": [
           "POP-060"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Odessa and the cities",
+          "story": "In the 1800s, Jews of the Pale of Settlement moved to fast-growing cities, above all the port of Odessa, looking for work and a wider world.",
+          "deepDive": "Russia confined most of its Jews to the Pale of Settlement, its western provinces. Inside it, people moved from small towns to cities. Odessa, a new Black Sea port, grew on grain exports, and by the end of the century about a third of its people were Jews. It became a center of Jewish commerce, Hebrew and Yiddish writing, and new ideas, from enlightenment to early Zionism. It also saw pogroms, in 1821, 1871, 1881 and worst of all in 1905.",
+          "group": "Ashkenazi",
+          "mode": "land"
+        }
       },
       {
         "id": "MOV-034",
         "eventId": "EVT-0082",
         "startYear": 1808,
         "endYear": 1810,
-        "dateDisplay": "1808–10 CE",
+        "dateDisplay": "1808–10",
         "origin": "Lithuania / Belarus",
         "destination": "Land of Israel",
         "originPlaceId": "place-poland",
         "destinationPlaceId": "place-israel",
         "arrowEndsReady": true,
         "arrowTreatment": "Blue",
-        "links": []
+        "links": [],
+        "branch": {
+          "subhead": "To the Land of Israel",
+          "story": "Between 1808 and 1810, disciples of the Vilna Gaon left Lithuania and Belarus for the Land of Israel. Known as the Perushim, they settled in Safed and later in Jerusalem.",
+          "deepDive": "The Vilna Gaon had longed to settle in the Land himself. After his death, his students organized aliyah in groups, led by figures such as Rabbi Menachem Mendel of Shklov and Rabbi Israel of Shklov. Plague and earthquake struck Safed, and many moved to Jerusalem, where they helped revive the Ashkenazi community. Their descendants were among the builders of the Old Yishuv long before modern Zionism.",
+          "group": "Ashkenazi",
+          "mode": "sea and land"
+        }
       },
       {
         "id": "MOV-035",
         "eventId": "EVT-0080",
         "startYear": 1800,
         "endYear": 1900,
-        "dateDisplay": "19th century CE",
+        "dateDisplay": "19th century",
         "origin": "Iraq / Middle East",
         "destination": "India",
         "originPlaceId": "place-b",
@@ -6943,14 +7231,21 @@
         "arrowTreatment": "Charcoal",
         "links": [
           "POP-061"
-        ]
+        ],
+        "branch": {
+          "subhead": "To India",
+          "story": "In the 1800s, Jewish merchants from Baghdad, Basra and Aleppo settled in Bombay and Calcutta. Known as Baghdadi Jews, they built trading houses that reached across Asia.",
+          "deepDive": "Harsh rule in Baghdad pushed some families out; trade in cotton, textiles and opium drew many more. David Sassoon fled Baghdad, settled in Bombay in 1832 and built a business with branches from Calcutta to Shanghai and London. Baghdadi families founded synagogues, schools and hospitals in Bombay and Calcutta, living alongside the older Bene Israel and Cochin Jewish communities.",
+          "group": "Baghdadi",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-036",
         "eventId": "EVT-0085",
         "startYear": 1845,
         "endYear": null,
-        "dateDisplay": "From 1845 CE",
+        "dateDisplay": "From 1845",
         "origin": "India",
         "destination": "Shanghai",
         "originPlaceId": "place-bombay",
@@ -6959,60 +7254,88 @@
         "arrowTreatment": "Charcoal",
         "links": [
           "POP-062"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Shanghai",
+          "story": "From the 1840s, Baghdadi Jewish firms from Bombay opened branches in Shanghai after China's ports were forced open to foreign trade. A small, prosperous community grew there.",
+          "deepDive": "After the Opium War, Shanghai opened to foreign merchants in 1843. The Sassoons and then the Kadoorie and Hardoon families followed, building trading houses, real estate and banks. They founded synagogues, including Ohel Rachel, and a Jewish school. A century later, this small Sephardi community helped receive thousands of refugees fleeing Nazi Europe.",
+          "group": "Baghdadi",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-037",
         "eventId": "EVT-0083",
         "startYear": 1820,
         "endYear": 1880,
-        "dateDisplay": "1820–1880 CE",
+        "dateDisplay": "1820–1880",
         "origin": "Central Europe",
         "destination": "United States",
         "originPlaceId": "place-central-europe",
-        "destinationPlaceId": "place-us",
+        "destinationPlaceId": "place-new-amsterdam",
         "arrowEndsReady": true,
         "arrowTreatment": "Charcoal",
         "links": [
           "POP-063"
-        ]
+        ],
+        "branch": {
+          "subhead": "To the United States",
+          "story": "Between 1820 and 1880, tens of thousands of Jews from the German lands and Central Europe crossed to America, many starting as peddlers and building businesses across the country.",
+          "deepDive": "Limits on marriage and residence in Bavaria and other German states pushed young Jews to emigrate. In America they spread far beyond the coast, peddling goods into the Midwest, the South and the West, then opening stores. Levi Strauss and the founders of great department stores came out of this wave. By 1880 American Jewry numbered roughly a quarter of a million, and Reform Judaism had taken root in its congregations.",
+          "group": "Ashkenazi",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-038",
         "eventId": "EVT-0091",
         "startYear": 1881,
         "endYear": 1914,
-        "dateDisplay": "1881–1914 CE",
+        "dateDisplay": "1881–1914",
         "origin": "Eastern Europe",
         "destination": "United States",
         "originPlaceId": "place-eastern-europe",
-        "destinationPlaceId": "place-us",
+        "destinationPlaceId": "place-new-amsterdam",
         "arrowEndsReady": true,
         "arrowTreatment": "Charcoal (red only for specific persecution-driven flight records)",
         "links": [
           "CHG-026"
-        ]
+        ],
+        "branch": {
+          "subhead": "To the United States",
+          "story": "From 1881 to 1914, about two million Jews left Eastern Europe for the United States, escaping poverty, discrimination and pogroms. Most entered through New York.",
+          "deepDive": "The pogroms of 1881 and 1882 after the assassination of Tsar Alexander II, the harsh May Laws and deepening poverty set off a mass migration. Families crossed Europe to ports like Hamburg and Bremen, then endured the voyage in steerage. Through Ellis Island they reached the tenements of the Lower East Side and Jewish neighborhoods in cities across the country. They built synagogues, unions, Yiddish newspapers and theaters, and transformed American Jewish life.",
+          "group": "Ashkenazi",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-039",
         "eventId": "EVT-0092",
         "startYear": 1881,
         "endYear": 1882,
-        "dateDisplay": "1881–82 CE",
+        "dateDisplay": "1881–82",
         "origin": "Yemen",
         "destination": "Jerusalem; Jaffa",
         "originPlaceId": "place-yemen",
         "destinationPlaceId": "place-j",
         "arrowEndsReady": true,
         "arrowTreatment": "Blue",
-        "links": []
+        "links": [],
+        "branch": {
+          "subhead": "To Jerusalem",
+          "story": "In 1881 and 1882, about 200 Jews from Yemen set out for Jerusalem, one of the first waves of modern aliyah, arriving at almost the same moment as the First Aliyah from Europe.",
+          "deepDive": "Moved by hopes of redemption, families from Sana'a and other towns traveled by land and sea to the Land of Israel. They arrived poor and found little welcome or work in Jerusalem, and some lived in caves near the village of Silwan until houses were built for them. Yemenite memory calls their journey E'eleh BeTamar. It began a steady stream of Yemenite immigration that continued for decades.",
+          "group": "Yemenite",
+          "mode": "sea and land"
+        }
       },
       {
         "id": "MOV-040",
         "eventId": "EVT-0093",
         "startYear": 1882,
         "endYear": 1903,
-        "dateDisplay": "1882–1903 CE",
+        "dateDisplay": "1882–1903",
         "origin": "Eastern Europe; Yemen",
         "destination": "Land of Israel",
         "originPlaceId": "place-eastern-europe",
@@ -7022,14 +7345,20 @@
         "links": [
           "CHG-028",
           "POP-068"
-        ]
+        ],
+        "branch": {
+          "subhead": "From Eastern Europe",
+          "story": "Between 1882 and 1903, about 30,000 Jews came to the Land of Israel, most from Eastern Europe after the pogroms. They founded the first modern Jewish farming colonies.",
+          "deepDive": "Shaken by the pogroms of 1881 and 1882, groups like Hovevei Zion and the student pioneers of Bilu set out to settle the land. They founded Rishon LeZion, Zikhron Ya'akov, Rosh Pinna and Rehovot, often on swampy or rocky ground, fighting malaria and debt. Baron Edmond de Rothschild's support kept many colonies alive. Many settlers left, but those who stayed laid the foundations of modern Jewish agriculture and brought Hebrew back into daily life.",
+          "group": "Ashkenazi"
+        }
       },
       {
         "id": "MOV-041",
         "eventId": "EVT-0094",
         "startYear": 1889,
         "endYear": null,
-        "dateDisplay": "From 1889 CE",
+        "dateDisplay": "From 1889",
         "origin": "Eastern Europe",
         "destination": "Argentina",
         "originPlaceId": "place-eastern-europe",
@@ -7038,14 +7367,21 @@
         "arrowTreatment": "Charcoal",
         "links": [
           "POP-069"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Argentina",
+          "story": "In 1889, 820 Jews from Eastern Europe arrived in Argentina on the ship Weser. Their colony, Moisés Ville, began Jewish farming settlement on the pampas.",
+          "deepDive": "Argentina wanted settlers for its open land. The first group came with little help and suffered hunger and disease until aid arrived. In 1891 Baron Maurice de Hirsch founded the Jewish Colonization Association, which bought land and set up colonies in Entre Ríos, Santa Fe and other provinces. The Jewish gauchos became part of Argentine lore, and later generations moved to Buenos Aires, building the largest Jewish community in Latin America.",
+          "group": "Ashkenazi",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-042",
         "eventId": "EVT-0095",
         "startYear": 1890,
         "endYear": 1899,
-        "dateDisplay": "1890s CE",
+        "dateDisplay": "1890s",
         "origin": "Bukhara / Central Asia",
         "destination": "Jerusalem",
         "originPlaceId": "place-central-asia",
@@ -7054,14 +7390,21 @@
         "arrowTreatment": "Blue",
         "links": [
           "POP-070"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Jerusalem",
+          "story": "In the 1890s, Jews from Bukhara and Central Asia settled in Jerusalem. In 1892 they founded their own neighborhood, the Bukharan Quarter, with wide streets and grand houses.",
+          "deepDive": "Railways and steamships made the long trip possible, and prosperous Bukharan merchants led the way. Their society bought land northwest of the Old City and built a quarter planned on European lines, with spacious homes. Families from Bukhara, Samarkand and Tashkent came to live, study and be buried in the holy city. The quarter became the center of Bukharan Jewish life and culture in the Land.",
+          "group": "Bukharan",
+          "mode": "sea and land"
+        }
       },
       {
         "id": "MOV-043",
-        "eventId": null,
+        "eventId": "EVT-0103",
         "startYear": 1904,
         "endYear": 1914,
-        "dateDisplay": "1904–14 CE",
+        "dateDisplay": "1904–14",
         "origin": "Eastern Europe; Yemen",
         "destination": "Land of Israel",
         "originPlaceId": "place-eastern-europe",
@@ -7070,7 +7413,13 @@
         "arrowTreatment": "Blue",
         "links": [
           "POP-071"
-        ]
+        ],
+        "branch": {
+          "subhead": "From Eastern Europe",
+          "story": "Between 1904 and 1914, about 35,000 Jews came to the Land of Israel, many of them young idealists from Russia after the Kishinev pogrom and the failed revolution of 1905.",
+          "deepDive": "These pioneers wanted to build a Jewish society by their own labor. They founded the guard organization Hashomer, workers' parties and, in 1910, Degania, the first kibbutz. In 1909 families from Jaffa founded Tel Aviv on the sand dunes north of the city. Many left again, but the Second Aliyah produced leaders of the future state, among them David Ben-Gurion, and made Hebrew the language of the new Jewish community.",
+          "group": "Ashkenazi"
+        }
       },
       {
         "id": "MOV-044",
@@ -7086,7 +7435,14 @@
         "arrowTreatment": "Red",
         "links": [
           "POP-008"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Egypt",
+          "story": "After Alexander's death, Ptolemy I seized Judea and carried many Jews to Egypt as captives. Others followed by choice, and Alexandria grew a great Jewish community.",
+          "deepDive": "Ptolemy I fought the other heirs of Alexander for Judea. Ancient writers tell that he took Jerusalem on a Sabbath, when its people would not fight. He settled many Jews in Egypt, some as soldiers in his garrisons. Over the next centuries Alexandria became home to one of the largest Jewish communities of the ancient world, and there the Torah was translated into Greek, the version known as the Septuagint.",
+          "group": "Judean",
+          "mode": "land"
+        }
       },
       {
         "id": "MOV-045",
@@ -7102,7 +7458,12 @@
         "arrowTreatment": "Charcoal (relocation)",
         "links": [
           "POP-011"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Cyrenaica",
+          "story": "Ptolemy I sent Jewish settlers from Egypt to Cyrenaica, in today's Libya, to garrison its cities and secure his hold on the region.",
+          "deepDive": "Josephus writes that Ptolemy, wanting to hold Cyrene and the other cities firmly, sent Jews to settle there. The community grew large and prosperous over the next three centuries. In 115 to 117 the Jews of Cyrenaica rose against Rome in the Diaspora Revolt, and Rome crushed the uprising with great destruction, ending the community's golden age."
+        }
       },
       {
         "id": "MOV-046",
@@ -7119,7 +7480,14 @@
         "links": [
           "MOV-002",
           "POP-002"
-        ]
+        ],
+        "branch": {
+          "subhead": "To the heart of Assyria",
+          "story": "Israelite deportees were settled in Halah and along the Habor, the river of Gozan, in the Assyrian heartland of northern Mesopotamia.",
+          "deepDive": "The Book of Kings names the places: Halah, and Habor by the river of Gozan. They lay in the core of the Assyrian empire, in what is now northern Iraq and eastern Syria. Sargon II also wrote that he formed a unit of chariots from the men of Samaria for his own army. The exiles were mixed among many other deported peoples, the way Assyria governed its conquests.",
+          "group": "Israelite",
+          "mode": "land"
+        }
       },
       {
         "id": "MOV-047",
@@ -7136,31 +7504,45 @@
         "links": [
           "MOV-002",
           "POP-002"
-        ]
+        ],
+        "branch": {
+          "subhead": "To the cities of the Medes",
+          "story": "Others were sent farther east, to the cities of the Medes in the Iranian highlands, at the far edge of Assyrian power.",
+          "deepDive": "The Book of Kings adds the cities of the Medes to the places where Israel's exiles were settled. Media lay in the mountains of western Iran, newly conquered by Assyria. Sending deportees to the frontier served Assyria twice: it emptied rebellious lands and filled new provinces with people who depended on the king. The Book of Tobit, written centuries later, imagines Israelite exiles living in Nineveh and in Media.",
+          "group": "Israelite",
+          "mode": "land"
+        }
       },
       {
         "id": "MOV-048",
         "eventId": "EVT-0061",
         "startYear": 1500,
         "endYear": 1650,
-        "dateDisplay": "c. 1500–1650 CE",
+        "dateDisplay": "c. 1500–1650",
         "origin": "Italy",
         "destination": "Ottoman cities",
         "originPlaceId": "place-italy",
-        "destinationPlaceId": "place-ottoman-lands",
+        "destinationPlaceId": "place-constantinople",
         "arrowEndsReady": true,
         "arrowTreatment": "Charcoal",
         "links": [
           "MOV-022",
           "POP-044"
-        ]
+        ],
+        "branch": {
+          "subhead": "From Italy to Ottoman cities",
+          "story": "Jews from Italy also moved east to Ottoman cities in the 1500s and 1600s, some pushed by expulsions and the ghetto, others drawn by trade.",
+          "deepDive": "Italian Jews came in several waves: from Sicily and southern Italy after the expulsions of the 1490s and 1500s, and later from the Papal States. In Salonica and Constantinople they founded congregations named for their homes, such as Sicilia, Calabria, Apulia and Italia, beside the Spanish and Portuguese ones. They joined older Romaniote communities, and the mix made the Ottoman Jewish world remarkably diverse.",
+          "group": "Italian",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-049",
         "eventId": "EVT-0062",
         "startYear": 1500,
         "endYear": 1570,
-        "dateDisplay": "Early / mid-1500s CE",
+        "dateDisplay": "Early / mid-1500s",
         "origin": "Mediterranean",
         "destination": "Jerusalem",
         "originPlaceId": "place-mediterranean",
@@ -7170,14 +7552,20 @@
         "links": [
           "MOV-023",
           "POP-045"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Jerusalem",
+          "story": "Others made their way to Jerusalem, joining the Jews already living in the holy city under new Ottoman rule.",
+          "deepDive": "The Ottomans took Jerusalem in 1517, and Suleiman the Magnificent rebuilt its walls in the decades that followed. Immigrants from Spain, North Africa and Italy joined the existing Jewish community. Life was hard and the community often poor, supported by donations sent from abroad. Jerusalem drew fewer settlers than Safed in this century, but its pull on Jewish hearts never weakened.",
+          "group": "Sephardic"
+        }
       },
       {
         "id": "MOV-050",
         "eventId": "EVT-0093",
         "startYear": 1882,
         "endYear": 1903,
-        "dateDisplay": "1882–1903 CE",
+        "dateDisplay": "1882–1903",
         "origin": "Yemen",
         "destination": "Land of Israel",
         "originPlaceId": "place-yemen",
@@ -7188,14 +7576,20 @@
           "CHG-028",
           "MOV-040",
           "POP-068"
-        ]
+        ],
+        "branch": {
+          "subhead": "From Yemen",
+          "story": "Yemenite Jews kept coming through the First Aliyah years, most of them settling in Jerusalem as laborers and craftsmen.",
+          "deepDive": "After the first group of 1881 and 1882, more families followed from Yemen through the 1880s and 1890s. Most settled in Jerusalem, where a Yemenite neighborhood grew near the village of Silwan. They worked as laborers and craftsmen, often in deep poverty. They were part of the First Aliyah, though the immigrants from Europe received far more attention.",
+          "group": "Yemenite"
+        }
       },
       {
         "id": "MOV-051",
-        "eventId": null,
+        "eventId": "EVT-0103",
         "startYear": 1904,
         "endYear": 1914,
-        "dateDisplay": "1904–14 CE",
+        "dateDisplay": "1904–14",
         "origin": "Yemen",
         "destination": "Land of Israel",
         "originPlaceId": "place-yemen",
@@ -7205,14 +7599,20 @@
         "links": [
           "MOV-043",
           "POP-071"
-        ]
+        ],
+        "branch": {
+          "subhead": "From Yemen",
+          "story": "Yemenite Jews also came during the Second Aliyah. In 1911 an emissary, Shmuel Yavne'eli, encouraged families to come and work in the farming colonies.",
+          "deepDive": "Yavne'eli, sent by the Zionist movement's office in Jaffa, traveled through Yemen in 1911 and 1912. Many families followed him to work in colonies such as Rehovot, Rishon LeZion and Petah Tikva. They faced hard labor, low pay and discrimination from other settlers. Their communities endured and became a lasting part of the Jewish population of the Land.",
+          "group": "Yemenite"
+        }
       },
       {
         "id": "MOV-052",
         "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": null,
-        "dateDisplay": "1654 CE",
+        "dateDisplay": 1654,
         "origin": "Recife",
         "destination": "Amsterdam",
         "originPlaceId": "place-recife",
@@ -7222,14 +7622,21 @@
         "links": [
           "MOV-029",
           "POP-047"
-        ]
+        ],
+        "branch": {
+          "subhead": "Back to Amsterdam",
+          "story": "When Portugal retook Recife in 1654, its Jews were given three months to leave. Most sailed back to Amsterdam, the city that had sent many of them to Brazil, carrying only what they could move.",
+          "deepDive": "For a generation Dutch Recife sheltered a thriving Jewish community, with Kahal Zur Israel, the first synagogue in the Americas, its own schools and a cemetery. When Portugal won Recife back, the surrender of January 1654 gave the Jews three months to sell what they owned and leave, taking only movable goods. Most chose Amsterdam, home of the Portuguese Jewish community that had sent many of them to Brazil. For some it was only a stop. From Amsterdam, groups set out again for the Caribbean.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-053",
         "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": null,
-        "dateDisplay": "1654 CE",
+        "dateDisplay": 1654,
         "origin": "Recife",
         "destination": "Curaçao",
         "originPlaceId": "place-recife",
@@ -7239,14 +7646,21 @@
         "links": [
           "MOV-029",
           "POP-051"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Curaçao",
+          "story": "Some sailed to Dutch Curaçao, where a small Jewish settlement had just begun. The exiles from Recife joined it, and it grew into one of the oldest Jewish communities in the Americas.",
+          "deepDive": "Curaçao was Dutch, under the same flag that had protected the Jews of Recife. A small Jewish settlement had begun there a few years before, and the refugees from Brazil joined it. The community took the name Mikvé Israel. Its synagogue in Willemstad, built in 1732, is the oldest synagogue in continuous use in the Americas.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-054",
         "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": null,
-        "dateDisplay": "1654 CE",
+        "dateDisplay": 1654,
         "origin": "Recife",
         "destination": "Barbados",
         "originPlaceId": "place-recife",
@@ -7256,14 +7670,21 @@
         "links": [
           "MOV-029",
           "POP-054"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Barbados",
+          "story": "A group of Recife exiles reached English Barbados in 1654, some of them by way of Amsterdam. They put down roots in Bridgetown and founded a congregation that still has its synagogue today.",
+          "deepDive": "Barbados was English, not Dutch, yet it opened to the refugees. Some reached the island only after first going back to Amsterdam. In November 1654 the island's council took note of Jews brought from Brazil. The newcomers settled in Bridgetown and founded the congregation Nidhe Israel. Its synagogue, rebuilt in 1833, still stands.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-055",
         "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": 1654,
-        "dateDisplay": "Sept 1654 CE",
+        "dateDisplay": "Sept 1654",
         "origin": "Recife",
         "destination": "New Amsterdam",
         "originPlaceId": "place-recife",
@@ -7273,14 +7694,21 @@
         "links": [
           "MOV-029",
           "POP-050"
-        ]
+        ],
+        "branch": {
+          "subhead": "To New Amsterdam",
+          "story": "In September 1654, 23 Jewish refugees from Brazil, children among them, landed in Dutch New Amsterdam. Their arrival marks the beginning of Jewish community life in what became New York.",
+          "deepDive": "They came on the ship St. Catrina, 23 people, big as well as little, to a colony that had never had a Jewish community. Governor Peter Stuyvesant asked his employers, the Dutch West India Company, to make them leave. The directors refused. Jews could live and trade in New Netherland, they ruled, as long as their poor did not become a burden. By 1655 the newcomers had a burial ground of their own and a Torah scroll lent from Amsterdam. From that foothold grew the Jewish community of New York.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-056",
         "eventId": "EVT-0059",
         "startYear": 1492,
         "endYear": null,
-        "dateDisplay": "1492 CE",
+        "dateDisplay": 1492,
         "origin": "Spain",
         "destination": "Portugal",
         "originPlaceId": "place-spain",
@@ -7290,14 +7718,21 @@
         "links": [
           "CHG-014",
           "MOV-020"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Portugal",
+          "story": "Many crossed the border into Portugal. Most could buy only eight months of safety. Those who stayed were soon enslaved or baptized by force, and Portugal proved no refuge at all.",
+          "deepDive": "Portugal was the nearest escape, across a land border. King João II admitted the exiles for a fee. A few wealthy families bought the right to stay; most paid for eight months and were told to move on, but the king let few ships sail. Those left behind were enslaved, and children were taken from their parents and shipped to the island of São Tomé. In 1497 King Manuel I, seeking a Spanish royal bride, ordered the Jews out, then baptized them by force instead, children first. In 1499 he barred these New Christians from leaving.",
+          "group": "Sephardic",
+          "mode": "land"
+        }
       },
       {
         "id": "MOV-057",
         "eventId": "EVT-0059",
         "startYear": 1492,
         "endYear": null,
-        "dateDisplay": "1492 CE",
+        "dateDisplay": 1492,
         "origin": "Spain",
         "destination": "North Africa (Maghreb)",
         "originPlaceId": "place-spain",
@@ -7307,14 +7742,21 @@
         "links": [
           "CHG-014",
           "MOV-020"
-        ]
+        ],
+        "branch": {
+          "subhead": "To North Africa",
+          "story": "Others crossed the sea to Morocco and the lands beyond. Many were kept outside the city walls and died of hunger in the fields. The survivors rebuilt, and in Fez the newcomers came to lead the community.",
+          "deepDive": "The exiles made for Fez, Tlemcen and other cities of the Maghreb. A Jewish writer in 1495 told of families barred from the cities, starving in the open fields, some killed by wild animals. Some gave up and went back to Spain to be baptized. In Tlemcen a Jewish official named Abraham paid to bring refugees in. In Fez the exiles, called megorashim, kept their Spanish customs under their own rules, apart from the local Jews, the toshavim, and in time took the lead. Two of them set up a Hebrew printing press there in the early 1500s.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-058",
         "eventId": "EVT-0059",
         "startYear": 1492,
         "endYear": null,
-        "dateDisplay": "1492 CE",
+        "dateDisplay": 1492,
         "origin": "Spain",
         "destination": "Italy",
         "originPlaceId": "place-spain",
@@ -7324,31 +7766,45 @@
         "links": [
           "CHG-014",
           "MOV-020"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Italy",
+          "story": "Ships carried exiles to Naples, Genoa and other Italian ports. Naples took them in, but hunger and plague came with them. When Spain later ruled Naples, the Jews were expelled once more.",
+          "deepDive": "The Kingdom of Naples, still independent in 1492, let the exiles in. Its king helped them with money, and local Jews brought food. Among the arrivals was the statesman and scholar Isaac Abravanel, who went on to serve the Naples court. But the refugees came weak and sick, and plague spread from them through the city. Some families sold their children to survive. In Genoa they found no mercy. Naples later fell under Spanish rule. Its rulers ordered the Jews out in 1510 and expelled the last of them in 1541.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-059",
         "eventId": "EVT-0059",
         "startYear": 1492,
         "endYear": null,
-        "dateDisplay": "1492 CE",
+        "dateDisplay": 1492,
         "origin": "Spain",
         "destination": "Ottoman lands",
         "originPlaceId": "place-spain",
-        "destinationPlaceId": "place-ottoman-lands",
+        "destinationPlaceId": "place-constantinople",
         "arrowEndsReady": true,
         "arrowTreatment": "Red",
         "links": [
           "CHG-014",
           "MOV-020"
-        ]
+        ],
+        "branch": {
+          "subhead": "To the Ottoman lands",
+          "story": "Many sailed east to the Ottoman Empire, which took them in as skilled craftsmen. In Constantinople and Salonica they built communities that kept their Spanish language and customs for centuries.",
+          "deepDive": "Some drowned on the crossing. Those who arrived found a sultan who received them kindly and lent them money, for the empire needed their crafts and trade. In Salonica the newcomers founded congregations named for the places they had lost, and by the mid-1600s Jews made up about half the city. In Constantinople exiles set up a Hebrew printing press in 1493. For centuries the Sephardim of the Ottoman lands spoke Judeo-Spanish, a living memory of the Spain that had thrown them out.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-064",
         "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": 1654,
-        "dateDisplay": "Feb 1654 CE",
+        "dateDisplay": "Feb 1654",
         "origin": "Recife",
         "destination": "Jamaica",
         "originPlaceId": "place-recife",
@@ -7359,14 +7815,21 @@
           "MOV-029",
           "MOV-055",
           "POP-050"
-        ]
+        ],
+        "branch": {
+          "subhead": "Driven to Jamaica",
+          "story": "In February 1654 the ship Valk left Brazil carrying Jewish refugees. Adverse winds drove it to Spanish-held Jamaica, where its passengers were stripped of their possessions.",
+          "deepDive": "The Valk, under skipper Jon Craeck, sailed from Recife on 24 February 1654, one of the ships carrying Jews away after the Portuguese reconquest. Instead of reaching safety, it was blown off course to Jamaica, then a Spanish colony and hostile ground for Jews. The passengers lost what they carried. Three of them appear by name in the records: Daniel Cardoso, Moses Mercado and Isaac Israel.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-065",
         "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": 1654,
-        "dateDisplay": "Spring 1654 CE",
+        "dateDisplay": "Spring 1654",
         "origin": "Jamaica",
         "destination": "Cape St. Anthony (western Cuba)",
         "originPlaceId": "place-jamaica",
@@ -7377,14 +7840,21 @@
           "MOV-029",
           "MOV-055",
           "POP-050"
-        ]
+        ],
+        "branch": {
+          "subhead": "On to Cape St. Anthony",
+          "story": "From the Caribbean the refugees reached Cape St. Anthony, at the western tip of Cuba, the port from which they sailed for New Amsterdam.",
+          "deepDive": "Cape St. Anthony lies at the far western tip of Cuba, on the sea route from the Caribbean toward North America. The New Amsterdam court entry of September 1654 says the ship St. Catrina sailed from there carrying 23 Jewish passengers, the refugees who began Jewish community life in what became New York.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-066",
         "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": 1654,
-        "dateDisplay": "Sept 1654 CE",
+        "dateDisplay": "Sept 1654",
         "origin": "Cape St. Anthony (western Cuba)",
         "destination": "New Amsterdam",
         "originPlaceId": "place-cape-st-anthony",
@@ -7395,14 +7865,21 @@
           "MOV-029",
           "MOV-055",
           "POP-050"
-        ]
+        ],
+        "branch": {
+          "subhead": "Last leg to New Amsterdam",
+          "story": "From Cape St. Anthony at the western tip of Cuba, the ship St. Catrina carried 23 Jewish refugees north to New Amsterdam, arriving in September 1654.",
+          "deepDive": "The New Amsterdam court record names the ship, the St. Catrina under master Jacques de la Motthe, and the port it sailed from, Cape St. Anthony. Soon after landing, de la Motthe sued the Jewish passengers for the rest of their fare, and some of their goods were sold at auction to pay it. Nearly penniless in a strange colony, they still had to win the right to stay.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-067",
         "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": 1654,
-        "dateDisplay": "1654 CE",
+        "dateDisplay": 1654,
         "origin": "Amsterdam",
         "destination": "Barbados",
         "originPlaceId": "place-amsterdam",
@@ -7414,14 +7891,21 @@
           "MOV-052",
           "MOV-054",
           "POP-054"
-        ]
+        ],
+        "branch": {
+          "subhead": "From Amsterdam to Barbados",
+          "story": "Some Recife families reached Barbados only after a stop in Amsterdam. By November 1654 the island's council was recording Jews brought from Brazil.",
+          "deepDive": "Barbados was an English colony, and the refugees from Brazil were among its first Jewish settlers. They made their homes in Bridgetown, where the congregation Nidhe Israel grew. Two years later, in 1656, England itself began quietly readmitting Jews, and Barbados gave them an early foothold in the English Atlantic. Its old synagogue and cemetery still stand.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-060",
         "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": null,
-        "dateDisplay": "1654 CE",
+        "dateDisplay": 1654,
         "origin": "Recife",
         "destination": "Guadeloupe",
         "originPlaceId": "place-recife",
@@ -7431,14 +7915,21 @@
         "links": [
           "MOV-029",
           "POP-073"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Guadeloupe",
+          "story": "Some Jews from the Recife area found refuge on French Guadeloupe after 1654, among the first Jews on the island.",
+          "deepDive": "Not every refugee chose a Dutch flag. Former Jewish residents of Itamaracá, an island near Recife, settled on the French islands of Guadeloupe and Martinique, carrying the movable goods the surrender allowed them. Their stay was fragile. In 1683 King Louis XIV ordered the Jews expelled from France's American colonies, and the Code Noir of 1685 confirmed it.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-061",
         "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": null,
-        "dateDisplay": "1654 CE",
+        "dateDisplay": 1654,
         "origin": "Recife",
         "destination": "Martinique",
         "originPlaceId": "place-recife",
@@ -7448,14 +7939,21 @@
         "links": [
           "MOV-029",
           "POP-072"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Martinique",
+          "story": "A small group of Jews from Dutch Brazil settled on French Martinique in 1654, among them the merchant Benjamin d'Acosta de Andrade.",
+          "deepDive": "Relatives soon joined them, Portuguese Jewish families from Bordeaux and Bayonne. For a time the French governors tolerated them for the trade they brought. Pressure from the Church and local rivals grew, and in 1683 Louis XIV ordered all Jews out of France's American colonies. Jewish life on Martinique faded for generations.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-062",
         "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": null,
-        "dateDisplay": "1654 CE",
+        "dateDisplay": 1654,
         "origin": "Recife",
         "destination": "Suriname",
         "originPlaceId": "place-recife",
@@ -7465,14 +7963,21 @@
         "links": [
           "MOV-029",
           "POP-052"
-        ]
+        ],
+        "branch": {
+          "subhead": "To Suriname",
+          "story": "Some Recife Jews sailed to Suriname, on the South American coast, joining Jews who had begun settling there years before.",
+          "deepDive": "Jews had reached the Wild Coast of Guiana earlier, some by way of Recife itself. After 1654 more came, and under English and then Dutch rule they received rare privileges. Planters founded Jodensavanne, a Jewish town on the Suriname River, where the synagogue Beracha ve Shalom was dedicated in 1685. Its ruins still stand in the forest.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-063",
         "eventId": "EVT-0071",
         "startYear": 1654,
         "endYear": null,
-        "dateDisplay": "1654 CE",
+        "dateDisplay": 1654,
         "origin": "Amsterdam",
         "destination": "Livorno",
         "originPlaceId": "place-amsterdam",
@@ -7483,7 +7988,14 @@
           "MOV-029",
           "MOV-052",
           "POP-046"
-        ]
+        ],
+        "branch": {
+          "subhead": "On to Livorno",
+          "story": "Some Recife exiles did not stay in Amsterdam. They continued to Livorno in Italy, a free port where Jews lived with unusual freedom.",
+          "deepDive": "Livorno's charters of 1591 and 1593 invited merchants of every nation, Jews and New Christians included, with no ghetto and no badge. Its Portuguese-speaking Sephardi community traded across the Mediterranean, and families from Brazil fit naturally into that world. Livorno became one of the leading Jewish centers of Italy.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
       },
       {
         "id": "MOV-068",
@@ -7499,7 +8011,464 @@
         "arrowTreatment": "Dotted (traditional)",
         "links": [
           "EVT-0001"
+        ],
+        "branch": {
+          "subhead": "From Ur to Canaan",
+          "story": "The Torah tells that Abraham left Ur of the Chaldees with his family, stopped in Haran, and at G-d's call went on to Canaan, the land promised to his descendants.",
+          "deepDive": "Genesis tells that Terah took his son Abram, Abram's wife Sarai and his grandson Lot from Ur toward Canaan, and that they settled for a time in Haran. There Abram heard the call: leave your land and your father's house for the land I will show you. He went on to Canaan with Sarai and Lot, and the covenant made with him became the root of Jewish history. Jewish tradition remembers Abraham as the first to recognize one G-d.",
+          "mode": "land"
+        }
+      },
+      {
+        "id": "MOV-069",
+        "eventId": "EVT-0099",
+        "startYear": 1148,
+        "endYear": 1170,
+        "dateDisplay": "1148–1170",
+        "origin": "Córdoba (Almohad al-Andalus)",
+        "destination": "Castile and Aragon (Toledo)",
+        "originPlaceId": "place-cordoba",
+        "destinationPlaceId": "place-spain",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-008",
+          "MOV-010"
+        ],
+        "branch": {
+          "subhead": "To Christian Castile",
+          "story": "When the Almohads seized Córdoba in 1148 and gave Jews a choice of Islam, exile or death, many fled north to Christian Castile, where Alfonso VII received them in Toledo.",
+          "deepDive": "The Almohads, a militant dynasty from Morocco, ended the tolerance Jews had known in al-Andalus. Synagogues and academies were closed. Many families accepted Islam outwardly and kept their faith in secret; many others fled. Alfonso VII of Castile welcomed refugees, especially in Toledo, which became a great Jewish center. The flight ended the golden age of Jewish culture in Muslim Spain and carried its learning into the Christian kingdoms.",
+          "group": "Sephardic",
+          "mode": "land"
+        }
+      },
+      {
+        "id": "MOV-070",
+        "eventId": "EVT-0099",
+        "startYear": 1148,
+        "endYear": 1170,
+        "dateDisplay": "1148–1170",
+        "origin": "Córdoba (Almohad al-Andalus)",
+        "destination": "Córdoba (Almohad al-Andalus)",
+        "originPlaceId": "place-cordoba",
+        "destinationPlaceId": "place-portugal",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-008",
+          "MOV-010"
+        ],
+        "branch": {
+          "subhead": "To Portugal",
+          "story": "Other refugees from the Almohad persecution crossed into the young Christian kingdom of Portugal, which had just won its independence and was pushing south.",
+          "deepDive": "Portugal's first king, Afonso Henriques, took Lisbon in 1147, just as the Almohads crossed into al-Andalus. Jews fleeing forced conversion found the Christian north safer than the Muslim south. Jewish communities grew in Lisbon and other towns of the new kingdom, where Jews served as merchants, physicians and royal officials.",
+          "group": "Sephardic",
+          "mode": "land"
+        }
+      },
+      {
+        "id": "MOV-071",
+        "eventId": "EVT-0099",
+        "startYear": 1148,
+        "endYear": 1170,
+        "dateDisplay": "1148–1170",
+        "origin": "Córdoba (Almohad al-Andalus)",
+        "destination": "Córdoba (Almohad al-Andalus)",
+        "originPlaceId": "place-cordoba",
+        "destinationPlaceId": "place-s-france",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-008",
+          "MOV-010"
+        ],
+        "branch": {
+          "subhead": "To Provence",
+          "story": "Some refugees went farther, across the Pyrenees to Provence and Languedoc. Families like the Kimhis and the Ibn Tibbons carried the learning of al-Andalus with them.",
+          "deepDive": "Judah ibn Tibbon left Granada and settled in Lunel, where he translated Arabic works of Jewish philosophy into Hebrew. His son Samuel later translated Maimonides' Guide for the Perplexed. Joseph Kimhi settled in Narbonne, and his sons, especially David Kimhi, became famous grammarians and Bible commentators. Through these refugees, southern France became a bridge carrying Sephardi learning to Jews who did not read Arabic.",
+          "group": "Sephardic",
+          "mode": "land"
+        }
+      },
+      {
+        "id": "MOV-072",
+        "eventId": "EVT-0099",
+        "startYear": 1148,
+        "endYear": 1170,
+        "dateDisplay": "1148–1170",
+        "origin": "Córdoba (Almohad al-Andalus)",
+        "destination": "Córdoba (Almohad al-Andalus)",
+        "originPlaceId": "place-cordoba",
+        "destinationPlaceId": "place-egypt",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-008",
+          "MOV-010"
+        ],
+        "branch": {
+          "subhead": "To Egypt",
+          "story": "Others fled east across the Mediterranean. The family of Moses Maimonides wandered from Córdoba to Morocco and the Land of Israel before settling in Egypt.",
+          "deepDive": "Maimonides was a boy when the Almohads took Córdoba. His family lived under the persecution for years, moving through Spain and on to Fez, then sailed to Acre in 1165 and finally settled in Fustat, beside Cairo. There Maimonides became a leader of Egyptian Jewry, physician to the vizier of Saladin, and the author of the Mishneh Torah and the Guide for the Perplexed.",
+          "group": "Sephardic",
+          "mode": "sea and land"
+        }
+      },
+      {
+        "id": "MOV-073",
+        "eventId": "EVT-0099",
+        "startYear": 1148,
+        "endYear": 1170,
+        "dateDisplay": "1148–1170",
+        "origin": "Córdoba (Almohad al-Andalus)",
+        "destination": "Córdoba (Almohad al-Andalus)",
+        "originPlaceId": "place-cordoba",
+        "destinationPlaceId": "place-syria",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-008",
+          "MOV-010"
         ]
+      },
+      {
+        "id": "MOV-074",
+        "eventId": "EVT-0053",
+        "startYear": 1290,
+        "endYear": null,
+        "dateDisplay": 1290,
+        "origin": "England",
+        "destination": "France",
+        "originPlaceId": "place-england",
+        "destinationPlaceId": "place-france",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-010",
+          "MOV-012"
+        ],
+        "branch": {
+          "subhead": "To France",
+          "story": "Expelled from England in 1290, most Jews crossed the Channel to France, where many would be expelled again sixteen years later.",
+          "deepDive": "Edward I's edict gave England's Jews until 1 November 1290 to leave. They could take money and movable goods; their houses went to the crown. The crossing itself turned deadly: one ship's master stranded his Jewish passengers on a sandbank in the Thames as the tide rose, and they drowned. Those who reached France settled among its Jews, only to be driven out again in 1306.",
+          "group": "Ashkenazi",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-075",
+        "eventId": "EVT-0053",
+        "startYear": 1290,
+        "endYear": null,
+        "dateDisplay": 1290,
+        "origin": "England",
+        "destination": "German lands",
+        "originPlaceId": "place-england",
+        "destinationPlaceId": "place-german-lands",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-010",
+          "MOV-012"
+        ],
+        "branch": {
+          "subhead": "To the German lands",
+          "story": "Other English Jews went on to the German lands, joining the Ashkenazi communities of the Rhineland and beyond.",
+          "deepDive": "English Jewry had come from northern France after 1066, and its ties ran to the communities across the Channel and up the Rhine. Exiles found Jewish life in the German lands dense but insecure, and worse came with the Black Death massacres of 1348 to 1350. England stayed closed to open Jewish settlement for more than 350 years, until 1656.",
+          "group": "Ashkenazi",
+          "mode": "sea and land"
+        }
+      },
+      {
+        "id": "MOV-077",
+        "eventId": "EVT-0055",
+        "startYear": 1306,
+        "endYear": null,
+        "dateDisplay": 1306,
+        "origin": "Kingdom of France",
+        "destination": "Provence",
+        "originPlaceId": "place-france",
+        "destinationPlaceId": "place-s-france",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red (branching)",
+        "links": [
+          "CHG-011",
+          "MOV-013"
+        ],
+        "branch": {
+          "subhead": "To Provence",
+          "story": "When Philip IV expelled the Jews of France in 1306, many fled east to Provence, ruled by the counts of Anjou and outside his kingdom.",
+          "deepDive": "Philip IV seized Jewish property and debts to fill his treasury. The Jews were arrested on a single day in July and ordered out within a month. Provence, across the Rhône, was not part of France and still allowed Jews. Refugees swelled communities in Marseille, Arles and Aix. For nearly two centuries Provence sheltered French Jewry, until it passed to the French crown and expelled its own Jews around 1500.",
+          "group": "French",
+          "mode": "land"
+        }
+      },
+      {
+        "id": "MOV-078",
+        "eventId": "EVT-0055",
+        "startYear": 1306,
+        "endYear": null,
+        "dateDisplay": 1306,
+        "origin": "Kingdom of France",
+        "destination": "Catalonia",
+        "originPlaceId": "place-france",
+        "destinationPlaceId": "place-barcelona",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red (branching)",
+        "links": [
+          "CHG-011",
+          "MOV-013"
+        ],
+        "branch": {
+          "subhead": "To Catalonia",
+          "story": "Others fled south across the Pyrenees to Catalonia, in the Crown of Aragon, home to thriving Jewish communities in Barcelona and Girona.",
+          "deepDive": "The Crown of Aragon admitted exiles from France, some of them scholars who joined the great Jewish centers of Barcelona and Girona, the world of Nahmanides and Solomon ibn Adret. The safety did not last: in 1391 riots destroyed the Jewish quarter of Barcelona, and in 1492 all Jews were expelled from Spain.",
+          "group": "French",
+          "mode": "land"
+        }
+      },
+      {
+        "id": "MOV-080",
+        "eventId": "EVT-0100",
+        "startYear": 1391,
+        "endYear": null,
+        "dateDisplay": "After 1391",
+        "origin": "Iberia",
+        "destination": "Algiers",
+        "originPlaceId": "place-iberia",
+        "destinationPlaceId": "place-algeria",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-013",
+          "MOV-016"
+        ],
+        "branch": {
+          "subhead": "To Algiers",
+          "story": "After the massacres of 1391 in Spain, Jewish refugees crossed to North Africa. In Algiers they were at first warmly welcomed.",
+          "deepDive": "In 1391 riots began in Seville and spread across Castile and Aragon. Thousands of Jews were killed and many more were forced to convert. Survivors who could escape sailed for the Maghreb. As refugees kept arriving in Algiers, friction grew; when locals tried to turn away 45 newcomers, the Muslim judge ruled for the refugees. Great scholars came with them, among them Isaac ben Sheshet, who led the community of Algiers.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-082",
+        "eventId": "EVT-0057",
+        "startYear": 1394,
+        "endYear": null,
+        "dateDisplay": 1394,
+        "origin": "France",
+        "destination": "Provence",
+        "originPlaceId": "place-france",
+        "destinationPlaceId": "place-s-france",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "MOV-017"
+        ],
+        "branch": {
+          "subhead": "To Provence",
+          "story": "Others went to Provence, still outside the French kingdom, joining the communities that had sheltered earlier exiles in 1306.",
+          "deepDive": "Provence remained a refuge for another century. Its towns, Marseille, Aix, Arles and Tarascon, had large Jewish quarters with physicians, merchants and scholars. In 1481 Provence passed to the French crown, and around 1500 its Jews were expelled or forced to convert. Many fled again, to the Comtat, to Italy and to the Ottoman lands.",
+          "group": "French",
+          "mode": "land"
+        }
+      },
+      {
+        "id": "MOV-083",
+        "eventId": "EVT-0057",
+        "startYear": 1394,
+        "endYear": null,
+        "dateDisplay": 1394,
+        "origin": "France",
+        "destination": "Spain (a few)",
+        "originPlaceId": "place-france",
+        "destinationPlaceId": "place-spain",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "MOV-017"
+        ],
+        "branch": {
+          "subhead": "To Spain",
+          "story": "A few of the exiles of 1394 crossed the Pyrenees into Spain, where only three years earlier Jews had been massacred in the riots of 1391.",
+          "deepDive": "Spain was no longer the haven it had been in 1306. After 1391 its Jewish communities were shattered and many survivors had converted. Only a few French exiles chose to go there. Those who did shared the fate of Spanish Jewry: mounting pressure through the 1400s, then expulsion in 1492.",
+          "group": "French",
+          "mode": "land"
+        }
+      },
+      {
+        "id": "MOV-091",
+        "eventId": "EVT-0063",
+        "startYear": 1590,
+        "endYear": null,
+        "dateDisplay": "c. 1590",
+        "origin": "Portugal; Iberia",
+        "destination": "Amsterdam",
+        "originPlaceId": "place-portugal",
+        "destinationPlaceId": "place-amsterdam",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red (persecution-driven flight)",
+        "links": [
+          "CHG-015",
+          "CTX-019",
+          "MOV-024"
+        ],
+        "branch": {
+          "subhead": "Escape to Amsterdam",
+          "story": "New Christians escaping the Portuguese Inquisition found in Amsterdam a city where they could live as Jews without fear of arrest, torture or the stake.",
+          "deepDive": "Portugal's Inquisition, founded in 1536, hunted New Christians suspected of keeping Jewish ways. Families escaped by sea, often by way of France or Antwerp. In Amsterdam they could be circumcised, marry under the chuppah and give their children Jewish names. Some came knowing almost nothing of Judaism and had to relearn it from teachers brought from abroad. The community they built produced rabbis, merchants and the philosopher Baruch Spinoza.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-095",
+        "eventId": "EVT-0063",
+        "startYear": 1500,
+        "endYear": 1700,
+        "dateDisplay": "16th–17th century",
+        "origin": "Portugal; Iberia",
+        "destination": "London",
+        "originPlaceId": "place-portugal",
+        "destinationPlaceId": "place-london",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red (persecution-driven flight)",
+        "links": [
+          "CHG-015",
+          "CTX-019",
+          "MOV-024"
+        ],
+        "branch": {
+          "subhead": "To London",
+          "story": "A few New Christian merchants lived quietly in London in the 1600s. In 1656, under Oliver Cromwell, they began to live openly as Jews, ending more than 350 years of exclusion.",
+          "deepDive": "Rabbi Menasseh ben Israel of Amsterdam came to London in 1655 to ask Cromwell to readmit the Jews. No formal decision was made, but in 1656 the merchants already in the city, led by Antonio Carvajal, won the right to worship privately and to buy a cemetery. In 1664 Charles II gave the community a charter of protection, and in 1701 it opened Bevis Marks, the oldest synagogue in Britain still in use.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-097",
+        "eventId": "EVT-0063",
+        "startYear": 1500,
+        "endYear": 1700,
+        "dateDisplay": "16th–17th century",
+        "origin": "Portugal; Iberia",
+        "destination": "Venice",
+        "originPlaceId": "place-portugal",
+        "destinationPlaceId": "place-venice",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red (persecution-driven flight)",
+        "links": [
+          "CHG-015",
+          "CTX-019",
+          "MOV-024"
+        ],
+        "branch": {
+          "subhead": "To Venice",
+          "story": "Despite expulsion decrees, Portuguese New Christians kept settling in Venice. In time the republic accepted them as Jews, and they lived and traded from its ghetto.",
+          "deepDive": "Venice created the first ghetto in 1516, a walled quarter locked at night. The republic issued decrees against New Christians in 1497 and 1550, yet trade won out. In 1589 Venice formally admitted the western Sephardim, many of them former New Christians. Their great synagogue, the Scuola Spagnola, still stands in the ghetto.",
+          "group": "Sephardic"
+        }
+      },
+      {
+        "id": "MOV-098",
+        "eventId": "EVT-0063",
+        "startYear": 1593,
+        "endYear": null,
+        "dateDisplay": "From 1593",
+        "origin": "Portugal; Iberia",
+        "destination": "Livorno",
+        "originPlaceId": "place-portugal",
+        "destinationPlaceId": "place-livorno",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red (persecution-driven flight)",
+        "links": [
+          "CHG-015",
+          "CTX-019",
+          "MOV-024"
+        ],
+        "branch": {
+          "subhead": "To Livorno",
+          "story": "Livorno's charter of 1593 invited merchants of every nation, New Christians included, with no ghetto and no questions about their past. Portuguese Jews flocked to the new free port.",
+          "deepDive": "Grand Duke Ferdinando I de' Medici issued the charters known as the Livornine to build up his port. New Christians could return openly to Judaism without fear of the Inquisition. The community grew into one of the richest in Italy, trading across the Mediterranean and beyond, and by the end of the 1700s numbered nearly 5,000. Its families settled from Tunis to Amsterdam.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-101",
+        "eventId": "EVT-0063",
+        "startYear": 1500,
+        "endYear": 1600,
+        "dateDisplay": "16th century",
+        "origin": "Portugal; Iberia",
+        "destination": "Constantinople",
+        "originPlaceId": "place-portugal",
+        "destinationPlaceId": "place-constantinople",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red (persecution-driven flight)",
+        "links": [
+          "CHG-015",
+          "CTX-019",
+          "MOV-024"
+        ],
+        "branch": {
+          "subhead": "To Constantinople",
+          "story": "Constantinople drew New Christians from Portugal throughout the 1500s. Among them was Doña Gracia Nasi, who arrived in 1553 and led a network that helped others escape.",
+          "deepDive": "The Ottoman capital, already home to Romaniote and Spanish Jews, became a haven for Portuguese families fleeing the Inquisition. Gracia Nasi used her fortune to rescue fellow conversos, support scholars and build synagogues. Her nephew Joseph Nasi became a favorite of Sultan Selim II, who named him Duke of Naxos and granted him Tiberias to rebuild as a Jewish town.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-102",
+        "eventId": "EVT-0068",
+        "startYear": 1569,
+        "endYear": null,
+        "dateDisplay": 1569,
+        "origin": "Papal territories",
+        "destination": "Livorno",
+        "originPlaceId": "place-papal-states",
+        "destinationPlaceId": "place-livorno",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "MOV-025",
+          "POP-046"
+        ],
+        "branch": {
+          "subhead": "To Livorno",
+          "story": "In 1569 Pope Pius V expelled the Jews from the Papal States, except Rome and Ancona. Many exiles found refuge in Tuscany, some in Livorno.",
+          "deepDive": "Pius V accused the Jews of usury, sorcery and harboring fugitives, and ordered communities in Bologna and dozens of smaller towns to leave. Jews had lived in the papal lands for centuries. Exiles went to nearby states that would accept them, Tuscany among them, where the port of Livorno would soon open wide to Jewish merchants.",
+          "group": "Italian",
+          "mode": "land"
+        }
+      },
+      {
+        "id": "MOV-110",
+        "eventId": "EVT-0048",
+        "startYear": 1182,
+        "endYear": null,
+        "dateDisplay": 1182,
+        "origin": "French royal domain",
+        "destination": "Northern France outside the royal domain (lands of regional lords)",
+        "originPlaceId": "place-france",
+        "destinationPlaceId": "place-n-france-outside-domain",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "CHG-009",
+          "MOV-011"
+        ],
+        "branch": {
+          "subhead": "Beyond the king's lands",
+          "story": "In 1182 King Philip Augustus expelled the Jews from his royal domain around Paris. Most moved to other parts of northern France ruled by regional lords.",
+          "deepDive": "The king seized Jewish houses and lands and turned synagogues into churches, though Jews could sell their movable goods. In the 1100s the royal domain was small, and the lands of counts and dukes lay close by. Their lords took the exiles in. In 1198 Philip let the Jews return to his domain, under heavier taxes.",
+          "group": "Ashkenazi",
+          "mode": "land"
+        }
       }
     ],
     "context": [
@@ -9000,6 +9969,26 @@
         "placeId": "place-iberia"
       },
       {
+        "id": "EVT-0099",
+        "recordId": "EVT-0099",
+        "type": "Movement",
+        "date": "1148–1170",
+        "title": "Jews flee the Almohads",
+        "description": "In 1148 the Almohads took Córdoba and gave Jews a choice: Islam, exile or death. Many fled to Christian Spain, Portugal, Provence and Egypt, the family of Maimonides among them.",
+        "status": "draft",
+        "startYear": 1148,
+        "endYear": 1170,
+        "placeId": "place-iberia",
+        "movementIds": [
+          "MOV-010",
+          "MOV-069",
+          "MOV-070",
+          "MOV-071",
+          "MOV-072",
+          "MOV-073"
+        ]
+      },
+      {
         "id": "EVT-0048",
         "recordId": "EVT-0048",
         "type": "Movement",
@@ -9230,6 +10219,22 @@
         }
       },
       {
+        "id": "EVT-0100",
+        "recordId": "EVT-0100",
+        "type": "Movement",
+        "date": "After 1391",
+        "title": "Jews flee the massacres of 1391",
+        "description": "In 1391 riots spread from Seville across Castile and Aragon. Thousands of Jews were killed and many more were forced to convert. Survivors who could escape fled to North Africa.",
+        "status": "draft",
+        "startYear": 1391,
+        "endYear": null,
+        "placeId": "place-iberia",
+        "movementIds": [
+          "MOV-016",
+          "MOV-080"
+        ]
+      },
+      {
         "id": "EVT-0057",
         "recordId": "EVT-0057",
         "type": "Movement",
@@ -9260,6 +10265,22 @@
           "kind": "octagon",
           "status": "locked"
         }
+      },
+      {
+        "id": "EVT-0101",
+        "recordId": "EVT-0101",
+        "type": "Movement",
+        "date": "1420–1421",
+        "title": "Austria destroys its Jewish community",
+        "description": "In 1420 and 1421 Duke Albert V imprisoned Austria's Jews, set the poor adrift, baptized children by force and burned more than 200 Jews outside Vienna. Some escaped to Bohemia.",
+        "status": "draft",
+        "startYear": 1420,
+        "endYear": 1421,
+        "placeId": "place-vienna",
+        "movementIds": [
+          "MOV-018",
+          "MOV-084"
+        ]
       },
       {
         "id": "EVT-0058",
@@ -9598,6 +10619,22 @@
           "kind": "octagon",
           "status": "locked"
         }
+      },
+      {
+        "id": "EVT-0102",
+        "recordId": "EVT-0102",
+        "type": "Movement",
+        "date": "1648–1650s",
+        "title": "Jews flee the Khmelnytsky massacres",
+        "description": "In 1648 Cossack and peasant forces under Bohdan Khmelnytsky murdered as many as 20,000 Jews across Ukraine. Survivors fled west to Poland, Lithuania, Bohemia, Moravia and beyond.",
+        "status": "draft",
+        "startYear": 1648,
+        "endYear": 1659,
+        "placeId": "place-poland",
+        "movementIds": [
+          "MOV-028",
+          "MOV-106"
+        ]
       },
       {
         "id": "CHG-018",
@@ -10398,6 +11435,22 @@
         "placeId": "place-basel",
         "meanwhile": "In France, the Lumière brothers show movies to a paying audience for the first time in 1895 CE.",
         "meanwhileStatus": "approved"
+      },
+      {
+        "id": "EVT-0103",
+        "recordId": "EVT-0103",
+        "type": "Movement",
+        "date": "1904–1914",
+        "title": "The Second Aliyah",
+        "description": "Between 1904 and 1914, about 35,000 Jews came to the Land of Israel, most from Russia and Eastern Europe and others from Yemen. They founded Tel Aviv, the first kibbutz and Hashomer.",
+        "status": "draft",
+        "startYear": 1904,
+        "endYear": 1914,
+        "placeId": "place-israel",
+        "movementIds": [
+          "MOV-043",
+          "MOV-051"
+        ]
       }
     ],
     "eras": [
@@ -13637,6 +14690,30 @@
         "worldYear": 1921
       },
       {
+        "id": "Q071",
+        "status": "draft",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Find the impostor",
+        "place": "Troyes",
+        "lat": 48.3,
+        "lon": 4.08,
+        "question": "Who was NOT alive during Rashi's lifetime?",
+        "choices": [
+          "William the Conqueror",
+          "Leif Ericson",
+          "Macbeth",
+          "Christopher Columbus"
+        ],
+        "correct": "D",
+        "quickTake": "Rashi lived through Willy, Leif and King Macbeth. Rashi died 346 years before Columbus set sail in 1492 - the same year Spain expelled it's Jews.",
+        "deepDive": "",
+        "jewishEvent": "Rashi is born in Troyes",
+        "jewishYear": 1040,
+        "worldAnchor": "Columbus sets sail",
+        "worldYear": 1492
+      },
+      {
         "id": "Q072",
         "status": "approved",
         "mode": "random",
@@ -13664,6 +14741,32 @@
           982,
           1192,
           1215
+        ]
+      },
+      {
+        "id": "Q073",
+        "status": "draft",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Which came first?",
+        "place": "Reggio di Calabria",
+        "lat": 38.11,
+        "lon": 15.65,
+        "question": "Which came first: the Gutenberg Bible or the first dated printed Hebrew book?",
+        "choices": [
+          "The Gutenberg Bible",
+          "The first dated printed Hebrew book"
+        ],
+        "correct": "A",
+        "quickTake": "Gutenberg printed first, but only by about 20 years. Rashi's Torah commentary was the first Hebrew book to carry a date.",
+        "deepDive": "The Gutenberg Bible was printed around 1455. The first dated printed Hebrew book was Rashi's commentary on the Torah, printed by Abraham Garton in Reggio di Calabria, Italy, in February 1475. Earlier Hebrew books exist, including an undated edition of Rashi printed in Rome, which is why the word dated matters. Within a few decades Jewish printers were at work across Italy, Spain and Portugal.",
+        "jewishEvent": "Rashi's Torah commentary is printed",
+        "jewishYear": 1475,
+        "worldAnchor": "Gutenberg Bible is printed",
+        "worldYear": 1455,
+        "choiceYears": [
+          1455,
+          1475
         ]
       },
       {

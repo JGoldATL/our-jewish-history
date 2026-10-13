@@ -81,7 +81,14 @@ OPTIONAL_COMMUNITY_COLS = dict(concentration='Concentration', presenceStatus='Pr
                                footprintRadiusKm='Footprint radius (km)')
 # Optional arrow-endpoint columns on Movements. The Sheet gives origin and destination as text only; an arrow can be
 # drawn only when both ends are Place IDs from the Places tab. Blank = no arrow endpoint (nothing is guessed).
-OPTIONAL_MOVEMENT_COLS = dict(originPlaceId='Origin place ID', destinationPlaceId='Destination place ID')
+OPTIONAL_MOVEMENT_COLS = dict(originPlaceId='Origin place ID', destinationPlaceId='Destination place ID',
+                              # v0.7.0 branch text (columns U to Z). Shown only when Branch Text Status is Approved (compared case-insensitively).
+                              branchSubhead='Branch Subhead', branchStory='Branch Story', branchDeepDive='Branch Deep Dive',
+                              branchStatus='Branch Text Status', branchGroup='Branch Group', branchMode='Branch Travel Mode')
+BRANCH_LIMITS = {'branchSubhead': 40, 'branchStory': 220, 'branchDeepDive': 600}   # card standard (F-082 / F-086)
+BRANCH_GROUPS = {'Israelite', 'Judean', 'Babylonian Jewish', 'Ashkenazi', 'Sephardic', 'Romaniote', 'Italian', 'Sicilian',
+                 'French', 'Maghrebi', 'Baghdadi', 'Yemenite', 'Bukharan'}
+BRANCH_MODES = {'sea', 'land', 'sea and land'}
 SECTION_OF_TAB = {'Events': 'events', 'Communities': 'communities', 'Movements': 'movements',
                   'Context & Voyages': 'context', 'Evidence': 'evidence', 'Places': 'places'}
 
@@ -358,6 +365,39 @@ def build_questions(wb, rep):
     return out
 
 
+def branch_block(r, rep):
+    """Branch text for one Movements row, or None. Only an Approved row (any capitals) yields text; a Draft or blank
+    row yields nothing, so the page shows its route-detail-coming fallback. Over-limit text is left out and reported."""
+    status = str(r.get('branchStatus') or '').strip().lower()
+    has_text = any(r.get(k) for k in BRANCH_LIMITS)
+    if status and status not in ('approved', 'draft'):
+        rep.warn('Movements', r['id'], r['_row'], f'Branch Text Status {r.get("branchStatus")!r} is not Approved or Draft; branch text withheld')
+        return None
+    if has_text and not status:
+        rep.warn('Movements', r['id'], r['_row'], 'branch text present but Branch Text Status is blank; withheld')
+        return None
+    if status != 'approved' or not has_text:
+        return None
+    out = {}
+    for k, lim in BRANCH_LIMITS.items():
+        v = r.get(k)
+        if v and len(str(v)) > lim:
+            rep.warn('Movements', r['id'], r['_row'], f'{k} is {len(str(v))} characters, over the {lim} limit; branch text withheld')
+            return None
+        if v: out[k[len('branch'):][0].lower() + k[len('branch') + 1:]] = str(v)
+    if not out.get('story'):
+        rep.warn('Movements', r['id'], r['_row'], 'Approved branch has no Branch Story; branch text withheld')
+        return None
+    g, m = r.get('branchGroup'), r.get('branchMode')
+    if g:
+        if g in BRANCH_GROUPS: out['group'] = g
+        else: rep.warn('Movements', r['id'], r['_row'], f'Branch Group {g!r} is not on the approved list; group left out')
+    if m:
+        if str(m).strip().lower() in BRANCH_MODES: out['mode'] = str(m).strip().lower()
+        else: rep.warn('Movements', r['id'], r['_row'], f'Branch Travel Mode {m!r} is not sea, land or sea and land; mode left out')
+    return out
+
+
 def build(wb, rep):
     raw, missing_optional = {}, {'Communities': [], 'Movements': []}
     for tab, cols in TABS.items():
@@ -526,12 +566,13 @@ def build(wb, rep):
         if (ends['originPlaceId'] is None) != (ends['destinationPlaceId'] is None) and (
                 'originPlaceId' in r and 'destinationPlaceId' in r):
             rep.warn('Movements', r['id'], r['_row'], 'only one end has a Place ID (general location only), so no arrow can be drawn')
+        branch = branch_block(r, rep)
         movements.append({'id': r['id'], 'eventId': r['eventId'], 'startYear': y[0], 'endYear': y[1],
                           'dateDisplay': r['dateDisplay'], 'origin': r['origin'], 'destination': r['destination'],
                           'originPlaceId': ends['originPlaceId'], 'destinationPlaceId': ends['destinationPlaceId'],
                           'arrowEndsReady': ends['originPlaceId'] is not None and ends['destinationPlaceId'] is not None
                                             and ends['originPlaceId'] in placed and ends['destinationPlaceId'] in placed,
-                          'arrowTreatment': arrow, 'links': lk})
+                          'arrowTreatment': arrow, 'links': lk, **({'branch': branch} if branch else {})})
 
     context = []
     for r in raw['Context & Voyages']:
