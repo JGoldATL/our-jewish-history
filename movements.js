@@ -11,7 +11,9 @@ const DRAFTS=/[?&]drafts=1\b/.test(location.search);
 const FIRST_YEAR=-722;                     // the Assyrian exile of the Northern Kingdom: the first exile in the data
 const COLORS={Red:'#B8352B',Blue:'#2D6CB8',Charcoal:'#41464A'};   // same fills as the globe
 const OUTLINE='#FFF2DE',TRAD='#EFE6D3';
-const SHORT={1:'Origins',2:'Exile',3:'Rome',4:'Islamic world',5:'Medieval',6:'New diasporas',7:'Modern'};
+/* The five accepted eras shown on the slider and in the Era filter. Boundaries follow the Sheet's seven data eras (Biblical = era 1; Ancient History = eras 2 and 3; Middle Ages = eras 4 and 5; Modern History = eras 6 and 7), and Contemporary History starts at 1897, the First Zionist Congress. */
+const HEAD=[{era:1,name:'Biblical',startYear:-2000},{era:2,name:'Ancient History',startYear:-586},{era:3,name:'Middle Ages',startYear:200},{era:4,name:'Modern History',startYear:1492},{era:5,name:'Contemporary History',startYear:1897}];
+const GAPSEC=1.8;   // a stretch of years with no journeys on screen takes about this long at 1x
 /* Cause: five headings. Persistent flight joins Persecution; Relocation stays its own heading (CEO Oct 13); returns are not shown at all. */
 const CAUSE_OF={'expulsion':'Expulsion','persecution-driven flight':'Persecution','persistent flight':'Persecution','deportation':'Deportation','voluntary migration':'Voluntary migration','relocation':'Relocation'};
 const CAUSES=['Deportation','Expulsion','Persecution','Relocation','Voluntary migration'];
@@ -23,7 +25,7 @@ const yearLabel=y=>y<0?`${-Math.round(y)} BCE`:String(Math.round(y));
 const shortName=p=>String(p?.historicalName||'').split(/ \/ | \(/)[0];
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 
-let DATA=null,PL=new Map(),CARDS=new Map(),ERAS=[],ROUTES=[],EVENTS=new Map(),MINY=0,MAXY=1;
+let DATA=null,PL=new Map(),CARDS=new Map(),ERAS=HEAD,DETAIL=[],ROUTES=[],EVENTS=new Map(),MINY=0,MAXY=1;
 let W=0,H=0,V={lon:20,lat:38,degW:100},HOME=null;
 let Y=0,playing=false,speed=1,lastT=0,auto=true,lastKey='';
 const F={era:null,cause:null,trails:false};   // Group, From and To filters are suppressed for now (roadmap F-088)
@@ -35,7 +37,7 @@ const MIN_DEG=()=>phone()?46:34;            // never zoom in further than this w
 /* ---------- data ---------- */
 function build(){
   const S=DATA.sheet;PL=new Map(S.places.map(p=>[p.id,p]));CARDS=new Map(S.cards.map(c=>[c.id,c]));
-  ERAS=(S.eras||[]).slice().sort((a,b)=>a.startYear-b.startYear);
+  DETAIL=(S.eras||[]).slice().sort((a,b)=>a.startYear-b.startYear);
   const eraOf=y=>{let e=null;for(const x of ERAS)if(x.startYear<=y)e=x;return e?e.era:null;};
   const ok=m=>m.arrowEndsReady&&[m.originPlaceId,m.destinationPlaceId].every(id=>Number.isFinite(PL.get(id)?.lat)&&Number.isFinite(PL.get(id)?.lon));
   let rows=S.movements.filter(m=>ok(m)&&m.character!=='return/aliyah'&&m.startYear>=FIRST_YEAR);
@@ -59,7 +61,7 @@ function build(){
     for(const id of [...legs]){let L=route(id),guard=0;while(L&&L.m.originPlaceId!==m.originPlaceId&&guard++<6){const X=e.routes.find(x=>x.m.destinationPlaceId===L.m.originPlaceId&&x.start<=L.start&&!legs.has(x.id));if(!X)break;legs.add(X.id);L=X;}}
     (e.parents||(e.parents=[])).push({id:m.id,m,legs,label:m.destination});
   }
-  MINY=Math.min(...ROUTES.map(r=>r.start));MAXY=Math.max(...ROUTES.map(r=>r.end));
+  MINY=Math.min(...ROUTES.map(r=>r.start));MAXY=Math.max(...ROUTES.map(r=>r.end));buildGaps();
 }
 const route=id=>ROUTES.find(r=>r.id===id);
 const pass=r=>(F.era==null||r.era===F.era)&&(!F.cause||r.cause===F.cause);
@@ -168,7 +170,7 @@ function paint(){
 function showStory(){$('panel').classList.remove('inviting');}
 function updateYear(){
   const y=Math.round(Y);$('year').innerHTML=y<0?`${-y}<span>BCE</span>`:String(y);
-  const cur=ERAS.filter(e=>e.startYear<=Y).pop();$('era').textContent=cur?cur.name:'';
+  const cur=ERAS.filter(e=>e.startYear<=Y).pop(),det=DETAIL.filter(e=>e.startYear<=Y).pop();$('era').textContent=det?det.name:(cur?cur.name:'');
   document.querySelectorAll('#ticks button').forEach(b=>b.classList.toggle('cur',cur&&+b.dataset.era===cur.era));
 }
 function selectRoute(id){const r=route(id);if(!r)return;showStory();SEL={ev:r.ev,id};card();frame();draw();}
@@ -213,7 +215,7 @@ function card(){
 
 /* ---------- filters (Era and Cause; Group, From and To are suppressed for now) ---------- */
 const FIELDS=[
-  {k:'era',label:'Era',opts:()=>ERAS.filter(e=>ROUTES.some(r=>r.era===e.era)).map(e=>[e.era,`${e.era}. ${e.name}`])},
+  {k:'era',label:'Era',opts:()=>ERAS.filter(e=>ROUTES.some(r=>r.era===e.era)).map(e=>[e.era,e.name])},
   {k:'cause',label:'Cause',opts:()=>CAUSES.filter(c=>ROUTES.some(r=>r.cause===c)).map(c=>[c,c])}
 ];
 function valLabel(f){const v=F[f.k];if(v==null||v==='')return 'All';const o=f.opts().find(x=>x[0]===v);return o?o[1].replace(/^\d+\. /,''):'All';}
@@ -252,7 +254,7 @@ function setKey(open){const k=$('key'),b=$('keyBtn');k.hidden=!open;b.setAttribu
 
 /* ---------- time and play ---------- */
 /* The slider gives each era an equal stretch of track so the busy later eras are not squeezed. */
-function bps(){const b=[MINY];for(const e of ERAS){if(e.startYear>MINY&&e.startYear<MAXY)b.push(e.startYear);}b.push(MAXY);return b;}
+function bps(){const b=[MINY];for(const y of [...DETAIL.map(e=>e.startYear),...ERAS.map(e=>e.startYear)].sort((a,b)=>a-b)){if(y>MINY&&y<MAXY&&y!==b[b.length-1])b.push(y);}b.push(MAXY);return b;}
 function y2p(y){const b=bps(),n=b.length-1;let i=0;while(i<n-1&&y>=b[i+1])i++;return (i+clamp((y-b[i])/(b[i+1]-b[i]),0,1))/n;}
 function p2y(p){const b=bps(),n=b.length-1;const q=clamp(p,0,1)*n;const i=Math.min(Math.floor(q),n-1);return b[i]+(q-i)*(b[i+1]-b[i]);}
 function setYear(y,fromSlider){
@@ -266,7 +268,7 @@ function ticks(){
   const first=ERAS.filter(x=>x.startYear<=MINY).pop();
   for(const e of ERAS){if(!(e===first||(e.startYear>MINY&&e.startYear<=MAXY)))continue;
     const b=document.createElement('button');b.type='button';b.dataset.era=e.era;b.style.left=(y2p(Math.max(e.startYear,MINY))*100)+'%';
-    b.textContent=SHORT[e.era]||e.name;b.setAttribute('aria-label',`Jump to ${e.name}`);b.addEventListener('click',()=>{stopPlay();SEL=null;setYear(Math.max(MINY,e.startYear));auto=true;followNow(800);});t.appendChild(b);}
+    b.textContent=e.name;b.setAttribute('aria-label',`Jump to ${e.name}`);b.addEventListener('click',()=>{stopPlay();SEL=null;setYear(Math.max(MINY,e.startYear));auto=true;followNow(800);});t.appendChild(b);}
 }
 function setPlayUI(){$('playIco').setAttribute('d',playing?ICO_PAUSE:ICO_PLAY);$('playLbl').textContent=playing?'Pause':'Play';$('play').setAttribute('aria-pressed',String(playing));}
 function stopPlay(){if(!playing)return;playing=false;setPlayUI();}
@@ -276,10 +278,21 @@ function startPlay(){
   lastT=performance.now();requestAnimationFrame(tick);
 }
 function togglePlay(){if(playing)stopPlay();else startPlay();}
+/* Play pacing: normal speed while journeys are on screen; across a long stretch of years with none, it speeds up (easing in and out) so the gap takes about GAPSEC seconds. */
+let GAPS=[];
+function buildGaps(){
+  const iv=ROUTES.map(r=>[r.start-2,r.end+HOLD]).sort((a,b)=>a[0]-b[0]);GAPS=[];let hi=iv[0]?iv[0][1]:0;
+  for(const [a,b] of iv){if(a>hi)GAPS.push([hi,a]);hi=Math.max(hi,b);}
+}
+function playRate(y){
+  const base=RATE*speed;
+  for(const [a,b] of GAPS){if(y>=a&&y<b){const L=b-a,need=L/(GAPSEC/speed);if(need<=base)return base;const u=(y-a)/L;return Math.max(base,need*(0.4+1.2*Math.sin(Math.PI*u)));}}
+  return base;
+}
 function tick(t){
   if(!playing)return;const dt=Math.min(.1,(t-lastT)/1000);lastT=t;
   if(auto){const v=followTarget();if(v){const k=1-Math.exp(-dt*1.8);V={lon:V.lon+(v.lon-V.lon)*k,lat:V.lat+(v.lat-V.lat)*k,degW:Math.exp(Math.log(V.degW)+(Math.log(v.degW)-Math.log(V.degW))*k)};clampView();}}
-  setYear(Y+dt*RATE*speed);
+  setYear(Y+dt*playRate(Y));
   if(Y>=MAXY){playing=false;setPlayUI();return;}
   requestAnimationFrame(tick);
 }
@@ -298,7 +311,6 @@ function reset(){
   stopPlay();F.era=null;F.cause=null;F.trails=false;SEL=null;auto=true;lastKey='';
   document.querySelectorAll('#options button').forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.trails==='on')===F.trails)));
   selectors();setYear(MINY);card();$('panel').classList.add('inviting');
-  {const e=(id,t)=>{const n=$(id);if(n)n.textContent=t;};e('stRoutes',String(ROUTES.length));e('stCauses',String(CAUSES.length));e('stYears',(Math.floor((new Date().getFullYear()-FIRST_YEAR-1)/100)*100).toLocaleString('en-US')+'+');}
   const v=followTarget();setView(v||HOME,600);
 }
 
@@ -343,7 +355,7 @@ function wire(){
     build();size();HOME=homeView();V={...HOME};clampView();ticks();selectors();buildKey();wire();
     $('version').textContent='v'+(window.SITE_VERSION||'')+' · Movements · data from Sheet '+(((DATA.sheet?.meta?.source||'').match(/v\d+(?:\.\d+)+/)||[])[0]||'');
     setYear(MINY);card();{const v=followTarget();setView(v||HOME);}
-    window.MV={routes:ROUTES,events:EVENTS,state:()=>({Y,V:{...V},SEL,F:{...F},playing,auto}),selectRoute,selectEvent,selectParent,setYear,stepEvent,togglePlay,follow:()=>{const v=followTarget();if(v)setView(v);},minY:MINY,maxY:MAXY};
+    window.MV={routes:ROUTES,events:EVENTS,state:()=>({Y,V:{...V},SEL,F:{...F},playing,auto}),selectRoute,selectEvent,selectParent,setYear,stepEvent,togglePlay,follow:()=>{const v=followTarget();if(v)setView(v);},minY:MINY,maxY:MAXY,playRate,gaps:()=>GAPS};
   }catch(err){$('story').innerHTML='<h2>The map could not load</h2><p>Please refresh the page.</p>';$('panel').classList.remove('inviting');console.error(err);}
 })();
 })();

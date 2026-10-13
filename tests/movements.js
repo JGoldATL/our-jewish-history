@@ -12,6 +12,9 @@ ck(base.n===79,n+' 79 routes ('+base.n+')');ck(base.min===-722,n+' starts at the
 ck(JSON.stringify(base.causes.filter(Boolean))===JSON.stringify(['Deportation','Expulsion','Persecution','Relocation','Voluntary migration']),n+' five cause headings '+base.causes);
 const ids=await p.evaluate(()=>[...document.querySelectorAll('#sel .pill')].map(x=>x.textContent.replace(/\s+/g,' ').trim()));
 ck(ids.length===2&&/^Era/.test(ids[0])&&/^Cause/.test(ids[1]),n+' only Era and Cause filters '+ids);
+{const tk=await p.evaluate(()=>[...document.querySelectorAll('#ticks button')].map(b=>b.textContent).join('|'));ck(tk==='Biblical|Ancient History|Middle Ages|Modern History|Contemporary History',n+' era tabs are the five accepted eras ('+tk+')');
+ const intro=await p.evaluate(()=>({t:document.querySelector('#prompt .t').innerText,stats:!!document.getElementById('stats')}));ck(/spread throughout the earth/.test(intro.t)&&!intro.stats,n+' intro line updated and stats row removed');
+ const pr=await p.evaluate(()=>{const out=[];for(const g of MV.gaps()){if(g[1]-g[0]<150)continue;let t=0,y=g[0];while(y<g[1]){y+=MV.playRate(y)*0.016;t+=0.016;}out.push(t);}return out;});ck(pr.length>0&&pr.every(t=>t<2.2),n+' long gaps with no journeys play in about 2 seconds ('+pr.map(t=>t.toFixed(1)).join(', ')+')');}
 ck(await p.evaluate(()=>!!document.querySelector('#prev.pill')&&!!document.querySelector('#play.pill.primary')&&!!document.querySelector('#next.pill')&&!!document.querySelector('#reset')&&!!document.querySelector('#keyBtn')&&!!document.querySelector('#options')&&!!document.querySelector('#quizLink')),n+' globe controls present (Previous, Play, Next, Reset, Map key, This moment toggle, Take a Quiz)');
 // tap an arrow for real
 await p.evaluate(()=>{MV.setYear(1492);MV.follow();});await p.waitForTimeout(900);
