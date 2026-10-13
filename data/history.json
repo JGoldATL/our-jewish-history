@@ -2520,8 +2520,8 @@
       "schema": "sheet-1",
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.4.1",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-10-13T05:00:00Z",
-      "exportSha256": "67698168807c7b91",
+      "sheetModified": "2026-10-13T21:23:06Z",
+      "exportSha256": "154875ea3730902f",
       "mode": "public",
       "counts": {
         "places": 117,
@@ -2531,7 +2531,7 @@
         "context": 43,
         "evidence": 20,
         "cards": 166,
-        "eras": 7,
+        "eras": 8,
         "cameraStops": 38,
         "eraAssignment": 265,
         "questions": 44
@@ -2743,7 +2743,8 @@
         "role": "region",
         "lat": 37.6,
         "lon": 14,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Sicily"
       },
       {
         "id": "place-central-asia",
@@ -2860,7 +2861,8 @@
         "role": "region",
         "lat": 52,
         "lon": 22,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Poland-Lithuania"
       },
       {
         "id": "place-vienna",
@@ -2887,7 +2889,8 @@
         "role": "settlement",
         "lat": 41.01,
         "lon": 28.98,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Constantinople"
       },
       {
         "id": "place-safed",
@@ -3049,7 +3052,8 @@
         "role": "settlement",
         "lat": 19.08,
         "lon": 72.88,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Bombay"
       },
       {
         "id": "place-shanghai",
@@ -3139,7 +3143,8 @@
         "role": "region",
         "lat": 35,
         "lon": 42,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Assyria"
       },
       {
         "id": "place-assyria-central",
@@ -3148,7 +3153,8 @@
         "role": "region",
         "lat": 35.6,
         "lon": 43,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Halah and Habor"
       },
       {
         "id": "place-assyria-east",
@@ -3157,7 +3163,8 @@
         "role": "region",
         "lat": 34.4,
         "lon": 47,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Media"
       },
       {
         "id": "place-german-lands",
@@ -3441,7 +3448,8 @@
         "role": "region",
         "lat": 49.6,
         "lon": 4.2,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Northern France"
       },
       {
         "id": "place-flanders",
@@ -12215,7 +12223,8 @@
         "startDisplay": "c. 2000 BCE",
         "lastYear": -587,
         "summary": "Not re-proposed here. Name and boundary from the earlier Pass 2 proposal (approved as a direction).",
-        "status": "reference"
+        "status": "reference",
+        "headline": "Biblical"
       },
       {
         "id": "ERA-2",
@@ -12225,7 +12234,8 @@
         "startDisplay": "587/586 BCE",
         "lastYear": -168,
         "summary": "Not re-proposed here. Name and boundary from the earlier Pass 2 proposal (approved as a direction).",
-        "status": "reference"
+        "status": "reference",
+        "headline": "Ancient History"
       },
       {
         "id": "ERA-3",
@@ -12235,7 +12245,8 @@
         "startDisplay": "167 BCE",
         "lastYear": 199,
         "summary": "Not re-proposed here. Name and boundary from the earlier Pass 2 proposal (approved as a direction).",
-        "status": "reference"
+        "status": "reference",
+        "headline": "Ancient History"
       },
       {
         "id": "ERA-4",
@@ -12246,6 +12257,7 @@
         "lastYear": 1095,
         "summary": "From the Mishnah at 200 through the Persian, Byzantine and Muslim conquests, Jewish life centers on Babylonia, Egypt, North Africa and al-Andalus.",
         "status": "approved",
+        "headline": "Middle Ages",
         "centerPlaceId": "place-mediterranean",
         "framePlaceIds": [
           "place-iberia",
@@ -12263,6 +12275,7 @@
         "lastYear": 1491,
         "summary": "Jewish communities grow in the Rhineland, France, England and Poland, but are attacked and expelled again and again, and many move east.",
         "status": "approved",
+        "headline": "Middle Ages",
         "centerPlaceId": "place-central-europe",
         "framePlaceIds": [
           "place-england",
@@ -12281,6 +12294,7 @@
         "lastYear": 1699,
         "summary": "After Spain expels its Jews in 1492, Jews build new communities in Ottoman cities, Safed, Amsterdam and the Americas.",
         "status": "approved",
+        "headline": "Early Modern History",
         "centerPlaceId": "place-spain",
         "framePlaceIds": [
           "place-portugal",
@@ -12298,6 +12312,7 @@
         "lastYear": 1897,
         "summary": "Hasidism spreads and the Pale of Settlement grows, Jews gain legal rights in Western and Central Europe, and large numbers move to America and the Land of Israel, until the First Zionist Congress in 1897.",
         "status": "approved",
+        "headline": "Modern History",
         "centerPlaceId": "place-poland",
         "framePlaceIds": [
           "place-medzhybizh",
@@ -12305,6 +12320,17 @@
           "place-odessa",
           "place-pale-of-settlement"
         ]
+      },
+      {
+        "id": "ERA-8",
+        "era": 8,
+        "name": "The Zionist return, the world wars and the State of Israel",
+        "startYear": 1898,
+        "startDisplay": 1898,
+        "lastYear": null,
+        "summary": "From the First Zionist Congress through the Second Aliyah, the world wars, the Holocaust and the founding of the State of Israel to today.",
+        "status": "proposed",
+        "headline": "Contemporary History"
       }
     ],
     "cameraStops": [

@@ -11,8 +11,11 @@ const DRAFTS=/[?&]drafts=1\b/.test(location.search);
 const FIRST_YEAR=-722;                     // the Assyrian exile of the Northern Kingdom: the first exile in the data
 const COLORS={Red:'#B8352B',Blue:'#2D6CB8',Charcoal:'#41464A'};   // same fills as the globe
 const OUTLINE='#FFF2DE',TRAD='#EFE6D3';
-/* The five accepted eras shown on the slider and in the Era filter. Boundaries follow the Sheet's seven data eras (Biblical = era 1; Ancient History = eras 2 and 3; Middle Ages = eras 4 and 5; Early Modern History = era 6, Modern History = era 7), and Contemporary History starts at 1897, the First Zionist Congress. */
-const HEAD=[{era:1,name:'Biblical',startYear:-2000},{era:2,name:'Ancient History',startYear:-586},{era:3,name:'Middle Ages',startYear:200},{era:4,name:'Early Modern History',startYear:1492},{era:5,name:'Modern History',startYear:1700},{era:6,name:'Contemporary History',startYear:1897}];
+/* Era tabs come from the Sheet: each data era carries a Headline era name (Eras tab, column Q); consecutive eras with the same headline share one tab, which starts at the earliest of them. */
+function headlineEras(det){const out=[];for(const e of det){const nm=e.headline||e.name;let g=out.find(x=>x.name===nm);if(g)g.startYear=Math.min(g.startYear,e.startYear);else out.push({era:out.length+1,name:nm,startYear:e.startYear});}return out.sort((a,b)=>a.startYear-b.startYear).map((g,i)=>({...g,era:i+1}));}
+/* Interim map labels (CEO, Oct 13): the Sheet's Map label wins unless listed here. Delete an entry once the Sheet says the same. */
+const LABEL_OVERRIDE={'place-poland':'Poland','place-constantinople':'Constantinople'};
+const placeLabel=p=>p?(LABEL_OVERRIDE[p.id]||p.mapLabel||shortName(p)):'';
 const GAPSEC=1.8;   // a stretch of years with no journeys on screen takes about this long at 1x
 /* Cause: five headings. Persistent flight joins Persecution; Relocation stays its own heading (CEO Oct 13); returns are not shown at all. */
 const CAUSE_OF={'expulsion':'Expulsion','persecution-driven flight':'Persecution','persistent flight':'Persecution','deportation':'Deportation','voluntary migration':'Voluntary migration','relocation':'Relocation'};
@@ -25,7 +28,7 @@ const yearLabel=y=>y<0?`${-Math.round(y)} BCE`:String(Math.round(y));
 const shortName=p=>String(p?.historicalName||'').split(/ \/ | \(/)[0];
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 
-let DATA=null,PL=new Map(),CARDS=new Map(),ERAS=HEAD,DETAIL=[],ROUTES=[],EVENTS=new Map(),MINY=0,MAXY=1;
+let DATA=null,PL=new Map(),CARDS=new Map(),ERAS=[],DETAIL=[],ROUTES=[],PARENT_IDS=new Set(),EVENTS=new Map(),MINY=0,MAXY=1;
 let W=0,H=0,V={lon:20,lat:38,degW:100},HOME=null;
 let Y=0,playing=false,speed=1,lastT=0,auto=true,lastKey='';
 const F={era:null,cause:null,trails:false};   // Group, From and To filters are suppressed for now (roadmap F-088)
@@ -37,7 +40,7 @@ const MIN_DEG=()=>phone()?46:34;            // never zoom in further than this w
 /* ---------- data ---------- */
 function build(){
   const S=DATA.sheet;PL=new Map(S.places.map(p=>[p.id,p]));CARDS=new Map(S.cards.map(c=>[c.id,c]));
-  DETAIL=(S.eras||[]).slice().sort((a,b)=>a.startYear-b.startYear);
+  DETAIL=(S.eras||[]).slice().sort((a,b)=>a.startYear-b.startYear);ERAS=headlineEras(DETAIL);
   const eraOf=y=>{let e=null;for(const x of ERAS)if(x.startYear<=y)e=x;return e?e.era:null;};
   const ok=m=>m.arrowEndsReady&&[m.originPlaceId,m.destinationPlaceId].every(id=>Number.isFinite(PL.get(id)?.lat)&&Number.isFinite(PL.get(id)?.lon));
   let rows=S.movements.filter(m=>ok(m)&&m.character!=='return/aliyah'&&m.startYear>=FIRST_YEAR);
@@ -55,6 +58,9 @@ function build(){
     e.title=e.card?.title||`${shortName(e.routes[0].a)} to ${shortName(e.routes[0].b)}`;e.start=e.card?.startYear??e.routes[0].start;}
   /* Parent rows (no arrow of their own, e.g. MOV-054 Barbados, MOV-055 New Amsterdam): their route is the leg rows that list them in Linked records,
      plus any earlier leg that ends where a leg begins. Tapping the parent chip lights all legs. */
+  /* Dataset parent-row rule: blank Destination Place ID and the ID is named in another row's Linked records. Never draws; its branches do. */
+  const LINKED=new Set();for(const m of S.movements)for(const l of m.links||[])LINKED.add(l);
+  PARENT_IDS=new Set(S.movements.filter(m=>!m.destinationPlaceId&&LINKED.has(m.id)).map(m=>m.id));
   for(const m of S.movements){
     if(m.arrowEndsReady||!m.branch||!m.eventId)continue;const e=EVENTS.get(m.eventId);if(!e)continue;
     const legs=new Set(e.routes.filter(r=>(r.m.links||[]).includes(m.id)).map(r=>r.id));if(!legs.size)continue;
@@ -160,7 +166,7 @@ function paint(){
   /* Place names: every journey's start first, then its end, then the rest; a name that would overlap one already placed tries below the dot, then waits until you zoom in. */
   const placed=[],order=[...cand].sort((x,y)=>x[1].k-y[1].k),fs=phone()?12:13;
   for(const [id,{p}] of order){
-    const name=shortName(PL.get(id));if(!name||p[0]<6||p[0]>W-6||p[1]<6||p[1]>H-6)continue;
+    const name=placeLabel(PL.get(id));if(!name||p[0]<6||p[0]>W-6||p[1]<6||p[1]>H-6)continue;
     const w=name.length*(fs*.57)+8,hit=bx=>placed.some(q=>bx.x<q.x+q.w&&bx.x+bx.w>q.x&&bx.y<q.y+q.h&&bx.y+bx.h>q.y);
     let pos=null;
     for(const dy of [-26,8]){const bx={x:p[0]-w/2,y:p[1]+dy,w,h:fs+3};if(!hit(bx)){pos={bx,ty:dy<0?p[1]-11:p[1]+8+fs};break;}}
@@ -359,7 +365,7 @@ function wire(){
     build();size();HOME=homeView();V={...HOME};clampView();ticks();selectors();buildKey();wire();
     $('version').textContent='v'+(window.SITE_VERSION||'')+' · Movements · data from Sheet '+(((DATA.sheet?.meta?.source||'').match(/v\d+(?:\.\d+)+/)||[])[0]||'');
     setYear(MINY);card();{const v=followTarget();setView(v||HOME);}
-    window.MV={routes:ROUTES,events:EVENTS,state:()=>({Y,V:{...V},SEL,F:{...F},playing,auto}),selectRoute,selectEvent,selectParent,setYear,stepEvent,togglePlay,follow:()=>{const v=followTarget();if(v)setView(v);},minY:MINY,maxY:MAXY,playRate,gaps:()=>GAPS};
+    window.MV={routes:ROUTES,events:EVENTS,state:()=>({Y,V:{...V},SEL,F:{...F},playing,auto}),selectRoute,selectEvent,selectParent,setYear,stepEvent,togglePlay,follow:()=>{const v=followTarget();if(v)setView(v);},minY:MINY,maxY:MAXY,playRate,gaps:()=>GAPS,parentIds:()=>[...PARENT_IDS]};
   }catch(err){$('story').innerHTML='<h2>The map could not load</h2><p>Please refresh the page.</p>';$('panel').classList.remove('inviting');console.error(err);}
 })();
 })();

@@ -79,6 +79,10 @@ TABS = {
 # new POP/CHG record is reported as "no engine fields" and nothing is guessed.
 OPTIONAL_COMMUNITY_COLS = dict(concentration='Concentration', presenceStatus='Presence status',
                                footprintRadiusKm='Footprint radius (km)')
+# Optional Places column (v0.7.5): a short name for the map. Blank = the map uses Historical name.
+OPTIONAL_PLACE_COLS = dict(mapLabel='Map label')
+# Optional Eras column (v0.7.5): the headline era name shown on the Movements page slider and Era filter.
+OPTIONAL_ERA_COLS = dict(headline='Headline era')
 # Optional arrow-endpoint columns on Movements. The Sheet gives origin and destination as text only; an arrow can be
 # drawn only when both ends are Place IDs from the Places tab. Blank = no arrow endpoint (nothing is guessed).
 OPTIONAL_MOVEMENT_COLS = dict(originPlaceId='Origin place ID', destinationPlaceId='Destination place ID',
@@ -192,18 +196,18 @@ def arc_deg(a, b):
     return math.degrees(math.acos(max(-1.0, min(1.0, c))))
 
 
-def read_optional_tab(wb, tab, cols):
+def read_optional_tab(wb, tab, cols, optional=None):
     """Rows of an era/camera tab, or None when the workbook has no such tab. Present but damaged = stop."""
     if tab not in wb.sheetnames:
         return None
-    rows, _ = read_tab(wb, tab, cols)
+    rows, _ = read_tab(wb, tab, cols, optional)
     return rows
 
 
 def build_eras(wb, places, all_ids, rep):
     """Eras, Camera Stops and Era Assignment -> three sections. Nothing is guessed: a bad row is rejected with its reason."""
     by_id = {p['id']: p for p in places if p['lat'] is not None}
-    raw = {t: read_optional_tab(wb, t, c) for t, c in ERA_TABS.items()}
+    raw = {t: read_optional_tab(wb, t, c, OPTIONAL_ERA_COLS if t == 'Eras' else None) for t, c in ERA_TABS.items()}
     for t, v in raw.items():
         if v is None:
             rep.warn(t, '-', 0, f'tab "{t}" is not in this export; no {t.lower()} loaded')
@@ -222,17 +226,20 @@ def build_eras(wb, places, all_ids, rep):
     eras = []
     for r in raw['Eras'] or []:
         n, label = r.get('era'), f"ERA-{r.get('era')}"
-        if not isinstance(n, int) or not 1 <= n <= 7:
-            rep.reject('Eras', label, r['_row'], f'era number is not 1 to 7: {n!r}'); continue
+        if not isinstance(n, int) or not 1 <= n <= 8:
+            rep.reject('Eras', label, r['_row'], f'era number is not 1 to 8: {n!r}'); continue
         if num(r.get('start')) is None or not r.get('name'):
             rep.reject('Eras', label, r['_row'], 'era needs a name and a numeric start year'); continue
         st = status_of(r.get('status'))
         reference = st.startswith('reference only')
-        if not reference and st not in ('approved', 'draft'):
-            rep.reject('Eras', label, r['_row'], f'status {r.get("status")!r} is not approved, draft or reference only'); continue
+        proposed = st == 'proposed'   # v0.7.5: ERA-8 (Contemporary History) has no camera yet; it loads for its name and start year only
+        if not reference and not proposed and st not in ('approved', 'draft'):
+            rep.reject('Eras', label, r['_row'], f'status {r.get("status")!r} is not approved, draft, proposed or reference only'); continue
         e = {'id': label, 'era': n, 'name': r['name'], 'startYear': r['start'], 'startDisplay': r.get('startDisplay'),
              'lastYear': r.get('lastYear'), 'summary': r.get('summary'), 'status': 'reference' if reference else st}
-        if not reference:
+        if r.get('headline'):
+            e['headline'] = r['headline']
+        if not reference and not proposed:
             c = r.get('centerPlaceId')
             if c not in by_id:
                 rep.reject('Eras', label, r['_row'], f'opening camera centre {c!r} is not a Place with coordinates'); continue
@@ -281,9 +288,9 @@ def build_eras(wb, places, all_ids, rep):
     assign = []
     for r in raw['Era Assignment'] or []:
         rid, e = r.get('id'), str(r.get('era') or '').strip()
-        m = re.fullmatch(r'Era ([1-7])', e)
+        m = re.fullmatch(r'Era ([1-8])', e)
         if not m and not e.startswith('After 1897'):
-            rep.reject('Era Assignment', rid, r['_row'], f'era {e!r} is not Era 1 to 7 or After 1897'); continue
+            rep.reject('Era Assignment', rid, r['_row'], f'era {e!r} is not Era 1 to 8 or After 1897'); continue
         if rid not in all_ids:
             rep.warn('Era Assignment', rid, r['_row'], 'record ID is not in the Sheet tabs this loader reads')
         assign.append({'id': rid, 'era': int(m.group(1)) if m else None, 'runsPast': r.get('runsPast')})
@@ -400,9 +407,9 @@ def branch_block(r, rep):
 
 
 def build(wb, rep):
-    raw, missing_optional = {}, {'Communities': [], 'Movements': []}
+    raw, missing_optional = {}, {'Communities': [], 'Movements': [], 'Places': []}
     for tab, cols in TABS.items():
-        opt = {'Communities': OPTIONAL_COMMUNITY_COLS, 'Movements': OPTIONAL_MOVEMENT_COLS}.get(tab)
+        opt = {'Communities': OPTIONAL_COMMUNITY_COLS, 'Movements': OPTIONAL_MOVEMENT_COLS, 'Places': OPTIONAL_PLACE_COLS}.get(tab)
         raw[tab], miss = read_tab(wb, tab, cols, opt)
         if tab in missing_optional:
             missing_optional[tab] = miss
@@ -445,6 +452,7 @@ def build(wb, rep):
         places.append({'id': r['id'], 'historicalName': r['historicalName'], 'modernName': r['modernName'],
                        'role': r['role'], 'lat': r['lat'], 'lon': r['lon'],
                        'landOfIsrael': str(r['landOfIsrael'] or '').lower() == 'yes',
+                       **({'mapLabel': r['mapLabel']} if r.get('mapLabel') else {}),
                        **({'cameraOnly': True} if r['id'].startswith('place-cam-') else {})})
 
     def years(tab, r, need_start=True):
@@ -675,6 +683,7 @@ def main(argv=None):
               'warnings': rep.warnings, 'meanwhileWithheldNonEvent': rep.withheld,
               'missingOptionalEngineColumns': missing_optional['Communities'],
               'missingOptionalMovementColumns': missing_optional['Movements'],
+              'missingOptionalPlaceColumns': missing_optional['Places'],
               'movementsWithArrowEnds': sum(1 for m in sections['movements'] if m['arrowEndsReady']),
               'recordsWithNoEngineFields': sum(1 for c in sections['communities'] if c.get('noEngineFields'))}
 
