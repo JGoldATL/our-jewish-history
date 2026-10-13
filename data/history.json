@@ -6534,6 +6534,7 @@
         "links": [
           "POP-001"
         ],
+        "character": "other/uncertain",
         "branch": {
           "subhead": "Out of Egypt",
           "story": "The Torah tells of Israelite slaves led out of Egypt by Moses, forty years in the wilderness, and arrival at the edge of Canaan. The Exodus became the founding story of the Jewish people.",
@@ -6557,6 +6558,7 @@
         "links": [
           "POP-002"
         ],
+        "character": "deportation",
         "branch": {
           "subhead": "Into the Assyrian empire",
           "story": "After Samaria fell to Assyria, the people of the northern Kingdom of Israel were deported across the empire, and other conquered peoples were moved into their land.",
@@ -6579,7 +6581,8 @@
         "arrowTreatment": "Red (short routes)",
         "links": [
           "POP-003"
-        ]
+        ],
+        "character": "deportation"
       },
       {
         "id": "MOV-004",
@@ -6597,6 +6600,7 @@
           "POP-004",
           "POP-005"
         ],
+        "character": "deportation",
         "branch": {
           "subhead": "To Babylonia",
           "story": "Nebuchadnezzar took Jerusalem in 597 BCE and carried King Jehoiachin to Babylon with the royal household, officials, soldiers and craftsmen. The prophet Ezekiel was among them.",
@@ -6621,6 +6625,7 @@
           "POP-004",
           "POP-005"
         ],
+        "character": "deportation",
         "branch": {
           "subhead": "To Babylonia",
           "story": "Babylon besieged Jerusalem, then burned the city and the First Temple. A second wave of Judeans was marched into exile, joining those taken eleven years before.",
@@ -6644,6 +6649,7 @@
         "links": [
           "POP-006"
         ],
+        "character": "return/aliyah",
         "branch": {
           "subhead": "Home to Judah",
           "story": "After Cyrus of Persia conquered Babylon in 539 BCE, he allowed the exiles to go home. Some returned to Judah and rebuilt the Temple; many others chose to stay in Babylonia.",
@@ -6667,6 +6673,7 @@
         "links": [
           "POP-009"
         ],
+        "character": "relocation",
         "branch": {
           "subhead": "To Lydia and Phrygia",
           "story": "The Seleucid king Antiochus III moved Jewish families from Babylonia to Lydia and Phrygia in Asia Minor, trusting them to steady a rebellious region.",
@@ -6690,6 +6697,7 @@
         "links": [
           "POP-015"
         ],
+        "character": "deportation",
         "branch": {
           "subhead": "To Rome as captives",
           "story": "When Pompey took Jerusalem in 63 BCE, Roman rule over Judea began. Captives were marched to Rome, among them King Aristobulus II and his children, paraded in Pompey's triumph.",
@@ -6713,6 +6721,7 @@
           "POP-028",
           "POP-029"
         ],
+        "character": "voluntary migration",
         "branch": {
           "subhead": "To Egypt",
           "story": "In the 900s and 1000s, Jewish merchants and families moved from North Africa to Egypt, following trade and the Fatimid caliphs, who made Cairo their new capital.",
@@ -6739,7 +6748,8 @@
           "MOV-071",
           "MOV-072",
           "MOV-073"
-        ]
+        ],
+        "character": "persistent flight"
       },
       {
         "id": "MOV-011",
@@ -6756,7 +6766,8 @@
         "links": [
           "CHG-009",
           "MOV-110"
-        ]
+        ],
+        "character": "expulsion"
       },
       {
         "id": "MOV-012",
@@ -6775,7 +6786,8 @@
           "MOV-074",
           "MOV-075",
           "MOV-076"
-        ]
+        ],
+        "character": "expulsion"
       },
       {
         "id": "MOV-013",
@@ -6795,7 +6807,8 @@
           "MOV-078",
           "MOV-079",
           "MOV-111"
-        ]
+        ],
+        "character": "expulsion"
       },
       {
         "id": "MOV-014",
@@ -6809,7 +6822,8 @@
         "destinationPlaceId": null,
         "arrowEndsReady": false,
         "arrowTreatment": "Red",
-        "links": []
+        "links": [],
+        "character": "expulsion"
       },
       {
         "id": "MOV-015",
@@ -6826,6 +6840,7 @@
         "links": [
           "POP-043"
         ],
+        "character": "voluntary migration",
         "branch": {
           "subhead": "East to Poland and beyond",
           "story": "Over two centuries, Jews moved east from the German lands into Poland, Bohemia and Hungary, drawn by royal charters and pushed by massacres and expulsions at home.",
@@ -6849,7 +6864,8 @@
         "links": [
           "CHG-013",
           "MOV-080"
-        ]
+        ],
+        "character": "persecution-driven flight"
       },
       {
         "id": "MOV-017",
@@ -6867,7 +6883,8 @@
           "MOV-081",
           "MOV-082",
           "MOV-083"
-        ]
+        ],
+        "character": "expulsion"
       },
       {
         "id": "MOV-018",
@@ -6884,7 +6901,8 @@
         "links": [
           "DES-010",
           "MOV-084"
-        ]
+        ],
+        "character": "expulsion"
       },
       {
         "id": "MOV-019",
@@ -6901,6 +6919,7 @@
         "links": [
           "POP-044"
         ],
+        "character": "relocation",
         "branch": {
           "subhead": "To Constantinople",
           "story": "After conquering Constantinople in 1453, Sultan Mehmed II moved Jewish communities from across his lands into the city to repopulate his new capital.",
@@ -6922,7 +6941,8 @@
         "arrowTreatment": "Red",
         "links": [
           "CHG-014"
-        ]
+        ],
+        "character": "expulsion"
       },
       {
         "id": "MOV-021",
@@ -6942,7 +6962,8 @@
           "MOV-087",
           "MOV-088",
           "MOV-089"
-        ]
+        ],
+        "character": "expulsion"
       },
       {
         "id": "MOV-022",
@@ -6959,6 +6980,7 @@
         "links": [
           "POP-044"
         ],
+        "character": "voluntary migration",
         "branch": {
           "subhead": "From Iberia to Ottoman cities",
           "story": "For generations after 1492, Jews and New Christians kept leaving Iberia for Ottoman cities, where they could live openly as Jews among the communities their relatives had built.",
@@ -6982,6 +7004,7 @@
         "links": [
           "POP-045"
         ],
+        "character": "return/aliyah",
         "branch": {
           "subhead": "To Safed",
           "story": "In the 1500s Jews from across the Mediterranean, many of them Spanish exiles and their children, settled in Safed in the Galilee. The town became a center of Torah, Kabbalah and trade.",
@@ -7016,7 +7039,8 @@
           "MOV-099",
           "MOV-100",
           "MOV-101"
-        ]
+        ],
+        "character": "persecution-driven flight"
       },
       {
         "id": "MOV-025",
@@ -7036,7 +7060,8 @@
           "MOV-104",
           "MOV-105",
           "POP-046"
-        ]
+        ],
+        "character": "expulsion"
       },
       {
         "id": "MOV-026",
@@ -7053,6 +7078,7 @@
         "links": [
           "POP-047"
         ],
+        "character": "voluntary migration",
         "branch": {
           "subhead": "To Amsterdam",
           "story": "From about 1590, Portuguese New Christians began arriving in Amsterdam, where they could return openly to Judaism. Within a generation the city held one of the great Jewish communities of Europe.",
@@ -7076,6 +7102,7 @@
         "links": [
           "POP-049"
         ],
+        "character": "voluntary migration",
         "branch": {
           "subhead": "To Dutch Brazil",
           "story": "When the Dutch captured Recife in 1630, Jews from Amsterdam followed. In Dutch Brazil they could live openly as Jews in the Americas for the first time.",
@@ -7100,7 +7127,8 @@
           "CHG-016",
           "DES-012",
           "MOV-106"
-        ]
+        ],
+        "character": "persecution-driven flight"
       },
       {
         "id": "MOV-029",
@@ -7116,7 +7144,8 @@
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
           "POP-050"
-        ]
+        ],
+        "character": "persecution-driven flight"
       },
       {
         "id": "MOV-030",
@@ -7133,7 +7162,8 @@
         "links": [
           "MOV-107",
           "MOV-108"
-        ]
+        ],
+        "character": "expulsion"
       },
       {
         "id": "MOV-031",
@@ -7150,7 +7180,8 @@
         "links": [
           "CHG-017",
           "MOV-109"
-        ]
+        ],
+        "character": "expulsion"
       },
       {
         "id": "MOV-032",
@@ -7165,6 +7196,7 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Blue",
         "links": [],
+        "character": "return/aliyah",
         "branch": {
           "subhead": "To Safed",
           "story": "In 1777 a group of Hasidim led by Rabbi Menachem Mendel of Vitebsk set out for the Land of Israel. About 300 people made the journey and settled first in Safed.",
@@ -7188,6 +7220,7 @@
         "links": [
           "POP-060"
         ],
+        "character": "voluntary migration",
         "branch": {
           "subhead": "To Odessa and the cities",
           "story": "In the 1800s, Jews of the Pale of Settlement moved to fast-growing cities, above all the port of Odessa, looking for work and a wider world.",
@@ -7209,6 +7242,7 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Blue",
         "links": [],
+        "character": "return/aliyah",
         "branch": {
           "subhead": "To the Land of Israel",
           "story": "Between 1808 and 1810, disciples of the Vilna Gaon left Lithuania and Belarus for the Land of Israel. Known as the Perushim, they settled in Safed and later in Jerusalem.",
@@ -7232,6 +7266,7 @@
         "links": [
           "POP-061"
         ],
+        "character": "voluntary migration",
         "branch": {
           "subhead": "To India",
           "story": "In the 1800s, Jewish merchants from Baghdad, Basra and Aleppo settled in Bombay and Calcutta. Known as Baghdadi Jews, they built trading houses that reached across Asia.",
@@ -7255,6 +7290,7 @@
         "links": [
           "POP-062"
         ],
+        "character": "voluntary migration",
         "branch": {
           "subhead": "To Shanghai",
           "story": "From the 1840s, Baghdadi Jewish firms from Bombay opened branches in Shanghai after China's ports were forced open to foreign trade. A small, prosperous community grew there.",
@@ -7278,6 +7314,7 @@
         "links": [
           "POP-063"
         ],
+        "character": "voluntary migration",
         "branch": {
           "subhead": "To the United States",
           "story": "Between 1820 and 1880, tens of thousands of Jews from the German lands and Central Europe crossed to America, many starting as peddlers and building businesses across the country.",
@@ -7301,6 +7338,7 @@
         "links": [
           "CHG-026"
         ],
+        "character": "voluntary migration",
         "branch": {
           "subhead": "To the United States",
           "story": "From 1881 to 1914, about two million Jews left Eastern Europe for the United States, escaping poverty, discrimination and pogroms. Most entered through New York.",
@@ -7322,6 +7360,7 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Blue",
         "links": [],
+        "character": "return/aliyah",
         "branch": {
           "subhead": "To Jerusalem",
           "story": "In 1881 and 1882, about 200 Jews from Yemen set out for Jerusalem, one of the first waves of modern aliyah, arriving at almost the same moment as the First Aliyah from Europe.",
@@ -7346,6 +7385,7 @@
           "CHG-028",
           "POP-068"
         ],
+        "character": "return/aliyah",
         "branch": {
           "subhead": "From Eastern Europe",
           "story": "Between 1882 and 1903, about 30,000 Jews came to the Land of Israel, most from Eastern Europe after the pogroms. They founded the first modern Jewish farming colonies.",
@@ -7368,6 +7408,7 @@
         "links": [
           "POP-069"
         ],
+        "character": "voluntary migration",
         "branch": {
           "subhead": "To Argentina",
           "story": "In 1889, 820 Jews from Eastern Europe arrived in Argentina on the ship Weser. Their colony, Moisés Ville, began Jewish farming settlement on the pampas.",
@@ -7391,6 +7432,7 @@
         "links": [
           "POP-070"
         ],
+        "character": "return/aliyah",
         "branch": {
           "subhead": "To Jerusalem",
           "story": "In the 1890s, Jews from Bukhara and Central Asia settled in Jerusalem. In 1892 they founded their own neighborhood, the Bukharan Quarter, with wide streets and grand houses.",
@@ -7414,6 +7456,7 @@
         "links": [
           "POP-071"
         ],
+        "character": "return/aliyah",
         "branch": {
           "subhead": "From Eastern Europe",
           "story": "Between 1904 and 1914, about 35,000 Jews came to the Land of Israel, many of them young idealists from Russia after the Kishinev pogrom and the failed revolution of 1905.",
@@ -7436,6 +7479,7 @@
         "links": [
           "POP-008"
         ],
+        "character": "deportation",
         "branch": {
           "subhead": "To Egypt",
           "story": "After Alexander's death, Ptolemy I seized Judea and carried many Jews to Egypt as captives. Others followed by choice, and Alexandria grew a great Jewish community.",
@@ -7459,6 +7503,7 @@
         "links": [
           "POP-011"
         ],
+        "character": "relocation",
         "branch": {
           "subhead": "To Cyrenaica",
           "story": "Ptolemy I sent Jewish settlers from Egypt to Cyrenaica, in today's Libya, to garrison its cities and secure his hold on the region.",
@@ -7481,6 +7526,7 @@
           "MOV-002",
           "POP-002"
         ],
+        "character": "deportation",
         "branch": {
           "subhead": "To the heart of Assyria",
           "story": "Israelite deportees were settled in Halah and along the Habor, the river of Gozan, in the Assyrian heartland of northern Mesopotamia.",
@@ -7505,6 +7551,7 @@
           "MOV-002",
           "POP-002"
         ],
+        "character": "deportation",
         "branch": {
           "subhead": "To the cities of the Medes",
           "story": "Others were sent farther east, to the cities of the Medes in the Iranian highlands, at the far edge of Assyrian power.",
@@ -7529,6 +7576,7 @@
           "MOV-022",
           "POP-044"
         ],
+        "character": "voluntary migration",
         "branch": {
           "subhead": "From Italy to Ottoman cities",
           "story": "Jews from Italy also moved east to Ottoman cities in the 1500s and 1600s, some pushed by expulsions and the ghetto, others drawn by trade.",
@@ -7553,6 +7601,7 @@
           "MOV-023",
           "POP-045"
         ],
+        "character": "return/aliyah",
         "branch": {
           "subhead": "To Jerusalem",
           "story": "Others made their way to Jerusalem, joining the Jews already living in the holy city under new Ottoman rule.",
@@ -7577,6 +7626,7 @@
           "MOV-040",
           "POP-068"
         ],
+        "character": "return/aliyah",
         "branch": {
           "subhead": "From Yemen",
           "story": "Yemenite Jews kept coming through the First Aliyah years, most of them settling in Jerusalem as laborers and craftsmen.",
@@ -7600,6 +7650,7 @@
           "MOV-043",
           "POP-071"
         ],
+        "character": "return/aliyah",
         "branch": {
           "subhead": "From Yemen",
           "story": "Yemenite Jews also came during the Second Aliyah. In 1911 an emissary, Shmuel Yavne'eli, encouraged families to come and work in the farming colonies.",
@@ -7623,6 +7674,7 @@
           "MOV-029",
           "POP-047"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "Back to Amsterdam",
           "story": "When Portugal retook Recife in 1654, its Jews were given three months to leave. Most sailed back to Amsterdam, the city that had sent many of them to Brazil, carrying only what they could move.",
@@ -7647,6 +7699,7 @@
           "MOV-029",
           "POP-051"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "To Curaçao",
           "story": "Some sailed to Dutch Curaçao, where a small Jewish settlement had just begun. The exiles from Recife joined it, and it grew into one of the oldest Jewish communities in the Americas.",
@@ -7671,6 +7724,7 @@
           "MOV-029",
           "POP-054"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "To Barbados",
           "story": "A group of Recife exiles reached English Barbados in 1654, some of them by way of Amsterdam. They put down roots in Bridgetown and founded a congregation that still has its synagogue today.",
@@ -7695,6 +7749,7 @@
           "MOV-029",
           "POP-050"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "To New Amsterdam",
           "story": "In September 1654, 23 Jewish refugees from Brazil, children among them, landed in Dutch New Amsterdam. Their arrival marks the beginning of Jewish community life in what became New York.",
@@ -7719,6 +7774,7 @@
           "CHG-014",
           "MOV-020"
         ],
+        "character": "expulsion",
         "branch": {
           "subhead": "To Portugal",
           "story": "Many crossed the border into Portugal. Most could buy only eight months of safety. Those who stayed were soon enslaved or baptized by force, and Portugal proved no refuge at all.",
@@ -7743,6 +7799,7 @@
           "CHG-014",
           "MOV-020"
         ],
+        "character": "expulsion",
         "branch": {
           "subhead": "To North Africa",
           "story": "Others crossed the sea to Morocco and the lands beyond. Many were kept outside the city walls and died of hunger in the fields. The survivors rebuilt, and in Fez the newcomers came to lead the community.",
@@ -7767,6 +7824,7 @@
           "CHG-014",
           "MOV-020"
         ],
+        "character": "expulsion",
         "branch": {
           "subhead": "To Italy",
           "story": "Ships carried exiles to Naples, Genoa and other Italian ports. Naples took them in, but hunger and plague came with them. When Spain later ruled Naples, the Jews were expelled once more.",
@@ -7791,6 +7849,7 @@
           "CHG-014",
           "MOV-020"
         ],
+        "character": "expulsion",
         "branch": {
           "subhead": "To the Ottoman lands",
           "story": "Many sailed east to the Ottoman Empire, which took them in as skilled craftsmen. In Constantinople and Salonica they built communities that kept their Spanish language and customs for centuries.",
@@ -7816,6 +7875,7 @@
           "MOV-055",
           "POP-050"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "Driven to Jamaica",
           "story": "In February 1654 the ship Valk left Brazil carrying Jewish refugees. Adverse winds drove it to Spanish-held Jamaica, where its passengers were stripped of their possessions.",
@@ -7841,6 +7901,7 @@
           "MOV-055",
           "POP-050"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "On to Cape St. Anthony",
           "story": "From the Caribbean the refugees reached Cape St. Anthony, at the western tip of Cuba, the port from which they sailed for New Amsterdam.",
@@ -7866,6 +7927,7 @@
           "MOV-055",
           "POP-050"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "Last leg to New Amsterdam",
           "story": "From Cape St. Anthony at the western tip of Cuba, the ship St. Catrina carried 23 Jewish refugees north to New Amsterdam, arriving in September 1654.",
@@ -7892,6 +7954,7 @@
           "MOV-054",
           "POP-054"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "From Amsterdam to Barbados",
           "story": "Some Recife families reached Barbados only after a stop in Amsterdam. By November 1654 the island's council was recording Jews brought from Brazil.",
@@ -7916,6 +7979,7 @@
           "MOV-029",
           "POP-073"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "To Guadeloupe",
           "story": "Some Jews from the Recife area found refuge on French Guadeloupe after 1654, among the first Jews on the island.",
@@ -7940,6 +8004,7 @@
           "MOV-029",
           "POP-072"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "To Martinique",
           "story": "A small group of Jews from Dutch Brazil settled on French Martinique in 1654, among them the merchant Benjamin d'Acosta de Andrade.",
@@ -7964,6 +8029,7 @@
           "MOV-029",
           "POP-052"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "To Suriname",
           "story": "Some Recife Jews sailed to Suriname, on the South American coast, joining Jews who had begun settling there years before.",
@@ -7989,6 +8055,7 @@
           "MOV-052",
           "POP-046"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "On to Livorno",
           "story": "Some Recife exiles did not stay in Amsterdam. They continued to Livorno in Italy, a free port where Jews lived with unusual freedom.",
@@ -8012,6 +8079,7 @@
         "links": [
           "EVT-0001"
         ],
+        "character": "other/uncertain",
         "branch": {
           "subhead": "From Ur to Canaan",
           "story": "The Torah tells that Abraham left Ur of the Chaldees with his family, stopped in Haran, and at G-d's call went on to Canaan, the land promised to his descendants.",
@@ -8035,6 +8103,7 @@
           "CHG-008",
           "MOV-010"
         ],
+        "character": "persistent flight",
         "branch": {
           "subhead": "To Christian Castile",
           "story": "When the Almohads seized Córdoba in 1148 and gave Jews a choice of Islam, exile or death, many fled north to Christian Castile, where Alfonso VII received them in Toledo.",
@@ -8059,6 +8128,7 @@
           "CHG-008",
           "MOV-010"
         ],
+        "character": "persistent flight",
         "branch": {
           "subhead": "To Portugal",
           "story": "Other refugees from the Almohad persecution crossed into the young Christian kingdom of Portugal, which had just won its independence and was pushing south.",
@@ -8083,6 +8153,7 @@
           "CHG-008",
           "MOV-010"
         ],
+        "character": "persistent flight",
         "branch": {
           "subhead": "To Provence",
           "story": "Some refugees went farther, across the Pyrenees to Provence and Languedoc. Families like the Kimhis and the Ibn Tibbons carried the learning of al-Andalus with them.",
@@ -8107,6 +8178,7 @@
           "CHG-008",
           "MOV-010"
         ],
+        "character": "persistent flight",
         "branch": {
           "subhead": "To Egypt",
           "story": "Others fled east across the Mediterranean. The family of Moses Maimonides wandered from Córdoba to Morocco and the Land of Israel before settling in Egypt.",
@@ -8130,7 +8202,8 @@
         "links": [
           "CHG-008",
           "MOV-010"
-        ]
+        ],
+        "character": "persistent flight"
       },
       {
         "id": "MOV-074",
@@ -8148,6 +8221,7 @@
           "CHG-010",
           "MOV-012"
         ],
+        "character": "expulsion",
         "branch": {
           "subhead": "To France",
           "story": "Expelled from England in 1290, most Jews crossed the Channel to France, where many would be expelled again sixteen years later.",
@@ -8172,6 +8246,7 @@
           "CHG-010",
           "MOV-012"
         ],
+        "character": "expulsion",
         "branch": {
           "subhead": "To the German lands",
           "story": "Other English Jews went on to the German lands, joining the Ashkenazi communities of the Rhineland and beyond.",
@@ -8196,6 +8271,7 @@
           "CHG-011",
           "MOV-013"
         ],
+        "character": "expulsion",
         "branch": {
           "subhead": "To Provence",
           "story": "When Philip IV expelled the Jews of France in 1306, many fled east to Provence, ruled by the counts of Anjou and outside his kingdom.",
@@ -8220,6 +8296,7 @@
           "CHG-011",
           "MOV-013"
         ],
+        "character": "expulsion",
         "branch": {
           "subhead": "To Catalonia",
           "story": "Others fled south across the Pyrenees to Catalonia, in the Crown of Aragon, home to thriving Jewish communities in Barcelona and Girona.",
@@ -8244,6 +8321,7 @@
           "CHG-013",
           "MOV-016"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "To Algiers",
           "story": "After the massacres of 1391 in Spain, Jewish refugees crossed to North Africa. In Algiers they were at first warmly welcomed.",
@@ -8267,6 +8345,7 @@
         "links": [
           "MOV-017"
         ],
+        "character": "expulsion",
         "branch": {
           "subhead": "To Provence",
           "story": "Others went to Provence, still outside the French kingdom, joining the communities that had sheltered earlier exiles in 1306.",
@@ -8290,6 +8369,7 @@
         "links": [
           "MOV-017"
         ],
+        "character": "expulsion",
         "branch": {
           "subhead": "To Spain",
           "story": "A few of the exiles of 1394 crossed the Pyrenees into Spain, where only three years earlier Jews had been massacred in the riots of 1391.",
@@ -8315,6 +8395,7 @@
           "CTX-019",
           "MOV-024"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "Escape to Amsterdam",
           "story": "New Christians escaping the Portuguese Inquisition found in Amsterdam a city where they could live as Jews without fear of arrest, torture or the stake.",
@@ -8340,6 +8421,7 @@
           "CTX-019",
           "MOV-024"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "To London",
           "story": "A few New Christian merchants lived quietly in London in the 1600s. In 1656, under Oliver Cromwell, they began to live openly as Jews, ending more than 350 years of exclusion.",
@@ -8365,6 +8447,7 @@
           "CTX-019",
           "MOV-024"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "To Venice",
           "story": "Despite expulsion decrees, Portuguese New Christians kept settling in Venice. In time the republic accepted them as Jews, and they lived and traded from its ghetto.",
@@ -8389,6 +8472,7 @@
           "CTX-019",
           "MOV-024"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "To Livorno",
           "story": "Livorno's charter of 1593 invited merchants of every nation, New Christians included, with no ghetto and no questions about their past. Portuguese Jews flocked to the new free port.",
@@ -8414,6 +8498,7 @@
           "CTX-019",
           "MOV-024"
         ],
+        "character": "persecution-driven flight",
         "branch": {
           "subhead": "To Constantinople",
           "story": "Constantinople drew New Christians from Portugal throughout the 1500s. Among them was Doña Gracia Nasi, who arrived in 1553 and led a network that helped others escape.",
@@ -8438,6 +8523,7 @@
           "MOV-025",
           "POP-046"
         ],
+        "character": "expulsion",
         "branch": {
           "subhead": "To Livorno",
           "story": "In 1569 Pope Pius V expelled the Jews from the Papal States, except Rome and Ancona. Many exiles found refuge in Tuscany, some in Livorno.",
@@ -8462,6 +8548,7 @@
           "CHG-009",
           "MOV-011"
         ],
+        "character": "expulsion",
         "branch": {
           "subhead": "Beyond the king's lands",
           "story": "In 1182 King Philip Augustus expelled the Jews from his royal domain around Paris. Most moved to other parts of northern France ruled by regional lords.",

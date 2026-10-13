@@ -84,7 +84,8 @@ OPTIONAL_COMMUNITY_COLS = dict(concentration='Concentration', presenceStatus='Pr
 OPTIONAL_MOVEMENT_COLS = dict(originPlaceId='Origin place ID', destinationPlaceId='Destination place ID',
                               # v0.7.0 branch text (columns U to Z). Shown only when Branch Text Status is Approved (compared case-insensitively).
                               branchSubhead='Branch Subhead', branchStory='Branch Story', branchDeepDive='Branch Deep Dive',
-                              branchStatus='Branch Text Status', branchGroup='Branch Group', branchMode='Branch Travel Mode')
+                              branchStatus='Branch Text Status', branchGroup='Branch Group', branchMode='Branch Travel Mode',
+                              character='Movement character')   # the cause label (expulsion, voluntary migration ...), used by the movements page Cause selector
 BRANCH_LIMITS = {'branchSubhead': 40, 'branchStory': 220, 'branchDeepDive': 600}   # card standard (F-082 / F-086)
 BRANCH_GROUPS = {'Israelite', 'Judean', 'Babylonian Jewish', 'Ashkenazi', 'Sephardic', 'Romaniote', 'Italian', 'Sicilian',
                  'French', 'Maghrebi', 'Baghdadi', 'Yemenite', 'Bukharan'}
@@ -572,7 +573,7 @@ def build(wb, rep):
                           'originPlaceId': ends['originPlaceId'], 'destinationPlaceId': ends['destinationPlaceId'],
                           'arrowEndsReady': ends['originPlaceId'] is not None and ends['destinationPlaceId'] is not None
                                             and ends['originPlaceId'] in placed and ends['destinationPlaceId'] in placed,
-                          'arrowTreatment': arrow, 'links': lk, **({'branch': branch} if branch else {})})
+                          'arrowTreatment': arrow, 'links': lk, 'character': r.get('character'), **({'branch': branch} if branch else {})})
 
     context = []
     for r in raw['Context & Voyages']:
