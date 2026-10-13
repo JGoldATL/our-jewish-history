@@ -12,9 +12,9 @@ const FIRST_YEAR=-722;                     // the Assyrian exile of the Northern
 const COLORS={Red:'#B8352B',Blue:'#2D6CB8',Charcoal:'#41464A'};   // same fills as the globe
 const OUTLINE='#FFF2DE',TRAD='#EFE6D3';
 const SHORT={1:'Origins',2:'Exile',3:'Rome',4:'Islamic world',5:'Medieval',6:'New diasporas',7:'Modern'};
-/* Cause: four headings. Persistent flight joins Persecution; relocation joins Voluntary migration; returns are not shown at all. */
-const CAUSE_OF={'expulsion':'Expulsion','persecution-driven flight':'Persecution','persistent flight':'Persecution','deportation':'Deportation','voluntary migration':'Voluntary migration','relocation':'Voluntary migration'};
-const CAUSES=['Deportation','Expulsion','Persecution','Voluntary migration'];
+/* Cause: five headings. Persistent flight joins Persecution; Relocation stays its own heading (CEO Oct 13); returns are not shown at all. */
+const CAUSE_OF={'expulsion':'Expulsion','persecution-driven flight':'Persecution','persistent flight':'Persecution','deportation':'Deportation','voluntary migration':'Voluntary migration','relocation':'Relocation'};
+const CAUSES=['Deportation','Expulsion','Persecution','Relocation','Voluntary migration'];
 const HOLD=15,FADE=6,RATE=30;              // years a route stays bright after it ends, years to fade in, years per second at 1x
 const ICO_PLAY='M3.5,1.5 L13.5,8 L3.5,14.5 Z',ICO_PAUSE='M3.5,1.5 H6.5 V14.5 H3.5 Z M9.5,1.5 H12.5 V14.5 H9.5 Z';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
