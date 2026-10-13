@@ -11,8 +11,8 @@ const DRAFTS=/[?&]drafts=1\b/.test(location.search);
 const FIRST_YEAR=-722;                     // the Assyrian exile of the Northern Kingdom: the first exile in the data
 const COLORS={Red:'#B8352B',Blue:'#2D6CB8',Charcoal:'#41464A'};   // same fills as the globe
 const OUTLINE='#FFF2DE',TRAD='#EFE6D3';
-/* The five accepted eras shown on the slider and in the Era filter. Boundaries follow the Sheet's seven data eras (Biblical = era 1; Ancient History = eras 2 and 3; Middle Ages = eras 4 and 5; Modern History = eras 6 and 7), and Contemporary History starts at 1897, the First Zionist Congress. */
-const HEAD=[{era:1,name:'Biblical',startYear:-2000},{era:2,name:'Ancient History',startYear:-586},{era:3,name:'Middle Ages',startYear:200},{era:4,name:'Modern History',startYear:1492},{era:5,name:'Contemporary History',startYear:1897}];
+/* The five accepted eras shown on the slider and in the Era filter. Boundaries follow the Sheet's seven data eras (Biblical = era 1; Ancient History = eras 2 and 3; Middle Ages = eras 4 and 5; Early Modern History = era 6, Modern History = era 7), and Contemporary History starts at 1897, the First Zionist Congress. */
+const HEAD=[{era:1,name:'Biblical',startYear:-2000},{era:2,name:'Ancient History',startYear:-586},{era:3,name:'Middle Ages',startYear:200},{era:4,name:'Early Modern History',startYear:1492},{era:5,name:'Modern History',startYear:1700},{era:6,name:'Contemporary History',startYear:1897}];
 const GAPSEC=1.8;   // a stretch of years with no journeys on screen takes about this long at 1x
 /* Cause: five headings. Persistent flight joins Persecution; Relocation stays its own heading (CEO Oct 13); returns are not shown at all. */
 const CAUSE_OF={'expulsion':'Expulsion','persecution-driven flight':'Persecution','persistent flight':'Persecution','deportation':'Deportation','voluntary migration':'Voluntary migration','relocation':'Relocation'};

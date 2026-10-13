@@ -257,7 +257,7 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 .tl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;margin-top:-10px;border-radius:50%;background:var(--amber);border:0;box-shadow:0 0 0 4px rgba(232,178,122,.3)}
 .tl input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--amber);border:0;box-shadow:0 0 0 4px rgba(232,178,122,.3)}
 .ticks{position:absolute;left:12px;right:12px;top:34px;height:22px}
-.ticks button{position:absolute;transform:translateX(-50%);border:0;background:none;color:rgba(239,230,211,.78);font-size:12px;white-space:nowrap;padding:3px 4px;cursor:pointer;top:0;font-family:var(--sans)}
+.ticks button{position:absolute;transform:translateX(-50%);border:0;background:none;color:rgba(239,230,211,.78);font-size:12px;white-space:normal;width:76px;text-align:center;line-height:1.15;padding:3px 2px;cursor:pointer;top:0;font-family:var(--sans)}
 .ticks button::before{content:'';position:absolute;left:50%;top:-5px;height:5px;border-left:1px solid var(--muted)}
 .ticks button.cur{color:var(--amber);font-weight:700}
 #story .chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -281,7 +281,7 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 .layout{padding-top:12px}
 .flow{animation:flow 1.2s linear infinite}
 @keyframes flow{to{stroke-dashoffset:-46}}
-@media (max-width:620px) and (orientation:portrait){.ticks button:not(.cur){display:none}.tl{height:50px}#globeLink{display:none}#story .blk{flex:0 0 100%}#story .sub{font-size:20px;margin:0}#panel>#story{align-content:flex-start}.count{display:none}.sel{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.sel::-webkit-scrollbar{display:none}.sel .pill{flex:none}}
+@media (max-width:620px) and (orientation:portrait){.ticks button{white-space:nowrap;width:auto}.ticks button:not(.cur){display:none}.tl{height:50px}#globeLink{display:none}#story .blk{flex:0 0 100%}#story .sub{font-size:20px;margin:0}#panel>#story{align-content:flex-start}.count{display:none}.sel{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.sel::-webkit-scrollbar{display:none}.sel .pill{flex:none}}
 @media (max-width:900px){#stage{height:auto}}
 </style>
 </head>
