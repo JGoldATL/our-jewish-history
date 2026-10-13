@@ -199,6 +199,8 @@ function openMenu(f,btn){
 }
 document.addEventListener('click',e=>{if(menuEl&&!menuEl.contains(e.target))closeMenu();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
+/* phone bottom sheet: tap the handle area to expand or collapse */
+(()=>{const c=$('card');c.addEventListener('click',e=>{if(!matchMedia('(max-width:620px) and (orientation:portrait)').matches)return;const r=c.getBoundingClientRect();if(e.clientY-r.top<34)c.classList.toggle('open');});})();
 
 /* ---------- time ---------- */
 /* Slider is era-weighted: each era gets an equal stretch of track so the busy later eras are not squeezed. */
