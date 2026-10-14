@@ -17,12 +17,12 @@
   function say(t,cls){var m=$('gmsg');m.textContent=t||'';m.className='msg'+(cls?' '+cls:'');}
 
   function opts(sel,label,list,keepBlank){sel.innerHTML='';sel.appendChild(h('option',{value:'',text:label}));list.forEach(function(v){sel.appendChild(h('option',{value:v,text:v}));});}
-  var DEFAULT_STATUSES=['In build','Approved','Idea'];
+  var DEFAULT_STATUSES=['In build','Approved','Idea','Parked'];
   function buildFilters(){var L=st.cfg.lists;opts($('fArea'),'All areas',L.area);opts($('fStatus'),'All statuses',L.status);opts($('fVer'),'All versions',L.version);opts($('fOwner'),'All owners',L.owner);}
   function cmts(id){return st.comments[id]||[];}
   function visible(r){
     var q=$('q').value.trim().toLowerCase(),a=$('fArea').value,s=$('fStatus').value,v=$('fVer').value,o=$('fOwner').value;
-    if(!s&&!st.showAll&&DEFAULT_STATUSES.indexOf(r.status)<0)return false;   /* v0.7.5: by default only items In build, Approved or Idea; "Show all" lifts it; picking a status in the menu always wins */
+    if(!s&&!st.showAll&&DEFAULT_STATUSES.indexOf(r.status)<0)return false;   /* v0.7.5: by default only items In build, Approved, Idea or Parked (Show all adds Built and Live); "Show all" lifts it; picking a status in the menu always wins */
     if(a&&r.area!==a)return false;if(s&&r.status!==s)return false;if(o&&r.owner!==o)return false;if(v&&r.rec!==v&&r.mine!==v)return false;
     if(q){var t=COLS.map(function(c){return r[c[0]]||'';}).join(' ').toLowerCase()+' '+cmts(r.id).map(function(c){return c.comment;}).join(' ').toLowerCase();if(t.indexOf(q)<0)return false;}return true;}
   function sortVal(r,k){if(k==='comments')return cmts(r.id).length;var v=r[k];return v==null?'':String(v);}
