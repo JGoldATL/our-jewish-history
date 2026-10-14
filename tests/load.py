@@ -360,5 +360,62 @@ with tempfile.TemporaryDirectory() as td:
     p, _ = run(xd, hist)
     check('a Camera Stops tab missing a column stops the load (never loosened)', p.returncode != 0 and 'missing expected columns' in (p.stdout + p.stderr) and 'Camera Stops' in (p.stdout + p.stderr))
 
+    # ---- master v0.5.0 / site v0.7.5: Map label, Headline era, ERA-8, parent rows, size bands ----
+    def v05_book(src, dst):
+        era_book(src, dst, lambda d: d['Eras'].append(era_row(8, 'Eight', 1898, None, None, status='Proposed')))
+        wb = openpyxl.load_workbook(dst)
+        ws = wb['Places']; ws.cell(1, 9, 'Map label'); ws.cell(2, 9, 'Alpha')
+        ws.append(['place-poland', 'Poland / Polish-Lithuanian lands', 'Poland', 'region', 52.0, 22.0, 'No', S, 'Poland-Lithuania'])
+        ws = wb['Eras']; ws.cell(1, 17, 'Headline era')
+        for i, h in enumerate(['Biblical', 'Ancient History', 'Ancient History', 'Middle Ages', 'Middle Ages', 'Early Modern History', 'Modern History', 'Contemporary History'], start=2):
+            ws.cell(i, 17, h)
+        ws = wb['Movements']
+        for c, h in enumerate(['Origin place ID', 'Destination place ID', 'Size band', 'Size band figure', 'Size band sources', 'Size band basis (internal)'], start=13):
+            ws.cell(1, c, h)
+        ws.cell(2, 9, 'POP-001; MOV-003')
+        for c, v in enumerate(['place-a', 'place-b-c', 'Large', 'about 12,000', S, S], start=13): ws.cell(2, c, v)
+        for c, v in enumerate(['place-a', 'place-b-c', 'unknown', None, None, S], start=13): ws.cell(3, c, v)
+        base = [None] * 12
+        def mrow(mid, a, b, band=None, fig=None, links=None):
+            r = list(base); r[0], r[1], r[2], r[3], r[7], r[8], r[9], r[10], r[11] = mid, 'EVT-0001', '1500', 1500, 'Red', links, S, S, S
+            return r + [a, b, band, fig, S if band else None, S if band else None]
+        ws.append(mrow('MOV-003', 'place-a', None))                       # parent: MOV-001 lists it
+        ws.append(mrow('MOV-004', 'place-a', None))                       # one end only, nobody lists it: warns
+        ws.append(mrow('MOV-005', 'place-a', 'place-b-c', 'huge'))        # band not in the list
+        ws.append(mrow('MOV-001', 'place-a', 'place-b-c', 'very small'))  # duplicate ID with a different band
+        wb.save(dst)
+    x05 = td / 'v05.xlsx'; v05_book(x1, x05)
+    h05 = td / 'h05.json'; h05.write_text(json.dumps(engine, indent=2, ensure_ascii=False), encoding='utf-8')
+    p, rep = run(x05, h05)
+    sh = json.loads(h05.read_text())['sheet']; mv = {m['id']: m for m in sh['movements']}; pl = {q['id']: q for q in sh['places']}
+    check('v0.5.0: loader runs', p.returncode == 0, p.stderr[-300:])
+    check('Map label loads; blank means no key (use Historical name)', pl['place-a'].get('mapLabel') == 'Alpha' and 'mapLabel' not in pl['place-b-c'], pl['place-a'])
+    check('interim label: place-poland loads as Poland, and the report says the Sheet differs',
+          pl['place-poland'].get('mapLabel') == 'Poland' and any(w['id'] == 'place-poland' and 'interim' in w['note'] for w in rep['warnings']))
+    check('Headline era loads on every era row', [e.get('headline') for e in sh['eras']] ==
+          ['Biblical', 'Ancient History', 'Ancient History', 'Middle Ages', 'Middle Ages', 'Early Modern History', 'Modern History', 'Contemporary History'])
+    e8 = [e for e in sh['eras'] if e['era'] == 8]
+    check('ERA-8 loads as Proposed from 1898 with no camera, not rejected, with a warning',
+          len(e8) == 1 and e8[0]['startYear'] == 1898 and e8[0]['status'] == 'proposed' and 'centerPlaceId' not in e8[0]
+          and not any(r['id'] == 'ERA-8' for r in rep['rejects']) and any(w['id'] == 'ERA-8' for w in rep['warnings']))
+    check('parent rule: a no-draw row listed by another row is a parent, with its branch IDs, and gives no warning',
+          mv['MOV-003'].get('parent') is True and mv['MOV-003'].get('branchIds') == ['MOV-001'] and not mv['MOV-003']['arrowEndsReady']
+          and not any(w['id'] == 'MOV-003' for w in rep['warnings']))
+    check('parent rule: a one-ended row nobody lists is not a parent and still warns',
+          'parent' not in mv['MOV-004'] and any(w['id'] == 'MOV-004' for w in rep['warnings']) and rep['noDrawNotParent'] == ['MOV-004'])
+    check('size bands are read and counted but not written by default (unknown never)',
+          not any(k.startswith('sizeBand') or k.startswith('_') for m in sh['movements'] for k in m) and rep['sizeBandsRead'].get('large') == 1
+          and rep['sizeBandsRead'].get('unknown') == 1 and rep['sizeBandsPublished'] is False)
+    check('a band outside the list is read as blank with a warning', any(w['id'] == 'MOV-005' and 'Size band' in w['note'] for w in rep['warnings']))
+    check('a duplicate ID says which columns differ from the first copy',
+          any(r['id'] == 'MOV-001' and 'sizeBand' in r['reason'] and 'first copy' in r['reason'] for r in rep['rejects']))
+    check('size band sources and basis never reach the file', S not in h05.read_text())
+    h05b = td / 'h05b.json'; h05b.write_text(json.dumps(engine, indent=2, ensure_ascii=False), encoding='utf-8')
+    p, rep = run(x05, h05b, '--with-bands')
+    mvb = {m['id']: m for m in json.loads(h05b.read_text())['sheet']['movements']}
+    check('--with-bands writes real bands and figures only, never unknown, never sources or basis',
+          mvb['MOV-001'].get('sizeBand') == 'large' and mvb['MOV-001'].get('sizeBandFigure') == 'about 12,000'
+          and 'sizeBand' not in mvb['MOV-002'] and S not in h05b.read_text())
+
 print('\n%s' % ('ALL PASS' if not fails else 'FAILED: ' + '; '.join(fails)))
 sys.exit(1 if fails else 0)

@@ -7,7 +7,7 @@
   var COLS=ALL;   // the columns used for search and the admin chooser (the page shows PUB + Comments to visitors, ALL + Comments to the admin)
   var EDIT=['feature','about','area','rec','mine','status','deps','gate','effort','owner','source','notes','priority'];
   var LONG={about:1,notes:1};
-  var st={rows:[],cfg:null,version:0,admin:false,hidden:{},comments:{},adminView:false,sort:null},api=function(p,o){return OJJ_GATE.api(p,o);};
+  var st={rows:[],cfg:null,version:0,admin:false,hidden:{},comments:{},adminView:false,sort:null,showAll:false},api=function(p,o){return OJJ_GATE.api(p,o);};
   function $(i){return document.getElementById(i);}
   function h(tag,props,kids){var e=document.createElement(tag);for(var k in (props||{})){if(k==='text')e.textContent=props[k];else if(k==='class')e.className=props[k];else e.setAttribute(k,props[k]);}(kids||[]).forEach(function(c){e.appendChild(c);});return e;}
   function lsGet(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}}
@@ -17,10 +17,12 @@
   function say(t,cls){var m=$('gmsg');m.textContent=t||'';m.className='msg'+(cls?' '+cls:'');}
 
   function opts(sel,label,list,keepBlank){sel.innerHTML='';sel.appendChild(h('option',{value:'',text:label}));list.forEach(function(v){sel.appendChild(h('option',{value:v,text:v}));});}
+  var DEFAULT_STATUSES=['In build','Approved','Idea'];
   function buildFilters(){var L=st.cfg.lists;opts($('fArea'),'All areas',L.area);opts($('fStatus'),'All statuses',L.status);opts($('fVer'),'All versions',L.version);opts($('fOwner'),'All owners',L.owner);}
   function cmts(id){return st.comments[id]||[];}
   function visible(r){
     var q=$('q').value.trim().toLowerCase(),a=$('fArea').value,s=$('fStatus').value,v=$('fVer').value,o=$('fOwner').value;
+    if(!s&&!st.showAll&&DEFAULT_STATUSES.indexOf(r.status)<0)return false;   /* v0.7.5: by default only items In build, Approved or Idea; "Show all" lifts it; picking a status in the menu always wins */
     if(a&&r.area!==a)return false;if(s&&r.status!==s)return false;if(o&&r.owner!==o)return false;if(v&&r.rec!==v&&r.mine!==v)return false;
     if(q){var t=COLS.map(function(c){return r[c[0]]||'';}).join(' ').toLowerCase()+' '+cmts(r.id).map(function(c){return c.comment;}).join(' ').toLowerCase();if(t.indexOf(q)<0)return false;}return true;}
   function sortVal(r,k){if(k==='comments')return cmts(r.id).length;var v=r[k];return v==null?'':String(v);}
@@ -247,5 +249,6 @@
     });});
   $('histBtn').onclick=openHistory;
   ['q'].forEach(function(i){$(i).addEventListener('input',render);});['fArea','fStatus','fVer','fOwner'].forEach(function(i){$(i).addEventListener('change',render);});
+  $('showAll').addEventListener('click',function(){st.showAll=!st.showAll;this.setAttribute('aria-pressed',st.showAll?'true':'false');this.classList.toggle('on',st.showAll);render();});
   window.onGateOpen=function(){st.hidden=lsGet('ojj-rm-hidden')||{};load();};
 })();
