@@ -231,7 +231,7 @@ function addSheetPlaceLabels(frame,labels,mark,P,scale){
   const want=new Set();for(const fm of frame.movements){if(!fm.visible||fm.opacity<.3)continue;const m=DATA.movements.find(r=>r.id===fm.id);if(!m)continue;for(const id of [m.origin,m.destination])if(typeof id==='string')want.add(id);}
   const sp=selected?.record?.placeId;if(typeof sp==='string')want.add(sp);
   const have=new Set(labels.map(l=>String(l.text).toLowerCase()));
-  for(const id of want){const pl=SHEETPL.get(id);if(!pl||pl.cameraOnly||pl.lat==null||pl.lon==null)continue;const text=String(pl.historicalName||'').split(/\s*[\/(]/)[0].trim();if(!text||have.has(text.toLowerCase()))continue;
+  for(const id of want){const pl=SHEETPL.get(id);if(!pl||pl.cameraOnly||pl.lat==null||pl.lon==null)continue;const text=(pl.mapLabel?String(pl.mapLabel):String(pl.historicalName||'').split(/\s*[\/(]/)[0]).trim();if(!text||have.has(text.toLowerCase()))continue;
     const q=P([(pl.lon+15)*15,(58-pl.lat)*650/53]);if(!q.vis)continue;have.add(text.toLowerCase());
     el('circle',{cx:q.x.toFixed(1),cy:q.y.toFixed(1),r:(3.4*Math.max(.8,scale)).toFixed(1),fill:'#1A1410',stroke:'#FFF2DE','stroke-width':2,'pointer-events':'none'},mark);
     labels.push({text,x:q.x,y:q.y,side:'right',prio:1});}

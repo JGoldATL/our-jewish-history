@@ -36,7 +36,7 @@ h1{font-family:Georgia,"Times New Roman",serif;font-weight:600;font-size:1.5rem;
 .bar input[type=search],.bar select{height:44px;border-radius:10px;border:1px solid rgba(239,230,211,.28);background:var(--night);color:var(--text);font:inherit;font-size:15px;padding:0 10px;min-width:0}
 .bar input[type=search]{flex:1 1 180px}.bar select{flex:0 1 150px}
 .btn{height:44px;padding:0 14px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);font:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
-.btn:hover{background:rgba(239,230,211,.12)}.btn.pri{background:var(--amber);border-color:var(--amber);color:var(--night);font-weight:600}.btn[disabled]{opacity:.55;cursor:default}
+.btn:hover{background:rgba(239,230,211,.12)}.btn.on{background:rgba(242,166,90,.22);border-color:#f2a65a}.btn.pri{background:var(--amber);border-color:var(--amber);color:var(--night);font-weight:600}.btn[disabled]{opacity:.55;cursor:default}
 .btn:focus-visible,.bar select:focus-visible,.bar input:focus-visible,.row:focus-visible,.pop input:focus-visible{outline:2px solid #f2a65a;outline-offset:2px}
 .meta{color:var(--muted);font-size:.85rem;margin:2px 0 8px}
 .tw{overflow:auto;max-height:70vh;min-height:200px;border:1px solid var(--line);border-radius:12px;background:var(--night2);-webkit-overflow-scrolling:touch}
@@ -75,7 +75,7 @@ td.id{white-space:nowrap;color:var(--amber)}td.comments{min-width:170px;max-widt
     </div>
     <div class="bar right">
       <select id="fArea" aria-label="Filter by area"></select><select id="fStatus" aria-label="Filter by status"></select>
-      <select id="fVer" aria-label="Filter by version"></select><button class="btn pri" id="sugBtn" type="button">Recommend a feature</button>
+      <select id="fVer" aria-label="Filter by version"></select><button class="btn" id="showAll" type="button" aria-pressed="false" title="By default the list shows items In build, Approved and Idea">Show all</button><button class="btn pri" id="sugBtn" type="button">Recommend a feature</button>
     </div>
     <div class="bar" id="admBar" hidden>
       <button class="btn" id="colsBtn" type="button" aria-expanded="false">Columns</button>

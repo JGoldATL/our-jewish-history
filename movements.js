@@ -11,8 +11,8 @@ const DRAFTS=/[?&]drafts=1\b/.test(location.search);
 const FIRST_YEAR=-722;                     // the Assyrian exile of the Northern Kingdom: the first exile in the data
 const COLORS={Red:'#B8352B',Blue:'#2D6CB8',Charcoal:'#41464A'};   // same fills as the globe
 const OUTLINE='#FFF2DE',TRAD='#EFE6D3';
-/* The five accepted eras shown on the slider and in the Era filter. Boundaries follow the Sheet's seven data eras (Biblical = era 1; Ancient History = eras 2 and 3; Middle Ages = eras 4 and 5; Early Modern History = era 6, Modern History = era 7), and Contemporary History starts at 1897, the First Zionist Congress. */
-const HEAD=[{era:1,name:'Biblical',startYear:-2000},{era:2,name:'Ancient History',startYear:-586},{era:3,name:'Middle Ages',startYear:200},{era:4,name:'Early Modern History',startYear:1492},{era:5,name:'Modern History',startYear:1700},{era:6,name:'Contemporary History',startYear:1897}];
+/* The five accepted eras shown on the slider and in the Era filter. Boundaries follow the Sheet's seven data eras (Biblical = era 1; Ancient History = eras 2 and 3; Middle Ages = eras 4 and 5; Early Modern History = era 6, Modern History = era 7), and Contemporary History starts at 1898 (ERA-8), the year after the First Zionist Congress. v0.7.5 reads these names and start years from the Sheet; this list is the fallback. */
+const HEAD=[{era:1,name:'Biblical',startYear:-2000},{era:2,name:'Ancient History',startYear:-586},{era:3,name:'Middle Ages',startYear:200},{era:4,name:'Early Modern History',startYear:1492},{era:5,name:'Modern History',startYear:1700},{era:6,name:'Contemporary History',startYear:1898}];
 const GAPSEC=1.8;   // a stretch of years with no journeys on screen takes about this long at 1x
 /* Cause: five headings. Persistent flight joins Persecution; Relocation stays its own heading (CEO Oct 13); returns are not shown at all. */
 const CAUSE_OF={'expulsion':'Expulsion','persecution-driven flight':'Persecution','persistent flight':'Persecution','deportation':'Deportation','voluntary migration':'Voluntary migration','relocation':'Relocation'};
@@ -22,7 +22,7 @@ const ICO_PLAY='M3.5,1.5 L13.5,8 L3.5,14.5 Z',ICO_PAUSE='M3.5,1.5 H6.5 V14.5 H3.
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const bare=s=>typeof s!=='string'?s:(/\bBCE\b/.test(s)?s:s.replace(/\s+CE\b/g,''));   // project rule: bare Common Era years
 const yearLabel=y=>y<0?`${-Math.round(y)} BCE`:String(Math.round(y));
-const shortName=p=>String(p?.historicalName||'').split(/ \/ | \(/)[0];
+const shortName=p=>p?.mapLabel?String(p.mapLabel):String(p?.historicalName||'').split(/ \/ | \(/)[0];   // v0.7.5: the Sheet's Map label wins; blank means the Historical name
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 
 let DATA=null,PL=new Map(),CARDS=new Map(),ERAS=HEAD,DETAIL=[],ROUTES=[],EVENTS=new Map(),MINY=0,MAXY=1;
@@ -35,9 +35,16 @@ const phone=()=>matchMedia('(max-width:620px) and (orientation:portrait)').match
 const MIN_DEG=()=>phone()?46:34;            // never zoom in further than this width in degrees: a region stays recognisable
 
 /* ---------- data ---------- */
+/* v0.7.5: the six headline eras come from the Sheet (Eras column Q, Headline era): each name starts where its first data era starts. If the Sheet has no Headline era column the built-in list above is used. */
+function headlineEras(rows){
+  const hs=(rows||[]).filter(e=>e.headline&&Number.isFinite(e.startYear)).sort((a,b)=>a.startYear-b.startYear),by=new Map();
+  for(const e of hs)if(!by.has(e.headline))by.set(e.headline,{name:e.headline,startYear:e.startYear});
+  return by.size?[...by.values()].map((x,i)=>({era:i+1,...x})):HEAD;
+}
 function build(){
   const S=DATA.sheet;PL=new Map(S.places.map(p=>[p.id,p]));CARDS=new Map(S.cards.map(c=>[c.id,c]));
   DETAIL=(S.eras||[]).slice().sort((a,b)=>a.startYear-b.startYear);
+  ERAS=headlineEras(S.eras);
   const eraOf=y=>{let e=null;for(const x of ERAS)if(x.startYear<=y)e=x;return e?e.era:null;};
   const ok=m=>m.arrowEndsReady&&[m.originPlaceId,m.destinationPlaceId].every(id=>Number.isFinite(PL.get(id)?.lat)&&Number.isFinite(PL.get(id)?.lon));
   let rows=S.movements.filter(m=>ok(m)&&m.character!=='return/aliyah'&&m.startYear>=FIRST_YEAR);

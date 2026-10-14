@@ -2518,20 +2518,20 @@
   "sheet": {
     "meta": {
       "schema": "sheet-1",
-      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.4.1",
+      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.5.0",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-10-13T05:00:00Z",
-      "exportSha256": "67698168807c7b91",
+      "sheetModified": "2026-10-14T02:05:02Z",
+      "exportSha256": "e8a66c6d4de03b33",
       "mode": "public",
       "counts": {
         "places": 117,
         "events": 95,
-        "communities": 117,
+        "communities": 151,
         "movements": 111,
         "context": 43,
         "evidence": 20,
         "cards": 166,
-        "eras": 7,
+        "eras": 8,
         "cameraStops": 38,
         "eraAssignment": 265,
         "questions": 44
@@ -2743,7 +2743,8 @@
         "role": "region",
         "lat": 37.6,
         "lon": 14,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Sicily"
       },
       {
         "id": "place-central-asia",
@@ -2860,7 +2861,8 @@
         "role": "region",
         "lat": 52,
         "lon": 22,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Poland"
       },
       {
         "id": "place-vienna",
@@ -2887,7 +2889,8 @@
         "role": "settlement",
         "lat": 41.01,
         "lon": 28.98,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Constantinople"
       },
       {
         "id": "place-safed",
@@ -3049,7 +3052,8 @@
         "role": "settlement",
         "lat": 19.08,
         "lon": 72.88,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Bombay"
       },
       {
         "id": "place-shanghai",
@@ -3139,7 +3143,8 @@
         "role": "region",
         "lat": 35,
         "lon": 42,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Assyria"
       },
       {
         "id": "place-assyria-central",
@@ -3148,7 +3153,8 @@
         "role": "region",
         "lat": 35.6,
         "lon": 43,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Halah and Habor"
       },
       {
         "id": "place-assyria-east",
@@ -3157,7 +3163,8 @@
         "role": "region",
         "lat": 34.4,
         "lon": 47,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Media"
       },
       {
         "id": "place-german-lands",
@@ -3441,7 +3448,8 @@
         "role": "region",
         "lat": 49.6,
         "lon": 4.2,
-        "landOfIsrael": false
+        "landOfIsrael": false,
+        "mapLabel": "Northern France"
       },
       {
         "id": "place-flanders",
@@ -6669,6 +6677,592 @@
           "presenceStatus": "probable",
           "footprintRadiusKm": 40
         }
+      },
+      {
+        "id": "POP-074",
+        "family": "POP",
+        "startYear": -210,
+        "endYear": -147,
+        "dateDisplay": "210–147 BCE",
+        "placeId": "place-asiaNode",
+        "links": [
+          "MOV-007"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "probable",
+          "footprintRadiusKm": 210
+        }
+      },
+      {
+        "id": "POP-075",
+        "family": "POP",
+        "startYear": -300,
+        "endYear": -147,
+        "dateDisplay": "300–147 BCE",
+        "placeId": "place-cyreneNode",
+        "links": [
+          "MOV-045"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "probable",
+          "footprintRadiusKm": 150
+        }
+      },
+      {
+        "id": "POP-076",
+        "family": "POP",
+        "startYear": 1148,
+        "endYear": 1496,
+        "dateDisplay": "1148–1496",
+        "placeId": "place-portugal",
+        "links": [
+          "MOV-056",
+          "MOV-070"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 200
+        }
+      },
+      {
+        "id": "POP-077",
+        "family": "POP",
+        "startYear": 1148,
+        "endYear": 1492,
+        "dateDisplay": "1148–1492",
+        "placeId": "place-spain",
+        "links": [
+          "MOV-069",
+          "MOV-083"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "major",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 250
+        }
+      },
+      {
+        "id": "POP-078",
+        "family": "POP",
+        "startYear": 1306,
+        "endYear": 1391,
+        "dateDisplay": "1306–1391",
+        "placeId": "place-barcelona",
+        "links": [
+          "MOV-078"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 25
+        }
+      },
+      {
+        "id": "POP-079",
+        "family": "POP",
+        "startYear": 1290,
+        "endYear": 1305,
+        "dateDisplay": "1290–1305",
+        "placeId": "place-france",
+        "links": [
+          "MOV-074"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 225
+        }
+      },
+      {
+        "id": "POP-080",
+        "family": "POP",
+        "startYear": 1182,
+        "endYear": 1198,
+        "dateDisplay": "1182–1198",
+        "placeId": "place-n-france-outside-domain",
+        "links": [
+          "MOV-110"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 150
+        }
+      },
+      {
+        "id": "POP-081",
+        "family": "POP",
+        "startYear": 1148,
+        "endYear": 1499,
+        "dateDisplay": "1148–1499",
+        "placeId": "place-s-france",
+        "links": [
+          "MOV-071",
+          "MOV-077",
+          "MOV-082"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 175
+        }
+      },
+      {
+        "id": "POP-082",
+        "family": "POP",
+        "startYear": 1306,
+        "endYear": 1320,
+        "dateDisplay": "1306–1320",
+        "placeId": "place-flanders",
+        "links": [
+          "MOV-076",
+          "MOV-111"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 155
+        }
+      },
+      {
+        "id": "POP-083",
+        "family": "POP",
+        "startYear": 1306,
+        "endYear": 1350,
+        "dateDisplay": "1306–1350",
+        "placeId": "place-perpignan",
+        "links": [
+          "MOV-079"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 25
+        }
+      },
+      {
+        "id": "POP-084",
+        "family": "POP",
+        "startYear": 1394,
+        "endYear": 1500,
+        "dateDisplay": "1394–1500",
+        "placeId": "place-comtat-venaissin",
+        "links": [
+          "MOV-081"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 100
+        }
+      },
+      {
+        "id": "POP-085",
+        "family": "POP",
+        "startYear": 1500,
+        "endYear": 1600,
+        "dateDisplay": "1500–1600",
+        "placeId": "place-bordeaux",
+        "links": [
+          "MOV-093"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "probable",
+          "footprintRadiusKm": 25
+        }
+      },
+      {
+        "id": "POP-086",
+        "family": "POP",
+        "startYear": 1520,
+        "endYear": 1600,
+        "dateDisplay": "1520–1600",
+        "placeId": "place-bayonne",
+        "links": [
+          "MOV-094"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "probable",
+          "footprintRadiusKm": 25
+        }
+      },
+      {
+        "id": "POP-087",
+        "family": "POP",
+        "startYear": 1492,
+        "endYear": 1570,
+        "dateDisplay": "1492–1570",
+        "placeId": "place-italy",
+        "links": [
+          "MOV-058"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 220
+        }
+      },
+      {
+        "id": "POP-088",
+        "family": "POP",
+        "startYear": 1492,
+        "endYear": 1540,
+        "dateDisplay": "1492–1540",
+        "placeId": "place-naples",
+        "links": [
+          "MOV-085"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 30
+        }
+      },
+      {
+        "id": "POP-089",
+        "family": "POP",
+        "startYear": 1550,
+        "endYear": 1597,
+        "dateDisplay": "1550–1597",
+        "placeId": "place-ferrara",
+        "links": [
+          "MOV-096"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 25
+        }
+      },
+      {
+        "id": "POP-090",
+        "family": "POP",
+        "startYear": 1513,
+        "endYear": 1600,
+        "dateDisplay": "1513–1600",
+        "placeId": "place-venice",
+        "links": [
+          "MOV-097"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 25
+        }
+      },
+      {
+        "id": "POP-091",
+        "family": "POP",
+        "startYear": 1500,
+        "endYear": 1554,
+        "dateDisplay": "1500–1554",
+        "placeId": "place-ancona",
+        "links": [
+          "MOV-099"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 25
+        }
+      },
+      {
+        "id": "POP-092",
+        "family": "POP",
+        "startYear": 1569,
+        "endYear": 1600,
+        "dateDisplay": "1569–1600",
+        "placeId": "place-pitigliano",
+        "links": [
+          "MOV-103"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 20
+        }
+      },
+      {
+        "id": "POP-093",
+        "family": "POP",
+        "startYear": 1593,
+        "endYear": 1650,
+        "dateDisplay": "1593–1650",
+        "placeId": "place-tuscany",
+        "links": [
+          "MOV-104"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 185
+        }
+      },
+      {
+        "id": "POP-094",
+        "family": "POP",
+        "startYear": 1569,
+        "endYear": 1590,
+        "dateDisplay": "1569–1590",
+        "placeId": "place-mantua",
+        "links": [
+          "MOV-105"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 25
+        }
+      },
+      {
+        "id": "POP-095",
+        "family": "POP",
+        "startYear": 1492,
+        "endYear": 1600,
+        "dateDisplay": "1492–1600",
+        "placeId": "place-maghreb",
+        "links": [
+          "MOV-057"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 280
+        }
+      },
+      {
+        "id": "POP-096",
+        "family": "POP",
+        "startYear": 1391,
+        "endYear": 1600,
+        "dateDisplay": "1391–1600",
+        "placeId": "place-algeria",
+        "links": [
+          "MOV-080"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 210
+        }
+      },
+      {
+        "id": "POP-097",
+        "family": "POP",
+        "startYear": 1148,
+        "endYear": 1250,
+        "dateDisplay": "1148–1250",
+        "placeId": "place-egypt",
+        "links": [
+          "MOV-072"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 200
+        }
+      },
+      {
+        "id": "POP-098",
+        "family": "POP",
+        "startYear": 1148,
+        "endYear": 1250,
+        "dateDisplay": "1148–1250",
+        "placeId": "place-syria",
+        "links": [
+          "MOV-073"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 205
+        }
+      },
+      {
+        "id": "POP-099",
+        "family": "POP",
+        "startYear": 1495,
+        "endYear": 1600,
+        "dateDisplay": "1495–1600",
+        "placeId": "place-salonica",
+        "links": [
+          "MOV-087",
+          "MOV-100"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "major",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 30
+        }
+      },
+      {
+        "id": "POP-100",
+        "family": "POP",
+        "startYear": 1495,
+        "endYear": 1600,
+        "dateDisplay": "1495–1600",
+        "placeId": "place-damascus",
+        "links": [
+          "MOV-088"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 30
+        }
+      },
+      {
+        "id": "POP-101",
+        "family": "POP",
+        "startYear": 1495,
+        "endYear": 1600,
+        "dateDisplay": "1495–1600",
+        "placeId": "place-cairo",
+        "links": [
+          "MOV-089"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 30
+        }
+      },
+      {
+        "id": "POP-102",
+        "family": "POP",
+        "startYear": 1290,
+        "endYear": 1347,
+        "dateDisplay": "1290–1347",
+        "placeId": "place-german-lands",
+        "links": [
+          "MOV-075"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 295
+        }
+      },
+      {
+        "id": "POP-103",
+        "family": "POP",
+        "startYear": 1420,
+        "endYear": 1744,
+        "dateDisplay": "1420–1744",
+        "placeId": "place-bohemia",
+        "links": [
+          "MOV-084",
+          "MOV-106",
+          "MOV-109"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 185
+        }
+      },
+      {
+        "id": "POP-104",
+        "family": "POP",
+        "startYear": 1669,
+        "endYear": 1720,
+        "dateDisplay": "1669–1720",
+        "placeId": "place-moravia",
+        "links": [
+          "MOV-107"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "substantial",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 160
+        }
+      },
+      {
+        "id": "POP-105",
+        "family": "POP",
+        "startYear": 1671,
+        "endYear": 1710,
+        "dateDisplay": "1671–1710",
+        "placeId": "place-berlin",
+        "links": [
+          "MOV-108"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 25
+        }
+      },
+      {
+        "id": "POP-106",
+        "family": "POP",
+        "startYear": 1612,
+        "endYear": 1652,
+        "dateDisplay": "1612–1652",
+        "placeId": "place-hamburg",
+        "links": [
+          "MOV-092"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 25
+        }
+      },
+      {
+        "id": "POP-107",
+        "family": "POP",
+        "startYear": 1777,
+        "endYear": 1780,
+        "dateDisplay": "1777–1780",
+        "placeId": "place-safed",
+        "links": [
+          "MOV-032"
+        ],
+        "hasCard": false,
+        "engine": {
+          "concentration": "small",
+          "presenceStatus": "documented",
+          "footprintRadiusKm": 25
+        }
       }
     ],
     "movements": [
@@ -6812,30 +7406,6 @@
         }
       },
       {
-        "id": "MOV-007",
-        "eventId": "EVT-0021",
-        "startYear": -210,
-        "endYear": -205,
-        "dateDisplay": "c. 210–205 BCE",
-        "origin": "Mesopotamia / Babylonia",
-        "destination": "Lydia / Phrygia",
-        "originPlaceId": "place-b",
-        "destinationPlaceId": "place-asiaNode",
-        "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal (relocation)",
-        "links": [
-          "POP-009"
-        ],
-        "character": "relocation",
-        "branch": {
-          "subhead": "To Lydia and Phrygia",
-          "story": "The Seleucid king Antiochus III moved Jewish families from Babylonia to Lydia and Phrygia in Asia Minor, trusting them to steady a rebellious region.",
-          "deepDive": "The historian Josephus preserves a letter from Antiochus III ordering 2,000 Jewish families moved from Mesopotamia and Babylonia to the fortresses of Lydia and Phrygia. The king praised their loyalty and promised them land for houses and vineyards, the right to live by their own laws, and years free of tax. These settlers helped root the Jewish communities of Asia Minor, which later flourished in cities such as Sardis, home to one of the largest ancient synagogues ever found.",
-          "group": "Babylonian Jewish",
-          "mode": "land"
-        }
-      },
-      {
         "id": "MOV-008",
         "eventId": "EVT-0025",
         "startYear": -63,
@@ -6859,30 +7429,6 @@
         }
       },
       {
-        "id": "MOV-009",
-        "eventId": "EVT-0046",
-        "startYear": 900,
-        "endYear": 1100,
-        "dateDisplay": "10th–11th century",
-        "origin": "Maghreb / North Africa",
-        "destination": "Egypt",
-        "originPlaceId": "place-maghreb",
-        "destinationPlaceId": "place-egypt",
-        "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal",
-        "links": [
-          "POP-028",
-          "POP-029"
-        ],
-        "character": "voluntary migration",
-        "branch": {
-          "subhead": "To Egypt",
-          "story": "In the 900s and 1000s, Jewish merchants and families moved from North Africa to Egypt, following trade and the Fatimid caliphs, who made Cairo their new capital.",
-          "deepDive": "This was a migration of opportunity, not exile. When the Fatimid caliphs conquered Egypt and built Cairo, many people followed them east, Jewish traders from Kairouan and other North African cities among them. Families kept ties across the Mediterranean through letters and partnerships. The Cairo Geniza, a storeroom of discarded papers in the Ben Ezra synagogue of Fustat, preserves thousands of their letters, contracts and accounts.",
-          "group": "Maghrebi"
-        }
-      },
-      {
         "id": "MOV-010",
         "eventId": "EVT-0099",
         "startYear": 1148,
@@ -6902,7 +7448,15 @@
           "MOV-072",
           "MOV-073"
         ],
-        "character": "persistent flight"
+        "character": "persistent flight",
+        "parent": true,
+        "branchIds": [
+          "MOV-069",
+          "MOV-070",
+          "MOV-071",
+          "MOV-072",
+          "MOV-073"
+        ]
       },
       {
         "id": "MOV-011",
@@ -6920,7 +7474,11 @@
           "CHG-009",
           "MOV-110"
         ],
-        "character": "expulsion"
+        "character": "expulsion",
+        "parent": true,
+        "branchIds": [
+          "MOV-110"
+        ]
       },
       {
         "id": "MOV-012",
@@ -6940,7 +7498,13 @@
           "MOV-075",
           "MOV-076"
         ],
-        "character": "expulsion"
+        "character": "expulsion",
+        "parent": true,
+        "branchIds": [
+          "MOV-074",
+          "MOV-075",
+          "MOV-076"
+        ]
       },
       {
         "id": "MOV-013",
@@ -6961,7 +7525,14 @@
           "MOV-079",
           "MOV-111"
         ],
-        "character": "expulsion"
+        "character": "expulsion",
+        "parent": true,
+        "branchIds": [
+          "MOV-077",
+          "MOV-078",
+          "MOV-079",
+          "MOV-111"
+        ]
       },
       {
         "id": "MOV-014",
@@ -6979,30 +7550,6 @@
         "character": "expulsion"
       },
       {
-        "id": "MOV-015",
-        "eventId": "EVT-0054",
-        "startYear": 1300,
-        "endYear": 1500,
-        "dateDisplay": "14th–15th century",
-        "origin": "German-speaking lands",
-        "destination": "East-central Europe",
-        "originPlaceId": "place-german-lands",
-        "destinationPlaceId": "place-poland",
-        "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal (several routes)",
-        "links": [
-          "POP-043"
-        ],
-        "character": "voluntary migration",
-        "branch": {
-          "subhead": "East to Poland and beyond",
-          "story": "Over two centuries, Jews moved east from the German lands into Poland, Bohemia and Hungary, drawn by royal charters and pushed by massacres and expulsions at home.",
-          "deepDive": "Polish rulers wanted merchants and craftsmen for their growing towns. In 1264 Duke Bolesław of Kalisz granted Jews a charter of protection, later confirmed and widened by King Casimir the Great. Meanwhile the German lands turned deadly: during the Black Death of 1348 to 1350, mobs destroyed hundreds of Jewish communities. Families moved east in many small waves, not one exodus. They carried Yiddish and their customs with them, and east-central Europe became the heartland of Ashkenazi Jewry.",
-          "group": "Ashkenazi",
-          "mode": "land"
-        }
-      },
-      {
         "id": "MOV-016",
         "eventId": "EVT-0100",
         "startYear": 1391,
@@ -7018,7 +7565,11 @@
           "CHG-013",
           "MOV-080"
         ],
-        "character": "persecution-driven flight"
+        "character": "persecution-driven flight",
+        "parent": true,
+        "branchIds": [
+          "MOV-080"
+        ]
       },
       {
         "id": "MOV-017",
@@ -7037,7 +7588,13 @@
           "MOV-082",
           "MOV-083"
         ],
-        "character": "expulsion"
+        "character": "expulsion",
+        "parent": true,
+        "branchIds": [
+          "MOV-081",
+          "MOV-082",
+          "MOV-083"
+        ]
       },
       {
         "id": "MOV-018",
@@ -7055,30 +7612,11 @@
           "DES-010",
           "MOV-084"
         ],
-        "character": "expulsion"
-      },
-      {
-        "id": "MOV-019",
-        "eventId": "EVT-0058",
-        "startYear": 1453,
-        "endYear": null,
-        "dateDisplay": "After 1453",
-        "origin": "Ottoman lands",
-        "destination": "Constantinople",
-        "originPlaceId": "place-ottoman-lands",
-        "destinationPlaceId": "place-constantinople",
-        "arrowEndsReady": true,
-        "arrowTreatment": "Red",
-        "links": [
-          "POP-044"
-        ],
-        "character": "relocation",
-        "branch": {
-          "subhead": "To Constantinople",
-          "story": "After conquering Constantinople in 1453, Sultan Mehmed II moved Jewish communities from across his lands into the city to repopulate his new capital.",
-          "deepDive": "Mehmed II wanted his capital full and prosperous again. Under the policy called sürgün, the state ordered whole communities, Muslim, Christian and Jewish, to move there. Romaniote Jews from towns in the Balkans and Anatolia were uprooted and settled in Istanbul, often keeping the name of their home town for their congregation. It was forced, but it built the community that would soon receive the exiles from Spain.",
-          "group": "Romaniote"
-        }
+        "character": "expulsion",
+        "parent": true,
+        "branchIds": [
+          "MOV-084"
+        ]
       },
       {
         "id": "MOV-020",
@@ -7095,7 +7633,14 @@
         "links": [
           "CHG-014"
         ],
-        "character": "expulsion"
+        "character": "expulsion",
+        "parent": true,
+        "branchIds": [
+          "MOV-056",
+          "MOV-057",
+          "MOV-058",
+          "MOV-059"
+        ]
       },
       {
         "id": "MOV-021",
@@ -7116,31 +7661,15 @@
           "MOV-088",
           "MOV-089"
         ],
-        "character": "expulsion"
-      },
-      {
-        "id": "MOV-022",
-        "eventId": "EVT-0061",
-        "startYear": 1500,
-        "endYear": 1650,
-        "dateDisplay": "c. 1500–1650",
-        "origin": "Iberia; Italy",
-        "destination": "Ottoman cities",
-        "originPlaceId": "place-iberia",
-        "destinationPlaceId": "place-constantinople",
-        "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal",
-        "links": [
-          "POP-044"
-        ],
-        "character": "voluntary migration",
-        "branch": {
-          "subhead": "From Iberia to Ottoman cities",
-          "story": "For generations after 1492, Jews and New Christians kept leaving Iberia for Ottoman cities, where they could live openly as Jews among the communities their relatives had built.",
-          "deepDive": "The flow did not stop with the expulsion. Converts and their children who wanted to return to Judaism slipped out of Spain and Portugal, often by way of Italy or North Africa. In Salonica, Constantinople, Edirne and Safed they could practice openly. Among them was Doña Gracia Nasi, who fled Portugal and helped others escape, and her nephew Joseph Nasi, who rose high at the Ottoman court.",
-          "group": "Sephardic",
-          "mode": "sea"
-        }
+        "character": "expulsion",
+        "parent": true,
+        "branchIds": [
+          "MOV-085",
+          "MOV-086",
+          "MOV-087",
+          "MOV-088",
+          "MOV-089"
+        ]
       },
       {
         "id": "MOV-023",
@@ -7193,7 +7722,22 @@
           "MOV-100",
           "MOV-101"
         ],
-        "character": "persecution-driven flight"
+        "character": "persecution-driven flight",
+        "parent": true,
+        "branchIds": [
+          "MOV-090",
+          "MOV-091",
+          "MOV-092",
+          "MOV-093",
+          "MOV-094",
+          "MOV-095",
+          "MOV-096",
+          "MOV-097",
+          "MOV-098",
+          "MOV-099",
+          "MOV-100",
+          "MOV-101"
+        ]
       },
       {
         "id": "MOV-025",
@@ -7214,54 +7758,37 @@
           "MOV-105",
           "POP-046"
         ],
-        "character": "expulsion"
+        "character": "expulsion",
+        "parent": true,
+        "branchIds": [
+          "MOV-102",
+          "MOV-103",
+          "MOV-104",
+          "MOV-105"
+        ]
       },
       {
-        "id": "MOV-026",
-        "eventId": "EVT-0069",
-        "startYear": 1590,
-        "endYear": null,
-        "dateDisplay": "From c. 1590",
-        "origin": "Iberian and European ports",
-        "destination": "Amsterdam",
-        "originPlaceId": "place-iberia",
-        "destinationPlaceId": "place-amsterdam",
+        "id": "MOV-007",
+        "eventId": "EVT-0021",
+        "startYear": -210,
+        "endYear": -205,
+        "dateDisplay": "c. 210–205 BCE",
+        "origin": "Mesopotamia / Babylonia",
+        "destination": "Lydia / Phrygia",
+        "originPlaceId": "place-b",
+        "destinationPlaceId": "place-asiaNode",
         "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal",
+        "arrowTreatment": "Charcoal (relocation)",
         "links": [
-          "POP-047"
+          "POP-009"
         ],
-        "character": "voluntary migration",
+        "character": "relocation",
         "branch": {
-          "subhead": "To Amsterdam",
-          "story": "From about 1590, Portuguese New Christians began arriving in Amsterdam, where they could return openly to Judaism. Within a generation the city held one of the great Jewish communities of Europe.",
-          "deepDive": "The Dutch Republic, at war with Spain, valued trade over religious uniformity. Merchants from Portuguese New Christian families settled in Amsterdam and openly returned to Judaism, relearning what their grandparents had been forced to abandon. Congregations formed in the early 1600s and united in 1639. In 1675 they dedicated the great Portuguese Synagogue, which still stands. Amsterdam became a hub of trade and printing, and the base from which Jews later sailed to Brazil and the Caribbean.",
-          "group": "Sephardic",
-          "mode": "sea"
-        }
-      },
-      {
-        "id": "MOV-027",
-        "eventId": "EVT-0070",
-        "startYear": 1630,
-        "endYear": null,
-        "dateDisplay": "1630s onward",
-        "origin": "Amsterdam / Atlantic",
-        "destination": "Dutch Brazil (Recife)",
-        "originPlaceId": "place-amsterdam",
-        "destinationPlaceId": "place-recife",
-        "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal",
-        "links": [
-          "POP-049"
-        ],
-        "character": "voluntary migration",
-        "branch": {
-          "subhead": "To Dutch Brazil",
-          "story": "When the Dutch captured Recife in 1630, Jews from Amsterdam followed. In Dutch Brazil they could live openly as Jews in the Americas for the first time.",
-          "deepDive": "The Dutch West India Company took Pernambuco from Portugal, and Jewish merchants with family and language ties to Portuguese Brazil came to trade sugar and other goods. Some New Christians already living in Brazil openly returned to Judaism. In 1642 Rabbi Isaac Aboab da Fonseca arrived from Amsterdam, the first rabbi in the Americas. The community built Kahal Zur Israel, the first synagogue on American soil. It lasted until Portugal retook the colony in 1654.",
-          "group": "Sephardic",
-          "mode": "sea"
+          "subhead": "To Lydia and Phrygia",
+          "story": "The Seleucid king Antiochus III moved Jewish families from Babylonia to Lydia and Phrygia in Asia Minor, trusting them to steady a rebellious region.",
+          "deepDive": "The historian Josephus preserves a letter from Antiochus III ordering 2,000 Jewish families moved from Mesopotamia and Babylonia to the fortresses of Lydia and Phrygia. The king praised their loyalty and promised them land for houses and vineyards, the right to live by their own laws, and years free of tax. These settlers helped root the Jewish communities of Asia Minor, which later flourished in cities such as Sardis, home to one of the largest ancient synagogues ever found.",
+          "group": "Babylonian Jewish",
+          "mode": "land"
         }
       },
       {
@@ -7281,7 +7808,11 @@
           "DES-012",
           "MOV-106"
         ],
-        "character": "persecution-driven flight"
+        "character": "persecution-driven flight",
+        "parent": true,
+        "branchIds": [
+          "MOV-106"
+        ]
       },
       {
         "id": "MOV-029",
@@ -7298,7 +7829,22 @@
         "links": [
           "POP-050"
         ],
-        "character": "persecution-driven flight"
+        "character": "persecution-driven flight",
+        "parent": true,
+        "branchIds": [
+          "MOV-052",
+          "MOV-053",
+          "MOV-054",
+          "MOV-055",
+          "MOV-060",
+          "MOV-061",
+          "MOV-062",
+          "MOV-063",
+          "MOV-064",
+          "MOV-065",
+          "MOV-066",
+          "MOV-067"
+        ]
       },
       {
         "id": "MOV-030",
@@ -7316,7 +7862,12 @@
           "MOV-107",
           "MOV-108"
         ],
-        "character": "expulsion"
+        "character": "expulsion",
+        "parent": true,
+        "branchIds": [
+          "MOV-107",
+          "MOV-108"
+        ]
       },
       {
         "id": "MOV-031",
@@ -7334,7 +7885,11 @@
           "CHG-017",
           "MOV-109"
         ],
-        "character": "expulsion"
+        "character": "expulsion",
+        "parent": true,
+        "branchIds": [
+          "MOV-109"
+        ]
       },
       {
         "id": "MOV-032",
@@ -7356,30 +7911,6 @@
           "deepDive": "Disciples of the Maggid of Mezeritch, the leaders Menachem Mendel of Vitebsk, Abraham of Kalisk and Israel of Polotsk brought their followers overland and by sea. They settled in Safed, and many later moved to Tiberias after friction and hardship. They lived on funds raised by Hasidim back home, a model of support that lasted for generations. Their aliyah brought Hasidism to the Land and strengthened its small Jewish communities.",
           "group": "Ashkenazi",
           "mode": "sea and land"
-        }
-      },
-      {
-        "id": "MOV-033",
-        "eventId": "EVT-0079",
-        "startYear": 1800,
-        "endYear": 1900,
-        "dateDisplay": "19th century",
-        "origin": "Pale of Settlement",
-        "destination": "Odessa; large cities",
-        "originPlaceId": "place-pale-of-settlement",
-        "destinationPlaceId": "place-odessa",
-        "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal",
-        "links": [
-          "POP-060"
-        ],
-        "character": "voluntary migration",
-        "branch": {
-          "subhead": "To Odessa and the cities",
-          "story": "In the 1800s, Jews of the Pale of Settlement moved to fast-growing cities, above all the port of Odessa, looking for work and a wider world.",
-          "deepDive": "Russia confined most of its Jews to the Pale of Settlement, its western provinces. Inside it, people moved from small towns to cities. Odessa, a new Black Sea port, grew on grain exports, and by the end of the century about a third of its people were Jews. It became a center of Jewish commerce, Hebrew and Yiddish writing, and new ideas, from enlightenment to early Zionism. It also saw pogroms, in 1821, 1871, 1881 and worst of all in 1905.",
-          "group": "Ashkenazi",
-          "mode": "land"
         }
       },
       {
@@ -7405,99 +7936,27 @@
         }
       },
       {
-        "id": "MOV-035",
-        "eventId": "EVT-0080",
-        "startYear": 1800,
-        "endYear": 1900,
-        "dateDisplay": "19th century",
-        "origin": "Iraq / Middle East",
-        "destination": "India",
-        "originPlaceId": "place-b",
-        "destinationPlaceId": "place-bombay",
+        "id": "MOV-009",
+        "eventId": "EVT-0046",
+        "startYear": 900,
+        "endYear": 1100,
+        "dateDisplay": "10th–11th century",
+        "origin": "Maghreb / North Africa",
+        "destination": "Egypt",
+        "originPlaceId": "place-maghreb",
+        "destinationPlaceId": "place-egypt",
         "arrowEndsReady": true,
         "arrowTreatment": "Charcoal",
         "links": [
-          "POP-061"
+          "POP-028",
+          "POP-029"
         ],
         "character": "voluntary migration",
         "branch": {
-          "subhead": "To India",
-          "story": "In the 1800s, Jewish merchants from Baghdad, Basra and Aleppo settled in Bombay and Calcutta. Known as Baghdadi Jews, they built trading houses that reached across Asia.",
-          "deepDive": "Harsh rule in Baghdad pushed some families out; trade in cotton, textiles and opium drew many more. David Sassoon fled Baghdad, settled in Bombay in 1832 and built a business with branches from Calcutta to Shanghai and London. Baghdadi families founded synagogues, schools and hospitals in Bombay and Calcutta, living alongside the older Bene Israel and Cochin Jewish communities.",
-          "group": "Baghdadi",
-          "mode": "sea"
-        }
-      },
-      {
-        "id": "MOV-036",
-        "eventId": "EVT-0085",
-        "startYear": 1845,
-        "endYear": null,
-        "dateDisplay": "From 1845",
-        "origin": "India",
-        "destination": "Shanghai",
-        "originPlaceId": "place-bombay",
-        "destinationPlaceId": "place-shanghai",
-        "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal",
-        "links": [
-          "POP-062"
-        ],
-        "character": "voluntary migration",
-        "branch": {
-          "subhead": "To Shanghai",
-          "story": "From the 1840s, Baghdadi Jewish firms from Bombay opened branches in Shanghai after China's ports were forced open to foreign trade. A small, prosperous community grew there.",
-          "deepDive": "After the Opium War, Shanghai opened to foreign merchants in 1843. The Sassoons and then the Kadoorie and Hardoon families followed, building trading houses, real estate and banks. They founded synagogues, including Ohel Rachel, and a Jewish school. A century later, this small Sephardi community helped receive thousands of refugees fleeing Nazi Europe.",
-          "group": "Baghdadi",
-          "mode": "sea"
-        }
-      },
-      {
-        "id": "MOV-037",
-        "eventId": "EVT-0083",
-        "startYear": 1820,
-        "endYear": 1880,
-        "dateDisplay": "1820–1880",
-        "origin": "Central Europe",
-        "destination": "United States",
-        "originPlaceId": "place-central-europe",
-        "destinationPlaceId": "place-new-amsterdam",
-        "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal",
-        "links": [
-          "POP-063"
-        ],
-        "character": "voluntary migration",
-        "branch": {
-          "subhead": "To the United States",
-          "story": "Between 1820 and 1880, tens of thousands of Jews from the German lands and Central Europe crossed to America, many starting as peddlers and building businesses across the country.",
-          "deepDive": "Limits on marriage and residence in Bavaria and other German states pushed young Jews to emigrate. In America they spread far beyond the coast, peddling goods into the Midwest, the South and the West, then opening stores. Levi Strauss and the founders of great department stores came out of this wave. By 1880 American Jewry numbered roughly a quarter of a million, and Reform Judaism had taken root in its congregations.",
-          "group": "Ashkenazi",
-          "mode": "sea"
-        }
-      },
-      {
-        "id": "MOV-038",
-        "eventId": "EVT-0091",
-        "startYear": 1881,
-        "endYear": 1914,
-        "dateDisplay": "1881–1914",
-        "origin": "Eastern Europe",
-        "destination": "United States",
-        "originPlaceId": "place-eastern-europe",
-        "destinationPlaceId": "place-new-amsterdam",
-        "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal (red only for specific persecution-driven flight records)",
-        "links": [
-          "CHG-026"
-        ],
-        "character": "voluntary migration",
-        "branch": {
-          "subhead": "To the United States",
-          "story": "From 1881 to 1914, about two million Jews left Eastern Europe for the United States, escaping poverty, discrimination and pogroms. Most entered through New York.",
-          "deepDive": "The pogroms of 1881 and 1882 after the assassination of Tsar Alexander II, the harsh May Laws and deepening poverty set off a mass migration. Families crossed Europe to ports like Hamburg and Bremen, then endured the voyage in steerage. Through Ellis Island they reached the tenements of the Lower East Side and Jewish neighborhoods in cities across the country. They built synagogues, unions, Yiddish newspapers and theaters, and transformed American Jewish life.",
-          "group": "Ashkenazi",
-          "mode": "sea"
+          "subhead": "To Egypt",
+          "story": "In the 900s and 1000s, Jewish merchants and families moved from North Africa to Egypt, following trade and the Fatimid caliphs, who made Cairo their new capital.",
+          "deepDive": "This was a migration of opportunity, not exile. When the Fatimid caliphs conquered Egypt and built Cairo, many people followed them east, Jewish traders from Kairouan and other North African cities among them. Families kept ties across the Mediterranean through letters and partnerships. The Cairo Geniza, a storeroom of discarded papers in the Ben Ezra synagogue of Fustat, preserves thousands of their letters, contracts and accounts.",
+          "group": "Maghrebi"
         }
       },
       {
@@ -7544,30 +8003,6 @@
           "story": "Between 1882 and 1903, about 30,000 Jews came to the Land of Israel, most from Eastern Europe after the pogroms. They founded the first modern Jewish farming colonies.",
           "deepDive": "Shaken by the pogroms of 1881 and 1882, groups like Hovevei Zion and the student pioneers of Bilu set out to settle the land. They founded Rishon LeZion, Zikhron Ya'akov, Rosh Pinna and Rehovot, often on swampy or rocky ground, fighting malaria and debt. Baron Edmond de Rothschild's support kept many colonies alive. Many settlers left, but those who stayed laid the foundations of modern Jewish agriculture and brought Hebrew back into daily life.",
           "group": "Ashkenazi"
-        }
-      },
-      {
-        "id": "MOV-041",
-        "eventId": "EVT-0094",
-        "startYear": 1889,
-        "endYear": null,
-        "dateDisplay": "From 1889",
-        "origin": "Eastern Europe",
-        "destination": "Argentina",
-        "originPlaceId": "place-eastern-europe",
-        "destinationPlaceId": "place-argentina",
-        "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal",
-        "links": [
-          "POP-069"
-        ],
-        "character": "voluntary migration",
-        "branch": {
-          "subhead": "To Argentina",
-          "story": "In 1889, 820 Jews from Eastern Europe arrived in Argentina on the ship Weser. Their colony, Moisés Ville, began Jewish farming settlement on the pampas.",
-          "deepDive": "Argentina wanted settlers for its open land. The first group came with little help and suffered hunger and disease until aid arrived. In 1891 Baron Maurice de Hirsch founded the Jewish Colonization Association, which bought land and set up colonies in Entre Ríos, Santa Fe and other provinces. The Jewish gauchos became part of Argentine lore, and later generations moved to Buenos Aires, building the largest Jewish community in Latin America.",
-          "group": "Ashkenazi",
-          "mode": "sea"
         }
       },
       {
@@ -7642,28 +8077,6 @@
         }
       },
       {
-        "id": "MOV-045",
-        "eventId": "EVT-0020",
-        "startYear": -300,
-        "endYear": -30,
-        "dateDisplay": "Ptolemaic period",
-        "origin": "Egypt (schematic: Alexandria)",
-        "destination": "Cyrenaica",
-        "originPlaceId": "place-alexNode",
-        "destinationPlaceId": "place-cyreneNode",
-        "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal (relocation)",
-        "links": [
-          "POP-011"
-        ],
-        "character": "relocation",
-        "branch": {
-          "subhead": "To Cyrenaica",
-          "story": "Ptolemy I sent Jewish settlers from Egypt to Cyrenaica, in today's Libya, to garrison its cities and secure his hold on the region.",
-          "deepDive": "Josephus writes that Ptolemy, wanting to hold Cyrene and the other cities firmly, sent Jews to settle there. The community grew large and prosperous over the next three centuries. In 115 to 117 the Jews of Cyrenaica rose against Rome in the Diaspora Revolt, and Rome crushed the uprising with great destruction, ending the community's golden age."
-        }
-      },
-      {
         "id": "MOV-046",
         "eventId": "EVT-0009",
         "startYear": -722,
@@ -7714,28 +8127,27 @@
         }
       },
       {
-        "id": "MOV-048",
-        "eventId": "EVT-0061",
-        "startYear": 1500,
-        "endYear": 1650,
-        "dateDisplay": "c. 1500–1650",
-        "origin": "Italy",
-        "destination": "Ottoman cities",
-        "originPlaceId": "place-italy",
-        "destinationPlaceId": "place-constantinople",
+        "id": "MOV-015",
+        "eventId": "EVT-0054",
+        "startYear": 1300,
+        "endYear": 1500,
+        "dateDisplay": "14th–15th century",
+        "origin": "German-speaking lands",
+        "destination": "East-central Europe",
+        "originPlaceId": "place-german-lands",
+        "destinationPlaceId": "place-poland",
         "arrowEndsReady": true,
-        "arrowTreatment": "Charcoal",
+        "arrowTreatment": "Charcoal (several routes)",
         "links": [
-          "MOV-022",
-          "POP-044"
+          "POP-043"
         ],
         "character": "voluntary migration",
         "branch": {
-          "subhead": "From Italy to Ottoman cities",
-          "story": "Jews from Italy also moved east to Ottoman cities in the 1500s and 1600s, some pushed by expulsions and the ghetto, others drawn by trade.",
-          "deepDive": "Italian Jews came in several waves: from Sicily and southern Italy after the expulsions of the 1490s and 1500s, and later from the Papal States. In Salonica and Constantinople they founded congregations named for their homes, such as Sicilia, Calabria, Apulia and Italia, beside the Spanish and Portuguese ones. They joined older Romaniote communities, and the mix made the Ottoman Jewish world remarkably diverse.",
-          "group": "Italian",
-          "mode": "sea"
+          "subhead": "East to Poland and beyond",
+          "story": "Over two centuries, Jews moved east from the German lands into Poland, Bohemia and Hungary, drawn by royal charters and pushed by massacres and expulsions at home.",
+          "deepDive": "Polish rulers wanted merchants and craftsmen for their growing towns. In 1264 Duke Bolesław of Kalisz granted Jews a charter of protection, later confirmed and widened by King Casimir the Great. Meanwhile the German lands turned deadly: during the Black Death of 1348 to 1350, mobs destroyed hundreds of Jewish communities. Families moved east in many small waves, not one exodus. They carried Yiddish and their customs with them, and east-central Europe became the heartland of Ashkenazi Jewry.",
+          "group": "Ashkenazi",
+          "mode": "land"
         }
       },
       {
@@ -7884,7 +8296,11 @@
           "deepDive": "Barbados was English, not Dutch, yet it opened to the refugees. Some reached the island only after first going back to Amsterdam. In November 1654 the island's council took note of Jews brought from Brazil. The newcomers settled in Bridgetown and founded the congregation Nidhe Israel. Its synagogue, rebuilt in 1833, still stands.",
           "group": "Sephardic",
           "mode": "sea"
-        }
+        },
+        "parent": true,
+        "branchIds": [
+          "MOV-067"
+        ]
       },
       {
         "id": "MOV-055",
@@ -7909,7 +8325,13 @@
           "deepDive": "They came on the ship St. Catrina, 23 people, big as well as little, to a colony that had never had a Jewish community. Governor Peter Stuyvesant asked his employers, the Dutch West India Company, to make them leave. The directors refused. Jews could live and trade in New Netherland, they ruled, as long as their poor did not become a burden. By 1655 the newcomers had a burial ground of their own and a Torah scroll lent from Amsterdam. From that foothold grew the Jewish community of New York.",
           "group": "Sephardic",
           "mode": "sea"
-        }
+        },
+        "parent": true,
+        "branchIds": [
+          "MOV-064",
+          "MOV-065",
+          "MOV-066"
+        ]
       },
       {
         "id": "MOV-056",
@@ -9305,6 +9727,292 @@
           "deepDive": "Flanders owed allegiance to the French crown on paper, but its counts and its powerful cloth towns resisted Philip IV; in 1302 Flemish townsmen defeated a French army at Courtrai. That defiance made Flanders a possible refuge. Its Jewish communities were small, but for a time they offered the exiles shelter close to home.",
           "group": "French",
           "mode": "land"
+        }
+      },
+      {
+        "id": "MOV-019",
+        "eventId": "EVT-0058",
+        "startYear": 1453,
+        "endYear": null,
+        "dateDisplay": "After 1453",
+        "origin": "Ottoman lands",
+        "destination": "Constantinople",
+        "originPlaceId": "place-ottoman-lands",
+        "destinationPlaceId": "place-constantinople",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Red",
+        "links": [
+          "POP-044"
+        ],
+        "character": "relocation",
+        "branch": {
+          "subhead": "To Constantinople",
+          "story": "After conquering Constantinople in 1453, Sultan Mehmed II moved Jewish communities from across his lands into the city to repopulate his new capital.",
+          "deepDive": "Mehmed II wanted his capital full and prosperous again. Under the policy called sürgün, the state ordered whole communities, Muslim, Christian and Jewish, to move there. Romaniote Jews from towns in the Balkans and Anatolia were uprooted and settled in Istanbul, often keeping the name of their home town for their congregation. It was forced, but it built the community that would soon receive the exiles from Spain.",
+          "group": "Romaniote"
+        }
+      },
+      {
+        "id": "MOV-022",
+        "eventId": "EVT-0061",
+        "startYear": 1500,
+        "endYear": 1650,
+        "dateDisplay": "c. 1500–1650",
+        "origin": "Iberia; Italy",
+        "destination": "Ottoman cities",
+        "originPlaceId": "place-iberia",
+        "destinationPlaceId": "place-constantinople",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "POP-044"
+        ],
+        "character": "voluntary migration",
+        "branch": {
+          "subhead": "From Iberia to Ottoman cities",
+          "story": "For generations after 1492, Jews and New Christians kept leaving Iberia for Ottoman cities, where they could live openly as Jews among the communities their relatives had built.",
+          "deepDive": "The flow did not stop with the expulsion. Converts and their children who wanted to return to Judaism slipped out of Spain and Portugal, often by way of Italy or North Africa. In Salonica, Constantinople, Edirne and Safed they could practice openly. Among them was Doña Gracia Nasi, who fled Portugal and helped others escape, and her nephew Joseph Nasi, who rose high at the Ottoman court.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-026",
+        "eventId": "EVT-0069",
+        "startYear": 1590,
+        "endYear": null,
+        "dateDisplay": "From c. 1590",
+        "origin": "Iberian and European ports",
+        "destination": "Amsterdam",
+        "originPlaceId": "place-iberia",
+        "destinationPlaceId": "place-amsterdam",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "POP-047"
+        ],
+        "character": "voluntary migration",
+        "branch": {
+          "subhead": "To Amsterdam",
+          "story": "From about 1590, Portuguese New Christians began arriving in Amsterdam, where they could return openly to Judaism. Within a generation the city held one of the great Jewish communities of Europe.",
+          "deepDive": "The Dutch Republic, at war with Spain, valued trade over religious uniformity. Merchants from Portuguese New Christian families settled in Amsterdam and openly returned to Judaism, relearning what their grandparents had been forced to abandon. Congregations formed in the early 1600s and united in 1639. In 1675 they dedicated the great Portuguese Synagogue, which still stands. Amsterdam became a hub of trade and printing, and the base from which Jews later sailed to Brazil and the Caribbean.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-027",
+        "eventId": "EVT-0070",
+        "startYear": 1630,
+        "endYear": null,
+        "dateDisplay": "1630s onward",
+        "origin": "Amsterdam / Atlantic",
+        "destination": "Dutch Brazil (Recife)",
+        "originPlaceId": "place-amsterdam",
+        "destinationPlaceId": "place-recife",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "POP-049"
+        ],
+        "character": "voluntary migration",
+        "branch": {
+          "subhead": "To Dutch Brazil",
+          "story": "When the Dutch captured Recife in 1630, Jews from Amsterdam followed. In Dutch Brazil they could live openly as Jews in the Americas for the first time.",
+          "deepDive": "The Dutch West India Company took Pernambuco from Portugal, and Jewish merchants with family and language ties to Portuguese Brazil came to trade sugar and other goods. Some New Christians already living in Brazil openly returned to Judaism. In 1642 Rabbi Isaac Aboab da Fonseca arrived from Amsterdam, the first rabbi in the Americas. The community built Kahal Zur Israel, the first synagogue on American soil. It lasted until Portugal retook the colony in 1654.",
+          "group": "Sephardic",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-033",
+        "eventId": "EVT-0079",
+        "startYear": 1800,
+        "endYear": 1900,
+        "dateDisplay": "19th century",
+        "origin": "Pale of Settlement",
+        "destination": "Odessa; large cities",
+        "originPlaceId": "place-pale-of-settlement",
+        "destinationPlaceId": "place-odessa",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "POP-060"
+        ],
+        "character": "voluntary migration",
+        "branch": {
+          "subhead": "To Odessa and the cities",
+          "story": "In the 1800s, Jews of the Pale of Settlement moved to fast-growing cities, above all the port of Odessa, looking for work and a wider world.",
+          "deepDive": "Russia confined most of its Jews to the Pale of Settlement, its western provinces. Inside it, people moved from small towns to cities. Odessa, a new Black Sea port, grew on grain exports, and by the end of the century about a third of its people were Jews. It became a center of Jewish commerce, Hebrew and Yiddish writing, and new ideas, from enlightenment to early Zionism. It also saw pogroms, in 1821, 1871, 1881 and worst of all in 1905.",
+          "group": "Ashkenazi",
+          "mode": "land"
+        }
+      },
+      {
+        "id": "MOV-035",
+        "eventId": "EVT-0080",
+        "startYear": 1800,
+        "endYear": 1900,
+        "dateDisplay": "19th century",
+        "origin": "Iraq / Middle East",
+        "destination": "India",
+        "originPlaceId": "place-b",
+        "destinationPlaceId": "place-bombay",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "POP-061"
+        ],
+        "character": "voluntary migration",
+        "branch": {
+          "subhead": "To India",
+          "story": "In the 1800s, Jewish merchants from Baghdad, Basra and Aleppo settled in Bombay and Calcutta. Known as Baghdadi Jews, they built trading houses that reached across Asia.",
+          "deepDive": "Harsh rule in Baghdad pushed some families out; trade in cotton, textiles and opium drew many more. David Sassoon fled Baghdad, settled in Bombay in 1832 and built a business with branches from Calcutta to Shanghai and London. Baghdadi families founded synagogues, schools and hospitals in Bombay and Calcutta, living alongside the older Bene Israel and Cochin Jewish communities.",
+          "group": "Baghdadi",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-036",
+        "eventId": "EVT-0085",
+        "startYear": 1845,
+        "endYear": null,
+        "dateDisplay": "From 1845",
+        "origin": "India",
+        "destination": "Shanghai",
+        "originPlaceId": "place-bombay",
+        "destinationPlaceId": "place-shanghai",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "POP-062"
+        ],
+        "character": "voluntary migration",
+        "branch": {
+          "subhead": "To Shanghai",
+          "story": "From the 1840s, Baghdadi Jewish firms from Bombay opened branches in Shanghai after China's ports were forced open to foreign trade. A small, prosperous community grew there.",
+          "deepDive": "After the Opium War, Shanghai opened to foreign merchants in 1843. The Sassoons and then the Kadoorie and Hardoon families followed, building trading houses, real estate and banks. They founded synagogues, including Ohel Rachel, and a Jewish school. A century later, this small Sephardi community helped receive thousands of refugees fleeing Nazi Europe.",
+          "group": "Baghdadi",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-037",
+        "eventId": "EVT-0083",
+        "startYear": 1820,
+        "endYear": 1880,
+        "dateDisplay": "1820–1880",
+        "origin": "Central Europe",
+        "destination": "United States",
+        "originPlaceId": "place-central-europe",
+        "destinationPlaceId": "place-new-amsterdam",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "POP-063"
+        ],
+        "character": "voluntary migration",
+        "branch": {
+          "subhead": "To the United States",
+          "story": "Between 1820 and 1880, tens of thousands of Jews from the German lands and Central Europe crossed to America, many starting as peddlers and building businesses across the country.",
+          "deepDive": "Limits on marriage and residence in Bavaria and other German states pushed young Jews to emigrate. In America they spread far beyond the coast, peddling goods into the Midwest, the South and the West, then opening stores. Levi Strauss and the founders of great department stores came out of this wave. By 1880 American Jewry numbered roughly a quarter of a million, and Reform Judaism had taken root in its congregations.",
+          "group": "Ashkenazi",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-038",
+        "eventId": "EVT-0091",
+        "startYear": 1881,
+        "endYear": 1914,
+        "dateDisplay": "1881–1914",
+        "origin": "Eastern Europe",
+        "destination": "United States",
+        "originPlaceId": "place-eastern-europe",
+        "destinationPlaceId": "place-new-amsterdam",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal (red only for specific persecution-driven flight records)",
+        "links": [
+          "CHG-026"
+        ],
+        "character": "voluntary migration",
+        "branch": {
+          "subhead": "To the United States",
+          "story": "From 1881 to 1914, about two million Jews left Eastern Europe for the United States, escaping poverty, discrimination and pogroms. Most entered through New York.",
+          "deepDive": "The pogroms of 1881 and 1882 after the assassination of Tsar Alexander II, the harsh May Laws and deepening poverty set off a mass migration. Families crossed Europe to ports like Hamburg and Bremen, then endured the voyage in steerage. Through Ellis Island they reached the tenements of the Lower East Side and Jewish neighborhoods in cities across the country. They built synagogues, unions, Yiddish newspapers and theaters, and transformed American Jewish life.",
+          "group": "Ashkenazi",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-041",
+        "eventId": "EVT-0094",
+        "startYear": 1889,
+        "endYear": null,
+        "dateDisplay": "From 1889",
+        "origin": "Eastern Europe",
+        "destination": "Argentina",
+        "originPlaceId": "place-eastern-europe",
+        "destinationPlaceId": "place-argentina",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "POP-069"
+        ],
+        "character": "voluntary migration",
+        "branch": {
+          "subhead": "To Argentina",
+          "story": "In 1889, 820 Jews from Eastern Europe arrived in Argentina on the ship Weser. Their colony, Moisés Ville, began Jewish farming settlement on the pampas.",
+          "deepDive": "Argentina wanted settlers for its open land. The first group came with little help and suffered hunger and disease until aid arrived. In 1891 Baron Maurice de Hirsch founded the Jewish Colonization Association, which bought land and set up colonies in Entre Ríos, Santa Fe and other provinces. The Jewish gauchos became part of Argentine lore, and later generations moved to Buenos Aires, building the largest Jewish community in Latin America.",
+          "group": "Ashkenazi",
+          "mode": "sea"
+        }
+      },
+      {
+        "id": "MOV-045",
+        "eventId": "EVT-0020",
+        "startYear": -300,
+        "endYear": -30,
+        "dateDisplay": "Ptolemaic period",
+        "origin": "Egypt (schematic: Alexandria)",
+        "destination": "Cyrenaica",
+        "originPlaceId": "place-alexNode",
+        "destinationPlaceId": "place-cyreneNode",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal (relocation)",
+        "links": [
+          "POP-011"
+        ],
+        "character": "relocation",
+        "branch": {
+          "subhead": "To Cyrenaica",
+          "story": "Ptolemy I sent Jewish settlers from Egypt to Cyrenaica, in today's Libya, to garrison its cities and secure his hold on the region.",
+          "deepDive": "Josephus writes that Ptolemy, wanting to hold Cyrene and the other cities firmly, sent Jews to settle there. The community grew large and prosperous over the next three centuries. In 115 to 117 the Jews of Cyrenaica rose against Rome in the Diaspora Revolt, and Rome crushed the uprising with great destruction, ending the community's golden age."
+        }
+      },
+      {
+        "id": "MOV-048",
+        "eventId": "EVT-0061",
+        "startYear": 1500,
+        "endYear": 1650,
+        "dateDisplay": "c. 1500–1650",
+        "origin": "Italy",
+        "destination": "Ottoman cities",
+        "originPlaceId": "place-italy",
+        "destinationPlaceId": "place-constantinople",
+        "arrowEndsReady": true,
+        "arrowTreatment": "Charcoal",
+        "links": [
+          "MOV-022",
+          "POP-044"
+        ],
+        "character": "voluntary migration",
+        "branch": {
+          "subhead": "From Italy to Ottoman cities",
+          "story": "Jews from Italy also moved east to Ottoman cities in the 1500s and 1600s, some pushed by expulsions and the ghetto, others drawn by trade.",
+          "deepDive": "Italian Jews came in several waves: from Sicily and southern Italy after the expulsions of the 1490s and 1500s, and later from the Papal States. In Salonica and Constantinople they founded congregations named for their homes, such as Sicilia, Calabria, Apulia and Italia, beside the Spanish and Portuguese ones. They joined older Romaniote communities, and the mix made the Ottoman Jewish world remarkably diverse.",
+          "group": "Italian",
+          "mode": "sea"
         }
       }
     ],
@@ -12215,7 +12923,8 @@
         "startDisplay": "c. 2000 BCE",
         "lastYear": -587,
         "summary": "Not re-proposed here. Name and boundary from the earlier Pass 2 proposal (approved as a direction).",
-        "status": "reference"
+        "status": "reference",
+        "headline": "Biblical"
       },
       {
         "id": "ERA-2",
@@ -12225,7 +12934,8 @@
         "startDisplay": "587/586 BCE",
         "lastYear": -168,
         "summary": "Not re-proposed here. Name and boundary from the earlier Pass 2 proposal (approved as a direction).",
-        "status": "reference"
+        "status": "reference",
+        "headline": "Ancient History"
       },
       {
         "id": "ERA-3",
@@ -12235,7 +12945,8 @@
         "startDisplay": "167 BCE",
         "lastYear": 199,
         "summary": "Not re-proposed here. Name and boundary from the earlier Pass 2 proposal (approved as a direction).",
-        "status": "reference"
+        "status": "reference",
+        "headline": "Ancient History"
       },
       {
         "id": "ERA-4",
@@ -12246,6 +12957,7 @@
         "lastYear": 1095,
         "summary": "From the Mishnah at 200 through the Persian, Byzantine and Muslim conquests, Jewish life centers on Babylonia, Egypt, North Africa and al-Andalus.",
         "status": "approved",
+        "headline": "Middle Ages",
         "centerPlaceId": "place-mediterranean",
         "framePlaceIds": [
           "place-iberia",
@@ -12263,6 +12975,7 @@
         "lastYear": 1491,
         "summary": "Jewish communities grow in the Rhineland, France, England and Poland, but are attacked and expelled again and again, and many move east.",
         "status": "approved",
+        "headline": "Middle Ages",
         "centerPlaceId": "place-central-europe",
         "framePlaceIds": [
           "place-england",
@@ -12281,6 +12994,7 @@
         "lastYear": 1699,
         "summary": "After Spain expels its Jews in 1492, Jews build new communities in Ottoman cities, Safed, Amsterdam and the Americas.",
         "status": "approved",
+        "headline": "Early Modern History",
         "centerPlaceId": "place-spain",
         "framePlaceIds": [
           "place-portugal",
@@ -12298,6 +13012,7 @@
         "lastYear": 1897,
         "summary": "Hasidism spreads and the Pale of Settlement grows, Jews gain legal rights in Western and Central Europe, and large numbers move to America and the Land of Israel, until the First Zionist Congress in 1897.",
         "status": "approved",
+        "headline": "Modern History",
         "centerPlaceId": "place-poland",
         "framePlaceIds": [
           "place-medzhybizh",
@@ -12305,6 +13020,17 @@
           "place-odessa",
           "place-pale-of-settlement"
         ]
+      },
+      {
+        "id": "ERA-8",
+        "era": 8,
+        "name": "The Zionist return, the world wars and the State of Israel",
+        "startYear": 1898,
+        "startDisplay": 1898,
+        "lastYear": null,
+        "summary": "From the First Zionist Congress through the Second Aliyah, the world wars, the Holocaust and the founding of the State of Israel to today.",
+        "status": "proposed",
+        "headline": "Contemporary History"
       }
     ],
     "cameraStops": [

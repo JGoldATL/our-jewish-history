@@ -79,13 +79,26 @@ TABS = {
 # new POP/CHG record is reported as "no engine fields" and nothing is guessed.
 OPTIONAL_COMMUNITY_COLS = dict(concentration='Concentration', presenceStatus='Presence status',
                                footprintRadiusKm='Footprint radius (km)')
+# v0.7.5 (master v0.5.0): optional Places column "Map label" (blank = use Historical name) and optional Eras column "Headline era".
+OPTIONAL_PLACE_COLS = dict(mapLabel='Map label')
+OPTIONAL_ERA_COLS = dict(headline='Headline era')
+HEADLINE_ERAS = ('Biblical', 'Ancient History', 'Middle Ages', 'Early Modern History', 'Modern History', 'Contemporary History')
+# Strategy decision 10/13 (3C): for the test release the interim labels are Poland and Constantinople. If the Sheet says anything else for
+# these Places, the interim label wins and the report says so, so the Dataset chat can change the cell. Remove an entry once the Political Entities pilot lands.
+INTERIM_MAP_LABELS = {'place-poland': 'Poland', 'place-constantinople': 'Constantinople'}
+# v0.5.0 size-band columns (F-089). They are READ and checked, and counted in the report, but NOT written to the public file unless
+# --with-bands is given. No band or number is shown anywhere until Strategy approves F-089; "unknown" is never shown. Sources and the
+# internal basis column are never written under any flag.
+OPTIONAL_BAND_COLS = dict(sizeBand='Size band', sizeBandFigure='Size band figure', sizeBandSources='Size band sources',
+                          sizeBandBasis='Size band basis (internal)')
+SIZE_BANDS = ('very small', 'small', 'large', 'very large', 'unknown')
 # Optional arrow-endpoint columns on Movements. The Sheet gives origin and destination as text only; an arrow can be
 # drawn only when both ends are Place IDs from the Places tab. Blank = no arrow endpoint (nothing is guessed).
 OPTIONAL_MOVEMENT_COLS = dict(originPlaceId='Origin place ID', destinationPlaceId='Destination place ID',
                               # v0.7.0 branch text (columns U to Z). Shown only when Branch Text Status is Approved (compared case-insensitively).
                               branchSubhead='Branch Subhead', branchStory='Branch Story', branchDeepDive='Branch Deep Dive',
                               branchStatus='Branch Text Status', branchGroup='Branch Group', branchMode='Branch Travel Mode',
-                              character='Movement character')   # the cause label (expulsion, voluntary migration ...), used by the movements page Cause selector
+                              character='Movement character', **OPTIONAL_BAND_COLS)   # the cause label (expulsion, voluntary migration ...), used by the movements page Cause selector
 BRANCH_LIMITS = {'branchSubhead': 40, 'branchStory': 220, 'branchDeepDive': 600}   # card standard (F-082 / F-086)
 BRANCH_GROUPS = {'Israelite', 'Judean', 'Babylonian Jewish', 'Ashkenazi', 'Sephardic', 'Romaniote', 'Italian', 'Sicilian',
                  'French', 'Maghrebi', 'Baghdadi', 'Yemenite', 'Bukharan'}
@@ -192,18 +205,18 @@ def arc_deg(a, b):
     return math.degrees(math.acos(max(-1.0, min(1.0, c))))
 
 
-def read_optional_tab(wb, tab, cols):
+def read_optional_tab(wb, tab, cols, optional=None):
     """Rows of an era/camera tab, or None when the workbook has no such tab. Present but damaged = stop."""
     if tab not in wb.sheetnames:
         return None
-    rows, _ = read_tab(wb, tab, cols)
+    rows, _ = read_tab(wb, tab, cols, optional)
     return rows
 
 
 def build_eras(wb, places, all_ids, rep):
     """Eras, Camera Stops and Era Assignment -> three sections. Nothing is guessed: a bad row is rejected with its reason."""
     by_id = {p['id']: p for p in places if p['lat'] is not None}
-    raw = {t: read_optional_tab(wb, t, c) for t, c in ERA_TABS.items()}
+    raw = {t: read_optional_tab(wb, t, c, OPTIONAL_ERA_COLS if t == 'Eras' else None) for t, c in ERA_TABS.items()}
     for t, v in raw.items():
         if v is None:
             rep.warn(t, '-', 0, f'tab "{t}" is not in this export; no {t.lower()} loaded')
@@ -222,17 +235,25 @@ def build_eras(wb, places, all_ids, rep):
     eras = []
     for r in raw['Eras'] or []:
         n, label = r.get('era'), f"ERA-{r.get('era')}"
-        if not isinstance(n, int) or not 1 <= n <= 7:
-            rep.reject('Eras', label, r['_row'], f'era number is not 1 to 7: {n!r}'); continue
+        if not isinstance(n, int) or not 1 <= n <= 8:
+            rep.reject('Eras', label, r['_row'], f'era number is not 1 to 8: {n!r}'); continue
         if num(r.get('start')) is None or not r.get('name'):
             rep.reject('Eras', label, r['_row'], 'era needs a name and a numeric start year'); continue
         st = status_of(r.get('status'))
         reference = st.startswith('reference only')
-        if not reference and st not in ('approved', 'draft'):
+        proposed = st == 'proposed' and n == 8 and not r.get('centerPlaceId')   # ERA-8: camera and frame are proposed by Web Dev, then entered by the Dataset chat
+        if not reference and not proposed and st not in ('approved', 'draft'):
             rep.reject('Eras', label, r['_row'], f'status {r.get("status")!r} is not approved, draft or reference only'); continue
         e = {'id': label, 'era': n, 'name': r['name'], 'startYear': r['start'], 'startDisplay': r.get('startDisplay'),
              'lastYear': r.get('lastYear'), 'summary': r.get('summary'), 'status': 'reference' if reference else st}
-        if not reference:
+        hl = r.get('headline')
+        if hl is not None:
+            if hl in HEADLINE_ERAS: e['headline'] = hl
+            else: rep.warn('Eras', label, r['_row'], f'Headline era {hl!r} is not one of the six accepted names; left out')
+        elif 'headline' in r: rep.warn('Eras', label, r['_row'], 'Headline era is blank; the Movements page falls back to its built-in names for this era')
+        if proposed:
+            rep.warn('Eras', label, r['_row'], 'status is Proposed and the camera centre and frame are blank: loaded with its name and start year only, so no camera is set for this era')
+        elif not reference:
             c = r.get('centerPlaceId')
             if c not in by_id:
                 rep.reject('Eras', label, r['_row'], f'opening camera centre {c!r} is not a Place with coordinates'); continue
@@ -281,9 +302,9 @@ def build_eras(wb, places, all_ids, rep):
     assign = []
     for r in raw['Era Assignment'] or []:
         rid, e = r.get('id'), str(r.get('era') or '').strip()
-        m = re.fullmatch(r'Era ([1-7])', e)
+        m = re.fullmatch(r'Era ([1-8])', e)
         if not m and not e.startswith('After 1897'):
-            rep.reject('Era Assignment', rid, r['_row'], f'era {e!r} is not Era 1 to 7 or After 1897'); continue
+            rep.reject('Era Assignment', rid, r['_row'], f'era {e!r} is not Era 1 to 8 or After 1897'); continue
         if rid not in all_ids:
             rep.warn('Era Assignment', rid, r['_row'], 'record ID is not in the Sheet tabs this loader reads')
         assign.append({'id': rid, 'era': int(m.group(1)) if m else None, 'runsPast': r.get('runsPast')})
@@ -400,14 +421,14 @@ def branch_block(r, rep):
 
 
 def build(wb, rep):
-    raw, missing_optional = {}, {'Communities': [], 'Movements': []}
+    raw, missing_optional = {}, {'Communities': [], 'Movements': [], 'Places': []}
     for tab, cols in TABS.items():
-        opt = {'Communities': OPTIONAL_COMMUNITY_COLS, 'Movements': OPTIONAL_MOVEMENT_COLS}.get(tab)
+        opt = {'Communities': OPTIONAL_COMMUNITY_COLS, 'Movements': OPTIONAL_MOVEMENT_COLS, 'Places': OPTIONAL_PLACE_COLS}.get(tab)
         raw[tab], miss = read_tab(wb, tab, cols, opt)
         if tab in missing_optional:
             missing_optional[tab] = miss
 
-    seen = {}
+    seen, first_rec = {}, {}
     all_ids = set()
     for tab, rows in raw.items():  # pass 1: ID format + uniqueness
         keep = []
@@ -424,8 +445,11 @@ def build(wb, rep):
             if not ok:
                 rep.reject(tab, rid, r['_row'], 'ID is not in a permanent-ID format'); continue
             if (tab, rid) in seen:
-                rep.reject(tab, rid, r['_row'], f'duplicate ID (first on row {seen[(tab, rid)]})'); continue
-            seen[(tab, rid)] = r['_row']
+                first = first_rec[(tab, rid)]
+                diffs = sorted(k for k in r if k != '_row' and r.get(k) != first.get(k))
+                tail = ('; differs from the first copy in: ' + ', '.join(diffs) + ' (the first copy is the one loaded)') if diffs else '; identical to the first copy'
+                rep.reject(tab, rid, r['_row'], f'duplicate ID (first on row {seen[(tab, rid)]}){tail}'); continue
+            seen[(tab, rid)] = r['_row']; first_rec[(tab, rid)] = r
             keep.append(r)
             if tab != 'Places':
                 all_ids.add(rid)
@@ -442,9 +466,14 @@ def build(wb, rep):
             rep.reject('Places', r['id'], r['_row'], 'latitude/longitude missing or out of range'); continue
         place_ids.add(r['id'])
         if r['lat'] is not None: placed.add(r['id'])
+        label = r.get('mapLabel')
+        if r['id'] in INTERIM_MAP_LABELS and label != INTERIM_MAP_LABELS[r['id']]:
+            rep.warn('Places', r['id'], r['_row'], f'Map label is {label!r} in the Sheet; the Strategy decision of 10/13 sets the interim label {INTERIM_MAP_LABELS[r["id"]]!r}, so that is what loaded. Dataset: change the cell to match')
+            label = INTERIM_MAP_LABELS[r['id']]
         places.append({'id': r['id'], 'historicalName': r['historicalName'], 'modernName': r['modernName'],
                        'role': r['role'], 'lat': r['lat'], 'lon': r['lon'],
                        'landOfIsrael': str(r['landOfIsrael'] or '').lower() == 'yes',
+                       **({'mapLabel': label} if label else {}),
                        **({'cameraOnly': True} if r['id'].startswith('place-cam-') else {})})
 
     def years(tab, r, need_start=True):
@@ -548,6 +577,13 @@ def build(wb, rep):
         communities.append(rec)
 
     movements = []
+    # Parent rule (Dataset reply 10/13, Ask A): a row that cannot draw (an end is missing) and is listed in another row's Linked records is a
+    # parent: its routes draw through those branch rows. Such a row is expected, never a warning. A row with no such link (MOV-003, MOV-014) stays a plain no-draw row and still warns.
+    linked_from = {}
+    for r in raw['Movements']:
+        for x in links(r.get('links')):
+            if x != r['id']: linked_from.setdefault(x, []).append(r['id'])
+    band_tally = {}
     for r in raw['Movements']:
         y = years('Movements', r)
         if y is None: continue
@@ -564,16 +600,29 @@ def build(wb, rep):
                 rep.reject('Movements', r['id'], r['_row'], f'{label} place ID {v!r} is not in the Places tab'); bad_end = True
             ends[key] = v
         if bad_end: continue
-        if (ends['originPlaceId'] is None) != (ends['destinationPlaceId'] is None) and (
-                'originPlaceId' in r and 'destinationPlaceId' in r):
-            rep.warn('Movements', r['id'], r['_row'], 'only one end has a Place ID (general location only), so no arrow can be drawn')
+        is_parent = False
+        if 'originPlaceId' in r and 'destinationPlaceId' in r and (ends['originPlaceId'] is None or ends['destinationPlaceId'] is None):
+            if r['id'] in linked_from:
+                is_parent = True
+            elif (ends['originPlaceId'] is None) != (ends['destinationPlaceId'] is None):
+                rep.warn('Movements', r['id'], r['_row'], 'only one end has a Place ID and no other row lists this one, so it is not a parent: no arrow can be drawn')
+        band = r.get('sizeBand')
+        if band is not None:
+            b = str(band).strip().lower()
+            if b not in SIZE_BANDS:
+                rep.warn('Movements', r['id'], r['_row'], f'Size band {band!r} is not one of {list(SIZE_BANDS)}; read as blank'); b = None
+        else:
+            b = None
+        band_tally[b or 'blank'] = band_tally.get(b or 'blank', 0) + 1
         branch = branch_block(r, rep)
         movements.append({'id': r['id'], 'eventId': r['eventId'], 'startYear': y[0], 'endYear': y[1],
                           'dateDisplay': r['dateDisplay'], 'origin': r['origin'], 'destination': r['destination'],
                           'originPlaceId': ends['originPlaceId'], 'destinationPlaceId': ends['destinationPlaceId'],
                           'arrowEndsReady': ends['originPlaceId'] is not None and ends['destinationPlaceId'] is not None
                                             and ends['originPlaceId'] in placed and ends['destinationPlaceId'] in placed,
-                          'arrowTreatment': arrow, 'links': lk, 'character': r.get('character'), **({'branch': branch} if branch else {})})
+                          'arrowTreatment': arrow, 'links': lk, 'character': r.get('character'), **({'branch': branch} if branch else {}),
+                          **({'parent': True, 'branchIds': sorted(linked_from[r['id']])} if is_parent else {}),
+                          **({'_band': b, '_figure': r.get('sizeBandFigure')} if b else {})})
 
     context = []
     for r in raw['Context & Voyages']:
@@ -599,6 +648,7 @@ def build(wb, rep):
     if questions is not None:
         sections['questions'] = questions
 
+    rep.band_tally = band_tally
     return sections, missing_optional
 
 
@@ -637,6 +687,7 @@ def main(argv=None):
     ap.add_argument('--public', action='store_true')
     ap.add_argument('--dry-run', action='store_true')
     ap.add_argument('--report')
+    ap.add_argument('--with-bands', action='store_true', help='also write non-unknown size bands to the file (off until Strategy approves F-089; unknown is never written)')
     ap.add_argument('--sheet-modified')
     ap.add_argument('--sheet-name', default='Jewish_Continuity_Master_Dataset_v0.2.3', help="Sheet file name; its vN.N.N is shown in the site footer")
     a = ap.parse_args(argv)
@@ -645,6 +696,11 @@ def main(argv=None):
     wb = openpyxl.load_workbook(xlsx, data_only=True)
     rep = Report()
     sections, missing_optional = build(wb, rep)
+    for m in sections['movements']:   # size bands are read and counted, but only published on request (F-089 is not approved)
+        b, f = m.pop('_band', None), m.pop('_figure', None)
+        if a.with_bands and b and b != 'unknown':
+            m['sizeBand'] = b
+            if f is not None: m['sizeBandFigure'] = f
     if a.public:
         sections = public_view(sections)
 
@@ -676,6 +732,10 @@ def main(argv=None):
               'missingOptionalEngineColumns': missing_optional['Communities'],
               'missingOptionalMovementColumns': missing_optional['Movements'],
               'movementsWithArrowEnds': sum(1 for m in sections['movements'] if m['arrowEndsReady']),
+              'parentRows': sorted(m['id'] for m in sections['movements'] if m.get('parent')),
+              'noDrawNotParent': sorted(m['id'] for m in sections['movements'] if not m['arrowEndsReady'] and not m.get('parent')),
+              'sizeBandsRead': rep.band_tally, 'sizeBandsPublished': bool(a.with_bands),
+              'mapLabels': sorted(p['id'] + ' = ' + p['mapLabel'] for p in sections['places'] if p.get('mapLabel')),
               'recordsWithNoEngineFields': sum(1 for c in sections['communities'] if c.get('noEngineFields'))}
 
     # ---- console report
@@ -702,6 +762,10 @@ def main(argv=None):
     if missing_optional['Movements']:
         print(f'Movements tab has no column for: {missing_optional["Movements"]}')
     print(f'Movements with both arrow ends as Place IDs (can be drawn): {report["movementsWithArrowEnds"]} of {len(sections["movements"])}')
+    print(f'Parent rows (no arrow of their own; their branches draw): {len(report["parentRows"])}: {", ".join(report["parentRows"])}')
+    print(f'No-draw rows that are not parents: {", ".join(report["noDrawNotParent"]) or "none"}')
+    print(f'Size bands read from kept Movements rows (not published{"; published with --with-bands" if a.with_bands else ""}): ' + ', '.join(f'{k} {v}' for k, v in sorted(rep.band_tally.items())))
+    print(f'Map labels loaded: {len(report["mapLabels"])}')
     print(f'POP/CHG records with no engine fields (no shading until supplied): {report["recordsWithNoEngineFields"]}')
     # Project rule: Common Era years are written as the bare year. The site strips " CE" for display, so old text still shows correctly;
     # this count tells the dataset chat how much text still carries it (informational, never a reject).
