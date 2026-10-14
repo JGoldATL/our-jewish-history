@@ -252,8 +252,8 @@ function end(){
 }
 
 // ---------- share (v0.4.0) ----------
-// Default tone: one line from the approved bank. Academic: the score and a neutral line, never the event. The link is the bare quiz address
-// (no query string), so a friend always opens in Default. The phone's own share screen is used where it exists; otherwise the text is copied.
+// Default tone: one line from the approved bank. Academic: the score and a neutral line, never the event. The link is the quiz address plus utm_source=share (v0.7.7)
+// (tone is never read from the link), so a friend always opens in Default. The phone's own share screen is used where it exists; otherwise the text is copied.
 function shareText(){
   const n=score,total=round.length,perfect=n===total,zero=n===0;
   if(tone==='academic')return fill(ACADEMIC_SHARE,{score:n});
@@ -261,7 +261,7 @@ function shareText(){
   const pool=S.filter(l=>(!l.event||(l.event==='Q052'&&hit))&&(!l.only||(l.only==='perfect'&&perfect)||(l.only==='zero'&&zero)));
   return fill(pickOne(pool).t,{score:n});
 }
-function quizLink(){try{const u=new URL(location.href);u.search='';u.hash='';return u.href;}catch(e){return location.href;}}
+function quizLink(){try{const u=new URL(location.href);u.search='?utm_source=share';u.hash='';return u.href;}catch(e){return location.href;}}   // v0.7.7: the one tag that tells a friend's arrival from any other visit; nothing else rides on the link
 async function doShare(){
   const text=shareText(),url=quizLink(),msg=m=>{try{$('shareMsg').textContent=m;}catch(e){}};
   try{
