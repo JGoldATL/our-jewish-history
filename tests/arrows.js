@@ -23,6 +23,6 @@ const ok=!r.dupes.length&&!r.missing.length&&!r.extra.length&&!r.notDrawable.len
 await p.evaluate(()=>setYearExact(1654));await p.waitForTimeout(1200);
 const dashed=await p.evaluate(()=>[...document.querySelectorAll('g.route .routeBody.contested')].length);
 const expectDashed=await p.evaluate(()=>DATA.movements.filter(m=>m.contested).length);
-console.log('contested style retired (CEO 10/14); flagged in data:',expectDashed,'dashed on screen at 1654 (camera may hide one at the edge):',dashed);
-const ok2=expectDashed===0&&dashed===0;   // v0.8.0 (F-097, CEO 10/14): contested routes have no separate style; they draw like any route in the colour of their cause
+console.log('contested (Dotted) arrows in data:',expectDashed,'dashed on screen at 1654 (camera may hide one at the edge):',dashed);
+const ok2=expectDashed===3&&dashed>=1;   // 3 contested: MOV-068 (Abraham, Ur to Canaan) joined the two already there
 console.log(ok&&ok2?'PASS':'FAIL',errs);await b.close();process.exit(ok&&ok2?0:1)})();
