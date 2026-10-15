@@ -32,16 +32,10 @@ const W=[
  {id:'W10',tag:'any',t:'It was {correct}, not {guess}. Good news: you are now one of the few who know.'}
 ];
 const CLOSE_MAX=25,FAR_MIN=300;
-// Share lines (funnier tone only). S1 names an event, so it is used only when that question was in the round and answered correctly (Voice Guide 7g).
-const S=[
- {id:'S1',event:'Q052',t:'539 BCE: a Persian king let the exiles go home. Ancient empires rarely did that, so write it down.'},
- {id:'S4',t:'{score} of 3 on When in the World? Beat that.'},
- {id:'S5',t:'{score} of 3 in about 90 seconds. Jewish history, placed in world time. Your turn.'},
- {id:'S6',only:'perfect',t:'3 of 3. I would like it noted that I did not use Google.'},
- {id:'S7',only:'zero',t:'I got 0 of 3. Nowhere to go but up. Your turn.'},
- {id:'S8',t:'{score} of 3. Not bad for someone who still mixes up centuries. Your turn.'},
- {id:'S9',t:'{score} of 3 on When in the World? I accept congratulations or competition. Your turn.'},
- {id:'S10',t:'Think you can place a Jewish event in world history? I got {score} of 3. Prove it.'}
+// Share lines (Default tone only).
+const S=[   // v0.7.7 (CEO, 2026-10-14): one share line for the Default tone, and a variant for a perfect score (a 3 cannot be beaten, only matched)
+ {id:'S11',t:'I got {score} out of 3. Think you can beat me in Jewish history?'},
+ {id:'S12',only:'perfect',t:'I got 3 out of 3. Think you can match me in Jewish history?'}
 ];
 // Academic share: the score and a neutral line, never an event (Voice Guide 7e). This neutral line is new wording and awaits the CEO's approval.
 const ACADEMIC_SHARE='{score} of 3 on When in the World? Jewish history, placed in world time.';
@@ -257,9 +251,8 @@ function end(){
 function shareText(){
   const n=score,total=round.length,perfect=n===total,zero=n===0;
   if(tone==='academic')return fill(ACADEMIC_SHARE,{score:n});
-  const hit=round.some((q,k)=>results[k]&&q.id==='Q052');
-  const pool=S.filter(l=>(!l.event||(l.event==='Q052'&&hit))&&(!l.only||(l.only==='perfect'&&perfect)||(l.only==='zero'&&zero)));
-  return fill(pickOne(pool).t,{score:n});
+  const line=(perfect?S.find(l=>l.only==='perfect'):null)||S.find(l=>!l.only);
+  return fill(line.t,{score:n});
 }
 function quizLink(){try{const u=new URL(location.href);u.search='?utm_source=share';u.hash='';return u.href;}catch(e){return location.href;}}   // v0.7.7: the one tag that tells a friend's arrival from any other visit; nothing else rides on the link
 async function doShare(){
