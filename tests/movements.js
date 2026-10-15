@@ -35,10 +35,10 @@ ck(q.sub==='To the Ottoman lands'&&q.back,n+' branch card: subhead and back link
 // parent chips
 await p.evaluate(()=>{MV.setYear(1654);MV.selectEvent('EVT-0071');});await p.waitForTimeout(200);
 await p.evaluate(()=>MV.selectParent('MOV-055'));await p.waitForTimeout(600);
-const pr=await p.evaluate(()=>({sub:document.querySelector('#story .sub')?.textContent,flow:document.querySelectorAll('path.flow').length}));
+const pr=await p.evaluate(()=>({sub:document.querySelector('#story .sub')?.textContent,flow:document.querySelectorAll('#map g.route.selected').length}));
 ck(pr.sub==='To New Amsterdam'&&pr.flow===3,n+' parent chip MOV-055 lights 3 legs');
 await p.evaluate(()=>MV.selectParent('MOV-054'));await p.waitForTimeout(300);
-ck(await p.evaluate(()=>document.querySelectorAll('path.flow').length)===2,n+' parent chip MOV-054 lights 2 legs');
+ck(await p.evaluate(()=>document.querySelectorAll('#map g.route.selected').length)===2,n+' parent chip MOV-054 lights 2 legs');
 // Play stops on touch, Next, Previous, slider; camera stays recognisable
 await p.evaluate(()=>{document.getElementById('reset').click();});await p.waitForTimeout(300);
 const minDeg=n==='phone'?46:34;

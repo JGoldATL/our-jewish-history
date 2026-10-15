@@ -132,13 +132,26 @@ function zoomAt(f,x=W/2,y=H/2){
 
 /* ---------- drawing ---------- */
 function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+const GRAD={Red:['#D2463A','#8E1F18'],Blue:['#3D82D4','#174E92'],Charcoal:['#565C60','#2C3033']};   // same gradients as the globe
+// Tapered ribbon, copied from the globe (app.js): wide tail, narrower neck, broad head.
+function ribbon(pts,tail,neck,headLen,headHalf){
+  const L=[0];for(let i=1;i<pts.length;i++)L.push(L[i-1]+Math.hypot(pts[i].x-pts[i-1].x,pts[i].y-pts[i-1].y));
+  let total=L.at(-1);if(total<headLen*1.6){const f=total/(headLen*1.6)*0.95;if(f<0.3)return null;tail*=f;neck*=f;headLen*=f;headHalf*=f;}
+  const neckAt=total-headLen;let k=L.findIndex(v=>v>=neckAt);if(k<2)k=2;
+  const nrm=i=>{const p=pts[Math.max(0,i-1)],q=pts[Math.min(pts.length-1,i+1)],dx=q.x-p.x,dy=q.y-p.y,l=Math.hypot(dx,dy)||1;return [-dy/l,dx/l];};
+  const left=[],right=[];for(let i=0;i<=k;i++){const w=(tail+(neck-tail)*(L[i]/neckAt))/2,n=nrm(i);left.push([pts[i].x+n[0]*w,pts[i].y+n[1]*w]);right.push([pts[i].x-n[0]*w,pts[i].y-n[1]*w]);}
+  const n=nrm(k),dx=pts.at(-1).x-pts[k].x,dy=pts.at(-1).y-pts[k].y,l=Math.hypot(dx,dy)||1,tip=[pts[k].x+dx/l*headLen,pts[k].y+dy/l*headLen];
+  const poly=[...left,[pts[k].x+n[0]*headHalf,pts[k].y+n[1]*headHalf],tip,[pts[k].x-n[0]*headHalf,pts[k].y-n[1]*headHalf],...right.reverse()];
+  return 'M'+poly.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L')+' Z';
+}
 function draw(){if(!raf)raf=requestAnimationFrame(()=>{raf=0;paint();});}
 function paint(){
   const svg=$('map');if(!W||!ROUTES.length)return;
   svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.textContent='';
   const s=scale(),[x0,y0]=px(-180,90);
   const defs=el('defs',{},svg);
-  for(const c of new Set(ROUTES.map(r=>r.color))){const m=el('marker',{id:'ah'+c.slice(1),viewBox:'0 0 10 10',refX:'7',refY:'5',markerWidth:'5',markerHeight:'5',orient:'auto'},defs);el('path',{d:'M0,0L10,5L0,10z',fill:c,stroke:'none','stroke-width':'1.2'},m);}
+  el('filter',{id:'routeShadow',x:'-10%',y:'-30%',width:'120%',height:'160%'},defs).appendChild((()=>{const b=document.createElementNS(NS,'feGaussianBlur');b.setAttribute('stdDeviation','2.4');return b;})());
+  for(const [n,[c1,c2]] of Object.entries(GRAD)){const lg=el('linearGradient',{id:'rg-'+n,x1:0,y1:0,x2:0,y2:1},defs);el('stop',{offset:0,'stop-color':c1},lg);el('stop',{offset:1,'stop-color':c2},lg);}
   el('image',{href:'images/map-night.jpg',x:x0,y:y0,width:360*s,height:180*s,preserveAspectRatio:'none'},svg);
   const selEv=SEL&&!SEL.auto?EVENTS.get(SEL.ev):null,selId=SEL?.id||null,selPar=SEL?.parent&&selEv?(selEv.parents||[]).find(p=>p.id===SEL.parent):null,legs=selPar?selPar.legs:null;
   const gR=el('g',{},svg),gP=el('g',{},svg),gL=el('g',{},svg),gH=el('g',{},svg);
@@ -155,16 +168,11 @@ function paint(){
     const A=px(r.a.lon,r.a.lat),B=px(r.b.lon,r.b.lat),dx=B[0]-A[0],dy=B[1]-A[1],C=[(A[0]+B[0])/2-dy*r.bend,(A[1]+B[1])/2+dx*r.bend];
     const d=`M${A[0].toFixed(1)},${A[1].toFixed(1)}Q${C[0].toFixed(1)},${C[1].toFixed(1)} ${B[0].toFixed(1)},${B[1].toFixed(1)}`;
     shown++;
-    if(isSel){
-      el('path',{d,fill:'none',stroke:r.dotted?TRAD:r.color,'stroke-width':18,opacity:.28,'stroke-linecap':'round'},gR);
-      el('path',{d,fill:'none',stroke:OUTLINE,'stroke-width':6.5,'stroke-linecap':'round','stroke-dasharray':'14 9',class:'flow'},gR);
-    }else if(r.dotted){
-      el('path',{d,fill:'none',stroke:TRAD,'stroke-width':3.4,opacity:o.toFixed(2),'stroke-linecap':'round','stroke-dasharray':'1 7'},gR);
-    }else{
-      const w=st.active?3.6:2;
-      
-      el('path',{d,fill:'none',stroke:r.color,'stroke-width':w,opacity:o.toFixed(2),'stroke-linecap':'round','marker-end':st.active?`url(#ah${r.color.slice(1)})`:''},gR);
-    }
+    {const pts=[];for(let k=0;k<=48;k++){const t=k/48,u=1-t;pts.push({x:u*u*A[0]+2*u*t*C[0]+t*t*B[0],y:u*u*A[1]+2*u*t*C[1]+t*t*B[1]});}
+      const rs=Math.max(.65,Math.min(1.2,Math.sqrt(s/16))),rd=ribbon(pts,(r.dotted?13:15)*rs,7.5*rs,24*rs,15*rs);   // same tapered ribbon as the globe
+      if(rd){const g=el('g',{class:'route'+(isSel?' selected':''),opacity:o.toFixed(3)},gR);
+        if(r.dotted){el('path',{d:rd,class:'routeTrad'},g);}
+        else{el('path',{d:rd,class:'routeShadow',transform:`translate(${(2*rs).toFixed(1)} ${(3.5*rs).toFixed(1)})`},g);el('path',{d:rd,fill:`url(#rg-${r.cname})`,class:'routeBody'},g);}}}
     el('path',{d,fill:'none',stroke:'transparent','stroke-width':coarse?30:18,style:'cursor:pointer','data-id':r.id,role:'button','aria-label':`${shortName(r.a)} to ${shortName(r.b)}, ${yearLabel(r.start)}`},gH);
     pins.set(r.m.destinationPlaceId,[B,o,isSel]);pins.set(r.m.originPlaceId,pins.get(r.m.originPlaceId)||[A,o,false]);
     if(inSel||st.active){const rk=inSel?0:2,add=(id,p,k)=>{const c=cand.get(id);if(!c||k<c.k)cand.set(id,{p,k});};add(r.m.originPlaceId,A,rk);add(r.m.destinationPlaceId,B,rk+1);}
@@ -260,7 +268,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();setKey(
 const SYM_LABEL={octagon:'Massacred community',blackSquare:'Community no longer exists',purpleDiamond:'Forced conversion, other or unknown faith',splitDiamond:'Forced conversion to Christianity'};
 const SYM_SVG={octagon:"<svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\"><path d=\"M15.71,6.51 L6.51,15.71 L-6.51,15.71 L-15.71,6.51 L-15.71,-6.51 L-6.51,-15.71 L6.51,-15.71 L15.71,-6.51 Z\" fill=\"#8C2A24\" stroke=\"#1B2328\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/><path d=\"M0,-10.4 L9.01,5.2 L-9.01,5.2 Z M0,10.4 L-9.01,-5.2 L9.01,-5.2 Z\" fill=\"none\" stroke=\"#FFF3DC\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>",blackSquare:"<svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\"><path d=\"M-13,-13 H13 V13 H-13 Z\" fill=\"#20272B\" stroke=\"#1B2328\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/><path d=\"M0,-10.4 L9.01,5.2 L-9.01,5.2 Z M0,10.4 L-9.01,-5.2 L9.01,-5.2 Z\" fill=\"none\" stroke=\"#FFF3DC\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>",purpleDiamond:"<svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\"><path d=\"M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z\" fill=\"#5A3B7A\" stroke=\"#1B2328\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/><path d=\"M0,-8.4 L7.27,4.2 L-7.27,4.2 Z M0,8.4 L-7.27,-4.2 L7.27,-4.2 Z\" fill=\"none\" stroke=\"#FFF3DC\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>",splitDiamond:"<svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\"><defs><clipPath id=\"kL\"><rect x=\"-20\" y=\"-20\" width=\"20\" height=\"40\"/></clipPath><clipPath id=\"kR\"><rect x=\"0\" y=\"-20\" width=\"20\" height=\"40\"/></clipPath></defs><path d=\"M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z\" fill=\"#5A3B7A\" clip-path=\"url(#kL)\"/><path d=\"M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z\" fill=\"#FFF3DC\" clip-path=\"url(#kR)\"/><path d=\"M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z\" fill=\"none\" stroke=\"#1B2328\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/><path d=\"M0,-10.6 L9.18,5.3 L-9.18,5.3 Z M0,10.6 L-9.18,-5.3 L9.18,-5.3 Z\" fill=\"none\" stroke=\"#FFF3DC\" stroke-width=\"1.6\" stroke-linejoin=\"round\" clip-path=\"url(#kL)\"/><path d=\"M1,-10.6 V10.6 M1,-3.6 H9.2\" fill=\"none\" stroke=\"#5A3B7A\" stroke-width=\"1.8\" stroke-linecap=\"square\"/></svg>"};
 function buildKey(){if(!PREVIEW)return buildKeyOld();
-  const arrow=(fill,extra='')=>`<svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="${fill}" stroke="none" ${extra}/></svg>`;
+  const arrow=(fill,extra='')=>`<svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="${fill}" stroke="#FFF2DE" ${extra}/></svg>`;
   const used=new Set(ROUTES.map(r=>r.cname));
   // v0.8.0 (F-097, CEO 10/14): route labels in this order, then the symbols that appear on this page's cards. Jewish population shading is not drawn on this page, so it is not listed here.
   const syms=['octagon','blackSquare','purpleDiamond','splitDiamond'].filter(k=>[...EVSYM].some(([id,kind])=>kind===k&&EVENTS.has(id)));
@@ -268,18 +276,18 @@ function buildKey(){if(!PREVIEW)return buildKeyOld();
     (used.has('Blue')?`<div>${arrow('#2D6CB8')}Return to the Land</div>`:'')+
     (used.has('Red')?`<div>${arrow('#B8352B')}Forced expulsion</div>`:'')+
     (used.has('Charcoal')?`<div>${arrow('#41464A')}Voluntary migration</div>`:'')+
-    (ROUTES.some(r=>r.dotted)?`<div><svg width="44" height="18" aria-hidden="true"><path d="M3,13 Q22,2 41,10" fill="none" stroke="#EFE6D3" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="1 7"/></svg>Biblical/Traditional Account</div>`:'')+
+    (ROUTES.some(r=>r.dotted)?`<div><svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="rgba(255,242,222,.5)" stroke="#3F463F" stroke-dasharray="3 2"/></svg>Biblical/Traditional Account</div>`:'')+
     syms.map(k=>`<div>${SYM_SVG[k]}${SYM_LABEL[k]}</div>`).join('')+
     `<div style="color:var(--muted)">Tap an arrow to read that journey.</div>`;
 }
 function buildKeyOld(){
-  const arrow=(fill,extra='')=>`<svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="${fill}" stroke="none" ${extra}/></svg>`;
+  const arrow=(fill,extra='')=>`<svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="${fill}" stroke="#FFF2DE" ${extra}/></svg>`;
   const used=new Set(ROUTES.map(r=>r.cname));
   $('key').innerHTML=`<h2>Map key</h2>`+
     (used.has('Red')?`<div>${arrow('#B8352B')}Forced or persecution-driven movement</div>`:'')+
     (used.has('Blue')?`<div>${arrow('#2D6CB8')}Movement toward the Land of Israel</div>`:'')+
     (used.has('Charcoal')?`<div>${arrow('#41464A')}Other documented movement</div>`:'')+
-    (ROUTES.some(r=>r.dotted)?`<div><svg width="44" height="18" aria-hidden="true"><path d="M3,13 Q22,2 41,10" fill="none" stroke="#EFE6D3" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="1 7"/></svg>Contested route (the sources disagree on the path)</div>`:'')+
+    (ROUTES.some(r=>r.dotted)?`<div><svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="rgba(255,242,222,.5)" stroke="#3F463F" stroke-dasharray="3 2"/></svg>Contested route (the sources disagree on the path)</div>`:'')+
     `<div style="color:var(--muted)">Tap an arrow to read that journey.</div>`;
 }
 function setKey(open){const k=$('key'),b=$('keyBtn');k.hidden=!open;b.setAttribute('aria-expanded',String(open));}
