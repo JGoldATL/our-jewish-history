@@ -213,7 +213,7 @@ function render(){
   for(const w of sheetWashes(y,frame)){const pts=w.pts.map(P);if(!pts.some(q=>q.vis))continue;wctx.save();wctx.shadowColor=`rgba(0,0,0,${w.a.toFixed(3)})`;wctx.shadowBlur=washBlur*2;wctx.shadowOffsetX=20000;wctx.beginPath();pts.forEach((q,i)=>{const x=q.x*WS-20000,yy=q.y*WS;i?wctx.lineTo(x,yy):wctx.moveTo(x,yy);});wctx.closePath();wctx.fillStyle='#000';wctx.fill();wctx.restore();}   // v0.8.0 F-019: Sheet shading
   // movement routes
   const defs=$('ovDefs');defs.querySelectorAll('.dyn').forEach(n=>n.remove());
-  for(const fm of frame.movements){if(!fm.visible)continue;const m=DATA.movements.find(r=>r.id===fm.id);const win=movementWindow(m),past=trails&&win[1]<=y;const op=Math.max(fm.opacity,past?.28:0);if(op<=.01)continue;
+  for(const fm of frame.movements){if(!fm.visible)continue;if(EVENTS_ONLY&&!EV_VOL.has(fm.id))continue;const m=DATA.movements.find(r=>r.id===fm.id);const win=movementWindow(m),past=trails&&win[1]<=y;const op=Math.max(fm.opacity,past?.28:0);if(op<=.01)continue;
     const pts=routePoints(m).filter(q=>q.vis);if(pts.length<6)continue;const traditional=m.evidenceStatus==='traditional account';
     const d=ribbon(pts,(traditional?13:15)*scale,7.5*scale,24*scale,15*scale);if(!d)continue;
     const g=el('g',{class:'route',opacity:op.toFixed(3),tabindex:0,role:'button','aria-label':m.title},layers.route);
@@ -249,7 +249,7 @@ function geoLabels(){if(!GEO)return [];const out=[];for(const [text,kind,lo,la] 
 // label with the same name is already queued; camera-only Places (place-cam-*) are never drawn.
 function addSheetPlaceLabels(frame,labels,mark,P,scale){
   if(!SHEETPL.size)return;
-  const want=new Set();for(const fm of frame.movements){if(!fm.visible||fm.opacity<.3)continue;const m=DATA.movements.find(r=>r.id===fm.id);if(!m)continue;for(const id of [m.origin,m.destination])if(typeof id==='string')want.add(id);}
+  const want=new Set();for(const fm of frame.movements){if(!fm.visible||fm.opacity<.3)continue;if(EVENTS_ONLY&&!EV_VOL.has(fm.id))continue;const m=DATA.movements.find(r=>r.id===fm.id);if(!m)continue;for(const id of [m.origin,m.destination])if(typeof id==='string')want.add(id);}
   const sp=selected?.record?.placeId;if(typeof sp==='string')want.add(sp);
   const have=new Set(labels.map(l=>String(l.text).toLowerCase()));
   for(const id of want){const pl=SHEETPL.get(id);if(!pl||pl.cameraOnly||pl.lat==null||pl.lon==null)continue;const text=(pl.mapLabel?String(pl.mapLabel):String(pl.historicalName||'').split(/\s*[\/(]/)[0]).trim();if(!text||have.has(text.toLowerCase()))continue;
@@ -385,6 +385,9 @@ function selectMilestone(i){const m=milestones[i];if(!m)return;stopTour();dismis
 
 // Sheet arrows: Movements with both ends ready are added to the engine's movement list so they use the same drawing, fading and timeline code.
 // Movements that an engine arrow already draws (same Event ID) are skipped, so nothing is drawn twice.
+// Events page (events.html sets window.OJJ_EVENTS): no arrows, except routes the Sheet labels Voluntary migration (Movement character voluntary migration, treatment exactly Charcoal; the charcoal routes).
+// Relocation, Return to the Land, Forced expulsion, Biblical/Traditional Account and the 10 hand-built engine arrows are not drawn there. Two voluntary-migration rows with a qualified treatment (MOV-015, MOV-038) are left out as unsure.
+const EVENTS_ONLY=!!window.OJJ_EVENTS,EV_VOL=new Set();
 function addSheetMovements(){
   const S=DATA.sheet;if(!S?.movements?.length||/[?&]engine=1/.test(location.search))return;
   const pl=new Map((S.places||[]).map(p=>[p.id,p]));SHEETPL=pl;
@@ -392,6 +395,7 @@ function addSheetMovements(){
   const xy=p=>[(p.lon+15)*15,(58-p.lat)*650/53];
   const ok=m=>m.arrowEndsReady&&!covered.has(m.eventId)&&[m.originPlaceId,m.destinationPlaceId].every(id=>Number.isFinite(pl.get(id)?.lat)&&Number.isFinite(pl.get(id)?.lon));
   const ready=new Map(S.movements.filter(ok).map(m=>[m.id,m]));
+  if(EVENTS_ONLY)for(const m of ready.values())if(m.character==='voluntary migration'&&m.arrowTreatment==='Charcoal')EV_VOL.add(m.id);
   // Branch rule (dataset chat): the New Amsterdam arrow (23 refugees) draws only together with the Amsterdam, Curacao and Barbados branches.
   const needs={'MOV-055':['MOV-052','MOV-053','MOV-054']};
   for(const [id,req] of Object.entries(needs))if(ready.has(id)&&!req.every(r=>ready.has(r)))ready.delete(id);

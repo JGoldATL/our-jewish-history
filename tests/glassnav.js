@@ -10,7 +10,7 @@ for(const [sn,vp] of Object.entries(sizes)){
   await p.goto(BASE+'index.html');await p.waitForTimeout(1800);
   ok(await p.evaluate(()=>!document.querySelector('.gn')&&!document.documentElement.classList.contains('nav-glass')&&!!document.getElementById('quizLink')),sn+': flag off, old nav only');
   await p.close();
-  for(const [pg,cur] of [['index.html','Globe'],['movements.html','Movements'],['quiz.html','Quiz'],['roadmap.html',null],['feedback.html',null]]){
+  for(const [pg,cur] of [['events.html','Events'],['movements.html','Movements'],['quiz.html','Quiz'],['roadmap.html',null],['feedback.html',null]]){
     p=await ctx.newPage();p.on('pageerror',e=>errs.push(pg+' '+e.message));
     await p.goto(BASE+pg+'?nav=glass');await p.waitForTimeout(pg==='quiz.html'||pg.startsWith('index')||pg.startsWith('movements')?2200:900);
     const r=await p.evaluate(()=>{const vis=e=>{if(!e)return false;const r=e.getBoundingClientRect(),s=getComputedStyle(e.closest('.gn-short,.gn-full,.gn-more')||e);return r.width>0&&s.display!=='none';};
@@ -23,8 +23,8 @@ for(const [sn,vp] of Object.entries(sizes)){
     if(cur)ok(JSON.stringify(r.sel[0])===JSON.stringify([cur]),`${sn} ${pg}: "${cur}" is on`);
     ok(!r.hs,`${sn} ${pg}: no sideways scroll`);
     ok(r.over.every(x=>!x)&&r.dots===0,`${sn} ${pg}: four pages fit, no arrow or dots`);
-    if(pg==='index.html'||pg==='roadmap.html')await p.screenshot({path:`${OUT}/gn_${sn}_${pg.replace('.html','')}.png`});
-    if(sn==='desktop'&&pg==='index.html'){
+    if(pg==='events.html'||pg==='roadmap.html')await p.screenshot({path:`${OUT}/gn_${sn}_${pg.replace('.html','')}.png`});
+    if(sn==='desktop'&&pg==='events.html'){
       // fade on map drag; none on pill tap
       await p.mouse.move(400,450);await p.mouse.down();await p.mouse.move(460,470,{steps:4});
       const f=await p.evaluate(()=>+getComputedStyle(document.querySelector('.gn .gp')).opacity);await p.waitForTimeout(500);

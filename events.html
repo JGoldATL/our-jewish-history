@@ -1,0 +1,304 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Google Analytics 4: production only (counts visits on jgoldatl.github.io, not previews or local files) -->
+<script>
+if(location.hostname==='jgoldatl.github.io'){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-W0VSWJ8FCS';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config','G-W0VSWJ8FCS');}
+</script>
+<title>Our Jewish Journey: Events</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: globe stage on the left with a curved timeline beneath it; story column on the right. Stacks on phones.
+   Deliberately dark-only: the night setting is the design. */
+:root{--night:#0E1822;--night2:#162634;--glow:#24394B;--cream:#F6EBD6;--text:#EFE6D3;--soft:#D2CABB;--muted:#A9B4B8;--amber:#E8B27A;--amber2:#F3C894;--red:#E07B6E;--line:rgba(239,230,211,.18);--chip:rgba(239,230,211,.08);
+--serif:'Cormorant Garamond',Georgia,serif;--sans:'Instrument Sans',Arial,Helvetica,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--night);color:var(--text);font-family:var(--sans)}
+body{min-height:100svh;background:radial-gradient(circle at 34% 46%,var(--glow) 0,var(--night2) 34%,var(--night) 70%) fixed}
+button{font-family:var(--sans)}
+button:focus-visible,select:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 32px 0;padding-top:max(20px,env(safe-area-inset-top));flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;gap:2px}
+.brand h1{margin:0;font-family:var(--serif);font-weight:700;font-size:30px;line-height:1;color:var(--cream);letter-spacing:.3px}
+.brand p{margin:0;font-size:13px;color:var(--muted)}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;position:relative}
+.pill{height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);font-size:14px;cursor:pointer}
+.pill:hover{background:rgba(239,230,211,.12)}
+a.pill{display:inline-flex;align-items:center;text-decoration:none}
+.pill.quiz{border-color:#f2a65a;color:#f2a65a;background:rgba(242,166,90,.10);font-weight:600}.pill.quiz:hover{background:rgba(242,166,90,.2)}
+.pill.quiz svg{margin-right:8px;flex:none}.pill:focus-visible{outline:2px solid #f2a65a;outline-offset:2px}
+.primary{border:0;background:var(--amber);color:#1A1410;font-weight:600}
+/* Play / Pause icons are drawn shapes, not text characters: iPhone and iPad turn the "play" character into a colored emoji. */
+.ico{width:14px;height:14px;flex:none;fill:currentColor;stroke:currentColor;stroke-width:1.3;stroke-linejoin:round}
+#play,#introPlay{display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.primary:hover{background:var(--amber2)}
+.seg{display:flex;padding:4px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(14,24,34,.6)}
+.seg button{height:36px;padding:0 14px;border:0;border-radius:999px;background:none;color:var(--soft);font-size:13px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:rgba(239,230,211,.16);color:var(--cream);font-weight:600}
+.key{position:absolute;right:0;top:54px;z-index:20;width:300px;padding:16px 18px;border-radius:18px;background:rgba(18,30,41,.96);border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.5);display:grid;gap:10px;font-size:13px;color:var(--soft)}
+.key h2{margin:0;font-family:var(--serif);font-size:20px;color:var(--cream)}
+.key div{display:flex;gap:12px;align-items:center}
+.key svg{flex:0 0 auto}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 430px;gap:12px;padding:0 32px 18px;align-items:start}
+#stage{position:relative;height:calc(100svh - 110px);min-height:560px;max-height:980px}
+#gl,#ov,#arc{position:absolute;inset:0;width:100%;height:100%}
+#gl{filter:drop-shadow(0 40px 60px rgba(0,0,0,.55))}
+#gl,#ov{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 36px,#000 calc(100% - 36px),transparent 100%),linear-gradient(180deg,transparent 0,#000 30px,#000 calc(100% - 30px),transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 36px,#000 calc(100% - 36px),transparent 100%),linear-gradient(180deg,transparent 0,#000 30px,#000 calc(100% - 30px),transparent 100%);mask-composite:intersect}
+#ov{touch-action:none;cursor:grab}
+#ov:active{cursor:grabbing}
+#arc{pointer-events:none}
+#arc .arcHit,#arc .bead,#arc .notch{pointer-events:auto;cursor:pointer;touch-action:none}
+#stage{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.dot{fill:#1A1410;stroke:#FFF2DE;stroke-width:3}
+.ring{fill:none;stroke:#FFF2DE;stroke-opacity:.7;stroke-width:1.5}
+.anchor.uncertain .ring{stroke-dasharray:3 3}
+.anchor,.route,.sym,.event{cursor:pointer}
+.label{font-family:var(--sans);font-weight:600;fill:#1A1410;paint-order:stroke;stroke:#F6EBD6;stroke-width:4.5px;stroke-linejoin:round;pointer-events:none}
+.routeShadow{fill:#000;opacity:.36;filter:url(#routeShadow)}
+.routeBody{stroke:#FFF2DE;stroke-width:1.6;stroke-linejoin:round}
+.routeBody.contested{fill-opacity:.75;stroke:#2A2F33;stroke-width:2;stroke-dasharray:6 4}
+.routeTrad{fill:rgba(255,242,222,.45);stroke:#3F463F;stroke-width:1.8;stroke-dasharray:6 4;stroke-linejoin:round}
+.coast{fill:none;stroke:#3B3326;stroke-opacity:.38;stroke-width:.9;stroke-linejoin:round;pointer-events:none}
+.river{fill:none;stroke:#3F8AA3;stroke-opacity:.85;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.regionName{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:2.4px;fill:#4E4231;fill-opacity:.85;pointer-events:none}
+.seaName{font-family:var(--serif);font-style:italic;font-size:15px;letter-spacing:1.2px;fill:#E4EEF0;fill-opacity:.9;pointer-events:none}
+.route.selected .routeBody{stroke:#fff;stroke-width:3}
+.route.selected{filter:drop-shadow(0 0 6px rgba(255,255,255,.65))}
+.anchor.selected .dot{stroke:#fff;stroke-width:4.5}
+.anchor.selected .ring{stroke:#fff;stroke-opacity:1;stroke-width:2.5}
+.sym.selected{filter:drop-shadow(0 0 6px rgba(255,255,255,.8))}
+.sym:focus{outline:none}.sym:focus-visible .symShape{stroke:#286D95;stroke-width:3}
+.eventMark{fill:#F6EBD6;stroke:#1A1410;stroke-width:2}
+.arcHalo{fill:none;stroke:rgba(14,24,34,.55);stroke-width:12;stroke-linecap:round}
+.arcTrack{fill:none;stroke:rgba(239,230,211,.32);stroke-width:2}
+.arcHit{fill:none;stroke:transparent;stroke-width:34}
+.arcFill{fill:none;stroke:var(--amber);stroke-width:3.5;stroke-linecap:round}
+.bead{fill:var(--amber);stroke:var(--night);stroke-width:4}
+.notch{fill:rgba(239,230,211,.55)}
+.notch:hover{fill:var(--amber)}
+.tick{font-family:var(--sans);font-size:12.5px;fill:rgba(239,230,211,.78);paint-order:stroke;stroke:rgba(14,24,34,.6);stroke-width:2.5px;stroke-linejoin:round}
+#arcWrap.attention .arcTrack{stroke:var(--amber);stroke-width:4;transition:stroke .3s}
+.arcSlider{position:absolute;left:50%;bottom:0;width:1px;height:1px;overflow:hidden;opacity:0}
+.arcSlider:focus{left:auto;right:16px;bottom:16px;width:auto;height:auto;padding:8px 12px;opacity:1;border-radius:999px;background:rgba(14,24,34,.9);border:1px solid var(--amber);color:var(--cream);font-size:13px}
+.nav{position:absolute;left:0;top:10px;display:flex;gap:6px;z-index:5}
+.round{width:44px;height:44px;border-radius:50%;border:1px solid rgba(239,230,211,.28);background:rgba(14,24,34,.7);color:var(--text);font-size:20px;cursor:pointer;backdrop-filter:blur(6px)}
+.navReset{border-radius:999px;width:auto;padding:0 16px;font-size:14px}
+.prompt{padding:26px 28px;border-radius:24px;background:rgba(14,24,34,.86);border:1px solid var(--line);box-shadow:0 30px 70px rgba(0,0,0,.55);backdrop-filter:blur(10px);z-index:10;display:grid;gap:14px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;color:var(--amber)}
+.prompt p{margin:0;font-family:var(--serif);font-size:30px;line-height:1.12;color:var(--cream)}
+.prompt .row{display:flex;gap:10px;flex-wrap:wrap}
+#panel{position:sticky;top:12px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px;padding-top:40px;min-width:0}
+.year{font-family:var(--serif);font-style:italic;font-weight:600;font-size:112px;line-height:.85;letter-spacing:-3px;color:var(--cream);font-variant-numeric:lining-nums tabular-nums}
+.year span{font-size:40px;font-style:normal;letter-spacing:2px;margin-left:12px;color:var(--amber)}
+.era{font-size:14px;color:var(--muted);min-height:20px}
+.rule{height:1px;background:linear-gradient(90deg,rgba(239,230,211,.5),rgba(239,230,211,0))}
+#story{display:grid;gap:12px;position:relative}
+#panel.inviting #story,#panel.inviting .mnav{display:none}
+#story.pinned{padding:20px 22px;border-radius:22px;background:rgba(239,230,211,.05);border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.kicker{font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--red);padding-right:44px}
+#story h2{margin:0;font-family:var(--serif);font-weight:700;font-size:40px;line-height:1.02;color:var(--cream);text-wrap:balance}
+#storyText{margin:0;font-size:16.5px;line-height:1.6;color:var(--soft)}
+.sdate{font-size:15px;color:var(--muted);margin-bottom:-6px}
+#storyMeanwhile{margin:0;padding:12px 14px;border-radius:14px;background:rgba(232,178,122,.1);font-size:14.5px;line-height:1.5;color:var(--soft)}
+#storyMeanwhile em{font-family:var(--serif);font-size:18px;color:var(--amber)}
+#storyExtra{margin:0;font-size:14px;line-height:1.55;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.evrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.badge{font-size:12.5px;padding:6px 12px;border-radius:999px;background:var(--chip);color:var(--text)}
+.badge.traditional{background:rgba(232,178,122,.16);color:var(--amber2)}
+.linkBtn{background:none;border:0;color:var(--amber);font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 0;min-height:32px}
+.linkBtn:disabled{color:var(--muted);text-decoration:none;cursor:default}
+#srcList{display:grid;gap:3px;padding:12px 14px;border-radius:14px;background:rgba(239,230,211,.05);font-size:13px}
+#srcList a{color:var(--amber2);margin-top:6px}
+#srcList small{color:var(--muted);line-height:1.45}
+#closeStory{position:absolute;right:10px;top:10px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(239,230,211,.08);color:var(--text);font-size:20px;cursor:pointer}
+#chipBox{display:grid;gap:8px}
+#chipBox h3{margin:0;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+#chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{min-height:34px;padding:6px 13px;border-radius:999px;border:1px solid rgba(239,230,211,.22);background:none;color:var(--soft);font-size:13px;cursor:pointer;text-align:left}
+.chip.uncertain{border-style:dashed}
+.chip:hover{border-color:var(--amber);color:var(--cream)}
+.mnav{display:flex;gap:10px;align-items:center}.mnav .pill{flex:1}
+.mnav select{flex:1;min-width:0;width:100%;height:44px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(14,24,34,.6);color:var(--text);padding:0 14px;font-size:14px}
+.footR{display:flex;gap:16px;align-items:center}
+.dlgWrap{position:fixed;inset:0;z-index:50;background:rgba(5,10,14,.6);display:grid;place-items:center;padding:16px}
+.dlg{width:min(640px,100%);max-height:80svh;overflow:auto;padding:24px 26px;border-radius:22px;background:#122130;border:1px solid var(--line);box-shadow:0 30px 70px rgba(0,0,0,.6)}
+.dlgHead{display:flex;justify-content:space-between;align-items:center}
+.dlg h2{margin:0;font-family:var(--serif);font-size:30px;color:var(--cream)}
+.dlgNote{color:var(--muted);font-size:14px}
+#allSources{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+#allSources li{display:grid;gap:3px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+#allSources a{color:var(--amber2);font-size:15px}
+#allSources small{color:var(--muted);font-size:13px;line-height:1.45}
+.foot{display:flex;justify-content:space-between;gap:8px;padding:0 32px 22px;padding-bottom:max(22px,env(safe-area-inset-bottom));font-size:12px;color:var(--muted)}
+.error{position:fixed;inset:auto 16px 16px;padding:14px 18px;border-radius:14px;background:#5A1E18;color:#fff}
+@media (max-width:1100px){.layout{grid-template-columns:minmax(0,1fr) 360px}.year{font-size:88px}#story h2{font-size:34px}}
+@media (max-width:960px){
+ .top{position:relative;row-gap:10px}.brand{flex:1 1 auto}.tools{display:contents}.top::before{content:"";order:1;flex:0 0 100%;height:0}
+ #quizLink{order:0}#keyBtn,#options,#reset{order:2}
+ .key{top:100%;left:16px;right:16px;width:auto}
+ .top{padding-left:16px;padding-right:16px}
+}
+@media (max-width:900px){
+ .top{padding:14px 16px 0}.layout{grid-template-columns:1fr;padding:0 16px 16px}.footR{display:flex;gap:16px;align-items:center}
+.dlgWrap{position:fixed;inset:0;z-index:50;background:rgba(5,10,14,.6);display:grid;place-items:center;padding:16px}
+.dlg{width:min(640px,100%);max-height:80svh;overflow:auto;padding:24px 26px;border-radius:22px;background:#122130;border:1px solid var(--line);box-shadow:0 30px 70px rgba(0,0,0,.6)}
+.dlgHead{display:flex;justify-content:space-between;align-items:center}
+.dlg h2{margin:0;font-family:var(--serif);font-size:30px;color:var(--cream)}
+.dlgNote{color:var(--muted);font-size:14px}
+#allSources{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+#allSources li{display:grid;gap:3px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+#allSources a{color:var(--amber2);font-size:15px}
+#allSources small{color:var(--muted);font-size:13px;line-height:1.45}
+.foot{padding:0 16px 18px}
+ #stage{height:calc(86vw + 128px);min-height:0;max-height:none}
+ #panel{position:static;padding-top:6px}
+ .year{font-size:72px}.year span{font-size:28px}#story h2{font-size:30px}
+ .prompt{padding:18px 20px}.prompt p{font-size:23px}
+ .brand h1{font-size:26px}
+}
+@media (max-width:900px){
+ html,body{height:100%;overflow:hidden}
+ body{display:flex;flex-direction:column;height:100svh;min-height:0}
+ .layout{flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:0;padding:0 16px}
+ #stage{flex:0 0 auto;height:min(calc(84vw + 120px),56svh)}
+ #panel{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y;gap:14px;padding:12px 2px 24px;border-top:1px solid var(--line)}
+ .foot{padding:8px 16px;padding-bottom:max(8px,env(safe-area-inset-bottom))}.foot>span:first-child{display:none}
+ #panel .mnav{position:sticky;bottom:-24px;z-index:3;padding:10px 0 12px;margin-bottom:-12px;background:linear-gradient(to bottom,rgba(14,24,34,0),rgba(14,24,34,.94) 30%)}
+}
+@media (max-width:620px){
+ .brand p{display:none}.brand h1{font-size:24px}.top{gap:10px;padding:10px 16px 6px}
+ .pill,.seg button{white-space:nowrap}.pill{height:38px;padding:0 10px;font-size:12.5px}.seg{padding:3px}.seg button{height:30px;padding:0 7px;font-size:12px}
+ #stage{height:min(calc(84vw + 80px),48svh)}#panel>.rule{display:none}
+ #panel>div:first-child{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}.year{font-size:40px;letter-spacing:-1px}.year span{font-size:18px;margin-left:8px}.era{font-size:13px}#panel{gap:10px}#story h2{font-size:28px}
+ .prompt p{font-size:21px}
+}
+@media (max-width:380px){.pill{padding:0 8px;font-size:12px}.seg button{padding:0 5px;font-size:11.5px}.top{column-gap:6px}}
+/* F-080 / F-082 layout, set by the CEO-approved comps of 2026-10-11.
+   iPad landscape and desktop: the card is a fixed box that scrolls inside itself, Previous / Play / Next stay pinned under it, the year is smaller, the globe a little smaller. */
+.sheetHandle{display:none}
+@media (orientation:landscape) and (min-width:901px) and (max-height:1100px){
+ :root{--sh:190px;--ph:158px}
+ #stage{height:calc(100svh - var(--sh));min-height:300px}
+ #panel{position:sticky;top:12px;height:calc(100svh - var(--ph));display:flex;flex-direction:column;gap:12px;padding-top:14px;overflow:hidden}
+ #panel>div:first-child,#panel>.rule,#panel>.prompt,#panel>.mnav{flex:none}
+ #panel>#story{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:thin}
+ .year{font-size:78px;letter-spacing:-2px}.year span{font-size:30px;margin-left:10px}
+ .foot{padding-bottom:max(8px,env(safe-area-inset-bottom))}
+}
+@media (orientation:landscape) and (min-width:901px) and (max-width:1100px) and (max-height:1100px){:root{--sh:205px}}
+/* Phone held upright: the card is a bottom sheet. Half open when the page opens, full after a swipe up or a tap on the handle. */
+@media (max-width:620px) and (orientation:portrait){
+ .foot>.sn+span{display:none}
+ .foot{flex-wrap:nowrap;align-items:center;padding-top:6px}
+ .footR{flex:1 1 auto;min-width:0;justify-content:flex-end;gap:10px}
+ #version{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
+ #stage{height:min(calc(84vw + 50px),40svh)}
+ body.sheet-full #stage{height:0;min-height:0;overflow:hidden}
+ #panel{display:flex;flex-direction:column;gap:0;padding:2px 18px 0;margin:0 -16px;overflow:hidden;border-radius:24px 24px 0 0;border:1px solid var(--line);border-bottom:0;background:linear-gradient(to bottom,#1d2d3c,#162634);box-shadow:0 -14px 30px rgba(0,0,0,.4);touch-action:pan-y}
+ #panel>.sheetHandle{display:block;order:-1;flex:none;width:100%;height:22px;padding:0;border:0;background:none;cursor:pointer;position:relative}
+ #panel>.sheetHandle::before{content:"";position:absolute;left:50%;top:9px;width:42px;height:5px;margin-left:-21px;border-radius:9px;background:rgba(239,230,211,.4)}
+ #panel>div:first-child{flex:none;display:flex;align-items:baseline;gap:12px}
+ #panel>div:first-child::after{content:"Swipe up \25B2";margin-left:auto;align-self:center;font-size:12px;letter-spacing:.3px;color:var(--amber)}
+ #panel.full>div:first-child::after{content:"Swipe down for the globe \25BC"}
+ #panel.inviting>div:first-child::after{display:none}
+ .year{font-size:38px;letter-spacing:-1px}.year span{font-size:16px;margin-left:6px}.era{display:none}
+ #panel>#story,#panel>#story.pinned{display:flex;flex-wrap:wrap;align-items:baseline;align-content:flex-start;column-gap:8px;row-gap:4px;flex:1 1 auto;min-height:0;overflow:hidden;padding:4px 0 0;margin:0;border:0;border-radius:0;background:none;box-shadow:none}
+ #panel.full>#story{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+ #panel.inviting>#story{display:none}
+ #story .kicker{padding-right:0}
+ #story h2,#storyText,#storyMeanwhile{flex:0 0 100%}
+ #story h2{font-size:27px;line-height:1.02}
+ #storyText{font-size:15px;line-height:1.5}
+ #closeStory{top:-2px;right:0;width:28px;height:28px;font-size:18px;line-height:1;padding:0}
+ #panel .mnav{position:static;flex:none;padding:8px 0 10px;margin:0;background:none}
+ #panel .mnav::before{content:none}
+ #panel.inviting .prompt{padding:12px 4px 4px}.prompt p{font-size:19px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="top">
+<div class="brand"><h1>Our Jewish Journey</h1><p>A history of presence, displacement, and return</p></div>
+<div class="tools">
+<a class="pill quiz" id="quizLink" href="quiz.html"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/><ellipse cx="8" cy="8" rx="2.8" ry="6.5" fill="none" stroke="currentColor" stroke-width="1" opacity=".6"/><path d="M1.5 8h13" stroke="currentColor" stroke-width="1" opacity=".6"/><circle cx="10.3" cy="5.6" r="2" fill="#f2a65a"/></svg>Take a Quiz</a>
+<a class="pill" id="moveLink" href="movements.html">Movements</a>
+<button type="button" class="pill" id="keyBtn" aria-expanded="false" aria-controls="key">Map key</button>
+<div class="seg" id="options" role="group" aria-label="Map options" hidden><button type="button" data-trails="off" aria-pressed="true">This moment</button><button type="button" data-trails="on" aria-pressed="false">With past routes</button></div>
+<button type="button" class="pill" id="reset">Reset</button>
+<div class="key" id="key" hidden>
+<h2>Map key</h2>
+<div><svg width="44" height="18" aria-hidden="true"><ellipse cx="22" cy="9" rx="20" ry="8" fill="#2E5AA8" opacity=".75"/></svg>Jewish presence. Darker means larger, not a census.</div>
+<div><svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="#B8352B" stroke="#FFF2DE"/></svg>Forced or persecution-driven movement</div>
+<div><svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="#2D6CB8" stroke="#FFF2DE"/></svg>Movement toward the Land of Israel</div>
+<div><svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="#41464A" stroke="#FFF2DE"/></svg>Other documented movement</div>
+<div><svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="rgba(255,242,222,.5)" stroke="#3F463F" stroke-dasharray="3 2"/></svg>Biblical or traditional account</div>
+<div><svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="#41464A" fill-opacity=".55" stroke="#2A2F33" stroke-dasharray="3 2"/></svg>Contested route</div>
+<div><svg width="30" height="30" viewBox="-18 -18 36 36" aria-hidden="true"><path d="M15.71,6.51 L6.51,15.71 L-6.51,15.71 L-15.71,6.51 L-15.71,-6.51 L-6.51,-15.71 L6.51,-15.71 L15.71,-6.51 Z" fill="#8C2A24" stroke="#1B2328" stroke-width="1.2" stroke-linejoin="round"/><path d="M0,-10.4 L9.01,5.2 L-9.01,5.2 Z M0,10.4 L-9.01,-5.2 L9.01,-5.2 Z" fill="none" stroke="#FFF3DC" stroke-width="1.6" stroke-linejoin="round"/></svg>Murdered community</div>
+<div><svg width="30" height="30" viewBox="-18 -18 36 36" aria-hidden="true"><path d="M-13,-13 H13 V13 H-13 Z" fill="#20272B" stroke="#1B2328" stroke-width="1.2" stroke-linejoin="round"/><path d="M0,-10.4 L9.01,5.2 L-9.01,5.2 Z M0,10.4 L-9.01,-5.2 L9.01,-5.2 Z" fill="none" stroke="#FFF3DC" stroke-width="1.6" stroke-linejoin="round"/></svg>Community no longer exists</div>
+<div><svg width="30" height="30" viewBox="-18 -18 36 36" aria-hidden="true"><path d="M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z" fill="#5A3B7A" stroke="#1B2328" stroke-width="1.2" stroke-linejoin="round"/><path d="M0,-8.4 L7.27,4.2 L-7.27,4.2 Z M0,8.4 L-7.27,-4.2 L7.27,-4.2 Z" fill="none" stroke="#FFF3DC" stroke-width="1.6" stroke-linejoin="round"/></svg>Forced conversion, other or unknown faith</div>
+<div><svg width="30" height="30" viewBox="-18 -18 36 36" aria-hidden="true"><defs><clipPath id="kL"><rect x="-20" y="-20" width="20" height="40"/></clipPath><clipPath id="kR"><rect x="0" y="-20" width="20" height="40"/></clipPath></defs><path d="M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z" fill="#5A3B7A" clip-path="url(#kL)"/><path d="M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z" fill="#FFF3DC" clip-path="url(#kR)"/><path d="M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z" fill="none" stroke="#1B2328" stroke-width="1.2" stroke-linejoin="round"/><path d="M0,-10.6 L9.18,5.3 L-9.18,5.3 Z M0,10.6 L-9.18,-5.3 L9.18,-5.3 Z" fill="none" stroke="#FFF3DC" stroke-width="1.6" stroke-linejoin="round" clip-path="url(#kL)"/><path d="M1,-10.6 V10.6 M1,-3.6 H9.2" fill="none" stroke="#5A3B7A" stroke-width="1.8" stroke-linecap="square"/></svg>Forced conversion to Christianity</div>
+</div>
+</div>
+</header>
+
+<main class="layout">
+<section id="stage" aria-label="Events">
+<canvas id="gl" aria-hidden="true"></canvas>
+<svg id="ov" role="group" aria-label="Interactive globe. Drag to turn it; pinch or scroll to zoom.">
+<defs id="ovDefs"><filter id="routeShadow" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="2.4"/></filter></defs>
+<g id="lGeo"></g><g id="lRoute"></g><g id="lMark"></g><g id="lLabel"></g>
+</svg>
+<svg id="arc" aria-hidden="true"><g id="arcWrap"><g id="arcStatic"></g><g id="arcLive"></g></g></svg>
+<div class="arcSlider" id="arcSlider" role="slider" tabindex="0" aria-label="Timeline: use arrow keys to move by a year, Page Up and Page Down to jump between events" aria-valuemin="-2000" aria-valuemax="200">Timeline</div>
+</section>
+
+<aside id="panel" class="inviting" aria-live="polite">
+<div><div class="year" id="year">1208<span>BCE</span></div><div class="era" id="era"></div></div>
+<div class="rule"></div>
+<div class="prompt" id="prompt">
+<div class="eyebrow">Begin the journey</div>
+<p>Walk the same paths taken by the Jewish People over thousands of years.</p>
+<div class="row"><button type="button" class="pill primary" id="introPlay"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5,1.5 L13.5,8 L3.5,14.5 Z"/></svg><span>Play the overview</span></button><button type="button" class="pill" id="introExplore">Explore on my own ↓</button></div>
+</div>
+<article id="story">
+<button type="button" id="closeStory" aria-label="Close story" hidden>×</button>
+<div class="kicker" id="storyKicker"></div>
+<div class="sdate" id="storyDate"></div>
+<h2 id="storyTitle"></h2>
+<p id="storyText"></p>
+<p id="storyMeanwhile" hidden><em>Meanwhile…</em><span id="storyMeanwhileText"></span></p>
+</article>
+<div class="mnav"><button type="button" class="pill" id="prev">‹ Previous</button><button type="button" class="pill primary" id="play" aria-pressed="false" hidden><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path id="playIco" d="M3.5,1.5 L13.5,8 L3.5,14.5 Z"/></svg><span id="playLbl">Play</span></button><button type="button" class="pill" id="next">Next ›</button></div>
+<button type="button" class="sheetHandle" id="sheetHandle" aria-expanded="false" aria-controls="story" aria-label="Show the full card"></button>
+</aside>
+</main>
+<footer class="foot"><span>Drag the globe to turn it · pinch or scroll to zoom</span><span class="footR"><button type="button" class="linkBtn" id="sourcesLink">Sources</button><span id="version"></span></span></footer>
+<div class="dlgWrap" id="sourcesDlg" hidden><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="sourcesTitle"><div class="dlgHead"><h2 id="sourcesTitle">Sources</h2><button type="button" id="sourcesClose" class="round" aria-label="Close sources">×</button></div><p class="dlgNote">Every reference used on this map, in one place.</p><ul id="allSources"></ul></div></div>
+<div class="error" id="error" hidden></div>
+<script>window.OJJ_EVENTS=true;</script>
+<script src="engine.js"></script>
+<script src="version.js"></script>
+<script src="app.js"></script>
+<script>
+/* Phone bottom sheet (portrait, up to 620 px wide): tap the handle, or swipe up on the card, to open it fully; swipe down to see the globe again. */
+(function(){
+  var mq=window.matchMedia('(max-width:620px) and (orientation:portrait)'),panel=document.getElementById('panel'),story=document.getElementById('story'),handle=document.getElementById('sheetHandle');
+  if(!panel||!story||!handle)return;
+  function set(full){full=!!full&&mq.matches;document.body.classList.toggle('sheet-full',full);panel.classList.toggle('full',full);handle.setAttribute('aria-expanded',full?'true':'false');handle.setAttribute('aria-label',full?'Show the globe':'Show the full card');story.scrollTop=0;window.dispatchEvent(new Event('resize'));}
+  handle.addEventListener('click',function(){set(!panel.classList.contains('full'));});
+  var y0=null;
+  panel.addEventListener('touchstart',function(e){y0=e.touches.length===1?e.touches[0].clientY:null;},{passive:true});
+  panel.addEventListener('touchend',function(e){if(y0===null||!mq.matches)return;var dy=y0-e.changedTouches[0].clientY;y0=null;
+    if(!panel.classList.contains('full')&&dy>28&&!panel.classList.contains('inviting'))set(true);
+    else if(panel.classList.contains('full')&&dy<-40&&story.scrollTop<=2)set(false);},{passive:true});
+  panel.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('#prev,#next,#play'))story.scrollTop=0;});
+  var onMq=function(){if(!mq.matches)set(false);};if(mq.addEventListener)mq.addEventListener('change',onMq);else if(mq.addListener)mq.addListener(onMq);
+})();
+</script>
+<script src="nav.js"></script>
+<script src="pill.js"></script>
+<script src="subnav.js"></script>

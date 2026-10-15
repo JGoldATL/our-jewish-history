@@ -213,7 +213,7 @@ function finish(ok,pick,seq){
     <div class="verdict ${ok?'ok':'no'}">${v}</div>${dateline}
     <p class="quick">${esc(q.quickTake)}${q.deepDive?' <button type="button" class="more" id="more" aria-expanded="false" aria-controls="deep">Dive deeper →</button>':''}</p>
     ${q.deepDive?`<p class="deep" id="deep" hidden>${esc(q.deepDive)}</p>`:''}
-    <div class="row"><button type="button" class="btn" id="next">${last?'See your journey':'Next question'}</button>${last?'<a class="btn" href="index.html">Back to the globe</a>':''}</div></div>`;
+    <div class="row"><button type="button" class="btn" id="next">${last?'See your journey':'Next question'}</button>${last?'<a class="btn" href="events.html">Back to Events</a>':''}</div></div>`;
   if(q.deepDive)$('more').onclick=()=>{$('deep').hidden=false;$('more').hidden=true;};
   $('next').onclick=()=>{i++;i<round.length?show():end();};
   $('next').focus({preventScroll:true});
@@ -236,7 +236,7 @@ function end(){
     <ul class="tl">${tl}</ul>
     <div class="survey"><p id="svq">Did comparing Jewish history with familiar world history help you understand when these events happened?</p>
       <div class="row" id="sv" role="group" aria-labelledby="svq">${['A lot','Somewhat','Not really'].map(a=>`<button type="button" class="pill" aria-pressed="false">${a}</button>`).join('')}</div></div>
-    <div class="row"><button type="button" class="btn" id="again">Play 3 more</button><a class="btn ghost" href="index.html">Back to the globe</a></div></div>`;
+    <div class="row"><button type="button" class="btn" id="again">Play 3 more</button><a class="btn ghost" href="events.html">Back to Events</a></div></div>`;
   document.querySelectorAll('#sv .pill').forEach(p=>p.onclick=()=>{
     document.querySelectorAll('#sv .pill').forEach(x=>{x.classList.remove('sel');x.setAttribute('aria-pressed','false');});
     p.classList.add('sel');p.setAttribute('aria-pressed','true');

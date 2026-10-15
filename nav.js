@@ -10,7 +10,7 @@
   /* v0.8.0 (F-085): the glass sliding-pill navigation. Off unless the address carries ?nav=glass (remembered for this tab; ?nav=old turns it off).
      Until the CEO says "push it" for the cut-over, visitors see the old nav. */
   var GLASS=(function(){var m=/[?&]nav=(glass|old)\b/.exec(location.search);try{if(m)sessionStorage.setItem('ojj-nav',m[1]);return sessionStorage.getItem('ojj-nav')==='glass';}catch(e){return !!m&&m[1]==='glass';}})();
-  if(GLASS)PAGES=[{label:'Roadmap',href:'roadmap.html'},{label:'Strategy',href:'strategy.html'},{label:'Feedback',href:'feedback.html'},{label:'Sources',href:'index.html?sources=1',sources:true}];
+  if(GLASS)PAGES=[{label:'Roadmap',href:'roadmap.html'},{label:'Strategy',href:'strategy.html'},{label:'Feedback',href:'feedback.html'},{label:'Sources',href:'events.html?sources=1',sources:true}];
   function stamp(){if(document.getElementById('version')||document.getElementById('siteVer'))return;var v=document.createElement('div');v.id='siteVer';v.textContent='v'+(window.SITE_VERSION||'');v.style.cssText='position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));font:11.5px system-ui,sans-serif;color:#A9B4B8;opacity:.8;pointer-events:none;z-index:20';document.body.appendChild(v);}
   function loadPill(cb){if(window.OJJPill){cb();return;}var me=document.querySelector('script[src*="nav.js"]'),src=me?me.getAttribute('src').replace(/nav\.js.*$/,'pill.js'):'pill.js';
     var s=document.createElement('script');s.src=src;s.onload=cb;document.head.appendChild(s);}
@@ -72,9 +72,9 @@
   function glassMount(){
     var P=window.OJJPill;if(!P)return;var root=document.documentElement;root.classList.add('nav-glass');
     var s=document.createElement('style');s.textContent=CSS_G;document.head.appendChild(s);
-    var cur=({'index.html':'globe','':'globe','movements.html':'movements','quiz.html':'quiz','roadmap.html':'roadmap','strategy.html':'strategy','feedback.html':'feedback'})[here];
+    var cur=({'events.html':'events','index.html':null,'':null,'movements.html':'movements','quiz.html':'quiz','roadmap.html':'roadmap','strategy.html':'strategy','feedback.html':'feedback'})[here];
     function go(it){if(it.value===cur){if(cur==='quiz')location.reload();return;}location.href=it.href+(/\?/.test(it.href)?'&':'?')+'nav=glass';}
-    var main=[{label:'Globe',value:'globe',href:'index.html'},{label:'Movements',value:'movements',href:'movements.html'},{label:'Quiz',value:'quiz',href:'quiz.html'},{label:'JewHate',value:'jewhate',soon:true}];
+    var main=[{label:'Events',value:'events',href:'events.html'},{label:'Movements',value:'movements',href:'movements.html'},{label:'Quiz',value:'quiz',href:'quiz.html'},{label:'JewHate',value:'jewhate',soon:true}];
     var bar=document.createElement('div');bar.className='gn';bar.id='gnBar';
     var pMain=P.create({label:'Pages',items:main,value:main.some(function(m){return m.value===cur;})?cur:null,always:true,onSelect:go});
     bar.appendChild(pMain.el);document.body.insertBefore(bar,document.body.firstChild);pMain.refresh();
