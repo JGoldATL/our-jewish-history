@@ -159,7 +159,7 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
   { // footer version on the globe page
     const ctx=await b.newContext({viewport:{width:1200,height:800}});const p=await ctx.newPage();await p.route(/fonts\.|googletagmanager/,r=>r.abort());
     await p.goto('http://localhost:8778/');await p.waitForTimeout(2500);
-    ok(/^v0\.6\.1 /.test(await p.$eval('#version',e=>e.textContent)),'footer reads v0.6.1');await ctx.close();
+    const ft=await p.$eval('#version',e=>e.textContent);ok(/^v\d+\.\d+\.\d+; data v\d+\.\d+\.\d+$/.test(ft),'globe footer reads "v#.#.#; data v#.#.#" ('+ft+')');await p.goto('http://localhost:8778/movements.html');await p.waitForTimeout(2500);const fm=await p.$eval('#version',e=>e.textContent);ok(/^v\d+\.\d+\.\d+; data v\d+\.\d+\.\d+$/.test(fm)&&fm===ft,'Movements footer reads the same ('+fm+')');await ctx.close();
   }
   await b.close();console.log(fails?fails+' FAILED':'ALL PASS');process.exit(fails?1:0);
 })();
