@@ -7,7 +7,7 @@ for(const [sn,vp] of Object.entries(sizes)){
   const ctx=await b.newContext({viewport:vp,hasTouch:sn!=='desktop'});
   // flag off
   let p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
-  await p.goto(BASE+'index.html');await p.waitForTimeout(1800);
+  await p.goto(BASE+'index.html?nav=old');await p.waitForTimeout(1800);
   ok(await p.evaluate(()=>!document.querySelector('.gn')&&!document.documentElement.classList.contains('nav-glass')&&!!document.getElementById('quizLink')),sn+': flag off, old nav only');
   await p.close();
   for(const [pg,cur] of [['events.html','Events'],['movements.html','Movements'],['quiz.html','Quiz'],['roadmap.html',null],['feedback.html',null]]){

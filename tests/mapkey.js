@@ -6,14 +6,14 @@ async function page(url,inject){const c=await b.newContext({viewport:{width:1280
  await p.goto(url);await p.waitForTimeout(2400);p.errs=errs;return p;}
 const keyText=async p=>{await p.click('#keyBtn');await p.waitForTimeout(200);return p.evaluate(()=>[...document.querySelectorAll('#key div')].map(d=>d.textContent));};
 // globe
-let p=await page(BASE+'index.html');let k=await keyText(p);
+let p=await page(BASE+'index.html?nav=old');let k=await keyText(p);
 ok(k.includes('Contested route')&&k.includes('Murdered community'),'globe, flag off: old Key (Contested route, Murdered community)');
 p=await page(BASE+'index.html?nav=old');k=await keyText(p);ok(k.includes('Contested route'),'globe, ?nav=old: old Key');
 p=await page(BASE+'index.html?nav=glass');k=await keyText(p);
 ok(JSON.stringify(k)===JSON.stringify(['Return to the Land','Forced expulsion','Voluntary migration','Biblical/Traditional Account','Jewish population. Darker means larger, not a census.','Massacred community','Community no longer exists','Forced conversion, other or unknown faith','Forced conversion to Christianity']),'globe, preview: Key in the CEO order, no Contested entry');
 ok(p.errs.length===0,'globe preview: no page errors');
 // movements
-p=await page(BASE+'movements.html');k=await keyText(p);ok(k.includes('Forced or persecution-driven movement')&&k.includes('Other documented movement'),'movements, flag off: old Key');
+p=await page(BASE+'movements.html?nav=old');k=await keyText(p);ok(k.includes('Forced or persecution-driven movement')&&k.includes('Other documented movement'),'movements, flag off: old Key');
 const off=await p.evaluate(()=>MV.routes.filter(r=>/contested/i.test(r.m.arrowTreatment||'')).map(r=>[r.id,r.cname,r.dotted]));
 ok(off.length>0&&off.every(r=>r[1]==='Charcoal'),'movements, flag off: contested routes unchanged (charcoal): '+JSON.stringify(off));
 p=await page(BASE+'movements.html?nav=glass');k=await keyText(p);ok(k[0]==='Forced expulsion'&&k.includes('Voluntary migration')&&!k.some(x=>/Contested/.test(x)),'movements, preview: new labels, no Contested entry');

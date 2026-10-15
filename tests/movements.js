@@ -24,7 +24,7 @@ ck(ids.length===2&&/^Era/.test(ids[0])&&/^Cause/.test(ids[1]),n+' only Era and C
 ck(await p.evaluate(()=>!!document.querySelector('#prev.pill')&&!!document.querySelector('#play.pill.primary')&&!!document.querySelector('#next.pill')&&!!document.querySelector('#reset')&&!!document.querySelector('#keyBtn')&&!!document.querySelector('#options')&&!!document.querySelector('#quizLink')),n+' globe controls present (Previous, Play, Next, Reset, Map key, This moment toggle, Take a Quiz)');
 // tap an arrow for real
 await p.evaluate(()=>{MV.setYear(1492);MV.follow();});await p.waitForTimeout(900);
-const pt=await p.evaluate(()=>{const e=document.querySelector('#map path[data-id="MOV-059"]');if(!e)return null;const L=e.getTotalLength(),q=e.getPointAtLength(L*.5),r=document.getElementById('map').getBoundingClientRect();return {x:r.left+q.x,y:r.top+q.y};});
+const pt=await p.evaluate(()=>{const e=document.querySelector('#map path[data-id="MOV-059"]');if(!e)return null;const bb=e.getBoundingClientRect();for(let i=1;i<20;i++)for(let j=1;j<20;j++){const x=bb.left+bb.width*i/20,y=bb.top+bb.height*j/20,t=document.elementFromPoint(x,y);if(t&&t.getAttribute&&t.getAttribute('data-id')==='MOV-059')return {x,y};}return null;});
 ck(!!pt,n+' MOV-059 arrow is on the map at 1492');
 if(pt){if(c.hasTouch)await p.touchscreen.tap(pt.x,pt.y);else await p.mouse.click(pt.x,pt.y);await p.waitForTimeout(500);
  const t=await p.evaluate(()=>({id:MV.state().SEL?.id,h:document.querySelector('#story h2')?.textContent,s:document.querySelector('#story .sub')?.textContent}));
