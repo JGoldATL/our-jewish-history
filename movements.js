@@ -138,9 +138,9 @@ function paint(){
   svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.textContent='';
   const s=scale(),[x0,y0]=px(-180,90);
   const defs=el('defs',{},svg);
-  for(const c of new Set(ROUTES.map(r=>r.color))){const m=el('marker',{id:'ah'+c.slice(1),viewBox:'0 0 10 10',refX:'7',refY:'5',markerWidth:'5',markerHeight:'5',orient:'auto'},defs);el('path',{d:'M0,0L10,5L0,10z',fill:c,stroke:OUTLINE,'stroke-width':'1.2'},m);}
+  for(const c of new Set(ROUTES.map(r=>r.color))){const m=el('marker',{id:'ah'+c.slice(1),viewBox:'0 0 10 10',refX:'7',refY:'5',markerWidth:'5',markerHeight:'5',orient:'auto'},defs);el('path',{d:'M0,0L10,5L0,10z',fill:c,stroke:PREVIEW?'none':OUTLINE,'stroke-width':'1.2'},m);}
   el('image',{href:'images/map-night.jpg',x:x0,y:y0,width:360*s,height:180*s,preserveAspectRatio:'none'},svg);
-  const selEv=SEL?EVENTS.get(SEL.ev):null,selId=SEL?.id||null,selPar=SEL?.parent&&selEv?(selEv.parents||[]).find(p=>p.id===SEL.parent):null,legs=selPar?selPar.legs:null;
+  const selEv=SEL&&!SEL.auto?EVENTS.get(SEL.ev):null,selId=SEL?.id||null,selPar=SEL?.parent&&selEv?(selEv.parents||[]).find(p=>p.id===SEL.parent):null,legs=selPar?selPar.legs:null;
   const gR=el('g',{},svg),gP=el('g',{},svg),gL=el('g',{},svg),gH=el('g',{},svg);
   let shown=0;const pins=new Map(),cand=new Map();
   const list=ROUTES.filter(r=>pass(r)||(selEv&&r.ev===selEv.key));
@@ -162,7 +162,7 @@ function paint(){
       el('path',{d,fill:'none',stroke:TRAD,'stroke-width':3.4,opacity:o.toFixed(2),'stroke-linecap':'round','stroke-dasharray':'1 7'},gR);
     }else{
       const w=st.active?3.6:2;
-      el('path',{d,fill:'none',stroke:OUTLINE,'stroke-width':w+2.4,opacity:(o*.9).toFixed(2),'stroke-linecap':'round'},gR);
+      if(!PREVIEW)el('path',{d,fill:'none',stroke:OUTLINE,'stroke-width':w+2.4,opacity:(o*.9).toFixed(2),'stroke-linecap':'round'},gR);
       el('path',{d,fill:'none',stroke:r.color,'stroke-width':w,opacity:o.toFixed(2),'stroke-linecap':'round','marker-end':st.active?`url(#ah${r.color.slice(1)})`:''},gR);
     }
     el('path',{d,fill:'none',stroke:'transparent','stroke-width':coarse?30:18,style:'cursor:pointer','data-id':r.id,role:'button','aria-label':`${shortName(r.a)} to ${shortName(r.b)}, ${yearLabel(r.start)}`},gH);
@@ -260,7 +260,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();setKey(
 const SYM_LABEL={octagon:'Massacred community',blackSquare:'Community no longer exists',purpleDiamond:'Forced conversion, other or unknown faith',splitDiamond:'Forced conversion to Christianity'};
 const SYM_SVG={octagon:"<svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\"><path d=\"M15.71,6.51 L6.51,15.71 L-6.51,15.71 L-15.71,6.51 L-15.71,-6.51 L-6.51,-15.71 L6.51,-15.71 L15.71,-6.51 Z\" fill=\"#8C2A24\" stroke=\"#1B2328\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/><path d=\"M0,-10.4 L9.01,5.2 L-9.01,5.2 Z M0,10.4 L-9.01,-5.2 L9.01,-5.2 Z\" fill=\"none\" stroke=\"#FFF3DC\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>",blackSquare:"<svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\"><path d=\"M-13,-13 H13 V13 H-13 Z\" fill=\"#20272B\" stroke=\"#1B2328\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/><path d=\"M0,-10.4 L9.01,5.2 L-9.01,5.2 Z M0,10.4 L-9.01,-5.2 L9.01,-5.2 Z\" fill=\"none\" stroke=\"#FFF3DC\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>",purpleDiamond:"<svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\"><path d=\"M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z\" fill=\"#5A3B7A\" stroke=\"#1B2328\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/><path d=\"M0,-8.4 L7.27,4.2 L-7.27,4.2 Z M0,8.4 L-7.27,-4.2 L7.27,-4.2 Z\" fill=\"none\" stroke=\"#FFF3DC\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>",splitDiamond:"<svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\"><defs><clipPath id=\"kL\"><rect x=\"-20\" y=\"-20\" width=\"20\" height=\"40\"/></clipPath><clipPath id=\"kR\"><rect x=\"0\" y=\"-20\" width=\"20\" height=\"40\"/></clipPath></defs><path d=\"M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z\" fill=\"#5A3B7A\" clip-path=\"url(#kL)\"/><path d=\"M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z\" fill=\"#FFF3DC\" clip-path=\"url(#kR)\"/><path d=\"M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z\" fill=\"none\" stroke=\"#1B2328\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/><path d=\"M0,-10.6 L9.18,5.3 L-9.18,5.3 Z M0,10.6 L-9.18,-5.3 L9.18,-5.3 Z\" fill=\"none\" stroke=\"#FFF3DC\" stroke-width=\"1.6\" stroke-linejoin=\"round\" clip-path=\"url(#kL)\"/><path d=\"M1,-10.6 V10.6 M1,-3.6 H9.2\" fill=\"none\" stroke=\"#5A3B7A\" stroke-width=\"1.8\" stroke-linecap=\"square\"/></svg>"};
 function buildKey(){if(!PREVIEW)return buildKeyOld();
-  const arrow=(fill,extra='')=>`<svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="${fill}" stroke="#FFF2DE" ${extra}/></svg>`;
+  const arrow=(fill,extra='')=>`<svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="${fill}" stroke="${PREVIEW?'none':'#FFF2DE'}" ${extra}/></svg>`;
   const used=new Set(ROUTES.map(r=>r.cname));
   // v0.8.0 (F-097, CEO 10/14): route labels in this order, then the symbols that appear on this page's cards. Jewish population shading is not drawn on this page, so it is not listed here.
   const syms=['octagon','blackSquare','purpleDiamond','splitDiamond'].filter(k=>[...EVSYM].some(([id,kind])=>kind===k&&EVENTS.has(id)));
@@ -273,7 +273,7 @@ function buildKey(){if(!PREVIEW)return buildKeyOld();
     `<div style="color:var(--muted)">Tap an arrow to read that journey.</div>`;
 }
 function buildKeyOld(){
-  const arrow=(fill,extra='')=>`<svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="${fill}" stroke="#FFF2DE" ${extra}/></svg>`;
+  const arrow=(fill,extra='')=>`<svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="${fill}" stroke="${PREVIEW?'none':'#FFF2DE'}" ${extra}/></svg>`;
   const used=new Set(ROUTES.map(r=>r.cname));
   $('key').innerHTML=`<h2>Map key</h2>`+
     (used.has('Red')?`<div>${arrow('#B8352B')}Forced or persecution-driven movement</div>`:'')+
@@ -305,7 +305,7 @@ function ticks(){
 function setPlayUI(){$('playIco').setAttribute('d',playing?ICO_PAUSE:ICO_PLAY);$('playLbl').textContent=playing?'Pause':'Play';$('play').setAttribute('aria-pressed',String(playing));}
 function stopPlay(){if(!playing)return;playing=false;setPlayUI();}
 function startPlay(){
-  showStory();playing=true;setPlayUI();SEL=null;lastKey='';
+  showStory();playing=true;setPlayUI();SEL=null;lastKey='';dwellUntil=0;
   if(Y>=MAXY-1)setYear(MINY);else setYear(Y);
   lastT=performance.now();requestAnimationFrame(tick);
 }
@@ -321,10 +321,14 @@ function playRate(y){
   for(const [a,b] of GAPS){if(y>=a&&y<b){const L=b-a,need=L/(GAPSEC/speed);if(need<=base)return base;const u=(y-a)/L;return Math.max(base,need*(0.4+1.2*Math.sin(Math.PI*u)));}}
   return base;
 }
+let dwellUntil=0;const CARD_DWELL=2500;   // like the globe, Play holds still while a movement's card is read
 function tick(t){
   if(!playing)return;const dt=Math.min(.1,(t-lastT)/1000);lastT=t;
+  if(PREVIEW&&t<dwellUntil){requestAnimationFrame(tick);return;}
   if(auto){const v=followTarget();if(v){const k=1-Math.exp(-dt*1.8);V={lon:V.lon+(v.lon-V.lon)*k,lat:V.lat+(v.lat-V.lat)*k,degW:Math.exp(Math.log(V.degW)+(Math.log(v.degW)-Math.log(V.degW))*k)};clampView();}}
-  setYear(Y+dt*playRate(Y));
+  const y0=Y;setYear(Y+dt*playRate(Y));
+  if(PREVIEW){const hit=[...EVENTS.values()].filter(e=>e.routes.some(pass)&&e.start>y0&&e.start<=Y).sort((a,b)=>a.start-b.start).pop();
+    if(hit){SEL={ev:hit.key,id:null,auto:true};card();frame();draw();dwellUntil=t+CARD_DWELL;}}
   if(Y>=MAXY){playing=false;setPlayUI();return;}
   requestAnimationFrame(tick);
 }
