@@ -366,7 +366,7 @@ function initInteraction(){
   $('introExplore').addEventListener('click',()=>{dismissPrompt();$('arcSlider').focus();$('arcWrap').classList.add('attention');setTimeout(()=>$('arcWrap').classList.remove('attention'),2600);});
   $('reset').addEventListener('click',reset);
   $('prev').addEventListener('click',()=>step(-1));$('next').addEventListener('click',()=>step(1));
-  $('closeStory').addEventListener('click',closeStory);$('sourcesLink').addEventListener('click',openSources);$('sourcesClose').addEventListener('click',()=>{$('sourcesDlg').hidden=true;$('sourcesLink').focus();});
+  $('closeStory').addEventListener('click',closeStory);$('sourcesLink').addEventListener('click',openSources);if(/[?&]sources=1/.test(location.search))setTimeout(openSources,400);$('sourcesClose').addEventListener('click',()=>{$('sourcesDlg').hidden=true;$('sourcesLink').focus();});
   for(const b of document.querySelectorAll('[data-trails]'))b.addEventListener('click',()=>{trails=b.dataset.trails==='on';for(const o of document.querySelectorAll('[data-trails]'))o.setAttribute('aria-pressed',String(o===b));render();});
   $('keyBtn').addEventListener('click',()=>{const k=$('key');k.hidden=!k.hidden;$('keyBtn').setAttribute('aria-expanded',String(!k.hidden));});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('sourcesDlg').hidden){$('sourcesDlg').hidden=true;return;}if(!$('key').hidden){$('key').hidden=true;return;}if(promptOpen){dismissPrompt();return;}if(selected)closeStory();}});

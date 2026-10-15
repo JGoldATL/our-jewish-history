@@ -106,7 +106,9 @@ function intro(){
     <div class="tone" role="group" aria-label="Tone"><button type="button" class="seg" data-tone="default" aria-pressed="true">Default</button><button type="button" class="seg" data-tone="academic" aria-pressed="false">Academic</button></div>
     <div class="row"><button type="button" class="btn" id="startBtn">Start</button></div></div>`;
   tone='default';
-  document.querySelectorAll('.tone .seg').forEach(b=>b.onclick=()=>{
+  // v0.8.0 (F-085): the tone toggle is the shared glass pill when pill.js is on the page; the plain buttons above are the fallback.
+  if(window.OJJPill){const host=document.querySelector('.tone');const pl=OJJPill.create({label:'Tone',value:'default',items:[{label:'Default',value:'default',style:'flex:1'},{label:'Academic',value:'academic',style:'flex:1'}],onSelect:it=>{tone=it.value;pl.setValue(it.value);}});pl.el.style.width='220px';host.replaceWith(pl.el);}
+  else document.querySelectorAll('.tone .seg').forEach(b=>b.onclick=()=>{
     tone=b.dataset.tone;
     document.querySelectorAll('.tone .seg').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
   });
