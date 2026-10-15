@@ -1,10 +1,10 @@
-/* F-085 subnav, Layout 3 (CEO chose it 2026-10-15). Only with the glass nav (?nav=glass).
+/* F-085 subnav, Layout 3 (CEO chose it 2026-10-15). On by default; ?nav=old turns it off.
    A slim glass rail floats over the map's left edge: Map key, routes (This moment / With past routes), Reset (map position only).
    It reuses the page's own controls (the original Map key button and the hidden routes buttons), so nothing in the maps changes.
    On Movements the era pill stays above the time slider and replaces the tick labels; the rail takes no layout height. */
 (function(){
-  var m=/[?&]nav=(glass|old)\b/.exec(location.search),GLASS=false;
-  try{if(m)sessionStorage.setItem('ojj-nav',m[1]);GLASS=sessionStorage.getItem('ojj-nav')==='glass';}catch(e){GLASS=!!m&&m[1]==='glass';}
+  var m=/[?&]nav=(glass|old)\b/.exec(location.search),GLASS=true;
+  try{if(m)sessionStorage.setItem('ojj-nav',m[1]);GLASS=sessionStorage.getItem('ojj-nav')!=='old';}catch(e){GLASS=!(m&&m[1]==='old');}
   if(!GLASS||!window.OJJPill)return;
   var root=document.documentElement;root.classList.add('sub-glass');
   var G='linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.06))',SH='inset 0 1px 0 rgba(255,255,255,.28),0 8px 24px rgba(0,0,0,.35)';

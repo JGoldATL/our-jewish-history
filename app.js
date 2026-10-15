@@ -6,7 +6,7 @@ const APP_VERSION=window.SITE_VERSION||'0.6.1';   // set in version.js
 const $=id=>document.getElementById(id);
 const NS='http://www.w3.org/2000/svg';
 let DATA=null,INDEX=null,GEO=null,SHEETPL=new Map();
-const PREVIEW=(()=>{try{const m=/[?&]nav=(glass|old)\b/.exec(location.search);if(m)sessionStorage.setItem('ojj-nav',m[1]);return sessionStorage.getItem('ojj-nav')==='glass';}catch(e){return /[?&]nav=glass\b/.test(location.search);}})();   // v0.8.0 preview flag (same as nav.js): new Key, contested rule and nav show only with ?nav=glass until the CEO says push
+const PREVIEW=(()=>{try{const m=/[?&]nav=(glass|old)\b/.exec(location.search);if(m)sessionStorage.setItem('ojj-nav',m[1]);return sessionStorage.getItem('ojj-nav')!=='old';}catch(e){return !/[?&]nav=old\b/.test(location.search);}})();   // v0.8.0 preview flag (same as nav.js): new Key, contested rule and nav show only with ?nav=glass until the CEO says push
 const D2R=Math.PI/180;
 const svgToLonLat=([x,y])=>[x/15-15,58-y*53/650];
 

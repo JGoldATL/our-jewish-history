@@ -5,7 +5,7 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
 (async()=>{const b=await chromium.launch({args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']});
 for(const [name,vp,min] of [['desktop',{width:1440,height:900},44],['ipad',{width:820,height:1180},44],['iphone',{width:390,height:844},38],['iphone SE',{width:320,height:568},38]]){
   const p=await (await b.newContext({viewport:vp,deviceScaleFactor:name.startsWith('iphone')?2:1})).newPage();const errs=[];p.on('pageerror',e=>errs.push(String(e)));
-  await p.goto('http://localhost:8778/');await p.waitForTimeout(2200);await p.evaluate(()=>dismissPrompt());await p.waitForTimeout(300);
+  await p.goto('http://localhost:8778/?nav=old');await p.waitForTimeout(2200);await p.evaluate(()=>dismissPrompt());await p.waitForTimeout(300);
   const r=await p.evaluate(()=>{const a=document.getElementById('quizLink'),q=a.getBoundingClientRect();
     const others=[...document.querySelectorAll('.tools > *')].filter(x=>x!==a&&x.getBoundingClientRect().width>0).map(x=>x.getBoundingClientRect());
     const overlap=others.some(o=>!(q.right<=o.left+.5||q.left>=o.right-.5||q.bottom<=o.top+.5||q.top>=o.bottom-.5));

@@ -27,7 +27,7 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 
 let DATA=null,PL=new Map(),CARDS=new Map(),ERAS=HEAD,DETAIL=[],ROUTES=[],EVENTS=new Map(),MINY=0,MAXY=1;
 let W=0,H=0,V={lon:20,lat:38,degW:100},HOME=null;
-const PREVIEW=(()=>{try{const x=/[?&]nav=(glass|old)\b/.exec(location.search);if(x)sessionStorage.setItem('ojj-nav',x[1]);return sessionStorage.getItem('ojj-nav')==='glass';}catch(e){return /[?&]nav=glass\b/.test(location.search);}})();   // v0.8.0 preview flag, see app.js
+const PREVIEW=(()=>{try{const x=/[?&]nav=(glass|old)\b/.exec(location.search);if(x)sessionStorage.setItem('ojj-nav',x[1]);return sessionStorage.getItem('ojj-nav')!=='old';}catch(e){return !/[?&]nav=old\b/.test(location.search);}})();   // v0.8.0 preview flag, see app.js
 let Y=0,playing=false,speed=1,lastT=0,auto=true,lastKey='';
 const F={era:null,cause:null,trails:false};   // Group, From and To filters are suppressed for now (roadmap F-088)
 let EVSYM=new Map();

@@ -2,7 +2,7 @@
 // Run: NODE_PATH=$(npm root -g) node tests/arrows.js   (server on :8778)
 const {chromium}=require('playwright');
 (async()=>{const b=await chromium.launch({args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']});const p=await (await b.newContext({viewport:{width:1440,height:900}})).newPage();const errs=[];p.on('pageerror',e=>errs.push(String(e)));
-await p.goto('http://localhost:8778/');await p.waitForTimeout(2500);await p.evaluate(()=>dismissPrompt());
+await p.goto('http://localhost:8778/?nav=old');await p.waitForTimeout(2500);await p.evaluate(()=>dismissPrompt());
 const r=await p.evaluate(()=>{
   const S=DATA.sheet.movements,eng=DATA.movements.filter(m=>!m.sheetArrow),sa=DATA.movements.filter(m=>m.sheetArrow);
   const covered=new Set(eng.map(m=>DATA.cardLinks?.[m.id]).filter(Boolean));

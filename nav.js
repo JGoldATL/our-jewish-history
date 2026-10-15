@@ -7,9 +7,9 @@
     {label:'Strategy',href:'strategy.html'}
   ];
   if(!PAGES.length)return;
-  /* v0.8.0 (F-085): the glass sliding-pill navigation. Off unless the address carries ?nav=glass (remembered for this tab; ?nav=old turns it off).
+  /* v0.8.0 (F-085): the glass sliding-pill navigation. On for everyone from 0.8.3; ?nav=old turns it off (remembered for this tab).
      Until the CEO says "push it" for the cut-over, visitors see the old nav. */
-  var GLASS=(function(){var m=/[?&]nav=(glass|old)\b/.exec(location.search);try{if(m)sessionStorage.setItem('ojj-nav',m[1]);return sessionStorage.getItem('ojj-nav')==='glass';}catch(e){return !!m&&m[1]==='glass';}})();
+  var GLASS=(function(){var m=/[?&]nav=(glass|old)\b/.exec(location.search);try{if(m)sessionStorage.setItem('ojj-nav',m[1]);return sessionStorage.getItem('ojj-nav')!=='old';}catch(e){return !(m&&m[1]==='old');}})();
   if(GLASS)PAGES=[{label:'Roadmap',href:'roadmap.html'},{label:'Strategy',href:'strategy.html'},{label:'Feedback',href:'feedback.html'},{label:'Sources',href:'events.html?sources=1',sources:true}];
   function stamp(){if(document.getElementById('version')||document.getElementById('siteVer'))return;var v=document.createElement('div');v.id='siteVer';v.textContent='v'+(window.SITE_VERSION||'');v.style.cssText='position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));font:11.5px system-ui,sans-serif;color:#A9B4B8;opacity:.8;pointer-events:none;z-index:20';document.body.appendChild(v);}
   function loadPill(cb){if(window.OJJPill){cb();return;}var me=document.querySelector('script[src*="nav.js"]'),src=me?me.getAttribute('src').replace(/nav\.js.*$/,'pill.js'):'pill.js';
@@ -38,7 +38,7 @@
   btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-controls','siteNavMenu');
   btn.innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 3h10M1 6h10M1 9h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>More';
   var menu=document.createElement('nav');menu.className='sn-menu';menu.id='siteNavMenu';menu.hidden=true;menu.setAttribute('aria-label','More pages');
-  PAGES.forEach(function(p){var a=document.createElement('a');a.href=GLASS&&!p.sources?p.href+'?nav=glass':p.href;if(p.sources)a.setAttribute('data-sources','1');a.textContent=p.label;a.setAttribute('data-nav',p.label);if(p.href===here)a.setAttribute('aria-current','page');menu.appendChild(a);});
+  PAGES.forEach(function(p){var a=document.createElement('a');a.href=p.href;if(p.sources)a.setAttribute('data-sources','1');a.textContent=p.label;a.setAttribute('data-nav',p.label);if(p.href===here)a.setAttribute('aria-current','page');menu.appendChild(a);});
   /* F-081: admin only. With an admin token in this tab, show new/total next to Feedback and Roadmap. Visitors have no token, so nothing is fetched or shown. */
   function ss(k){try{return sessionStorage.getItem(k)||'';}catch(e){return '';}}
   function badge(label,n,t){var a=menu.querySelector('[data-nav="'+label+'"]');if(!a)return;var b=a.querySelector('.sn-bad');if(!b){b=document.createElement('span');b.className='sn-bad';a.appendChild(b);}
@@ -73,7 +73,7 @@
     var P=window.OJJPill;if(!P)return;var root=document.documentElement;root.classList.add('nav-glass');
     var s=document.createElement('style');s.textContent=CSS_G;document.head.appendChild(s);
     var cur=({'events.html':'events','index.html':null,'':null,'movements.html':'movements','quiz.html':'quiz','roadmap.html':'roadmap','strategy.html':'strategy','feedback.html':'feedback'})[here];
-    function go(it){if(it.value===cur){if(cur==='quiz')location.reload();return;}location.href=it.href+(/\?/.test(it.href)?'&':'?')+'nav=glass';}
+    function go(it){if(it.value===cur){if(cur==='quiz')location.reload();return;}location.href=it.href;}
     var main=[{label:'Events',value:'events',href:'events.html'},{label:'Movements',value:'movements',href:'movements.html'},{label:'Quiz',value:'quiz',href:'quiz.html'},{label:'JewHate',value:'jewhate',soon:true}];
     var bar=document.createElement('div');bar.className='gn';bar.id='gnBar';
     var pMain=P.create({label:'Pages',items:main,value:main.some(function(m){return m.value===cur;})?cur:null,always:true,onSelect:go});
