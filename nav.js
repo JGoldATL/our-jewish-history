@@ -57,37 +57,32 @@
   var CSS_G=
   '.gn{position:sticky;top:0;z-index:45;display:flex;justify-content:center;align-items:flex-start;padding:10px 16px 0;padding-top:max(10px,env(safe-area-inset-top));min-height:54px;pointer-events:none;transition:transform .3s ease}'+
   '.gn>*{pointer-events:auto}.gn.tuck{transform:translateY(-140%)}'+
-  '.gn-full{display:none;width:min(100%,360px)}'+
-  '.gn-more{position:absolute;right:max(16px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top))}'+
-  '.gn-menu{position:absolute;right:0;top:calc(100% + 8px);min-width:170px;padding:6px;border-radius:16px;display:grid;gap:2px;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.07)),rgba(18,27,46,.9);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 14px 36px rgba(0,0,0,.5);transition:opacity .35s ease}'+
-  '.gn-menu[hidden]{display:none}'+
-  '.gn-menu a{display:flex;align-items:center;min-height:40px;padding:0 12px;border-radius:12px;color:#EEF2F8;font:600 14px system-ui,sans-serif;text-decoration:none;text-shadow:0 1px 3px rgba(0,0,0,.35)}'+
-  '.gn-menu a:hover{background:rgba(255,255,255,.1)}.gn-menu a[aria-current="page"]{color:#F0BA62}'+
-  '.gn-menu a:focus-visible{outline:2px solid #F0BA62;outline-offset:-2px}'+
-  'html.nav-glass #quizLink,html.nav-glass #moveLink,html.nav-glass #globeLink,html.nav-glass #backGlobe,html.nav-glass .sn{display:none!important}'+
-  '@media (min-width:901px){html.nav-glass #stage{height:calc(100svh - 164px)}}'+
-  '@media (max-width:700px){.gn-short,.gn-more{display:none}.gn-full{display:block}}';
+  /* the bottom-left More (hamburger) is the original control, in glass */
+  'html.nav-glass .sn-btn{background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 8px 24px rgba(0,0,0,.35);font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.35);transition:opacity .35s ease}'+
+  'html.nav-glass .sn-btn:hover{background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,.09))}'+
+  'html.nav-glass .sn-menu{background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.07)),rgba(18,27,46,.92);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 14px 36px rgba(0,0,0,.5)}'+
+  'html.nav-glass .sn-menu a{font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.35)}'+
+  'html.nav-glass .sn-menu a[aria-current="page"]{color:#F0BA62}'+
+  'html.gp-moving .sn-btn{opacity:.25}'+
+  '@media (prefers-reduced-transparency:reduce){html.nav-glass .sn-btn,html.nav-glass .sn-menu{background:rgba(18,27,46,.96)}}'+
+  'html.nav-glass #quizLink,html.nav-glass #moveLink,html.nav-glass #globeLink,html.nav-glass #backGlobe{display:none!important}'+
+  /* the quiz footer keeps a stray separator when its Movements link is hidden */
+  'html.nav-glass .foot #moveLink{display:none!important}html.nav-glass #backLink::after{content:none}'+
+  '@media (min-width:901px){html.nav-glass #stage{height:calc(100svh - 164px)}}';
   function glassMount(){
     var P=window.OJJPill;if(!P)return;var root=document.documentElement;root.classList.add('nav-glass');
     var s=document.createElement('style');s.textContent=CSS_G;document.head.appendChild(s);
     var cur=({'index.html':'globe','':'globe','movements.html':'movements','quiz.html':'quiz','roadmap.html':'roadmap','strategy.html':'strategy','feedback.html':'feedback'})[here];
-    function go(it){if(it.sources){var sl=document.getElementById('sourcesLink');if(sl){sl.click();return;}}location.href=it.href+(/\?/.test(it.href)?'&':'?')+'nav=glass';}
+    function go(it){if(it.value===cur){if(cur==='quiz')location.reload();return;}location.href=it.href+(/\?/.test(it.href)?'&':'?')+'nav=glass';}
     var main=[{label:'Globe',value:'globe',href:'index.html'},{label:'Movements',value:'movements',href:'movements.html'},{label:'Quiz',value:'quiz',href:'quiz.html'},{label:'JewHate',value:'jewhate',soon:true}];
-    var more=[{label:'Roadmap',value:'roadmap',href:'roadmap.html'},{label:'Strategy',value:'strategy',href:'strategy.html'},{label:'Feedback',value:'feedback',href:'feedback.html'},{label:'Sources',value:'sources',href:'index.html?sources=1',sources:true}];
     var bar=document.createElement('div');bar.className='gn';bar.id='gnBar';
-    var short=document.createElement('div');short.className='gn-short';
-    var pShort=P.create({label:'Pages',items:main,value:main.some(function(m){return m.value===cur;})?cur:null,onSelect:go});short.appendChild(pShort.el);
-    var full=document.createElement('div');full.className='gn-full';
-    var pFull=P.create({label:'Pages',items:main.concat(more),value:cur||null,scroll:true,nextLabel:'More pages',onSelect:go});full.appendChild(pFull.el);
-    var mw=document.createElement('div');mw.className='gn-more';
-    var onMore=cur==='roadmap'||cur==='strategy'||cur==='feedback';
-    var pMore=P.create({label:'More pages',items:[{label:'More \u25BE',value:'more'}],value:onMore?'more':null,always:true,onSelect:function(){menu.hidden=!menu.hidden;}});
-    mw.appendChild(pMore.el);menu.className='gn-menu';menu.hidden=true;menu.id='siteNavMenu';mw.appendChild(menu);
-    menu.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-sources]');if(a){var sl=document.getElementById('sourcesLink');if(sl){e.preventDefault();menu.hidden=true;sl.click();}}});
-    document.addEventListener('click',function(e){if(!mw.contains(e.target))menu.hidden=true;});
-    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!menu.hidden){menu.hidden=true;}});
-    bar.appendChild(short);bar.appendChild(full);bar.appendChild(mw);document.body.insertBefore(bar,document.body.firstChild);
-    pShort.refresh();pFull.refresh();pMore.refresh();
+    var pMain=P.create({label:'Pages',items:main,value:main.some(function(m){return m.value===cur;})?cur:null,always:true,onSelect:go});
+    bar.appendChild(pMain.el);document.body.insertBefore(bar,document.body.firstChild);pMain.refresh();
+    // More (hamburger, bottom left) is the original control; the Sources entry opens the Sources dialog on the globe
+    menu.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-sources]');if(a){var sl=document.getElementById('sourcesLink');if(sl){e.preventDefault();set(false);sl.click();}}});
+    var foot=document.querySelector('footer.foot');
+    if(foot){foot.insertBefore(box,foot.firstChild);}else{box.classList.add('fixed');document.body.appendChild(box);document.body.style.paddingBottom='56px';}
+    var bl=document.getElementById('backLink');if(bl&&bl.nextSibling&&bl.nextSibling.nodeType===3)bl.nextSibling.textContent='';   // quiz footer: drop the separator left by the hidden Movements link
     P.fadeOn(document.getElementById('stage'));
     // pages that scroll: the pill tucks away on scroll down and returns on scroll up
     var last=window.scrollY||0;window.addEventListener('scroll',function(){var y=window.scrollY||0;if(y>last+6&&y>60)bar.classList.add('tuck');else if(y<last-6||y<=60)bar.classList.remove('tuck');last=y;},{passive:true});

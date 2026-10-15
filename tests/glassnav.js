@@ -14,17 +14,15 @@ for(const [sn,vp] of Object.entries(sizes)){
     p=await ctx.newPage();p.on('pageerror',e=>errs.push(pg+' '+e.message));
     await p.goto(BASE+pg+'?nav=glass');await p.waitForTimeout(pg==='quiz.html'||pg.startsWith('index')||pg.startsWith('movements')?2200:900);
     const r=await p.evaluate(()=>{const vis=e=>{if(!e)return false;const r=e.getBoundingClientRect(),s=getComputedStyle(e.closest('.gn-short,.gn-full,.gn-more')||e);return r.width>0&&s.display!=='none';};
-      const pills=[...document.querySelectorAll('.gn .gp')].filter(vis);const sel=pills.map(x=>[...x.querySelectorAll('.gp-btn[aria-pressed="true"]')].map(b=>b.textContent));
+      const pills=[...document.querySelectorAll('.gn .gp')].filter(vis);const sn=document.querySelector('.sn'),snr=sn&&sn.getBoundingClientRect();const sel=pills.map(x=>[...x.querySelectorAll('.gp-btn[aria-pressed="true"]')].map(b=>b.textContent));
       const th=pills.map(x=>{const t=x.querySelector('.gp-thumb'),on=x.querySelector('.gp-btn[aria-pressed="true"]');return on?Math.abs(t.offsetLeft-on.offsetLeft)<2&&Math.abs(t.offsetWidth-on.offsetWidth)<2:null;});
       const over=pills.map(x=>x.classList.contains('over'));const dots=[...document.querySelectorAll('.gn .gp-dots')].filter(vis).length;
-      return {n:pills.length,sel,th,over,dots,old:!!document.querySelector('.sn')&&getComputedStyle(document.querySelector('.sn')).display!=='none',hs:document.documentElement.scrollWidth>innerWidth+1};});
-    ok(r.n===(sn==='phone'?1:2),`${sn} ${pg}: ${r.n} pill(s) visible`);
+      return {more:!!sn&&getComputedStyle(sn).display!=='none'&&snr.left<80&&snr.top>innerHeight/2&&/More/.test(sn.textContent),n:pills.length,sel,th,over,dots,old:!!document.querySelector('.sn')&&getComputedStyle(document.querySelector('.sn')).display!=='none',hs:document.documentElement.scrollWidth>innerWidth+1};});
+    ok(r.n===1,`${sn} ${pg}: one page pill`);ok(r.more,`${sn} ${pg}: More (hamburger) sits bottom left`);
     ok(r.th.every(x=>x!==false),`${sn} ${pg}: thumb sits under the selected item`);
-    if(cur&&sn!=='phone')ok(JSON.stringify(r.sel[0])===JSON.stringify([cur]),`${sn} ${pg}: "${cur}" is on`);
-    if(cur&&sn==='phone')ok(JSON.stringify(r.sel[0])===JSON.stringify([cur]),`${sn} ${pg}: "${cur}" is on (single pill)`);
-    ok(!r.old&&!r.hs,`${sn} ${pg}: old More hidden, no sideways scroll`);
-    if(sn==='phone')ok(r.over[0]===true&&r.dots===1,`${sn} ${pg}: overflow arrow and dots appear`);
-    if(sn!=='phone')ok(r.over.every(x=>!x)&&r.dots===0,`${sn} ${pg}: everything fits, no arrow or dots`);
+    if(cur)ok(JSON.stringify(r.sel[0])===JSON.stringify([cur]),`${sn} ${pg}: "${cur}" is on`);
+    ok(!r.hs,`${sn} ${pg}: no sideways scroll`);
+    ok(r.over.every(x=>!x)&&r.dots===0,`${sn} ${pg}: four pages fit, no arrow or dots`);
     if(pg==='index.html'||pg==='roadmap.html')await p.screenshot({path:`${OUT}/gn_${sn}_${pg.replace('.html','')}.png`});
     if(sn==='desktop'&&pg==='index.html'){
       // fade on map drag; none on pill tap
@@ -33,18 +31,18 @@ for(const [sn,vp] of Object.entries(sizes)){
       const f2=await p.evaluate(()=>+getComputedStyle(document.querySelector('.gn .gp')).opacity);await p.mouse.up();await p.waitForTimeout(900);
       const f3=await p.evaluate(()=>+getComputedStyle(document.querySelector('.gn .gp')).opacity);
       ok(f2<.3&&f3>.95,`fades to 25% while dragging the map (${f2.toFixed(2)}) and returns after release (${f3.toFixed(2)})`);
-      const bx=await p.evaluate(()=>{const r=document.querySelector('.gn-short .gp-btn:nth-child(3)').getBoundingClientRect();return [r.x+r.width/2,r.y+r.height/2]});
+      const bx=await p.evaluate(()=>{const r=document.querySelector('.gn .gp-btn:nth-child(3)').getBoundingClientRect();return [r.x+r.width/2,r.y+r.height/2]});
       await p.mouse.move(bx[0],bx[1]);await p.mouse.down();await p.waitForTimeout(450);
       const g=await p.evaluate(()=>+getComputedStyle(document.querySelector('.gn .gp')).opacity);
       await p.mouse.move(bx[0],bx[1]-120);await p.mouse.up();ok(g>.95,'pressing a pill does not fade it');
       // More menu
       await p.waitForTimeout(1200);
-      await p.evaluate(()=>document.querySelector('.gn-more .gp-btn').click());
-      const mv=await p.evaluate(()=>[...document.querySelectorAll('#siteNavMenu a')].map(a=>a.textContent.replace(/\d+\/\d+$/,'')));
+      await p.evaluate(()=>document.querySelector('.sn-btn').click());
+      const mv=await p.evaluate(()=>[...document.querySelectorAll('.sn-menu a')].map(a=>a.textContent.replace(/\d+\/\d+$/,'')));
       ok(JSON.stringify(mv)===JSON.stringify(['Roadmap','Strategy','Feedback','Sources']),'More holds Roadmap, Strategy, Feedback, Sources');
       await p.screenshot({path:`${OUT}/gn_desktop_more.png`});
       // Sources opens the dialog from the More menu
-      await p.evaluate(()=>document.querySelector('#siteNavMenu a[data-sources]').click());await p.waitForTimeout(300);
+      await p.evaluate(()=>document.querySelector('.sn-menu a[data-sources]').click());await p.waitForTimeout(300);
       ok(await p.evaluate(()=>!document.getElementById('sourcesDlg').hidden),'Sources in More opens the Sources dialog');
     }
     await p.close();}
