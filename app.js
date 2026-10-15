@@ -217,7 +217,7 @@ function render(){
     const g=el('g',{class:'route',opacity:op.toFixed(3),tabindex:0,role:'button','aria-label':m.title},layers.route);
     if(traditional){el('path',{d,class:'routeTrad'},g);}
     else{const [c1,c2]=COLORS[fm.color]||COLORS['#6d6256'];const gid='rg-'+m.id;const lg=el('linearGradient',{id:gid,class:'dyn',x1:0,y1:0,x2:0,y2:1},defs);el('stop',{offset:0,'stop-color':c1},lg);el('stop',{offset:1,'stop-color':c2},lg);
-      el('path',{d,class:'routeShadow',transform:`translate(${2*scale} ${3.5*scale})`},g);el('path',{d,fill:`url(#${gid})`,class:'routeBody'+(m.contested?' contested':'')},g);}
+      el('path',{d,class:'routeShadow',transform:`translate(${2*scale} ${3.5*scale})`},g);el('path',{d,fill:`url(#${gid})`,class:'routeBody'},g);}
     if(sameCard(selected?.record,m)||isCardOf(m))g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(m,'movement');});g.addEventListener('keydown',e=>{if(e.key==='Enter'){openStory(m,'movement');}});}
   // historical events (e.g. Lachish)
   for(const fe of frame.events){if(fe.opacity<=.02)continue;const e=DATA.historicalEvents.find(r=>r.id===fe.id);const pl=INDEX.places.get(e.place);const q=P(pl?.coordinates||e.rendering.position);if(!q.vis)continue;const g=el('g',{class:'event',transform:`translate(${q.x} ${q.y})`,opacity:fe.opacity.toFixed(2),tabindex:0,role:'button','aria-label':e.title},layers.mark);el('rect',{x:-5,y:-5,width:10,height:10,transform:'rotate(45)',class:'eventMark'},g);g.addEventListener('click',()=>{if(!dragMoved)openStory(e,'event');});if(e.rendering?.label)labels.push({text:e.rendering.label,x:q.x,y:q.y,side:'below',prio:0,record:e});}
@@ -398,9 +398,11 @@ function addSheetMovements(){
     const a=xy(pl.get(m.originPlaceId)),b=xy(pl.get(m.destinationPlaceId)),grp=sib.get((m.eventId||m.id)+'|'+m.originPlaceId),i=grp.indexOf(m.id);
     const bend=grp.length>1?(i-(grp.length-1)/2)*0.22:0.12,dx=b[0]-a[0],dy=b[1]-a[1];
     const control=[(a[0]+b[0])/2-dy*bend,(a[1]+b[1])/2+dx*bend];
-    const t=m.arrowTreatment||'',color=/^Red/.test(t)?'#a33b32':/^Blue/.test(t)?'#275d9b':'#6d6256';
+    // v0.8.0 (F-097, CEO 10/14): a contested route is drawn like any route in the colour of its cause (no dashed style, no Key entry); "Dotted (traditional)" keeps the Biblical/Traditional look.
+    const t=m.arrowTreatment||'',contestedT=/^Dotted.*contested/i.test(t),tradT=/^Dotted/i.test(t)&&!contestedT,causeRed=['expulsion','deportation','persecution-driven flight','persistent flight'].includes(m.character);
+    const color=/^Red/.test(t)||(contestedT&&causeRed)?'#a33b32':/^Blue/.test(t)||(contestedT&&m.character==='return/aliyah')?'#275d9b':'#6d6256';
     const o=pl.get(m.originPlaceId),d=pl.get(m.destinationPlaceId),end=m.endYear??m.startYear;
-    added.push({id:m.id,sheetArrow:true,contested:/^Dotted/i.test(t),color,title:`${o.historicalName||m.origin} to ${d.historicalName||m.destination}`,date:m.dateDisplay,dateRange:{start:m.startYear,end},origin:m.originPlaceId,destination:m.destinationPlaceId,originCoordinates:a,destinationCoordinates:b,rendering:{control},movementType:null,evidenceStatus:'',story:'',sourceIds:[]});
+    added.push({id:m.id,sheetArrow:true,contested:false,color,title:`${o.historicalName||m.origin} to ${d.historicalName||m.destination}`,date:m.dateDisplay,dateRange:{start:m.startYear,end},origin:m.originPlaceId,destination:m.destinationPlaceId,originCoordinates:a,destinationCoordinates:b,rendering:{control},movementType:null,evidenceStatus:tradT?'traditional account':'',story:'',sourceIds:[]});
     if(m.eventId&&S.cards.some(c=>c.id===m.eventId)){DATA.cardLinks=DATA.cardLinks||{};DATA.cardLinks[m.id]=m.eventId;}
   }
   DATA.movements=DATA.movements.concat(added);

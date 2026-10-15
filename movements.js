@@ -29,6 +29,7 @@ let DATA=null,PL=new Map(),CARDS=new Map(),ERAS=HEAD,DETAIL=[],ROUTES=[],EVENTS=
 let W=0,H=0,V={lon:20,lat:38,degW:100},HOME=null;
 let Y=0,playing=false,speed=1,lastT=0,auto=true,lastKey='';
 const F={era:null,cause:null,trails:false};   // Group, From and To filters are suppressed for now (roadmap F-088)
+let EVSYM=new Map();
 let SEL=null;                               // {ev:eventKey, id:routeId|null, parent:parentId|null}
 let anim=null,raf=0,drag=null,moved=false,followT=0;
 const phone=()=>matchMedia('(max-width:620px) and (orientation:portrait)').matches;
@@ -43,6 +44,7 @@ function headlineEras(rows){
 }
 function build(){
   const S=DATA.sheet;PL=new Map(S.places.map(p=>[p.id,p]));CARDS=new Map(S.cards.map(c=>[c.id,c]));
+  EVSYM=new Map((S.events||[]).filter(e=>e.mapSymbol&&SYM_SVG[e.mapSymbol.kind]&&(e.mapSymbol.status==='locked'||DRAFTS)).map(e=>[e.id,e.mapSymbol.kind]));   // F-082: events that have a map symbol
   DETAIL=(S.eras||[]).slice().sort((a,b)=>a.startYear-b.startYear);
   ERAS=headlineEras(S.eras);
   const eraOf=y=>{let e=null;for(const x of ERAS)if(x.startYear<=y)e=x;return e?e.era:null;};
@@ -51,9 +53,12 @@ function build(){
   const have=new Set(rows.map(m=>m.id));
   rows=rows.filter(m=>m.id!=='MOV-055'||['MOV-052','MOV-053','MOV-054'].every(x=>have.has(x)));   // branch rule from the Dataset chat
   const sib=new Map();
-  ROUTES=rows.map(m=>{const t=m.arrowTreatment||'',c=/^Red/.test(t)?'Red':/^Blue/.test(t)?'Blue':'Charcoal';
+  // v0.8.0 (F-097, CEO 10/14): a contested route has no separate line style and no Key entry; it is drawn like any route, in the colour of its cause.
+  // Only a "Dotted (traditional)" route keeps the dotted Biblical/Traditional look.
+  const CAUSE_COLOUR=ch=>['expulsion','deportation','persecution-driven flight','persistent flight'].includes(ch)?'Red':ch==='return/aliyah'?'Blue':'Charcoal';
+  ROUTES=rows.map(m=>{const t=m.arrowTreatment||'',contested=/^Dotted.*contested/i.test(t),c=/^Red/.test(t)?'Red':/^Blue/.test(t)?'Blue':contested?CAUSE_COLOUR(m.character):'Charcoal';
     return {id:m.id,ev:m.eventId||m.id,m,a:PL.get(m.originPlaceId),b:PL.get(m.destinationPlaceId),start:m.startYear,end:m.endYear??m.startYear,
-      color:COLORS[c],cname:c,dotted:/^Dotted/i.test(t),cause:CAUSE_OF[m.character]||'',era:eraOf(m.startYear)};});
+      color:COLORS[c],cname:c,dotted:/^Dotted/i.test(t)&&!contested,cause:CAUSE_OF[m.character]||'',era:eraOf(m.startYear)};});
   for(const r of ROUTES){const k=r.ev+'|'+r.m.originPlaceId;(sib.get(k)||sib.set(k,[]).get(k)).push(r);}
   for(const g of sib.values())g.forEach((r,i)=>{r.bend=g.length>1?(i-(g.length-1)/2)*0.22:0.12;});
   EVENTS=new Map();
@@ -202,7 +207,7 @@ function card(){
   const cause=e.routes[0].cause;
   let html=`<button type="button" id="closeStory" aria-label="Close story">&times;</button>`;
   if(deep&&n>1)html+=`<button type="button" class="back blk" id="cardBack">&larr; All ${n} routes</button>`;
-  html+=`<div class="kicker">${esc(cause||'Movement')}</div><div class="sdate">${esc(yearLabel(e.start))}</div><h2 class="blk">${esc(bare(e.title))}</h2>`;
+  const ik=EVSYM.get(e.key);html+=`<div class="kicker">${esc(cause||'Movement')}${ik?`<span class="kicon" role="img" aria-label="${esc(SYM_LABEL[ik])}" title="${esc(SYM_LABEL[ik])}">${SYM_SVG[ik].replace(/width="30" height="30"/,'width="22" height="22"')}</span>`:''}</div><div class="sdate">${esc(yearLabel(e.start))}</div><h2 class="blk">${esc(bare(e.title))}</h2>`;
   if(!deep){
     html+=e.card?`<p id="storyText" class="blk">${esc(bare(e.card.description))}</p>`:`<p id="storyText" class="blk">Route detail coming.</p>`;
   }else{
@@ -251,14 +256,19 @@ document.addEventListener('click',e=>{if(menuEl&&!menuEl.contains(e.target))clos
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();setKey(false);}});
 
 /* ---------- map key ---------- */
+const SYM_LABEL={octagon:'Massacred community',blackSquare:'Community no longer exists',purpleDiamond:'Forced conversion, other or unknown faith',splitDiamond:'Forced conversion to Christianity'};
+const SYM_SVG={octagon:"<svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\"><path d=\"M15.71,6.51 L6.51,15.71 L-6.51,15.71 L-15.71,6.51 L-15.71,-6.51 L-6.51,-15.71 L6.51,-15.71 L15.71,-6.51 Z\" fill=\"#8C2A24\" stroke=\"#1B2328\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/><path d=\"M0,-10.4 L9.01,5.2 L-9.01,5.2 Z M0,10.4 L-9.01,-5.2 L9.01,-5.2 Z\" fill=\"none\" stroke=\"#FFF3DC\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>",blackSquare:"<svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\"><path d=\"M-13,-13 H13 V13 H-13 Z\" fill=\"#20272B\" stroke=\"#1B2328\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/><path d=\"M0,-10.4 L9.01,5.2 L-9.01,5.2 Z M0,10.4 L-9.01,-5.2 L9.01,-5.2 Z\" fill=\"none\" stroke=\"#FFF3DC\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>",purpleDiamond:"<svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\"><path d=\"M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z\" fill=\"#5A3B7A\" stroke=\"#1B2328\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/><path d=\"M0,-8.4 L7.27,4.2 L-7.27,4.2 Z M0,8.4 L-7.27,-4.2 L7.27,-4.2 Z\" fill=\"none\" stroke=\"#FFF3DC\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg>",splitDiamond:"<svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\"><defs><clipPath id=\"kL\"><rect x=\"-20\" y=\"-20\" width=\"20\" height=\"40\"/></clipPath><clipPath id=\"kR\"><rect x=\"0\" y=\"-20\" width=\"20\" height=\"40\"/></clipPath></defs><path d=\"M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z\" fill=\"#5A3B7A\" clip-path=\"url(#kL)\"/><path d=\"M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z\" fill=\"#FFF3DC\" clip-path=\"url(#kR)\"/><path d=\"M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z\" fill=\"none\" stroke=\"#1B2328\" stroke-width=\"1.2\" stroke-linejoin=\"round\"/><path d=\"M0,-10.6 L9.18,5.3 L-9.18,5.3 Z M0,10.6 L-9.18,-5.3 L9.18,-5.3 Z\" fill=\"none\" stroke=\"#FFF3DC\" stroke-width=\"1.6\" stroke-linejoin=\"round\" clip-path=\"url(#kL)\"/><path d=\"M1,-10.6 V10.6 M1,-3.6 H9.2\" fill=\"none\" stroke=\"#5A3B7A\" stroke-width=\"1.8\" stroke-linecap=\"square\"/></svg>"};
 function buildKey(){
   const arrow=(fill,extra='')=>`<svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="${fill}" stroke="#FFF2DE" ${extra}/></svg>`;
   const used=new Set(ROUTES.map(r=>r.cname));
+  // v0.8.0 (F-097, CEO 10/14): route labels in this order, then the symbols that appear on this page's cards. Jewish population shading is not drawn on this page, so it is not listed here.
+  const syms=['octagon','blackSquare','purpleDiamond','splitDiamond'].filter(k=>[...EVSYM].some(([id,kind])=>kind===k&&EVENTS.has(id)));
   $('key').innerHTML=`<h2>Map key</h2>`+
-    (used.has('Red')?`<div>${arrow('#B8352B')}Forced or persecution-driven movement</div>`:'')+
-    (used.has('Blue')?`<div>${arrow('#2D6CB8')}Movement toward the Land of Israel</div>`:'')+
-    (used.has('Charcoal')?`<div>${arrow('#41464A')}Other documented movement</div>`:'')+
-    (ROUTES.some(r=>r.dotted)?`<div><svg width="44" height="18" aria-hidden="true"><path d="M3,13 Q22,2 41,10" fill="none" stroke="#EFE6D3" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="1 7"/></svg>Contested route (the sources disagree on the path)</div>`:'')+
+    (used.has('Blue')?`<div>${arrow('#2D6CB8')}Return to the Land</div>`:'')+
+    (used.has('Red')?`<div>${arrow('#B8352B')}Forced expulsion</div>`:'')+
+    (used.has('Charcoal')?`<div>${arrow('#41464A')}Voluntary migration</div>`:'')+
+    (ROUTES.some(r=>r.dotted)?`<div><svg width="44" height="18" aria-hidden="true"><path d="M3,13 Q22,2 41,10" fill="none" stroke="#EFE6D3" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="1 7"/></svg>Biblical/Traditional Account</div>`:'')+
+    syms.map(k=>`<div>${SYM_SVG[k]}${SYM_LABEL[k]}</div>`).join('')+
     `<div style="color:var(--muted)">Tap an arrow to read that journey.</div>`;
 }
 function setKey(open){const k=$('key'),b=$('keyBtn');k.hidden=!open;b.setAttribute('aria-expanded',String(open));}
