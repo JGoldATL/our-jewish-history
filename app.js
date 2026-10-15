@@ -88,6 +88,24 @@ function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const
 function parseFootprint(d){const n=d.replace(/[MCZ]/g,' $& ').trim().split(/[\s,]+/);let i=0,cur=null,start=null;const pts=[];
   while(i<n.length){const t=n[i++];if(t==='M'){cur=[+n[i++],+n[i++]];start=cur;pts.push(cur);}else if(t==='C'){while(i<n.length&&!/[MCZ]/.test(n[i])){const c1=[+n[i++],+n[i++]],c2=[+n[i++],+n[i++]],e=[+n[i++],+n[i++]];for(let s=1;s<=8;s++){const u=s/8,v=1-u;pts.push([v*v*v*cur[0]+3*v*v*u*c1[0]+3*v*u*u*c2[0]+u*u*u*e[0],v*v*v*cur[1]+3*v*v*u*c1[1]+3*v*u*u*c2[1]+u*u*u*e[1]]);}cur=e;}}else if(t==='Z'){}}
   return pts;}
+/* v0.8.0 (F-019): shading from the Sheet's population records (POP). Reads Concentration, Presence status and Footprint radius from the engine
+   fields, and Record status from the loader. LOCKED draws for everyone; LEANING draws only with ?drafts=1; a record with no status is never drawn.
+   Where one of the 10 hand-built engine footprints already covers a record's place, the Sheet record yields to it (no double shading).
+   ?engine=1 turns Sheet shading off. Open-ended records (no end year) run until a later record at the same place starts. */
+const SHEET_WASH_BASE={'very small':.30,'small':.45,'substantial':.70,'major':.95};
+let _swRing=new Map(),_swEnd=null,_swFp=new Map();
+function sheetRing(c){let r=_swRing.get(c.id);if(r)return r;const pp=SHEETPL.get(c.placeId),km=c.engine?.footprintRadiusKm;if(!Number.isFinite(pp?.lat)||!Number.isFinite(km)||km<=0){_swRing.set(c.id,null);return null;}
+  const cl=Math.max(.2,Math.cos(pp.lat*D2R));r={cx:(pp.lon+15)*15,cy:(58-pp.lat)*650/53,pts:[]};for(let k=0;k<36;k++){const t=k/36*Math.PI*2,lat=pp.lat+km/111*Math.cos(t),lon=pp.lon+km/(111*cl)*Math.sin(t);r.pts.push([(lon+15)*15,(58-lat)*650/53]);}_swRing.set(c.id,r);return r;}
+function sheetEnd(c){if(c.endYear!=null)return c.endYear;if(!_swEnd){_swEnd=new Map();for(const x of DATA.sheet.communities)if(x.family==='POP'){const l=_swEnd.get(x.placeId)||[];l.push(x.startYear);_swEnd.set(x.placeId,l);}for(const l of _swEnd.values())l.sort((a,b)=>a-b);}
+  const later=(_swEnd.get(c.placeId)||[]).find(s=>s>c.startYear);return later==null?null:later;}
+function inPoly(pts,x,y){let ins=false;for(let i=0,j=pts.length-1;i<pts.length;j=i++){const [xi,yi]=pts[i],[xj,yj]=pts[j];if((yi>y)!==(yj>y)&&x<(xj-xi)*(y-yi)/(yj-yi)+xi)ins=!ins;}return ins;}
+function engineCovers(frame,x,y){for(const st of frame.populations){if(!st.visible||st.intensity<=.05)continue;const p=DATA.populations.find(r=>r.id===st.id);if(!p?.geographicFootprint)continue;let f=_swFp.get(p.id);if(!f){f=parseFootprint(p.geographicFootprint);_swFp.set(p.id,f);}if(inPoly(f,x,y))return true;}return false;}
+function sheetWashes(y,frame){const S=DATA.sheet;if(!S?.communities?.length||/[?&]engine=1/.test(location.search))return [];const preview=/[?&]drafts=1/.test(location.search),out=[];
+  for(const c of S.communities){if(c.family!=='POP'||!c.engine)continue;const s=String(c.recordStatus||'').toUpperCase();if(s!=='LOCKED'&&!(preview&&s==='LEANING'))continue;
+    const end=sheetEnd(c),fin=Math.min(1,Math.max(0,(y-c.startYear)/10)),fout=end==null?1:1-Math.min(1,Math.max(0,(y-end)/10));const k=fin*fout;if(k<=.01)continue;
+    const base=SHEET_WASH_BASE[c.engine.concentration];if(!base)continue;const r=sheetRing(c);if(!r)continue;if(engineCovers(frame,r.cx,r.cy))continue;
+    out.push({pts:r.pts,a:Math.min(.95,base*k*1.15)*(c.engine.presenceStatus==='probable'?.6:1)});}
+  return out;}
 function smoothPath(pts){if(pts.length<3)return '';let d=`M${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;for(let i=1;i<pts.length;i++)d+=` L${pts[i].x.toFixed(1)},${pts[i].y.toFixed(1)}`;return d+' Z';}
 function routePoints(m){const a=m.originCoordinates||INDEX.places.get(m.origin).coordinates,b=m.destinationCoordinates||INDEX.places.get(m.destination).coordinates,c=m.rendering?.control||[(a[0]+b[0])/2,(a[1]+b[1])/2];const out=[];for(let i=0;i<=48;i++){const t=i/48,u=1-t;out.push(P([u*u*a[0]+2*u*t*c[0]+t*t*b[0],u*u*a[1]+2*u*t*c[1]+t*t*b[1]]));}return out;}
 // Tapered ribbon: wide tail, narrower neck, broad integrated head. One clean arc; no bends.
@@ -190,6 +208,7 @@ function render(){
     const r=p.rendering||{};if(r.node&&st.nodeOpacity>0.05&&p.coordinates){const q=P(p.coordinates);if(!q.vis)continue;const isSel=selected&&(isCardOf(p)||selected.record===p||selected.record.populationId===p.id||(selected.type==='movement'&&[selected.record.origin,selected.record.destination].includes(p.place)));const g=el('g',{class:'anchor'+(st.uncertain?' uncertain':'')+(isSel?' selected':''),transform:`translate(${q.x.toFixed(1)} ${q.y.toFixed(1)})`,opacity:Math.max(.35,st.nodeOpacity).toFixed(2),tabindex:0,role:'button','aria-label':p.title},layers.mark);if(r.ring)el('circle',{r:9*Math.max(.8,scale),class:'ring'},g);el('circle',{r:4.6*Math.max(.8,scale),class:'dot'},g);g.addEventListener('click',()=>{if(!dragMoved)openStory(p,'population');});g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openStory(p,'population');}});
       if(r.label&&st.nodeOpacity>.08)labels.push({text:r.label,x:q.x,y:q.y,side:r.labelSide||'right',prio:['j','b','alexNode','israel'].includes(p.id)?2:1,record:p});}
   }
+  for(const w of sheetWashes(y,frame)){const pts=w.pts.map(P);if(!pts.some(q=>q.vis))continue;wctx.save();wctx.shadowColor=`rgba(0,0,0,${w.a.toFixed(3)})`;wctx.shadowBlur=washBlur*2;wctx.shadowOffsetX=20000;wctx.beginPath();pts.forEach((q,i)=>{const x=q.x*WS-20000,yy=q.y*WS;i?wctx.lineTo(x,yy):wctx.moveTo(x,yy);});wctx.closePath();wctx.fillStyle='#000';wctx.fill();wctx.restore();}   // v0.8.0 F-019: Sheet shading
   // movement routes
   const defs=$('ovDefs');defs.querySelectorAll('.dyn').forEach(n=>n.remove());
   for(const fm of frame.movements){if(!fm.visible)continue;const m=DATA.movements.find(r=>r.id===fm.id);const win=movementWindow(m),past=trails&&win[1]<=y;const op=Math.max(fm.opacity,past?.28:0);if(op<=.01)continue;

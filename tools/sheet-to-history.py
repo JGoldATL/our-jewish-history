@@ -79,6 +79,9 @@ TABS = {
 # new POP/CHG record is reported as "no engine fields" and nothing is guessed.
 OPTIONAL_COMMUNITY_COLS = dict(concentration='Concentration', presenceStatus='Presence status',
                                footprintRadiusKm='Footprint radius (km)')
+# v0.8.0 (F-019): Record status (LOCKED or LEANING). Read separately from the engine fields; the globe draws Sheet shading from LOCKED records only (LEANING in ?drafts=1 preview).
+OPTIONAL_COMMUNITY_STATUS = dict(recordStatus='Record status')
+RECORD_STATUSES = ('LOCKED', 'LEANING')
 # v0.7.5 (master v0.5.0): optional Places column "Map label" (blank = use Historical name) and optional Eras column "Headline era".
 OPTIONAL_PLACE_COLS = dict(mapLabel='Map label')
 OPTIONAL_ERA_COLS = dict(headline='Headline era')
@@ -423,7 +426,7 @@ def branch_block(r, rep):
 def build(wb, rep):
     raw, missing_optional = {}, {'Communities': [], 'Movements': [], 'Places': []}
     for tab, cols in TABS.items():
-        opt = {'Communities': OPTIONAL_COMMUNITY_COLS, 'Movements': OPTIONAL_MOVEMENT_COLS, 'Places': OPTIONAL_PLACE_COLS}.get(tab)
+        opt = {'Communities': {**OPTIONAL_COMMUNITY_COLS, **OPTIONAL_COMMUNITY_STATUS}, 'Movements': OPTIONAL_MOVEMENT_COLS, 'Places': OPTIONAL_PLACE_COLS}.get(tab)
         raw[tab], miss = read_tab(wb, tab, cols, opt)
         if tab in missing_optional:
             missing_optional[tab] = miss
@@ -572,6 +575,10 @@ def build(wb, rep):
                 rep.warn('Communities', r['id'], r['_row'], 'symbol is a candidate whose data rule is still OPEN; not to be drawn yet')
         for k in OPTIONAL_COMMUNITY_COLS:
             if r.get(k) is not None: rec.setdefault('engine', {})[k] = r[k]
+        rs = r.get('recordStatus')
+        if rs is not None:
+            if str(rs).strip().upper() in RECORD_STATUSES: rec['recordStatus'] = str(rs).strip().upper()
+            else: rep.warn('Communities', r['id'], r['_row'], f'Record status {rs!r} is not LOCKED or LEANING; the record will not shade the globe')
         if r['family'] in ('POP', 'CHG') and 'engine' not in rec:
             rec['noEngineFields'] = True
         communities.append(rec)
