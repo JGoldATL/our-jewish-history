@@ -364,7 +364,7 @@ function wire(){
     const res=await fetch('data/history.json');DATA=await res.json();
     if(!DATA.sheet?.movements?.length)throw new Error('no movements');
     build();size();HOME=homeView();V={...HOME};clampView();ticks();selectors();buildKey();wire();
-    $('version').textContent='v'+(window.SITE_VERSION||'')+' · Movements · data from Sheet '+(((DATA.sheet?.meta?.source||'').match(/v\d+(?:\.\d+)+/)||[])[0]||'');
+    $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+(((DATA.sheet?.meta?.source||'').match(/v\d+(?:\.\d+)+/)||[])[0]||'unknown');
     setYear(MINY);card();{const v=followTarget();setView(v||HOME);}
     window.MV={routes:ROUTES,events:EVENTS,state:()=>({Y,V:{...V},SEL,F:{...F},playing,auto}),selectRoute,selectEvent,selectParent,setYear,stepEvent,togglePlay,follow:()=>{const v=followTarget();if(v)setView(v);},minY:MINY,maxY:MAXY,playRate,gaps:()=>GAPS};
   }catch(err){$('story').innerHTML='<h2>The map could not load</h2><p>Please refresh the page.</p>';$('panel').classList.remove('inviting');console.error(err);}

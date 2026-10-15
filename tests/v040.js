@@ -100,11 +100,10 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
     await ctx.close();
   }
   // 3. share
-  const bank=['539 BCE: a Persian king','Beat that.','in about 90 seconds','did not use Google','Nowhere to go but up','mixes up centuries','congratulations or competition','Prove it.'];
-  const S1=/539 BCE: a Persian king/;
-  let s1Right=0,s1Wrong=0,perfectOnly=true,zeroOnly=true,sharedOK=true,linkOK=true,seen=new Set();
+  // v0.7.7: one Default share line, and a variant for a perfect score
+  let lineOK=true,matchOnlyPerfect=true,sharedOK=true,linkOK=true,sawPerfect=false,sawBeat=false;
   for(const [label,picks] of [['all wrong',null],['all right',null]]){
-    for(let r=0;r<18;r++){
+    for(let r=0;r<5;r++){
       const {p,ctx}=await open(b,{url:'http://localhost:8778/quiz.html?x=1#y',share:'ok',fix:fixtureShare});
       
       // answer by reading the dealt question's correct letter from the bank
@@ -121,27 +120,27 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
       await p.click('#share');await p.waitForTimeout(80);
       const sh=await p.evaluate(()=>window.__shared);
       if(sh.length!==1){sharedOK=false;await ctx.close();continue;}
-      const t=sh[0].text,u=sh[0].url;seen.add(bank.findIndex(x=>t.includes(x)));
-      if(u!=='http://localhost:8778/quiz.html')linkOK=false;
-      if(S1.test(t)){if(label==='all right')s1Right++;else s1Wrong++;}
-      if(/did not use Google/.test(t)&&score!==3)perfectOnly=false;
-      if(/Nowhere to go but up/.test(t)&&score!==0)zeroOnly=false;
+      const t=sh[0].text,u=sh[0].url;
+      if(u!=='http://localhost:8778/quiz.html?utm_source=share')linkOK=false;
+      const want=score===3?'I got 3 out of 3. Think you can match me in Jewish history?':`I got ${score} out of 3. Think you can beat me in Jewish history?`;
+      if(t!==want)lineOK=false;
+      if(/match me/.test(t)&&score!==3)matchOnlyPerfect=false;
+      if(score===3)sawPerfect=true;else sawBeat=true;
       if(/\{|\bCE\b|[\u{1F300}-\u{1FAFF}]/u.test(t))sharedOK=false;
       await ctx.close();
     }
   }
-  ok(sharedOK,'Default share: the phone share screen opens once with a bank line, no placeholders, no CE, no emoji');
-  ok(linkOK,'share link is the bare quiz address (query and hash removed)');
-  ok(s1Wrong===0,'the 539 BCE line never shows when that question was missed');
-  ok(s1Right>0,'the 539 BCE line can show when that question was answered right ('+s1Right+')');
-  ok(perfectOnly&&zeroOnly,'perfect-score and zero-score lines only at those scores');
-  ok(seen.size>=4,'several different share lines come up ('+seen.size+')');
+  ok(sharedOK,'Default share: the phone share screen opens once, no placeholders, no CE, no emoji');
+  ok(linkOK,'share link is the quiz address plus utm_source=share (other query and hash removed)');
+  ok(lineOK,'share text is exactly the approved line for the score ("beat me", or "match me" for a perfect 3)');
+  ok(matchOnlyPerfect,'the "match me" variant shows only for a perfect score');
+  ok(sawPerfect&&sawBeat,'both a perfect round and a non-perfect round were exercised');
   { // fallback: no share screen -> copy; both fail -> the text is shown; cancel -> nothing copied
     let c=await open(b,{share:'none',clip:'ok',fix:fixtureShare});
     for(let n=0;n<3;n++){await c.p.waitForSelector('.choice:not([disabled])');const order=await c.p.evaluate(()=>!!document.querySelector('.hint'));
       if(order){const k=await c.p.$$eval('.choice',b=>b.length);for(let i=0;i<k;i++)await c.p.click(`.choice[data-k="${i}"]`);}else await c.p.click('.choice');await c.p.click('#submit');await c.p.click('#next');}
     await c.p.waitForSelector('.end');await c.p.click('#share');await c.p.waitForTimeout(80);
-    const cp=await c.p.evaluate(()=>window.__copied);ok(cp.length===1&&/http:\/\/localhost:8778\/quiz\.html$/.test(cp[0]),'no share screen: the line and link are copied');
+    const cp=await c.p.evaluate(()=>window.__copied);ok(cp.length===1&&/http:\/\/localhost:8778\/quiz\.html\?utm_source=share$/.test(cp[0]),'no share screen: the line and link are copied');
     ok(/Copied/.test(await c.p.$eval('#shareMsg',e=>e.textContent)),'a confirmation shows');
     await c.ctx.close();
     c=await open(b,{share:'none',clip:'fail',fix:fixtureShare});
@@ -160,7 +159,7 @@ const play=async(p,picks)=>{ // picks: array of letter indexes per question in d
   { // footer version on the globe page
     const ctx=await b.newContext({viewport:{width:1200,height:800}});const p=await ctx.newPage();await p.route(/fonts\.|googletagmanager/,r=>r.abort());
     await p.goto('http://localhost:8778/');await p.waitForTimeout(2500);
-    ok(/^v0\.6\.1 /.test(await p.$eval('#version',e=>e.textContent)),'footer reads v0.6.1');await ctx.close();
+    const ft=await p.$eval('#version',e=>e.textContent);ok(/^v\d+\.\d+\.\d+; data v\d+\.\d+\.\d+$/.test(ft),'globe footer reads "v#.#.#; data v#.#.#" ('+ft+')');await p.goto('http://localhost:8778/movements.html');await p.waitForTimeout(2500);const fm=await p.$eval('#version',e=>e.textContent);ok(/^v\d+\.\d+\.\d+; data v\d+\.\d+\.\d+$/.test(fm)&&fm===ft,'Movements footer reads the same ('+fm+')');await ctx.close();
   }
   await b.close();console.log(fails?fails+' FAILED':'ALL PASS');process.exit(fails?1:0);
 })();
