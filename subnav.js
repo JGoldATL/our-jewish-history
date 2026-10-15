@@ -1,54 +1,74 @@
-/* F-085 subnav (CEO chose Option A, Comp 1, 2026-10-15). Only with the glass nav (?nav=glass): Map key plus one collapsing routes pill.
-   Routes pill: This moment | With past routes | Reset (Reset shows only when the map is moved or zoomed; it returns the map position only).
-   It reuses the page's own controls (the hidden This moment / With past routes buttons), so nothing in the maps changes.
-   On Movements the pair sits above the time slider with the era pill under it; on the globe it stays at the top right. */
+/* F-085 subnav, Layout 3 (CEO chose it 2026-10-15). Only with the glass nav (?nav=glass).
+   A slim glass rail floats over the map's left edge: Map key, routes (This moment / With past routes), Reset (map position only).
+   It reuses the page's own controls (the original Map key button and the hidden routes buttons), so nothing in the maps changes.
+   On Movements the era pill stays above the time slider and replaces the tick labels; the rail takes no layout height. */
 (function(){
   var m=/[?&]nav=(glass|old)\b/.exec(location.search),GLASS=false;
   try{if(m)sessionStorage.setItem('ojj-nav',m[1]);GLASS=sessionStorage.getItem('ojj-nav')==='glass';}catch(e){GLASS=!!m&&m[1]==='glass';}
   if(!GLASS||!window.OJJPill)return;
   var root=document.documentElement;root.classList.add('sub-glass');
+  var G='linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.06))',SH='inset 0 1px 0 rgba(255,255,255,.28),0 8px 24px rgba(0,0,0,.35)';
   var css=
   'html.sub-glass #options,html.sub-glass #reset{display:none!important}'+
-  'html.sub-glass #keyBtn{font:600 13px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif;color:#EEF2F8;padding:8px 14px;min-height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.05));box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 8px 24px rgba(0,0,0,.35);text-shadow:0 1px 3px rgba(0,0,0,.35);cursor:pointer}'+
-  'html.sub-glass #keyBtn:hover{background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,.09))}'+
-  'html.sub-glass .sd-row{position:relative;display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap}'+
-  'html.sub-glass .sd-row .key{top:auto;bottom:calc(100% + 10px);left:50%;right:auto;transform:translateX(-50%);width:min(300px,calc(100vw - 32px))}'+
-  'html.sub-glass .sd-row>#keyBtn{order:0!important}html.sub-glass .sd-row>.gc{order:1}'+
-  'html.sub-glass .subdock{flex:none;display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px 12px 0}'+
+  'html.sub-glass .rail{position:absolute;left:14px;top:30%;z-index:15;display:flex;flex-direction:column;gap:8px;transition:opacity .35s ease}'+
+  'html.sub-glass .rail .rb,html.sub-glass .rail #keyBtn{position:relative;width:40px;height:40px;min-height:40px;padding:0;margin:0;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:'+G+',rgba(18,27,46,.55);box-shadow:'+SH+';color:#EEF2F8;font:600 17px/1 system-ui,-apple-system,"Segoe UI",sans-serif;text-shadow:0 1px 3px rgba(0,0,0,.35);cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}'+
+  'html.sub-glass .rail>*{order:0!important}html.sub-glass .rail #keyBtn{font-size:0}html.sub-glass .rail #keyBtn::before{content:"\\24D8";font-size:19px}'+
+  'html.sub-glass .rail .rb:hover,html.sub-glass .rail #keyBtn:hover{background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.1)),rgba(18,27,46,.6)}'+
+  'html.sub-glass .rail .rb.on,html.sub-glass .rail #keyBtn[aria-expanded=true]{border-color:rgba(240,186,98,.9);color:#F0BA62}'+
+  'html.sub-glass .rail .rb.dim{opacity:.5}'+
+  'html.sub-glass .rail .rb:focus-visible,html.sub-glass .rail #keyBtn:focus-visible{outline:2px solid #F0BA62;outline-offset:2px}'+
+  'html.sub-glass .rail .key{position:absolute;left:52px;top:0;right:auto;bottom:auto;transform:none;width:min(300px,calc(100vw - 84px));max-height:70vh;overflow:auto}'+
+  'html.sub-glass .rail .rpop{position:absolute;left:52px;top:48px;display:grid;gap:6px;padding:8px;border-radius:16px;background:'+G+',rgba(18,27,46,.94);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 14px 36px rgba(0,0,0,.5)}'+
+  'html.sub-glass .rail .rpop[hidden]{display:none}'+
+  'html.sub-glass .rail .rpop button{font:600 13px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif;color:#EEF2F8;padding:9px 14px;min-height:40px;text-align:left;white-space:nowrap;border-radius:999px;border:1px solid transparent;background:transparent;cursor:pointer}'+
+  'html.sub-glass .rail .rpop button.on{background:linear-gradient(180deg,rgba(240,186,98,.95),rgba(214,147,52,.92));color:#1A1206}'+
+  'html.sub-glass .subdock{flex:none;display:flex;flex-direction:column;align-items:center;padding:8px 12px 0}'+
   'html.sub-glass .sd-era{display:flex;justify-content:center;width:100%;max-width:640px}'+
   'html.sub-glass .sd-era .gp-wrap{width:100%}'+
-  '@media (max-width:620px){html.sub-glass .sd-era .gp-dots{display:none!important}html.sub-glass .subdock{gap:6px;padding:6px 10px 0}}'+
+  '@media (max-width:620px){html.sub-glass .rail{left:8px;gap:6px}html.sub-glass .rail .rb,html.sub-glass .rail #keyBtn{width:38px;height:38px;min-height:38px}html.sub-glass .rail .key,html.sub-glass .rail .rpop{left:46px}html.sub-glass .sd-era .gp-dots{display:none!important}html.sub-glass .subdock{padding:6px 10px 0}}'+
   'html.sub-glass .ticks button{color:transparent!important;pointer-events:none}'+
   'html.sub-glass .tl{height:34px}'+
-  'html.sub-glass .gc,html.sub-glass .sd-row>*{transition:opacity .35s ease}html.gp-moving .sd-row>#keyBtn{opacity:var(--gp-fade)}';
+  'html.gp-moving .rail{opacity:var(--gp-fade)}';
   var st=document.createElement('style');st.id='sd-css';st.textContent=css;document.head.appendChild(st);
+  function mk(cls,txt,label){var b=document.createElement('button');b.type='button';b.className=cls;b.textContent=txt;b.setAttribute('aria-label',label);b.title=label;return b;}
   function init(){
     var key=document.getElementById('keyBtn'),keyBox=document.getElementById('key'),opts=document.getElementById('options');
     if(!key||!opts)return;
     var onMove=!!document.getElementById('ticks'),host;
-    var routes=OJJPill.collapsible({label:'Routes',value:'moment',resetValue:'reset',startOpen:!(window.matchMedia&&matchMedia('(max-width:620px)').matches),
-      items:[{label:'This moment',value:'moment'},{label:'With past routes',value:'past'},{label:'↺ Reset',value:'reset'}],
-      onSelect:function(it){
-        if(it.value==='reset'){if(window.OJJ_SUB)window.OJJ_SUB.resetView();return;}
-        var b=document.querySelector('[data-trails="'+(it.value==='past'?'on':'off')+'"]');if(b)b.click();}});
+    var rail=document.createElement('div');rail.className='rail';rail.setAttribute('role','group');rail.setAttribute('aria-label','Map controls');
+    key.setAttribute('aria-label','Map key');key.title='Map key';
+    var rt=mk('rb','⇄','Routes: this moment or with past routes');rt.setAttribute('aria-expanded','false');
+    var pop=document.createElement('div');pop.className='rpop';pop.hidden=true;
+    var bm=document.createElement('button'),bp=document.createElement('button');bm.type=bp.type='button';bm.textContent='This moment';bp.textContent='With past routes';
+    pop.appendChild(bm);pop.appendChild(bp);
+    var rs=mk('rb dim','↺','Reset map position');
+    var t=null;
+    function closePop(){pop.hidden=true;rt.setAttribute('aria-expanded','false');clearTimeout(t);}
+    function pick(v){var b=document.querySelector('[data-trails="'+(v==='past'?'on':'off')+'"]');if(b)b.click();sync();clearTimeout(t);t=setTimeout(closePop,600);}
+    rt.addEventListener('click',function(e){e.stopPropagation();var o=pop.hidden;pop.hidden=!o;rt.setAttribute('aria-expanded',String(o));if(o&&keyBox&&!keyBox.hidden)key.click();});
+    bm.addEventListener('click',function(){pick('moment');});bp.addEventListener('click',function(){pick('past');});
+    rs.addEventListener('click',function(){closePop();if(window.OJJ_SUB)window.OJJ_SUB.resetView();});
+    key.addEventListener('click',closePop);
+    document.addEventListener('click',function(e){if(!pop.hidden&&!pop.contains(e.target)&&e.target!==rt)closePop();});
+    ['pointerdown','wheel','touchstart'].forEach(function(n){rail.addEventListener(n,function(e){e.stopPropagation();},{passive:true});});
+    rail.appendChild(key);rail.appendChild(rt);rail.appendChild(rs);rail.appendChild(pop);if(keyBox)rail.appendChild(keyBox);
     if(onMove){
-      var stage=document.getElementById('stage'),tl=stage&&stage.querySelector('.tl');if(!tl)return;
+      var stage=document.getElementById('stage'),tl=stage&&stage.querySelector('.tl'),wrap=document.getElementById('mapWrap');if(!tl||!wrap)return;
       var dock=document.createElement('div');dock.className='subdock';
-      var row=document.createElement('div');row.className='sd-row';
       var era=document.createElement('div');era.className='sd-era';era.id='subEra';
-      dock.appendChild(row);dock.appendChild(era);stage.insertBefore(dock,tl);host=row;
-      row.appendChild(key);if(keyBox)row.appendChild(keyBox);row.appendChild(routes.el);
-      if(window.OJJPill.fadeOn)OJJPill.fadeOn(document.getElementById('mapWrap'));
+      dock.appendChild(era);stage.insertBefore(dock,tl);wrap.appendChild(rail);host=wrap;
+      if(window.OJJPill&&OJJPill.fadeOn)OJJPill.fadeOn(wrap);
     }else{
-      key.parentNode.insertBefore(routes.el,key.nextSibling);host=routes.el;
-      if(window.OJJPill.fadeOn)OJJPill.fadeOn(document.getElementById('stage'));
+      var sg=document.getElementById('stage');if(!sg)return;sg.appendChild(rail);host=sg;
+      if(OJJPill.fadeOn)OJJPill.fadeOn(sg);
     }
-    // keep the pill in step with the page: past/moment, Reset visibility, and the globe's hidden-until-started options
-    setInterval(function(){
-      var on=document.querySelector('[data-trails="on"]');routes.setValue(on&&on.getAttribute('aria-pressed')==='true'?'past':'moment');
-      routes.setResetVisible(window.OJJ_SUB?window.OJJ_SUB.moved():false);
-      routes.el.style.display=opts.hidden?'none':'';
-    },300);
+    function sync(){
+      var on=document.querySelector('[data-trails="on"]'),past=!!on&&on.getAttribute('aria-pressed')==='true';
+      bm.classList.toggle('on',!past);bp.classList.toggle('on',past);rt.classList.toggle('on',past);
+      var mv=window.OJJ_SUB?window.OJJ_SUB.moved():false;rs.classList.toggle('dim',!mv);
+      rail.style.display=opts.hidden?'none':'';
+    }
+    setInterval(sync,300);sync();
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
