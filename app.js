@@ -334,6 +334,7 @@ function openAtStart(){
     turnAnim=requestAnimationFrame(tick);},500);
 }
 function dismissPrompt(){if(!promptOpen)return;promptOpen=false;$('prompt').hidden=true;$('panel').classList.remove('inviting');$('play').hidden=false;$('options').hidden=false;}
+if(PREVIEW)window.OJJ_SUB={moved:()=>!!view.manual||view.zoom!==1,resetView(){view.manual=false;view.zoom=1;view.R=view.baseR;render();}};   // F-085 subnav: Reset is the map position only
 function reset(){stopTour();dismissPrompt();selected=null;lastAutoIdx=-1;position=0;view.manual=true;const j=svgToLonLat(INDEX.places.get('place-j').coordinates);view.lon=j[0];view.lat=j[1];view.deg=15;setZoom(1);}
 
 /* ---------- interaction ---------- */

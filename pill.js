@@ -34,6 +34,15 @@
   '.gp-wrap.over .gp-dots{display:flex}'+
   '.gp-dots i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25)}.gp-dots i.on{background:#F0BA62}'+
   'html.gp-moving .gp,html.gp-moving .gp-dots,html.gp-moving .gn-menu{opacity:var(--gp-fade)}'+
+  '.gc{display:inline-flex;flex-direction:column;align-items:center;max-width:100%}'+
+  '.gc-col{position:relative;display:inline-flex;align-items:center;padding:4px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:linear-gradient(180deg,rgba(255,255,255,var(--gp-top)),rgba(255,255,255,var(--gp-bot)));box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 8px 24px rgba(0,0,0,.35);cursor:pointer;max-width:100%;overflow:hidden;font:inherit;color:inherit;-webkit-backdrop-filter:blur(var(--gp-blur)) saturate(150%);backdrop-filter:blur(var(--gp-blur)) saturate(150%);transition:opacity .35s ease}'+
+  '.gc-cur{font:600 13px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif;padding:7px 14px;min-height:32px;border-radius:999px;color:#1A1206;background:linear-gradient(180deg,rgba(240,186,98,.95),rgba(214,147,52,.92));box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 2px 10px rgba(227,165,72,.45);white-space:nowrap;display:flex;align-items:center}'+
+  '.gc-peek{font:600 13px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif;color:#EEF2F8;padding:7px 10px 7px 6px;white-space:nowrap;width:52px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,#000,transparent);mask-image:linear-gradient(90deg,#000,transparent);opacity:.85}'+
+  '.gc-chev{color:#F0BA62;font-size:17px;line-height:1;padding:0 8px 0 2px}.gc-chev span{display:inline-block;animation:gpnudge 1.6s ease-in-out infinite}'+
+  '.gc-col:focus-visible{outline:2px solid #F0BA62;outline-offset:2px}'+
+  'html.gp-moving .gc-col{opacity:var(--gp-fade)}'+
+  '@media (prefers-reduced-transparency:reduce){.gc-col{background:rgba(18,27,46,.96);-webkit-backdrop-filter:none;backdrop-filter:none}}'+
+  '@media (prefers-reduced-motion:reduce){.gc-col{transition:none!important}.gc-chev span{animation:none!important}}'+
   '@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.gp{background:rgba(18,27,46,.94)}}'+
   '@media (prefers-reduced-transparency:reduce){.gp{background:rgba(18,27,46,.96);-webkit-backdrop-filter:none;backdrop-filter:none}}'+
   '@media (prefers-reduced-motion:reduce){.gp,.gp-thumb,.gp-btn,.gp-dots{transition:none!important}.gp-next span{animation:none!important}.gp-track{scroll-behavior:auto}}';
@@ -72,6 +81,31 @@
     requestAnimationFrame(function(){refresh();if(o.scroll&&cur!=null){var on=btns.filter(function(b){return b.getAttribute('aria-pressed')==='true';})[0];if(on&&track.scrollWidth>track.clientWidth+2)track.scrollLeft=Math.max(0,on.offsetLeft-20);over();}});
     return api;
   }
+
+  // Collapsing pill (map options): open on first visit; about 2 s after a pick it tucks to the chosen value with a chevron and a peek of the next option; tap reopens it.
+  // o: {label, items:[{label,value}], value, resetValue, onSelect(it), collapseMs, startOpen}. The item whose value is resetValue is an action, shown only after setResetVisible(true).
+  function collapsible(o){
+    var val=o.value,open=o.startOpen!==false,timer=0,resetOn=false,box=h('div','gc');
+    var pill=create({label:o.label,value:val,items:o.items,onSelect:function(it,b){
+      if(it.value===o.resetValue){if(o.onSelect)o.onSelect(it);arm();return;}
+      val=it.value;pill.setValue(val);if(o.onSelect)o.onSelect(it);arm();}});
+    var resetBtn=o.resetValue!=null?pill.buttons.filter(function(b){return b.getAttribute('data-value')===o.resetValue;})[0]:null;
+    var col=h('div','gc-col');col.setAttribute('role','button');col.tabIndex=0;col.setAttribute('aria-label',(o.label||'Options')+', tap to open');
+    var names={};o.items.forEach(function(it){if(it.value!==o.resetValue)names[it.value]=it.label;});
+    function others(){return Object.keys(names).filter(function(k){return k!==val;});}
+    function arm(){clearTimeout(timer);timer=setTimeout(function(){open=false;render();},o.collapseMs||2000);}
+    function render(){
+      box.textContent='';
+      if(open){box.appendChild(pill.el);if(resetBtn)resetBtn.style.display=resetOn?'':'none';pill.setValue(val,true);setTimeout(pill.refresh,30);return;}
+      col.textContent='';var cur=h('span','gc-cur');cur.textContent=names[val]||'';col.appendChild(cur);
+      var nx=others()[0];if(nx){var pk=h('span','gc-peek');pk.textContent=names[nx];pk.setAttribute('aria-hidden','true');col.appendChild(pk);}
+      var ch=h('span','gc-chev');ch.innerHTML='<span aria-hidden="true">\u203A</span>';col.appendChild(ch);
+      box.appendChild(col);}
+    function openIt(){open=true;clearTimeout(timer);render();}
+    col.addEventListener('click',openIt);col.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openIt();}});
+    render();
+    return {el:box,setValue:function(v){if(v===val)return;val=v;render();},setResetVisible:function(v){v=!!v;if(v===resetOn)return;resetOn=v;if(resetBtn&&open){resetBtn.style.display=resetOn?'':'none';pill.refresh();}},get value(){return val;}};
+  }
   // Fade every pill to 25% while the visitor moves the map (drag, pinch, wheel); full again about 250 ms after they stop. Touching a pill never fades.
   function fadeOn(el){if(!el||el.__gpFade)return;el.__gpFade=1;var t,root=document.documentElement,down=false;
     function on(){clearTimeout(t);root.classList.add('gp-moving');}
@@ -80,5 +114,5 @@
     window.addEventListener('pointerup',function(){if(down){down=false;off();}});window.addEventListener('pointercancel',function(){if(down){down=false;off();}});
     el.addEventListener('wheel',function(e){if(e.target.closest&&e.target.closest('.gp,.gp-wrap,.gn'))return;on();off();},{passive:true});}
   window.addEventListener('resize',function(){all.forEach(function(a){a.refresh();});});
-  window.OJJPill={create:create,fadeOn:fadeOn,inject:inject};
+  window.OJJPill={create:create,collapsible:collapsible,fadeOn:fadeOn,inject:inject};
 })();

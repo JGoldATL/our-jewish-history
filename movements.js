@@ -197,6 +197,7 @@ function updateYear(){
   const y=Math.round(Y);$('year').innerHTML=y<0?`${-y}<span>BCE</span>`:String(y);
   const cur=ERAS.filter(e=>e.startYear<=Y).pop(),det=DETAIL.filter(e=>e.startYear<=Y).pop();$('era').textContent=det?det.name:(cur?cur.name:'');
   document.querySelectorAll('#ticks button').forEach(b=>b.classList.toggle('cur',cur&&+b.dataset.era===cur.era));
+  if(eraPill)eraPill.setValue(cur?String(cur.era):null);
 }
 function selectRoute(id){const r=route(id);if(!r)return;showStory();SEL={ev:r.ev,id};card();frame();draw();}
 function selectEvent(key){showStory();SEL={ev:key,id:null};card();frame();draw();}
@@ -309,6 +310,7 @@ function ticks(){
   for(const e of ERAS){if(!(e===first||(e.startYear>MINY&&e.startYear<=MAXY)))continue;
     const b=document.createElement('button');b.type='button';b.dataset.era=e.era;b.style.left=(y2p(Math.max(e.startYear,MINY))*100)+'%';
     b.textContent=e.name;b.setAttribute('aria-label',`Jump to ${e.name}`);b.addEventListener('click',()=>{stopPlay();SEL=null;setYear(Math.max(MINY,e.startYear));auto=true;followNow(800);});t.appendChild(b);}
+  mountEra();setTimeout(mountEra,400);
 }
 function setPlayUI(){$('playIco').setAttribute('d',playing?ICO_PAUSE:ICO_PLAY);$('playLbl').textContent=playing?'Pause':'Play';$('play').setAttribute('aria-pressed',String(playing));}
 function stopPlay(){if(!playing)return;playing=false;setPlayUI();}
@@ -350,6 +352,15 @@ function stepEvent(d){
   else{for(let k=evs.length-1;k>=0;k--)if(evs[k].start<Y-.5){i=k;break;}if(i<0)i=0;}
   i=clamp(i,0,evs.length-1);const e=evs[i];
   auto=true;SEL={ev:e.key,id:null};setYear(clamp(e.routes[0].start,MINY,MAXY));card();frame();draw();
+}
+if(PREVIEW)window.OJJ_SUB={moved:()=>!auto,resetView(){auto=true;if(SEL)frame();else followNow(700);draw();}};   // F-085 subnav: Reset is the map position only
+let eraPill=null;
+function mountEra(){
+  if(!PREVIEW||!window.OJJPill||eraPill)return;const h=$('subEra');if(!h)return;
+  const first=ERAS.filter(x=>x.startYear<=MINY).pop(),list=ERAS.filter(e=>e===first||(e.startYear>MINY&&e.startYear<=MAXY)),cur=ERAS.filter(e=>e.startYear<=Y).pop();
+  eraPill=OJJPill.create({label:'Era',scroll:true,nextLabel:'More eras',value:cur?String(cur.era):null,items:list.map(e=>({label:e.name,value:String(e.era)})),
+    onSelect:it=>{const e=list.find(x=>String(x.era)===it.value);if(!e)return;stopPlay();SEL=null;setYear(Math.max(MINY,e.startYear));auto=true;followNow(800);}});
+  eraPill.el.style.maxWidth='100%';h.appendChild(eraPill.el);
 }
 function reset(){
   stopPlay();F.era=null;F.cause=null;F.trails=false;SEL=null;auto=true;lastKey='';
