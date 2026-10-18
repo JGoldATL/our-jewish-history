@@ -51,7 +51,8 @@ function build(){
   const eraOf=y=>{let e=null;for(const x of ERAS)if(x.startYear<=y)e=x;return e?e.era:null;};
   const ok=m=>m.arrowEndsReady&&[m.originPlaceId,m.destinationPlaceId].every(id=>Number.isFinite(PL.get(id)?.lat)&&Number.isFinite(PL.get(id)?.lon));
   for(const m of S.movements)if(m.character)m.character=String(m.character).trim().toLowerCase();   // the Sheet may write the label with a capital (Voluntary migration)
-  let rows=S.movements.filter(m=>ok(m)&&m.character!=='return/aliyah'&&m.startYear>=FIRST_YEAR);
+  const LENS_HATE=window.OJJ_LENS==='jewhate',HATE_CHARS=['expulsion','persecution-driven flight','persistent flight','deportation'];   /* JewHate page: only routes driven by expulsion, deportation or persecution */
+  let rows=S.movements.filter(m=>ok(m)&&m.character!=='return/aliyah'&&m.startYear>=FIRST_YEAR&&(!LENS_HATE||HATE_CHARS.includes(m.character)));
   const have=new Set(rows.map(m=>m.id));
   rows=rows.filter(m=>m.id!=='MOV-055'||['MOV-052','MOV-053','MOV-054'].every(x=>have.has(x)));   // branch rule from the Dataset chat
   const sib=new Map();
