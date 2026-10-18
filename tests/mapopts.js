@@ -3,15 +3,20 @@ const {chromium}=require('playwright');const BASE=process.env.BASE||'http://loca
 const drag=async(p,sel)=>{const b=await (await p.$(sel)).boundingBox();const x=b.x+b.width*.55,y=b.y+b.height*.5;await p.mouse.move(x,y);await p.mouse.down();await p.mouse.move(x+60,y+30,{steps:6});};
 (async()=>{const br=await chromium.launch();const errs=[];
 for(const [pg,stage] of [['movements','#mapWrap'],['events','#stage']]){
-  for(const [vw,vh,tag] of [[390,844,'phone'],[1280,800,'desktop']]){
+  for(const [vw,vh,tag] of [[390,844,'phone'],[1000,700,'narrow'],[1280,800,'desktop']]){
     const ctx=await br.newContext({viewport:{width:vw,height:vh}});const p=await ctx.newPage();p.on('pageerror',e=>errs.push(e.message));const n=pg+' '+tag+': ';
     await p.goto(BASE+pg+'.html');await p.waitForTimeout(1800);
     ck(!(await p.evaluate(()=>document.documentElement.classList.contains('mapopts'))),n+'flag off: no mapopts class');
     ck(await p.$eval('.rail',x=>getComputedStyle(x).position==='absolute'&&x.getBoundingClientRect().width<60),n+'flag off: original left rail');
     await p.goto(BASE+pg+'.html?mapopts=1');await p.waitForTimeout(2200);
     const r=await p.$eval('.rail',x=>{const b=x.getBoundingClientRect(),g=document.getElementById('gnBar').getBoundingClientRect();return {cx:b.x+b.width/2,top:b.top,h:b.height,w:b.width,gnb:g.bottom,sw:document.documentElement.scrollWidth,vw:innerWidth};});
-    ck(Math.abs(r.cx-vw/2)<2,n+'bar centred');ck(r.top>=r.gnb-1&&r.top-r.gnb<12,n+'bar sits directly under the main nav');ck(r.h<=34,n+'bar is slim (height '+Math.round(r.h)+')');ck(r.sw<=r.vw,n+'no sideways scroll');
-    ck(await p.$eval('.brand',(x,t)=>x.getBoundingClientRect().top>=t,r.top+r.h),n+'header sits below the bar, no overlap');
+    const wide=vw>=1080;
+    ck(r.h<=34,n+'bar is slim (height '+Math.round(r.h)+')');ck(r.sw<=r.vw,n+'no sideways scroll');
+    if(!wide){ck(Math.abs(r.cx-vw/2)<2,n+'bar centred');ck(r.top>=r.gnb-1&&r.top-r.gnb<12,n+'bar sits directly under the main nav');
+      ck(await p.$eval('.brand',(x,t)=>x.getBoundingClientRect().top>=t,r.top+r.h),n+'header sits below the bar, no overlap');}
+    else{const w=await p.evaluate(()=>{const g=document.querySelector('#gnBar .gp,.gp').getBoundingClientRect(),b=document.querySelector('.brand').getBoundingClientRect(),h=document.querySelector('.rail').getBoundingClientRect();return {gt:g.top,gb:g.bottom,gl:g.left,gr:g.right,bl:b.left,bt:b.top,br:b.right,rl:h.left,rr:h.right,rt:h.top,rb:h.bottom,sh:document.documentElement.scrollHeight,ih:innerHeight,vw:innerWidth};});
+      ck(w.rt>=w.gt-4&&w.rb<=w.gb+4,n+'bar on the same line as the main nav');ck(w.rr>w.vw-60&&w.rl>w.gr,n+'bar right-aligned, clear of the nav');
+      ck(w.bl<60&&w.bt<40,n+'title top-left');ck(w.br<=w.gl,n+'title clears the nav');ck(w.sh<=w.ih+1,n+'page does not scroll vertically ('+w.sh+'/'+w.ih+')');}
     const labels=await p.$$eval('.rail button',b=>b.filter(x=>x.offsetParent).map(x=>x.getAttribute('aria-label')));
     if(pg==='movements')ck(labels.length===3&&/^Routes/.test(labels[1]),n+'Map key, Routes, Reset');else ck(labels.length===2&&!labels.some(l=>/^Routes/.test(l)),n+'Events: Map key and Reset only, no Routes');
     await p.click('#keyBtn');await p.waitForTimeout(250);const kb=await (await p.$('#key')).boundingBox();ck(kb&&kb.x>=0&&kb.x+kb.width<=vw+1&&kb.y>0,n+'Map key opens fully in view');await p.click('#keyBtn');

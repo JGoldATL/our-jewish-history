@@ -48,6 +48,14 @@
     S+'.rail .rpop{left:50%;top:calc(100% + 8px);transform:translateX(-50%);z-index:30}'+
     'html.mo-events.mapopts .rail .mo-rt{display:none!important}'+
     '@media (min-width:901px){html.sub-glass.mapopts.nav-glass #stage{height:calc(100svh - 198px)}}'+
+    // wide screens: the title goes top left and the bar sits right-aligned on the main nav's row (CEO, 2026-10-19). Narrower screens keep the bar centred under the nav.
+    '@media (min-width:1080px){'+
+      'html.sub-glass.mapopts.nav-glass header.top{margin-top:-54px;padding-top:6px;padding-left:28px;position:relative;z-index:46;pointer-events:none}'+
+      'html.sub-glass.mapopts.nav-glass header.top .brand{pointer-events:auto}'+
+      S+'.rail{position:absolute;top:14px;right:24px;left:auto;margin:0;z-index:47}'+
+      S+'.rail .key,'+S+'.rail .rpop{left:auto;right:0;transform:none}'+
+      'html.sub-glass.mapopts.nav-glass #stage{height:calc(100svh - 122px)}'+
+    '}'+
     '@media (prefers-reduced-motion:reduce){'+S+'.rail{transition:none!important}}';
   }
   var st=document.createElement('style');st.id='sd-css';st.textContent=css;document.head.appendChild(st);
