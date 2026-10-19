@@ -14,9 +14,9 @@ const OUTLINE='#FFF2DE',TRAD='#EFE6D3';
 /* The five accepted eras shown on the slider and in the Era filter. Boundaries follow the Sheet's seven data eras (Biblical = era 1; Ancient History = eras 2 and 3; Middle Ages = eras 4 and 5; Early Modern History = era 6, Modern History = era 7), and Contemporary History starts at 1898 (ERA-8), the year after the First Zionist Congress. v0.7.5 reads these names and start years from the Sheet; this list is the fallback. */
 const HEAD=[{era:1,name:'Biblical',startYear:-2000},{era:2,name:'Ancient History',startYear:-586},{era:3,name:'Middle Ages',startYear:200},{era:4,name:'Early Modern History',startYear:1492},{era:5,name:'Modern History',startYear:1700},{era:6,name:'Contemporary History',startYear:1898}];
 const GAPSEC=1.8;   // a stretch of years with no journeys on screen takes about this long at 1x
-/* Cause: five headings. Persistent flight joins Persecution; Relocation stays its own heading (CEO Oct 13); returns are not shown at all. */
-const CAUSE_OF={'expulsion':'Expulsion','persecution-driven flight':'Persecution','persistent flight':'Persecution','deportation':'Deportation','voluntary migration':'Voluntary migration','relocation':'Relocation'};
-const CAUSES=['Deportation','Expulsion','Persecution','Relocation','Voluntary migration'];
+/* Cause: four headings. Persistent flight joins Persecution. Relocation and Voluntary migration are one heading, Voluntary migration (CEO, Sheet 10/19); returns are not shown at all. */
+const CAUSE_OF={'expulsion':'Expulsion','persecution-driven flight':'Persecution','persistent flight':'Persecution','deportation':'Deportation','voluntary migration':'Voluntary migration','relocation':'Voluntary migration'};
+const CAUSES=['Deportation','Expulsion','Persecution','Voluntary migration'];
 const HOLD=15,FADE=6,RATE=30;              // years a route stays bright after it ends, years to fade in, years per second at 1x
 const ICO_PLAY='M3.5,1.5 L13.5,8 L3.5,14.5 Z',ICO_PAUSE='M3.5,1.5 H6.5 V14.5 H3.5 Z M9.5,1.5 H12.5 V14.5 H9.5 Z';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -50,6 +50,7 @@ function build(){
   ERAS=headlineEras(S.eras);
   const eraOf=y=>{let e=null;for(const x of ERAS)if(x.startYear<=y)e=x;return e?e.era:null;};
   const ok=m=>m.arrowEndsReady&&[m.originPlaceId,m.destinationPlaceId].every(id=>Number.isFinite(PL.get(id)?.lat)&&Number.isFinite(PL.get(id)?.lon));
+  for(const m of S.movements)if(m.character)m.character=String(m.character).trim().toLowerCase();   // the Sheet may write the label with a capital (Voluntary migration)
   let rows=S.movements.filter(m=>ok(m)&&m.character!=='return/aliyah'&&m.startYear>=FIRST_YEAR);
   const have=new Set(rows.map(m=>m.id));
   rows=rows.filter(m=>m.id!=='MOV-055'||['MOV-052','MOV-053','MOV-054'].every(x=>have.has(x)));   // branch rule from the Dataset chat
