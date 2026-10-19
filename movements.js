@@ -28,7 +28,7 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 let DATA=null,PL=new Map(),CARDS=new Map(),ERAS=HEAD,DETAIL=[],ROUTES=[],EVENTS=new Map(),MINY=0,MAXY=1;
 let W=0,H=0,V={lon:20,lat:38,degW:100},HOME=null;
 const PREVIEW=(()=>{try{const x=/[?&]nav=(glass|old)\b/.exec(location.search);if(x)sessionStorage.setItem('ojj-nav',x[1]);return sessionStorage.getItem('ojj-nav')!=='old';}catch(e){return !/[?&]nav=old\b/.test(location.search);}})();   // v0.8.0 preview flag, see app.js
-let Y=0,playing=false,speed=1,lastT=0,auto=true,lastKey='';
+let zT=0,Y=0,playing=false,speed=1,lastT=0,auto=true,lastKey='';
 const F={era:null,cause:null,trails:false};   // Group, From and To filters are suppressed for now (roadmap F-088)
 let EVSYM=new Map();
 let SEL=null;                               // {ev:eventKey, id:routeId|null, parent:parentId|null}
@@ -85,14 +85,25 @@ function strength(r){
 }
 
 /* ---------- view ---------- */
-const scale=()=>W/V.degW;
-const px=(lon,lat)=>{const s=scale();return [(lon-V.lon)*s+W/2,(V.lat-lat)*s+H/2];};
+const scale=()=>W/V.degW;   // pixels per degree of longitude at the equator
+/* v0.8.x flat-map projection: Natural Earth (rounder than the plain lon/lat grid). nProj goes lon/lat to map units, nInv comes back. The map image images/map-ne.jpg is drawn in the same units. */
+const D2R=Math.PI/180,NE_XM=2.735384723480633,NE_YM=1.422390506730596,NE_K=180/Math.PI/0.8707,NE_MAXK=2*NE_YM*NE_K;
+const neF=lat=>{const p=lat*D2R,p2=p*p,p4=p2*p2;return 0.8707-0.131979*p2+p4*(-0.013791+p4*(0.003971*p2-0.001529*p4));};
+const neY=lat=>{const p=lat*D2R,p2=p*p,p4=p2*p2;return p*(1.007226+p2*(0.015085+p4*(-0.044475+0.028874*p2-0.005916*p4)));};
+const nProj=(lon,lat)=>[lon*D2R*neF(lat),neY(lat)];
+function nInv(x,y){let p=y/1.007226;for(let i=0;i<7;i++){const p2=p*p,p6=p2*p2*p2,p7=p6*p,p9=p7*p2,p11=p9*p2,f=1.007226*p+0.015085*p2*p-0.044475*p7+0.028874*p9-0.005916*p11-y,d=1.007226+3*0.015085*p2-7*0.044475*p6+9*0.028874*p6*p2-11*0.005916*p6*p2*p2;p=clamp(p-f/d,-Math.PI/2,Math.PI/2);}
+  const lat=p/D2R;return [x/neF(lat)/D2R,lat];}
+const NEF=()=>scale()*NE_K;   // pixels per map unit
+const px=(lon,lat)=>{const F=NEF(),c=nProj(V.lon,V.lat),q=nProj(lon,lat);return [(q[0]-c[0])*F+W/2,(c[1]-q[1])*F+H/2];};
+/* keep the map point under a finger or cursor fixed while the zoom changes */
+const anchorAt=(x,y)=>{const F=NEF(),c=nProj(V.lon,V.lat);return nInv(c[0]+(x-W/2)/F,c[1]-(y-H/2)/F);};
+function placeAnchor(a,x,y){const F=NEF(),q=nProj(a[0],a[1]),c=nInv(q[0]-(x-W/2)/F,q[1]+(y-H/2)/F);V.lon=c[0];V.lat=c[1];}
 function clampView(){
-  const maxDeg=Math.min(360,180*W/H);V.degW=clamp(V.degW,MIN_DEG(),Math.max(MIN_DEG(),maxDeg));
-  const hs=V.degW*H/W/2,lo=-90+hs,hi=90-hs;V.lat=lo>hi?0:clamp(V.lat,lo,hi);V.lon=clamp(V.lon,-180,180);
+  const maxDeg=Math.min(360,NE_MAXK*W/H);V.degW=clamp(V.degW,MIN_DEG(),Math.max(MIN_DEG(),maxDeg));
+  const hh=H/2/NEF(),lo=-NE_YM+hh,hi=NE_YM-hh;{const c=nProj(V.lon,V.lat),yy=lo>hi?0:clamp(c[1],lo,hi);if(yy!==c[1]){const r=nInv(c[0],yy);V.lon=r[0];V.lat=r[1];}}V.lon=clamp(V.lon,-180,180);   // when the height limit bites, the sideways position is kept
 }
 function size(){const w=$('mapWrap');W=w.clientWidth;H=w.clientHeight;}
-function homeView(){const p=phone();return {lon:p?10:22,lat:p?40:38,degW:p?60:Math.min(100,Math.max(60,W/9))};}
+function homeView(){const p=phone();return {lon:p?10:22,lat:p?40:38,degW:(p?60:Math.min(100,Math.max(60,W/9)))*1.15};}   // 15% wider than before, so the map reads as a map
 function setView(v,ms){
   cancelAnimationFrame(anim?.id||0);
   if(!ms){V={...v};clampView();draw();return;}
@@ -126,8 +137,8 @@ function followTarget(){
 function followNow(ms){if(!auto||playing||SEL)return;const v=followTarget();if(v)setView(v,ms||700);}
 function zoomAt(f,x=W/2,y=H/2){
   auto=false;
-  const s=scale(),lon=V.lon+(x-W/2)/s,lat=V.lat-(y-H/2)/s;V.degW=V.degW/f;clampView();
-  const s2=scale();V.lon=lon-(x-W/2)/s2;V.lat=lat+(y-H/2)/s2;clampView();draw();
+  const a=anchorAt(x,y);V.degW=V.degW/f;clampView();placeAnchor(a,x,y);clampView();
+  const w=$('mapWrap');w.classList.add('zooming');clearTimeout(zT);zT=setTimeout(()=>{w.classList.remove('zooming');},220);draw();
 }
 
 /* ---------- drawing ---------- */
@@ -148,11 +159,11 @@ function draw(){if(!raf)raf=requestAnimationFrame(()=>{raf=0;paint();});}
 function paint(){
   const svg=$('map');if(!W||!ROUTES.length)return;
   svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.textContent='';
-  const s=scale(),[x0,y0]=px(-180,90);
+  const s=scale(),NF=NEF(),nc=nProj(V.lon,V.lat),x0=(-NE_XM-nc[0])*NF+W/2,y0=(nc[1]-NE_YM)*NF+H/2;
   const defs=el('defs',{},svg);
   el('filter',{id:'routeShadow',x:'-10%',y:'-30%',width:'120%',height:'160%'},defs).appendChild((()=>{const b=document.createElementNS(NS,'feGaussianBlur');b.setAttribute('stdDeviation','2.4');return b;})());
   for(const [n,[c1,c2]] of Object.entries(GRAD)){const lg=el('linearGradient',{id:'rg-'+n,x1:0,y1:0,x2:0,y2:1},defs);el('stop',{offset:0,'stop-color':c1},lg);el('stop',{offset:1,'stop-color':c2},lg);}
-  el('image',{href:'images/map-night.jpg',x:x0,y:y0,width:360*s,height:180*s,preserveAspectRatio:'none'},svg);
+  el('image',{href:'images/map-ne.jpg',x:x0,y:y0,width:2*NE_XM*NF,height:2*NE_YM*NF,preserveAspectRatio:'none'},svg);
   const selEv=SEL&&!SEL.auto?EVENTS.get(SEL.ev):null,selId=SEL?.id||null,selPar=SEL?.parent&&selEv?(selEv.parents||[]).find(p=>p.id===SEL.parent):null,legs=selPar?selPar.legs:null;
   const gR=el('g',{},svg),gP=el('g',{},svg),gL=el('g',{},svg),gH=el('g',{},svg);
   let shown=0;const pins=new Map(),cand=new Map();
@@ -376,9 +387,9 @@ function wire(){
     if(pts.size===1)drag={x:e.clientX,y:e.clientY,lon:V.lon,lat:V.lat};if(pts.size===2){const [a,b]=[...pts.values()];pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1]),deg:V.degW};}});
   w.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;pts.set(e.pointerId,[e.clientX,e.clientY]);
     if(pts.size===2&&pinch){const [a,b]=[...pts.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);moved=true;auto=false;const r=w.getBoundingClientRect();
-      const cx=(a[0]+b[0])/2-r.left,cy=(a[1]+b[1])/2-r.top,s=scale(),lon=V.lon+(cx-W/2)/s,lat=V.lat-(cy-H/2)/s;V.degW=pinch.deg*pinch.d/d;clampView();const s2=scale();V.lon=lon-(cx-W/2)/s2;V.lat=lat+(cy-H/2)/s2;clampView();draw();return;}
+      const cx=(a[0]+b[0])/2-r.left,cy=(a[1]+b[1])/2-r.top,an=anchorAt(cx,cy);V.degW=pinch.deg*pinch.d/d;clampView();placeAnchor(an,cx,cy);clampView();draw();return;}
     if(drag&&pts.size===1){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)>6){moved=true;auto=false;w.classList.add('drag');cancelAnimationFrame(anim?.id||0);}
-      if(moved){const s=scale();V.lon=drag.lon-dx/s;V.lat=drag.lat+dy/s;clampView();draw();}}});
+      if(moved){const F=NEF(),q=nProj(drag.lon,drag.lat),c=nInv(q[0]-dx/F,q[1]+dy/F);V.lon=c[0];V.lat=c[1];clampView();draw();}}});
   const up=e=>{
     const wasTap=e.type==='pointerup'&&pts.size===1&&drag&&!moved&&pts.has(e.pointerId);
     pts.delete(e.pointerId);if(pts.size<2)pinch=null;if(!pts.size){drag=null;w.classList.remove('drag');}

@@ -228,10 +228,11 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 #stage{display:flex;flex-direction:column;min-height:300px;touch-action:auto}
 /* Suspended map: no box. The map fades out in an oval before it reaches any edge, with faint orbit rings, a warm glow and a soft shadow beneath. */
 #mapWrap{position:relative;flex:1 1 auto;min-height:0;overflow:visible;touch-action:none;cursor:grab;background:transparent;border:0}
-#map{-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 30%,rgba(0,0,0,.78) 56%,rgba(0,0,0,.32) 80%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 30%,rgba(0,0,0,.78) 56%,rgba(0,0,0,.32) 80%,transparent 100%)}
-#mapWrap::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 20%,transparent 98%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 20%,transparent 98%);background:repeating-radial-gradient(ellipse 50% 50% at 50% 50%,rgba(255,242,222,0) 0 42px,rgba(255,242,222,.10) 42px 43px)}
+#map{-webkit-mask-image:radial-gradient(ellipse 60% 62% at 50% 50%,#000 42%,rgba(0,0,0,.72) 68%,rgba(0,0,0,.25) 88%,transparent 100%);mask-image:radial-gradient(ellipse 60% 62% at 50% 50%,#000 42%,rgba(0,0,0,.72) 68%,rgba(0,0,0,.25) 88%,transparent 100%)}
+/* v0.8.x (CEO 10/19): the faint orbit rings are gone; the fade is a softer, rounder oval; the glow switches off while the map is being moved */
 #mapWrap::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:radial-gradient(ellipse 28% 34% at 46% 46%,rgba(255,200,130,.16),rgba(255,200,130,0) 70%),radial-gradient(ellipse 34% 5% at 50% 96%,rgba(0,0,0,.5),transparent 75%)}
 #map path{filter:drop-shadow(0 0 5px rgba(242,166,90,.5))}
+#mapWrap.drag #map path,#mapWrap.zooming #map path{filter:none}
 .prompt .eyebrow{color:var(--amber)}
 .prompt p.t{font-size:36px;line-height:1.05;font-weight:700;text-wrap:balance;letter-spacing:-.2px}
 .prompt p.t em{font-style:italic;font-weight:600;color:var(--amber)}
