@@ -1,0 +1,841 @@
+{
+ "schema": "jewhate-1",
+ "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.5.1",
+ "sheetModified": "2026-10-19T19:31:36Z",
+ "exportSha256": "857eb97874801b4e",
+ "generated": "2026-10-19T21:37:09Z",
+ "entries": [
+  {
+   "id": "JH-001",
+   "status": "LOCKED",
+   "order": 1,
+   "title": "Jews control the world’s banks",
+   "family": "Financial conspiracy",
+   "lie": "Jews control the world’s money.",
+   "record": "No religious or ethnic group commands the global banking system. Medieval restrictions pushed some Jews into moneylending; propagandists later turned a minority’s visibility into a fantasy of collective control.",
+   "significance": "Turns structural exclusion into an accusation of secret financial domination.",
+   "geoOrigin": "Christian Europe; modern forms across Europe and North America",
+   "originator": "No sole inventor; promoted by multiple agitators, later including Henry Ford’s newspaper and other conspiracy propagandists",
+   "circumstances": "Legal and guild restrictions confined Jewish economic options while a few court financiers became unusually visible.",
+   "documentedMotive": "later extremists published conspiratorial economic claims.",
+   "inferredMotive": "financial anxiety and scapegoating encouraged their appeal; no evidence that a single person invented the accusation.",
+   "spread": "Sermons and political caricatures; 19th-century ideological pamphlets; the forged Protocols; Henry Ford’s newspaper and later broadcast/online channels.",
+   "uses": "Economic scapegoating and claims about banks, the Rothschild family, central banks and currency.",
+   "consequences": "Stigmatization, discrimination and political mobilization; part of the antisemitic atmosphere exploited by Nazi policies (not evidence the finance trope alone caused any specific atrocity).",
+   "evolution": "Changed from usurer/greedy lender to all-powerful international financier and supposed central-bank owner.",
+   "modern": "Unsupported claims that Rothschilds or Jewish families secretly own the Federal Reserve or all national banks.",
+   "detailedCorrection": "Medieval laws often excluded Jews from landownership and guild trades, shaping occupations. Only a small number of Jewish families achieved exceptional wealth; most Jews were not bankers, and Jewish identity does not establish coordinated financial control.",
+   "deepDive": "Medieval European laws restricted Jews’ economic participation; many became traders, small merchants and lenders, and many remained poor. Later writers recast the presence of a few prominent Jewish financiers as proof that Jews collectively ran national and international finance. That conclusion does not follow. The Federal Reserve allegation is a modern version of the same mechanism: selectively name bankers or families, ignore actual institutional governance, and assign collective ethnic responsibility. The Protocols combined money and political power into a fictitious Jewish plot, while Henry Ford’s newspaper amplified such arguments in the United States. The educational distinction is between identifying particular individuals or financial practices, which are legitimate historical subjects, and alleging an unproven transnational Jewish command structure. The claim has been used to blame Jews for economic crises and to promote exclusion.",
+   "related": [
+    "JH-002",
+    "JH-008",
+    "JH-015"
+   ],
+   "sources": [
+    {
+     "id": "JHS-001",
+     "publisher": "USHMM",
+     "title": "Antisemitism: An Introduction",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/antisemitism",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-006",
+     "publisher": "USHMM",
+     "title": "Antisemitism in History: The Early Modern Era, 1300–1800",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/antisemitism-in-history-the-early-modern-era-1300-1800",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-008",
+     "publisher": "ADL",
+     "title": "Jewish Control of the Federal Reserve: A Classic Antisemitic Myth",
+     "url": null,
+     "type": "Advocacy"
+    },
+    {
+     "id": "JHS-036",
+     "publisher": "USHMM",
+     "title": "Antisemitism and Henry Ford's The International Jew",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/antisemitism-and-henry-fords-international-jew",
+     "type": "Museum encyclopedia"
+    }
+   ]
+  },
+  {
+   "id": "JH-002",
+   "status": "LOCKED",
+   "order": 2,
+   "title": "Jews control the media and governments",
+   "family": "Political conspiracy",
+   "lie": "A Jewish network controls what you read and whom you elect.",
+   "record": "Jewish ownership or participation in some institutions is not evidence of an ethnic command structure. The supposed plot is a propaganda invention.",
+   "significance": "Transforms ordinary individual participation into suspicion that democratic institutions are secretly captured.",
+   "geoOrigin": "Russia; United States; international",
+   "originator": "Pavel Krushevan published the Protocols in 1903; Henry Ford-backed Dearborn Independent promoted U.S. variants in 1920s",
+   "circumstances": "Growing newspaper and entertainment industries, new Jewish civic opportunities and nationalist conspiracy politics.",
+   "documentedMotive": "pamphlets and campaigns alleged hidden Jewish control.",
+   "inferredMotive": "political actors used a minority as an explanation for unwelcome reporting or outcomes.",
+   "spread": "Forged Protocols, Henry Ford-backed journalism, anti-Hollywood campaigns, Nazi propaganda and contemporary social networks.",
+   "uses": "Accusations against journalism, movies, elected officials, courts and public institutions.",
+   "consequences": "Harassment of Jewish professionals and support for broader antisemitic exclusion, without assigning specific violence to this trope alone.",
+   "evolution": "Jewish newspaper/editor stereotypes became expansive claims that all media and public officials answer to a hidden Jewish network.",
+   "modern": "Conspiratorial claims that reporting or politicians are secretly directed by Jews or “Zionists”; political critiques require evidence of specific conduct, not ethnic generalization.",
+   "detailedCorrection": "Participation by individual Jews in journalism, entertainment or government is not collective Jewish control. The Protocols falsely alleged Jewish control of media and politics, and later campaigns recycled the claim.",
+   "deepDive": "The 1903 Protocols, a proven forgery, alleged that Jewish leaders would manipulate newspapers, education and governments. Similar claims gained traction in the United States when Henry Ford-backed publications attacked supposedly Jewish-owned cultural institutions, particularly Hollywood. The underlying leap is unjustified: a visible individual’s religion or ancestry becomes an assertion of clandestine group coordination. Media ownership is diverse, political disagreement is real, and no evidence supports a unified Jewish chain of command. Analysts should distinguish verifiable criticism of a named media company, policy or lobby from treating Jews as a monolithic actor. The allegation migrated easily across ideologies because it can be attached to any disliked election result, film or news story, making its unfalsifiability part of its appeal.",
+   "related": [
+    "JH-001",
+    "JH-008",
+    "JH-015"
+   ],
+   "sources": [
+    {
+     "id": "JHS-005",
+     "publisher": "USHMM",
+     "title": "An Antisemitic Conspiracy: The Protocols of the Elders of Zion",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/protocols-of-the-elders-of-zion",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-009",
+     "publisher": "ADL",
+     "title": "Alleged Jewish Control of the American Motion Picture Industry",
+     "url": "https://www.adl.org/resources/news/alleged-jewish-control-american-motion-picture-industry",
+     "type": "Advocacy"
+    },
+    {
+     "id": "JHS-010",
+     "publisher": "ADL",
+     "title": "Anti-Zionism as Antisemitism: How Anti-Zionist Language from the Left and Right Vilifies Jews",
+     "url": null,
+     "type": "Advocacy"
+    },
+    {
+     "id": "JHS-007",
+     "publisher": "USHMM",
+     "title": "Antisemitism in History: The Era of Nationalism, 1800–1918",
+     "url": null,
+     "type": "Museum encyclopedia"
+    }
+   ]
+  },
+  {
+   "id": "JH-003",
+   "status": "LOCKED",
+   "order": 3,
+   "title": "Jews use Christian children’s blood in rituals",
+   "family": "Religious accusation",
+   "lie": "Jews murder Christian children for ritual blood.",
+   "record": "Judaism forbids consuming blood. The accusation was invented, repeated and used to persecute communities.",
+   "significance": "One of the longest-running false accusations used to dehumanize Jews and incite violence.",
+   "year": 1144,
+   "approx": false,
+   "geoOrigin": "Norwich, England; Fulda, Holy Roman Empire",
+   "originator": "Thomas of Monmouth developed and popularized Norwich narrative; origin of all later motifs not attributable to one inventor",
+   "circumstances": "Medieval Christian beliefs concerning Jesus’s crucifixion, sainthood, Passover timing and ritual purity.",
+   "documentedMotive": "named writers/accusers propagated the stories; motives differed.",
+   "inferredMotive": "religious anxieties, local politics, economic conflict and cult-building sometimes made them attractive.",
+   "spread": "Hagiography, preaching, imagery, trials, repeated local legends, Nazi press and digital imagery.",
+   "uses": "Norwich (1144), Fulda (1235), later European cases, Nazi Der Stürmer and the postwar Kielce accusation.",
+   "consequences": "Accusations triggered trials, anti-Jewish hostility and in some settings lethal riots; the 1946 Kielce pogrom drew on ritual-murder rumor.",
+   "evolution": "The initial story of recreating Christ’s suffering absorbed an alleged need for Christian blood and later adapted to organ-theft rhetoric.",
+   "modern": "Claims about children’s blood, ritual sacrifice, or Jews/Israelis consuming the blood of enemies.",
+   "detailedCorrection": "Jewish law prohibits consuming blood; there is no Jewish ritual requiring human blood. Norwich 1144 was an early medieval ritual-murder accusation, whereas the explicit Christian-blood-use motif emerged in later medieval allegations, notably Fulda 1235.",
+   "deepDive": "In 1144 a boy named William died in Norwich, England. A local cleric claimed Jews had ritually crucified him, to create a local saint; historian Ivan Marcus notes no riots followed. The later blood libel added the claim that Jews needed Christian blood. Hillel Kieval dates the earliest such accusation to Fulda in 1235. It grew from Christian beliefs about Christ's blood and is false; Judaism forbids consuming blood. In 1946 a child-abduction rumor preceded the Kielce pogrom, which killed 42 Jews.",
+   "related": [
+    "JH-006",
+    "JH-012",
+    "JH-014"
+   ],
+   "sources": [
+    {
+     "id": "JHS-003",
+     "publisher": "USHMM",
+     "title": "Blood Libel",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/blood-libel",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-004",
+     "publisher": "YIVO / Hillel J. Kieval",
+     "title": "Blood Libels and Host Desecration Accusations",
+     "url": "https://encyclopedia.yivo.org/article/322",
+     "type": "Scholarly encyclopedia"
+    },
+    {
+     "id": "JHS-019",
+     "publisher": "YIVO Encyclopedia",
+     "title": "Ashkenaz",
+     "url": "https://encyclopedia.yivo.org/article/2373",
+     "type": "Scholarly encyclopedia"
+    },
+    {
+     "id": "JHS-035",
+     "publisher": "ADL",
+     "title": "Antisemitism Uncovered: Jews Use Christian Blood for Religious Rituals",
+     "url": "https://antisemitism.adl.org/blood/",
+     "type": "Advocacy"
+    }
+   ]
+  },
+  {
+   "id": "JH-004",
+   "status": "LOCKED",
+   "order": 4,
+   "title": "Jews aren't loyal citizens to their countries because of Israel",
+   "family": "Political conspiracy",
+   "lie": "Jews secretly answer to Israel instead of their own country.",
+   "record": "Citizenship and loyalty are individual matters. Jewish identity does not determine allegiance to any government.",
+   "significance": "Makes Jewish citizenship permanently conditional and recasts identity as evidence of treason.",
+   "geoOrigin": "Europe; France; later multiple countries",
+   "originator": "Multiple promoters, including antisemitic press during Dreyfus Affair; not one author",
+   "circumstances": "European narratives of Judas as betrayer, modern nationalism and debates over citizenship.",
+   "documentedMotive": "press and authorities framed Jewish people as suspect",
+   "inferredMotive": "nationalism fueled anxieties around minorities and international ties.",
+   "spread": "Religious traditions, nationalist newspapers, political speeches and modern claims about Israel.",
+   "uses": "1894 wrongful conviction of Alfred Dreyfus, broader exclusion from civic/military positions, post-1948 suspicion attached to Israel.",
+   "consequences": "Dreyfus imprisonment and public vilification; reinforcement of discriminatory ideas about who could be fully French.",
+   "evolution": "From generalized Jewish betrayal to suspicion of international Jewish solidarities, then Israel-specific loyalty tests.",
+   "modern": "Assertions that Jewish voters, officials or citizens inevitably serve Israel; specific lobbying activities can be debated on their merits.",
+   "detailedCorrection": "The disloyal-Jew stereotype predates Israel’s establishment in 1948. The Dreyfus Affair (1894) shows how a French Jewish officer was falsely branded a traitor long before the modern state existed.",
+   "deepDive": "The charge of Jewish disloyalty is centuries older than the State of Israel. In Christian and European culture it developed partly through portrayals of Judas as the model traitor, then took political forms as states demanded exclusive national loyalty. In 1894 Captain Alfred Dreyfus, a Jewish French Army officer, was wrongfully convicted of betraying France amid antisemitic agitation; he was exonerated in 1906. His case demonstrates the structure of the accusation: Jewishness was made to count against evidence of patriotism. After 1948 the same suspicion could be reframed as loyalty to Israel. Supporting, opposing or criticizing the policies of any country is a legitimate civic act; assuming that every Jewish citizen has hidden allegiance to it is not. The historical subject is the collective loyalty test imposed on Jews, not whether particular people or governments are beyond criticism.",
+   "related": [
+    "JH-002",
+    "JH-010"
+   ],
+   "sources": [
+    {
+     "id": "JHS-011",
+     "publisher": "ADL",
+     "title": "Antisemitism Uncovered: Jews Are Disloyal",
+     "url": "https://antisemitism.adl.org/disloyalty/",
+     "type": "Advocacy"
+    },
+    {
+     "id": "JHS-012",
+     "publisher": "USHMM",
+     "title": "Alfred Dreyfus and the Dreyfus Affair",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/alfred-dreyfus-and-the-dreyfus-affair",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-013",
+     "publisher": "ADL",
+     "title": "Straight Talk on the Charge of Jewish Disloyalty",
+     "url": null,
+     "type": "Advocacy"
+    }
+   ]
+  },
+  {
+   "id": "JH-005",
+   "status": "LOCKED",
+   "order": 5,
+   "title": "Jews first came to Israel after the Holocaust",
+   "family": "Historical erasure",
+   "lie": "Jewish history in the Land of Israel began after the Holocaust.",
+   "record": "An Egyptian inscription identifies a people called Israel in Canaan around 1208 BCE, and Jewish communities lived in the region long before 1948.",
+   "significance": "Erases millennia of Jewish history and confuses the founding of a modern state with a people’s origin.",
+   "geoOrigin": "Land of Israel / Palestine; Egypt (inscription)",
+   "originator": "No documented individual originator of exact claim",
+   "circumstances": "Competing accounts of national history after the establishment of modern Israel; political context requires analysis rather than attribution without proof.",
+   "documentedMotive": "None documented.",
+   "spread": "Polemical presentations, social media and history oversimplifications; earliest documented circulation remains to be researched.",
+   "uses": "Claims of exclusively post-1945 Jewish arrival in discussions of modern Israel.",
+   "consequences": "Distorts historical understanding, especially if mistaken for evidence about legitimate present-day political rights.",
+   "evolution": "Conflates several distinct timelines: ancient Israelite history, millennia of Jewish communities, modern immigration beginning before 1948 and the state founded in 1948.",
+   "modern": "Still circulated as an assertion that all Jews immigrated only in response to the Holocaust.",
+   "detailedCorrection": "The Merneptah Stele is an external record naming Israel around 1208 BCE. Jewish communities also existed in premodern Jerusalem, Hebron, Safed and Tiberias. Zionism and Jewish immigration predated World War II.",
+   "deepDive": "The modern State of Israel was established in 1948; that date does not mark the arrival of Jews in the region. The Egyptian Merneptah Stele (about 1208 BCE) names a people called Israel in Canaan—an independent, non-biblical anchor for ancient Israelite history. Later kingdoms, Roman-era communities and Jewish life under successive rulers form a much longer history, although the population changed profoundly over time. The National Library of Israel documents the Old Yishuv—Jewish communities in Jerusalem, Hebron, Safed and Tiberias—before the first large modern Zionist immigration wave in the 1880s. The first Zionist Congress met in 1897, before the Holocaust. Neither ancient presence nor continuous communal survival settles all present-day territorial or political claims by itself; it establishes that “Jews only arrived after the Holocaust” is historically false.",
+   "related": [
+    "JH-010",
+    "JH-011"
+   ],
+   "sources": [
+    {
+     "id": "JHS-014",
+     "publisher": "Posen Library",
+     "title": "Stela of Merneptah",
+     "url": "https://www.posenlibrary.com/entry/stela-merneptah",
+     "type": "Primary"
+    },
+    {
+     "id": "JHS-015",
+     "publisher": "National Library of Israel",
+     "title": "The Old Yishuv",
+     "url": "https://www.nli.org.il/en/discover/israel/land-of-israel/old-yishuv",
+     "type": "Library reference"
+    },
+    {
+     "id": "JHS-016",
+     "publisher": "USHMM",
+     "title": "Holocaust Survivors and the Establishment of the State of Israel",
+     "url": null,
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-017",
+     "publisher": "USHMM",
+     "title": "Aliyah Bet",
+     "url": null,
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-039",
+     "publisher": "The Jewish Museum",
+     "title": "Tel Dan Stele",
+     "url": null,
+     "type": "Museum"
+    }
+   ]
+  },
+  {
+   "id": "JH-006",
+   "status": "LOCKED",
+   "order": 6,
+   "title": "All Jews killed Jesus",
+   "family": "Religious accusation",
+   "lie": "Jews as a people murdered Jesus.",
+   "record": "Roman authorities executed him. Collective guilt across generations is a theological accusation, not historical evidence.",
+   "significance": "A foundational European anti-Jewish narrative helped justify centuries of exclusion.",
+   "geoOrigin": "Roman Judea and later Christian Europe",
+   "originator": "Early Christian writers and subsequent church teachers; attribution to a single inventor is not valid",
+   "circumstances": "Early Christianity’s separation from Judaism and theological debate over Jesus, followed by state-supported churches.",
+   "documentedMotive": "Christian texts/teachings generalized blame",
+   "inferredMotive": "boundary-making and rivalry contributed to its social reach.",
+   "spread": "Sermons, theological writing, Passion plays and religious art over many centuries.",
+   "uses": "Accusations of deicide that supported social stigma, segregation and occasionally violence.",
+   "consequences": "Religious and civic discrimination; use of an enduring “Christ-killer” label against living Jews.",
+   "evolution": "From disputes about events in Roman Judea to an inherited accusation attached to every Jewish generation; many churches later rejected it.",
+   "modern": "Recycled language blaming contemporary Jews collectively for events of the 1st century.",
+   "detailedCorrection": "Jesus and his first followers were Jewish; Roman authority under Pontius Pilate ordered the crucifixion. Later Christian interpretations assigned inherited blame to Jews collectively; the Catholic Church repudiated collective blame in Nostra Aetate (1965).",
+   "deepDive": "Jesus was a Jew in Roman-ruled Judea, and Roman authorities carried out crucifixion under Pontius Pilate. Early Christian accounts reflect contested religious and political relationships, but none establish criminal responsibility for all Jews then living, still less every future generation. As Christianity expanded, some church writers portrayed the Jewish people as uniquely responsible for killing Christ; sermons and art helped naturalize the accusation in Europe. The Holocaust Museum identifies the claim as a core source of anti-Jewish hostility. In 1965 the Second Vatican Council rejected assigning Christ’s death to Jews as a whole, then or now. An accurate presentation can discuss roles attributed to some specific figures in ancient narratives without treating an entire people as collectively culpable. This entry should explicitly avoid flattening Christianity: theological views varied and many Christian institutions now reject the accusation.",
+   "related": [
+    "JH-003",
+    "JH-010",
+    "JH-012"
+   ],
+   "sources": [
+    {
+     "id": "JHS-001",
+     "publisher": "USHMM",
+     "title": "Antisemitism: An Introduction",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/antisemitism",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-002",
+     "publisher": "USHMM",
+     "title": "Antisemitism in History: From the Early Church to 1400",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/antisemitism-in-history-from-the-early-church-to-1400",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-030",
+     "publisher": "USHMM",
+     "title": "Why the Jews: History of Antisemitism",
+     "url": null,
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-042",
+     "publisher": "Vatican / Second Vatican Council",
+     "title": "Nostra Aetate (28 October 1965)",
+     "url": null,
+     "type": "Primary"
+    }
+   ]
+  },
+  {
+   "id": "JH-007",
+   "status": "LOCKED",
+   "order": 7,
+   "title": "Jews poisoned the wells and caused the Black Death",
+   "family": "Religious accusation",
+   "lie": "Jews deliberately spread the Black Death by poisoning Europe’s wells.",
+   "record": "It was a plague pandemic—not a Jewish plot. The accusation helped unleash attacks on Jewish communities.",
+   "significance": "An example of fear during catastrophe being turned into deadly collective blame.",
+   "year": 1348,
+   "approx": false,
+   "geoOrigin": "Western and Central Europe, including German-speaking lands",
+   "originator": "Multiple local accusers and authorities; first originator unknown",
+   "circumstances": "Mass mortality amid limited knowledge of epidemic mechanisms, preexisting ritual-murder and poisoner stereotypes.",
+   "documentedMotive": "rumors and accusations circulated alongside persecution",
+   "inferredMotive": "fear and opportunism intensified spread in particular towns.",
+   "spread": "Inter-city rumor, coerced confessions, local political/religious agitation, legal action.",
+   "uses": "Black Death-era mass persecution of Jews in German-speaking and other European territories.",
+   "consequences": "Jewish communities were attacked, expelled or killed; outcomes varied by town and depended on local actors.",
+   "evolution": "The specific well-poisoning charge survives as a reusable template for disease conspiracies.",
+   "modern": "Repurposed accusations claiming Jews deliberately cause modern epidemics.",
+   "detailedCorrection": "Plague in Europe in 1347–1351 was not caused by coordinated poisoning. The well-poisoning allegation spread in 1348–1349 and fueled attacks on Jewish communities.",
+   "deepDive": "When the Black Death spread in the mid-14th century, a false rumor said Jews had poisoned wells to cause it. Pope Clement VI condemned the charge in 1348, but it spread from town to town. At Chillon, Jews were tortured into 'confessing,' and reports of the confessions travelled between cities. Massacres followed across German-speaking lands through 1349. The plague had natural causes, and local politics shaped each attack, so no single rumor explains them all.",
+   "related": [
+    "JH-003",
+    "JH-010",
+    "JH-012"
+   ],
+   "sources": [
+    {
+     "id": "JHS-019",
+     "publisher": "YIVO Encyclopedia",
+     "title": "Ashkenaz",
+     "url": "https://encyclopedia.yivo.org/article/2373",
+     "type": "Scholarly encyclopedia"
+    },
+    {
+     "id": "JHS-045",
+     "publisher": "Jewish Encyclopedia (Gottheil and Jacobs, 1906)",
+     "title": "Black Death",
+     "url": "https://www.jewishencyclopedia.com/articles/3349-black-death",
+     "type": "Scholarly encyclopedia"
+    },
+    {
+     "id": "JHS-018",
+     "publisher": "USHMM",
+     "title": "Antisemitism Explained",
+     "url": "https://www.ushmm.org//antisemitism/what-is-antisemitism/explained",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-002",
+     "publisher": "USHMM",
+     "title": "Antisemitism in History: From the Early Church to 1400",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/antisemitism-in-history-from-the-early-church-to-1400",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-001",
+     "publisher": "USHMM",
+     "title": "Antisemitism: An Introduction",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/antisemitism",
+     "type": "Museum encyclopedia"
+    }
+   ]
+  },
+  {
+   "id": "JH-008",
+   "status": "LOCKED",
+   "order": 8,
+   "title": "A secret Jewish council rules the world: the Protocols",
+   "family": "Political conspiracy",
+   "lie": "A secret Jewish council wrote a blueprint to control the world.",
+   "record": "The Protocols is a forgery. Its supposed meetings never occurred, and key passages were plagiarized.",
+   "significance": "A documented manufactured “source” used to give false conspiracy claims the appearance of evidence.",
+   "year": 1903,
+   "approx": false,
+   "geoOrigin": "Russian Empire (St. Petersburg), then international",
+   "originator": "Pavel Krushevan published the 1903 text; Sergei Nilus published the 1905 version; ultimate drafter not proven",
+   "circumstances": "Imperial Russian antisemitism, political instability, fear of liberalism and socialism, and emergence of Zionism.",
+   "documentedMotive": "publishers attributed fictitious plans to Jews. Whether an identified political police agency wrote the text remains disputed and should not be declared proven.",
+   "spread": "Russian serial publication, translation, Henry Ford’s newspaper, Nazi propaganda and repeated online reprints.",
+   "uses": "Political blame for revolutions, press, finance and wars; used in many antisemitic movements.",
+   "consequences": "Public legitimization of antisemitic hostility; exact direct role in an individual attack requires separate evidence.",
+   "evolution": "The same fictional text was repackaged to interpret different political crises around the world.",
+   "modern": "Online copies presented as authentic “minutes” or cited as evidence of coordinated Jewish power.",
+   "detailedCorrection": "The Protocols of the Elders of Zion appeared in Russian newspaper Znamia in 1903 and a widely circulated 1905 edition. A 1921 investigation showed extensive plagiarism of Maurice Joly’s 1864 political satire.",
+   "deepDive": "The Protocols of the Elders of Zion claims to record Jewish leaders plotting to control politics, finance and the press. No such meetings occurred; it is a forgery. An abbreviated version appeared in a St. Petersburg newspaper in 1903, and Sergei Nilus published it in a 1905 book. In 1921 journalist Philip Graves showed that much of it was copied from Maurice Joly's 1864 satire, which never mentions Jews. Its author is unknown; it is most often linked to the Russian secret police in Paris. It was reprinted worldwide anyway.",
+   "related": [
+    "JH-001",
+    "JH-002",
+    "JH-009",
+    "JH-015"
+   ],
+   "sources": [
+    {
+     "id": "JHS-005",
+     "publisher": "USHMM",
+     "title": "An Antisemitic Conspiracy: The Protocols of the Elders of Zion",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/protocols-of-the-elders-of-zion",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-036",
+     "publisher": "USHMM",
+     "title": "Antisemitism and Henry Ford's The International Jew",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/antisemitism-and-henry-fords-international-jew",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-046",
+     "publisher": "Encyclopaedia Judaica (Leon Poliakov), via Encyclopedia.com",
+     "title": "Elders of Zion, Protocols of the Learned",
+     "url": "https://www.encyclopedia.com/religion/encyclopedias-almanacs-transcripts-and-maps/elders-zion-protocols-learned",
+     "type": "Scholarly encyclopedia"
+    }
+   ]
+  },
+  {
+   "id": "JH-009",
+   "status": "LOCKED",
+   "order": 9,
+   "title": "Jews created communism to destroy other nations",
+   "family": "Political conspiracy",
+   "lie": "Communism was a coordinated Jewish operation.",
+   "record": "It was a political movement spanning many peoples. Nazi propagandists cast it as a Jewish plot to justify persecution and war.",
+   "significance": "Shows how radical political ideology was racialized as a pretext for genocide.",
+   "geoOrigin": "Russian Empire; Germany and Nazi-occupied Eastern Europe",
+   "originator": "Antisemitic nationalist and Nazi propagandists; no single demonstrated inventor",
+   "circumstances": "Fear of revolution after 1917, economic upheaval and Nazi ideological opposition to Soviet communism.",
+   "documentedMotive": "Nazi propaganda depicted Jews as authors of Bolshevism. Political justification of aggression and persecution is documented; local individual motives vary.",
+   "spread": "Emigré and nationalist literature, Nazi posters, radio, films and collaborationist propaganda.",
+   "uses": "Claims Jews controlled Soviet leaders and engineered revolution; Nazi justification for invasion of the USSR.",
+   "consequences": "Helped legitimize anti-Jewish persecution and mass murder alongside Nazi racial and expansionist ideology.",
+   "evolution": "Merged an older “secret Jewish power” narrative with anticommunism and later “cultural Marxism” rhetoric.",
+   "modern": "Claims that all left-wing politics are orchestrated by Jewish conspirators.",
+   "detailedCorrection": "Some important communists had Jewish ancestry, while many Jews opposed communism or were targeted by communist governments. Jewish identity is not evidence of a unified ethnic revolutionary conspiracy.",
+   "deepDive": "After the Bolshevik Revolution of 1917, antisemites turned the appearance of some prominent Jewish-born revolutionaries into an argument that Jews as a people had created communism. The argument ignored major differences in Jewish politics, Jewish opponents of Bolshevism, and the fact that communist movements encompassed many backgrounds. The Nazis elevated this idea—often called Judeo-Bolshevism—into a pillar of their worldview: they portrayed the Soviet Union as a racial Jewish threat rather than a state with its own history and ideology. During the 1941 invasion they linked the conquest of Eastern Europe to the imagined elimination of Jewish influence. Holocaust Museum evidence includes contemporary Nazi posters applying Jewish symbols to Stalin’s government. The error is collective attribution: the identity of some participants is substituted for an invented group command structure.",
+   "related": [
+    "JH-008",
+    "JH-010",
+    "JH-015"
+   ],
+   "sources": [
+    {
+     "id": "JHS-021",
+     "publisher": "USHMM",
+     "title": "Communism",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/communism-1",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-022",
+     "publisher": "USHMM",
+     "title": "The Soviet Union and the Eastern Front",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/the-soviet-union-and-the-eastern-front",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-040",
+     "publisher": "USHMM",
+     "title": "Nazi Propaganda Poster: The Stalin Constitution?",
+     "url": null,
+     "type": "Primary (artifact)"
+    },
+    {
+     "id": "JHS-020",
+     "publisher": "USHMM",
+     "title": "Antisemitism in History: World War I",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/antisemitism-in-history-world-war-i",
+     "type": "Museum encyclopedia"
+    }
+   ]
+  },
+  {
+   "id": "JH-010",
+   "status": "LOCKED",
+   "order": 10,
+   "title": "Jews are perpetual foreigners who never belong",
+   "family": "Racial or ethnic stereotyping",
+   "lie": "A Jew can never truly belong to the country they call home.",
+   "record": "Jewish communities have lived, worked, served and participated in their countries for generations. Antisemites made exclusion a rule, not a fact.",
+   "significance": "Redefines civic membership by ancestry and can make expulsion appear natural.",
+   "geoOrigin": "Christian Europe; Nazi Germany",
+   "originator": "Many theologians and nationalists; Nazi Party program of 1920 was a documented political formalization",
+   "circumstances": "Minority religious difference within Christian Europe, then racial nationalism that denied Jews could ever become Germans.",
+   "documentedMotive": "Nazi ideology defined Jewish people as “racially foreign.”",
+   "inferredMotive": "outsider framing made political exclusion easier.",
+   "spread": "Religious teachings, separate legal status, nationalist speeches and racial law.",
+   "uses": "Legal separation, citizenship denial, removal from occupations and social life under Nazi Germany.",
+   "consequences": "Segregation, civic exclusion, expulsions and an ideological environment permitting persecution.",
+   "evolution": "Moved from religious otherness, which sometimes allowed conversion, to racial otherness that conversion could not change.",
+   "modern": "Claims that Jews are inherently alien or secretly belong elsewhere regardless of citizenship.",
+   "detailedCorrection": "Christian anti-Jewish ideologies portrayed Jews as outsiders; later racial nationalists asserted Jewish citizenship was impossible regardless of assimilation. The Nazi Party program of 1920 institutionalized exclusion.",
+   "deepDive": "Jews lived for generations in many European polities, speaking local languages, running businesses, studying and serving in armies. Yet discriminatory religious ideas long cast them as outsiders. Modern racial nationalists pushed the charge further: assimilation and even conversion supposedly could not make a Jew part of the nation. The Nazi Party program of 1920 defined membership through ancestry and excluded Jews from citizenship; Nazi public culture depicted Jews as a racially foreign population. This was a policy imposed by antisemites, not a historical fact about Jewish identity or civic contribution. The practical distinction is central: states may define citizenship through laws and rights, but the blanket assertion that one ancestry can never belong creates a built-in justification for unequal treatment.",
+   "related": [
+    "JH-004",
+    "JH-006",
+    "JH-009"
+   ],
+   "sources": [
+    {
+     "id": "JHS-002",
+     "publisher": "USHMM",
+     "title": "Antisemitism in History: From the Early Church to 1400",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/antisemitism-in-history-from-the-early-church-to-1400",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-024",
+     "publisher": "USHMM",
+     "title": "Volksgemeinschaft (People's or National Community)",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/volksgemeinschaft-peoples-or-national-community",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-041",
+     "publisher": "USHMM",
+     "title": "Antisemitism and the Holocaust",
+     "url": null,
+     "type": "Museum encyclopedia"
+    }
+   ]
+  },
+  {
+   "id": "JH-011",
+   "status": "LOCKED",
+   "order": 11,
+   "title": "Ashkenazi Jews are converts with no Jewish ancestral ties",
+   "family": "Historical erasure",
+   "lie": "All Ashkenazi Jews are descended from Khazars and have no ties to ancient Jewish populations.",
+   "record": "Khazar elites did adopt Judaism, but genetics and history do not support exclusive Khazar ancestry.",
+   "significance": "Uses a real medieval conversion story to invent an exclusive genealogy that erases diverse Jewish ancestry.",
+   "geoOrigin": "Khazar Khaganate north of Black/Caspian seas; modern European/international circulation",
+   "originator": "No defensible single inventor assigned; modern exclusive version popularized through successive authors and political polemic",
+   "circumstances": "Historical accounts of a Khazar elite conversion, later attempts to explain Ashkenazi origins by a single migration.",
+   "documentedMotive": "scholars discuss Khazar conversions. Claims of exclusively Khazar Jewish ancestry are unsupported; motive of any particular advocate needs case-specific evidence.",
+   "spread": "Popular history, polemical essays, identity debates and social media.",
+   "uses": "Claims Jewish European communities have no Levantine historical lineage and therefore lack Jewish historical ties to the region.",
+   "consequences": "Misrepresentation of historical origin and rhetoric delegitimizing identity; discrete persecution consequences need proof.",
+   "evolution": "From authentic Khazar history to an unsupported sweeping substitution of all Ashkenazi ancestry.",
+   "modern": "Claims that Ashkenazi Jews are “fake Jews” or lack all connections to ancient Israel.",
+   "detailedCorrection": "Some medieval Khazar rulers and elites adopted Judaism; how many ordinary Khazars converted is uncertain. Population-genetic research instead identifies major European and Middle Eastern components among Ashkenazi Jews.",
+   "deepDive": "Khazaria was a medieval polity north of the Black and Caspian seas. Historical sources indicate that some Khazar rulers or elite circles adopted Judaism; the scale and date of wider conversion remain disputed. That real history does not establish that all—or even most—Ashkenazi Jews descend from Khazars. Population-genetic studies report shared ancestry between Ashkenazi and other Jewish communities and substantial European and likely Middle Eastern components. A genome-wide comparative study found no evidence for a major Khazar-region contribution in its samples; genetic inference also has limits because no straightforward modern Khazar reference population exists. It is equally wrong to claim that every Ashkenazi ancestor came directly from ancient Judea. The sourced position is mixed ancestry and a complex Jewish historical formation—not a single-origin story. Ancient connection and modern political entitlement are separate questions.",
+   "related": [
+    "JH-005"
+   ],
+   "sources": [
+    {
+     "id": "JHS-026",
+     "publisher": "Encyclopaedia Iranica",
+     "title": "Khazars",
+     "url": "https://www.iranicaonline.org/articles/khazars/",
+     "type": "Scholarly encyclopedia"
+    },
+    {
+     "id": "JHS-027",
+     "publisher": "Behar et al., Human Biology",
+     "title": "No evidence from genome-wide data of a Khazar origin for the Ashkenazi Jews",
+     "url": "https://pubmed.ncbi.nlm.nih.gov/25079123/",
+     "type": "Peer-reviewed"
+    },
+    {
+     "id": "JHS-028",
+     "publisher": "Carmi et al., Nature Communications",
+     "title": "Sequencing an Ashkenazi reference panel supports population-targeted personal genomics and illuminates Jewish and European origins",
+     "url": null,
+     "type": "Peer-reviewed"
+    }
+   ]
+  },
+  {
+   "id": "JH-012",
+   "status": "LEANING",
+   "order": 12,
+   "title": "Jews torture consecrated Communion wafers",
+   "family": "Religious accusation",
+   "lie": "Jews steal Christian Communion bread to injure Christ.",
+   "record": "Host desecration was a medieval accusation built on Christian religious fears, not evidence of a Jewish rite.",
+   "significance": "Criminalized an imagined attack on the central Christian sacrament and fueled anti-Jewish persecution.",
+   "year": 1290,
+   "approx": false,
+   "geoOrigin": "Paris, France; later Central Europe",
+   "originator": "No secure lone originator; local storytellers, clerics and authorities propagated versions",
+   "circumstances": "Developing Eucharistic theology and 1215 dogmatic definition of transubstantiation.",
+   "documentedMotive": "the charge centered on the sacred status of the Host",
+   "inferredMotive": "anxieties over Jewish disbelief and bodily harm to Christ made the story powerful.",
+   "spread": "Church narratives, sermons, processions, artworks and court proceedings.",
+   "uses": "Paris 1290 and later host-desecration accusations including episodes linked to 1298 attacks in Central Europe.",
+   "consequences": "In specific places the accusation was associated with anti-Jewish attacks; links between claim and violence require local documentation.",
+   "evolution": "Images portrayed stolen wafers bleeding after supposed Jewish abuse.",
+   "modern": "Occasional online or religious references to the medieval charge.",
+   "detailedCorrection": "Medieval allegations claimed Jews pierced or tortured a consecrated Eucharistic wafer. The first major such accusation is documented in Paris in 1290; the charge is distinct from blood libel though closely linked.",
+   "deepDive": "In Catholic belief, the consecrated Eucharistic wafer represents Christ’s body. Medieval accusations claimed Jews acquired these wafers and stabbed, burned or otherwise tortured them to injure Jesus. Scholar Hillel Kieval identifies a major accusation in Paris in 1290 and explains how the charge connected with ideas about the Eucharist after the Fourth Lateran Council of 1215. Stories of “bleeding” wafers offered supposed miraculous confirmation but did not provide evidence of a Jewish practice. This was a Christian allegation about Jews, not a Jewish ritual. It sometimes circulated alongside stories of ritual murder and fed exclusion and violence in late-medieval Europe. The distinction between the two accusations matters: blood libel imagines stealing a child’s blood, whereas host desecration imagines violating a Christian sacred object.",
+   "related": [
+    "JH-003",
+    "JH-006",
+    "JH-007"
+   ],
+   "sources": [
+    {
+     "id": "JHS-004",
+     "publisher": "YIVO / Hillel J. Kieval",
+     "title": "Blood Libels and Host Desecration Accusations",
+     "url": "https://encyclopedia.yivo.org/article/322",
+     "type": "Scholarly encyclopedia"
+    },
+    {
+     "id": "JHS-019",
+     "publisher": "YIVO Encyclopedia",
+     "title": "Ashkenaz",
+     "url": "https://encyclopedia.yivo.org/article/2373",
+     "type": "Scholarly encyclopedia"
+    },
+    {
+     "id": "JHS-002",
+     "publisher": "USHMM",
+     "title": "Antisemitism in History: From the Early Church to 1400",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/antisemitism-in-history-from-the-early-church-to-1400",
+     "type": "Museum encyclopedia"
+    }
+   ]
+  },
+  {
+   "id": "JH-013",
+   "status": "LOCKED",
+   "order": 13,
+   "title": "Jews have horns or nonhuman bodies",
+   "family": "Dehumanization",
+   "lie": "Jews have horns or other demonic physical traits.",
+   "record": "Such features are artistic and defamatory inventions—not human anatomy. The horned Moses tradition has a separate translation history.",
+   "significance": "Converts religious othering into visible caricatures that make Jews seem less than human.",
+   "geoOrigin": "Christian Europe",
+   "originator": "Numerous artists/writers; no sole author",
+   "circumstances": "Christian demon imagery and interpretive history of the Latin Exodus translation.",
+   "documentedMotive": "art displays devilish attributes.",
+   "inferredMotive": "this normalized religious hostility; Moses iconography alone should not be treated as proof of popular anatomical belief.",
+   "spread": "Illuminations, church sculptures, pamphlet caricature and oral folklore.",
+   "uses": "Stereotyped depictions of Jewish people with animal/demonic features and horned representations of Moses.",
+   "consequences": "Visual dehumanization and stigma; direct linkage to a specific assault requires independent proof.",
+   "evolution": "Medieval religious visual codes were transformed into racial caricatures in later popular propaganda.",
+   "modern": "Folklore or jokes asserting Jews possess horns; modern dehumanizing cartoons.",
+   "detailedCorrection": "Medieval and early-modern Christian imagery sometimes portrayed Jews as devils or animals. Some artworks show Moses with horns because of a disputed Latin rendering of Exodus 34; this is not evidence that Jewish people have horns.",
+   "deepDive": "Christian European art sometimes depicted Jews as devil-like creatures with horns, claws or animal faces. Such images were inventions and conveyed moral or religious condemnation, not anatomy. The famous horned Moses is a related but distinct art-historical strand: a Latin biblical rendering of Exodus 34 associated the Hebrew description of Moses’s radiant face with horns, so artists often portrayed Moses horned. University of Cambridge’s Fitzwilliam Museum documents that translation issue. It would be wrong to assume that each image of horned Moses shows that contemporaries believed Jews physically grew horns; the images had different artistic and theological functions. For this dataset the supported claim is about dehumanizing anti-Jewish iconography, while a specific popular belief that real Jews have horns still needs separate dated attestation.",
+   "related": [
+    "JH-006",
+    "JH-010"
+   ],
+   "sources": [
+    {
+     "id": "JHS-001",
+     "publisher": "USHMM",
+     "title": "Antisemitism: An Introduction",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/antisemitism",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-029",
+     "publisher": "Fitzwilliam Museum, Cambridge",
+     "title": "Moses' Horns",
+     "url": "https://www.fitzmuseum.cam.ac.uk/explore-our-collection/highlights/context/sign-and-symbols/moses-horns",
+     "type": "Museum"
+    },
+    {
+     "id": "JHS-030",
+     "publisher": "USHMM",
+     "title": "Why the Jews: History of Antisemitism",
+     "url": null,
+     "type": "Museum encyclopedia"
+    }
+   ]
+  },
+  {
+   "id": "JH-014",
+   "status": "LOCKED",
+   "order": 14,
+   "title": "Jews or Israelis systematically kill people to steal their organs",
+   "family": "Religious accusation",
+   "lie": "Jews or Israelis run a secret program to kill Palestinians for organs.",
+   "record": "That sweeping claim is unsubstantiated. A real Israeli institute’s unauthorized removal of organs from multiple groups must not be erased or recast as proof of a murder conspiracy.",
+   "significance": "Illustrates how a documented abuse can be exaggerated into an unsupported accusation of ethnic ritual predation.",
+   "geoOrigin": "Israel; Sweden; international online circulation",
+   "originator": "Abu Kabir chief pathologist Yehuda Hiss oversaw documented unauthorized practice; Swedish journalist Donald Boström published a 2009 claim/inquiry prompt; not creator of all prior rumors",
+   "circumstances": "Legacy blood-libels, Israeli-Palestinian conflict, and actual questions about consent at a forensic institute.",
+   "documentedMotive": "unauthorized removal and later promotion of conspiracy",
+   "inferredMotive": "generalizing one scandal makes the false allegation rhetorically persuasive.",
+   "spread": "2009 press coverage, inflammatory cartoons, social media following 2023 violence.",
+   "uses": "False charges of Palestinian kidnapping/killing for organs, often implying a systematic state policy.",
+   "consequences": "Anti-Jewish demonization; claims about specific violence from these allegations require independent demonstration.",
+   "evolution": "Older child-blood imagery was updated to organs and falsely extended from deceased-body misconduct to systematic murder for transplantation.",
+   "modern": "Claims of “organ theft” as a ritualized Jewish national practice; distinct specific reports of medical abuse demand case-by-case investigation.",
+   "detailedCorrection": "Investigations documented unauthorized organ or tissue removal from deceased people of several backgrounds at Israel’s Abu Kabir forensic institute in the 1990s. They did not establish a state program to kill Palestinians for transplantation; a 2009 Swedish article helped amplify the false systematic-killing allegation.",
+   "deepDive": "A documented ethical and legal scandal at the Abu Kabir forensic institute involved removal of tissues and organs from corpses without family consent in the 1990s. The affected included Israeli soldiers, other Israeli civilians, Palestinians and foreign workers. The wrong was real. It does not substantiate a coordinated Israeli policy of murdering Palestinians to harvest their organs. An influential 2009 Swedish newspaper article suggested that Israeli soldiers were killing Palestinians for organs, and later online retellings presented increasingly confident claims without proof of that systematic practice. This entry must distinguish deceased-body consent violations, alleged organ trafficking, specific reported incidents and the much stronger—and unsupported—claim of a Jewish or state-directed murder-for-organs program. It also should acknowledge that legitimate scrutiny of medical ethics and military conduct is not intrinsically antisemitic; collective demonization and unsupported accusations of Jewish predation reproduce the blood-libel structure.",
+   "related": [
+    "JH-003"
+   ],
+   "sources": [
+    {
+     "id": "JHS-031",
+     "publisher": "ADL",
+     "title": "Unfounded Claims of \"Organ Harvesting\" Reignite Embers of Decades-Old Hospital Scandal and Centuries-Old Trope",
+     "url": "https://southcentral.adl.org/resources/article/unfounded-claims-organ-harvesting-reignite-embers-decades-old-hospital-scandal",
+     "type": "Advocacy"
+    },
+    {
+     "id": "JHS-032",
+     "publisher": "ADL",
+     "title": "Blood Libel Accusations Resurface in the Wake of Oct. 7",
+     "url": "https://www.adl.org/resources/article/blood-libel-accusations-resurface-wake-oct-7",
+     "type": "Advocacy"
+    },
+    {
+     "id": "JHS-003",
+     "publisher": "USHMM",
+     "title": "Blood Libel",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/blood-libel",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-043",
+     "publisher": "The Guardian / Ian Black",
+     "title": "Doctor admits Israeli pathologists harvested organs without consent",
+     "url": null,
+     "type": "Journalism"
+    },
+    {
+     "id": "JHS-044",
+     "publisher": "The Guardian",
+     "title": "Corrections and clarifications, 21 December 2009",
+     "url": null,
+     "type": "Journalism"
+    }
+   ]
+  },
+  {
+   "id": "JH-015",
+   "status": "LOCKED",
+   "order": 15,
+   "title": "Jews start wars so they can profit from both sides",
+   "family": "Financial conspiracy",
+   "lie": "Jews secretly start wars and profit from both sides.",
+   "record": "World wars arose from identifiable states, decisions and conflicts—not a unified Jewish financial plot. The claim was used to blame victims for aggression.",
+   "significance": "Allows aggressors and defeated states to shift responsibility to an imaginary hidden enemy.",
+   "geoOrigin": "Russia; post-World War I Germany; Nazi Germany; United States",
+   "originator": "Krushevan/Protocols disseminators, later German nationalist and Nazi propagandists",
+   "circumstances": "Mass casualties and economic hardship after World War I; nationalist explanations of military defeat.",
+   "documentedMotive": "German antisemitic propagandists blamed Jews for initiating/prolonging war.",
+   "inferredMotive": "responsibility-shifting helped their politics; exact motives varied.",
+   "spread": "Protocols, German political propaganda, isolationist and antisemitic periodicals, Nazi speeches and posters.",
+   "uses": "Post-1918 blame for Germany’s defeat, Nazi portrayal of Jews behind Allied enemies, Hitler’s January 1939 threat.",
+   "consequences": "Reinforced antisemitic attitudes and aided Nazi justificatory propaganda for persecution; avoid single-cause claim about Holocaust.",
+   "evolution": "From secret bankers financing wars to Jews allegedly manipulating opposed governments simultaneously.",
+   "modern": "Claims Jewish financiers engineer all wars to sell weapons, lend to both sides or cause wars to weaken nations.",
+   "detailedCorrection": "The Protocols claimed Jews would profit from continual war; after World War I, antisemitic propagandists falsely alleged Jews caused and prolonged the conflict for money. Nazi propaganda recycled this charge during the approach to World War II.",
+   "deepDive": "The Protocols described a fictitious leadership manipulating states and maintaining war for profit. Following World War I, German and other antisemites asserted that Jews had started or prolonged the war to become rich and bring other countries under financial control. Holocaust Museum research identifies these as specific postwar inventions, closely linked to the “stab in the back” betrayal legend. Nazi propaganda later depicted a supposed Jewish actor behind Britain, the United States and the Soviet Union, although these powers pursued differing political interests. Hitler’s January 1939 speech even framed any future war as Jewish responsibility, as Germany itself was preparing aggression. War has documented causes and decision-makers; using Jewish names associated with banking to invent a world-spanning control room is a conspiracy mechanism, not an explanation.",
+   "related": [
+    "JH-001",
+    "JH-008",
+    "JH-009"
+   ],
+   "sources": [
+    {
+     "id": "JHS-005",
+     "publisher": "USHMM",
+     "title": "An Antisemitic Conspiracy: The Protocols of the Elders of Zion",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/protocols-of-the-elders-of-zion",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-020",
+     "publisher": "USHMM",
+     "title": "Antisemitism in History: World War I",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/antisemitism-in-history-world-war-i",
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-033",
+     "publisher": "USHMM",
+     "title": "Nazi Propaganda",
+     "url": null,
+     "type": "Museum encyclopedia"
+    },
+    {
+     "id": "JHS-034",
+     "publisher": "USHMM",
+     "title": "Der ewige Jude",
+     "url": null,
+     "type": "Museum encyclopedia"
+    }
+   ]
+  }
+ ]
+}

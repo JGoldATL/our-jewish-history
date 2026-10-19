@@ -1,29 +1,64 @@
-// JewHate page: live nav pill, persecution-only routes from the existing data, no page errors.
+// JewHate: family tabs, focus carousel, entry page. Everything from data/jewhate.json.
 const {chromium}=require('playwright');const BASE=process.env.BASE||'http://localhost:8778/';let bad=0;const ck=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)bad++;};
+const fs=require('fs');const D=JSON.parse(fs.readFileSync(__dirname+'/../data/jewhate.json','utf8')).entries;const L=D.filter(e=>e.status==='LOCKED');
 (async()=>{const br=await chromium.launch();const errs=[];
-for(const [vw,vh,tag] of [[390,844,'phone'],[1280,800,'desktop']]){
-  const p=await (await br.newContext({viewport:{width:vw,height:vh}})).newPage();p.on('pageerror',e=>errs.push(e.message));const n=tag+': ';
-  await p.goto(BASE+'movements.html');await p.waitForTimeout(2200);
-  const mv=await p.evaluate(()=>document.querySelectorAll('#map path.route, #map .route').length);
-  await p.goto(BASE+'jewhate.html');await p.waitForTimeout(2500);
-  ck(/The History of JewHate/.test(await p.title())&&/The History of JewHate/.test(await p.$eval('.brand h1',x=>x.textContent)),n+'page title');
-  const items=await p.$$eval('#gnBar .gp-btn',b=>b.map(x=>x.textContent.trim()+(x.disabled||x.getAttribute('aria-disabled')==='true'?'(off)':'')));
-  ck(items.some(t=>/^JewHate$/.test(t)),n+'JewHate pill is live ('+items.join(' | ')+')');
-  ck(await p.$eval('#gnBar .gp-btn[aria-current="page"],#gnBar .gp-btn.on,#gnBar .gp-btn[aria-pressed="true"]',x=>/JewHate/.test(x.textContent)).catch(()=>false),n+'JewHate is the selected page');
-  const causes=await p.evaluate(()=>{const b=[...document.querySelectorAll('button,[role=button]')].find(x=>/^Cause/.test(x.textContent.trim()));return !!b;});
-  ck(causes,n+'Cause pill present');
-  await p.goto(BASE+'movements.html');await p.waitForTimeout(500);await p.goto(BASE+'jewhate.html');await p.waitForTimeout(1500);
-  ck(await p.evaluate(()=>!!document.querySelector('.brand p')&&/^The origin of lies and stereotypes\.$/.test(document.querySelector('.brand p').textContent.trim())),n+'JewHate subtitle');
-  await p.click('#pillCause,.fpill[data-k="cause"],button:has-text("Cause")').catch(()=>{});
-  await p.waitForTimeout(300);
+for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone']]){
+  const ctx=await br.newContext({viewport:{width:vw,height:vh}});const p=await ctx.newPage();p.on('pageerror',e=>errs.push(e.message));const n=tag+': ';
+  await p.goto(BASE+'jewhate.html');await p.waitForTimeout(2200);
+  ck(/The History of JewHate/.test(await p.title())&&(await p.$eval('.brand h1',x=>x.textContent))==='The History of JewHate'&&(await p.$eval('.brand p',x=>x.textContent))==='The origin of lies and stereotypes.',n+'title and intro are exactly as approved');
+  const tabs=await p.$$eval('.tab',b=>b.map(x=>x.textContent.replace(/\s+/g,' ').trim()));
+  ck(tabs[0]==='All '+L.length,n+'All tab count is computed ('+tabs[0]+')');
+  const fam={};L.forEach(e=>fam[e.family]=(fam[e.family]||0)+1);const multi=Object.keys(fam).filter(f=>fam[f]>=2),oth=L.filter(e=>fam[e.family]<2).length;
+  ck(multi.every(f=>tabs.includes(f+' '+fam[f])),n+'every family with 2 or more entries has its own tab with the right count');
+  ck(oth===0||tabs[tabs.length-1]==='Other '+oth,n+'one-entry families are grouped under Other ('+tabs[tabs.length-1]+')');
+  ck(tabs.length===1+multi.length+(oth?1:0),n+'no extra or hard-coded tabs ('+tabs.join(' | ')+')');
+  ck((await p.$$eval('.tab[aria-selected=true]',b=>b.length))===1,n+'one tab selected');
+  const cards=await p.$$('.card');ck(cards.length===L.length,n+'All shows every LOCKED entry ('+cards.length+')');
   const txt=await p.evaluate(()=>document.body.innerText);
-  ck(!/Voluntary migration|Relocation/.test(txt),n+'no Voluntary migration or Relocation causes offered');
-  ck(/Expulsion|Persecution|Deportation/.test(txt),n+'persecution causes offered');
-  await p.click('#introPlay').catch(()=>{});await p.waitForTimeout(1200);
-  await p.screenshot({path:process.env.SHOT?process.env.SHOT+'-'+tag+'.png':'/dev/null'});
+  ck(!/Claim is false|The claim made|\[[^\]]+\]/.test(txt),n+'no "Claim is false" tag, no placeholder brackets');
+  ck(await p.$$eval('.card .chip',c=>c.every(x=>x.textContent.trim()&&!/unknown/i.test(x.textContent))),n+'no empty or "unknown" chips');
+  const withYear=L.filter(e=>e.year!=null&&e.family===L[0].family).length;
+  ck((await p.$$eval('.card',c=>c.filter(x=>x.querySelector('.chip')).length))===L.filter(e=>e.year!=null).length,n+'year chip only on entries that have a year');
+  ck(await p.$$eval('.card',c=>c.every(x=>x.querySelector('.fam').textContent.trim()&&x.querySelector('.lie .lb').textContent==='The lie'&&x.querySelector('a.read'))),n+'every card: family label, "The lie" box, Read the record link');
+  ck(!L.some(e=>e.status!=='LOCKED')&&!/Draft, not signed off/.test(txt),n+'no draft entries without ?drafts=1');
+  ck(await p.$eval('#prev',b=>b.disabled)||vw<=700,n+'Previous disabled at the first card');
+  ck((await p.$eval('#pos',x=>x.textContent))===`1 of ${L.length} entries`,n+'position line');
+  // next moves one card
+  await p.click(vw>700?'#next':'#nextM');await p.waitForTimeout(900);
+  ck((await p.$eval('#pos',x=>x.textContent))===`2 of ${L.length} entries`,n+'Next button moves to card 2');
+  await p.keyboard.press('ArrowRight');await p.waitForTimeout(900);ck((await p.$eval('#pos',x=>x.textContent)).startsWith('3 of'),n+'right arrow key moves on');
+  await p.keyboard.press('ArrowLeft');await p.waitForTimeout(900);ck((await p.$eval('#pos',x=>x.textContent)).startsWith('2 of'),n+'left arrow key moves back');
+  ck((await p.$$eval('.card[inert]',c=>c.length))===L.length-1,n+'only the focused card can be tabbed to');
+  // change tab resets
+  await p.click('.tab:nth-child(2)');await p.waitForTimeout(500);
+  ck((await p.$eval('#pos',x=>x.textContent)).startsWith('1 of')&&(await p.$eval('#pos',x=>x.textContent)).endsWith('in this family'),n+'changing tab resets to card 1: "N of M in this family"');
+  // last card: Next disabled, no wrap
+  const m=await p.$$eval('.card',c=>c.length);for(let i=0;i<m-1;i++){await p.click(vw>700?'#next':'#nextM');await p.waitForTimeout(350);}
+  ck(await p.$eval(vw>700?'#next':'#nextM',b=>b.disabled),n+'Next disabled at the last card, no wrap-around');
+  await p.waitForTimeout(600);// controls reachable and sized
+  const sizes=await p.$$eval('.tab,.arrow,.card.cur a.read',b=>b.filter(x=>x.offsetParent).map(x=>{const r=x.getBoundingClientRect();return Math.min(r.width,r.height)}));
+  ck(sizes.every(s=>s>=43.5),n+'touch targets at least 44 px ('+Math.min(...sizes).toFixed(0)+')');
+  ck(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),n+'no sideways page scroll');
+  if(vw>=760){const g=await p.evaluate(()=>{const nv=document.querySelector('#gnBar .gp').getBoundingClientRect(),h=document.querySelector('.brand h1').getBoundingClientRect();return {nl:nv.left,hr:h.right,ht:h.top,nb:nv.bottom}});ck(g.nl>g.hr&&g.ht<g.nb,n+'nav on the right, title raised into the nav row');}
+  const items=await p.$$eval('#gnBar .gp-btn',b=>b.map(x=>x.textContent.trim()));ck(items.join(',')==='Events,Movements,Quiz,JewHate','nav pill order: '+items.join(' > '));
+  await ctx.close();
 }
-const p2=await (await br.newContext({viewport:{width:1280,height:800}})).newPage();p2.on('pageerror',e=>errs.push(e.message));
-await p2.goto(BASE+'jewhate.html?mapopts=1');await p2.waitForTimeout(2200);
-ck((await p2.$$eval('.rail button',b=>b.filter(x=>x.offsetParent).length))===3,'jewhate with mapopts: bar has Map key, Routes, Reset');
+// drafts flag
+let ctx=await br.newContext({viewport:{width:1280,height:800}});let p=await ctx.newPage();p.on('pageerror',e=>errs.push(e.message));
+await p.goto(BASE+'jewhate.html?drafts=1');await p.waitForTimeout(2200);
+ck((await p.$$('.card')).length===D.length,'?drafts=1 shows the LEANING entry too ('+D.length+')');ck((await p.$$eval('.draft',x=>x.length))===D.length-L.length,'draft entries carry a Draft tag');
+// entry page
+await p.goto(BASE+'jewhate-entry.html?id='+L[2].id);await p.waitForTimeout(2000);
+const t=await p.evaluate(()=>document.body.innerText);
+ck(await p.$eval('.lie .lb',x=>x.textContent)==='The lie'&&t.includes(L[2].lie),'entry page: the lie is shown in the labeled box');
+ck(t.includes(L[2].record)&&t.includes(L[2].deepDive),'entry page: the record and Deep Dive text are shown in full, not truncated');
+ck(/What the record shows/.test(t)&&/Where it started, and how it spread/.test(t)&&/Where you may still hear it/.test(t)&&/sources/i.test(t),'entry page: the sections');
+ck(!/Where\s*\n.*map/i.test(t)&&(await p.$$('.panel .lbl')).length>=0&&!(await p.$$eval('.panel .lbl',x=>x.map(y=>y.textContent)).then(a=>a.includes('Where'))),'entry page: no Where map panel');
+ck(!/Internal|Evidence status|Date certainty|Accuracy|Knowledge category/.test(t),'entry page: no internal columns');
+const noYear=L.find(e=>e.year==null);await p.goto(BASE+'jewhate-entry.html?id='+noYear.id);await p.waitForTimeout(1500);
+ck(!(await p.$$eval('.panel .lbl',x=>x.map(y=>y.textContent)).then(a=>a.includes('When'))),'entry page: When panel omitted when the entry has no year');
+const noUrl=L.find(e=>(e.sources||[]).some(s=>!s.url));if(noUrl){await p.goto(BASE+'jewhate-entry.html?id='+noUrl.id);await p.waitForTimeout(1500);const s=noUrl.sources.find(s=>!s.url);ck((await p.$$eval('.src li',l=>l.length))===noUrl.sources.length&&(await p.$$eval('.src li',l=>l.filter(x=>!x.querySelector('a')).length))>=1,'entry page: a source with no URL shows without a link');}
+await p.goto(BASE+'jewhate-entry.html?id=JH-012');await p.waitForTimeout(1200);ck(/not available/.test(await p.innerText('#msg')),'LEANING entry page is not available without ?drafts=1');
+ck(/noindex/.test(await (await fetch(BASE+'jewhate.html')).text()),'pages carry noindex until Strategy decides on search indexing');
 ck(errs.length===0,'no page errors '+errs.slice(0,2).join(' | '));
 console.log(bad?'FAILED '+bad:'ALL PASS');await br.close();process.exit(bad?1:0);})();
