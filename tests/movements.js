@@ -9,7 +9,7 @@ await p.goto('http://localhost:8778/movements.html?drafts=1');await p.waitForTim
 ck(errs.length===0,n+' no page errors '+errs.join('|'));
 const base=await p.evaluate(()=>({n:MV.routes.length,min:MV.minY,ret:MV.routes.filter(r=>r.m.character==='return/aliyah').length,causes:[...new Set(MV.routes.map(r=>r.cause))].sort()}));
 ck(base.n===79,n+' 79 routes ('+base.n+')');ck(base.min===-722,n+' starts at the first exile (722 BCE)');ck(base.ret===0,n+' no return routes');
-ck(JSON.stringify(base.causes.filter(Boolean))===JSON.stringify(['Deportation','Expulsion','Persecution','Relocation','Voluntary migration']),n+' five cause headings '+base.causes);
+ck(JSON.stringify(base.causes.filter(Boolean))===JSON.stringify(['Deportation','Expulsion','Persecution','Voluntary migration']),n+' four cause headings '+base.causes);
 const ids=await p.evaluate(()=>[...document.querySelectorAll('#sel .pill')].map(x=>x.textContent.replace(/\s+/g,' ').trim()));
 ck(ids.length===2&&/^Era/.test(ids[0])&&/^Cause/.test(ids[1]),n+' only Era and Cause filters '+ids);
 {await p.evaluate(()=>{MV.setYear(1654);MV.follow();});await p.waitForTimeout(700);
