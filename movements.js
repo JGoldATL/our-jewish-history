@@ -28,7 +28,7 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 let DATA=null,PL=new Map(),CARDS=new Map(),ERAS=HEAD,DETAIL=[],ROUTES=[],EVENTS=new Map(),MINY=0,MAXY=1;
 let W=0,H=0,V={lon:20,lat:38,degW:100},HOME=null;
 const PREVIEW=(()=>{try{const x=/[?&]nav=(glass|old)\b/.exec(location.search);if(x)sessionStorage.setItem('ojj-nav',x[1]);return sessionStorage.getItem('ojj-nav')!=='old';}catch(e){return !/[?&]nav=old\b/.test(location.search);}})();   // v0.8.0 preview flag, see app.js
-let zT=0,Y=0,playing=false,speed=1,lastT=0,auto=true,lastKey='';
+let GEO=null,zT=0,Y=0,playing=false,speed=1,lastT=0,auto=true,lastKey='';
 const F={era:null,cause:null,trails:false};   // Group, From and To filters are suppressed for now (roadmap F-088)
 let EVSYM=new Map();
 let SEL=null;                               // {ev:eventKey, id:routeId|null, parent:parentId|null}
@@ -163,7 +163,10 @@ function paint(){
   const defs=el('defs',{},svg);
   el('filter',{id:'routeShadow',x:'-10%',y:'-30%',width:'120%',height:'160%'},defs).appendChild((()=>{const b=document.createElementNS(NS,'feGaussianBlur');b.setAttribute('stdDeviation','2.4');return b;})());
   for(const [n,[c1,c2]] of Object.entries(GRAD)){const lg=el('linearGradient',{id:'rg-'+n,x1:0,y1:0,x2:0,y2:1},defs);el('stop',{offset:0,'stop-color':c1},lg);el('stop',{offset:1,'stop-color':c2},lg);}
-  el('image',{href:'images/map-ne.jpg',x:x0,y:y0,width:2*NE_XM*NF,height:2*NE_YM*NF,preserveAspectRatio:'none'},svg);
+  el('image',{href:'images/map-globe.webp',x:x0,y:y0,width:2*NE_XM*NF,height:2*NE_YM*NF,preserveAspectRatio:'none'},svg);
+  /* v0.8.x globe-style map: the globe's rivers, and (when zoomed in) its sea and region names, all under the routes */
+  const gG=el('g',{class:'geo'},svg);
+  if(GEO){for(const r of GEO.rivers){let d='';r.forEach((q,i)=>{const a=px(q[0],q[1]);d+=(i?'L':'M')+a[0].toFixed(1)+','+a[1].toFixed(1);});el('path',{d,class:'river',fill:'none'},gG);}}
   const selEv=SEL&&!SEL.auto?EVENTS.get(SEL.ev):null,selId=SEL?.id||null,selPar=SEL?.parent&&selEv?(selEv.parents||[]).find(p=>p.id===SEL.parent):null,legs=selPar?selPar.legs:null;
   const gR=el('g',{},svg),gP=el('g',{},svg),gL=el('g',{},svg),gH=el('g',{},svg);
   let shown=0;const pins=new Map(),cand=new Map();
@@ -190,15 +193,20 @@ function paint(){
   }
   for(const [id,[p,o,isSel]] of pins){el('circle',{cx:p[0],cy:p[1],r:isSel?7:3.8,fill:isSel?'#0E1822':OUTLINE,stroke:isSel?'#E07B6E':'none','stroke-width':isSel?3:0,opacity:Math.max(.55,o)},gP);}
   /* Place names: every journey's start first, then its end, then the rest; a name that would overlap one already placed tries below the dot, then waits until you zoom in. */
-  const placed=[],order=[...cand].sort((x,y)=>x[1].k-y[1].k),fs=phone()?12:13;
+  const placed=[],order=[...cand].sort((x,y)=>x[1].k-y[1].k),fs=phone()?14:16.5;   /* Cormorant Garamond runs small, so the size is a little larger than the old sans */
   for(const [id,{p}] of order){
     const name=shortName(PL.get(id));if(!name||p[0]<6||p[0]>W-6||p[1]<6||p[1]>H-6)continue;
-    const w=name.length*(fs*.57)+8,hit=bx=>placed.some(q=>bx.x<q.x+q.w&&bx.x+bx.w>q.x&&bx.y<q.y+q.h&&bx.y+bx.h>q.y);
+    const w=name.length*(fs*.5)+8,hit=bx=>placed.some(q=>bx.x<q.x+q.w&&bx.x+bx.w>q.x&&bx.y<q.y+q.h&&bx.y+bx.h>q.y);
     let pos=null;
     for(const dy of [-26,8]){const bx={x:p[0]-w/2,y:p[1]+dy,w,h:fs+3};if(!hit(bx)){pos={bx,ty:dy<0?p[1]-11:p[1]+8+fs};break;}}
     if(!pos)continue;placed.push(pos.bx);
-    const t=el('text',{x:p[0],y:pos.ty,'text-anchor':'middle','font-size':fs,'font-weight':600,fill:'#EFE6D3','font-family':'Instrument Sans,Arial,sans-serif','paint-order':'stroke',stroke:'#0E1822','stroke-width':3.5,'stroke-linejoin':'round'},gL);t.textContent=name;t.setAttribute('class','plname');
+    const t=el('text',{x:p[0],y:pos.ty,'text-anchor':'middle','font-size':fs,'font-weight':700,fill:'#2A2016','font-family':"'Cormorant Garamond',Georgia,serif",'letter-spacing':'.2px','paint-order':'stroke',stroke:'#FBF3E4','stroke-opacity':.92,'stroke-width':3.2,'stroke-linejoin':'round'},gL);t.textContent=name;t.setAttribute('class','plname');
   }
+  /* the globe's sea and region names, only when zoomed in and only where they do not touch a city name */
+  if(GEO&&V.degW<=(phone()?50:80)){const gs=phone()?12:13,boxes=[...placed];
+    for(const [t,k,lo,la] of GEO.labels){const a=px(lo,la),txt=k==='regionLabel'?t.toUpperCase():t,sea=k!=='regionLabel',fz=sea?15:gs-1,w=txt.length*fz*(sea?.5:.72)+10,bx={x:a[0]-w/2,y:a[1]-fz,w,h:fz+6};
+      if(bx.x<8||bx.x+bx.w>W-8||bx.y<8||bx.y+bx.h>H-8)continue;if(boxes.some(q=>bx.x<q.x+q.w&&bx.x+bx.w>q.x&&bx.y<q.y+q.h&&bx.y+bx.h>q.y))continue;boxes.push(bx);
+      const tx=el('text',{x:a[0],y:a[1],'text-anchor':'middle',class:'geoLbl '+(sea?'seaName':'regionName')},gG);tx.textContent=txt;}}
   $('count').textContent=`${shown} route${shown===1?'':'s'} shown`;
 }
 
@@ -416,7 +424,7 @@ function wire(){
 /* ---------- boot ---------- */
 (async function(){
   try{
-    const res=await fetch('data/history.json');DATA=await res.json();
+    const res=await fetch('data/history.json');DATA=await res.json();try{GEO=await (await fetch('data/geo.json')).json();}catch(_){GEO=null;}
     if(!DATA.sheet?.movements?.length)throw new Error('no movements');
     build();size();HOME=homeView();V={...HOME};clampView();ticks();selectors();buildKey();wire();
     $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+(((DATA.sheet?.meta?.source||'').match(/v\d+(?:\.\d+)+/)||[])[0]||'unknown');

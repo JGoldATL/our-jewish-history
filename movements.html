@@ -226,13 +226,17 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 
 /* ---- Movements page additions (everything above is the globe's own stylesheet, copied so the two pages match) ---- */
 #stage{display:flex;flex-direction:column;min-height:300px;touch-action:auto}
-/* Suspended map: no box. The map fades out in an oval before it reaches any edge, with faint orbit rings, a warm glow and a soft shadow beneath. */
-#mapWrap{position:relative;flex:1 1 auto;min-height:0;overflow:visible;touch-action:none;cursor:grab;background:transparent;border:0}
-#map{-webkit-mask-image:radial-gradient(ellipse 60% 62% at 50% 50%,#000 42%,rgba(0,0,0,.72) 68%,rgba(0,0,0,.25) 88%,transparent 100%);mask-image:radial-gradient(ellipse 60% 62% at 50% 50%,#000 42%,rgba(0,0,0,.72) 68%,rgba(0,0,0,.25) 88%,transparent 100%)}
+/* Framed map (v0.8.x, CEO 10/19): the globe's sand-and-teal relief in a rounded card; no fade, no rings. */
+#mapWrap{position:relative;flex:1 1 auto;min-height:0;overflow:visible;touch-action:none;cursor:grab;background:#4D6768;border:0;border-radius:26px;box-shadow:inset 0 0 0 1px rgba(246,235,214,.26),0 18px 50px rgba(0,0,0,.45)}
+#map{clip-path:inset(0 round 26px)}
 /* v0.8.x (CEO 10/19): the faint orbit rings are gone; the fade is a softer, rounder oval; the glow switches off while the map is being moved */
-#mapWrap::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:radial-gradient(ellipse 28% 34% at 46% 46%,rgba(255,200,130,.16),rgba(255,200,130,0) 70%),radial-gradient(ellipse 34% 5% at 50% 96%,rgba(0,0,0,.5),transparent 75%)}
+
 #map path{filter:drop-shadow(0 0 5px rgba(242,166,90,.5))}
 #mapWrap.drag #map path,#mapWrap.zooming #map path{filter:none}
+#map .river{stroke:#6FA3B3;stroke-width:1.5;opacity:.9;stroke-linecap:round;stroke-linejoin:round;filter:none}
+#map .geoLbl{pointer-events:none}
+#map .regionName{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:2.6px;fill:#5A4A36;fill-opacity:.8}
+#map .seaName{font-family:var(--serif);font-style:italic;font-weight:600;font-size:15px;letter-spacing:1.2px;fill:#E6F0EF;fill-opacity:.92;paint-order:stroke;stroke:rgba(40,62,64,.55);stroke-width:2px}
 .prompt .eyebrow{color:var(--amber)}
 .prompt p.t{font-size:36px;line-height:1.05;font-weight:700;text-wrap:balance;letter-spacing:-.2px}
 .prompt p.t em{font-style:italic;font-weight:600;color:var(--amber)}
