@@ -186,10 +186,15 @@ function followCamera(y){if(view.manual)return;const s=DATA.cameraStates;let i=0
 const SYM_SHAPE={octagon:'M15.71,6.51 L6.51,15.71 L-6.51,15.71 L-15.71,6.51 L-15.71,-6.51 L-6.51,-15.71 L6.51,-15.71 L15.71,-6.51 Z',diamond:'M0,-17.4 L17.4,0 L0,17.4 L-17.4,0 Z',square:'M-13,-13 H13 V13 H-13 Z'};
 const SYM_CREAM='#FFF3DC',SYM_PURPLE='#5A3B7A';let symClip=0;
 function hexagram(r){const h=(r*.866).toFixed(2),q=(r/2).toFixed(2);return `M0,${-r} L${h},${q} L-${h},${q} Z M0,${r} L-${h},-${q} L${h},-${q} Z`;}
+function drawIslamIcon(inner){const id='symClip'+(++symClip),defs=el('defs',{},inner);el('rect',{x:-18,y:-18,width:18,height:36},el('clipPath',{id},defs));
+  el('polygon',{points:'0,-16 0,16 -16,0',fill:'#FFFFFF'},inner);el('polygon',{points:'0,-16 16,0 0,16',fill:'#1F7A4A'},inner);
+  const bl=el('g',{fill:'#1D4FA0','clip-path':`url(#${id})`},inner);el('polygon',{points:'0,-9 7.8,4.5 -7.8,4.5'},bl);el('polygon',{points:'0,9 7.8,-4.5 -7.8,-4.5'},bl);
+  const w=el('g',{fill:'#FFFFFF'},inner);el('path',{d:'M-4.93,-3.48 A6.4,6.4 0 1 0 4.93,-3.48 A5.46,5.46 0 1 1 -4.93,-3.48 Z',transform:'translate(6.2,0) rotate(90)'},w);el('polygon',{points:'10.60,-2.30 11.12,-0.71 12.79,-0.71 11.44,0.27 11.95,1.86 10.60,0.88 9.25,1.86 9.76,0.27 8.41,-0.71 10.08,-0.71'},w);
+  el('polygon',{points:'0,-16 16,0 0,16 -16,0',fill:'none',stroke:'#0E1822','stroke-width':1,class:'symShape'},inner);}
 function drawSymbol(inner,kind,record){const outline={class:'symShape',stroke:'#1B2328','stroke-width':1.2,'stroke-linejoin':'round'},star={fill:'none',stroke:SYM_CREAM,'stroke-width':1.6,'stroke-linejoin':'round'};
   if(kind==='noLonger'){el('path',{...outline,d:SYM_SHAPE.square,fill:'#20272B'},inner);el('path',{...star,d:hexagram(10.4)},inner);return;}
   if(kind==='destroyed'){el('path',{...outline,d:SYM_SHAPE.octagon,fill:'#8C2A24'},inner);el('path',{...star,d:hexagram(10.4)},inner);return;}
-  if(record?.conversionReligion!=='Christianity'){el('path',{...outline,d:SYM_SHAPE.diamond,fill:SYM_PURPLE},inner);el('path',{...star,d:hexagram(8.4)},inner);return;}
+  if(record?.conversionReligion!=='Christianity'){drawIslamIcon(inner);return;}   /* CEO 10/20: every forced conversion that was not to Christianity is a forced conversion to Islam; the white, blue-star and green diamond replaces the purple one */
   const L='symClip'+(++symClip),R='symClip'+(++symClip),defs=el('defs',{},inner);el('rect',{x:-20,y:-20,width:20,height:40},el('clipPath',{id:L},defs));el('rect',{x:0,y:-20,width:20,height:40},el('clipPath',{id:R},defs));
   el('path',{d:SYM_SHAPE.diamond,fill:SYM_PURPLE,'clip-path':`url(#${L})`},inner);el('path',{d:SYM_SHAPE.diamond,fill:SYM_CREAM,'clip-path':`url(#${R})`},inner);el('path',{...outline,d:SYM_SHAPE.diamond,fill:'none'},inner);
   el('path',{...star,d:hexagram(10.6),'clip-path':`url(#${L})`},inner);el('path',{d:'M1,-10.6 V10.6 M1,-3.6 H9.2',fill:'none',stroke:SYM_PURPLE,'stroke-width':1.8,'stroke-linecap':'square'},inner);}

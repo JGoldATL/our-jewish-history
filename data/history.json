@@ -2520,17 +2520,17 @@
       "schema": "sheet-1",
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.5.1",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-10-19T06:57:43Z",
-      "exportSha256": "34d2410b1466609d",
+      "sheetModified": "2026-10-19T19:31:36Z",
+      "exportSha256": "857eb97874801b4e",
       "mode": "preview",
       "counts": {
         "places": 122,
         "events": 129,
-        "communities": 152,
+        "communities": 155,
         "movements": 111,
         "context": 43,
         "evidence": 20,
-        "cards": 206,
+        "cards": 209,
         "eras": 8,
         "cameraStops": 38,
         "eraAssignment": 265,
@@ -5695,6 +5695,57 @@
           "status": "locked"
         },
         "recordStatus": "LOCKED",
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-032",
+        "family": "CHG",
+        "startYear": 1149,
+        "endYear": null,
+        "dateDisplay": "1149 onward",
+        "placeId": "place-maghreb",
+        "links": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Purple diamond (forced conversion, other faith)",
+          "kind": "purpleDiamond",
+          "status": "leaning"
+        },
+        "recordStatus": "LEANING",
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-033",
+        "family": "CHG",
+        "startYear": 1167,
+        "endYear": null,
+        "dateDisplay": "Late 1160s",
+        "placeId": "place-yemen",
+        "links": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Purple diamond (forced conversion, other faith)",
+          "kind": "purpleDiamond",
+          "status": "leaning"
+        },
+        "recordStatus": "LEANING",
+        "noEngineFields": true
+      },
+      {
+        "id": "CHG-034",
+        "family": "CHG",
+        "startYear": 1656,
+        "endYear": 1662,
+        "dateDisplay": "1656–1662",
+        "placeId": "place-persia",
+        "links": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Purple diamond (forced conversion, other faith)",
+          "kind": "purpleDiamond",
+          "status": "leaning"
+        },
+        "recordStatus": "LEANING",
         "noEngineFields": true
       },
       {
@@ -12281,6 +12332,40 @@
         ]
       },
       {
+        "id": "CHG-032",
+        "recordId": "CHG-032",
+        "type": "Event",
+        "date": 1149,
+        "title": "The Almohads force Jews to convert to Islam",
+        "description": "After the Almohads took Morocco in 1149, Jews and Christians had to choose between becoming Muslims and leaving. Many Jews said the Muslim creed in public and kept their own faith in secret.",
+        "status": "draft",
+        "startYear": 1149,
+        "endYear": null,
+        "placeId": "place-maghreb",
+        "mapSymbol": {
+          "text": "Purple diamond (forced conversion, other faith)",
+          "kind": "purpleDiamond",
+          "status": "leaning"
+        }
+      },
+      {
+        "id": "CHG-033",
+        "recordId": "CHG-033",
+        "type": "Event",
+        "date": 1167,
+        "title": "Yemen's Jews are ordered to convert to Islam",
+        "description": "In the late 1160s, the ruler of Yemen ordered the Jews to become Muslims. Many did, and the decree caused panic. Maimonides wrote his Epistle to Yemen to encourage them.",
+        "status": "draft",
+        "startYear": 1167,
+        "endYear": null,
+        "placeId": "place-yemen",
+        "mapSymbol": {
+          "text": "Purple diamond (forced conversion, other faith)",
+          "kind": "purpleDiamond",
+          "status": "leaning"
+        }
+      },
+      {
         "id": "EVT-0048",
         "recordId": "EVT-0048",
         "type": "Movement",
@@ -13235,6 +13320,23 @@
         "startYear": 1655,
         "endYear": null,
         "placeId": "place-london"
+      },
+      {
+        "id": "CHG-034",
+        "recordId": "CHG-034",
+        "type": "Event",
+        "date": 1656,
+        "title": "Persia's Jews are forced to convert to Islam",
+        "description": "From 1656, under Shah Abbas II, Jews across Persia were ordered to become Muslims. Thousands converted, many while keeping Jewish customs in secret. A new order around 1661 let them return to Judaism.",
+        "status": "draft",
+        "startYear": 1656,
+        "endYear": 1662,
+        "placeId": "place-persia",
+        "mapSymbol": {
+          "text": "Purple diamond (forced conversion, other faith)",
+          "kind": "purpleDiamond",
+          "status": "leaning"
+        }
       },
       {
         "id": "POP-056",
