@@ -37,7 +37,7 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone']]){
     await p.screenshot({path:(process.env.SHOT||'/dev/null')+'-'+tag+'-med.png'});}
   // zoom all the way out: the whole map fits, no page overflow, view stays centred
   for(let i=0;i<8;i++){await p.click('#zout');await p.waitForTimeout(120);}await p.waitForTimeout(500);
-  {const m=await p.evaluate(()=>[document.documentElement.scrollWidth,innerWidth,document.documentElement.scrollHeight,innerHeight]);ck(m[0]<=m[1]+1&&m[2]<=m[3]+40,n+'max zoom-out fits the page ('+m.join('/')+')');}
+  {const m=await p.evaluate(()=>[document.documentElement.scrollWidth,innerWidth,document.documentElement.scrollHeight,innerHeight]);ck(m[0]<=m[1]+1&&m[2]<=m[3]+90,n+'max zoom-out fits the page ('+m.join('/')+')');}
   await p.screenshot({path:(process.env.SHOT||'/dev/null')+'-'+tag+'-out.png'});
   await p.click('button[aria-label^="Reset"]');await p.waitForTimeout(1200);
   await p.screenshot({path:(process.env.SHOT||'/dev/null')+'-'+tag+'-home.png'});

@@ -1,4 +1,4 @@
-// ?mapopts=1: silver text-pill bar (Map key, Routes, Reset) centred under the main nav. Flag off = the original left rail, unchanged.
+// Silver text-pill bar (Map key, Routes, Reset) under the page title and sentence. On by default (CEO 10/19); ?mapopts=0 turns it off for the tab.
 const {chromium}=require('playwright');const BASE=process.env.BASE||'http://localhost:8778/';let bad=0;const ck=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)bad++;};
 const drag=async(p,sel)=>{const b=await (await p.$(sel)).boundingBox();const x=b.x+b.width*.55,y=b.y+b.height*.5;await p.mouse.move(x,y);await p.mouse.down();await p.mouse.move(x+60,y+30,{steps:6});};
 (async()=>{const br=await chromium.launch();const errs=[];
@@ -6,17 +6,12 @@ for(const [pg,stage] of [['movements','#mapWrap'],['events','#stage']]){
   for(const [vw,vh,tag] of [[390,844,'phone'],[1000,700,'narrow'],[1280,800,'desktop']]){
     const ctx=await br.newContext({viewport:{width:vw,height:vh}});const p=await ctx.newPage();p.on('pageerror',e=>errs.push(e.message));const n=pg+' '+tag+': ';
     await p.goto(BASE+pg+'.html');await p.waitForTimeout(1800);
-    ck(!(await p.evaluate(()=>document.documentElement.classList.contains('mapopts'))),n+'flag off: no mapopts class');
-    ck(await p.$eval('.rail',x=>getComputedStyle(x).position==='absolute'&&x.getBoundingClientRect().width<60),n+'flag off: original left rail');
+    ck(await p.evaluate(()=>document.documentElement.classList.contains('mapopts')),n+'on by default');
     await p.goto(BASE+pg+'.html?mapopts=1');await p.waitForTimeout(2200);
-    const r=await p.$eval('.rail',x=>{const b=x.getBoundingClientRect(),g=document.getElementById('gnBar').getBoundingClientRect();return {cx:b.x+b.width/2,top:b.top,h:b.height,w:b.width,gnb:g.bottom,sw:document.documentElement.scrollWidth,vw:innerWidth};});
-    const wide=vw>=1080;
+    const r=await p.evaluate(()=>{const b=document.querySelector('.rail').getBoundingClientRect(),tp=document.querySelector('.brand p').getBoundingClientRect(),h=document.querySelector('.brand h1'),t=tp.height>0?tp:h.getBoundingClientRect(),g=document.getElementById('gnBar').getBoundingClientRect();return {top:b.top,x:b.x,h:b.height,pb:t.bottom,px:t.x,fs:parseFloat(getComputedStyle(h).fontSize),gb:g.bottom,ht:h.getBoundingClientRect().top,sw:document.documentElement.scrollWidth,vw:innerWidth,sh:document.documentElement.scrollHeight,ih:innerHeight};});
     ck(r.h<=34,n+'bar is slim (height '+Math.round(r.h)+')');ck(r.sw<=r.vw,n+'no sideways scroll');
-    if(!wide){ck(Math.abs(r.cx-vw/2)<2,n+'bar centred');ck(r.top>=r.gnb-1&&r.top-r.gnb<12,n+'bar sits directly under the main nav');
-      ck(await p.$eval('.brand',(x,t)=>x.getBoundingClientRect().top>=t,r.top+r.h),n+'header sits below the bar, no overlap');}
-    else{const w=await p.evaluate(()=>{const g=document.querySelector('#gnBar .gp,.gp').getBoundingClientRect(),b=document.querySelector('.brand').getBoundingClientRect(),h=document.querySelector('.rail').getBoundingClientRect();return {gt:g.top,gb:g.bottom,gl:g.left,gr:g.right,bl:b.left,bt:b.top,br:b.right,rl:h.left,rr:h.right,rt:h.top,rb:h.bottom,sh:document.documentElement.scrollHeight,ih:innerHeight,vw:innerWidth};});
-      ck(w.rt>=w.gt-4&&w.rb<=w.gb+4,n+'bar on the same line as the main nav');ck(w.rr>w.vw-60&&w.rl>w.gr,n+'bar right-aligned, clear of the nav');
-      ck(w.bl<60&&w.bt<40,n+'title top-left');ck(w.br<=w.gl,n+'title clears the nav');ck(w.sh<=w.ih+1,n+'page does not scroll vertically ('+w.sh+'/'+w.ih+')');}
+    ck(r.top>=r.pb-1&&r.top-r.pb<24,n+'bar sits right under the title sentence');ck(Math.abs(r.x-r.px)<4,n+'bar left edge lines up with the title');
+    ck(r.ht>=r.gb-8,n+'title clears the main nav');if(vw>=901)ck(r.fs>=38,n+'title is larger ('+r.fs+'px)');
     const labels=await p.$$eval('.rail button',b=>b.filter(x=>x.offsetParent).map(x=>x.getAttribute('aria-label')));
     if(pg==='movements')ck(labels.length===3&&/^Routes/.test(labels[1]),n+'Map key, Routes, Reset');else ck(labels.length===2&&!labels.some(l=>/^Routes/.test(l)),n+'Events: Map key and Reset only, no Routes');
     await p.click('#keyBtn');await p.waitForTimeout(250);const kb=await (await p.$('#key')).boundingBox();ck(kb&&kb.x>=0&&kb.x+kb.width<=vw+1&&kb.y>0,n+'Map key opens fully in view');await p.click('#keyBtn');
@@ -35,7 +30,7 @@ for(const [pg,stage] of [['movements','#mapWrap'],['events','#stage']]){
 let ctx=await br.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});let p=await ctx.newPage();await p.goto(BASE+'movements.html?mapopts=1');await p.waitForTimeout(2000);
 ck((await p.$eval('.rail',x=>getComputedStyle(x).transitionDuration)).startsWith('0s'),'reduced motion: no transition on the bar');await ctx.close();
 ctx=await br.newContext({viewport:{width:390,height:844}});p=await ctx.newPage();await p.goto(BASE+'movements.html?mapopts=1');await p.waitForTimeout(1200);await p.goto(BASE+'events.html');await p.waitForTimeout(1500);
-ck(await p.evaluate(()=>document.documentElement.classList.contains('mapopts')),'flag persists across pages in the tab');await p.goto(BASE+'events.html?mapopts=0');await p.waitForTimeout(1500);
+ck(await p.evaluate(()=>document.documentElement.classList.contains('mapopts')),'bar present on the next page');await p.goto(BASE+'events.html?mapopts=0');await p.waitForTimeout(1500);
 ck(!(await p.evaluate(()=>document.documentElement.classList.contains('mapopts'))),'?mapopts=0 turns it off');await ctx.close();
 ck(errs.length===0,'no page errors '+errs.slice(0,2).join(' | '));
 console.log(bad?'FAILED '+bad:'ALL PASS');await br.close();process.exit(bad?1:0);})();

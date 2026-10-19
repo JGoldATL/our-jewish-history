@@ -7,9 +7,9 @@
   try{if(m)sessionStorage.setItem('ojj-nav',m[1]);GLASS=sessionStorage.getItem('ojj-nav')!=='old';}catch(e){GLASS=!(m&&m[1]==='old');}
   if(!GLASS||!window.OJJPill)return;
   var root=document.documentElement;root.classList.add('sub-glass');
-  // ?mapopts=1: the rail becomes a slim silver text-pill bar centred under the main nav (CEO chose it 2026-10-19). Off by default; ?mapopts=0 clears it for the tab.
+  // ?mapopts=1: the rail becomes a slim silver text-pill bar centred under the main nav (CEO chose it 2026-10-19). On by default (CEO, 2026-10-19); ?mapopts=0 turns it off for the tab.
   var mo=/[?&]mapopts=([01])\b/.exec(location.search),MAPOPTS=false;
-  try{if(mo)sessionStorage.setItem('ojj-mapopts',mo[1]);MAPOPTS=sessionStorage.getItem('ojj-mapopts')==='1';}catch(e){MAPOPTS=!!(mo&&mo[1]==='1');}
+  try{if(mo)sessionStorage.setItem('ojj-mapopts',mo[1]);MAPOPTS=sessionStorage.getItem('ojj-mapopts')!=='0';}catch(e){MAPOPTS=!(mo&&mo[1]==='0');}
   if(MAPOPTS)root.classList.add('mapopts');
   var G='linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.06))',SH='inset 0 1px 0 rgba(255,255,255,.28),0 8px 24px rgba(0,0,0,.35)';
   var css=
@@ -47,15 +47,10 @@
     S+'.rail .key{position:absolute;left:50%;right:auto;top:calc(100% + 8px);bottom:auto;transform:translateX(-50%);width:min(300px,calc(100vw - 24px));max-height:60vh;overflow:auto;z-index:30}'+
     S+'.rail .rpop{left:50%;top:calc(100% + 8px);transform:translateX(-50%);z-index:30}'+
     'html.mo-events.mapopts .rail .mo-rt{display:none!important}'+
-    '@media (min-width:901px){html.sub-glass.mapopts.nav-glass #stage{height:calc(100svh - 198px)}}'+
-    // wide screens: the title goes top left and the bar sits right-aligned on the main nav's row (CEO, 2026-10-19). Narrower screens keep the bar centred under the nav.
-    '@media (min-width:1080px){'+
-      'html.sub-glass.mapopts.nav-glass header.top{margin-top:-54px;padding-top:6px;padding-left:28px;position:relative;z-index:46;pointer-events:none}'+
-      'html.sub-glass.mapopts.nav-glass header.top .brand{pointer-events:auto}'+
-      S+'.rail{position:absolute;top:14px;right:24px;left:auto;margin:0;z-index:47}'+
-      S+'.rail .key,'+S+'.rail .rpop{left:auto;right:0;transform:none}'+
-      'html.sub-glass.mapopts.nav-glass #stage{height:calc(100svh - 122px)}'+
-    '}'+
+    // the bar sits under the page title and sentence, left-aligned with them, on every width (CEO, 2026-10-19); the title is raised and larger.
+    S+'.rail{margin:8px 0 2px;align-self:flex-start}'+
+    S+'.rail .key,'+S+'.rail .rpop{left:0;transform:none}'+
+    '@media (min-width:901px){html.sub-glass.mapopts header.top{padding-top:8px}html.sub-glass.mapopts .brand h1{font-size:40px}html.sub-glass.mapopts .brand p{font-size:21px}html.sub-glass.mapopts.nav-glass #stage{height:calc(100svh - 261px);min-height:480px}}'+
     '@media (prefers-reduced-motion:reduce){'+S+'.rail{transition:none!important}}';
   }
   var st=document.createElement('style');st.id='sd-css';st.textContent=css;document.head.appendChild(st);
@@ -71,7 +66,7 @@
     var bm=document.createElement('button'),bp=document.createElement('button');bm.type=bp.type='button';bm.textContent='This moment';bp.textContent='With past routes';
     pop.appendChild(bm);pop.appendChild(bp);
     var rs=mk('rb dim','↺','Reset map position');rt.classList.add('mo-rt');rs.classList.add('mo-rs');
-    function placeBar(r){var hd=document.querySelector('header.top');if(hd&&hd.parentNode)hd.parentNode.insertBefore(r,hd);else document.body.insertBefore(r,document.body.firstChild);}   // mapopts: the bar sits in the page flow, directly under the main nav
+    function placeBar(r){var hd=document.querySelector('header.top');var br=hd&&hd.querySelector('.brand');if(br)br.appendChild(r);else if(hd&&hd.parentNode)hd.parentNode.insertBefore(r,hd);else document.body.insertBefore(r,document.body.firstChild);}   // mapopts: the bar sits inside the brand block, under the title and sentence
     var t=null;
     function closePop(){pop.hidden=true;rt.setAttribute('aria-expanded','false');clearTimeout(t);}
     function pick(v){var b=document.querySelector('[data-trails="'+(v==='past'?'on':'off')+'"]');if(b)b.click();sync();clearTimeout(t);t=setTimeout(closePop,600);}
