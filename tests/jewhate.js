@@ -19,21 +19,21 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone']]){
   ck(await p.$$eval('.card .chip',c=>c.every(x=>x.textContent.trim()&&!/unknown/i.test(x.textContent))),n+'no empty or "unknown" chips');
   const withYear=L.filter(e=>e.year!=null&&e.family===L[0].family).length;
   ck((await p.$$eval('.card',c=>c.filter(x=>x.querySelector('.chip')).length))===L.filter(e=>e.year!=null).length,n+'year chip only on entries that have a year');
-  ck(await p.$$eval('.card',c=>c.every(x=>x.querySelector('.fam').textContent.trim()&&x.querySelector('.lie .lb').textContent==='The lie'&&x.querySelector('a.read'))),n+'every card: family label, "The lie" box, Read the record link');
+  ck(await p.$$eval('.card',c=>c.every(x=>x.querySelector('.fam').textContent.trim()&&x.querySelector('.lie .lb').textContent==='The lie'&&x.querySelector('a.read'))),n+'every card: family label, "The lie" box, Deep dive link');
   ck(!L.some(e=>e.status!=='LOCKED')&&!/Draft, not signed off/.test(txt),n+'no draft entries without ?drafts=1');
-  ck(await p.$eval('#prev',b=>b.disabled)||vw<=700,n+'Previous disabled at the first card');
-  ck((await p.$eval('#pos',x=>x.textContent))===`1 of ${L.length} entries`,n+'position line');
+  const M=Math.floor(L.length/2);ck(!(await p.$eval('#prev',b=>b.disabled))&&!(await p.$eval('#next',b=>b.disabled)||vw<=700&&false),n+'opens on a middle card, both Previous and Next enabled');
+  ck((await p.$eval('#pos',x=>x.textContent))===`${M+1} of ${L.length} entries`,n+'opens centered on the middle card');
   // next moves one card
   await p.click(vw>700?'#next':'#nextM');await p.waitForTimeout(900);
-  ck((await p.$eval('#pos',x=>x.textContent))===`2 of ${L.length} entries`,n+'Next button moves to card 2');
-  await p.keyboard.press('ArrowRight');await p.waitForTimeout(900);ck((await p.$eval('#pos',x=>x.textContent)).startsWith('3 of'),n+'right arrow key moves on');
-  await p.keyboard.press('ArrowLeft');await p.waitForTimeout(900);ck((await p.$eval('#pos',x=>x.textContent)).startsWith('2 of'),n+'left arrow key moves back');
+  ck((await p.$eval('#pos',x=>x.textContent))===`${M+2} of ${L.length} entries`,n+'Next button moves one card on');
+  await p.keyboard.press('ArrowRight');await p.waitForTimeout(900);ck((await p.$eval('#pos',x=>x.textContent)).startsWith((M+3)+' of'),n+'right arrow key moves on');
+  await p.keyboard.press('ArrowLeft');await p.waitForTimeout(900);ck((await p.$eval('#pos',x=>x.textContent)).startsWith((M+2)+' of'),n+'left arrow key moves back');
   ck((await p.$$eval('.card[inert]',c=>c.length))===L.length-1,n+'only the focused card can be tabbed to');
   // change tab resets
   await p.click('.tab:nth-child(2)');await p.waitForTimeout(500);
-  ck((await p.$eval('#pos',x=>x.textContent)).startsWith('1 of')&&(await p.$eval('#pos',x=>x.textContent)).endsWith('in this family'),n+'changing tab resets to card 1: "N of M in this family"');
+  {const q=await p.$eval('#pos',x=>x.textContent),k=await p.$$eval('.card',c=>c.length);ck(q===`${Math.floor(k/2)+1} of ${k} in this family`,n+'changing tab opens on that family\'s middle card');}
   // last card: Next disabled, no wrap
-  const m=await p.$$eval('.card',c=>c.length);for(let i=0;i<m-1;i++){await p.click(vw>700?'#next':'#nextM');await p.waitForTimeout(350);}
+  const m=await p.$$eval('.card',c=>c.length);for(let i=0;i<m&&!(await p.$eval(vw>700?'#next':'#nextM',b=>b.disabled));i++){await p.click(vw>700?'#next':'#nextM');await p.waitForTimeout(350);}
   ck(await p.$eval(vw>700?'#next':'#nextM',b=>b.disabled),n+'Next disabled at the last card, no wrap-around');
   await p.waitForTimeout(600);// controls reachable and sized
   const sizes=await p.$$eval('.tab,.arrow,.card.cur a.read',b=>b.filter(x=>x.offsetParent).map(x=>{const r=x.getBoundingClientRect();return Math.min(r.width,r.height)}));

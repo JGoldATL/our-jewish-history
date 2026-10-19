@@ -42,7 +42,7 @@
       el('h2',null,label(e),c);
       var lie=el('div','lie',null,c);el('span','lb','The lie',lie);el('p',null,e.lie||e.title,lie);
       var y=yearText(e);if(y){var ch=el('div','chips',null,c);el('span','chip',y,ch);}   // a chip only when the data has a value
-      var a=el('a','read','Read the record',c);a.href='jewhate-entry.html?id='+encodeURIComponent(e.id)+(DRAFTS?'&drafts=1':'');
+      var a=el('a','read','Deep dive',c);a.href='jewhate-entry.html?id='+encodeURIComponent(e.id)+(DRAFTS?'&drafts=1':'');
       return c;
     }
     function pick(i,reset){
@@ -50,7 +50,7 @@
       track.setAttribute('aria-labelledby','tab'+i);
       dots.replaceChildren();items.forEach(function(){el('span',null,null,dots);});
       try{sessionStorage.setItem('jh-tab',JSON.stringify({t:i}));}catch(e){}
-      track.scrollLeft=0;idx=0;mark();
+      idx=Math.floor(items.length/2);mark();var c0=cards[idx];if(c0)track.scrollLeft=c0.offsetLeft-(track.clientWidth-c0.clientWidth)/2;
     }
     function mark(){
       var n=cards.length;cards.forEach(function(c,i){var on=i===idx;c.classList.toggle('cur',on);if(on)c.removeAttribute('inert');else c.setAttribute('inert','');});
