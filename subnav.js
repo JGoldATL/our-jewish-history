@@ -50,7 +50,10 @@
     // the bar sits under the page title and sentence, left-aligned with them, on every width (CEO, 2026-10-19); the title is raised and larger.
     S+'.rail{margin:8px 0 2px;align-self:flex-start}'+
     S+'.rail .key,'+S+'.rail .rpop{left:0;transform:none}'+
+    // wide screens (CEO 10/20): the main nav moves right and the title rises into the nav's row, top left; the silver bar stays under the sentence.
+    '@media (min-width:760px){html.sub-glass.mapopts.nav-glass .gn{justify-content:flex-end;padding-right:24px}html.sub-glass.mapopts.nav-glass header.top{margin-top:-54px;padding-top:8px;padding-left:28px;position:relative;z-index:46;pointer-events:none}html.sub-glass.mapopts.nav-glass header.top .brand{pointer-events:auto}html.sub-glass.mapopts.nav-glass header.top .tools{pointer-events:auto}}'+
     '@media (min-width:901px){html.sub-glass.mapopts header.top{padding-top:8px}html.sub-glass.mapopts .brand h1{font-size:40px}html.sub-glass.mapopts .brand p{font-size:21px}html.sub-glass.mapopts.nav-glass #stage{height:calc(100svh - 261px);min-height:480px}}'+
+    '@media (min-width:760px){html.sub-glass.mapopts.nav-glass #stage{height:calc(100svh - 207px);min-height:480px}}'+
     '@media (prefers-reduced-motion:reduce){'+S+'.rail{transition:none!important}}';
   }
   var st=document.createElement('style');st.id='sd-css';st.textContent=css;document.head.appendChild(st);

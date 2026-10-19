@@ -179,7 +179,7 @@ function paint(){
     if(inSel){st=st||{o:1,active:true};}
     if(!st)continue;
     if(!st.active&&!inSel&&selEv)continue;
-    let o=st.o;if(selEv&&!inSel)o*=.28;if((selId||legs)&&inSel&&!isSel)o=.25;
+    const o=1;   /* CEO 10/20: every arrow is 100% opaque; the selected route is set apart by its white outline and glow */
     const A=px(r.a.lon,r.a.lat),B=px(r.b.lon,r.b.lat),dx=B[0]-A[0],dy=B[1]-A[1],C=[(A[0]+B[0])/2-dy*r.bend,(A[1]+B[1])/2+dx*r.bend];
     const d=`M${A[0].toFixed(1)},${A[1].toFixed(1)}Q${C[0].toFixed(1)},${C[1].toFixed(1)} ${B[0].toFixed(1)},${B[1].toFixed(1)}`;
     shown++;

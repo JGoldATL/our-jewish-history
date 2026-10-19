@@ -213,7 +213,7 @@ function render(){
   for(const w of sheetWashes(y,frame)){const pts=w.pts.map(P);if(!pts.some(q=>q.vis))continue;wctx.save();wctx.shadowColor=`rgba(0,0,0,${w.a.toFixed(3)})`;wctx.shadowBlur=washBlur*2;wctx.shadowOffsetX=20000;wctx.beginPath();pts.forEach((q,i)=>{const x=q.x*WS-20000,yy=q.y*WS;i?wctx.lineTo(x,yy):wctx.moveTo(x,yy);});wctx.closePath();wctx.fillStyle='#000';wctx.fill();wctx.restore();}   // v0.8.0 F-019: Sheet shading
   // movement routes
   const defs=$('ovDefs');defs.querySelectorAll('.dyn').forEach(n=>n.remove());
-  for(const fm of frame.movements){if(!fm.visible)continue;if(EVENTS_ONLY&&!EV_VOL.has(fm.id))continue;const m=DATA.movements.find(r=>r.id===fm.id);const win=movementWindow(m),past=trails&&win[1]<=y;const op=Math.max(fm.opacity,past?.28:0);if(op<=.01)continue;
+  for(const fm of frame.movements){if(!fm.visible)continue;if(EVENTS_ONLY&&!EV_VOL.has(fm.id))continue;const m=DATA.movements.find(r=>r.id===fm.id);const win=movementWindow(m),past=trails&&win[1]<=y;const op0=Math.max(fm.opacity,past?.28:0);if(op0<=.01)continue;const op=1;   /* CEO 10/20: every arrow is 100% opaque on every map; it is drawn or it is not */
     const pts=routePoints(m).filter(q=>q.vis);if(pts.length<6)continue;const traditional=m.evidenceStatus==='traditional account';
     const d=ribbon(pts,(traditional?13:15)*scale,7.5*scale,24*scale,15*scale);if(!d)continue;
     const g=el('g',{class:'route',opacity:op.toFixed(3),tabindex:0,role:'button','aria-label':m.title},layers.route);
