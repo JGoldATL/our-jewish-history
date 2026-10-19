@@ -395,7 +395,7 @@ function addSheetMovements(){
   const xy=p=>[(p.lon+15)*15,(58-p.lat)*650/53];
   const ok=m=>m.arrowEndsReady&&!covered.has(m.eventId)&&[m.originPlaceId,m.destinationPlaceId].every(id=>Number.isFinite(pl.get(id)?.lat)&&Number.isFinite(pl.get(id)?.lon));
   const ready=new Map(S.movements.filter(ok).map(m=>[m.id,m]));
-  if(EVENTS_ONLY)for(const m of ready.values())if(m.character==='voluntary migration'&&m.arrowTreatment==='Charcoal')EV_VOL.add(m.id);
+  if(EVENTS_ONLY)for(const m of ready.values())if(String(m.character||'').trim().toLowerCase()==='voluntary migration'&&String(m.arrowTreatment||'').trim().toLowerCase()==='charcoal')EV_VOL.add(m.id);
   // Branch rule (dataset chat): the New Amsterdam arrow (23 refugees) draws only together with the Amsterdam, Curacao and Barbados branches.
   const needs={'MOV-055':['MOV-052','MOV-053','MOV-054']};
   for(const [id,req] of Object.entries(needs))if(ready.has(id)&&!req.every(r=>ready.has(r)))ready.delete(id);
