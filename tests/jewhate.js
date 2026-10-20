@@ -55,7 +55,7 @@ ck(t.includes(L[2].record)&&t.includes(L[2].deepDive),'entry page: the record an
 ck((await p.$$eval('button.ojj-share',b=>b.length))===1,'entry page: exactly one Share button');
 await p.evaluate(()=>{window.__u=null;Object.defineProperty(navigator,'share',{value:d=>{window.__u=d;return Promise.resolve();},configurable:true});});
 await p.click('button.ojj-share');await p.waitForTimeout(200);
-{const u=await p.evaluate(()=>window.__u);ck(u&&/jewhate-entry\.html\?id=/.test(u.url)&&!/drafts/.test(u.url)&&/The History of JewHate/.test(u.title)&&u.text==='I thought you\u2019d enjoy this. Did you know Jews\u2026'&&!u.text.includes(L[2].lie),'entry page: Share hands the entry link (no drafts flag) to the share sheet');}
+{const u=await p.evaluate(()=>window.__u);ck(u&&/jewhate-entry\.html\?id=/.test(u.url)&&!/drafts/.test(u.url)&&/The History of JewHate/.test(u.title)&&u.text==='I thought you\u2019d enjoy this. Did you know that Jews\u2026'&&!u.text.includes(L[2].lie),'entry page: Share hands the entry link (no drafts flag) to the share sheet');}
 await p.evaluate(()=>{Object.defineProperty(navigator,'share',{value:undefined,configurable:true});Object.defineProperty(navigator,'clipboard',{value:{writeText:()=>Promise.resolve()},configurable:true});});
 await p.click('button.ojj-share');await p.waitForTimeout(200);
 ck((await p.$eval('.ojj-sr',x=>x.textContent))==='Link copied','entry page: without a share sheet the link is copied and "Link copied" is announced');

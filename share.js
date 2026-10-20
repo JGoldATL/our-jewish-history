@@ -12,7 +12,7 @@
     document.head.appendChild(st);}catch(e){}
   // Opening line for each kind of page (Jeffrey 10/20). Change the wording here only. The JewHate line stops before any claim, so a lie is never put in a message by itself.
   var MESSAGES={
-    jewhate:'I thought you\u2019d enjoy this. Did you know Jews\u2026',
+    jewhate:'I thought you\u2019d enjoy this. Did you know that Jews\u2026',
     events:'Take a peek at this event from Jewish history\u2026',
     movements:'Follow the Jewish journey with me\u2026',
     archaeology:'Who said Jewish history wasn\u2019t real? Check this out:'
