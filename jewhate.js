@@ -8,6 +8,20 @@
   function el(tag,cls,txt,parent){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;if(parent)parent.appendChild(e);return e;}
   function yearText(e){if(e.year==null)return null;var y=e.year<0?Math.abs(e.year)+' BCE':String(e.year);return (e.approx?'c. ':'')+y;}   // BCE kept, CE years are bare
   function label(e){return e.shortLabel||e.title;}   // Dataset's Short label when present; the Sheet Title until then
+  // One share control, used on every JewHate card and entry page. Native share sheet when the browser has one, else copy the link.
+  function shareBtn(parent,title,href){
+    var b=el('button','share','Share',parent);b.type='button';b.setAttribute('aria-label','Share: '+title);
+    var live=el('span','sr',null,parent);live.setAttribute('role','status');
+    b.addEventListener('click',function(){
+      var url=new URL(href,location.href);url.searchParams.delete('drafts');url=url.href;
+      var data={title:title+' | The History of JewHate',url:url};
+      function copied(){b.textContent='Link copied';live.textContent='Link copied';setTimeout(function(){b.textContent='Share';live.textContent='';},2000);}
+      function copy(){try{navigator.clipboard.writeText(url).then(copied,function(){window.prompt('Copy this link',url);});}catch(x){window.prompt('Copy this link',url);}}
+      if(navigator.share){navigator.share(data).catch(function(err){if(err&&err.name!=='AbortError')copy();});}else copy();
+    });
+    return b;
+  }
+
   function load(cb){
     fetch('data/jewhate.json',{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();}).then(function(d){
       var list=d.entries.filter(function(e){return e.status==='LOCKED'||(DRAFTS&&e.status==='LEANING');});
@@ -41,8 +55,9 @@
       var f=el('div','fam',e.family||'',c);if(e.status!=='LOCKED')el('span','draft','Draft, not signed off',f);
       el('h2',null,label(e),c);
       var lie=el('div','lie',null,c);el('span','lb','The lie',lie);el('p',null,e.lie||e.title,lie);
-      var y=yearText(e);if(y){var ch=el('div','chips',null,c);el('span','chip',y,ch);}   // a chip only when the data has a value
-      var a=el('a','read','Deep dive',c);a.href='jewhate-entry.html?id='+encodeURIComponent(e.id)+(DRAFTS?'&drafts=1':'');
+      var foot=el('div','cfoot',null,c);
+      var a=el('a','read','Deep dive',foot);a.href='jewhate-entry.html?id='+encodeURIComponent(e.id)+(DRAFTS?'&drafts=1':'');
+      shareBtn(foot,label(e),a.href);
       return c;
     }
     function pick(i,reset){
@@ -81,7 +96,7 @@
     var back=$('#back');back.href='jewhate.html'+Q;
     var head=el('div','ehead',null,root);
     var f=el('span','fam',e.family||'',head);if(e.status!=='LOCKED')el('span','draft','Draft, not signed off',f);
-    el('h1',null,label(e),head);var sum=e.cardSummary||e.significance;if(sum)el('p','sum',sum,head);
+    el('h1',null,label(e),head);shareBtn(head,label(e),location.href);var sum=e.cardSummary||e.significance;if(sum)el('p','sum',sum,head);
     var cols=el('div','cols',null,root),main=el('div','main',null,cols),aside=el('div','aside',null,cols);
     var lie=el('div','lie',null,main);lie.style.padding='22px 26px';el('span','lb','The lie',lie);var lp=el('p',null,e.lie||e.title,lie);lp.style.fontSize='28px';
     function sec(title,build){var s=el('section','sec');el('h2',null,title,s);var ok=build(s);if(ok!==false)main.appendChild(s);}

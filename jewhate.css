@@ -92,3 +92,11 @@ details.more summary{cursor:pointer;min-height:44px;display:flex;align-items:cen
 .panel .big{font-family:var(--serif);font-weight:700;font-size:36px;color:var(--amber)}
 .rel{display:flex;gap:8px;flex-wrap:wrap}
 .rel a{display:inline-flex;align-items:center;min-height:44px;font-size:14px;padding:0 14px;border-radius:999px;background:rgba(239,230,211,.08);text-decoration:none}
+
+.cfoot{position:relative;margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cfoot .read{margin-top:0}
+.share{min-height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);font:600 14px var(--sans,'Instrument Sans',sans-serif);cursor:pointer}
+.share:hover{border-color:var(--amber)}
+.ehead{position:relative}
+.ehead .share{align-self:flex-start}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
