@@ -95,8 +95,5 @@ details.more summary{cursor:pointer;min-height:44px;display:flex;align-items:cen
 
 .cfoot{position:relative;margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .cfoot .read{margin-top:0}
-.share{min-height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);font:600 14px var(--sans,'Instrument Sans',sans-serif);cursor:pointer}
-.share:hover{border-color:var(--amber)}
 .ehead{position:relative}
-.ehead .share{align-self:flex-start}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.ehead 

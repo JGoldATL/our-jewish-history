@@ -276,7 +276,9 @@ function openStory(record,type){if(type!=='sheet'&&milestones[0]?.type==='sheet'
 function fillStory(record,type,user){const kind=type==='sheet'?record.type:{movement:'Movement',population:'Community',change:'Community',destruction:'Event',event:'Event'}[type]||'';
   $('storyKicker').textContent=kind+(type==='sheet'&&record.status==='draft'?' · Draft':'');$('storyDate').textContent=record.date||'';$('storyTitle').textContent=record.title||record.historicalPlaceName||'';$('storyText').textContent=type==='sheet'?record.description||'':record.story||'';
   const mw=kind==='Event'&&record.meanwhile;$('storyMeanwhile').hidden=!mw;$('storyMeanwhileText').textContent=mw?' '+record.meanwhile:'';
-  $('closeStory').hidden=!user;$('story').classList.toggle('pinned',!!user);}
+  $('closeStory').hidden=!user;$('story').classList.toggle('pinned',!!user);
+  shown=type==='sheet'&&record.id?record:null;const sl=$('shareSlot');if(sl){sl.hidden=!shown;if(shown&&!sl.firstChild&&window.OJJShare)OJJShare.attach(sl,{label:false,getTitle:()=>(shown.title||'')+' | Our Jewish Journey',getUrl:()=>location.origin+location.pathname+'?card='+encodeURIComponent(shown.id)});}}
+let shown=null;
 function openSources(){const list=$('allSources');if(!list.childElementCount){for(const src of [...DATA.sources].sort((a,b)=>(a.title||'').localeCompare(b.title||''))){const row=document.createElement('li');const a=document.createElement(src.url?'a':'span');if(src.url){a.href=src.url;a.target='_blank';a.rel='noopener';}a.textContent=src.title||src.id;row.appendChild(a);if(src.supports){const sm=document.createElement('small');sm.textContent=src.supports;row.appendChild(sm);}list.appendChild(row);}}$('sourcesDlg').hidden=false;$('sourcesClose').focus();}
 function closeStory(){selected=null;lastAutoIdx=-1;render();}
 
@@ -322,6 +324,7 @@ function turnToRecord(record,type){
 // v0.4.1: the globe opens at the first card (Abraham, c. 2000 BCE). The camera starts on Ur (presentation.openingFocus) and turns to the era camera's own view of that year,
 // then hands control back to the era camera, so scrubbing the timeline behaves exactly as before. No new camera system.
 function openAtStart(){
+  {const cid=new URLSearchParams(location.search).get('card'),ci=cid?milestones.findIndex(m=>m.record.id===cid):-1;if(ci>=0){selectMilestone(ci);return;}}   // deep link from Share: ?card=ID
   const P=DATA.presentation||{};if(!P.openingCard||!milestones.length)return;
   const i=milestones.findIndex(m=>m.record.id===P.openingCard);if(i<0)return;
   const F=P.openingFocus,m=milestones[i];

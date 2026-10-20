@@ -18,7 +18,7 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone']]){
   ck(!/Claim is false|The claim made|\[[^\]]+\]/.test(txt),n+'no "Claim is false" tag, no placeholder brackets');
   ck((await p.$$eval('.card .chip',c=>c.length))===0,n+'no year (or any chip) on preview cards');
   const withYear=L.filter(e=>e.year!=null&&e.family===L[0].family).length;
-  ck((await p.$$eval('.card',c=>c.every(x=>x.querySelectorAll('button.share').length===1)))&&(await p.$$eval('.card',c=>c.length))===L.length,n+'exactly one Share button on every card');
+  ck((await p.$$eval('.card',c=>c.every(x=>x.querySelectorAll('button.ojj-share').length===1)))&&(await p.$$eval('.card',c=>c.length))===L.length,n+'exactly one Share button on every card');
   ck(await p.$$eval('.card',c=>c.every(x=>x.querySelector('.fam').textContent.trim()&&x.querySelector('.lie .lb').textContent==='The lie'&&x.querySelector('a.read'))),n+'every card: family label, "The lie" box, Deep dive link');
   ck(!L.some(e=>e.status!=='LOCKED')&&!/Draft, not signed off/.test(txt),n+'no draft entries without ?drafts=1');
   const M=Math.floor(L.length/2);ck(!(await p.$eval('#prev',b=>b.disabled))&&!(await p.$eval('#next',b=>b.disabled)||vw<=700&&false),n+'opens on a middle card, both Previous and Next enabled');
@@ -52,20 +52,20 @@ await p.goto(BASE+'jewhate-entry.html?id='+L[2].id);await p.waitForTimeout(2000)
 const t=await p.evaluate(()=>document.body.innerText);
 ck(await p.$eval('.lie .lb',x=>x.textContent)==='The lie'&&t.includes(L[2].lie),'entry page: the lie is shown in the labeled box');
 ck(t.includes(L[2].record)&&t.includes(L[2].deepDive),'entry page: the record and Deep Dive text are shown in full, not truncated');
-ck((await p.$$eval('button.share',b=>b.length))===1,'entry page: exactly one Share button');
+ck((await p.$$eval('button.ojj-share',b=>b.length))===1,'entry page: exactly one Share button');
 await p.evaluate(()=>{window.__u=null;Object.defineProperty(navigator,'share',{value:d=>{window.__u=d;return Promise.resolve();},configurable:true});});
-await p.click('button.share');await p.waitForTimeout(200);
+await p.click('button.ojj-share');await p.waitForTimeout(200);
 {const u=await p.evaluate(()=>window.__u);ck(u&&/jewhate-entry\.html\?id=/.test(u.url)&&!/drafts/.test(u.url)&&/The History of JewHate/.test(u.title),'entry page: Share hands the entry link (no drafts flag) to the share sheet');}
 await p.evaluate(()=>{Object.defineProperty(navigator,'share',{value:undefined,configurable:true});Object.defineProperty(navigator,'clipboard',{value:{writeText:()=>Promise.resolve()},configurable:true});});
-await p.click('button.share');await p.waitForTimeout(200);
-ck((await p.$eval('button.share',b=>b.textContent))==='Link copied','entry page: without a share sheet the link is copied and the button says so');
+await p.click('button.ojj-share');await p.waitForTimeout(200);
+ck((await p.$eval('button.ojj-share',b=>b.textContent))==='Link copied','entry page: without a share sheet the link is copied and the button says so');
 ck(/What the record shows/.test(t)&&/Where it started, and how it spread/.test(t)&&/Where you may still hear it/.test(t)&&/sources/i.test(t),'entry page: the sections');
 ck(!/Where\s*\n.*map/i.test(t)&&(await p.$$('.panel .lbl')).length>=0&&!(await p.$$eval('.panel .lbl',x=>x.map(y=>y.textContent)).then(a=>a.includes('Where'))),'entry page: no Where map panel');
 ck(!/Internal|Evidence status|Date certainty|Accuracy|Knowledge category/.test(t),'entry page: no internal columns');
 const noYear=L.find(e=>e.year==null);await p.goto(BASE+'jewhate-entry.html?id='+noYear.id);await p.waitForTimeout(1500);
 ck(!(await p.$$eval('.panel .lbl',x=>x.map(y=>y.textContent)).then(a=>a.includes('When'))),'entry page: When panel omitted when the entry has no year');
 const noUrl=L.find(e=>(e.sources||[]).some(s=>!s.url));if(noUrl){await p.goto(BASE+'jewhate-entry.html?id='+noUrl.id);await p.waitForTimeout(1500);const s=noUrl.sources.find(s=>!s.url);ck((await p.$$eval('.src li',l=>l.length))===noUrl.sources.length&&(await p.$$eval('.src li',l=>l.filter(x=>!x.querySelector('a')).length))>=1,'entry page: a source with no URL shows without a link');}
-await p.goto(BASE+'jewhate-entry.html?id=JH-012');await p.waitForTimeout(1200);ck(/not available/.test(await p.innerText('#msg')),'LEANING entry page is not available without ?drafts=1');
+{const dr=D.find(e=>e.status!=='LOCKED');if(dr){await p.goto(BASE+'jewhate-entry.html?id='+dr.id);await p.waitForTimeout(1200);ck(/not available/.test(await p.innerText('#msg')),'LEANING entry page is not available without ?drafts=1');}else{await p.goto(BASE+'jewhate-entry.html?id=JH-999');await p.waitForTimeout(1200);ck(/not available/.test(await p.innerText('#msg')),'unknown entry id shows the not-available message');}}
 ck(/noindex/.test(await (await fetch(BASE+'jewhate.html')).text()),'pages carry noindex until Strategy decides on search indexing');
 ck(errs.length===0,'no page errors '+errs.slice(0,2).join(' | '));
 console.log(bad?'FAILED '+bad:'ALL PASS');await br.close();process.exit(bad?1:0);})();

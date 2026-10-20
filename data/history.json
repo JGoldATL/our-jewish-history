@@ -2518,10 +2518,10 @@
   "sheet": {
     "meta": {
       "schema": "sheet-1",
-      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.5.1",
+      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v0.2.3",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-10-19T19:31:36Z",
-      "exportSha256": "857eb97874801b4e",
+      "sheetModified": "2026-10-20T03:01:36Z",
+      "exportSha256": "8d32c9981f35e0e2",
       "mode": "preview",
       "counts": {
         "places": 122,
@@ -5557,7 +5557,7 @@
         "links": [],
         "hasCard": true,
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion, other faith)",
+          "text": "Purple diamond (forced conversion to Islam)",
           "kind": "purpleDiamond",
           "status": "leaning"
         },
@@ -5707,7 +5707,7 @@
         "links": [],
         "hasCard": true,
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion, other faith)",
+          "text": "Purple diamond (forced conversion to Islam)",
           "kind": "purpleDiamond",
           "status": "leaning"
         },
@@ -5724,7 +5724,7 @@
         "links": [],
         "hasCard": true,
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion, other faith)",
+          "text": "Purple diamond (forced conversion to Islam)",
           "kind": "purpleDiamond",
           "status": "leaning"
         },
@@ -5741,7 +5741,7 @@
         "links": [],
         "hasCard": true,
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion, other faith)",
+          "text": "Purple diamond (forced conversion to Islam)",
           "kind": "purpleDiamond",
           "status": "leaning"
         },
@@ -12338,12 +12338,12 @@
         "date": 1149,
         "title": "The Almohads force Jews to convert to Islam",
         "description": "After the Almohads took Morocco in 1149, Jews and Christians had to choose between becoming Muslims and leaving. Many Jews said the Muslim creed in public and kept their own faith in secret.",
-        "status": "draft",
+        "status": "approved",
         "startYear": 1149,
         "endYear": null,
         "placeId": "place-maghreb",
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion, other faith)",
+          "text": "Purple diamond (forced conversion to Islam)",
           "kind": "purpleDiamond",
           "status": "leaning"
         }
@@ -12355,12 +12355,12 @@
         "date": 1167,
         "title": "Yemen's Jews are ordered to convert to Islam",
         "description": "In the late 1160s, the ruler of Yemen ordered the Jews to become Muslims. Many did, and the decree caused panic. Maimonides wrote his Epistle to Yemen to encourage them.",
-        "status": "draft",
+        "status": "approved",
         "startYear": 1167,
         "endYear": null,
         "placeId": "place-yemen",
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion, other faith)",
+          "text": "Purple diamond (forced conversion to Islam)",
           "kind": "purpleDiamond",
           "status": "leaning"
         }
@@ -13328,12 +13328,12 @@
         "date": 1656,
         "title": "Persia's Jews are forced to convert to Islam",
         "description": "From 1656, under Shah Abbas II, Jews across Persia were ordered to become Muslims. Thousands converted, many while keeping Jewish customs in secret. A new order around 1661 let them return to Judaism.",
-        "status": "draft",
+        "status": "approved",
         "startYear": 1656,
         "endYear": 1662,
         "placeId": "place-persia",
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion, other faith)",
+          "text": "Purple diamond (forced conversion to Islam)",
           "kind": "purpleDiamond",
           "status": "leaning"
         }
@@ -13711,13 +13711,13 @@
         "type": "Event",
         "date": 1839,
         "title": "Mashhad's Jews are forced to convert",
-        "description": "In 1839, a mob attacked the Jewish quarter of Mashhad, in Persia, and killed about 32 Jews. The roughly 2,000 Jews who remained were forced to convert to Islam outwardly. Many kept their Jewish traditions in secret.",
+        "description": "In 1839, a mob attacked the Jewish quarter of Mashhad, in Persia, and killed about 32 Jews. The roughly 2,400 Jews who remained were forced to convert to Islam outwardly. Many kept their Jewish traditions in secret.",
         "status": "approved",
         "startYear": 1839,
         "endYear": null,
         "placeId": "place-mashhad",
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion, other faith)",
+          "text": "Purple diamond (forced conversion to Islam)",
           "kind": "purpleDiamond",
           "status": "leaning"
         }

@@ -254,6 +254,7 @@ function card(){
   const dd=(P?P.m.branch:r&&r.m.branch)?.deepDive;
   if(dd)html+=`<details class="blk"><summary>Deep dive</summary><p>${esc(bare(dd))}</p></details>`;
   c.innerHTML=html;c.scrollTop=0;
+  if(window.OJJShare)OJJShare.attach(c,{label:false,getTitle:()=>bare(e.title)+' | Our Jewish Journey',getUrl:()=>location.origin+location.pathname+'?m='+encodeURIComponent(e.key)+(r?'&r='+encodeURIComponent(r.id):'')});
   $('closeStory').addEventListener('click',clearSel);
   const back=$('cardBack');if(back)back.addEventListener('click',()=>{SEL={ev:e.key,id:null};card();frame();draw();});
   c.querySelectorAll('[data-chip]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.par)selectParent(b.dataset.par);else if(b.dataset.chip)selectRoute(b.dataset.chip);else{SEL={ev:e.key,id:null};card();frame();draw();}}));
@@ -430,6 +431,7 @@ function wire(){
     build();size();HOME=homeView();V={...HOME};clampView();ticks();selectors();buildKey();wire();
     $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+(((DATA.sheet?.meta?.source||'').match(/v\d+(?:\.\d+)+/)||[])[0]||'unknown');
     setYear(MINY);card();{const v=followTarget();setView(v||HOME);}
+    {const q=new URLSearchParams(location.search),k=q.get('m'),ev=k&&EVENTS.get(k);if(ev){const rid=q.get('r'),rr=rid&&route(rid);auto=true;setYear(clamp(ev.routes[0].start,MINY,MAXY));if(rr&&rr.ev===k)selectRoute(rid);else selectEvent(k);}}   // deep link from Share: ?m=EVENT or ?m=EVENT&r=ROUTE
     window.MV={routes:ROUTES,events:EVENTS,state:()=>({Y,V:{...V},SEL,F:{...F},playing,auto}),selectRoute,selectEvent,selectParent,setYear,stepEvent,togglePlay,follow:()=>{const v=followTarget();if(v)setView(v);},minY:MINY,maxY:MAXY,playRate,gaps:()=>GAPS};
   }catch(err){$('story').innerHTML='<h2>The map could not load</h2><p>Please refresh the page.</p>';$('panel').classList.remove('inviting');console.error(err);}
 })();
