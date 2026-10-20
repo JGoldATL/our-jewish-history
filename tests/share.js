@@ -15,7 +15,7 @@ for(const vw of [1280,390]){const n=(vw>700?'desktop: ':'phone: ');
   {const g=await p.evaluate(()=>{const b=document.querySelector('#shareSlot .ojj-share').getBoundingClientRect(),s=document.querySelector('#story').getBoundingClientRect(),c=document.querySelector('#closeStory').getBoundingClientRect();return {top:b.top-s.top,fromRight:s.right-b.right,leftOfClose:b.right<=c.left+1,overlapClose:!(b.right<=c.left||b.left>=c.right||b.bottom<=c.top||b.top>=c.bottom)};});ck(g.top<=14&&g.fromRight<=90&&!g.overlapClose,n+pg+': Share sits at the top right of the card, clear of the close button ('+JSON.stringify(g)+')');}
   ck(!!(await p.$eval('#shareSlot .ojj-share',x=>x.getAttribute('aria-label')).then(a=>/^Share: /.test(a))),n+pg+': Share has an accessible name');
   await p.click('#shareSlot .ojj-share');await p.waitForTimeout(200);const s=await p.evaluate(()=>window.__shared);
-  ck(s&&s.url.includes('?card='+card.id)&&!/drafts/.test(s.url)&&!s.text,n+pg+': shares the card link and title only, no drafts flag, no body text');
+  ck(s&&s.url.includes('?card='+card.id)&&!/drafts/.test(s.url)&&s.text==='Take a peek at this event from Jewish history\u2026',n+pg+': shares the card link with the Events opening line, no drafts flag');
  }
  // Movements
  const ev=await (async()=>{await p.goto(BASE+'movements.html');await p.waitForTimeout(2500);return p.evaluate(()=>{const e=[...MV.events.values()].find(x=>x.card&&x.routes.length>1);return {k:e.key,r:e.routes[1].id,t:e.title};});})();
@@ -25,7 +25,7 @@ for(const vw of [1280,390]){const n=(vw>700?'desktop: ':'phone: ');
  const sz=await p.$eval('#story .ojj-share',x=>{const r=x.getBoundingClientRect();return Math.min(r.width,r.height);});ck(sz>=43.5,n+'movements: Share at least 44 px ('+sz.toFixed(0)+')');
  {const g=await p.evaluate(()=>{const b=document.querySelector('#story .ojj-share').getBoundingClientRect(),s=document.querySelector('#story').getBoundingClientRect(),c=document.querySelector('#closeStory').getBoundingClientRect();return {top:b.top-s.top,fromRight:s.right-b.right,overlapClose:!(b.right<=c.left||b.left>=c.right||b.bottom<=c.top||b.top>=c.bottom)};});ck(g.top<=14&&g.fromRight<=90&&!g.overlapClose,n+'movements: Share at the top right of the card, clear of the close button ('+JSON.stringify(g)+')');}
  await p.click('#story .ojj-share');await p.waitForTimeout(200);let s=await p.evaluate(()=>window.__shared);
- ck(s&&s.url.includes('?m=')&&!/drafts/.test(s.url)&&!s.text&&/Our Jewish Journey/.test(s.title),n+'movements: shares link and title only');
+ ck(s&&s.url.includes('?m=')&&!/drafts/.test(s.url)&&s.text==='Follow the Jewish journey with me\u2026'&&/Our Jewish Journey/.test(s.title),n+'movements: shares link with the Movements opening line');
  await p.goto(BASE+'movements.html?m='+encodeURIComponent(ev.k)+'&r='+encodeURIComponent(ev.r));await p.waitForTimeout(2500);
  ck(await p.evaluate(r=>MV.state().SEL&&MV.state().SEL.id===r,ev.r),n+'movements: ?m=&r= opens that route');
  await p.click('#story .ojj-share');await p.waitForTimeout(200);s=await p.evaluate(()=>window.__shared);ck(s&&s.url.includes('&r='),n+'movements: route share keeps the route');

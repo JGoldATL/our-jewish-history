@@ -10,8 +10,15 @@
     '#story>.ojj-share,#story>.shareSlot{position:absolute;top:8px;right:58px;z-index:3;margin:0}.shareSlot[hidden]{display:none}@media (max-width:900px){#story>.ojj-share,#story>.shareSlot{top:0;right:34px}#story h2{padding-right:50px}}'+
     '.ojj-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}';
     document.head.appendChild(st);}catch(e){}
+  // Opening line for each kind of page (Jeffrey 10/20). Change the wording here only. The JewHate line stops before any claim, so a lie is never put in a message by itself.
+  var MESSAGES={
+    jewhate:'I thought you\u2019d enjoy this. Did you know Jews\u2026',
+    events:'Take a peek at this event from Jewish history\u2026',
+    movements:'Follow the Jewish journey with me\u2026',
+    archaeology:'Who said Jewish history wasn\u2019t real? Check this out:'
+  };
   function cleanUrl(u){var x=new URL(u,location.href);x.searchParams.delete('drafts');return x.href;}
-  window.OJJShare={
+  window.OJJShare={messages:MESSAGES,
     /* make({title, url|getUrl, getTitle, label:true|false}) returns the button */
     make:function(o){
       var b=document.createElement('button');b.type='button';b.className='ojj-share'+(o.label===false?' icon':'');
@@ -23,10 +30,10 @@
       lab();b.addEventListener('focus',lab);b.addEventListener('mouseenter',lab);
       b.addEventListener('click',function(ev){
         ev.stopPropagation();
-        var u=url(),data={title:title(),url:u};
+        var u=url(),txt=MESSAGES[o.kind]||'',data={title:title(),url:u};if(txt)data.text=txt;
         function copied(){live.textContent='Link copied';var t=b.querySelector('.t');if(t)t.textContent='Link copied';else b.title='Link copied';
           setTimeout(function(){live.textContent='';if(t)t.textContent='Share';else b.removeAttribute('title');},2000);}
-        function copy(){try{navigator.clipboard.writeText(u).then(copied,function(){window.prompt('Copy this link',u);});}catch(x){window.prompt('Copy this link',u);}}
+        function copy(){try{navigator.clipboard.writeText(txt?txt+' '+u:u).then(copied,function(){window.prompt('Copy this link',txt?txt+' '+u:u);});}catch(x){window.prompt('Copy this link',txt?txt+' '+u:u);}}
         if(navigator.share){navigator.share(data).catch(function(err){if(err&&err.name!=='AbortError')copy();});}else copy();
       });
       var w=document.createDocumentFragment();w.appendChild(b);w.appendChild(live);b._frag=w;return b;

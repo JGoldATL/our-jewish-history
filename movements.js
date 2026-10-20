@@ -254,7 +254,7 @@ function card(){
   const dd=(P?P.m.branch:r&&r.m.branch)?.deepDive;
   if(dd)html+=`<details class="blk"><summary>Deep dive</summary><p>${esc(bare(dd))}</p></details>`;
   c.innerHTML=html;c.scrollTop=0;
-  if(window.OJJShare)OJJShare.attach(c,{label:false,getTitle:()=>bare(e.title)+' | Our Jewish Journey',getUrl:()=>location.origin+location.pathname+'?m='+encodeURIComponent(e.key)+(r?'&r='+encodeURIComponent(r.id):'')});
+  if(window.OJJShare)OJJShare.attach(c,{kind:'movements',label:false,getTitle:()=>bare(e.title)+' | Our Jewish Journey',getUrl:()=>location.origin+location.pathname+'?m='+encodeURIComponent(e.key)+(r?'&r='+encodeURIComponent(r.id):'')});
   $('closeStory').addEventListener('click',clearSel);
   const back=$('cardBack');if(back)back.addEventListener('click',()=>{SEL={ev:e.key,id:null};card();frame();draw();});
   c.querySelectorAll('[data-chip]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.par)selectParent(b.dataset.par);else if(b.dataset.chip)selectRoute(b.dataset.chip);else{SEL={ev:e.key,id:null};card();frame();draw();}}));

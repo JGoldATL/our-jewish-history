@@ -38,7 +38,7 @@
     function renderTabs(){[].forEach.call(tabBar.children,function(b,i){b.setAttribute('aria-selected',String(i===cur));b.tabIndex=i===cur?0:-1;});}
     function card(e,n,m){
       var c=el('article','card');c.setAttribute('role','group');c.setAttribute('aria-roledescription','slide');c.setAttribute('aria-label',(n+1)+' of '+m+': '+label(e));
-      var fr=el('div','frow',null,c);var f=el('div','fam',e.family||'',fr);if(e.status!=='LOCKED')el('span','draft','Draft, not signed off',f);OJJShare.attach(fr,{label:false,title:label(e)+' | The History of JewHate',url:'jewhate-entry.html?id='+encodeURIComponent(e.id)});
+      var fr=el('div','frow',null,c);var f=el('div','fam',e.family||'',fr);if(e.status!=='LOCKED')el('span','draft','Draft, not signed off',f);OJJShare.attach(fr,{kind:'jewhate',label:false,title:label(e)+' | The History of JewHate',url:'jewhate-entry.html?id='+encodeURIComponent(e.id)});
       el('h2',null,label(e),c);
       var lie=el('div','lie',null,c);el('span','lb','The lie',lie);el('p',null,e.lie||e.title,lie);
       var foot=el('div','cfoot',null,c);
@@ -80,7 +80,7 @@
     document.title=label(e)+' | The History of JewHate';
     var back=$('#back');back.href='jewhate.html'+Q;
     var head=el('div','ehead',null,root);
-    var fr=el('div','frow',null,head);var f=el('span','fam',e.family||'',fr);if(e.status!=='LOCKED')el('span','draft','Draft, not signed off',f);OJJShare.attach(fr,{label:false,title:label(e)+' | The History of JewHate',url:location.href});
+    var fr=el('div','frow',null,head);var f=el('span','fam',e.family||'',fr);if(e.status!=='LOCKED')el('span','draft','Draft, not signed off',f);OJJShare.attach(fr,{kind:'jewhate',label:false,title:label(e)+' | The History of JewHate',url:location.href});
     el('h1',null,label(e),head);
     var lie=el('div','lie',null,head);lie.style.padding='22px 26px';el('span','lb','The lie',lie);var lp=el('p',null,e.lie||e.title,lie);lp.style.fontSize='28px';
     var sum=e.cardSummary||e.significance;if(sum)el('p','sum',sum,head);
