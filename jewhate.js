@@ -38,12 +38,11 @@
     function renderTabs(){[].forEach.call(tabBar.children,function(b,i){b.setAttribute('aria-selected',String(i===cur));b.tabIndex=i===cur?0:-1;});}
     function card(e,n,m){
       var c=el('article','card');c.setAttribute('role','group');c.setAttribute('aria-roledescription','slide');c.setAttribute('aria-label',(n+1)+' of '+m+': '+label(e));
-      var f=el('div','fam',e.family||'',c);if(e.status!=='LOCKED')el('span','draft','Draft, not signed off',f);
+      var fr=el('div','frow',null,c);var f=el('div','fam',e.family||'',fr);if(e.status!=='LOCKED')el('span','draft','Draft, not signed off',f);OJJShare.attach(fr,{label:false,title:label(e)+' | The History of JewHate',url:'jewhate-entry.html?id='+encodeURIComponent(e.id)});
       el('h2',null,label(e),c);
       var lie=el('div','lie',null,c);el('span','lb','The lie',lie);el('p',null,e.lie||e.title,lie);
       var foot=el('div','cfoot',null,c);
       var a=el('a','read','Deep dive',foot);a.href='jewhate-entry.html?id='+encodeURIComponent(e.id)+(DRAFTS?'&drafts=1':'');
-      OJJShare.attach(c,{label:false,title:label(e)+' | The History of JewHate',url:a.href});
       return c;
     }
     function pick(i,reset){
@@ -81,10 +80,11 @@
     document.title=label(e)+' | The History of JewHate';
     var back=$('#back');back.href='jewhate.html'+Q;
     var head=el('div','ehead',null,root);
-    var f=el('span','fam',e.family||'',head);if(e.status!=='LOCKED')el('span','draft','Draft, not signed off',f);
-    el('h1',null,label(e),head);OJJShare.attach(head,{label:false,title:label(e)+' | The History of JewHate',url:location.href});var sum=e.cardSummary||e.significance;if(sum)el('p','sum',sum,head);
+    var fr=el('div','frow',null,head);var f=el('span','fam',e.family||'',fr);if(e.status!=='LOCKED')el('span','draft','Draft, not signed off',f);OJJShare.attach(fr,{label:false,title:label(e)+' | The History of JewHate',url:location.href});
+    el('h1',null,label(e),head);
+    var lie=el('div','lie',null,head);lie.style.padding='22px 26px';el('span','lb','The lie',lie);var lp=el('p',null,e.lie||e.title,lie);lp.style.fontSize='28px';
+    var sum=e.cardSummary||e.significance;if(sum)el('p','sum',sum,head);
     var cols=el('div','cols',null,root),main=el('div','main',null,cols),aside=el('div','aside',null,cols);
-    var lie=el('div','lie',null,main);lie.style.padding='22px 26px';el('span','lb','The lie',lie);var lp=el('p',null,e.lie||e.title,lie);lp.style.fontSize='28px';
     function sec(title,build){var s=el('section','sec');el('h2',null,title,s);var ok=build(s);if(ok!==false)main.appendChild(s);}
     sec('What the record shows',function(s){var any=false;if(e.record){el('p','rec',e.record,s);any=true;}if(e.deepDive){el('p',null,e.deepDive,s);any=true;}return any;});
     sec('Where it started, and how it spread',function(s){

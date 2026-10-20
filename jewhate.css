@@ -93,6 +93,8 @@ details.more summary{cursor:pointer;min-height:44px;display:flex;align-items:cen
 .rel{display:flex;gap:8px;flex-wrap:wrap}
 .rel a{display:inline-flex;align-items:center;min-height:44px;font-size:14px;padding:0 14px;border-radius:999px;background:rgba(239,230,211,.08);text-decoration:none}
 
-.card{position:relative}.card>.ojj-share{position:absolute;top:14px;right:14px}.cfoot{margin-top:auto;display:flex;align-items:center;gap:12px}
+.card{position:relative}.cfoot{margin-top:auto;display:flex;align-items:center;gap:12px}
 .cfoot .read{margin-top:0}
-.ehead{position:relative;padding-right:56px}.ehead>.ojj-share{position:absolute;top:0;right:0}
+.ehead{position:relative}
+.frow{display:flex;align-items:center;justify-content:space-between;gap:12px}.frow .ojj-share{flex:0 0 44px;margin:-9px -9px -9px 0}
+.ehead .lie{max-width:760px}
