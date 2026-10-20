@@ -7,7 +7,7 @@
     '.ojj-share{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:44px;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.08);color:#EFE6D3;font:600 14px "Instrument Sans",Arial,sans-serif;cursor:pointer;box-sizing:border-box}'+
     '.ojj-share:hover{border-color:#E8B27A}.ojj-share:focus-visible{outline:2px solid #E8B27A;outline-offset:2px}'+
     '.ojj-share.icon{padding:0;width:44px}.ojj-share .t{white-space:nowrap}'+
-    '#story>.ojj-share,#story>.shareSlot .ojj-share{justify-self:start;align-self:start;margin-top:4px}.shareSlot[hidden]{display:none}'+
+    '#story>.ojj-share,#story>.shareSlot{position:absolute;top:8px;right:58px;z-index:3;margin:0}.shareSlot[hidden]{display:none}@media (max-width:900px){#story>.ojj-share,#story>.shareSlot{top:0;right:34px}#story h2{padding-right:50px}}'+
     '.ojj-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}';
     document.head.appendChild(st);}catch(e){}
   function cleanUrl(u){var x=new URL(u,location.href);x.searchParams.delete('drafts');return x.href;}

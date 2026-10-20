@@ -36,7 +36,7 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone']]){
   const m=await p.$$eval('.card',c=>c.length);for(let i=0;i<m&&!(await p.$eval(vw>700?'#next':'#nextM',b=>b.disabled));i++){await p.click(vw>700?'#next':'#nextM');await p.waitForTimeout(350);}
   ck(await p.$eval(vw>700?'#next':'#nextM',b=>b.disabled),n+'Next disabled at the last card, no wrap-around');
   await p.waitForTimeout(600);// controls reachable and sized
-  const sizes=await p.$$eval('.tab,.arrow,.card.cur a.read,.card.cur .share',b=>b.filter(x=>x.offsetParent).map(x=>{const r=x.getBoundingClientRect();return Math.min(r.width,r.height)}));
+  const sizes=await p.$$eval('.tab,.arrow,.card.cur a.read,.card.cur .ojj-share',b=>b.filter(x=>x.offsetParent).map(x=>{const r=x.getBoundingClientRect();return Math.min(r.width,r.height)}));
   ck(sizes.every(s=>s>=43.5),n+'touch targets at least 44 px ('+Math.min(...sizes).toFixed(0)+')');
   ck(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),n+'no sideways page scroll');
   if(vw>=760){const g=await p.evaluate(()=>{const nv=document.querySelector('#gnBar .gp').getBoundingClientRect(),h=document.querySelector('.brand h1').getBoundingClientRect();return {nl:nv.left,hr:h.right,ht:h.top,nb:nv.bottom}});ck(g.nl>g.hr&&g.ht<g.nb,n+'nav on the right, title raised into the nav row');}
@@ -58,7 +58,7 @@ await p.click('button.ojj-share');await p.waitForTimeout(200);
 {const u=await p.evaluate(()=>window.__u);ck(u&&/jewhate-entry\.html\?id=/.test(u.url)&&!/drafts/.test(u.url)&&/The History of JewHate/.test(u.title),'entry page: Share hands the entry link (no drafts flag) to the share sheet');}
 await p.evaluate(()=>{Object.defineProperty(navigator,'share',{value:undefined,configurable:true});Object.defineProperty(navigator,'clipboard',{value:{writeText:()=>Promise.resolve()},configurable:true});});
 await p.click('button.ojj-share');await p.waitForTimeout(200);
-ck((await p.$eval('button.ojj-share',b=>b.textContent))==='Link copied','entry page: without a share sheet the link is copied and the button says so');
+ck((await p.$eval('.ojj-sr',x=>x.textContent))==='Link copied','entry page: without a share sheet the link is copied and "Link copied" is announced');
 ck(/What the record shows/.test(t)&&/Where it started, and how it spread/.test(t)&&/Where you may still hear it/.test(t)&&/sources/i.test(t),'entry page: the sections');
 ck(!/Where\s*\n.*map/i.test(t)&&(await p.$$('.panel .lbl')).length>=0&&!(await p.$$eval('.panel .lbl',x=>x.map(y=>y.textContent)).then(a=>a.includes('Where'))),'entry page: no Where map panel');
 ck(!/Internal|Evidence status|Date certainty|Accuracy|Knowledge category/.test(t),'entry page: no internal columns');
