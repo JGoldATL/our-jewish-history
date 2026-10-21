@@ -35,7 +35,7 @@ const pinSvg=(k,sc=1)=>`<svg xmlns="http://www.w3.org/2000/svg" width="${32*sc}"
 let DATA=null,GEO=null,RECS=[],BYID=new Map(),PINS=[],LINKED=new Set();
 let W=0,H=0,V={lon:29,lat:35,degW:60},HOME=null;
 const FEATURED=['ARC-029'];   // the find the page opens on, when it is public; otherwise the first Importance 1 find
-let LO=FIRST_FOUND,HI=YEAR_NOW,Y=YEAR_NOW,lens='found',SEL=null,anim=null,raf=0,drag=null,moved=false,zT=0,kbdFocus=null,auto=true,pgKey='';
+let LO=FIRST_FOUND,HI=YEAR_NOW,Y=YEAR_NOW,lens='found',SEL=null,anim=null,raf=0,drag=null,moved=false,zT=0,kbdFocus=null,auto=true;
 const phone=()=>matchMedia('(max-width:620px) and (orientation:portrait)').matches;
 const MIN_DEG=()=>2;              // city zoom: Jerusalem's pins can be told apart
 const T2=()=>phone()?30:42,T3=()=>phone()?12:18;   // zoom steps (degrees across the map): below T2 Importance 2 is added, below T3 Importance 3
@@ -224,14 +224,12 @@ function carousel(){
   const l=shownPins();if(SEL&&!l.some(p=>p.id===SEL)){const p=PINS.find(q=>q.id===SEL);if(p)l.push(p);}
   return l.sort((a,b)=>yOf(a)-yOf(b)||a.r.name.localeCompare(b.r.name)||a.id.localeCompare(b.id));
 }
+let PG=null;
 function pager(){
-  const el=$('pager'),l=carousel(),i=l.findIndex(p=>p.id===SEL),key=l.map(p=>p.id).join()+'|'+SEL;
-  if(!SEL||l.length<2){el.hidden=true;pgKey='';return;}
-  if(key===pgKey)return;pgKey=key;el.hidden=false;
-  const N=l.length,span=Math.min(N,7);let s=clamp(i-Math.floor(span/2),0,N-span),dots='';
-  for(let k=s;k<s+span;k++){const edge=(k===s&&s>0)||(k===s+span-1&&s+span<N);
-    dots+=`<button type="button" class="dotb${edge&&k!==i?' sm':''}" data-go="${l[k].id}" aria-label="${esc(bare(l[k].r.name))}, ${k+1} of ${N}"${k===i?' aria-current="true"':''}></button>`;}
-  el.innerHTML=`<button type="button" class="pg" data-step="-1" aria-label="Previous find"${i<=0?' disabled':''}>&lsaquo;</button><div class="dots">${dots}</div><button type="button" class="pg" data-step="1" aria-label="Next find"${i>=N-1?' disabled':''}>&rsaquo;</button><span class="pgn">${i+1} of ${N}</span>`;
+  const l=carousel(),i=l.findIndex(p=>p.id===SEL);
+  if(!PG)PG=OJJPager.mount($('card'),{label:'find',onStep:d=>step(d),onGo:k=>{const n=carousel()[k];if(n)select(n.id);}});
+  if(!SEL||l.length<2||i<0){PG.hide();return;}
+  PG.update({count:l.length,index:i,title:bare(PINS.find(p=>p.id===SEL).r.name),names:l.map(p=>bare(p.r.name))});
 }
 function step(d){const l=carousel(),i=l.findIndex(p=>p.id===SEL),n=l[clamp(i+d,0,l.length-1)];if(n&&n.id!==SEL)select(n.id);}
 function select(id,opts){
@@ -274,13 +272,10 @@ function wire(){
   $('zin').addEventListener('click',()=>zoomAt(1.5));$('zout').addEventListener('click',()=>zoomAt(1/1.5));
   $('slider').addEventListener('input',e=>setYear(p2y((+e.target.value)/1000),true));
   document.querySelectorAll('#lens button').forEach(b=>b.addEventListener('click',()=>setLens(b.dataset.lens)));
-  $('card').addEventListener('click',e=>{const s=e.target.closest('[data-step]'),g=e.target.closest('[data-go]');if(s)step(+s.dataset.step);else if(g)select(g.dataset.go);});
-  {let x0=null,y0=null;const c=$('story');   // swipe the card sideways to step
-   c.addEventListener('touchstart',e=>{if(e.touches.length===1){x0=e.touches[0].clientX;y0=e.touches[0].clientY;}else x0=null;},{passive:true});
-   c.addEventListener('touchend',e=>{if(x0===null||!SEL)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6)step(dx<0?1:-1);},{passive:true});}
+  OJJPager.swipe($('story'),d=>{if(SEL)step(d);});OJJPager.keys(step,()=>!!SEL);
   $('keyBtn').addEventListener('click',e=>{e.stopPropagation();setKey($('key').hidden);});
   document.addEventListener('click',e=>{if(!$('key').hidden&&!$('key').contains(e.target)&&e.target!==$('keyBtn'))setKey(false);});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){setKey(false);if(SEL)select(null);}else if((e.key==='ArrowRight'||e.key==='ArrowLeft')&&SEL&&/^(BODY|ARTICLE|ASIDE|DIV)$/.test(document.activeElement.tagName)&&!e.target.closest('input,select,textarea'))step(e.key==='ArrowRight'?1:-1);});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){setKey(false);if(SEL)select(null);}});
   let rt=0;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{size();clampView();draw();},80);});
   if(window.ResizeObserver){let ro=0;new ResizeObserver(()=>{clearTimeout(ro);ro=setTimeout(()=>{if(w.clientWidth!==W||w.clientHeight!==H){size();clampView();draw();}else size();},30);}).observe(w);}   // the map and the bottom bar can change height after the fonts load
 }

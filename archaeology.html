@@ -355,17 +355,6 @@ body.arc .kicker,body.arc #story .found-at{padding-right:84px}
 body.arc #story>.ojj-share,body.arc #story>.shareSlot{top:10px;right:56px}
 body.arc #closeStory{right:14px;top:14px;width:36px;height:36px;font-size:18px;line-height:1;padding:0}
 .more{display:none}
-.pager{flex:none;display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 10px 10px;border-top:1px solid var(--line)}
-.pager[hidden]{display:none}
-.pg{width:44px;height:44px;border-radius:50%;border:0;background:none;color:var(--text);font-size:24px;line-height:1;cursor:pointer;flex:none}
-.pg:hover{background:rgba(239,230,211,.1)}
-.pg:disabled{opacity:.3;cursor:default}
-.dots{display:flex;align-items:center;gap:0}
-.dotb{width:22px;height:44px;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center}
-.dotb::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(239,230,211,.38);transition:transform .15s,background .15s}
-.dotb.sm::before{width:5px;height:5px}
-.dotb[aria-current="true"]::before{background:var(--amber);transform:scale(1.5)}
-.pgn{flex:none;min-width:48px;text-align:right;font-size:12px;color:var(--muted)}
 .tbar{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;width:min(720px,calc(100% - 190px));z-index:8;padding:10px 20px 4px;border-radius:20px;background:rgba(14,24,34,.92);border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .yrRow{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .yrBox{display:flex;align-items:baseline;gap:10px;min-width:0}
@@ -394,13 +383,13 @@ body.arc .tbar .ctl .ends{top:30px}
  #card:not(.open) #story .shows,#card:not(.open) #story .links,#card:not(.open) #story .src,#card:not(.open) #story details,#card:not(.open) #story .where{display:none}
  #card.open{max-height:calc(100% - var(--tb,100px) - 90px)}
  .more{display:inline-flex;align-items:center;min-height:36px;border:0;background:none;color:var(--amber2);font-size:14px;font-weight:600;padding:0;cursor:pointer;justify-self:start}
- .pager{padding:2px 6px 6px}.pg{width:40px;height:40px}.dotb{height:36px}
  body.arc .tbar{position:static;transform:none;width:auto;margin:8px 0 0;padding:8px 14px 2px;box-shadow:none}
  body.arc .tbar .year{font-size:28px}
  body.arc .seg button{height:30px;padding:0 9px;font-size:12px}
  body.arc .foot{padding:6px 16px;padding-bottom:max(6px,env(safe-area-inset-bottom))}body.arc .foot>span:first-child{display:none}
 }
 @media (max-width:900px) and (max-height:700px){#card:not(.open) #story .facts,#card:not(.open) #storyText{display:none}}
+@media (max-width:900px) and (max-height:680px){#card:not(.open) #story .sub{display:none}}
 @media (max-width:380px){body.arc .seg button{padding:0 7px;font-size:11.5px;height:28px}body.arc .tbar{padding:6px 12px 0}.yrRow{flex-wrap:nowrap}body.arc .tbar .year{font-size:24px}body.arc #story h2{font-size:23px}.kicker,body.arc #story .found-at{font-size:11.5px;letter-spacing:1.4px}}
 @media (max-width:620px){body.arc .brand h1{font-size:22px}body.arc .brand p{font-size:13px}body.arc .top{padding:6px 16px 4px}body.arc .tbar .era{display:none}}
 </style>
@@ -418,9 +407,8 @@ body.arc .tbar .ctl .ends{top:30px}
 <div class="key" id="key" hidden></div>
 <div class="hint" id="hint"></div>
 <div class="zoom"><button type="button" id="zin" aria-label="Zoom in">+</button><button type="button" id="zout" aria-label="Zoom out">&minus;</button></div>
-<aside id="card" aria-live="polite" aria-label="Find">
+<aside id="card" aria-label="Find">
 <article id="story"></article>
-<div id="pager" class="pager" hidden></div>
 </aside>
 <div id="tbar" class="tbar">
 <div class="yrRow"><div class="yrBox"><div class="year" id="year"></div><div class="era" id="era"></div></div>
@@ -432,6 +420,7 @@ body.arc .tbar .ctl .ends{top:30px}
 <footer class="foot"><span>Drag the map to move it &middot; pinch or scroll to zoom</span><span class="footR"><span id="version"></span></span></footer>
 <script src="version.js"></script>
 <script src="share.js"></script>
+<script src="pager.js"></script>
 <script src="archaeology.js"></script>
 <script src="nav.js"></script>
 <script src="pill.js"></script>

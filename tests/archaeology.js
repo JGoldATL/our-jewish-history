@@ -31,11 +31,11 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone'],[320,640,'small
   ck(await p.evaluate(()=>{const k=document.getElementById('keyBtn').getBoundingClientRect(),m=document.getElementById('mapWrap').getBoundingClientRect();return k.left-m.left<24&&k.top-m.top<24;}),n+'Map key button sits at the top left of the map');
   {const k0=await p.evaluate(()=>document.getElementById('keyBtn').getBoundingClientRect().left);await p.evaluate(()=>ARC.setView({lon:20,lat:40,degW:20},0));await p.waitForTimeout(200);
    ck(await p.evaluate(k=>document.getElementById('keyBtn').getBoundingClientRect().left===k,k0),n+'Map key stays in place when the map moves');await p.evaluate(()=>ARC.setView(ARC.homeView(),0));await p.waitForTimeout(200);}
-  ck(await p.evaluate(()=>{const c=document.querySelector('#pager');return !c.hidden&&c.querySelectorAll('.dotb').length>=2&&c.querySelectorAll('.dotb[aria-current=true]').length===1;}),n+'card has carousel dots with one current');
-  {const s0=await p.evaluate(()=>ARC.state().SEL);await p.click('#pager [data-step="1"]');await p.waitForTimeout(900);const s1=await p.evaluate(()=>ARC.state().SEL);
+  ck(await p.evaluate(()=>{const c=document.querySelector('#card .ojjpg');return !c.hidden&&c.querySelectorAll('.dotb').length>=2&&c.querySelectorAll('.dotb[aria-current=true]').length===1;}),n+'card has carousel dots with one current');
+  {const s0=await p.evaluate(()=>ARC.state().SEL);await p.click('#card .ojjpg [data-step="1"]');await p.waitForTimeout(900);const s1=await p.evaluate(()=>ARC.state().SEL);
    ck(s1&&s1!==s0,n+'next arrow opens the next find ('+s0+' to '+s1+')');
-   await p.click('#pager [data-step="-1"]');await p.waitForTimeout(900);ck(await p.evaluate(s=>ARC.state().SEL===s,s0),n+'previous arrow returns');
-   const g=await p.evaluate(()=>{const d=document.querySelectorAll('#pager .dotb');return d[d.length-1].dataset.go;});await p.click('#pager .dotb:last-child');await p.waitForTimeout(900);
+   await p.click('#card .ojjpg [data-step="-1"]');await p.waitForTimeout(900);ck(await p.evaluate(s=>ARC.state().SEL===s,s0),n+'previous arrow returns');
+   const g=await p.evaluate(()=>{const d=document.querySelectorAll('#card .ojjpg .dotb');return ARC.carousel()[+d[d.length-1].dataset.go].id;});await p.click('#card .ojjpg .dotb:last-child');await p.waitForTimeout(900);
    ck(await p.evaluate(g=>ARC.state().SEL===g,g),n+'tapping a dot opens that find');
    ck(await p.evaluate(()=>{const f=document.querySelector('#map .pin.selected');if(!f)return false;const r=f.getBoundingClientRect(),c=document.getElementById('card').getBoundingClientRect();return !(r.right>c.left&&r.left<c.right&&r.bottom>c.top&&r.top<c.bottom);}),n+'the open find’s pin is in view, not under the card');}
   await p.evaluate(()=>ARC.setYear(1830));await p.waitForTimeout(200);

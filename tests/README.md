@@ -74,3 +74,6 @@ pins that share a spot sit side by side, the card ("Found at" the site, discover
 deep link ?a=ID, the three-line Map Key, no sideways scroll, footer version.
 Loader: `python3 tools/sheet-to-archaeology.py EXPORT.xlsx [--dry-run] [--report PATH]` writes data/archaeology.json; it reads the tab by header name ("Archeaology" and "Archaeology" both accepted),
 never trims text, maps the old seven Map symbol values to Site / Writing / Object, and prints warnings and the places where pins share a spot.
+
+## tests/pager.js (shared card pager, v2.0.2)
+Counter reads "9 of 11" (W1), one current dot, polite live region, aria-labels on every control, window of 7, 5 or 3 dots with no overlap, 44 x 44 arrows and 44 px tall dot hit areas, divider line, dimmed Previous or Next at the ends with no wrap-around, left and right arrow keys, 3 px focus ring, pager hidden for one item. Runs on the Archaeology page (the reference). JewHate and Events are not on it yet.
