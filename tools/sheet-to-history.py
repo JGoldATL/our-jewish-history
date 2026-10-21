@@ -13,7 +13,7 @@ USAGE
     python3 tools/sheet-to-history.py EXPORT.xlsx --public --out data/history.public.json
                                                                   # public build: approved cards only
     options: --history PATH (default data/history.json)  --report PATH (write the full report as JSON)
-             --sheet-name NAME (the Sheet's file name, e.g. Jewish_Continuity_Master_Dataset_v0.2.3; the footer shows its version)
+             --sheet-name NAME (the Sheet's file name, e.g. Jewish_Continuity_Master_Dataset_v2.0.0; the footer shows its version)
              --sheet-modified ISO (Sheet's last-modified time, recorded in meta)
 
 WHAT IT DOES TO history.json
@@ -696,7 +696,7 @@ def main(argv=None):
     ap.add_argument('--report')
     ap.add_argument('--with-bands', action='store_true', help='also write non-unknown size bands to the file (off until Strategy approves F-089; unknown is never written)')
     ap.add_argument('--sheet-modified')
-    ap.add_argument('--sheet-name', default='Jewish_Continuity_Master_Dataset_v0.2.3', help="Sheet file name; its vN.N.N is shown in the site footer")
+    ap.add_argument('--sheet-name', default='Jewish_Continuity_Master_Dataset_v2.0.0', help="Sheet file name; its vN.N.N is shown in the site footer")
     a = ap.parse_args(argv)
 
     xlsx = Path(a.xlsx)

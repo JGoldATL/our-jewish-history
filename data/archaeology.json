@@ -1,0 +1,1860 @@
+{
+ "schema": "archaeology-1",
+ "source": "Google Sheet Jewish_Continuity_Master_Dataset_v2.0.0",
+ "sheetModified": "2026-10-21T00:00:00Z",
+ "exportSha256": "57a283cef81553c7",
+ "generated": "2026-10-21T06:04:47Z",
+ "records": [
+  {
+   "id": "ARC-001",
+   "type": "Site",
+   "name": "Merneptah's Temple at Thebes",
+   "year": 1896,
+   "yearNote": "Year Petrie cleared the temple.",
+   "foundBy": "Flinders Petrie",
+   "periodLabel": "Temple of Pharaoh Merneptah, c. 1207 BCE",
+   "periodStart": -1207,
+   "periodEnd": -1207,
+   "era": "Biblical",
+   "placeId": "place-thebes",
+   "lat": 25.725,
+   "lon": 32.6066,
+   "whereToSee": "Mortuary Temple of Merneptah, Luxor, Egypt",
+   "open": "Yes",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "Where the Israel Stele stood",
+   "story": "In 1896 Flinders Petrie cleared the ruined temple of Pharaoh Merneptah at Thebes in Egypt. Against a wall of its first courtyard lay a tall stone that names Israel.",
+   "deepDive": "Merneptah ruled Egypt about 3,200 years ago. His temple on the west bank of the Nile was later stripped for its stone, so little was left standing. Petrie came to dig a larger temple next door but cleared this smaller one instead. Swiss teams restored parts of it between 1971 and 2002, and it opened to visitors in 2002.",
+   "shows": "The place where the earliest known mention of Israel outside the Bible was found.",
+   "limits": "The temple itself says nothing about Israel; the stele found in it does.",
+   "events": [
+    {
+     "id": "EVT-0003",
+     "title": "The Merneptah Stele names Israel"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Mortuary Temple of Merneptah' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Mortuary_Temple_of_Merneptah"
+    },
+    {
+     "name": "Center for Online Judaic Studies, 'Stelae and Reliefs of Pharaoh Merneptah, c. 1207 BCE'",
+     "url": "https://cojs.org/stelae_and_reliefs_of_pharaoh_merneptah-_c-_1207_bce/"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-002",
+   "type": "Object",
+   "name": "Merneptah Stele",
+   "linkedSite": "ARC-001",
+   "year": 1896,
+   "foundBy": "Flinders Petrie",
+   "periodLabel": "c. 1207 BCE",
+   "periodStart": -1207,
+   "periodEnd": -1207,
+   "era": "Biblical",
+   "placeId": "place-thebes",
+   "lat": 25.725,
+   "lon": 32.6066,
+   "whereToSee": "Egyptian Museum, Cairo",
+   "open": "Yes",
+   "symbol": "Writing",
+   "importance": 1,
+   "subhead": "Israel named in Egyptian stone",
+   "story": "A pharaoh's victory poem, carved about 1207 BCE, lists peoples he claims to have beaten in Canaan. One of them is Israel. It is the oldest known mention of Israel outside the Bible.",
+   "deepDive": "The tall granite stone mostly praises Pharaoh Merneptah's win over the Libyans. Near the end, a few lines turn to Canaan and list places and peoples he says he defeated. Israel is one of them, and the sign used with its name marks a people, not a city or a country. So by about 1207 BCE, Egypt knew of a people called Israel living in Canaan.",
+   "shows": "A people called Israel lived in Canaan by about 1207 BCE.",
+   "limits": "It does not say where Israel came from or how large it was.",
+   "events": [
+    {
+     "id": "EVT-0003",
+     "title": "The Merneptah Stele names Israel"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Center for Online Judaic Studies, 'Stelae and Reliefs of Pharaoh Merneptah, c. 1207 BCE'",
+     "url": "https://cojs.org/stelae_and_reliefs_of_pharaoh_merneptah-_c-_1207_bce/"
+    },
+    {
+     "name": "Wikipedia, 'Merneptah Stele' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Merneptah_Stele"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-003",
+   "type": "Site",
+   "name": "Tel Gezer",
+   "year": 1902,
+   "yearNote": "Year Macalister began digging. Identified as Gezer by Clermont-Ganneau in the 1870s.",
+   "foundBy": "R.A.S. Macalister (Palestine Exploration Fund)",
+   "periodLabel": "Iron Age city, 10th century BCE",
+   "periodStart": -1000,
+   "periodEnd": -901,
+   "era": "Biblical",
+   "placeId": "place-gezer",
+   "lat": 31.8606,
+   "lon": 34.9136,
+   "whereToSee": "Tel Gezer National Park, near Karmei Yosef, Israel",
+   "open": "Yes",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "A biblical city found again",
+   "story": "Gezer is a city named in the Bible. A French scholar matched it to a hill called Tel ej-Jazar in the 1870s. R.A.S. Macalister dug there in 1902 to 1905 and 1907 to 1909.",
+   "deepDive": "Charles Clermont-Ganneau noticed that the Arabic name of the hill sounded like Gezer. In 1874 he found stones carved as boundary markers near it, which supported his idea. Macalister then dug for the Palestine Exploration Fund. Many teams have dug since, and the site is now a national park.",
+   "shows": "A city of Canaan and ancient Israel, where one of the oldest Hebrew inscriptions was found.",
+   "limits": "The site spans thousands of years, and only some of its layers belong to ancient Israel.",
+   "sources": [
+    {
+     "name": "World History Encyclopedia, 'The History of Excavations at Tel Gezer'",
+     "url": "https://www.worldhistory.org/article/853/"
+    },
+    {
+     "name": "Center for Online Judaic Studies, 'Gezer Calendar, 10th century BCE'",
+     "url": "https://cojs.org/gezer_calendar-_10th_century_bce/"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-004",
+   "type": "Object",
+   "name": "Gezer Calendar",
+   "linkedSite": "ARC-003",
+   "year": 1908,
+   "foundBy": "R.A.S. Macalister",
+   "periodLabel": "10th century BCE",
+   "periodStart": -1000,
+   "periodEnd": -901,
+   "era": "Biblical",
+   "placeId": "place-gezer",
+   "lat": 31.8606,
+   "lon": 34.9136,
+   "whereToSee": "Istanbul Archaeology Museums, Istanbul",
+   "open": "Yes",
+   "symbol": "Writing",
+   "importance": 3,
+   "subhead": "A farmer's year in early writing",
+   "story": "A small stone tablet lists the months of the farming year by the work done in each, such as sowing and harvest. Found at Gezer in 1908, it dates to the 10th century BCE.",
+   "deepDive": "The tablet names months for jobs like the olive harvest and the barley harvest. Scholars still argue whether its script is early Hebrew or Phoenician. The writer signed a name, Aviyah, that contains a short form of the name of Israel's God, which points to an Israelite writer. The original is in Istanbul; the Israel Museum shows a copy.",
+   "shows": "Writing in the Land, possibly early Hebrew, about 3,000 years ago.",
+   "limits": "Scholars disagree whether the script is early Hebrew or Phoenician.",
+   "sources": [
+    {
+     "name": "Center for Online Judaic Studies, 'Gezer Calendar, 10th century BCE'",
+     "url": "https://cojs.org/gezer_calendar-_10th_century_bce/"
+    },
+    {
+     "name": "World History Encyclopedia, 'The History of Excavations at Tel Gezer'",
+     "url": "https://www.worldhistory.org/article/853/"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-005",
+   "type": "Site",
+   "name": "Tel Dan",
+   "year": 1966,
+   "yearNote": "Year Biran began digging.",
+   "foundBy": "Avraham Biran",
+   "periodLabel": "Israelite city, 9th century BCE",
+   "periodStart": -900,
+   "periodEnd": -801,
+   "era": "Biblical",
+   "placeId": "place-tel-dan",
+   "lat": 33.2486,
+   "lon": 35.6524,
+   "whereToSee": "Tel Dan Nature Reserve, northern Israel",
+   "open": "Yes",
+   "symbol": "Site",
+   "importance": 2,
+   "subhead": "The northern city of Dan",
+   "story": "Tel Dan sits by springs of the Jordan River in northern Israel. Avraham Biran began digging here in 1966 and kept at it for more than 30 years.",
+   "deepDive": "The Bible names Dan as the northern edge of Israel. Digging at the mound has uncovered an older Canaanite gate and gates from the Israelite city. In 1993 workers in the gate area found the first broken piece of an Aramaic victory stone. The site is part of a nature reserve first declared in 1974.",
+   "shows": "An Israelite city in the north, where the 'House of David' inscription was found.",
+   "limits": "Not every gate or building at the site can be tied to a named king.",
+   "events": [
+    {
+     "id": "EVT-0007",
+     "title": "The kingdom splits in two"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Avraham Biran' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Avraham_Biran"
+    },
+    {
+     "name": "Center for Online Judaic Studies, 'Tel Dan Stele, c. 840 BCE'",
+     "url": "https://cojs.org/tel_dan_stele-_c-_840_bce/"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-006",
+   "type": "Object",
+   "name": "Tel Dan Stele",
+   "linkedSite": "ARC-005",
+   "year": 1993,
+   "yearNote": "First piece 1993; two more pieces 1994.",
+   "foundBy": "Avraham Biran's team",
+   "periodLabel": "c. 840 BCE",
+   "periodStart": -840,
+   "periodEnd": -840,
+   "era": "Biblical",
+   "placeId": "place-tel-dan",
+   "lat": 33.2486,
+   "lon": 35.6524,
+   "whereToSee": "Israel Museum, Jerusalem",
+   "open": "Yes",
+   "symbol": "Writing",
+   "importance": 1,
+   "subhead": "House of David' in stone",
+   "story": "In 1993 workers at Tel Dan found a broken piece of basalt carved in Aramaic. Two more pieces turned up in 1994. Most scholars read one line as 'House of David,' the royal family of Judah.",
+   "deepDive": "The stone was set up by a king of Aram to boast of victories over the king of Israel and the House of David. It is dated to about 840 BCE. Later it was smashed and its pieces were reused in building, which is how they survived. If the reading is right, it is the earliest known mention of David outside the Bible.",
+   "shows": "Read by most scholars as the earliest mention of King David's royal family outside the Bible.",
+   "limits": "A few scholars dispute the reading 'House of David.'",
+   "events": [
+    {
+     "id": "EVT-0008",
+     "title": "Neighbors write about the kingdom of Israel"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Center for Online Judaic Studies, 'Tel Dan Stele, c. 840 BCE'",
+     "url": "https://cojs.org/tel_dan_stele-_c-_840_bce/"
+    },
+    {
+     "name": "The Jewish Museum, New York, press release 'Tel Dan Stele on Display' (loan from the Israel Museum)",
+     "url": "https://thejewishmuseum.org/press/tel-dan-stele-press-release/"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-007",
+   "type": "Site",
+   "name": "Dhiban (ancient Dibon)",
+   "year": 1868,
+   "yearNote": "Year the Mesha Stele was found here. First excavation 1950.",
+   "foundBy": "American Schools of Oriental Research (F.V. Winnett)",
+   "periodLabel": "Moabite city, 9th century BCE",
+   "periodStart": -900,
+   "periodEnd": -801,
+   "era": "Biblical",
+   "placeId": "place-dhiban",
+   "lat": 31.5005,
+   "lon": 35.7765,
+   "whereToSee": "Dhiban, Jordan",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "Capital of King Mesha of Moab",
+   "story": "Dhiban, in Jordan, is the ancient city of Dibon, capital of Moab. The Mesha Stele was found here in 1868. American teams dug the mound in several seasons from 1950 to 1965.",
+   "deepDive": "Dibon lies about 64 km south of Amman. A missionary was led to the Mesha Stele here in 1868. The American Schools of Oriental Research dug in 1950 to 1953, and again in 1955, 1956 and 1965. The first seasons worked only in one corner of the mound; later ones reached its top and center.",
+   "shows": "The Moabite capital where a king recorded his wars with Israel.",
+   "limits": "The site is Moabite, not Israelite; its link to Jewish history comes through the Mesha Stele.",
+   "events": [
+    {
+     "id": "EVT-0008",
+     "title": "Neighbors write about the kingdom of Israel"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Dead Sea Earthquake Catalog site file 'Dhiban', citing Stern et al., New Encyclopedia of Archaeological Excavations in the Holy Land (1993)",
+     "url": "https://deadseaquake.info/EarthquakeCatalogOfTheDeadSea/Sites/Archaeo/Dhiban.html"
+    },
+    {
+     "name": "Wikipedia, 'Mesha Stele' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Mesha_Stele"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-008",
+   "type": "Object",
+   "name": "Mesha Stele (Moabite Stone)",
+   "linkedSite": "ARC-007",
+   "year": 1868,
+   "yearNote": "Found whole in August 1868; broken in 1869.",
+   "foundBy": "F.A. Klein, led by Sattam al-Fayez",
+   "periodLabel": "c. 840 BCE",
+   "periodStart": -840,
+   "periodEnd": -840,
+   "era": "Biblical",
+   "placeId": "place-dhiban",
+   "lat": 31.5005,
+   "lon": 35.7765,
+   "whereToSee": "Louvre, Paris",
+   "open": "Yes",
+   "symbol": "Writing",
+   "importance": 1,
+   "subhead": "A Moabite king names Israel",
+   "story": "King Mesha of Moab carved this stone about 840 BCE to boast of freeing his land from Israel. It names Omri, king of Israel. It was found whole in 1868, then broken a year later.",
+   "deepDive": "Missionary F.A. Klein was led to the stone at Dhiban in August 1868. In 1869, before it could be moved, local men broke it apart in a dispute. A paper impression of the text had been made first, so scholars could rebuild it from the pieces. It has been in the Louvre in Paris since 1873. Its account of war with Israel can be compared with the Bible's story in 2 Kings 3.",
+   "shows": "A foreign king confirms the kingdom of Israel and its king Omri in the 9th century BCE.",
+   "limits": "Dated to about 840 BCE; one scholar argues it could be as late as 810 BCE.",
+   "events": [
+    {
+     "id": "EVT-0008",
+     "title": "Neighbors write about the kingdom of Israel"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Mesha Stele' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Mesha_Stele"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-009",
+   "type": "Site",
+   "name": "Kurkh (Üçtepe)",
+   "year": 1861,
+   "foundBy": "J.E. Taylor",
+   "periodLabel": "Assyrian provincial city, 9th century BCE",
+   "periodStart": -900,
+   "periodEnd": -801,
+   "era": "Biblical",
+   "placeId": "place-kurkh",
+   "lat": 37.82,
+   "lon": 40.53,
+   "whereToSee": "Üçtepe, near Bismil, Diyarbakır Province, Turkey",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "Where an Assyrian king named Ahab",
+   "story": "Üçtepe is a mound by the Tigris in southeast Turkey, once called Kurkh. British consul J.E. Taylor dug there from 1861 and found two Assyrian stone monuments near a later fort on top.",
+   "deepDive": "The mound lies about 40 km southeast of Diyarbakır and is thought to be the Assyrian city of Tushhan. Taylor dug in 1861 to 1863 and again in 1866. One of his two stones, set up by King Shalmaneser III, lists the kings who fought him at Qarqar in 853 BCE. A Turkish team dug the site again from 1988 to 1992.",
+   "shows": "The findspot of one of the earliest foreign records to name a king of Israel.",
+   "limits": "The site itself is Assyrian; only the monument found there speaks of Israel.",
+   "events": [
+    {
+     "id": "EVT-0008",
+     "title": "Neighbors write about the kingdom of Israel"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Üçtepe Höyük' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/%C3%9C%C3%A7tepe_H%C3%B6y%C3%BCk"
+    },
+    {
+     "name": "Center for Online Judaic Studies, 'Kurkh Stele, 853 BCE'",
+     "url": "https://cojs.org/?p=6525"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-010",
+   "type": "Object",
+   "name": "Kurkh Monolith",
+   "linkedSite": "ARC-009",
+   "year": 1861,
+   "foundBy": "J.E. Taylor",
+   "periodLabel": "853 BCE",
+   "periodStart": -853,
+   "periodEnd": -853,
+   "era": "Biblical",
+   "placeId": "place-kurkh",
+   "lat": 37.82,
+   "lon": 40.53,
+   "whereToSee": "British Museum, London",
+   "open": "Yes",
+   "symbol": "Writing",
+   "importance": 3,
+   "subhead": "King Ahab at the battle of Qarqar",
+   "story": "Assyria's King Shalmaneser III carved this stone to describe his battle against a group of kings that included King Ahab of Israel.",
+   "deepDive": "The stone shows the Assyrian king carved in relief, covered with cuneiform writing. It lists a group of local kings who stood together against Assyria at Qarqar, by the Orontes River in Syria. Ahab of Israel is among them. The Bible tells of Ahab but does not mention this battle. J.E. Taylor found the stone in 1861, and it is now in the British Museum.",
+   "shows": "One of the earliest mentions of a king of Israel in a foreign record.",
+   "limits": "The force sizes in the text may be exaggerated, as in many royal boasts.",
+   "events": [
+    {
+     "id": "EVT-0008",
+     "title": "Neighbors write about the kingdom of Israel"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Center for Online Judaic Studies, 'Kurkh Stele, 853 BCE'",
+     "url": "https://cojs.org/?p=6525"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-011",
+   "type": "Site",
+   "name": "Nimrud (ancient Kalhu)",
+   "year": 1845,
+   "yearNote": "Year Layard began digging.",
+   "foundBy": "Austen Henry Layard",
+   "periodLabel": "Assyrian royal city, 9th century BCE",
+   "periodStart": -900,
+   "periodEnd": -801,
+   "era": "Biblical",
+   "placeId": "place-nimrud",
+   "lat": 36.0981,
+   "lon": 43.3289,
+   "whereToSee": "Nimrud, Nineveh Governorate, Iraq",
+   "open": "No",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "An Assyrian capital on the Tigris",
+   "story": "Nimrud, in northern Iraq, is the Assyrian royal city of Kalhu. Austen Henry Layard began digging here in 1845 and sent huge stone carvings to London, including the Black Obelisk.",
+   "deepDive": "Layard found palaces lined with carved wall panels and giant winged lions. Most of his finds went to the British Museum. In 2015 the Islamic State bulldozed and blew up much of the site. When Iraqi forces took it back in 2016, about 90 percent of the dug area had been destroyed. Repair work began in 2017.",
+   "shows": "The Assyrian capital where a picture of an Israelite king, or his envoy, was found.",
+   "limits": "Most of the site was destroyed in 2015, so much of it can no longer be seen.",
+   "events": [
+    {
+     "id": "EVT-0008",
+     "title": "Neighbors write about the kingdom of Israel"
+    }
+   ],
+   "sources": [
+    {
+     "name": "NYU Institute for the Study of the Ancient World library, 'Austen Henry Layard and the early exploration of Nimrud'",
+     "url": "https://isaw.nyu.edu/library/blog/Layard"
+    },
+    {
+     "name": "Wikipedia, 'Nimrud' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Nimrud"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-012",
+   "type": "Object",
+   "name": "Black Obelisk of Shalmaneser III",
+   "linkedSite": "ARC-011",
+   "year": 1846,
+   "foundBy": "Austen Henry Layard",
+   "periodLabel": "827 to 824 BCE",
+   "periodStart": -827,
+   "periodEnd": -824,
+   "era": "Biblical",
+   "placeId": "place-nimrud",
+   "lat": 36.0981,
+   "lon": 43.3289,
+   "whereToSee": "British Museum, London",
+   "open": "Yes",
+   "symbol": "Writing",
+   "importance": 2,
+   "subhead": "A king of Israel bows to Assyria",
+   "story": "This black stone pillar shows rulers bringing gifts to Assyria's King Shalmaneser III. One panel shows a man bowing low, identified by most scholars as Jehu, king of Israel, or his envoy.",
+   "deepDive": "Layard found the obelisk at Nimrud in 1846. It was made between 827 and 824 BCE and set up in the city's central square. Rows of carvings run around its four sides, with writing above them. The caption of the second row speaks of tribute from Jehu: silver, gold and other goods. If the identification is right, it is the oldest known picture of an Israelite king.",
+   "shows": "A king of Israel, or his envoy, shown paying tribute to Assyria about 841 BCE.",
+   "limits": "A few scholars think the king shown is Jehoram, not Jehu.",
+   "events": [
+    {
+     "id": "EVT-0008",
+     "title": "Neighbors write about the kingdom of Israel"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Black Obelisk of Shalmaneser III' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Black_Obelisk_of_Shalmaneser_III"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-013",
+   "type": "Site",
+   "name": "City of David",
+   "year": 1867,
+   "yearNote": "Year of Charles Warren's first scientific dig.",
+   "foundBy": "Charles Warren (Palestine Exploration Fund)",
+   "periodLabel": "Jerusalem of the First Temple period",
+   "periodStart": -1000,
+   "periodEnd": -586,
+   "era": "Biblical",
+   "placeId": "place-j",
+   "lat": 31.7736,
+   "lon": 35.2356,
+   "whereToSee": "City of David, Jerusalem Walls National Park, Jerusalem",
+   "open": "Yes",
+   "symbol": "Site",
+   "importance": 1,
+   "subhead": "Jerusalem's original hilltop",
+   "story": "The City of David is the narrow ridge south of the Temple Mount where Jerusalem began. Charles Warren made the first scientific dig there in 1867, and teams have dug it ever since.",
+   "deepDive": "Warren, sent by the Palestine Exploration Fund, entered the Gihon Spring tunnels in October 1867 and found the deep shaft now named for him. Many digs followed, including Raymond Weill, who first identified the ridge as the City of David, Kathleen Kenyon in the 1960s and Yigal Shiloh from 1978 to 1985. Today it is a national park.",
+   "shows": "The oldest part of Jerusalem, the city of the kings of Judah.",
+   "limits": "Which buildings date to King David's own time is still argued.",
+   "events": [
+    {
+     "id": "EVT-0005",
+     "title": "David makes Jerusalem his capital"
+    }
+   ],
+   "sources": [
+    {
+     "name": "City of David (Ir David Foundation), 'Charles Warren'",
+     "url": "https://cityofdavid.org.il/en/charles-warren-eng"
+    },
+    {
+     "name": "Wikipedia, 'City of David (archaeological site)' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/City_of_David_(archaeological_site)"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-014",
+   "type": "Site",
+   "name": "Pool of Siloam",
+   "year": 2004,
+   "yearNote": "Found in autumn 2004; announced August 2005.",
+   "foundBy": "Eli Shukron and Ronny Reich (Israel Antiquities Authority)",
+   "periodLabel": "Second Temple period pool",
+   "periodStart": -100,
+   "periodEnd": 70,
+   "era": "Ancient History",
+   "placeId": "place-j",
+   "lat": 31.778,
+   "lon": 35.235,
+   "whereToSee": "City of David, Jerusalem",
+   "open": "Yes",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "The pilgrims' pool of Jerusalem",
+   "story": "In 2004, workers fixing a sewer pipe at the south end of the City of David uncovered stone steps. Archaeologists Eli Shukron and Ronny Reich found they led into a large pool from Second Temple times.",
+   "deepDive": "Wide stone steps lined the edge of a pool fed by water from the Gihon Spring. Coins of the Hasmonean king Alexander Jannaeus in its plaster show it was built or rebuilt in his time, about 100 BCE. The find was announced in August 2005, and digging of the whole pool continues.",
+   "shows": "A public pool used in Jerusalem in the time of the Second Temple.",
+   "limits": "Its use by pilgrims for ritual washing is widely held but not proven.",
+   "events": [
+    {
+     "id": "EVT-0027",
+     "title": "Romans destroy Jerusalem and the Second Temple"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Pool of Siloam' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Pool_of_Siloam"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-015",
+   "type": "Site",
+   "name": "Hezekiah's Tunnel",
+   "year": 1838,
+   "yearNote": "Year of Edward Robinson's first modern exploration; the tunnel was known locally.",
+   "foundBy": "Edward Robinson",
+   "periodLabel": "c. 700 BCE",
+   "periodStart": -700,
+   "periodEnd": -700,
+   "era": "Biblical",
+   "placeId": "place-j",
+   "lat": 31.7724,
+   "lon": 35.2357,
+   "whereToSee": "City of David, Jerusalem (visitors can wade through)",
+   "open": "Yes",
+   "symbol": "Site",
+   "importance": 1,
+   "subhead": "A water tunnel cut through rock",
+   "story": "A tunnel 533 meters long carries water from the Gihon Spring to the south end of ancient Jerusalem. It is dated to about 700 BCE. Edward Robinson explored it in 1838.",
+   "deepDive": "Two crews cut the tunnel from opposite ends and met in the middle, as an inscription found inside tells. It is traditionally linked to King Hezekiah, who the Bible says brought water into the city (2 Kings 20:20). Charles Wilson and Charles Warren studied the tunnel later but missed the inscription. Visitors can wade through it today.",
+   "shows": "Major engineering in Judah's capital around 700 BCE.",
+   "limits": "The link to King Hezekiah is traditional, and some scholars date the tunnel differently.",
+   "events": [
+    {
+     "id": "EVT-0010",
+     "title": "Hezekiah's Tunnel"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Siloam tunnel' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Siloam_tunnel"
+    },
+    {
+     "name": "Wikipedia, 'Siloam inscription' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Siloam_inscription"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-016",
+   "type": "Object",
+   "name": "Siloam Inscription",
+   "linkedSite": "ARC-015",
+   "year": 1880,
+   "foundBy": "A teenage pupil of Conrad Schick",
+   "periodLabel": "c. 700 BCE",
+   "periodStart": -700,
+   "periodEnd": -700,
+   "era": "Biblical",
+   "placeId": "place-j",
+   "lat": 31.7724,
+   "lon": 35.2357,
+   "whereToSee": "Istanbul Archaeology Museums, Istanbul",
+   "open": "Yes",
+   "symbol": "Writing",
+   "importance": 2,
+   "subhead": "Words of the tunnel diggers",
+   "story": "In 1880 a teenage student fell into the water of the Siloam tunnel and saw letters on the rock wall. The Hebrew text tells how two crews digging from opposite ends heard each other and broke through.",
+   "deepDive": "The inscription is in the old Hebrew alphabet and is dated by its letter shapes to about 700 BCE. Conrad Schick, the student's teacher, reported it in 1880, and Archibald Sayce made the first reading in 1881. It was later cut from the wall and taken to Istanbul, then the Ottoman capital. It is still there; the Israel Museum shows a copy.",
+   "shows": "Hebrew writing by the people who built Jerusalem's water tunnel.",
+   "limits": "The text names no king, so its link to Hezekiah comes from the tunnel, not the words.",
+   "events": [
+    {
+     "id": "EVT-0010",
+     "title": "Hezekiah's Tunnel"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Siloam inscription' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Siloam_inscription"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-017",
+   "type": "Site",
+   "name": "Ketef Hinnom",
+   "year": 1975,
+   "yearNote": "Salvage dig, August to September 1975.",
+   "foundBy": "Gabriel Barkay",
+   "periodLabel": "Judahite tombs, 7th to 6th century BCE",
+   "periodStart": -650,
+   "periodEnd": -550,
+   "era": "Biblical",
+   "placeId": "place-j",
+   "lat": 31.778,
+   "lon": 35.235,
+   "whereToSee": "Ketef Hinnom, Jerusalem",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "Burial caves above the Hinnom Valley",
+   "story": "Ketef Hinnom is a rocky slope southwest of Jerusalem's Old City, next to St. Andrew's Church. Gabriel Barkay dug burial caves here in 1975. In 1979 his team found two tiny silver scrolls.",
+   "deepDive": "The caves are family tombs from the Kingdom of Judah, cut in the 7th and 6th centuries BCE. The site sits where the Hinnom and Rephaim valleys meet, on the old road from Jerusalem to Bethlehem. The silver scrolls lay in one of the burial chambers.",
+   "shows": "Family tombs of Judah from the last century of the First Temple.",
+   "limits": "The tombs show how some Jerusalem families buried their dead, not the whole city.",
+   "events": [
+    {
+     "id": "EVT-0012",
+     "title": "The Ketef Hinnom silver scrolls"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Ketef Hinnom' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Ketef_Hinnom"
+    },
+    {
+     "name": "Center for Online Judaic Studies, 'Silver Scroll Amulets from Ketef Hinnom, c. 600 BCE'",
+     "url": "https://cojs.org/?p=7652"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-018",
+   "type": "Object",
+   "name": "Ketef Hinnom Silver Scrolls",
+   "linkedSite": "ARC-017",
+   "year": 1979,
+   "foundBy": "Gabriel Barkay's team",
+   "periodLabel": "c. 600 BCE",
+   "periodStart": -600,
+   "periodEnd": -600,
+   "era": "Biblical",
+   "placeId": "place-j",
+   "lat": 31.778,
+   "lon": 35.235,
+   "whereToSee": "Israel Museum, Jerusalem",
+   "open": "Yes",
+   "symbol": "Writing",
+   "importance": 2,
+   "subhead": "Bible words on silver",
+   "story": "Two tiny rolled-up silver strips, found in a Jerusalem tomb in 1979, carry the Priestly Blessing from the Book of Numbers. Dated to about 600 BCE, they hold the oldest known words that match a Bible text.",
+   "deepDive": "The strips were worn as amulets. When unrolled, they showed Hebrew letters scratched into the silver. The words are close to Numbers 6:24 to 26: 'May the Lord bless you and keep you.' The same blessing is still said in synagogues today. The scrolls are in the Israel Museum in Jerusalem.",
+   "shows": "A blessing from the Torah, worn in Jerusalem about 600 BCE.",
+   "limits": "Their exact date is still debated by scholars.",
+   "events": [
+    {
+     "id": "EVT-0012",
+     "title": "The Ketef Hinnom silver scrolls"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Center for Online Judaic Studies, 'Silver Scroll Amulets from Ketef Hinnom, c. 600 BCE'",
+     "url": "https://cojs.org/?p=7652"
+    },
+    {
+     "name": "Wikipedia, 'Ketef Hinnom' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Ketef_Hinnom"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-019",
+   "type": "Site",
+   "name": "Tel Lachish",
+   "year": 1932,
+   "yearNote": "Year Starkey's expedition began. Albright identified the mound as Lachish in 1929.",
+   "foundBy": "James Leslie Starkey (Wellcome-Marston Expedition)",
+   "periodLabel": "Judahite city, 8th to 6th century BCE",
+   "periodStart": -701,
+   "periodEnd": -587,
+   "era": "Biblical",
+   "placeId": "place-lachish",
+   "lat": 31.565,
+   "lon": 34.849,
+   "whereToSee": "Tel Lachish National Park, Israel",
+   "open": "Yes",
+   "symbol": "Site",
+   "importance": 2,
+   "subhead": "Judah's second city",
+   "story": "Tel Lachish was one of the most important cities of the Kingdom of Judah. Assyria captured it in 701 BCE and Babylon destroyed it about 587 BCE. James Starkey began digging here in 1932.",
+   "deepDive": "W.F. Albright first matched the mound, Tell ed-Duweir, to biblical Lachish in 1929. Starkey's expedition dug through the 1930s. Later teams found the Assyrian siege ramp, the oldest known in the ancient Near East, and more royal jar stamps than at any other site in Israel. It is now a national park.",
+   "shows": "A major city of Judah that fell to Assyria and then to Babylon.",
+   "limits": "Scholars date some layers of the city differently.",
+   "events": [
+    {
+     "id": "EVT-0011",
+     "title": "Assyria invades Judah and captures Lachish"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Andrews University Seminary Studies 25.1 (1987), article on Tell ed-Duweir and Lachish",
+     "url": "https://www.andrews.edu/library/car/cardigital/Periodicals/AUSS/1987-1/1987-1-06.pdf"
+    },
+    {
+     "name": "Wikipedia, 'Lachish' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Lachish"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-020",
+   "type": "Object",
+   "name": "Lachish Letters",
+   "linkedSite": "ARC-019",
+   "year": 1935,
+   "yearNote": "January to February 1935.",
+   "foundBy": "James Leslie Starkey",
+   "periodLabel": "c. 590 to 588 BCE",
+   "periodStart": -590,
+   "periodEnd": -588,
+   "era": "Biblical",
+   "placeId": "place-lachish",
+   "lat": 31.565,
+   "lon": 34.849,
+   "whereToSee": "British Museum, London",
+   "open": "Yes",
+   "symbol": "Writing",
+   "importance": 2,
+   "subhead": "Letters from a city under threat",
+   "story": "In 1935 James Starkey found Hebrew letters written in ink on broken pottery at Lachish. Officers wrote them shortly before Babylon's army conquered Judah, about 588 BCE.",
+   "deepDive": "The letters passed between officers as the Babylonian army closed in on Judah. They are written in Hebrew in ink on pieces of broken pottery, a common way to send short notes. Seventeen are in the British Museum in London; a few are shown in Jerusalem.",
+   "shows": "Hebrew letters from Judah in the last days before the Babylonian conquest.",
+   "limits": "Some letters are faded, and scholars read parts of them differently.",
+   "events": [
+    {
+     "id": "EVT-0014",
+     "title": "Babylon destroys Jerusalem and the First Temple"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Lachish letters' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Lachish_letters"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-021",
+   "type": "Site",
+   "name": "Nineveh",
+   "year": 1847,
+   "yearNote": "Year Layard first explored the mounds; he found Sennacherib's palace in 1849. Botta searched them first in 1842.",
+   "foundBy": "Austen Henry Layard",
+   "periodLabel": "Assyrian capital, about 705 to 612 BCE",
+   "periodStart": -705,
+   "periodEnd": -612,
+   "era": "Biblical",
+   "placeId": "place-nineveh",
+   "lat": 36.3594,
+   "lon": 43.1528,
+   "whereToSee": "Nineveh archaeological park (Kuyunjik), Mosul, Iraq",
+   "open": "Limited",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "Capital of the Assyrian Empire",
+   "story": "Nineveh, across the Tigris from Mosul in Iraq, was the capital of Assyria under King Sennacherib. Austen Henry Layard explored it from 1847 and found Sennacherib's lost palace.",
+   "deepDive": "Paul-Émile Botta searched the mounds first, in 1842, with little luck. In 1849 Layard found Sennacherib's palace of 71 rooms on the mound of Kuyunjik, with carved panels showing the capture of Lachish. He also found the library of King Ashurbanipal. The Islamic State damaged the site in 2014 to 2016. A park opened at Kuyunjik in 2023.",
+   "shows": "The capital from which Assyria attacked Judah in 701 BCE.",
+   "limits": "The city is Assyrian; its link to Jewish history comes through finds like the Lachish reliefs.",
+   "events": [
+    {
+     "id": "EVT-0011",
+     "title": "Assyria invades Judah and captures Lachish"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Nineveh' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Nineveh"
+    },
+    {
+     "name": "NYU Institute for the Study of the Ancient World library, 'Austen Henry Layard and the early exploration of Nimrud'",
+     "url": "https://isaw.nyu.edu/library/blog/Layard"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-022",
+   "type": "Object",
+   "name": "Sennacherib's Prism (Taylor Prism)",
+   "linkedSite": "ARC-021",
+   "year": 1830,
+   "yearNote": "Year Colonel Taylor bought it; the find year is not recorded.",
+   "foundBy": "Bought by Colonel R. Taylor",
+   "periodLabel": "691 BCE (describes 701 BCE)",
+   "periodStart": -691,
+   "periodEnd": -691,
+   "era": "Biblical",
+   "placeId": "place-nineveh",
+   "lat": 36.3594,
+   "lon": 43.1528,
+   "whereToSee": "British Museum, London",
+   "open": "Yes",
+   "symbol": "Writing",
+   "importance": 1,
+   "subhead": "Assyria's account of Hezekiah",
+   "story": "This clay prism records the wars of Assyria's King Sennacherib. It tells of his 701 BCE campaign in Judah, the towns he took, and the tribute he received from King Hezekiah of Judah.",
+   "deepDive": "Colonel Taylor bought the prism in 1830; it was said to come from the Nebi Yunus mound at Nineveh. The British Museum acquired it in 1855. Written in 691 BCE, it describes Hezekiah shut up in Jerusalem and paying tribute. It does not claim that Jerusalem fell. The Bible describes the same campaign in 2 Kings 18 and 19.",
+   "shows": "An Assyrian king names Hezekiah of Judah and describes the siege of Jerusalem.",
+   "limits": "The exact spot where it was found is not recorded.",
+   "events": [
+    {
+     "id": "EVT-0011",
+     "title": "Assyria invades Judah and captures Lachish"
+    }
+   ],
+   "sources": [
+    {
+     "name": "British Museum collection record 91032 (1855,1003.1), Taylor Prism",
+     "url": "https://www.britishmuseum.org/collection/object/W_1855-1003-1"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-023",
+   "type": "Object",
+   "name": "Lachish Reliefs",
+   "linkedSite": "ARC-021",
+   "year": 1849,
+   "yearNote": "Found during digs of 1847 to 1851; 1849 needs a second source.",
+   "foundBy": "Austen Henry Layard and Hormuzd Rassam",
+   "periodLabel": "c. 700 BCE",
+   "periodStart": -700,
+   "periodEnd": -700,
+   "era": "Biblical",
+   "placeId": "place-nineveh",
+   "lat": 36.3594,
+   "lon": 43.1528,
+   "whereToSee": "British Museum, London",
+   "open": "Yes",
+   "symbol": "Object",
+   "importance": 2,
+   "subhead": "The fall of Lachish, carved in stone",
+   "story": "Stone panels from Sennacherib's palace at Nineveh show his army storming the Judahite city of Lachish in 701 BCE, and its people being led away. They lined the walls of one room.",
+   "deepDive": "Layard and Hormuzd Rassam found the panels while digging the palace. The carvings show the attack on the city, its destruction and its people led into exile. Sennacherib sits on a throne reviewing the spoil and the prisoners. Digs at Tel Lachish have found the real Assyrian siege ramp. The panels are in the British Museum in London.",
+   "shows": "Assyria's own picture of the conquest of a city of Judah in 701 BCE.",
+   "limits": "The panels show the event as Assyria wanted it remembered.",
+   "events": [
+    {
+     "id": "EVT-0011",
+     "title": "Assyria invades Judah and captures Lachish"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Center for Online Judaic Studies, 'Lakhish Reliefs at Nineveh, c. 700 BCE'",
+     "url": "https://cojs.org/lakhish_reliefs_at_nineveh-_c-_700_bce/"
+    },
+    {
+     "name": "Wikipedia, 'Lachish' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Lachish"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-024",
+   "type": "Site",
+   "name": "Babylon",
+   "year": 1899,
+   "yearNote": "Year Koldewey's dig began (26 March 1899). Rassam dug here earlier, in 1879.",
+   "foundBy": "Robert Koldewey (German Oriental Society)",
+   "periodLabel": "Capital of Nebuchadnezzar II, 6th century BCE",
+   "periodStart": -600,
+   "periodEnd": -539,
+   "era": "Biblical",
+   "placeId": "place-b",
+   "lat": 32.5425,
+   "lon": 44.4211,
+   "whereToSee": "Babylon, Babil Governorate, Iraq",
+   "open": "Yes",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "The city of the exile",
+   "story": "Babylon, in Iraq, was the capital of the empire that destroyed Jerusalem in 586 BCE and took Judeans into exile. Robert Koldewey led a German dig here from 1899 to 1917.",
+   "deepDive": "Koldewey's team began work in March 1899 and stayed until 1917, when war stopped them. They uncovered temples, palaces and homes. Near the Ishtar Gate they found clay tablets listing food rations, including some for the exiled king of Judah. Babylon became a UNESCO World Heritage site in 2019.",
+   "shows": "The capital where the king of Judah and many Judeans lived in exile.",
+   "limits": "Little at the site speaks directly of the Jewish exiles; written records do.",
+   "events": [
+    {
+     "id": "EVT-0015",
+     "title": "A Jewish community grows in Babylonia"
+    }
+   ],
+   "sources": [
+    {
+     "name": "University of Münster, GoviB project, 'A short history of excavations and investigations in Babylon'",
+     "url": "https://uni-muenster.de/GoviB/babylon/excavationhistory.html"
+    },
+    {
+     "name": "Wikipedia, 'Babylon' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Babylon"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-025",
+   "type": "Object",
+   "name": "Jehoiachin Ration Tablets",
+   "linkedSite": "ARC-024",
+   "year": 1899,
+   "yearNote": "Found during the 1899 to 1917 dig; exact year not recorded.",
+   "foundBy": "Robert Koldewey's team",
+   "periodLabel": "c. 595 to 570 BCE",
+   "periodStart": -595,
+   "periodEnd": -570,
+   "era": "Biblical",
+   "placeId": "place-b",
+   "lat": 32.5425,
+   "lon": 44.4211,
+   "whereToSee": "Pergamon Museum, Berlin",
+   "open": "Limited",
+   "symbol": "Writing",
+   "importance": 3,
+   "subhead": "Food for the exiled king of Judah",
+   "story": "Clay tablets from Babylon list rations handed out at the royal palace. Among those fed is the king of Judah, identified as Jehoiachin, who was taken to Babylon in 597 BCE, along with his sons.",
+   "deepDive": "The Bible says Jehoiachin was taken to Babylon and was later given meals by the Babylonian king (2 Kings 25:27 to 30). Robert Koldewey's team found the tablets near the Ishtar Gate, in a dig that ran from 1899 to 1917. They date to about 595 to 570 BCE and are in a museum in Berlin.",
+   "shows": "Babylonian records name the exiled king of Judah and his family.",
+   "limits": "The year the tablets were found is not recorded; 1899 is when the dig began.",
+   "events": [
+    {
+     "id": "EVT-0013",
+     "title": "Babylon takes Judeans into exile"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Jehoiachin's Rations Tablets' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Jehoiachin%27s_Rations_Tablets"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-026",
+   "type": "Site",
+   "name": "Elephantine Island",
+   "year": 1893,
+   "yearNote": "Year farmers found the first papyri; the German dig of the town began in 1906.",
+   "foundBy": "Otto Rubensohn (German expedition)",
+   "periodLabel": "Jewish garrison town, 5th century BCE",
+   "periodStart": -495,
+   "periodEnd": -399,
+   "era": "Ancient History",
+   "placeId": "place-e",
+   "lat": 24.0833,
+   "lon": 32.8833,
+   "whereToSee": "Elephantine Island, Aswan, Egypt",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "A Jewish town on the Nile",
+   "story": "Elephantine is an island in the Nile at Aswan, in southern Egypt. In the 400s BCE, Jewish soldiers and their families lived here and kept their own temple. German teams dug the town from 1906.",
+   "deepDive": "A German team dug the west side of the town from 1906 to 1908, and on New Year's Day 1907 found Aramaic papyri in a room there. A French team dug the east side in the same years. Letters tell of a temple to the God of Israel on the island, burned in 410 BCE, and of appeals to rebuild it.",
+   "shows": "A Jewish community living in Egypt about 2,500 years ago.",
+   "limits": "Most of what we know about this community comes from its papers, not its ruins.",
+   "events": [
+    {
+     "id": "EVT-0018",
+     "title": "A Jewish community on Elephantine"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Elephantine papyri and ostraca' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Elephantine_papyri_and_ostraca"
+    },
+    {
+     "name": "Wikipedia, 'Elephantine' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Elephantine"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-027",
+   "type": "Object",
+   "name": "Elephantine Papyri",
+   "linkedSite": "ARC-026",
+   "year": 1893,
+   "yearNote": "Found by farmers digging for fertilizer.",
+   "foundBy": "Local farmers; bought by Charles Wilbour",
+   "periodLabel": "c. 495 to 399 BCE",
+   "periodStart": -495,
+   "periodEnd": -399,
+   "era": "Ancient History",
+   "placeId": "place-e",
+   "lat": 24.0833,
+   "lon": 32.8833,
+   "whereToSee": "Brooklyn Museum, New York, and others",
+   "open": "Limited",
+   "symbol": "Writing",
+   "importance": 1,
+   "subhead": "Letters of a Jewish army town",
+   "story": "In 1893 Egyptian farmers digging for fertilizer found papyrus rolls on Elephantine Island. They turned out to be papers of a Jewish community that lived there in the 400s BCE.",
+   "deepDive": "Charles Wilbour, an American, bought at least eight rolls that year; they are now in the Brooklyn Museum. More came from dealers and digs over the next 15 years. Written in Aramaic, they include family papers and letters, among them an appeal to rebuild the temple to the God of Israel. They are now spread among museums in Berlin, New York, Cairo, Oxford and Paris.",
+   "shows": "Daily life, law and worship of Jews in Egypt about 2,400 years ago.",
+   "limits": "Many came through dealers, so where each one was found is not always known.",
+   "events": [
+    {
+     "id": "EVT-0018",
+     "title": "A Jewish community on Elephantine"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Elephantine papyri and ostraca' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Elephantine_papyri_and_ostraca"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-028",
+   "type": "Site",
+   "name": "Qumran",
+   "year": 1947,
+   "yearNote": "First scroll cave found 1947; Cave 1 dug 1949; the ruin dug 1951 to 1956.",
+   "foundBy": "Roland de Vaux and G. Lankester Harding",
+   "periodLabel": "Second Temple period settlement",
+   "periodStart": -100,
+   "periodEnd": 68,
+   "era": "Ancient History",
+   "placeId": "place-qumran",
+   "lat": 31.7408,
+   "lon": 35.4586,
+   "whereToSee": "Qumran National Park, West Bank",
+   "open": "Yes",
+   "symbol": "Site",
+   "importance": 2,
+   "subhead": "Where the Dead Sea Scrolls were hidden",
+   "story": "Khirbet Qumran is a ruin on a cliff above the Dead Sea. In 1947 the first scrolls turned up in a nearby cave. Roland de Vaux dug the ruin itself in six seasons from 1951 to 1956.",
+   "deepDive": "After the scroll find, G. Lankester Harding and Roland de Vaux dug Cave 1 in 1949. Coins and pottery from the ruin matched those from the caves, linking the settlement to the scrolls. More scroll caves were found in the cliffs around it. Many scholars place a Jewish community here; others disagree. The site is a national park.",
+   "shows": "A Second Temple settlement tied to the Dead Sea Scrolls.",
+   "limits": "Who lived at Qumran, and whether they wrote the scrolls, is debated.",
+   "events": [
+    {
+     "id": "EVT-0023",
+     "title": "The Dead Sea Scrolls are written"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Center for Online Judaic Studies, 'Overview: Discovery and Acquisition' (after Schiffman, Reclaiming the Dead Sea Scrolls, 1994)",
+     "url": "https://cojs.org/?p=7056"
+    },
+    {
+     "name": "Wikipedia, 'Qumran' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Qumran"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-029",
+   "type": "Object",
+   "name": "Dead Sea Scrolls",
+   "linkedSite": "ARC-028",
+   "year": 1947,
+   "foundBy": "Bedouin shepherd Muhammad edh-Dhib",
+   "periodLabel": "3rd century BCE to 1st century CE",
+   "periodStart": -250,
+   "periodEnd": 68,
+   "era": "Ancient History",
+   "placeId": "place-qumran",
+   "lat": 31.7408,
+   "lon": 35.4586,
+   "whereToSee": "Shrine of the Book, Israel Museum, Jerusalem",
+   "open": "Yes",
+   "symbol": "Writing",
+   "importance": 1,
+   "subhead": "The oldest known Bible manuscripts",
+   "story": "In 1947 a Bedouin shepherd threw a stone into a cave near the Dead Sea, heard pottery break, and found jars holding ancient scrolls. Hundreds more scrolls came from nearby caves.",
+   "deepDive": "The scrolls were copied between about the 3rd century BCE and the 1st century CE. About 230 are copies of books now in the Hebrew Bible. The rest are prayers, laws, commentaries and rules for a community. Israel bought four of the first scrolls in 1954, and many are shown in the Shrine of the Book at the Israel Museum.",
+   "shows": "Jewish scripture and writings copied in the Land of Israel over 2,000 years ago.",
+   "limits": "Many scrolls are dated by handwriting, so their exact dates are estimates.",
+   "events": [
+    {
+     "id": "EVT-0023",
+     "title": "The Dead Sea Scrolls are written"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Center for Online Judaic Studies, 'Overview: Discovery and Acquisition' (after Schiffman, Reclaiming the Dead Sea Scrolls, 1994)",
+     "url": "https://cojs.org/?p=7056"
+    },
+    {
+     "name": "Wikipedia, 'Qumran' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Qumran"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-030",
+   "type": "Object",
+   "name": "Hasmonean Coin Hoard, Jordan Valley",
+   "linkedSite": "ARC-046",
+   "year": 2024,
+   "yearNote": "Found in December 2024, during Hanukkah.",
+   "foundBy": "University of Haifa team led by Shai Bar",
+   "periodLabel": "80 to 79 BCE",
+   "periodStart": -80,
+   "periodEnd": -79,
+   "era": "Ancient History",
+   "placeId": "place-israel",
+   "lat": 31.9,
+   "lon": 35.2,
+   "whereToSee": "Not on display",
+   "open": "No",
+   "symbol": "Object",
+   "importance": 3,
+   "subhead": "Coins of a Jewish king",
+   "story": "In December 2024, during Hanukkah, University of Haifa diggers found about 160 bronze coins under a fallen kitchen wall in the Jordan Valley. Each names King Alexander Jannaeus.",
+   "deepDive": "The coins read 'King Alexander, Year 25,' which dates them to about 80 or 79 BCE. Alexander Jannaeus was a Hasmonean, from the family of the Maccabees, and served as both king and high priest. The hoard lay in a roadside station on the way to the Hasmonean fortress of Alexandrion. The team also found a small ritual bath there.",
+   "shows": "A Jewish king's coins, minted and used in the Land about 2,100 years ago.",
+   "limits": "Why the coins were hidden is not known.",
+   "events": [
+    {
+     "id": "EVT-0105",
+     "title": "Judea becomes independent under Simon the Hasmonean"
+    }
+   ],
+   "sources": [
+    {
+     "name": "TPS-IL news agency, 'Archaeologists discover largest Hasmonean coin hoard in Israel' (30 Dec 2024, University of Haifa release)",
+     "url": "https://tps.co.il/articles/archaeologists-discover-largest-hasmonean-coin-hoard-in-israel/"
+    },
+    {
+     "name": "Live Science, '2,100-year-old coin hoard dating to dynasty of Jewish kings discovered in Jordan Valley' (Jan 2025)",
+     "url": "https://livescience.com/archaeology/2-100-year-old-coin-hoard-dating-to-dynasty-of-jewish-kings-discovered-in-jordan-valley"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-031",
+   "type": "Site",
+   "name": "Masada",
+   "year": 1838,
+   "yearNote": "Identified by Edward Robinson and Eli Smith in May 1838, seen through a telescope from Ein Gedi.",
+   "foundBy": "Edward Robinson and Eli Smith; dug by Yigael Yadin 1963 to 1965",
+   "periodLabel": "Built under Herod; siege ends 73 CE",
+   "periodStart": -37,
+   "periodEnd": 73,
+   "era": "Ancient History",
+   "placeId": "place-masada",
+   "lat": 31.3156,
+   "lon": 35.3539,
+   "whereToSee": "Masada National Park, Israel",
+   "open": "Yes",
+   "symbol": "Site",
+   "importance": 1,
+   "subhead": "The last fortress of the revolt",
+   "story": "Masada is a fortress on a cliff-top above the Dead Sea, built under King Herod. In 1838 two American scholars identified it from a distance. Yigael Yadin dug it from 1963 to 1965.",
+   "deepDive": "Edward Robinson and Eli Smith never climbed it; they named it after viewing its northern cliff through a telescope from Ein Gedi. Later visitors drew plans of its palaces and the Roman siege camps. Yadin's teams uncovered almost the whole built area of the summit. It became a UNESCO World Heritage site in 2001.",
+   "shows": "Herod's fortress, where the revolt against Rome ended in 73 CE.",
+   "limits": "The story of the defenders' mass suicide comes from the writer Josephus; the dig did not confirm it.",
+   "events": [
+    {
+     "id": "EVT-0106",
+     "title": "The Jews rise against Rome"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Dead Sea Earthquake Catalog site file 'Masada', citing Stern et al., New Encyclopedia of Archaeological Excavations in the Holy Land (1993)",
+     "url": "https://deadseaquake.info/EarthquakeCatalogOfTheDeadSea/Sites/Archaeo/Masada.html"
+    },
+    {
+     "name": "Wikipedia, 'Masada' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Masada"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-032",
+   "type": "Object",
+   "name": "Temple Warning Inscription",
+   "linkedSite": "ARC-044",
+   "year": 1871,
+   "foundBy": "Charles Clermont-Ganneau",
+   "periodLabel": "c. 23 BCE to 70 CE",
+   "periodStart": -23,
+   "periodEnd": 70,
+   "era": "Ancient History",
+   "placeId": "place-j",
+   "lat": 31.778,
+   "lon": 35.235,
+   "whereToSee": "Istanbul Archaeology Museums, Istanbul",
+   "open": "Yes",
+   "symbol": "Writing",
+   "importance": 3,
+   "subhead": "Keep out of the inner Temple",
+   "story": "This stone block, found in Jerusalem in 1871, warned non-Jews in Greek not to pass a barrier into the inner courts of the Temple. Anyone caught, it says, would have himself to blame for his death.",
+   "deepDive": "Charles Clermont-Ganneau found the block built into the wall of a school just outside a gate of the Temple Mount. It comes from Herod's Temple, between about 23 BCE and its destruction in 70 CE. Ottoman officials took it to Istanbul. A broken second copy, found in 1936, is in the Israel Museum.",
+   "shows": "A real sign from the Second Temple in Jerusalem.",
+   "limits": "It was found reused in a later building, not where it first stood.",
+   "events": [
+    {
+     "id": "EVT-0027",
+     "title": "Romans destroy Jerusalem and the Second Temple"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Temple Warning inscription' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Temple_Warning_inscription"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-033",
+   "type": "Object",
+   "name": "Year Four Revolt Coin Hoard",
+   "linkedSite": "ARC-047",
+   "year": 2014,
+   "yearNote": "Year it was announced (August 2014); exact find date not published.",
+   "foundBy": "Israel Antiquities Authority (Pablo Betzer and Eyal Marco)",
+   "periodLabel": "69 to 70 CE",
+   "periodStart": 69,
+   "periodEnd": 70,
+   "era": "Ancient History",
+   "placeId": "place-israel",
+   "lat": 31.9,
+   "lon": 35.2,
+   "whereToSee": "Not on display",
+   "open": "No",
+   "symbol": "Object",
+   "importance": 3,
+   "subhead": "Money of the revolt against Rome",
+   "story": "In 2014 diggers widening the Jerusalem to Tel Aviv highway found a clay money box hidden in a house. Inside were 114 bronze coins struck by Jewish rebels in 'Year Four' of their revolt against Rome.",
+   "deepDive": "Year Four of the revolt was 69 to 70 CE, the last year before Rome destroyed Jerusalem. One side of each coin shows a cup and the Hebrew words 'For the Redemption of Zion.' The other shows a lulav between two etrogs, plants of the holiday of Sukkot. The box seems to have been hidden a few months before Jerusalem fell.",
+   "shows": "Jewish rebels minted their own coins with Hebrew words during the war with Rome.",
+   "limits": "The exact day it was found was not published; 2014 is the year it was announced.",
+   "events": [
+    {
+     "id": "EVT-0106",
+     "title": "The Jews rise against Rome"
+    }
+   ],
+   "sources": [
+    {
+     "name": "BiblePlaces Blog, 'Rare Hoard of Year Four Coins Discovered along Highway' (Aug 2014, reporting IAA release)",
+     "url": "https://www.bibleplaces.com/?p=11939"
+    },
+    {
+     "name": "The E-Sylum (Numismatic Bibliomania Society) v17 n33, 10 Aug 2014, IAA Year Four hoard report",
+     "url": "https://www.coinbooks.org/esylum_v17n33a24.html"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-034",
+   "type": "Site",
+   "name": "Cave of Letters, Nahal Hever",
+   "year": 1953,
+   "yearNote": "Year Yohanan Aharoni explored it; Yadin dug it in 1960 and 1961. Sources disagree on when it was found.",
+   "foundBy": "Yohanan Aharoni; dug by Yigael Yadin",
+   "periodLabel": "Refuge cave of the Bar Kokhba revolt, 132 to 135 CE",
+   "periodStart": 132,
+   "periodEnd": 135,
+   "era": "Ancient History",
+   "placeId": "place-nahal-hever",
+   "lat": 31.4326,
+   "lon": 35.3429,
+   "whereToSee": "Nahal Hever, Judean Desert",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "A refuge cave of the last revolt",
+   "story": "The Cave of Letters is high in the cliffs of Nahal Hever, near the Dead Sea. Jews hid here during the Bar Kokhba revolt. Yigael Yadin's team dug it in 1960 and 1961.",
+   "deepDive": "Bedouin knew the cave first, and Yohanan Aharoni explored it in 1953 and 1955. Yadin came in 1960 to search it before looters could. His team found bones, bronze vessels, everyday objects and bundles of papyrus. Among them were letters from Shimon bar Kosiba, known as Bar Kokhba, and the family papers of a woman named Babatha.",
+   "shows": "The hiding place of Jewish families in the revolt of 132 to 135 CE.",
+   "limits": "Sources disagree on when the cave was first found.",
+   "events": [
+    {
+     "id": "EVT-0029",
+     "title": "The Bar Kokhba revolt"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Cave of Letters' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Cave_of_Letters"
+    },
+    {
+     "name": "World History Encyclopedia, 'Cave of Letters'",
+     "url": "https://www.worldhistory.org/Cave_of_Letters"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-035",
+   "type": "Object",
+   "name": "Bar Kokhba Letters",
+   "linkedSite": "ARC-034",
+   "year": 1960,
+   "foundBy": "Yigael Yadin's team",
+   "periodLabel": "c. 132 to 135 CE",
+   "periodStart": 132,
+   "periodEnd": 135,
+   "era": "Ancient History",
+   "placeId": "place-nahal-hever",
+   "lat": 31.4326,
+   "lon": 35.3429,
+   "symbol": "Writing",
+   "importance": 2,
+   "subhead": "Orders from the leader of the revolt",
+   "story": "In 1960 Yigael Yadin's team found a bundle of letters in a Dead Sea cave. They were sent by Shimon bar Kosiba, known as Bar Kokhba, who led the Jewish revolt against Rome in 132 to 135 CE.",
+   "deepDive": "There are fifteen letters, most in Aramaic and Hebrew and two in Greek. Most are addressed to two officers, Yehonatan and Masabala. They order wheat taken and a man arrested, and one asks for the four species for the holiday of Sukkot. They show the leader of a war still keeping the festivals.",
+   "shows": "Letters written by the leader of the last great Jewish revolt in the Land.",
+   "limits": "Some letters may come from the 1961 season rather than 1960.",
+   "events": [
+    {
+     "id": "EVT-0029",
+     "title": "The Bar Kokhba revolt"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Cave of Letters' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Cave_of_Letters"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-036",
+   "type": "Object",
+   "name": "Bar Kokhba Coin Hoard, Te'omim Cave",
+   "linkedSite": "ARC-045",
+   "year": 2009,
+   "yearNote": "Announced September 2009.",
+   "foundBy": "Boaz Langford, Amos Frumkin, Boaz Zissu and Hanan Eshel",
+   "periodLabel": "c. 132 to 135 CE",
+   "periodStart": 132,
+   "periodEnd": 135,
+   "era": "Ancient History",
+   "placeId": "place-israel",
+   "lat": 31.7269,
+   "lon": 35.0231,
+   "whereToSee": "Not on display",
+   "open": "No",
+   "symbol": "Object",
+   "importance": 3,
+   "subhead": "Rebel coins struck over Roman ones",
+   "story": "In 2009 cave researchers from two Israeli universities reported about 120 gold, silver and bronze coins from the Te'omim Cave, west of Jerusalem. Most were coins of the Bar Kokhba revolt.",
+   "deepDive": "Many of the coins are Roman coins that the rebels struck again with Jewish images and slogans. Others are ordinary Roman coins. The cave also held pottery and weapons, signs that people hid there during the revolt. The work was done by teams from the Hebrew University of Jerusalem and Bar-Ilan University.",
+   "shows": "Jews minted coins with Hebrew slogans during the revolt of 132 to 135 CE.",
+   "limits": "The coins came out in three batches, and the counts differ between reports.",
+   "events": [
+    {
+     "id": "EVT-0029",
+     "title": "The Bar Kokhba revolt"
+    }
+   ],
+   "sources": [
+    {
+     "name": "ScienceDaily, Hebrew University of Jerusalem release on Bar Kokhba coins in a Judean hills cave (9 Sep 2009)",
+     "url": "https://www.sciencedaily.com/releases/2009/09/090909095100.htm"
+    },
+    {
+     "name": "Zissu, Eshel, Langford and Frumkin, 'Coins from the Bar Kokhba Revolt hidden in Me'arat Ha-Te'omim', Israel Numismatic Journal 17 (2009) 113-147 (catalog record read; article not opened)",
+     "url": "https://cris.biu.ac.il/en/publications/coins-from-the-bar-kokhba-revolt-hidden-in-mearat-ha-teomim-m%C5%ADgh%C3%A2/"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-037",
+   "type": "Site",
+   "name": "Jewish Catacombs of Rome (Vigna Randanini)",
+   "year": 1859,
+   "yearNote": "Archaeology magazine gives 1859; Rome's tourism office gives 1800.",
+   "foundBy": "Found on the Appian Way",
+   "periodLabel": "2nd to early 5th century CE",
+   "periodStart": 150,
+   "periodEnd": 400,
+   "era": "Ancient History",
+   "placeId": "place-romeNode",
+   "lat": 41.8585,
+   "lon": 12.5135,
+   "whereToSee": "Via Appia Antica 119, Rome",
+   "open": "Limited",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "Underground graves of Rome's Jews",
+   "story": "Rome's Jews buried their dead in tunnels dug outside the city. The Vigna Randanini catacomb on the Appian Way was found in 1859 and is one of two that can still be visited.",
+   "deepDive": "Six Jewish catacombs have been found in Rome. Four were found in the 1800s, and three of those were later buried again and lost. The graves are niches cut into the tunnel walls. About 600 inscriptions from these catacombs are known. They show a large Jewish community in Rome from about the 2nd to the early 5th century CE.",
+   "shows": "A large, settled Jewish community in Rome under the Roman Empire.",
+   "limits": "Sources differ on the year this catacomb was found.",
+   "events": [
+    {
+     "id": "EVT-0024",
+     "title": "Jews live in Rome"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Archaeology magazine, 'Secrets of the Catacombs' (Jan/Feb 2024)",
+     "url": "https://archaeology.org/issues/january-february-2024/letters-from/secrets-of-the-catacombs/"
+    },
+    {
+     "name": "Turismo Roma (City of Rome tourism), 'The Jewish catacombs of Vigna Randanini'",
+     "url": "https://turismoroma.it/en/places/jewish-catacombs-vigna-randanini"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-038",
+   "type": "Site",
+   "name": "Beit She'arim Necropolis",
+   "year": 1936,
+   "foundBy": "Reported by Alexander Zaid; dug by Benjamin Mazar",
+   "periodLabel": "2nd to 4th century CE",
+   "periodStart": 150,
+   "periodEnd": 400,
+   "era": "Ancient History",
+   "placeId": "place-beit-shearim",
+   "lat": 32.7022,
+   "lon": 35.1269,
+   "whereToSee": "Beit She'arim National Park, Israel",
+   "open": "Yes",
+   "symbol": "Site",
+   "importance": 2,
+   "subhead": "The great Jewish cemetery of Galilee",
+   "story": "In 1936 a watchman named Alexander Zaid found a gap in a cave wall in Lower Galilee. It led to a huge Jewish burial ground of the 2nd to 4th centuries CE.",
+   "deepDive": "Beit She'arim was a Jewish town in the time after the revolts against Rome. Its catacombs hold stone coffins and inscriptions in Hebrew, Aramaic and Greek. Tradition holds that Rabbi Judah the Prince, who completed the Mishnah, was buried here. Benjamin Mazar and Nahman Avigad dug the site in the 1930s and 1950s. It became a UNESCO World Heritage site in 2015.",
+   "shows": "A major center of Jewish life and burial in the Land after the revolts.",
+   "limits": "The tomb linked to Rabbi Judah the Prince is identified by tradition.",
+   "events": [
+    {
+     "id": "EVT-0030",
+     "title": "The Mishnah is written down"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Beit She'arim necropolis' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Beit_She%27arim_necropolis"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-039",
+   "type": "Site",
+   "name": "Dura-Europos Synagogue",
+   "year": 1932,
+   "foundBy": "Excavations at Dura-Europos (Robert du Mesnil du Buisson, vice-director)",
+   "periodLabel": "Last rebuilt 244 CE",
+   "periodStart": 200,
+   "periodEnd": 256,
+   "era": "Middle Ages",
+   "placeId": "place-dura-europos",
+   "lat": 34.747,
+   "lon": 40.73,
+   "whereToSee": "National Museum of Damascus, Syria",
+   "open": "Limited",
+   "symbol": "Site",
+   "importance": 2,
+   "subhead": "A painted synagogue on the Euphrates",
+   "story": "In 1932 diggers at Dura-Europos, a Roman border town in Syria, found a synagogue whose walls were covered with paintings of Bible stories. Its last rebuilding is dated to 244 CE.",
+   "deepDive": "The town was abandoned in 256 or 257 CE, and the synagogue lay buried until 1932. At first the diggers took it for a Greek temple. Its wall paintings were moved to the National Museum in Damascus and set up as they were in the hall. The town was heavily looted during Syria's civil war, and the building may have been destroyed.",
+   "shows": "Jewish art and worship in a Roman town far from the Land, about 244 CE.",
+   "limits": "The site has been looted, and its present state is not fully known.",
+   "sources": [
+    {
+     "name": "Wikipedia, 'Dura-Europos synagogue' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Dura-Europos_synagogue"
+    },
+    {
+     "name": "Wikipedia, 'Dura-Europos' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Dura-Europos"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-040",
+   "type": "Site",
+   "name": "Sardis Synagogue",
+   "year": 1962,
+   "foundBy": "Archaeological Exploration of Sardis (Harvard and Cornell)",
+   "periodLabel": "Late Roman, about 3rd to early 7th century CE",
+   "periodStart": 270,
+   "periodEnd": 616,
+   "era": "Middle Ages",
+   "placeId": "place-sardis",
+   "lat": 38.4883,
+   "lon": 28.0403,
+   "whereToSee": "Sardis (Sart), Manisa Province, Turkey",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "One of the largest ancient synagogues",
+   "story": "In 1962 an American team digging the Roman city of Sardis, in western Turkey, found a synagogue over 50 meters long. It could hold nearly a thousand people.",
+   "deepDive": "Huge piers held up a roof about 14 meters above the floor, and mosaics covered about 1,400 square meters. Most of the decoration that survives dates to the 4th and 5th centuries CE. The building stood at the heart of the city, a sign of a large, settled Jewish community. An earthquake in the early 600s ended its use.",
+   "shows": "A large Jewish community at the center of a Roman city in Asia Minor.",
+   "limits": "How the Jews came to hold such a central building is still discussed by scholars.",
+   "sources": [
+    {
+     "name": "Archaeological Exploration of Sardis (Harvard), 'The Synagogue'",
+     "url": "https://sardisexpedition.org/essays/about-synagogue"
+    },
+    {
+     "name": "Wikipedia, 'Sardis Synagogue' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Sardis_Synagogue"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-041",
+   "type": "Site",
+   "name": "Cairo Geniza (Ben Ezra Synagogue)",
+   "year": 1896,
+   "yearNote": "Schechter's visit, December 1896.",
+   "foundBy": "Solomon Schechter",
+   "periodLabel": "9th to 19th century CE",
+   "periodStart": 900,
+   "periodEnd": 1880,
+   "era": "Middle Ages",
+   "placeId": "place-cairo",
+   "lat": 30.0058,
+   "lon": 31.231,
+   "whereToSee": "Ben Ezra Synagogue, Old Cairo; Cambridge University Library",
+   "open": "Yes",
+   "symbol": "Writing",
+   "importance": 1,
+   "subhead": "A synagogue storeroom full of history",
+   "story": "Jews do not throw away writings that may hold God's name. For centuries the Jews of Old Cairo stored such papers in a room of the Ben Ezra Synagogue. In 1896 Solomon Schechter saw what it held.",
+   "deepDive": "Schechter traced pages shown to him in England to this storeroom, called a geniza, and shipped most of its contents to Cambridge. The papers span more than 1,000 years: letters, contracts, poems, prayers and lost books. They show the daily life of Jews across the Mediterranean and beyond. The synagogue reopened as a museum in 2023.",
+   "shows": "A thousand years of Jewish letters, trade and learning saved in one storeroom.",
+   "limits": "The papers were scattered among many libraries, so the collection is not in one place.",
+   "events": [
+    {
+     "id": "EVT-0046",
+     "title": "Jews move from North Africa to Egypt"
+    },
+    {
+     "id": "EVT-0047",
+     "title": "Jewish merchants link Egypt, Aden and India"
+    }
+   ],
+   "sources": [
+    {
+     "name": "University of Cambridge, Cairo Genizah collection news page",
+     "url": "https://cam.ac.uk/node/25881"
+    },
+    {
+     "name": "Wikipedia, 'Ben Ezra Synagogue' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Ben_Ezra_Synagogue"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-042",
+   "type": "Site",
+   "name": "Old Synagogue of Erfurt",
+   "year": 1992,
+   "yearNote": "Year research on the building began; no single rediscovery year.",
+   "foundBy": "Elmar Altwasser (architectural historian)",
+   "periodLabel": "Built about 1094, enlarged about 1270; used until 1349",
+   "periodStart": 1094,
+   "periodEnd": 1349,
+   "era": "Middle Ages",
+   "placeId": "place-erfurt",
+   "lat": 50.9786,
+   "lon": 11.0293,
+   "whereToSee": "Old Synagogue, Erfurt, Germany",
+   "open": "Yes",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "A synagogue hidden in plain sight",
+   "story": "After the Jews of Erfurt were massacred in 1349, the city took their synagogue and sold it. It became a warehouse and its past was forgotten. Its oldest parts date to about 1094.",
+   "deepDive": "For about 500 years the building was a warehouse. Later it held a dance hall, a restaurant and two bowling alleys. Tucked behind other buildings down a narrow lane, it drew no notice, which helped it survive the Nazi years. Study of it began again in the late 1980s and 1990s. The city bought it in 1998 and opened it as a museum in 2009.",
+   "shows": "One of the oldest synagogue buildings still standing in Europe.",
+   "limits": "No single year marks its rediscovery.",
+   "events": [
+    {
+     "id": "EVT-0116",
+     "title": "Jews are blamed for the Black Death"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Wikipedia, 'Old Synagogue (Erfurt)' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Old_Synagogue_(Erfurt)"
+    },
+    {
+     "name": "City of Erfurt, Jewish Life in Erfurt, 'The Erfurt Treasure'",
+     "url": "https://juedisches-leben.erfurt.de/jl/en/middle-ages/erfurt_treasure"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-043",
+   "type": "Object",
+   "name": "Erfurt Treasure",
+   "linkedSite": "ARC-042",
+   "year": 1998,
+   "foundBy": "Dig team at Michaelisstrasse 43, near the Old Synagogue",
+   "periodLabel": "Late 1200s to 1349 CE",
+   "periodStart": 1290,
+   "periodEnd": 1349,
+   "era": "Middle Ages",
+   "placeId": "place-erfurt",
+   "lat": 50.9786,
+   "lon": 11.0293,
+   "whereToSee": "Old Synagogue, Erfurt, Germany",
+   "open": "Yes",
+   "symbol": "Object",
+   "importance": 3,
+   "subhead": "Silver and gold hidden in a pogrom",
+   "story": "In 1998 diggers in Erfurt, Germany, found nearly 28 kilograms of silver coins, bars, cups and jewelry hidden under a cellar wall. It was most likely buried during the attack on the city's Jews in 1349.",
+   "deepDive": "The hoard holds 3,141 silver coins, 14 silver bars and over 700 pieces of Gothic goldsmith work: cups, brooches, rings and belt fittings. Its finest piece is a gold Jewish wedding ring topped with a tiny model of a building. Since 2009 the treasure has been shown in the cellar of the Old Synagogue.",
+   "shows": "The wealth of a medieval German Jewish community destroyed in 1349.",
+   "limits": "The hoard does not name its owner.",
+   "events": [
+    {
+     "id": "EVT-0116",
+     "title": "Jews are blamed for the Black Death"
+    }
+   ],
+   "sources": [
+    {
+     "name": "City of Erfurt, Jewish Life in Erfurt, 'The Erfurt Treasure'",
+     "url": "https://juedisches-leben.erfurt.de/jl/en/middle-ages/erfurt_treasure"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-044",
+   "type": "Site",
+   "name": "Temple Mount",
+   "year": 1867,
+   "yearNote": "Never lost. Year marks Charles Warren's first survey around it; Ottoman rule kept him from digging on it.",
+   "foundBy": "Charles Warren (Palestine Exploration Fund)",
+   "periodLabel": "Site of the First and Second Temples, about 960 BCE to 70 CE",
+   "periodStart": -960,
+   "periodEnd": 70,
+   "era": "Biblical",
+   "placeId": "place-j",
+   "lat": 31.778,
+   "lon": 35.235,
+   "whereToSee": "Temple Mount, Old City of Jerusalem",
+   "open": "Limited",
+   "symbol": "Site",
+   "importance": 2,
+   "subhead": "Where the two Temples stood",
+   "story": "The Temple Mount is the hilltop in Jerusalem where the First and Second Temples stood. Rome destroyed the Second Temple in 70 CE. In 1867 Charles Warren surveyed the walls around it.",
+   "deepDive": "The Bible says King Solomon built the First Temple here, and Babylon destroyed it in 586 BCE. The Second Temple was rebuilt and later enlarged by King Herod, then burned by Rome in 70 CE. Warren could not dig on the mount itself, so he dug shafts along its walls. Finds from around the mount, such as a Greek warning stone, come from Herod's Temple.",
+   "shows": "The holiest place in Judaism, site of both Temples in Jerusalem.",
+   "limits": "No excavation has been allowed on the mount itself, so its finds come from around it.",
+   "events": [
+    {
+     "id": "EVT-0027",
+     "title": "Romans destroy Jerusalem and the Second Temple"
+    }
+   ],
+   "sources": [
+    {
+     "name": "City of David (Ir David Foundation), 'Charles Warren'",
+     "url": "https://cityofdavid.org.il/en/charles-warren-eng"
+    },
+    {
+     "name": "Wikipedia, 'Temple Warning inscription' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Temple_Warning_inscription"
+    }
+   ],
+   "status": "DRAFT"
+  },
+  {
+   "id": "ARC-045",
+   "type": "Site",
+   "name": "Te'omim Cave",
+   "year": 1873,
+   "yearNote": "Year Conder and Kitchener of the Palestine Exploration Fund first examined it.",
+   "foundBy": "C.R. Conder and H.H. Kitchener; later Gideon Mann and a 2009 university team",
+   "periodLabel": "Refuge cave of the Bar Kokhba revolt, 132 to 135 CE",
+   "periodStart": 132,
+   "periodEnd": 135,
+   "era": "Ancient History",
+   "placeId": "place-israel",
+   "lat": 31.7269,
+   "lon": 35.0231,
+   "whereToSee": "Te'omim Cave, near Beit Shemesh, Israel",
+   "open": "Limited",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "A hiding cave in the Jerusalem hills",
+   "story": "The Te'omim Cave lies in the hills west of Jerusalem, near Beit Shemesh. Explorers first mapped it in 1873. Jews hid here during the Bar Kokhba revolt and left coins, pottery and weapons.",
+   "deepDive": "C.R. Conder and H.H. Kitchener examined the cave for the Palestine Exploration Fund on 17 October 1873. In the 1970s Gideon Mann found narrow passages to inner rooms with pottery from the revolt. Cave researchers from the Hebrew University and Bar-Ilan University returned in 2009 and found the coin hoard. The cave is on a walking trail and closes in winter to protect bats.",
+   "shows": "A refuge used by Jews in the revolt against Rome, 132 to 135 CE.",
+   "limits": "The cave was used in many periods, so not every find belongs to the revolt.",
+   "events": [
+    {
+     "id": "EVT-0029",
+     "title": "The Bar Kokhba revolt"
+    }
+   ],
+   "sources": [
+    {
+     "name": "ScienceDaily, Hebrew University of Jerusalem release on Bar Kokhba coins in a Judean hills cave (9 Sep 2009)",
+     "url": "https://www.sciencedaily.com/releases/2009/09/090909095100.htm"
+    },
+    {
+     "name": "Wikipedia, 'Te'omim Cave' (last resort)",
+     "url": "https://en.wikipedia.org/wiki/Te%27omim_Cave"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-046",
+   "type": "Site",
+   "name": "Rujm es-Sia",
+   "year": 1993,
+   "yearNote": "Year of the first, unpublished rescue dig. University of Haifa digs from 2023.",
+   "foundBy": "Mikel Dadon (1993); Shai Bar, University of Haifa (from 2023)",
+   "periodLabel": "Hasmonean road station, about 100 to 50 BCE",
+   "periodStart": -100,
+   "periodEnd": -50,
+   "era": "Ancient History",
+   "placeId": "place-israel",
+   "lat": 31.9,
+   "lon": 35.2,
+   "whereToSee": "Jordan Valley, West Bank",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "A road station of the Hasmonean kings",
+   "story": "Rujm es-Sia is a ruined fort and road station in the Jordan Valley. It guarded the way to Alexandrion, a desert fortress of the Hasmonean kings. University of Haifa teams have dug it since 2023.",
+   "deepDive": "The station was built in Hasmonean times, probably under Alexander Jannaeus. Diggers found a deep water cistern, a rock-cut pool, a small ritual bath and a kitchen with two clay ovens. Under a fallen kitchen wall lay the hoard of his coins. The excavators think the place was left in an orderly way in the middle of the 1st century BCE.",
+   "shows": "A Jewish royal road station with a ritual bath, about 2,100 years ago.",
+   "limits": "The 1993 rescue dig was never published, so its finds are not known.",
+   "events": [
+    {
+     "id": "EVT-0105",
+     "title": "Judea becomes independent under Simon the Hasmonean"
+    }
+   ],
+   "sources": [
+    {
+     "name": "BibleWalks, 'Rujm es Si'a'",
+     "url": "https://www.biblewalks.com/rujmessia/"
+    },
+    {
+     "name": "TPS-IL news agency, 'Archaeologists discover largest Hasmonean coin hoard in Israel' (30 Dec 2024, University of Haifa release)",
+     "url": "https://tps.co.il/articles/archaeologists-discover-largest-hasmonean-coin-hoard-in-israel/"
+    }
+   ],
+   "status": "LEANING"
+  },
+  {
+   "id": "ARC-047",
+   "type": "Site",
+   "name": "Route 1 Revolt-Era House",
+   "year": 2014,
+   "yearNote": "Year the find was announced.",
+   "foundBy": "Israel Antiquities Authority (Pablo Betzer and Eyal Marco)",
+   "periodLabel": "House of the 1st century BCE to 70 CE",
+   "periodStart": -50,
+   "periodEnd": 70,
+   "era": "Ancient History",
+   "placeId": "place-israel",
+   "lat": 31.9,
+   "lon": 35.2,
+   "open": "No",
+   "symbol": "Site",
+   "importance": 3,
+   "subhead": "A house by the road to Jerusalem",
+   "story": "While widening the Jerusalem to Tel Aviv highway in 2014, diggers found a house from a village no one had known about. In one room was a money box of coins from the revolt against Rome.",
+   "deepDive": "The building had three rooms and a courtyard. It was built in the 1st century BCE and destroyed in 69 or 70 CE, near the end of the revolt. Jars set into the courtyard floor show people lived there again early in the 2nd century CE, until the Bar Kokhba revolt.",
+   "shows": "A Jewish home near Jerusalem in the last year of the revolt against Rome.",
+   "limits": "The exact location along the highway was not published.",
+   "events": [
+    {
+     "id": "EVT-0106",
+     "title": "The Jews rise against Rome"
+    }
+   ],
+   "sources": [
+    {
+     "name": "BiblePlaces Blog, 'Rare Hoard of Year Four Coins Discovered along Highway' (Aug 2014, reporting IAA release)",
+     "url": "https://www.bibleplaces.com/?p=11939"
+    },
+    {
+     "name": "The E-Sylum (Numismatic Bibliomania Society) v17 n33, 10 Aug 2014, IAA Year Four hoard report",
+     "url": "https://www.coinbooks.org/esylum_v17n33a24.html"
+    }
+   ],
+   "status": "LEANING"
+  }
+ ]
+}

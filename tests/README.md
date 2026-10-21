@@ -65,3 +65,12 @@ v0.4.0 (Oct 8, 2026): tests/v040.js covers the start screen and Default | Academ
 the Academic plain correction, the share line rules (S1 only when the 539 BCE question was answered right; perfect and zero lines only at those scores),
 the Academic share, the share and copy fallbacks, and the footer version. Takes about 4 minutes; run it alone. tests/load.py also checks the optional "Choice years" column.
 The older quiz tests click the Start button first.
+
+## Archaeology page "Found in the Ground" (v2.0.0, F-113)
+Run: `python3 -m http.server 8778 &` then `NODE_PATH=$(npm root -g) node tests/archaeology.js` (headless Chromium at 1280, 390 and 320 px wide; no real iPad or phone yet).
+Checks the approved page text, intro card over the map (I1), no Play button, year / toggle / slider in the bottom sheet (K3), slider 1830 to this year, the item-period lens (from 1210 BCE),
+LOCKED public and ?drafts=1 for the rest, one pin per place (a Site with a visible find linked to it is not drawn), zoom by Importance, one pin size, 44 x 44 tap targets, three symbols only,
+pins that share a spot sit side by side, the card ("Found at" the site, discovery year and period, What it shows, Deep dive collapsed, nothing internal), Events link, Share line and link,
+deep link ?a=ID, the three-line Map Key, no sideways scroll, footer version.
+Loader: `python3 tools/sheet-to-archaeology.py EXPORT.xlsx [--dry-run] [--report PATH]` writes data/archaeology.json; it reads the tab by header name ("Archeaology" and "Archaeology" both accepted),
+never trims text, maps the old seven Map symbol values to Site / Writing / Object, and prints warnings and the places where pins share a spot.
