@@ -174,8 +174,13 @@ async function handleSite(req, env, url, origin) {
     if (!['roadmap', 'strategy'].includes(b.page)) return json(400, { error: 'bad_page' }, origin);
     if (!env.ROADMAP_CODE) return json(503, { error: 'not_configured' }, origin);
     if (await failLimited()) return json(429, { error: 'slow_down' }, origin);
-    if (!(await codeMatches(b.code, env.ROADMAP_CODE))) { await recordFail(); return json(401, { error: 'wrong_code' }, origin); }
-    return json(200, { token: await makeToken(env.ROADMAP_CODE, 'gate') }, origin);
+    // v2.1.0 (F-107): one password box. The viewer code opens the page (read and comment); the admin code opens it too AND signs the person in as admin,
+    // so an admin types one password, not two. Anything else is a wrong code. The separate /admin route below stays as a fallback.
+    if (await codeMatches(b.code, env.ROADMAP_CODE)) return json(200, { token: await makeToken(env.ROADMAP_CODE, 'gate') }, origin);
+    if (env.ROADMAP_ADMIN && (await codeMatches(b.code, env.ROADMAP_ADMIN))) {
+      return json(200, { token: await makeToken(env.ROADMAP_CODE, 'gate'), admin_token: await makeToken(env.ROADMAP_ADMIN, 'admin') }, origin);
+    }
+    await recordFail(); return json(401, { error: 'wrong_code' }, origin);
   }
   if (path === '/admin' && req.method === 'POST') {
     if (!(await gated())) return json(401, { error: 'no_token' }, origin);

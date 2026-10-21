@@ -38,7 +38,7 @@
       b.disabled=true;e.textContent='';
       fetch(WORKER+'/gate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:m.getAttribute('data-page')||'roadmap',code:code})})
         .then(function(r){return r.json().catch(function(){return {};}).then(function(d){
-          if(r.status===200&&d.token){set(KEY,d.token);open();}
+          if(r.status===200&&d.token){set(KEY,d.token);if(d.admin_token)set(AKEY,d.admin_token);open();}   /* v2.1.0: the admin password signs in as admin too, one box */
           else if(r.status===401){e.textContent=ERR;i.value='';i.focus();}
           else if(r.status===429){e.textContent='Too many tries. Please wait a few minutes and try again.';}
           else{e.textContent='Could not check the password right now. Please try again.';}
