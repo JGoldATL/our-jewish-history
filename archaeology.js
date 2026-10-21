@@ -6,7 +6,9 @@
    - One pin per place: a Site that has a visible find linked to it is not drawn; the find's pin carries the card ("Found at" the site).
    - A pin sits at the find's discovery year (Discovery year lens) or at the start of the item's own period (Item's period lens).
    - Pins that share a spot are nudged a few pixels apart. Zoom by Importance: zoomed out shows 1; regional zoom adds 2; city zoom adds 3.
-   - No Play button (CEO 10/21). The year, the lens toggle and the slider live in the bottom sheet, as on Movements. */
+   - No Play button (CEO 10/21).
+   - v2.0.2 Side card layout (CEO pick 10/21): the page opens with a find already open in a floating card and pins already on the map; the card has carousel
+     dots and arrows; year, lens toggle and slider float along the bottom; Map key is pinned top left of the map; no intro card. */
 (function(){
 'use strict';
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
@@ -32,7 +34,8 @@ const pinSvg=(k,sc=1)=>`<svg xmlns="http://www.w3.org/2000/svg" width="${32*sc}"
 
 let DATA=null,GEO=null,RECS=[],BYID=new Map(),PINS=[],LINKED=new Set();
 let W=0,H=0,V={lon:29,lat:35,degW:60},HOME=null;
-let LO=FIRST_FOUND,HI=YEAR_NOW,Y=YEAR_NOW,lens='found',SEL=null,anim=null,raf=0,drag=null,moved=false,zT=0,kbdFocus=null,started=false,auto=true;
+const FEATURED=['ARC-029'];   // the find the page opens on, when it is public; otherwise the first Importance 1 find
+let LO=FIRST_FOUND,HI=YEAR_NOW,Y=YEAR_NOW,lens='found',SEL=null,anim=null,raf=0,drag=null,moved=false,zT=0,kbdFocus=null,auto=true,pgKey='';
 const phone=()=>matchMedia('(max-width:620px) and (orientation:portrait)').matches;
 const MIN_DEG=()=>2;              // city zoom: Jerusalem's pins can be told apart
 const T2=()=>phone()?30:42,T3=()=>phone()?12:18;   // zoom steps (degrees across the map): below T2 Importance 2 is added, below T3 Importance 3
@@ -79,7 +82,7 @@ function clampView(){
   const maxDeg=Math.min(360,NE_MAXK*W/H);V.degW=clamp(V.degW,MIN_DEG(),Math.max(MIN_DEG(),maxDeg));
   const hh=H/2/NEF(),lo=-NE_YM+hh,hi=NE_YM-hh;{const c=nProj(V.lon,V.lat),yy=lo>hi?0:clamp(c[1],lo,hi);if(yy!==c[1]){const r=nInv(c[0],yy);V.lon=r[0];V.lat=r[1];}}V.lon=clamp(V.lon,-180,180);   // when the height limit bites, the sideways position is kept
 }
-function size(){const w=$('mapWrap');W=w.clientWidth;H=w.clientHeight;}
+function size(){const w=$('mapWrap');W=w.clientWidth;H=w.clientHeight;$('stage').style.setProperty('--tb',$('tbar').offsetHeight+'px');}
 function setView(v,ms){
   cancelAnimationFrame(anim?.id||0);
   if(!ms){V={...v};clampView();draw();return;}
@@ -90,7 +93,8 @@ function setView(v,ms){
   anim={id:requestAnimationFrame(step)};
 }
 
-function homeView(){const p=phone();return {lon:p?37:31,lat:p?31:34,degW:p?44:Math.min(72,Math.max(54,W/11))};}
+const narrow=()=>matchMedia('(max-width:900px)').matches;
+function homeView(){const n=narrow();return n?{lon:35.2,lat:31.8,degW:clamp(W/25,12,32)}:{lon:34,lat:31.5,degW:clamp(W/28,30,48)};}   // opens on the Land with Importance 1 and 2 pins in place
 function zoomAt(f,x=W/2,y=H/2){
   auto=false;
   const a=anchorAt(x,y);V.degW=V.degW/f;clampView();placeAnchor(a,x,y);clampView();
@@ -156,14 +160,14 @@ function paint(){
       if(bx.x<8||bx.x+bx.w>W-8||bx.y<8||bx.y+bx.h>H-8)continue;if(boxes.some(q=>bx.x<q.x+q.w&&bx.x+bx.w>q.x&&bx.y<q.y+q.h&&bx.y+bx.h>q.y))continue;boxes.push(bx);
       const tx=el('text',{x:a[0],y:a[1],'text-anchor':'middle',class:'geoLbl '+(sea?'seaName':'regionName')},gG);tx.textContent=txt;}}
   if(kbdFocus){const n=svg.querySelector(`[data-pin="${kbdFocus}"]`);kbdFocus=null;if(n)n.focus({preventScroll:true});}
-  updateCount();
+  updateCount();pager();
 }
 
 /* ---------- panel: year, count, card ---------- */
 function updateCount(){
   const found=PINS.filter(p=>Number.isFinite(yOf(p))&&yOf(p)<=Y).length,shown=shownPins().length;
-  const msg=`${found} ${found===1?'find':'finds'} so far`+(shown<found?` · zoom in to see ${found-shown} more`:'');
-  $('era').textContent=PINS.length?msg:'';
+  const more=found-shown;
+  $('hint').textContent=PINS.length?'Tap a pin to open it'+(more>0?` · ${more} more as you zoom in`:''):'';
 }
 function updateYear(){
   const y=Math.round(Y);$('year').innerHTML=y<0?`${-y}<span>BCE</span>`:String(y);
@@ -173,7 +177,7 @@ function setYear(y,fromSlider){
   Y=clamp(Math.round(y),LO,HI);if(!fromSlider)$('slider').value=Math.round(y2p(Y)*1000);
   updateYear();draw();
 }
-function ends(){$('ends').innerHTML=`<span>${yearLabel(LO)}</span><span>${lens==='found'?'Today':yearLabel(HI)}</span>`;
+function ends(){$('era').textContent=lens==='found'?'Year found':'Item’s own period';$('ends').innerHTML=`<span>${yearLabel(LO)}</span><span>${lens==='found'?'Today':yearLabel(HI)}</span>`;
   $('slider').setAttribute('aria-label',lens==='found'?'Year found':'Year of the item’s own period');}
 function setLens(l){
   if(l===lens)return;const f=y2p(Y);lens=l;setRange();ends();
@@ -181,10 +185,10 @@ function setLens(l){
   setYear(p2y(f));
 }
 function card(){
-  const c=$('story');
+  const c=$('story');pager();
   if(!SEL){
     c.innerHTML=PINS.length
-      ?`<div class="kicker" style="color:var(--amber)">Archaeology</div><h2 class="blk">Tap a pin</h2><p id="storyText" class="blk">Each pin is a find. Slide the year to see when each one came out of the ground, then tap a pin to read its story.</p>`
+      ?`<div class="kicker" style="color:var(--amber)">Archaeology</div><h2 class="blk">Tap a pin</h2><p id="storyText" class="blk">Each pin is a find. Tap one to read its story, or use the arrows to step through them.</p>`
       :`<div class="kicker" style="color:var(--amber)">Archaeology</div><h2 class="blk">Coming soon</h2><p id="storyText" class="blk">The first finds are still being checked. Please come back soon.</p>`;
     return;
   }
@@ -196,36 +200,60 @@ function card(){
   if(r.story)h+=`<p id="storyText" class="blk">${esc(bare(r.story))}</p>`;
   if(r.shows)h+=`<p class="shows blk"><em>What it shows</em><br>${esc(bare(r.shows))}</p>`;
   if(r.whereToSee||r.open){
-    h+=`<div class="facts blk">${r.whereToSee?`<div><b>Where to see it</b> ${esc(bare(r.whereToSee))}</div>`:''}${r.open?`<div><b>Open to the public</b> ${esc(r.open)}</div>`:''}</div>`;}
+    h+=`<div class="facts blk where">${r.whereToSee?`<div><b>Where to see it</b> ${esc(bare(r.whereToSee))}</div>`:''}${r.open?`<div><b>Open to the public</b> ${esc(r.open)}</div>`:''}</div>`;}
   const evs=(r.events||[]).filter(e=>e&&e.id);
   if(evs.length)h+=`<div class="links blk">${evs.map(e=>`<a href="events.html?card=${encodeURIComponent(e.id)}">See it on Events${e.title?': '+esc(bare(e.title)):''}</a>`).join('')}</div>`;
   const srcs=(r.sources||[]).filter(x=>x&&x.name);
   if(srcs.length)h+=`<div class="src blk">Sources: ${srcs.map(x=>safeUrl(x.url)?`<a href="${esc(safeUrl(x.url))}" target="_blank" rel="noopener">${esc(bare(x.name))}</a>`:esc(bare(x.name))).join(' · ')}</div>`;
   if(r.deepDive||r.limits||r.yearNote){
     h+=`<details class="blk"><summary>Deep dive</summary>${r.yearNote?`<p><b>About the year.</b> ${esc(bare(r.yearNote))}</p>`:''}${r.deepDive?`<p>${esc(bare(r.deepDive))}</p>`:''}${r.limits?`<p class="limits"><b>Limits.</b> ${esc(bare(r.limits))}</p>`:''}</details>`;}
-  c.innerHTML=h;c.scrollTop=0;
+  if(narrow())h+=`<button type="button" class="more" id="moreBtn" aria-expanded="false">Read more &#9656;</button>`;
+  c.innerHTML=h;c.scrollTop=0;$('card').classList.remove('open');
+  const mb=$('moreBtn');if(mb)mb.addEventListener('click',()=>{const o=!$('card').classList.contains('open');$('card').classList.toggle('open',o);mb.setAttribute('aria-expanded',String(o));mb.innerHTML=o?'Show less &#9652;':'Read more &#9656;';if(!o)c.scrollTop=0;});
   if(window.OJJShare)OJJShare.attach(c,{kind:'archaeology',label:false,getTitle:()=>bare(r.name)+' | Our Jewish Journey',getUrl:()=>location.origin+location.pathname+'?a='+encodeURIComponent(r.id)});
   $('closeStory').addEventListener('click',()=>select(null));
 }
+/* The part of the map not covered by the card, the time bar or the buttons: where a selected pin is moved to when it is not already in clear view. */
+function freeBox(){
+  const m=$('mapWrap').getBoundingClientRect(),c=$('card').getBoundingClientRect(),t=$('tbar').getBoundingClientRect();
+  if(narrow())return {x0:34,x1:W-34,y0:72,y1:Math.max(140,c.top-m.top-14)};
+  return {x0:40,x1:Math.max(200,c.left-m.left-34),y0:70,y1:Math.max(200,t.top-m.top-14)};
+}
+/* Carousel: the finds drawn on the map now (plus the open one), oldest find first. Zooming in adds more. */
+function carousel(){
+  const l=shownPins();if(SEL&&!l.some(p=>p.id===SEL)){const p=PINS.find(q=>q.id===SEL);if(p)l.push(p);}
+  return l.sort((a,b)=>yOf(a)-yOf(b)||a.r.name.localeCompare(b.r.name)||a.id.localeCompare(b.id));
+}
+function pager(){
+  const el=$('pager'),l=carousel(),i=l.findIndex(p=>p.id===SEL),key=l.map(p=>p.id).join()+'|'+SEL;
+  if(!SEL||l.length<2){el.hidden=true;pgKey='';return;}
+  if(key===pgKey)return;pgKey=key;el.hidden=false;
+  const N=l.length,span=Math.min(N,7);let s=clamp(i-Math.floor(span/2),0,N-span),dots='';
+  for(let k=s;k<s+span;k++){const edge=(k===s&&s>0)||(k===s+span-1&&s+span<N);
+    dots+=`<button type="button" class="dotb${edge&&k!==i?' sm':''}" data-go="${l[k].id}" aria-label="${esc(bare(l[k].r.name))}, ${k+1} of ${N}"${k===i?' aria-current="true"':''}></button>`;}
+  el.innerHTML=`<button type="button" class="pg" data-step="-1" aria-label="Previous find"${i<=0?' disabled':''}>&lsaquo;</button><div class="dots">${dots}</div><button type="button" class="pg" data-step="1" aria-label="Next find"${i>=N-1?' disabled':''}>&rsaquo;</button><span class="pgn">${i+1} of ${N}</span>`;
+}
+function step(d){const l=carousel(),i=l.findIndex(p=>p.id===SEL),n=l[clamp(i+d,0,l.length-1)];if(n&&n.id!==SEL)select(n.id);}
 function select(id,opts){
-  opts=opts||{};SEL=id;
+  opts=opts||{};SEL=id;card();
   if(id){
     const p=PINS.find(q=>q.id===id);
     if(p&&opts.year&&yOf(p)>Y)setYear(yOf(p));
-    if(p){const a=px(p.lon,p.lat);if(opts.center||a[0]<30||a[0]>W-30||a[1]<60||a[1]>H-30)setView({lon:p.lon,lat:p.lat,degW:opts.center?Math.min(V.degW,30):V.degW},600);}
+    if(p){const a=px(p.lon,p.lat),f=freeBox();
+      if(opts.center||a[0]<f.x0||a[0]>f.x1||a[1]<f.y0+42||a[1]>f.y1){const deg=opts.center?Math.min(V.degW,30):V.degW,keep=V;V={...keep,degW:deg};clampView();placeAnchor([p.lon,p.lat],(f.x0+f.x1)/2,(f.y0+f.y1)/2+20);clampView();const to={...V};V=keep;setView(to,opts.boot?0:600);}}
     if(opts.kbd)kbdFocus=id;
   }
-  card();draw();
+  draw();
 }
 
 /* ---------- map key ---------- */
-function buildKey(){$('key').innerHTML=`<h2>Map key</h2>`+KINDS.map(k=>`<div class="pinKey">${pinSvg(k,.9)}${k}</div>`).join('');}
+function buildKey(){$('keyBtn').innerHTML=`${pinSvg('Site',.5)}<span>Map key</span>`;$('key').innerHTML=`<h2>Map key</h2>`+KINDS.map(k=>`<div class="pinKey">${pinSvg(k,.9)}${k}</div>`).join('');}
 function setKey(open){const k=$('key'),b=$('keyBtn');k.hidden=!open;b.setAttribute('aria-expanded',String(open));}
 
 /* ---------- pointer: drag to pan, wheel and pinch to zoom, tap a pin ---------- */
 function wire(){
   const w=$('mapWrap'),pts=new Map();let pinch=null;
-  w.addEventListener('pointerdown',e=>{if(e.target.closest('.zoom,.intro'))return;w.setPointerCapture?.(e.pointerId);pts.set(e.pointerId,[e.clientX,e.clientY]);moved=false;
+  w.addEventListener('pointerdown',e=>{w.setPointerCapture?.(e.pointerId);pts.set(e.pointerId,[e.clientX,e.clientY]);moved=false;
     if(pts.size===1)drag={x:e.clientX,y:e.clientY,lon:V.lon,lat:V.lat};if(pts.size===2){const [a,b]=[...pts.values()];pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1]),deg:V.degW};}});
   w.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;pts.set(e.pointerId,[e.clientX,e.clientY]);
     if(pts.size===2&&pinch){const [a,b]=[...pts.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);moved=true;const r=w.getBoundingClientRect();
@@ -246,16 +274,16 @@ function wire(){
   $('zin').addEventListener('click',()=>zoomAt(1.5));$('zout').addEventListener('click',()=>zoomAt(1/1.5));
   $('slider').addEventListener('input',e=>setYear(p2y((+e.target.value)/1000),true));
   document.querySelectorAll('#lens button').forEach(b=>b.addEventListener('click',()=>setLens(b.dataset.lens)));
-  $('begin').addEventListener('click',begin);
+  $('card').addEventListener('click',e=>{const s=e.target.closest('[data-step]'),g=e.target.closest('[data-go]');if(s)step(+s.dataset.step);else if(g)select(g.dataset.go);});
+  {let x0=null,y0=null;const c=$('story');   // swipe the card sideways to step
+   c.addEventListener('touchstart',e=>{if(e.touches.length===1){x0=e.touches[0].clientX;y0=e.touches[0].clientY;}else x0=null;},{passive:true});
+   c.addEventListener('touchend',e=>{if(x0===null||!SEL)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.6)step(dx<0?1:-1);},{passive:true});}
   $('keyBtn').addEventListener('click',e=>{e.stopPropagation();setKey($('key').hidden);});
   document.addEventListener('click',e=>{if(!$('key').hidden&&!$('key').contains(e.target)&&e.target!==$('keyBtn'))setKey(false);});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){setKey(false);if(SEL)select(null);}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){setKey(false);if(SEL)select(null);}else if((e.key==='ArrowRight'||e.key==='ArrowLeft')&&SEL&&/^(BODY|ARTICLE|ASIDE|DIV)$/.test(document.activeElement.tagName)&&!e.target.closest('input,select,textarea'))step(e.key==='ArrowRight'?1:-1);});
   let rt=0;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{size();clampView();draw();},80);});
+  if(window.ResizeObserver){let ro=0;new ResizeObserver(()=>{clearTimeout(ro);ro=setTimeout(()=>{if(w.clientWidth!==W||w.clientHeight!==H){size();clampView();draw();}else size();},30);}).observe(w);}   // the map and the bottom bar can change height after the fonts load
 }
-function begin(){
-  started=true;$('intro').hidden=true;setYear(LO);$('map').focus?.({preventScroll:true});
-}
-
 /* ---------- boot ---------- */
 (async function(){
   try{
@@ -264,10 +292,11 @@ function begin(){
     $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+(((DATA.source||'').match(/v\d+(?:\.\d+)+/)||[])[0]||'unknown');
     const q=new URLSearchParams(location.search),k=q.get('a');
     let target=k&&BYID.get(k);if(target&&LINKED.has(target.id))target=RECS.find(r=>r.type==='Object'&&r.linkedSite===target.id)||target;   // a site that is not drawn opens its find
-    setYear(HI);card();setView(HOME);
-    if(!PINS.length){$('intro').hidden=true;}
-    else if(target&&PINS.some(p=>p.id===target.id)){$('intro').hidden=true;started=true;select(target.id,{year:true,center:true});}
-    window.ARC={setView,homeView,pins:()=>PINS,recs:()=>RECS,linked:()=>LINKED,state:()=>({Y,V:{...V},SEL,lens,LO,HI,shown:shownPins().map(p=>p.id),started}),select,setYear,setLens,begin,tierMax};
+    setYear(HI);setView(HOME);
+    if(target&&PINS.some(p=>p.id===target.id))select(target.id,{year:true,center:true});
+    else if(PINS.length){const f=FEATURED.map(id=>PINS.find(p=>p.id===id)).find(Boolean)||PINS[0];select(f.id,{boot:true});}   // the page opens with a find open
+    else card();
+    window.ARC={setView,homeView,pins:()=>PINS,recs:()=>RECS,linked:()=>LINKED,state:()=>({Y,V:{...V},SEL,lens,LO,HI,shown:shownPins().map(p=>p.id)}),select,step,carousel,setYear,setLens,tierMax};
   }catch(err){$('story').innerHTML='<h2>The map could not load</h2><p>Please refresh the page.</p>';console.error(err);}
 })();
 })();

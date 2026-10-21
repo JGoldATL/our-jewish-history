@@ -4,7 +4,7 @@ const {chromium}=require('playwright');const BASE=process.env.BASE||'http://loca
 for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone']]){
   const p=await (await br.newContext({viewport:{width:vw,height:vh}})).newPage();p.on('pageerror',e=>errs.push(e.message));const n=tag+': ';
   await p.goto(BASE+'movements.html');await p.waitForTimeout(2500);
-  ck(await p.evaluate(()=>window.SITE_VERSION==='2.0.1'&&/2\.0\.1/.test(document.getElementById('version').textContent)),n+'version reads 2.0.1');
+  ck(await p.evaluate(()=>window.SITE_VERSION==='2.0.2'&&/2\.0\.2/.test(document.getElementById('version').textContent)),n+'version reads 2.0.2');
   await p.click('button:has-text("Cause")');await p.waitForTimeout(400);
   const items=await p.evaluate(()=>[...document.querySelectorAll('[role=menuitemradio],[role=option],.pill-menu button,.gp-menu button,.fmenu button')].map(b=>b.textContent.trim()).filter(Boolean));
   const txt=await p.evaluate(()=>document.body.innerText);
