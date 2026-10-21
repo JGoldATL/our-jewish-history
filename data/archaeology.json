@@ -1,9 +1,9 @@
 {
  "schema": "archaeology-1",
  "source": "Google Sheet Jewish_Continuity_Master_Dataset_v2.0.0",
- "sheetModified": "2026-10-21T00:00:00Z",
- "exportSha256": "57a283cef81553c7",
- "generated": "2026-10-21T06:04:47Z",
+ "sheetModified": null,
+ "exportSha256": "af912b5634569fd6",
+ "generated": "2026-10-21T10:17:33Z",
  "records": [
   {
    "id": "ARC-001",
@@ -44,7 +44,7 @@
      "url": "https://cojs.org/stelae_and_reliefs_of_pharaoh_merneptah-_c-_1207_bce/"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-002",
@@ -85,7 +85,7 @@
      "url": "https://en.wikipedia.org/wiki/Merneptah_Stele"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-003",
@@ -120,7 +120,7 @@
      "url": "https://cojs.org/gezer_calendar-_10th_century_bce/"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-004",
@@ -155,7 +155,7 @@
      "url": "https://www.worldhistory.org/article/853/"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-005",
@@ -196,7 +196,7 @@
      "url": "https://cojs.org/tel_dan_stele-_c-_840_bce/"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-006",
@@ -238,7 +238,7 @@
      "url": "https://thejewishmuseum.org/press/tel-dan-stele-press-release/"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-007",
@@ -278,7 +278,7 @@
      "url": "https://en.wikipedia.org/wiki/Mesha_Stele"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-008",
@@ -355,7 +355,7 @@
      "url": "https://cojs.org/?p=6525"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-010",
@@ -433,7 +433,7 @@
      "url": "https://en.wikipedia.org/wiki/Nimrud"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-012",
@@ -511,7 +511,7 @@
      "url": "https://en.wikipedia.org/wiki/City_of_David_(archaeological_site)"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-014",
@@ -589,7 +589,7 @@
      "url": "https://en.wikipedia.org/wiki/Siloam_inscription"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-016",
@@ -666,7 +666,7 @@
      "url": "https://cojs.org/?p=7652"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-018",
@@ -707,7 +707,7 @@
      "url": "https://en.wikipedia.org/wiki/Ketef_Hinnom"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-019",
@@ -748,7 +748,7 @@
      "url": "https://en.wikipedia.org/wiki/Lachish"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-020",
@@ -827,7 +827,7 @@
      "url": "https://isaw.nyu.edu/library/blog/Layard"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-022",
@@ -907,7 +907,7 @@
      "url": "https://en.wikipedia.org/wiki/Lachish"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-024",
@@ -948,7 +948,7 @@
      "url": "https://en.wikipedia.org/wiki/Babylon"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-025",
@@ -1026,7 +1026,7 @@
      "url": "https://en.wikipedia.org/wiki/Elephantine"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-027",
@@ -1105,7 +1105,7 @@
      "url": "https://en.wikipedia.org/wiki/Qumran"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-029",
@@ -1146,7 +1146,7 @@
      "url": "https://en.wikipedia.org/wiki/Qumran"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-030",
@@ -1188,7 +1188,7 @@
      "url": "https://livescience.com/archaeology/2-100-year-old-coin-hoard-dating-to-dynasty-of-jewish-kings-discovered-in-jordan-valley"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-031",
@@ -1229,7 +1229,7 @@
      "url": "https://en.wikipedia.org/wiki/Masada"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-032",
@@ -1308,7 +1308,7 @@
      "url": "https://www.coinbooks.org/esylum_v17n33a24.html"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-034",
@@ -1348,7 +1348,7 @@
      "url": "https://www.worldhistory.org/Cave_of_Letters"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-035",
@@ -1425,7 +1425,7 @@
      "url": "https://cris.biu.ac.il/en/publications/coins-from-the-bar-kokhba-revolt-hidden-in-mearat-ha-teomim-m%C5%ADgh%C3%A2/"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-037",
@@ -1466,7 +1466,7 @@
      "url": "https://turismoroma.it/en/places/jewish-catacombs-vigna-randanini"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-038",
@@ -1536,7 +1536,7 @@
      "url": "https://en.wikipedia.org/wiki/Dura-Europos"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-040",
@@ -1569,7 +1569,7 @@
      "url": "https://en.wikipedia.org/wiki/Sardis_Synagogue"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-041",
@@ -1614,7 +1614,7 @@
      "url": "https://en.wikipedia.org/wiki/Ben_Ezra_Synagogue"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-042",
@@ -1774,7 +1774,7 @@
      "url": "https://en.wikipedia.org/wiki/Te%27omim_Cave"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-046",
@@ -1814,7 +1814,7 @@
      "url": "https://tps.co.il/articles/archaeologists-discover-largest-hasmonean-coin-hoard-in-israel/"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-047",
@@ -1854,7 +1854,7 @@
      "url": "https://www.coinbooks.org/esylum_v17n33a24.html"
     }
    ],
-   "status": "LEANING"
+   "status": "LOCKED"
   }
  ]
 }

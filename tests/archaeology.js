@@ -18,8 +18,9 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone'],[320,640,'small
   const p=await ctx.newPage();p.on('pageerror',e=>errs.push(n+e.message));p.on('console',m=>{if(m.type()==='error'&&!ign(m.text()))errs.push(n+m.text());});
   // public page: nothing is LOCKED today, so nothing draws and the page says so
   await p.goto(BASE+'archaeology.html');await p.waitForTimeout(1800);
-  ck(await p.evaluate(()=>ARC.pins().length===0&&document.querySelectorAll('#map .pin').length===0),n+'public view (no ?drafts=1) draws no pins while nothing is LOCKED');
-  ck(await p.evaluate(()=>document.getElementById('intro').hidden===true&&/come back soon/.test(document.getElementById('story').textContent)),n+'public view says the first finds are being checked');
+  {const L=D.filter(r=>r.status==='LOCKED'),ln=new Set(L.filter(r=>r.type==='Object'&&r.linkedSite).map(r=>r.linkedSite)),exp=L.filter(r=>!ln.has(r.id)).map(r=>r.id).sort();
+   ck(await p.evaluate(e=>JSON.stringify(ARC.pins().map(x=>x.id).sort())===JSON.stringify(e)&&ARC.pins().every(x=>x.r.status==='LOCKED'),exp),n+'public view (no ?drafts=1) draws only LOCKED records ('+exp.length+' pins)');}
+  ck(await p.evaluate(()=>!document.getElementById('intro').hidden),n+'public view opens on the intro card');
   ck(await p.evaluate(()=>/noindex/.test(document.querySelector('meta[name=robots]').content)),n+'page is noindex');
   // preview
   await p.goto(BASE+'archaeology.html?drafts=1');await p.waitForTimeout(2000);
@@ -88,11 +89,11 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone'],[320,640,'small
   // layout
   const ov=await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1&&document.body.scrollWidth<=innerWidth+1);
   ck(ov,n+'no sideways scroll');
-  ck(await p.evaluate(()=>/^v2\.0\.0; data v\d+\.\d+\.\d+$/.test(document.getElementById('version').textContent)),n+'footer reads "v2.0.0; data v#.#.#"');
+  ck(await p.evaluate(()=>/^v2\.0\.\d+; data v\d+\.\d+\.\d+$/.test(document.getElementById('version').textContent)),n+'footer reads "v2.0.x; data v#.#.#"');
   await ctx.close();}
 // a Sheet where a record is LOCKED shows publicly
 {const ctx=await b.newContext({viewport:{width:1280,height:800}});const p=await ctx.newPage();p.on('pageerror',e=>errs.push('lock: '+e.message));
- await p.route('**/data/archaeology.json',async r=>{const res=await r.fetch();const j=await res.json();for(const x of j.records){if(['ARC-005','ARC-006'].includes(x.id))x.status='LOCKED';}await r.fulfill({response:res,json:j});});
+ await p.route('**/data/archaeology.json',async r=>{const res=await r.fetch();const j=await res.json();for(const x of j.records){x.status=['ARC-005','ARC-006'].includes(x.id)?'LOCKED':'DRAFT';}await r.fulfill({response:res,json:j});});
  await p.goto(BASE+'archaeology.html');await p.waitForTimeout(2000);
  ck(await p.evaluate(()=>ARC.pins().length===1&&ARC.pins()[0].id==='ARC-006'),'LOCKED records are public with no flag (a LOCKED find and its LOCKED site draw one pin)');
  await ctx.close();}
@@ -101,5 +102,11 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone'],[320,640,'small
  await p.route('**/data/archaeology.json',async r=>{const res=await r.fetch();const j=await res.json();for(const x of j.records){x.status=x.id==='ARC-005'?'LOCKED':'DRAFT';}await r.fulfill({response:res,json:j});});
  await p.goto(BASE+'archaeology.html');await p.waitForTimeout(2000);
  ck(await p.evaluate(()=>ARC.pins().length===1&&ARC.pins()[0].id==='ARC-005'),'a LOCKED site whose find is not public draws its own Site pin');
+ await ctx.close();}
+// nothing LOCKED: the page says the first finds are being checked
+{const ctx=await b.newContext({viewport:{width:1280,height:800}});const p=await ctx.newPage();
+ await p.route('**/data/archaeology.json',async r=>{const res=await r.fetch();const j=await res.json();for(const x of j.records)x.status='DRAFT';await r.fulfill({response:res,json:j});});
+ await p.goto(BASE+'archaeology.html');await p.waitForTimeout(1800);
+ ck(await p.evaluate(()=>ARC.pins().length===0&&document.getElementById('intro').hidden&&/come back soon/.test(document.getElementById('story').textContent)),'with nothing LOCKED the public page draws no pins and says come back soon');
  await ctx.close();}
 ck(errs.length===0,'no page errors '+errs.slice(0,3).join(' | '));console.log(bad?'FAILED '+bad:'ALL PASS');await b.close();process.exit(bad?1:0);})();
