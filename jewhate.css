@@ -28,9 +28,6 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,summary:focus-visi
 .tab .n{margin-left:8px;opacity:.8;font-weight:500}
 /* carousel */
 .car{display:flex;align-items:center;gap:14px}
-.arrow{flex:0 0 52px;width:52px;height:52px;border-radius:50%;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);font-size:22px;cursor:pointer;display:grid;place-items:center}
-.arrow:hover:not(:disabled){background:rgba(239,230,211,.14)}
-.arrow:disabled{opacity:.3;cursor:default}
 .track{flex:1;min-width:0;display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:18px calc(50% - 220px) 26px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .track::-webkit-scrollbar{display:none}
 .card{flex:0 0 440px;min-height:340px;scroll-snap-align:center;display:flex;flex-direction:column;gap:16px;padding:24px 28px;border-radius:22px;border:1px solid rgba(239,230,211,.14);background:rgba(239,230,211,.05);opacity:.55;transform:scale(.9);transition:opacity .25s,transform .25s,border-color .25s,box-shadow .25s}
@@ -44,10 +41,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,summary:focus-visi
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{font-size:13px;padding:6px 12px;border-radius:999px;background:rgba(239,230,211,.08)}
 .read{margin-top:auto;display:inline-flex;align-items:center;min-height:44px;font-size:16px;font-weight:600}
-.dots{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:4px}
-.dots span{width:8px;height:8px;border-radius:4px;background:rgba(239,230,211,.28);transition:width .2s,background .2s}
-.dots span.on{width:22px;background:var(--amber)}
-.pos{margin:10px 0 0;text-align:center;font-size:14px;color:var(--muted)}
+.jhpg{width:min(100%,560px);margin:6px auto 0}
 .msg{padding:40px 0;text-align:center;color:var(--muted)}
 /* phone: one card fills the width with a peek of the next; tabs scroll sideways */
 @media (max-width:700px){
@@ -55,16 +49,12 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,summary:focus-visi
   .tabs::-webkit-scrollbar{display:none}
   .tab{flex:0 0 auto}
   .car{gap:0}
-  .arrow{display:none}
   .track{gap:14px;margin:0 -16px;padding:10px 16px 20px;scroll-padding:0 16px}
   .card{flex:0 0 calc(100vw - 56px);min-height:400px;padding:24px 22px;opacity:1;transform:none;scroll-snap-align:center}
   .card.cur{box-shadow:0 12px 30px rgba(0,0,0,.4)}
   .card h2{font-size:40px}
-  .arrows-m{display:flex;justify-content:space-between;gap:12px;margin-top:6px}
 }
-@media (min-width:701px){.arrows-m{display:none}}
-.arrows-m .arrow{display:grid;flex:0 0 auto}
-@media (prefers-reduced-motion:reduce){.card,.dots span{transition:none}}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
 /* entry page */
 .back{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);text-decoration:none;font-size:14px}
 .back:hover{background:rgba(239,230,211,.12);color:var(--text)}

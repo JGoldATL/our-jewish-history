@@ -14,8 +14,8 @@ for(const y of [-1900,-586,-200,70,900,1290,1492,1500,1590,1630,1800,1845,1881,1
 ck(ok,'no route other than the voluntary-migration set is drawn on Events');ck(seen.size>=6,'voluntary-migration arrows do draw ('+seen.size+' seen)');
 await p.evaluate(()=>setYearExact(1500));await p.waitForTimeout(400);
 ck(await p.evaluate(()=>document.querySelectorAll('#ov g.route').length)<=2,'1500: only the charcoal routes');
-ck(await p.$('#prev')&&await p.$('#next')&&await p.$('#play')&&await p.$('#story'),'cards, Previous, Play, Next present');
-await p.click('#next');await p.waitForTimeout(500);ck(await p.evaluate(()=>document.querySelector('#story h2')?.textContent.length>0),'Next opens a card');
+ck(await p.$('#pgHost .ojjpg')&&await p.$('#play')&&await p.$('#story'),'cards, the pager, Play present');
+await p.click('#pgHost [data-step="1"]');await p.waitForTimeout(500);ck(await p.evaluate(()=>document.querySelector('#story h2')?.textContent.length>0),'Next opens a card');
 ck(p.errs.length===0,'events: no page errors '+p.errs.join('|'));await p.close();
 p=await open('index.html');await p.evaluate(()=>setYearExact(1500));await p.waitForTimeout(500);
 ck(await p.evaluate(()=>typeof EVENTS_ONLY!=='undefined'&&EVENTS_ONLY===false)&&await p.evaluate(()=>document.querySelectorAll('#ov g.route').length)>10,'old globe (index.html) unchanged: all arrows still drawn');ck(p.errs.length===0,'old globe: no page errors');await p.close();

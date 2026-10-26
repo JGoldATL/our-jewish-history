@@ -21,22 +21,22 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone']]){
   ck((await p.$$eval('.card',c=>c.every(x=>x.querySelectorAll('button.ojj-share').length===1)))&&(await p.$$eval('.card',c=>c.length))===L.length,n+'exactly one Share button on every card');
   ck(await p.$$eval('.card',c=>c.every(x=>x.querySelector('.fam').textContent.trim()&&x.querySelector('.lie .lb').textContent==='The lie'&&x.querySelector('a.read'))),n+'every card: family label, "The lie" box, Deep dive link');
   ck(!L.some(e=>e.status!=='LOCKED')&&!/Draft, not signed off/.test(txt),n+'no draft entries without ?drafts=1');
-  const M=Math.floor(L.length/2);ck(!(await p.$eval('#prev',b=>b.disabled))&&!(await p.$eval('#next',b=>b.disabled)||vw<=700&&false),n+'opens on a middle card, both Previous and Next enabled');
-  ck((await p.$eval('#pos',x=>x.textContent))===`${M+1} of ${L.length} entries`,n+'opens centered on the middle card');
+  const M=Math.floor(L.length/2);ck(!(await p.$eval('#pager [data-step="-1"]',b=>b.getAttribute('aria-disabled')==='true'))&&!(await p.$eval('#pager [data-step="1"]',b=>b.getAttribute('aria-disabled')==='true')),n+'opens on a middle card, both Previous and Next enabled');
+  ck((await p.$eval('#pager .pgn',x=>x.firstChild.textContent))===`${M+1} of ${L.length}`,n+'opens centered on the middle card');
   // next moves one card
-  await p.click(vw>700?'#next':'#nextM');await p.waitForTimeout(900);
-  ck((await p.$eval('#pos',x=>x.textContent))===`${M+2} of ${L.length} entries`,n+'Next button moves one card on');
-  await p.keyboard.press('ArrowRight');await p.waitForTimeout(900);ck((await p.$eval('#pos',x=>x.textContent)).startsWith((M+3)+' of'),n+'right arrow key moves on');
-  await p.keyboard.press('ArrowLeft');await p.waitForTimeout(900);ck((await p.$eval('#pos',x=>x.textContent)).startsWith((M+2)+' of'),n+'left arrow key moves back');
+  await p.click('#pager [data-step="1"]');await p.waitForTimeout(900);
+  ck((await p.$eval('#pager .pgn',x=>x.firstChild.textContent))===`${M+2} of ${L.length}`,n+'Next button moves one card on');
+  await p.keyboard.press('ArrowRight');await p.waitForTimeout(900);ck((await p.$eval('#pager .pgn',x=>x.firstChild.textContent)).startsWith((M+3)+' of'),n+'right arrow key moves on');
+  await p.keyboard.press('ArrowLeft');await p.waitForTimeout(900);ck((await p.$eval('#pager .pgn',x=>x.firstChild.textContent)).startsWith((M+2)+' of'),n+'left arrow key moves back');
   ck((await p.$$eval('.card[inert]',c=>c.length))===L.length-1,n+'only the focused card can be tabbed to');
   // change tab resets
   await p.click('.tab:nth-child(2)');await p.waitForTimeout(500);
-  {const q=await p.$eval('#pos',x=>x.textContent),k=await p.$$eval('.card',c=>c.length);ck(q===`${Math.floor(k/2)+1} of ${k} in this family`,n+'changing tab opens on that family\'s middle card');}
+  {const q=await p.$eval('#pager .pgn',x=>x.firstChild.textContent),k=await p.$$eval('.card',c=>c.length);ck(q===`${Math.floor(k/2)+1} of ${k}`,n+'changing tab opens on that family\'s middle card');}
   // last card: Next disabled, no wrap
-  const m=await p.$$eval('.card',c=>c.length);for(let i=0;i<m&&!(await p.$eval(vw>700?'#next':'#nextM',b=>b.disabled));i++){await p.click(vw>700?'#next':'#nextM');await p.waitForTimeout(350);}
-  ck(await p.$eval(vw>700?'#next':'#nextM',b=>b.disabled),n+'Next disabled at the last card, no wrap-around');
+  const m=await p.$$eval('.card',c=>c.length);for(let i=0;i<m&&!(await p.$eval('#pager [data-step="1"]',b=>b.getAttribute('aria-disabled')==='true'));i++){await p.click('#pager [data-step="1"]');await p.waitForTimeout(350);}
+  ck(await p.$eval('#pager [data-step="1"]',b=>b.getAttribute('aria-disabled')==='true'),n+'Next disabled at the last card, no wrap-around');
   await p.waitForTimeout(600);// controls reachable and sized
-  const sizes=await p.$$eval('.tab,.arrow,.card.cur a.read,.card.cur .ojj-share',b=>b.filter(x=>x.offsetParent).map(x=>{const r=x.getBoundingClientRect();return Math.min(r.width,r.height)}));
+  const sizes=await p.$$eval('.tab,#pager .pgb,.card.cur a.read,.card.cur .ojj-share',b=>b.filter(x=>x.offsetParent).map(x=>{const r=x.getBoundingClientRect();return Math.min(r.width,r.height)}));
   ck(sizes.every(s=>s>=43.5),n+'touch targets at least 44 px ('+Math.min(...sizes).toFixed(0)+')');
   ck(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),n+'no sideways page scroll');
   if(vw>=760){const g=await p.evaluate(()=>{const nv=document.querySelector('#gnBar .gp').getBoundingClientRect(),h=document.querySelector('.brand h1').getBoundingClientRect();return {nl:nv.left,hr:h.right,ht:h.top,nb:nv.bottom}});ck(g.nl>g.hr&&g.ht<g.nb,n+'nav on the right, title raised into the nav row');}

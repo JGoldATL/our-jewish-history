@@ -7,7 +7,7 @@ const chk=async(url,pre,n)=>{const p=await br.newPage({viewport:{width:1280,heig
 await chk('movements.html',async p=>{await p.evaluate(()=>{const s=document.getElementById('slider')||document.querySelector('input[type=range]');if(s){s.value=s.max*0.6;s.dispatchEvent(new Event('input',{bubbles:true}));}});},'movements mid-timeline');
 await chk('movements.html',async p=>{await p.evaluate(()=>{const s=document.querySelector('input[type=range]');s.value=s.max;s.dispatchEvent(new Event('input',{bubbles:true}));});},'movements end of timeline');
 {const p=await br.newPage({viewport:{width:1280,height:800}});p.on('pageerror',e=>errs.push(e.message));await p.goto(BASE+'events.html');await p.waitForTimeout(2500);let found=null;
- for(let i=0;i<70&&!found;i++){await p.evaluate(()=>document.getElementById('next').click());await p.waitForTimeout(350);
+ for(let i=0;i<70&&!found;i++){await p.evaluate(()=>document.querySelector('#pgHost [data-step="1"]').click());await p.waitForTimeout(350);
   const r=await p.evaluate(()=>[...document.querySelectorAll('g.route')].map(g=>({o:+g.getAttribute('opacity'),fo:getComputedStyle(g.querySelector('.routeBody,.routeTrad')).fillOpacity})));if(r.length)found=r;}
  ck(!!found,'events: charcoal arrows drawn ('+(found?found.length:0)+')');ck(!!found&&found.every(x=>x.o===1&&+x.fo===1),'events: every arrow opacity 1');await p.close();}
 await chk('index.html',async p=>{await p.evaluate(()=>{const s=document.querySelector('input[type=range]');if(s){s.value=s.max*0.5;s.dispatchEvent(new Event('input',{bubbles:true}));}});},'old globe');
