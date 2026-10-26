@@ -8,7 +8,8 @@
    - Pins that share a spot are nudged a few pixels apart. Zoom by Importance: zoomed out shows 1; regional zoom adds 2; city zoom adds 3.
    - No Play button (CEO 10/21).
    - v2.0.2 Side card layout (CEO pick 10/21): the page opens with a find already open in a floating card and pins already on the map; the card has carousel
-     dots and arrows; year, lens toggle and slider float along the bottom; Map key is pinned top left of the map; no intro card. */
+     dots and arrows; year, lens toggle and slider float along the bottom; Map key is pinned top left of the map.
+   - Intro card back (F-152, CEO decision I1, 10/21): on a plain visit a "Begin the dig" card sits over the map; Begin, Escape or a deep link (?a=) dismisses it. */
 (function(){
 'use strict';
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
@@ -272,13 +273,15 @@ function wire(){
   $('zin').addEventListener('click',()=>zoomAt(1.5));$('zout').addEventListener('click',()=>zoomAt(1/1.5));
   $('slider').addEventListener('input',e=>setYear(p2y((+e.target.value)/1000),true));
   document.querySelectorAll('#lens button').forEach(b=>b.addEventListener('click',()=>setLens(b.dataset.lens)));
-  OJJPager.swipe($('story'),d=>{if(SEL)step(d);});OJJPager.keys(step,()=>!!SEL);
+  OJJPager.swipe($('story'),d=>{if(SEL)step(d);});OJJPager.keys(step,()=>!!SEL&&$('intro').hidden);
+  $('begin').addEventListener('click',begin);
   $('keyBtn').addEventListener('click',e=>{e.stopPropagation();setKey($('key').hidden);});
   document.addEventListener('click',e=>{if(!$('key').hidden&&!$('key').contains(e.target)&&e.target!==$('keyBtn'))setKey(false);});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){setKey(false);if(SEL)select(null);}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('intro').hidden){begin();return;}setKey(false);if(SEL)select(null);}});
   let rt=0;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{size();clampView();draw();},80);});
   if(window.ResizeObserver){let ro=0;new ResizeObserver(()=>{clearTimeout(ro);ro=setTimeout(()=>{if(w.clientWidth!==W||w.clientHeight!==H){size();clampView();draw();}else size();},30);}).observe(w);}   // the map and the bottom bar can change height after the fonts load
 }
+function begin(){$('intro').hidden=true;$('map').focus?.({preventScroll:true});}
 /* ---------- boot ---------- */
 (async function(){
   try{
@@ -288,10 +291,11 @@ function wire(){
     const q=new URLSearchParams(location.search),k=q.get('a');
     let target=k&&BYID.get(k);if(target&&LINKED.has(target.id))target=RECS.find(r=>r.type==='Object'&&r.linkedSite===target.id)||target;   // a site that is not drawn opens its find
     setYear(HI);setView(HOME);
-    if(target&&PINS.some(p=>p.id===target.id))select(target.id,{year:true,center:true});
+    if(target&&PINS.some(p=>p.id===target.id)){$('intro').hidden=true;select(target.id,{year:true,center:true});}   // a deep link skips the intro
     else if(PINS.length){const f=FEATURED.map(id=>PINS.find(p=>p.id===id)).find(Boolean)||PINS[0];select(f.id,{boot:true});}   // the page opens with a find open
-    else card();
-    window.ARC={setView,homeView,pins:()=>PINS,recs:()=>RECS,linked:()=>LINKED,state:()=>({Y,V:{...V},SEL,lens,LO,HI,shown:shownPins().map(p=>p.id)}),select,step,carousel,setYear,setLens,tierMax};
+    else{$('intro').hidden=true;card();}
+    if(!$('intro').hidden)$('begin').focus({preventScroll:true});
+    window.ARC={setView,homeView,pins:()=>PINS,recs:()=>RECS,linked:()=>LINKED,state:()=>({Y,V:{...V},SEL,lens,LO,HI,shown:shownPins().map(p=>p.id)}),select,step,carousel,setYear,setLens,begin,tierMax};
   }catch(err){$('story').innerHTML='<h2>The map could not load</h2><p>Please refresh the page.</p>';console.error(err);}
 })();
 })();

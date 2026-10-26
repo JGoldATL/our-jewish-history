@@ -20,11 +20,18 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone'],[320,640,'small
   await p.goto(BASE+'archaeology.html');await p.waitForTimeout(1800);
   {const L=D.filter(r=>r.status==='LOCKED'),ln=new Set(L.filter(r=>r.type==='Object'&&r.linkedSite).map(r=>r.linkedSite)),exp=L.filter(r=>!ln.has(r.id)).map(r=>r.id).sort();
    ck(await p.evaluate(e=>JSON.stringify(ARC.pins().map(x=>x.id).sort())===JSON.stringify(e)&&ARC.pins().every(x=>x.r.status==='LOCKED'),exp),n+'public view (no ?drafts=1) draws only LOCKED records ('+exp.length+' pins)');}
-  ck(await p.evaluate(()=>{const s=ARC.state();return !document.getElementById('intro')&&!!s.SEL&&s.shown.length>0&&/Tap a pin to open it/.test(document.getElementById('hint').textContent)&&document.querySelectorAll('#map .pin').length>0&&document.querySelector('#story h2').textContent.length>0;}),n+'page opens with pins on the map and a find already open in the card (no intro card)');
+  ck(await p.evaluate(()=>{const s=ARC.state();return !!s.SEL&&s.shown.length>0&&/Tap a pin to open it/.test(document.getElementById('hint').textContent)&&document.querySelectorAll('#map .pin').length>0&&document.querySelector('#story h2').textContent.length>0;}),n+'page opens with pins on the map and a find already open in the card');
+  ck(await p.evaluate(()=>{const i=document.getElementById('intro'),b=document.getElementById('begin'),m=document.getElementById('mapWrap').getBoundingClientRect(),r=i.getBoundingClientRect();return !i.hidden&&i.getAttribute('role')==='dialog'&&document.getElementById('introText').textContent==='Archaeologists keep finding Jewish history: inscriptions, synagogues, scrolls and tombs. Slide through the years and see when each was found.'&&b.textContent==='Begin the dig'&&r.left<=m.left+1&&r.right>=m.right-1&&r.top<=m.top+1&&document.activeElement===b;}),n+'intro card is over the map with the approved text, a Begin the dig button, and focus on the button');
+  await p.screenshot({path:'tests/out/arc-intro-'+n.trim().replace(/\W+/g,'_')+'.png'});
+  await p.click('#begin');
+  ck(await p.evaluate(()=>document.getElementById('intro').hidden&&!!ARC.state().SEL),n+'Begin the dig dismisses the intro and keeps the open find');
+  await p.goto(BASE+'archaeology.html');await p.waitForTimeout(1500);
+  await p.keyboard.press('Escape');
+  ck(await p.evaluate(()=>document.getElementById('intro').hidden&&!!ARC.state().SEL),n+'Escape dismisses the intro and leaves the find open');
   ck(await p.evaluate(()=>{const s=ARC.state();return s.Y===new Date().getFullYear()&&document.getElementById('slider').value==='1000';}),n+'year and slider open at today');
   ck(await p.evaluate(()=>/noindex/.test(document.querySelector('meta[name=robots]').content)),n+'page is noindex');
   // preview
-  await p.goto(BASE+'archaeology.html?drafts=1');await p.waitForTimeout(2000);
+  await p.goto(BASE+'archaeology.html?drafts=1');await p.waitForTimeout(2000);await p.click('#begin');
   ck(await p.evaluate(()=>document.querySelector('h1').textContent==='Found in the Ground'&&/Real objects\. Real places\. Real dates\./.test(document.querySelector('.brand p').textContent)),n+'title and tagline are the approved text');
   ck(await p.evaluate(()=>!document.querySelector('#play,#introPlay')&&!/\bplay\b/i.test(document.getElementById('card').textContent)&&!/\bplay\b/i.test(document.getElementById('stage').textContent.replace(/display/gi,''))),n+'no Play button anywhere');
   ck(await p.evaluate(()=>{const b=document.getElementById('tbar'),m=document.getElementById('mapWrap').getBoundingClientRect(),r=b.getBoundingClientRect();return b.contains(document.getElementById('year'))&&b.contains(document.getElementById('lens'))&&b.contains(document.getElementById('slider'))&&r.top>m.top+m.height*.5;}),n+'year, toggle and slider sit in the bottom bar, below the card');
@@ -94,7 +101,8 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone'],[320,640,'small
   await p.click('#keyBtn');ck((await p.$$eval('#key .pinKey',x=>x.map(y=>y.textContent.trim()))).join()==='Site,Writing,Object',n+'Map key has three lines: Site, Writing, Object');
   // deep links
   await p.goto(BASE+'archaeology.html?drafts=1&a=ARC-006');await p.waitForTimeout(2000);
-  ck(await p.evaluate(()=>ARC.state().SEL==='ARC-006'),n+'?a=ARC-006 opens that find (no intro card)');
+  ck(await p.evaluate(()=>ARC.state().SEL==='ARC-006'),n+'?a=ARC-006 opens that find');
+  ck(await p.evaluate(()=>document.getElementById('intro').hidden),n+'a deep link skips the intro card');
   await p.goto(BASE+'archaeology.html?drafts=1&a=ARC-005');await p.waitForTimeout(2000);
   ck(await p.evaluate(()=>ARC.state().SEL==='ARC-006'),n+'?a= for a Site that is not drawn opens its find');
   // layout

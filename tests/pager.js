@@ -4,7 +4,7 @@ const {chromium}=require('playwright');const BASE=process.env.BASE||'http://loca
 (async()=>{const b=await chromium.launch();const errs=[];
 for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone'],[320,640,'small phone']]){
   const n=tag+': ';const ctx=await b.newContext({viewport:{width:vw,height:vh},hasTouch:vw<500});const p=await ctx.newPage();p.on('pageerror',e=>errs.push(n+e.message));
-  await p.goto(BASE+'archaeology.html?drafts=1');await p.waitForTimeout(2000);
+  await p.goto(BASE+'archaeology.html?drafts=1');await p.waitForTimeout(2000);await p.click('#begin');
   const g=()=>p.evaluate(()=>{const e=document.querySelector('#card .ojjpg');return {hidden:e.hidden,dots:e.querySelectorAll('.dotb').length,cur:e.querySelectorAll('.dotb[aria-current=true]').length,txt:e.querySelector('.pgn').childNodes[0].textContent,live:e.querySelector('.pgn').getAttribute('aria-live'),prev:e.querySelector('[data-step="-1"]').getAttribute('aria-disabled'),next:e.querySelector('[data-step="1"]').getAttribute('aria-disabled'),w:e.clientWidth,aria:[...e.querySelectorAll('button')].every(x=>x.getAttribute('aria-label')),};});
   let s=await g();
   ck(!s.hidden&&/^\d+ of \d+$/.test(s.txt),n+'counter reads "9 of 11" (W1, no "entries"): "'+s.txt+'"');
