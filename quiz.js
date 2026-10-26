@@ -258,6 +258,7 @@ function shareText(){
 }
 function quizLink(){try{const u=new URL(location.href);u.search='?utm_source=share';u.hash='';return u.href;}catch(e){return location.href;}}   // v0.7.7: the one tag that tells a friend's arrival from any other visit; nothing else rides on the link
 async function doShare(){
+  try{if(typeof window.gtag==='function')window.gtag('event','share',{content_type:'quiz_score',method:navigator.share?'share_sheet':'copy_link',page_path:location.pathname});}catch(e){}   // F-107: counts the tap only; no score or answer is sent
   const text=shareText(),url=quizLink(),msg=m=>{try{$('shareMsg').textContent=m;}catch(e){}};
   try{
     if(navigator.share){await navigator.share({text,url});return;}

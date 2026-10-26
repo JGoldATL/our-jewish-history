@@ -18,7 +18,10 @@
     archaeology:'Who said Jewish history wasn\u2019t real? Check this out:'
   };
   function cleanUrl(u){var x=new URL(u,location.href);x.searchParams.delete('drafts');return x.href;}
-  window.OJJShare={messages:MESSAGES,
+  /* F-107: count Share taps in Google Analytics ("Shares started"). Sent when the button is tapped, whether or not the person finishes sharing.
+     Only the kind of page and how it shared go out: never the title, the link, the card or any quiz answer. No gtag (blocked, or not the live host) means nothing happens. */
+  function track(kind,method){try{if(typeof window.gtag==='function')window.gtag('event','share',{content_type:kind||'card',method:method,page_path:location.pathname});}catch(e){}}
+  window.OJJShare={messages:MESSAGES,track:track,
     /* make({title, url|getUrl, getTitle, label:true|false}) returns the button */
     make:function(o){
       var b=document.createElement('button');b.type='button';b.className='ojj-share'+(o.label===false?' icon':'');
@@ -30,6 +33,7 @@
       lab();b.addEventListener('focus',lab);b.addEventListener('mouseenter',lab);
       b.addEventListener('click',function(ev){
         ev.stopPropagation();
+        track(o.kind,navigator.share?'share_sheet':'copy_link');
         var u=url(),txt=MESSAGES[o.kind]||'',data={title:title(),url:u};if(txt)data.text=txt;
         function copied(){live.textContent='Link copied';var t=b.querySelector('.t');if(t)t.textContent='Link copied';else b.title='Link copied';
           setTimeout(function(){live.textContent='';if(t)t.textContent='Share';else b.removeAttribute('title');},2000);}
