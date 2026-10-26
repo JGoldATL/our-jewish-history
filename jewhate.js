@@ -27,7 +27,8 @@
   /* ---------- index page ---------- */
   function index(list){
     var tabs=tabsFor(list),cur=0,idx=0,cards=[];
-    var tabBar=$('#tabs'),track=$('#track'),prev=$('#prev'),next=$('#next'),prevM=$('#prevM'),nextM=$('#nextM'),dots=$('#dots'),pos=$('#pos');
+    var tabBar=$('#tabs'),track=$('#track');
+    var pg=OJJPager.mount($('#pager'),{label:'entry',onStep:function(d){go(idx+d);},onGo:function(k){go(k);}});   // shared pager (F-147): arrows, dots, "N of M"; no wrap-around
     try{var s=JSON.parse(sessionStorage.getItem('jh-tab')||'null');if(s&&tabs[s.t]){cur=s.t;}}catch(e){}
     tabs.forEach(function(t,i){
       var b=el('button','tab',null,tabBar);b.type='button';b.setAttribute('role','tab');b.id='tab'+i;b.setAttribute('aria-controls','track');
@@ -48,15 +49,12 @@
     function pick(i,reset){
       cur=i;renderTabs();var items=tabs[i].items;track.replaceChildren();cards=items.map(function(e,n){var c=card(e,n,items.length);track.appendChild(c);return c;});
       track.setAttribute('aria-labelledby','tab'+i);
-      dots.replaceChildren();items.forEach(function(){el('span',null,null,dots);});
       try{sessionStorage.setItem('jh-tab',JSON.stringify({t:i}));}catch(e){}
       idx=Math.floor(items.length/2);mark();var c0=cards[idx];if(c0)track.scrollLeft=c0.offsetLeft-(track.clientWidth-c0.clientWidth)/2;
     }
     function mark(){
       var n=cards.length;cards.forEach(function(c,i){var on=i===idx;c.classList.toggle('cur',on);if(on)c.removeAttribute('inert');else c.setAttribute('inert','');});
-      [].forEach.call(dots.children,function(d,i){d.classList.toggle('on',i===idx);});
-      var all=tabs[cur].key==='all';pos.textContent=(idx+1)+' of '+n+(all?' entries':' in this family');
-      [prev,prevM].forEach(function(b){b.disabled=idx<=0;});[next,nextM].forEach(function(b){b.disabled=idx>=n-1;});   // no wrap-around
+      var items=tabs[cur].items;pg.update({count:n,index:idx,title:items[idx]?label(items[idx]):'',names:items.map(label)});
     }
     function go(i){i=Math.max(0,Math.min(cards.length-1,i));var c=cards[i];if(!c)return;idx=i;mark();
       var left=c.offsetLeft-(track.clientWidth-c.clientWidth)/2;track.scrollTo({left:left,behavior:reduce?'auto':'smooth'});}
@@ -64,8 +62,6 @@
     track.addEventListener('scroll',function(){if(raf)return;raf=requestAnimationFrame(function(){raf=0;
       var mid=track.scrollLeft+track.clientWidth/2,best=0,bd=1e9;cards.forEach(function(c,i){var d=Math.abs(c.offsetLeft+c.clientWidth/2-mid);if(d<bd){bd=d;best=i;}});
       if(best!==idx){idx=best;mark();}});});
-    [prev,prevM].forEach(function(b){b.addEventListener('click',function(){go(idx-1);});});
-    [next,nextM].forEach(function(b){b.addEventListener('click',function(){go(idx+1);});});
     document.addEventListener('keydown',function(ev){
       if(ev.altKey||ev.ctrlKey||ev.metaKey)return;var t=ev.target;if(t&&(t.closest&&t.closest('[role=tablist]')))return;
       if(ev.key==='ArrowRight'){ev.preventDefault();go(idx+1);}else if(ev.key==='ArrowLeft'){ev.preventDefault();go(idx-1);}});
