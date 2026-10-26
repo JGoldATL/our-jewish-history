@@ -1,7 +1,7 @@
 /* One card pager for the whole site (Creative Design comp P1, counter wording W1; CEO 10/22).
    Previous and Next arrows, a window of 5 or 7 tappable dots with the current one larger and amber, and a counter ("9 of 11").
    Always the bottom strip of a card, under a thin divider. No wrap-around: the ends dim and dash.
-   Used by: archaeology.js (reference). JewHate and Events move onto it next.
+   Used by: archaeology.js (reference), jewhate.js and app.js on the Events page (F-147). Movements and Quiz do not use it.
 
    var pg=OJJPager.mount(hostElement,{label:'find',onStep:function(d){},onGo:function(i){}});
    pg.update({count:11,index:8,title:'Dead Sea Scrolls',names:['A','B',...]});   // names are optional, used in the dot labels
