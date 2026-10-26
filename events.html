@@ -57,7 +57,7 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 .ring{fill:none;stroke:#FFF2DE;stroke-opacity:.7;stroke-width:1.5}
 .anchor.uncertain .ring{stroke-dasharray:3 3}
 .anchor,.route,.sym,.event{cursor:pointer}
-.label{font-family:var(--sans);font-weight:600;fill:#1A1410;paint-order:stroke;stroke:#F6EBD6;stroke-width:4.5px;stroke-linejoin:round;pointer-events:none}
+.label{font-family:var(--serif);font-weight:700;letter-spacing:.2px;fill:#1A1410;paint-order:stroke;stroke:#F6EBD6;stroke-width:4px;stroke-linejoin:round;pointer-events:none}
 .routeShadow{fill:#000;opacity:.36;filter:url(#routeShadow)}
 .routeBody{stroke:#FFF2DE;stroke-width:1.6;stroke-linejoin:round}
 .routeBody.contested{fill-opacity:1;stroke:#2A2F33;stroke-width:2;stroke-dasharray:6 4}
@@ -123,6 +123,7 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 .chip:hover{border-color:var(--amber);color:var(--cream)}
 .mnav{display:flex;gap:10px;align-items:center}.mnav .pill{flex:1}
 .mnav .pgHost{flex:1 1 100%;min-width:0}.mnav:has(.pgHost){flex-wrap:wrap}.mnav:has(.pgHost) .pill{flex:1 1 100%}   /* Events: the shared pager sits above Play (F-147) */
+@media (max-width:900px){#panel>div:first-child{position:relative}#panel>div:first-child #play{position:absolute;right:0;top:-8px;flex:none;width:auto;min-width:100px;height:36px;z-index:2}#panel .mnav:has(.pgHost){padding:0 0 2px;margin-bottom:-2px}}   /* phone and upright tablet: Play sits at the right of the year (moved there by app.js), so the bottom bar is just the pager and covers less of the card */
 .mnav select{flex:1;min-width:0;width:100%;height:44px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(14,24,34,.6);color:var(--text);padding:0 14px;font-size:14px}
 .footR{display:flex;gap:16px;align-items:center}
 .dlgWrap{position:fixed;inset:0;z-index:50;background:rgba(5,10,14,.6);display:grid;place-items:center;padding:16px}

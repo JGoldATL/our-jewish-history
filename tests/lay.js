@@ -1,4 +1,4 @@
-const {chromium,devices}=require('playwright');const S=process.argv[2]||'tests/out';require('fs').mkdirSync(S+'/reg',{recursive:true});(async()=>{const b=await chromium.launch({args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']});
+const {chromium,devices}=require('playwright');const S=process.argv[2]||'tests/out';require('fs').mkdirSync(S+'/reg',{recursive:true});let bad=0;(async()=>{const b=await chromium.launch({args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']});
 const devs=[['iphone',devices['iPhone 13']],['iphoneSE',devices['iPhone SE']],['ipadP',devices['iPad (gen 7)']],['ipadL',devices['iPad (gen 7) landscape']],['desk',{viewport:{width:1440,height:900}}]];
 for(const [n,d] of devs){const c=await b.newContext({...d});const p=await c.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));await p.goto(''+(process.env.SITE||'http://localhost:8778/')+'');await p.waitForTimeout(2200);
 await p.screenshot({path:`${S}/reg/L-${n}-open.png`});
@@ -10,6 +10,10 @@ const r=await p.evaluate(()=>{const st=$('story').getBoundingClientRect(),t=$('s
  playVisible:pl.top>=0&&pl.bottom<=innerHeight,resetVisible:rs.top>=0&&rs.bottom<=innerHeight,panelScrollable:$('panel').scrollHeight>$('panel').clientHeight,horiz:document.documentElement.scrollWidth>innerWidth,
  gone:[!!document.getElementById('zoomIn'),!!document.getElementById('chipBox'),!!document.getElementById('milestoneSelect')]}});
 await p.screenshot({path:`${S}/reg/L-${n}-card.png`});
-await tap('#reset');await p.waitForTimeout(300);
-console.log(n,JSON.stringify(r),errs);await c.close();}
-await b.close();})();
+await tap('.mo-rs');await p.waitForTimeout(300);   // the rail's Reset (the old #reset button is hidden now)
+console.log(n,JSON.stringify(r),errs);
+// pass / fail (README: iPhone and iPad portrait do not scroll and show the card title; nothing scrolls sideways; no page errors)
+const need=(c,m)=>{if(!c){bad++;console.log('FAIL '+n+': '+m);}};
+if(['iphone','iphoneSE','ipadP'].includes(n)){need(!r.pageScrolls,'page scrolls');need(r.titleVisible,'card title not fully on screen');}
+need(!r.horiz,'sideways scroll');need(errs.length===0,'page errors '+errs.join('|'));await c.close();}
+await b.close();console.log(bad?'FAILED '+bad:'ALL PASS');process.exit(bad?1:0);})();
