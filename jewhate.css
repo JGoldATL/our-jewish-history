@@ -12,12 +12,8 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,summary:focus-visi
 .brand h1 a{color:inherit;text-decoration:none}
 .brand p{margin:2px 0 0;font:italic 600 15px var(--serif);color:var(--amber)}
 .wrap{padding:14px 16px 90px;max-width:1280px;margin:0 auto}
-/* wide screens: main nav at the right, title raised into its row (same as the map pages) */
+/* wide screens: the nav and title position come from header.js (one shared header) */
 @media (min-width:760px){
-  html.nav-glass .gn{justify-content:flex-end;padding-right:24px}
-  html.nav-glass .top{margin-top:-54px;padding:8px 28px 0;position:relative;z-index:46;pointer-events:none}
-  html.nav-glass .top .brand{pointer-events:auto}
-  .brand h1{font-size:40px}.brand p{font-size:21px}
   .wrap{padding:22px 40px 90px}
 }
 /* family tabs */
