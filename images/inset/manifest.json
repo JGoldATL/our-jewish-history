@@ -3,13 +3,40 @@
  "baseHeightPx": 2496,
  "insets": [
   {
-   "id": "levant",
-   "file": "images/inset/levant.webp",
+   "id": "tier2-near-east",
+   "file": "images/inset/tier2-near-east.webp",
+   "z": 1,
+   "x0": 0.332805,
+   "x1": 0.71234,
+   "y0": 0.404606,
+   "y1": 0.740828,
+   "baseScale": 1.2,
+   "featherDeg": 0.25,
+   "lonLat": [
+    24.0,
+    48.0,
+    23.0,
+    42.0
+   ],
+   "placeholder": true,
+   "note": "PLACEHOLDER crop of map-globe.webp (same pixels); replace with the real high-resolution inset"
+  },
+  {
+   "id": "tier1-land-of-israel",
+   "file": "images/inset/tier1-land-of-israel.webp",
+   "z": 2,
    "x0": 0.471854,
    "x1": 0.556195,
    "y0": 0.501484,
    "y1": 0.609759,
-   "baseScale": 2.0,
+   "baseScale": 3.0,
+   "featherDeg": 0.25,
+   "lonLat": [
+    33.0,
+    38.0,
+    28.5,
+    34.5
+   ],
    "placeholder": true,
    "note": "PLACEHOLDER crop of map-globe.webp (same pixels); replace with the real high-resolution inset"
   }

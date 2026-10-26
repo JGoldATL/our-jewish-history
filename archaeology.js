@@ -296,6 +296,7 @@ function begin(){$('intro').hidden=true;$('map').focus?.({preventScroll:true});}
     if(target&&PINS.some(p=>p.id===target.id)){$('intro').hidden=true;select(target.id,{year:true,center:true});}   // a deep link skips the intro
     else if(PINS.length){const f=FEATURED.map(id=>PINS.find(p=>p.id===id)).find(Boolean)||PINS[0];select(f.id,{boot:true});}   // the page opens with a find open
     else{$('intro').hidden=true;card();}
+    {const vp=(new URLSearchParams(location.search).get('view')||'').split(',').map(Number);if(vp.length===3&&vp.every(Number.isFinite)&&vp[2]>0.2&&vp[2]<=360){auto=false;setView({lon:vp[0],lat:vp[1],degW:vp[2]});}}   // ?view=lon,lat,degrees-across: open at that place and zoom (for checking map pictures; F-149)
     if(!$('intro').hidden)$('begin').focus({preventScroll:true});
     window.ARC={setView,homeView,pins:()=>PINS,recs:()=>RECS,linked:()=>LINKED,state:()=>({Y,V:{...V},SEL,lens,LO,HI,shown:shownPins().map(p=>p.id)}),select,step,carousel,setYear,setLens,begin,tierMax};
   }catch(err){$('story').innerHTML='<h2>The map could not load</h2><p>Please refresh the page.</p>';console.error(err);}

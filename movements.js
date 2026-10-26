@@ -434,7 +434,8 @@ function wire(){
     $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+(((DATA.sheet?.meta?.source||'').match(/v\d+(?:\.\d+)+/)||[])[0]||'unknown');
     setYear(MINY);card();{const v=followTarget();setView(v||HOME);}
     {const q=new URLSearchParams(location.search),k=q.get('m'),ev=k&&EVENTS.get(k);if(ev){const rid=q.get('r'),rr=rid&&route(rid);auto=true;setYear(clamp(ev.routes[0].start,MINY,MAXY));if(rr&&rr.ev===k)selectRoute(rid);else selectEvent(k);}}   // deep link from Share: ?m=EVENT or ?m=EVENT&r=ROUTE
-    window.MV={routes:ROUTES,events:EVENTS,state:()=>({Y,V:{...V},SEL,F:{...F},playing,auto}),selectRoute,selectEvent,selectParent,setYear,stepEvent,togglePlay,follow:()=>{const v=followTarget();if(v)setView(v);},minY:MINY,maxY:MAXY,playRate,gaps:()=>GAPS};
+    {const vp=(new URLSearchParams(location.search).get('view')||'').split(',').map(Number);if(vp.length===3&&vp.every(Number.isFinite)&&vp[2]>0.2&&vp[2]<=360){auto=false;setView({lon:vp[0],lat:vp[1],degW:vp[2]});}}   // ?view=lon,lat,degrees-across: open at that place and zoom (for checking map pictures; F-149)
+    window.MV={setView,routes:ROUTES,events:EVENTS,state:()=>({Y,V:{...V},SEL,F:{...F},playing,auto}),selectRoute,selectEvent,selectParent,setYear,stepEvent,togglePlay,follow:()=>{const v=followTarget();if(v)setView(v);},minY:MINY,maxY:MAXY,playRate,gaps:()=>GAPS};
   }catch(err){$('story').innerHTML='<h2>The map could not load</h2><p>Please refresh the page.</p>';$('panel').classList.remove('inviting');console.error(err);}
 })();
 })();
