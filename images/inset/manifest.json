@@ -1,0 +1,17 @@
+{
+ "baseWidthPx": 4800,
+ "baseHeightPx": 2496,
+ "insets": [
+  {
+   "id": "levant",
+   "file": "images/inset/levant.webp",
+   "x0": 0.471854,
+   "x1": 0.556195,
+   "y0": 0.501484,
+   "y1": 0.609759,
+   "baseScale": 2.0,
+   "placeholder": true,
+   "note": "PLACEHOLDER crop of map-globe.webp (same pixels); replace with the real high-resolution inset"
+  }
+ ]
+}
