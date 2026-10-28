@@ -25,10 +25,10 @@
    "id": "tier1-land-of-israel",
    "file": "images/inset/tier1-land-of-israel.webp",
    "z": 2,
-   "x0": 0.471854,
-   "x1": 0.556195,
-   "y0": 0.501484,
-   "y1": 0.609759,
+   "x0": 0.472895,
+   "x1": 0.555302,
+   "y0": 0.502547,
+   "y1": 0.608785,
    "baseScale": 3.0,
    "featherDeg": 0.25,
    "lonLat": [
@@ -37,8 +37,8 @@
     28.5,
     34.5
    ],
-   "placeholder": true,
-   "note": "PLACEHOLDER crop of map-globe.webp (same pixels); replace with the real high-resolution inset"
+   "note": "Real build: SRTMGL1 hillshade (az 315, alt 45, exag 0.7, sigma 1.6 px), 220 px/deg, coast from Natural Earth 10m, base colours measured from map-globe.webp",
+   "placeholder": false
   }
  ]
 }
