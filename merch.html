@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<!-- Google Analytics 4: production only (counts visits on jgoldatl.github.io, not previews or local files) -->
+<script>
+if(location.hostname==='jgoldatl.github.io'){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-W0VSWJ8FCS';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config','G-W0VSWJ8FCS');}
+</script>
+<title>Merchandise · Our Jewish Journey</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--night:#0E1822;--night2:#162634;--glow:#24394B;--cream:#F6EBD6;--text:#EFE6D3;--muted:#A9B4B8;--amber:#E8B27A;--amber2:#F3C894;--line:rgba(239,230,211,.18);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Instrument Sans',Arial,Helvetica,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--night);color:var(--text);font-family:var(--sans)}
+body{min-height:100svh;background:radial-gradient(circle at 34% 46%,var(--glow) 0,var(--night2) 34%,var(--night) 70%) fixed}
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px 96px;padding-top:max(14px,env(safe-area-inset-top))}
+header.top{padding:14px 0 6px}
+.brand h1{margin:0;font-family:var(--serif);font-weight:700;font-size:34px;line-height:1;color:var(--cream);letter-spacing:.3px}
+.brand p{margin:6px 0 0;font:italic 600 20px var(--serif);color:var(--amber)}
+.intro{max-width:62ch;margin:14px 0 26px;color:var(--text);font-size:16px;line-height:1.55}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;list-style:none;margin:0;padding:0}
+.card{display:flex;flex-direction:column;gap:10px;width:100%;padding:12px;border-radius:22px;border:1px solid var(--line);background:rgba(22,38,52,.72);color:inherit;font:inherit;text-align:left;cursor:pointer}
+.card:hover{border-color:rgba(232,178,122,.55)}
+.pillS{align-self:flex-start;display:inline-flex;align-items:center;min-height:26px;padding:0 12px;border-radius:999px;border:1px solid rgba(232,178,122,.5);color:var(--amber);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
+/* art tile: live text, sized from the tile's own width so the layout is identical at every size */
+.tw{container-type:inline-size;width:100%}
+.tile{position:relative;width:100%;aspect-ratio:1/1;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:9cqw;font-family:var(--serif);font-weight:700;line-height:1.02}
+.tile.night{background:#162634;color:#F6EBD6;box-shadow:inset 0 0 0 1px rgba(246,235,214,.14)}
+.tile.cream{background:#F6EBD6;color:#162634}
+.tile.amber{background:#E8B27A;color:#162634}
+.tile .l{display:block;font-size:11.5cqw;letter-spacing:.005em}
+.tile .l.big{font-size:17cqw}
+.tile .l.it{font-style:italic;font-weight:600}
+.tile .l.sm{font-size:8.2cqw}
+.tile .l.sans{font-family:var(--sans);font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:6.8cqw}
+.tile .l.tour{font-family:var(--sans);font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:15cqw;line-height:1.08}
+.tile .l.tourS{font-family:var(--sans);font-weight:500;text-transform:uppercase;letter-spacing:.24em;font-size:5cqw;margin-top:5cqw;opacity:.85}
+.tile.evict{align-items:flex-start;text-align:left;justify-content:center}
+.tile.evict .l{font-family:var(--sans);font-weight:600;text-transform:uppercase;letter-spacing:.02em;font-size:8.4cqw;line-height:1.12;text-align:left}
+.tile.evict .l2{margin-top:9cqw;padding-top:6cqw;border-top:.8cqw solid currentColor;font-size:11cqw;font-weight:600;width:100%}
+.tile svg{display:block}
+.tile .mark{margin-top:7cqw;width:20cqw;height:auto}
+.tile .door{width:42cqw;height:auto;margin:6cqw 0 0}
+.tile .shert{letter-spacing:.02em;border-bottom:.9cqw solid currentColor}
+/* detail view */
+dialog{border:1px solid var(--line);border-radius:26px;background:var(--night2);color:var(--text);padding:16px;width:min(560px,calc(100vw - 24px));max-height:calc(100svh - 24px);overflow:auto}
+dialog::backdrop{background:rgba(6,12,18,.78)}
+.dTop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.close{min-height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);font:inherit;font-size:14px;cursor:pointer}
+.close:hover{background:rgba(239,230,211,.12)}
+@media (min-width:1000px){.wrap{padding-left:28px;padding-right:28px}html.nav-glass header.top{padding-left:0!important;padding-right:0!important}}
+@media (max-width:620px){.brand h1{font-size:30px}.grid{gap:12px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div class="brand"><h1>Merchandise</h1><p>If you know, you know.</p></div></header>
+<main>
+<p class="intro">Clever, wearable Jewish humor from the people behind Our Jewish Journey. The jokes reward recognition. The history behind them is on the rest of the site.</p>
+<ul class="grid" id="grid"></ul>
+</main>
+</div>
+<dialog id="detail" aria-label="Merchandise concept"><div class="dTop"><span class="pillS" id="dPill"></span><button type="button" class="close" id="dClose">Close</button></div><div id="dTile"></div></dialog>
+<script src="version.js"></script>
+<script src="merch.js"></script>
+<script src="nav.js"></script>
+<script src="header.js"></script>
+</body>
+</html>

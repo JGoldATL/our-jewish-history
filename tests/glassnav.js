@@ -39,7 +39,7 @@ for(const [sn,vp] of Object.entries(sizes)){
       await p.waitForTimeout(1200);
       await p.evaluate(()=>document.querySelector('.sn-btn').click());
       const mv=await p.evaluate(()=>[...document.querySelectorAll('.sn-menu a')].map(a=>a.textContent.replace(/\d+\/\d+$/,'')));
-      ok(JSON.stringify(mv)===JSON.stringify(['Roadmap','Strategy','Feedback','Sources']),'More holds Roadmap, Strategy, Feedback, Sources');
+      ok(JSON.stringify(mv)===JSON.stringify(['Roadmap','Strategy','Feedback','Merchandise','Sources']),'More holds Roadmap, Strategy, Feedback, Merchandise, Sources');
       await p.screenshot({path:`${OUT}/gn_desktop_more.png`});
       // Sources opens the dialog from the More menu
       await p.evaluate(()=>document.querySelector('.sn-menu a[data-sources]').click());await p.waitForTimeout(300);
