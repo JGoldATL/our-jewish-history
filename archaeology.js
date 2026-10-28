@@ -116,6 +116,7 @@ function paint(){
   svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.textContent='';
   const s=scale(),NF=NEF(),nc=nProj(V.lon,V.lat),x0=(-NE_XM-nc[0])*NF+W/2,y0=(nc[1]-NE_YM)*NF+H/2;
   el('image',{href:'images/map-globe.webp',x:x0,y:y0,width:2*NE_XM*NF,height:2*NE_YM*NF,preserveAspectRatio:'none'},svg);
+  if(window.OJJInset)OJJInset.draw(svg,{x0,y0,NF,NE_XM,NE_YM,W,H});   // sharper regional picture when zoomed far in (F-149)
   const gG=el('g',{class:'geo'},svg);
   if(GEO){for(const r of GEO.rivers){let d='';r.forEach((q,i)=>{const a=px(q[0],q[1]);d+=(i?'L':'M')+a[0].toFixed(1)+','+a[1].toFixed(1);});el('path',{d,class:'river',fill:'none'},gG);}}
   const gP=el('g',{},svg),gL=el('g',{},svg);
@@ -287,6 +288,7 @@ function begin(){$('intro').hidden=true;$('map').focus?.({preventScroll:true});}
   try{
     const res=await fetch('data/archaeology.json');DATA=await res.json();try{GEO=await (await fetch('data/geo.json')).json();}catch(_){GEO=null;}
     build();size();HOME=homeView();V={...HOME};clampView();ends();buildKey();wire();
+    if(window.OJJInset)OJJInset.load().then(n=>{if(n)draw();});   // regional high-resolution pictures, if any are listed (F-149)
     $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+(((DATA.source||'').match(/v\d+(?:\.\d+)+/)||[])[0]||'unknown');
     const q=new URLSearchParams(location.search),k=q.get('a');
     let target=k&&BYID.get(k);if(target&&LINKED.has(target.id))target=RECS.find(r=>r.type==='Object'&&r.linkedSite===target.id)||target;   // a site that is not drawn opens its find
@@ -294,6 +296,7 @@ function begin(){$('intro').hidden=true;$('map').focus?.({preventScroll:true});}
     if(target&&PINS.some(p=>p.id===target.id)){$('intro').hidden=true;select(target.id,{year:true,center:true});}   // a deep link skips the intro
     else if(PINS.length){const f=FEATURED.map(id=>PINS.find(p=>p.id===id)).find(Boolean)||PINS[0];select(f.id,{boot:true});}   // the page opens with a find open
     else{$('intro').hidden=true;card();}
+    {const vp=(new URLSearchParams(location.search).get('view')||'').split(',').map(Number);if(vp.length===3&&vp.every(Number.isFinite)&&vp[2]>0.2&&vp[2]<=360){auto=false;setView({lon:vp[0],lat:vp[1],degW:vp[2]});}}   // ?view=lon,lat,degrees-across: open at that place and zoom (for checking map pictures; F-149)
     if(!$('intro').hidden)$('begin').focus({preventScroll:true});
     window.ARC={setView,homeView,pins:()=>PINS,recs:()=>RECS,linked:()=>LINKED,state:()=>({Y,V:{...V},SEL,lens,LO,HI,shown:shownPins().map(p=>p.id)}),select,step,carousel,setYear,setLens,begin,tierMax};
   }catch(err){$('story').innerHTML='<h2>The map could not load</h2><p>Please refresh the page.</p>';console.error(err);}
