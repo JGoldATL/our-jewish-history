@@ -6,20 +6,20 @@
    "id": "tier2-near-east",
    "file": "images/inset/tier2-near-east.webp",
    "z": 1,
-   "x0": 0.332805,
-   "x1": 0.71234,
-   "y0": 0.404606,
-   "y1": 0.740828,
+   "x0": 0.333403,
+   "x1": 0.711342,
+   "y0": 0.405097,
+   "y1": 0.740789,
    "baseScale": 1.2,
-   "featherDeg": 0.25,
+   "featherDeg": 0.4,
    "lonLat": [
     24.0,
     48.0,
     23.0,
     42.0
    ],
-   "placeholder": true,
-   "note": "PLACEHOLDER crop of map-globe.webp (same pixels); replace with the real high-resolution inset"
+   "placeholder": false,
+   "note": "Real build (tier2-near-east): hillshade az 315 alt 45 exag 0.7 sigma 0.0073 deg strength 1 wrap 1, 100 px/deg, coast from Natural Earth 10m, tone matched to base. See tools/inset-recipe.md"
   },
   {
    "id": "tier1-land-of-israel",
@@ -30,14 +30,14 @@
    "y0": 0.502547,
    "y1": 0.608785,
    "baseScale": 3.0,
-   "featherDeg": 0.25,
+   "featherDeg": 0.4,
    "lonLat": [
     33.0,
     38.0,
     28.5,
     34.5
    ],
-   "note": "Real build: SRTMGL1 hillshade (az 315, alt 45, exag 0.7, sigma 1.6 px), 220 px/deg, coast from Natural Earth 10m, base colours measured from map-globe.webp",
+   "note": "Real build (tier1-land-of-israel): hillshade az 315 alt 45 exag 0.7 sigma 0.011 deg strength 1 wrap 1, 220 px/deg, coast from Natural Earth 10m, tone matched to tier2-near-east. See tools/inset-recipe.md",
    "placeholder": false
   }
  ]
