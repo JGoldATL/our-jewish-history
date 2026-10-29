@@ -88,6 +88,7 @@ const RM_CONFIG = {                              // the one place the allowed li
     effort: ['S', 'M', 'L'],
     owner: ['Web dev', 'Dataset', 'Strategy', 'CEO'],
     priority: ['P1', 'P2', 'P3'],
+    type: ['Feature', 'Enhancement', 'Bug fix', 'Content and data'],
   },
   // field -> { list name (enumerated) or max length (free text), blank allowed? }
   fields: {
@@ -97,12 +98,13 @@ const RM_CONFIG = {                              // the one place the allowed li
     effort: { list: 'effort', blank: true }, owner: { list: 'owner', blank: true },
     source: { max: 200, blank: true }, notes: { max: 1500, blank: true },
     priority: { list: 'priority', blank: true },
+    type: { list: 'type' },                      // v2.4.0: what kind of item this is; one of four, never blank
   },
-  labels: { feature: 'feature', about: 'about', area: 'area', rec: 'recommended version', mine: 'my version', status: 'status', deps: 'depends on', gate: 'gate', effort: 'effort', owner: 'owner', source: 'source', notes: 'notes', priority: 'priority' },
+  labels: { feature: 'feature', about: 'about', area: 'area', rec: 'recommended version', mine: 'my version', status: 'status', deps: 'depends on', gate: 'gate', effort: 'effort', owner: 'owner', source: 'source', notes: 'notes', priority: 'priority', type: 'type' },
 };
 const RM_FIELDS = Object.keys(RM_CONFIG.fields);
 const RM_COLS = ['id', ...RM_FIELDS, 'sort_order'];
-const RM_PUBLIC = ['id', 'feature', 'about', 'area', 'rec', 'status', 'sort_order'];   // what a visitor with the code sees; owner, effort, source, notes, priority etc. stay admin-only
+const RM_PUBLIC = ['id', 'feature', 'about', 'type', 'area', 'rec', 'status', 'sort_order'];   // what a visitor with the code sees; owner, effort, source, notes, priority etc. stay admin-only
 const RM_MAX_COMMENTS_PER_ROW = 100, RM_MAX_COMMENTS_PER_HOUR = 300, RM_MAX_SUGGESTIONS_PER_HOUR = 100;
 const SUGGEST_FIELDS = { feature: { max: 150, req: true }, accomplishes: { max: 600, req: true }, about: { max: 1000 }, vision: { max: 1000 } };
 const pick = (r, cols) => Object.fromEntries(cols.map((c) => [c, r[c]]));
@@ -369,7 +371,9 @@ async function handleSite(req, env, url, origin) {
     const id = Number(b.version_id);
     const old = Number.isInteger(id) ? await env.DB.prepare('SELECT snapshot FROM roadmap_versions WHERE version_id = ?').bind(id).first() : null;
     if (!old) return json(404, { error: 'no_version' }, origin);
-    const rows = JSON.parse(old.snapshot).map(rowShape);
+    const snap = JSON.parse(old.snapshot), cur = new Map((await allRows(env)).map((r) => [r.id, r.type]));
+    // snapshots saved before v2.4.0 have no Type: keep each row's current Type instead of blanking it
+    const rows = snap.map((r) => rowShape(r && Object.prototype.hasOwnProperty.call(r, 'type') ? r : { ...r, type: cur.get(r && r.id) || '' }));
     const stmts = [env.DB.prepare('DELETE FROM roadmap_features'), ...rows.map((r) => insertRow(env, r))];
     stmts.push(insertVersion(env, cleanName(b.name), 'Restored version ' + id, rows));
     const res = await env.DB.batch(stmts);

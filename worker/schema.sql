@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS roadmap_features (
   status TEXT NOT NULL DEFAULT '', deps TEXT NOT NULL DEFAULT '', gate TEXT NOT NULL DEFAULT '',
   effort TEXT NOT NULL DEFAULT '', owner TEXT NOT NULL DEFAULT '', source TEXT NOT NULL DEFAULT '', notes TEXT NOT NULL DEFAULT '',
   priority TEXT NOT NULL DEFAULT '',             -- set only by the admin (P1, P2, P3 or blank)
+  type TEXT NOT NULL DEFAULT '',                 -- Feature, Enhancement, Bug fix or Content and data (column already exists in production D1; do not re-add)
   sort_order INTEGER NOT NULL DEFAULT 0
 );
 CREATE TABLE IF NOT EXISTS roadmap_versions (

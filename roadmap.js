@@ -1,11 +1,11 @@
 /* Roadmap page. Rows, the allowed lists and the version history all come from the gated Worker route; nothing about the roadmap is in this file or the page source.
    The allowed lists live in ONE place, the Worker (RM_CONFIG), and arrive with the rows. Text from the database is only ever put on the page as plain text. */
 (function(){
-  var ALL=[['id','ID'],['feature','Feature'],['about','About the feature'],['area','Area'],['rec','Recommended version'],['mine','My version'],['status','Status'],['priority','Priority'],['deps','Depends on'],['gate','Gate'],['effort','Effort'],['owner','Owner'],['source','Source'],['notes','Notes']];
-  var PUB=[['id','ID'],['feature','Feature'],['about','About the feature'],['rec','Recommended version'],['status','Status']];
+  var ALL=[['id','ID'],['type','Type'],['feature','Feature'],['about','About the feature'],['area','Area'],['rec','Recommended version'],['mine','My version'],['status','Status'],['priority','Priority'],['deps','Depends on'],['gate','Gate'],['effort','Effort'],['owner','Owner'],['source','Source'],['notes','Notes']];
+  var PUB=[['id','ID'],['type','Type'],['feature','Feature'],['about','About the feature'],['rec','Recommended version'],['status','Status']];
   var CMT=['comments','Comments'];
   var COLS=ALL;   // the columns used for search and the admin chooser (the page shows PUB + Comments to visitors, ALL + Comments to the admin)
-  var EDIT=['feature','about','area','rec','mine','status','deps','gate','effort','owner','source','notes','priority'];
+  var EDIT=['type','feature','about','area','rec','mine','status','deps','gate','effort','owner','source','notes','priority'];
   var LONG={about:1,notes:1};
   var st={rows:[],cfg:null,version:0,admin:false,hidden:{},comments:{},adminView:false,sort:{k:'id',dir:'asc'},showAll:false},api=function(p,o){return OJJ_GATE.api(p,o);};
   function $(i){return document.getElementById(i);}
@@ -101,7 +101,7 @@
       d.appendChild(document.createTextNode(c.comment));d.appendChild(h('span',{class:'w',text:(c.name?c.name+' · ':'')+eastern(c.ts)}));box.appendChild(d);});
     return box;}
   function openRow(r){if(st.admin&&st.adminView)return openCmts(r);
-    var dl=h('dl'),pairs=[['Feature',r.feature],['About the feature',r.about],['Recommended version',r.rec],['Status',r.status]];
+    var dl=h('dl'),pairs=[['Type',r.type],['Feature',r.feature],['About the feature',r.about],['Recommended version',r.rec],['Status',r.status]];
     pairs.forEach(function(p){dl.appendChild(h('dt',{text:p[0]}));dl.appendChild(h('dd',{text:p[1]||''}));});
     var nodes=[h('p',{class:'meta',text:r.id}),dl,commentsBlock(r,false,function(){})];
     nodes.push(h('label',{for:'c_text',text:'Add a comment'}),h('textarea',{id:'c_text',maxlength:'500',placeholder:'What do you think of this feature? (up to 500 characters)'}),h('label',{for:'c_name',text:'Your name (optional)'}),h('input',{id:'c_name',type:'text',maxlength:'60',autocomplete:'off'}));
@@ -226,7 +226,7 @@
   $('colsBtn').onclick=function(e){var p=$('colsPop');if(!p.hidden){p.hidden=true;$('colsBtn').setAttribute('aria-expanded','false');return;}buildCols();var b=$('colsBtn').getBoundingClientRect();p.hidden=false;p.style.left=Math.max(8,Math.min(b.left,innerWidth-p.offsetWidth-8))+'px';p.style.top=(b.bottom+6)+'px';$('colsBtn').setAttribute('aria-expanded','true');e.stopPropagation();};
   document.addEventListener('click',function(e){var p=$('colsPop');if(!p.hidden&&!p.contains(e.target)){p.hidden=true;$('colsBtn').setAttribute('aria-expanded','false');}});
   function csvCell(v){v=String(v==null?'':v);return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
-  $('expBtn').onclick=function(){if(!st.admin){say('Unlock admin first.','bad');return;}var H=['id','feature','about','area','rec','mine','status','deps','gate','effort','owner','source','notes','order','priority'];
+  $('expBtn').onclick=function(){if(!st.admin){say('Unlock admin first.','bad');return;}var H=['id','feature','about','area','rec','mine','status','deps','gate','effort','owner','source','notes','order','priority','type'];
     var out=[H.join(',')].concat(st.rows.map(function(r){return H.map(function(k){return csvCell(k==='order'?r.sort_order:r[k]);}).join(',');})).join('\r\n');
     var a=h('a',{href:URL.createObjectURL(new Blob([out+'\r\n'],{type:'text/csv'})),download:'roadmap-v'+st.version+'.csv'});document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);};
   function askAdmin(then){
@@ -240,7 +240,7 @@
   $('impFile').addEventListener('change',function(){
     var file=this.files&&this.files[0];this.value='';if(!file)return;
     file.text().then(function(txt){
-      var t=parseCsv(txt),H=t[0]||[],need=['id','feature','about','area','rec','mine','status','deps','gate','effort','owner','source','notes','order','priority'];
+      var t=parseCsv(txt),H=t[0]||[],need=['id','feature','about','area','rec','mine','status','deps','gate','effort','owner','source','notes','order','priority','type'];
       if(need.some(function(k){return H.indexOf(k)<0;})){say('That CSV does not have the expected header: '+need.join(','),'bad');return;}
       var rows=t.slice(1).map(function(r){var o={};H.forEach(function(k,i){o[k]=r[i]||'';});o.sort_order=/^\d+$/.test(o.order)?parseInt(o.order,10):0;delete o.order;return o;});
       var name=((window.prompt?prompt('Your name (optional):'):'')||'');

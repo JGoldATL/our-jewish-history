@@ -34,7 +34,7 @@ for(const pg of ['strategy.html','roadmap.html']){
 // ---- roadmap page: visitor view (password only)
 {const {ctx,p,errs}=await mk({width:400,height:800});await p.goto(SITE+'roadmap.html');await p.waitForTimeout(400);await unlock(p);
  const heads=await p.$$eval('#thead th',a=>a.map(x=>x.textContent));
- ck('visitor: columns are ID, Comments (column B), Feature, About, Recommended version, Status',heads.join('|')==='ID|Comments|Feature|About the feature|Recommended version|Status',heads);
+ ck('visitor: columns are ID, Comments (column B), Type, Feature, About, Recommended version, Status',heads.join('|')==='ID|Comments|Type|Feature|About the feature|Recommended version|Status',heads);
  ck('visitor: help text shown',(await p.textContent('#help')).trim()==='How you can help: Add comments in the appropriate cell. Recommend features.');
  ck('visitor: no search box, no owner filter, no admin buttons',await p.locator('#q').isHidden()&&await p.locator('#fOwner').isHidden()&&await p.locator('#admBar').isHidden()&&await p.locator('#colsBtn').isHidden()&&await p.locator('#expBtn').isHidden()&&await p.locator('#histBtn').isHidden());
  ck('visitor: no Source, Notes, Owner or Priority text anywhere on the page',!/Master doc s|WebDev-Handoff|Version plan/.test(await p.content()));
@@ -86,7 +86,7 @@ for(const pg of ['strategy.html','roadmap.html']){
  await p.click('#admBtn');await p.fill('#f_adm','nope');await p.click('#sheet .btn.pri');await p.waitForTimeout(500);ck('admin: wrong admin code is refused',/Incorrect admin code/.test(await p.textContent('#sheet')));
  await p.fill('#f_adm',MW.ADMIN);await p.click('#sheet .btn.pri');await p.waitForTimeout(800);
  const heads=await p.$$eval('#thead th',a=>a.map(x=>x.textContent));
- ck('admin: all 14 columns plus Comments, in the required order',heads.join('|')==='ID|Feature|About the feature|Area|Recommended version|My version|Status|Priority|Depends on|Gate|Effort|Owner|Source|Notes|Comments',heads);
+ ck('admin: all 15 columns plus Comments, in the required order (Type is column B)',heads.join('|')==='ID|Type|Feature|About the feature|Area|Recommended version|My version|Status|Priority|Depends on|Gate|Effort|Owner|Source|Notes|Comments',heads);
  ck('admin: search, owner filter and Import CSV appear',await p.locator('#q').isVisible()&&await p.locator('#fOwner').isVisible()&&await p.locator('#impLbl').isVisible());
  await p.fill('#q','zzzzqqq');ck('admin: search with no match shows none',(await p.locator('#tbody tr').count())===0);await p.fill('#q','');ck('admin: cleared search shows 69',(await p.locator('#tbody tr').count())===69);
  await p.click('#colsBtn');await p.locator('#colsPop label',{hasText:'Notes'}).locator('input').uncheck();await p.keyboard.press('Escape');

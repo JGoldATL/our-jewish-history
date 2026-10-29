@@ -14,6 +14,8 @@ const CODE='test-code-'+Math.random().toString(36).slice(2),ADMIN='test-admin-'+
     const r=await W.fetch(new Request('https://x'+path,{method,headers:h,body:body===undefined?undefined:JSON.stringify(body)}),e);let d={};try{d=await r.json();}catch(x){}return {s:r.status,d};};
 
   // seed
+  const TYPES=['Feature','Enhancement','Bug fix','Content and data'];   // production already has Type on every row; give the test rows one too
+  raw.prepare('SELECT id FROM roadmap_features ORDER BY sort_order').all().forEach((r,i)=>raw.prepare('UPDATE roadmap_features SET type=? WHERE id=?').run(TYPES[i%4],r.id));
   const rows=raw.prepare('SELECT * FROM roadmap_features ORDER BY sort_order').all();
   ok(rows.length===69,'seed has 69 rows ('+rows.length+')');
   const cnt={};rows.forEach(r=>cnt[r.status]=(cnt[r.status]||0)+1);
@@ -112,7 +114,25 @@ const CODE='test-code-'+Math.random().toString(36).slice(2),ADMIN='test-admin-'+
 
   // v0.5.1: visitors (code only) see public columns, can comment and recommend; everything else is admin only
   const pub=await call('GET','/roadmap',{gate:T});
-  ok(pub.s===200&&pub.d.admin===false&&pub.d.rows.length===69&&Object.keys(pub.d.rows[0]).sort().join()==='about,area,feature,id,rec,sort_order,status','a visitor gets only id, feature, about, area, rec, status (no source, notes, owner, priority, mine)');
+  ok(pub.s===200&&pub.d.admin===false&&pub.d.rows.length===69&&Object.keys(pub.d.rows[0]).sort().join()==='about,area,feature,id,rec,sort_order,status,type','a visitor gets only id, type, feature, about, area, rec, status (no source, notes, owner, priority, mine)');
+  // v2.4.0 Type column (earlier tests imported 3 rows and restored the old seed snapshot, which had no Type, so give every row a Type again)
+  raw.prepare('SELECT id FROM roadmap_features ORDER BY sort_order').all().forEach((r,i)=>raw.prepare('UPDATE roadmap_features SET type=? WHERE id=?').run(TYPES[i%4],r.id));
+  const pub2=await call('GET','/roadmap',{gate:T});
+  ok(pub2.d.rows.every(r=>TYPES.includes(r.type)),'visitors receive Type on every row');
+  ok(pub.d.config.lists.type.join('|')===TYPES.join('|'),'the four allowed Type values are in the Worker config');
+  ok((await call('POST','/roadmap/save',{gate:T,body:{changes:[{id:'F-001',field:'type',value:'Bug fix'}]}})).s===403,'a visitor cannot change Type');
+  const tv=raw.prepare('SELECT COUNT(*) n FROM roadmap_versions').get().n;
+  const ts=await call('POST','/roadmap/save',{gate:T,admin:A,body:{changes:[{id:'F-001',field:'type',value:'Bug fix'}]}});
+  ok(ts.s===200&&raw.prepare("SELECT type FROM roadmap_features WHERE id='F-001'").get().type==='Bug fix'&&raw.prepare('SELECT COUNT(*) n FROM roadmap_versions').get().n===tv+1,'admin changes Type: saved, one new version');
+  ok(/F-001 type .* to Bug fix/.test(raw.prepare('SELECT summary FROM roadmap_versions WHERE version_id=?').get(ts.d.version).summary),'version summary names the Type change');
+  ok(JSON.parse(raw.prepare('SELECT snapshot FROM roadmap_versions WHERE version_id=?').get(ts.d.version).snapshot).every(r=>TYPES.includes(r.type)),'the snapshot carries Type');
+  for(const bad of ['Epic','','bug fix']) ok((await call('POST','/roadmap/save',{gate:T,admin:A,body:{changes:[{id:'F-002',field:'type',value:bad}]}})).s===400,'Type value "'+bad+'" refused');
+  ok(raw.prepare("SELECT type FROM roadmap_features WHERE id='F-002'").get().type===TYPES[1],'refused Type left the row unchanged');
+  const bt=raw.prepare('SELECT type, COUNT(*) n FROM roadmap_features GROUP BY type').all().length;
+  await call('POST','/roadmap/restore',{gate:T,admin:A,body:{version_id:1}});   // version 1 is the seed snapshot, saved before Type existed
+  ok(raw.prepare('SELECT COUNT(*) n FROM roadmap_features WHERE type=\'\'').get().n===0&&raw.prepare("SELECT type FROM roadmap_features WHERE id='F-001'").get().type==='Bug fix','restoring a pre-Type snapshot keeps every current Type (none blanked)');
+  const imt=await call('POST','/roadmap/import',{gate:T,admin:A,body:{rows:[{...imp[0],type:''}]}});ok(imt.s===400,'import with a blank Type refused');
+  await call('POST','/roadmap/restore',{gate:T,admin:A,body:{version_id:ts.d.version}});ok(raw.prepare('SELECT COUNT(*) n FROM roadmap_features').get().n===69&&raw.prepare('SELECT COUNT(*) n FROM roadmap_features WHERE type=\'\'').get().n===0,'restoring a version that has Type keeps all 69 rows typed');
   ok(!JSON.stringify(pub.d).match(/Master doc s1|WebDev-Handoff/),'no source text reaches a visitor');
   ok((await call('POST','/roadmap/save',{gate:T,body:{changes:[{id:'F-001',field:'status',value:'Live'}]}})).s===403,'a visitor cannot edit any field (403)');
   ok((await call('POST','/roadmap/restore',{gate:T,body:{version_id:1}})).s===403&&(await call('GET','/roadmap/versions',{gate:T})).s===403&&(await call('GET','/roadmap/version?id=1',{gate:T})).s===403,'a visitor cannot restore or read history (403)');
