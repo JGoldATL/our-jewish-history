@@ -17,7 +17,8 @@
     movements:'Follow the Jewish journey with me\u2026',
     archaeology:'Who said Jewish history wasn\u2019t real? Check this out:'
   };
-  function cleanUrl(u){var x=new URL(u,location.href);x.searchParams.delete('drafts');return x.href;}
+  /* F-062: every shared link carries utm_source=share (the same tag the quiz share link uses), so Google Analytics can tell a friend's arrival from any other visit. It adds no tracking of the sender or the recipient. */
+  function cleanUrl(u){var x=new URL(u,location.href);x.searchParams.delete('drafts');x.searchParams.set('utm_source','share');return x.href;}
   /* F-107: count Share taps in Google Analytics ("Shares started"). Sent when the button is tapped, whether or not the person finishes sharing.
      Only the kind of page and how it shared go out: never the title, the link, the card or any quiz answer. No gtag (blocked, or not the live host) means nothing happens. */
   function track(kind,method){try{if(typeof window.gtag==='function')window.gtag('event','share',{content_type:kind||'card',method:method,page_path:location.pathname});}catch(e){}}
