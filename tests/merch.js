@@ -17,7 +17,7 @@ for(const w of [320,390,768,1280]){const c=await b.newContext({viewport:{width:w
   await p.keyboard.press('Escape');await p.waitForTimeout(150);ck(!(await p.$eval('#detail',d=>d.open)),'Escape closes it');
   ck(await p.evaluate(()=>document.activeElement&&document.activeElement.classList.contains('card')),'focus returns to the card');
   await p.click('#siteNavBtn');ck(await p.$$eval('#siteNavMenu a',a=>a.some(x=>x.textContent==='Merchandise'&&/merch\.html$/.test(x.href))),'More menu lists Merchandise');
-  ck(await p.evaluate(()=>/^v2\.3\.0/.test((document.getElementById('siteVer')||{}).textContent||'')),'footer version reads v2.3.0');
+  ck(await p.evaluate(()=>/^v2\.3\.1/.test((document.getElementById('siteVer')||{}).textContent||'')),'footer version reads v2.3.1');
  }
  ck(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),w+' px: no sideways scroll');
  await c.close();}
