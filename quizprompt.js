@@ -11,6 +11,8 @@
 'use strict';
 var K_CARDS='ojj-qp-cards',K_SHOWN='ojj-qp-shown',K_UNTIL='ojj-qp-until';
 var NEED=3,QUIET=900,GIVEUP=20000,DAY=24*3600*1000;
+/* ?qp=reset on any card page clears this visit's count and the 24-hour quiet period on this device, so the pop-up can be tried again page by page */
+try{if(/[?&]qp=reset\b/.test(location.search)){sessionStorage.removeItem('ojj-qp-cards');sessionStorage.removeItem('ojj-qp-shown');localStorage.removeItem('ojj-qp-until');}}catch(e){}
 var cfg={kind:'card',busy:null},mem={cards:[],shown:false,until:0},armed=false,open=false,bank=null,last=0,pressed=false;
 function now(){return Date.now();}
 function sget(k){try{return sessionStorage.getItem(k);}catch(e){return null;}}
@@ -31,7 +33,8 @@ function mark(){last=now();}
 document.addEventListener('scroll',mark,{capture:true,passive:true});
 ['pointerdown','touchstart'].forEach(function(t){document.addEventListener(t,function(){pressed=true;mark();},{capture:true,passive:true});});
 ['pointerup','pointercancel','touchend','touchcancel'].forEach(function(t){document.addEventListener(t,function(){pressed=false;mark();},{capture:true,passive:true});});
-function quiet(){return !pressed&&now()-last>=QUIET;}
+function quiet(){if(pressed&&now()-last>4000)pressed=false;   /* a lost touchend (finger lifted off the page, a card re-drawn under it) must not hold the pop-up back forever */
+  return !pressed&&now()-last>=QUIET;}
 function pageBusy(){try{return !!(cfg.busy&&cfg.busy());}catch(e){return false;}}
 
 /* the bank: approved, one-tap questions, loaded once when it is first needed */

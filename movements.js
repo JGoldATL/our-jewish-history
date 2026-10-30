@@ -402,7 +402,7 @@ function wire(){
   w.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;pts.set(e.pointerId,[e.clientX,e.clientY]);
     if(pts.size===2&&pinch){const [a,b]=[...pts.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);moved=true;auto=false;const r=w.getBoundingClientRect();
       const cx=(a[0]+b[0])/2-r.left,cy=(a[1]+b[1])/2-r.top,an=anchorAt(cx,cy);V.degW=pinch.deg*pinch.d/d;clampView();placeAnchor(an,cx,cy);clampView();draw();return;}
-    if(drag&&pts.size===1){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)>6){moved=true;auto=false;w.classList.add('drag');cancelAnimationFrame(anim?.id||0);}
+    if(drag&&pts.size===1){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)>6){moved=true;auto=false;w.classList.add('drag');cancelAnimationFrame(anim?.id||0);anim=null;}
       if(moved){const F=NEF(),q=nProj(drag.lon,drag.lat),c=nInv(q[0]-dx/F,q[1]+dy/F);V.lon=c[0];V.lat=c[1];clampView();draw();}}});
   const up=e=>{
     const wasTap=e.type==='pointerup'&&pts.size===1&&drag&&!moved&&pts.has(e.pointerId);

@@ -119,6 +119,21 @@ async function nextN(p,sel,n,gap){for(let k=0;k<n;k++){await p.locator(sel).firs
  await nextN(p,S,2,900);await p.waitForTimeout(2200);ck(!(await pop(p).count()),'archaeology: none after 2 cards');
  await nextN(p,S,1,900);ck(await waitPop(p,8000),'archaeology: appears after the 3rd different card');ck(p.errs.length===0,'archaeology: no page errors',p.errs);await ctx.close();}
 
+// ---- regression (v2.4.0 bug): a drag that cancels a map animation must not hold the pop-up back
+{const {ctx,p}=await mk();await p.goto(BASE+'archaeology.html');await p.waitForTimeout(3500);await p.locator('#begin').click();await p.waitForTimeout(500);
+ await p.locator('#card .pgb[data-step="-1"]').click();await p.waitForTimeout(80);await p.mouse.move(500,400);await p.mouse.down();await p.mouse.move(430,440,{steps:4});await p.mouse.up();await p.waitForTimeout(600);
+ await nextN(p,'#card .pgb[data-step="-1"]',2,1500);ck(await waitPop(p,8000),'archaeology: still appears after a drag that interrupted the map animation');await ctx.close();}
+{const {ctx,p}=await mk();await p.goto(BASE+'movements.html');await p.waitForTimeout(3500);await p.evaluate(()=>document.getElementById('panel').classList.remove('inviting'));
+ await p.locator('#next').click();await p.waitForTimeout(80);await p.mouse.move(400,400);await p.mouse.down();await p.mouse.move(330,440,{steps:4});await p.mouse.up();await p.waitForTimeout(600);
+ await nextN(p,'#next',2,1500);ck(await waitPop(p,8000),'movements: still appears after a drag that interrupted the map animation');await ctx.close();}
+// ---- once per visit means once across ALL card pages; ?qp=reset lets a tester start again
+{const {ctx,p}=await mk();await p.goto(BASE+`events.html?card=${card.id}`);await p.waitForTimeout(2500);await nextN(p,'#pgHost .pgb[data-step="1"]',3);await waitPop(p);await p.locator('.ojjqp .qpc button').first().click();
+ await p.goto(BASE+'jewhate.html');await p.waitForTimeout(2500);await nextN(p,'#pager .pgb[data-step="1"]',3,900);await p.waitForTimeout(2500);
+ ck(!(await pop(p).count()),'after it has shown on one page, the other card pages stay quiet for the rest of the visit');
+ await p.goto(BASE+'jewhate.html?qp=reset');await p.waitForTimeout(2500);await nextN(p,'#pager .pgb[data-step="1"]',3,900);ck(await waitPop(p,8000),'?qp=reset clears the limits so the pop-up can be tried on another page');await ctx.close();}
+{const {ctx,p}=await mk();await p.goto(BASE+`events.html?card=${card.id}`);await p.waitForTimeout(2500);await nextN(p,'#pgHost .pgb[data-step="1"]',2,300);
+ await p.evaluate(()=>{document.dispatchEvent(new Event('touchstart',{bubbles:true}));});   // a touch that never ends
+ await nextN(p,'#pgHost .pgb[data-step="1"]',1,300);ck(await waitPop(p,12000),'a touchstart with no touchend does not block the pop-up forever');await ctx.close();}
 // ---- the quiz page and the old globe do not carry it
 {const {ctx,p}=await mk();await p.goto(BASE+'quiz.html');await p.waitForTimeout(2500);ck(await p.evaluate(()=>typeof window.OJJQuizPrompt)==='undefined'&&await p.evaluate(()=>typeof window.OJJQuiz)==='object','quiz page: shared quizcore loaded, no pop-up code');ck(p.errs.length===0,'quiz page: no page errors',p.errs);await ctx.close();}
 await b.close();console.log(bad?bad+' FAILED':'ALL PASSED');process.exit(bad?1:0);})();
