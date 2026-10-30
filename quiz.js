@@ -9,7 +9,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 // Project rule: CE years are written as the bare year. A timeline that also holds BCE years keeps "CE" so the order stays clear.
 const plainCE=s=>typeof s==='string'&&/\bCE\b/.test(s)&&!/\bBCE\b/.test(s)?s.replace(/\s+CE\b/g,''):s;
 // Year labels: bare years for the Common Era (1654), BCE kept on BCE years, never a thousands comma (2000 BCE).
-const fy=y=>y<0?`${-y} BCE`:`${y}`;
+const fy=OJJQuiz.fy;   // shared with the pop-up (quizcore.js)
 const shuffle=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];}return a;};
 
 let BANK=[],seen=new Set(),round=[],i=0,score=0,draftsShown=false;
@@ -74,13 +74,7 @@ function logRow(o){
 // ---------- data ----------
 // Production rule: only Approved questions are dealt. Drafts can be tested with ?drafts=1, and a preview build whose questions are all still
 // drafts shows them too (marked in the footer), so the preview is never an empty page. A public build never contains drafts at all.
-function pickQuestions(all,meta,search){
-  const approved=all.filter(q=>q.status==='approved');
-  const flag=/[?&]drafts=1\b/.test(search||'');
-  const preview=meta&&meta.mode==='preview';
-  const useDrafts=flag||(preview&&approved.length===0);
-  return {list:useDrafts?all:approved,drafts:useDrafts&&all.some(q=>q.status!=='approved')};
-}
+const pickQuestions=OJJQuiz.pickQuestions;   // shared with the pop-up (quizcore.js)
 
 // ---------- round logic (locked) ----------
 // One question per era, each a different Style, shown in order of Jewish year. No repeats across "Play 3 more" until an era's pool is used up, then that era resets.
@@ -203,9 +197,10 @@ function finish(ok,pick,seq){
   else if(q.correct==='order')v='Not quite. Here’s the real order, earliest first.';
   else{
     const fun=tone==='default'?wrongLine(q,pick):null;
-    v=fun?`${esc(fun)} The answer is “${esc(answer)}.”`:`Not quite. You picked “${esc(q.choices[pick])}.” The answer is “${esc(answer)}.”`;
+    const plain=OJJQuiz.verdict(q,false,pick);
+    v=fun?`${esc(fun)} The answer is “${esc(answer)}.”`:esc(plain.text);
     // Every wrong answer shows the right date. A tagged line carries it already; otherwise the Jewish event's date is shown under the verdict.
-    if(!fun)dateline=`<p class="dateline">In Jewish history: ${esc(q.jewishEvent)}, ${fy(q.jewishYear)}.</p>`;
+    if(!fun)dateline=`<p class="dateline">${esc(plain.date)}</p>`;
   }
   const last=i>=round.length-1;
   if(last)$('backLink').hidden=true;   // the Back to the globe pill is on screen, so the text link goes

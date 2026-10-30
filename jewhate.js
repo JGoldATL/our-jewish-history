@@ -5,6 +5,7 @@
   var DRAFTS=/[?&]drafts=1\b/.test(location.search),Q=DRAFTS?'?drafts=1':'';
   var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
   function $(s,r){return (r||document).querySelector(s);}
+  if(window.OJJQuizPrompt)OJJQuizPrompt.init({kind:'jewhate'});   // F-035: the quiz pop-up after three cards
   function el(tag,cls,txt,parent){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;if(parent)parent.appendChild(e);return e;}
   function yearText(e){if(e.year==null)return null;var y=e.year<0?Math.abs(e.year)+' BCE':String(e.year);return (e.approx?'c. ':'')+y;}   // BCE kept, CE years are bare
   function label(e){return e.shortLabel||e.title;}   // Dataset's Short label when present; the Sheet Title until then
@@ -47,8 +48,11 @@
       var a=el('a','read','Deep dive',foot);a.href='jewhate-entry.html?id='+encodeURIComponent(e.id)+(DRAFTS?'&drafts=1':'');
       return c;
     }
+    var pickedAt=0,qpT=0;
+    /* F-035: a card counts for the quiz pop-up once it has come to rest after the person moved to it (swipe, arrow, dot, key), not while it is still sliding and not when a tab sets the starting card */
+    function settle(){clearTimeout(qpT);qpT=setTimeout(function(){var it=tabs[cur]&&tabs[cur].items[idx];if(it&&window.OJJQuizPrompt)try{OJJQuizPrompt.cardOpened(it.id);}catch(e){}},450);}
     function pick(i,reset){
-      cur=i;renderTabs();var items=tabs[i].items;track.replaceChildren();cards=items.map(function(e,n){var c=card(e,n,items.length);track.appendChild(c);return c;});
+      pickedAt=Date.now();cur=i;renderTabs();var items=tabs[i].items;track.replaceChildren();cards=items.map(function(e,n){var c=card(e,n,items.length);track.appendChild(c);return c;});
       track.setAttribute('aria-labelledby','tab'+i);
       try{sessionStorage.setItem('jh-tab',JSON.stringify({t:i}));}catch(e){}
       idx=Math.floor(items.length/2);mark();var c0=cards[idx];if(c0)track.scrollLeft=c0.offsetLeft-(track.clientWidth-c0.clientWidth)/2;
@@ -57,12 +61,12 @@
       var n=cards.length;cards.forEach(function(c,i){var on=i===idx;c.classList.toggle('cur',on);if(on)c.removeAttribute('inert');else c.setAttribute('inert','');});
       var items=tabs[cur].items;pg.update({count:n,index:idx,title:items[idx]?label(items[idx]):'',names:items.map(label)});
     }
-    function go(i){i=Math.max(0,Math.min(cards.length-1,i));var c=cards[i];if(!c)return;idx=i;mark();
+    function go(i){i=Math.max(0,Math.min(cards.length-1,i));var c=cards[i];if(!c)return;var moved=i!==idx;idx=i;mark();if(moved)settle();
       var left=c.offsetLeft-(track.clientWidth-c.clientWidth)/2;track.scrollTo({left:left,behavior:reduce?'auto':'smooth'});}
     var raf=0;
     track.addEventListener('scroll',function(){if(raf)return;raf=requestAnimationFrame(function(){raf=0;
       var mid=track.scrollLeft+track.clientWidth/2,best=0,bd=1e9;cards.forEach(function(c,i){var d=Math.abs(c.offsetLeft+c.clientWidth/2-mid);if(d<bd){bd=d;best=i;}});
-      if(best!==idx){idx=best;mark();}});});
+      if(best!==idx){idx=best;mark();if(Date.now()-pickedAt>700)settle();}});});
     document.addEventListener('keydown',function(ev){
       if(ev.altKey||ev.ctrlKey||ev.metaKey)return;var t=ev.target;if(t&&(t.closest&&t.closest('[role=tablist]')))return;
       if(ev.key==='ArrowRight'){ev.preventDefault();go(idx+1);}else if(ev.key==='ArrowLeft'){ev.preventDefault();go(idx-1);}});
@@ -74,6 +78,7 @@
   function entry(list){
     var id=(new URLSearchParams(location.search)).get('id'),e=list.filter(function(x){return x.id===id;})[0],root=$('#entry');
     if(!e){$('#msg').hidden=false;$('#msg').textContent='That entry is not available.';return;}
+    try{if(window.OJJQuizPrompt&&document.referrer&&new URL(document.referrer).origin===location.origin&&/jewhate/.test(document.referrer))OJJQuizPrompt.cardOpened(e.id);}catch(x){}   // F-035: opened from a card on the site (a friend's link or a bookmark is not counted)
     document.title=label(e)+' | The History of JewHate';
     var back=$('#back');back.href='jewhate.html'+Q;
     var head=el('div','ehead',null,root);

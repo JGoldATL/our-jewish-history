@@ -33,6 +33,9 @@ const F={era:null,cause:null,trails:false};   // Group, From and To filters are 
 let EVSYM=new Map();
 let SEL=null;                               // {ev:eventKey, id:routeId|null, parent:parentId|null}
 let anim=null,raf=0,drag=null,moved=false,followT=0;
+/* F-035: tell the quiz pop-up when a person opens a card themselves (tap, chip, Previous or Next). Play and autoplay cards do not call this. */
+function QP(id){try{if(window.OJJQuizPrompt)OJJQuizPrompt.cardOpened(id);}catch(e){}}
+if(window.OJJQuizPrompt)OJJQuizPrompt.init({kind:'movements',busy:()=>playing||!!anim});
 const phone=()=>matchMedia('(max-width:620px) and (orientation:portrait)').matches;
 const MIN_DEG=()=>phone()?46:34;            // never zoom in further than this width in degrees: a region stays recognisable
 
@@ -220,9 +223,9 @@ function updateYear(){
   document.querySelectorAll('#ticks button').forEach(b=>b.classList.toggle('cur',cur&&+b.dataset.era===cur.era));
   if(eraPill)eraPill.setValue(cur?String(cur.era):null);
 }
-function selectRoute(id){const r=route(id);if(!r)return;showStory();SEL={ev:r.ev,id};card();frame();draw();}
-function selectEvent(key){showStory();SEL={ev:key,id:null};card();frame();draw();}
-function selectParent(id){const m=[...EVENTS.values()].find(e=>(e.parents||[]).some(p=>p.id===id));if(!m)return;showStory();SEL={ev:m.key,id:null,parent:id};card();frame();draw();}
+function selectRoute(id){const r=route(id);if(!r)return;showStory();SEL={ev:r.ev,id};QP(r.ev+'/'+id);card();frame();draw();}
+function selectEvent(key){showStory();SEL={ev:key,id:null};QP(key);card();frame();draw();}
+function selectParent(id){const m=[...EVENTS.values()].find(e=>(e.parents||[]).some(p=>p.id===id));if(!m)return;showStory();SEL={ev:m.key,id:null,parent:id};QP(m.key+'/'+id);card();frame();draw();}
 function clearSel(){SEL=null;card();followNow(600);draw();}
 function chipLabels(e){const names=e.routes.map(r=>shortName(r.b)),seen={};return names.map(n=>{seen[n]=(seen[n]||0)+1;return names.filter(x=>x===n).length>1?`${n} (${seen[n]})`:n;});}
 const actKey=()=>[...EVENTS.values()].filter(e=>e.routes.some(r=>pass(r)&&strength(r)?.active)).map(e=>e.key).join(',');
@@ -373,7 +376,7 @@ function stepEvent(d){
   else if(d>0){i=evs.findIndex(e=>e.start>=(Y<=MINY+.5?Y-.5:Y+.5));if(i<0)i=evs.length-1;}
   else{for(let k=evs.length-1;k>=0;k--)if(evs[k].start<Y-.5){i=k;break;}if(i<0)i=0;}
   i=clamp(i,0,evs.length-1);const e=evs[i];
-  auto=true;SEL={ev:e.key,id:null};setYear(clamp(e.routes[0].start,MINY,MAXY));card();frame();draw();
+  auto=true;SEL={ev:e.key,id:null};QP(e.key);setYear(clamp(e.routes[0].start,MINY,MAXY));card();frame();draw();
 }
 if(PREVIEW)window.OJJ_SUB={moved:()=>!auto,resetView(){auto=true;if(SEL)frame();else followNow(700);draw();}};   // F-085 subnav: Reset is the map position only
 let eraPill=null;

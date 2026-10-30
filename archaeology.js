@@ -37,6 +37,7 @@ let DATA=null,GEO=null,RECS=[],BYID=new Map(),PINS=[],LINKED=new Set();
 let W=0,H=0,V={lon:29,lat:35,degW:60},HOME=null;
 const FEATURED=['ARC-029'];   // the find the page opens on, when it is public; otherwise the first Importance 1 find
 let LO=FIRST_FOUND,HI=YEAR_NOW,Y=YEAR_NOW,lens='found',SEL=null,anim=null,raf=0,drag=null,moved=false,zT=0,kbdFocus=null,auto=true;
+if(window.OJJQuizPrompt)OJJQuizPrompt.init({kind:'archaeology',busy:()=>!document.getElementById('intro').hidden||!!anim});   // F-035: not while the Begin the dig card is up or the map is moving
 const phone=()=>matchMedia('(max-width:620px) and (orientation:portrait)').matches;
 const MIN_DEG=()=>2;              // city zoom: Jerusalem's pins can be told apart
 const T2=()=>phone()?30:42,T3=()=>phone()?12:18;   // zoom steps (degrees across the map): below T2 Importance 2 is added, below T3 Importance 3
@@ -236,6 +237,7 @@ function pager(){
 function step(d){const l=carousel(),i=l.findIndex(p=>p.id===SEL),n=l[clamp(i+d,0,l.length-1)];if(n&&n.id!==SEL)select(n.id);}
 function select(id,opts){
   opts=opts||{};SEL=id;card();
+  if(id&&!opts.boot&&!opts.center&&window.OJJQuizPrompt)try{OJJQuizPrompt.cardOpened(id);}catch(e){}   // F-035: a person's own open (pin, pager, arrow key); the opening find and a friend's link are not counted
   if(id){
     const p=PINS.find(q=>q.id===id);
     if(p&&opts.year&&yOf(p)>Y)setYear(yOf(p));

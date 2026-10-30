@@ -149,6 +149,9 @@ const sameCard=(r,q)=>!!r&&!!q&&(r===q||(GROUPS.get(r)||[]).includes(q));
 
 /* ---------- state ---------- */
 let trails=false,tour=null,selected=null,promptOpen=true,lastAutoIdx=-1;
+/* F-035: tell the quiz pop-up when a person opens a card themselves (tap, pager, swipe, arrow key). Autoplay, Play and a friend's link do not call this. */
+function QP(id){try{if(window.OJJQuizPrompt)OJJQuizPrompt.cardOpened(id);}catch(e){}}
+if(window.OJJQuizPrompt)OJJQuizPrompt.init({kind:'events',busy:()=>tour!=null||turnAnim!=null});
 const currentYear=()=>yearAt(position);
 
 /* ---------- layout ---------- */
@@ -273,7 +276,7 @@ function lastMilestoneIdx(y){let idx=-1;for(let i=0;i<milestones.length;i++)if(m
 /* ---------- story ---------- */
 // An engine map object that has a Sheet card (DATA.cardLinks) opens that card; the object lights up while its card is open.
 const isCardOf=r=>selected?.type==='sheet'&&DATA.cardLinks?.[r.id]===selected.record.id;
-function openStory(record,type){if(type!=='sheet'&&milestones[0]?.type==='sheet'){const cid=DATA.cardLinks?.[record.id],m=cid&&milestones.find(x=>x.record.id===cid);if(m){record=m.record;type='sheet';}}stopTour();dismissPrompt();selected={record,type};fillStory(record,type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
+function openStory(record,type){if(type!=='sheet'&&milestones[0]?.type==='sheet'){const cid=DATA.cardLinks?.[record.id],m=cid&&milestones.find(x=>x.record.id===cid);if(m){record=m.record;type='sheet';}}QP(record.id);stopTour();dismissPrompt();selected={record,type};fillStory(record,type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
 function fillStory(record,type,user){const kind=type==='sheet'?record.type:{movement:'Movement',population:'Community',change:'Community',destruction:'Event',event:'Event'}[type]||'';
   $('storyKicker').textContent=kind+(type==='sheet'&&record.status==='draft'?' · Draft':'');$('storyDate').textContent=record.date||'';$('storyTitle').textContent=record.title||record.historicalPlaceName||'';$('storyText').textContent=type==='sheet'?record.description||'':record.story||'';
   const mw=kind==='Event'&&record.meanwhile;$('storyMeanwhile').hidden=!mw;$('storyMeanwhileText').textContent=mw?' '+record.meanwhile:'';
@@ -325,7 +328,7 @@ function turnToRecord(record,type){
 // v0.4.1: the globe opens at the first card (Abraham, c. 2000 BCE). The camera starts on Ur (presentation.openingFocus) and turns to the era camera's own view of that year,
 // then hands control back to the era camera, so scrubbing the timeline behaves exactly as before. No new camera system.
 function openAtStart(){
-  {const cid=new URLSearchParams(location.search).get('card'),ci=cid?milestones.findIndex(m=>m.record.id===cid):-1;if(ci>=0){selectMilestone(ci);return;}}   // deep link from Share: ?card=ID
+  {const cid=new URLSearchParams(location.search).get('card'),ci=cid?milestones.findIndex(m=>m.record.id===cid):-1;if(ci>=0){selectMilestone(ci,true);return;}}   // deep link from Share: ?card=ID (not counted for the quiz pop-up)
   const P=DATA.presentation||{};if(!P.openingCard||!milestones.length)return;
   const i=milestones.findIndex(m=>m.record.id===P.openingCard);if(i<0)return;
   const F=P.openingFocus,m=milestones[i];
@@ -356,7 +359,7 @@ function initInteraction(){
     if(ptrs.size===2&&pinch){if(gesture)return;const [a,b]=[...ptrs.values()];const d=Math.hypot(a[0]-b[0],a[1]-b[1]);dragMoved=true;stopTour();const r0=$('ov').getBoundingClientRect();setZoom(pinch.zoom*d/pinch.d,(a[0]+b[0])/2-r0.left,(a[1]+b[1])/2-r0.top);return;}
     const dx=e.clientX-last[0],dy=e.clientY-last[1];if(Math.abs(dx)+Math.abs(dy)<1)return;if(!dragMoved&&Math.hypot(e.clientX-last[0],e.clientY-last[1])<3)return;if(!dragMoved)try{stage.setPointerCapture(e.pointerId);}catch(_){}dragMoved=true;last=[e.clientX,e.clientY];
     const k=90/view.deg,degPerPx=1/(view.R*k)/D2R;view.lat=Math.max(-70,Math.min(80,view.lat+dy*degPerPx));view.lon-=dx*degPerPx/Math.max(.2,Math.cos(view.lat*D2R));view.manual=true;stopTour();dismissPrompt();render();});
-  stage.addEventListener('click',e=>{if(dragMoved||e.target.closest('.route,.anchor,.sym,.event'))return;if(tour==null)return;stopTour();const i=lastMilestoneIdx(Math.round(currentYear()));if(i<0)return;const m=milestones[i];selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});});
+  stage.addEventListener('click',e=>{if(dragMoved||e.target.closest('.route,.anchor,.sym,.event'))return;if(tour==null)return;stopTour();const i=lastMilestoneIdx(Math.round(currentYear()));if(i<0)return;const m=milestones[i];QP(m.record.id);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});});
   let gesture=null;
   stage.addEventListener('touchmove',e=>{e.preventDefault();},{passive:false});
   stage.addEventListener('gesturestart',e=>{e.preventDefault();gesture={zoom:view.zoom};stopTour();},{passive:false});
@@ -400,7 +403,7 @@ function step(dir){const y=Math.round(currentYear());let i=selected?milestones.f
   if(i<0){i=lastMilestoneIdx(y);if(dir>0){i=milestones.findIndex(m=>m.date>y);if(i<0)return;}else{while(i>=0&&milestones[i].date>=y)i--;if(i<0)return;}}
   else{i+=dir;if(i<0||i>=milestones.length)return;}
   selectMilestone(i);}
-function selectMilestone(i){const m=milestones[i];if(!m)return;stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();turnToRecord(m.record,m.type);if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
+function selectMilestone(i,silent){const m=milestones[i];if(!m)return;if(!silent)QP(m.record.id);stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();turnToRecord(m.record,m.type);if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
 
 /* ---------- boot ---------- */
 
