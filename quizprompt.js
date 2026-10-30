@@ -32,8 +32,8 @@ function mark(){last=now();}
 ['pointermove','touchmove','wheel','keydown'].forEach(function(t){document.addEventListener(t,function(e){if(t==='pointermove'&&!pressed)return;mark();},{capture:true,passive:true});});
 document.addEventListener('scroll',mark,{capture:true,passive:true});
 ['pointerdown','touchstart'].forEach(function(t){document.addEventListener(t,function(){pressed=true;mark();},{capture:true,passive:true});});
-['pointerup','pointercancel','touchend','touchcancel'].forEach(function(t){document.addEventListener(t,function(){pressed=false;mark();},{capture:true,passive:true});});
-function quiet(){if(pressed&&now()-last>4000)pressed=false;   /* a lost touchend (finger lifted off the page, a card re-drawn under it) must not hold the pop-up back forever */
+['pointerup','pointercancel','touchend','touchcancel','click'].forEach(function(t){document.addEventListener(t,function(){pressed=false;mark();},{capture:true,passive:true});});
+function quiet(){if(pressed&&now()-last>1500)pressed=false;   /* a lost touchend (finger lifted off the page, a card re-drawn under it) must not hold the pop-up back forever */
   return !pressed&&now()-last>=QUIET;}
 function pageBusy(){try{return !!(cfg.busy&&cfg.busy());}catch(e){return false;}}
 
@@ -108,6 +108,16 @@ function tick(t0){
   });
 }
 
+/* ?qp=debug on any card page shows a small line at the bottom of the screen: which build of this file is running, how many cards are counted, and why the pop-up is or is not waiting. For testing on a phone. */
+var BUILD='qp-2026-10-30b';
+function debugBadge(){
+  if(!/[?&]qp=debug\b/.test(location.search)||document.getElementById('ojjqpDbg'))return;
+  var d=document.createElement('div');d.id='ojjqpDbg';d.style.cssText='position:fixed;left:6px;right:6px;bottom:2px;z-index:60;font:10px/1.3 monospace;color:#EFE6D3;background:rgba(0,0,0,.7);padding:3px 6px;border-radius:6px;pointer-events:none;white-space:pre-wrap';
+  document.body.appendChild(d);
+  setInterval(function(){var a=cards(),u=awayUntil();
+    d.textContent=BUILD+' | cards '+a.length+'/'+NEED+' | '+(wasShown()?'already shown this visit':'not shown yet')+' | '+(now()<u?'resting '+Math.round((u-now())/3600000)+' h':'not resting')+' | '+(armed?'waiting':'idle')+' | '+(pressed?'finger down':'no finger')+' | '+(quiet()?'quiet':'moving')+' | '+(pageBusy()?'page busy':'page free')+' | bank '+(bank?'loaded/loading':'not loaded');},400);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',debugBadge);else debugBadge();
 window.OJJQuizPrompt={
   init:function(o){cfg.kind=(o&&o.kind)||cfg.kind;cfg.busy=(o&&o.busy)||null;if(o&&o.phoneTop)try{document.documentElement.style.setProperty('--qp-top',o.phoneTop+'px');}catch(e){}},
   cardOpened:function(id){

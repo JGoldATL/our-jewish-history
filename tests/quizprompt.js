@@ -62,7 +62,7 @@ async function nextN(p,sel,n,gap){for(let k=0;k<n;k++){await p.locator(sel).firs
 
 // ---- Events: never mid-swipe (finger still down), then shows once it is let go
 {const {ctx,p}=await mk();await p.goto(BASE+`events.html?card=${card.id}`);await p.waitForTimeout(2500);const S='#pgHost .pgb[data-step="1"]';
- await nextN(p,S,3,300);await p.mouse.move(400,300);await p.mouse.down();await p.waitForTimeout(3000);
+ await nextN(p,S,3,300);await p.mouse.move(400,300);await p.mouse.down();for(let k=0;k<10;k++){await p.mouse.move(400+k*3,300+k*2);await p.waitForTimeout(300);}   // a finger that is still moving (a swipe in progress); a finger held perfectly still for over 1.5 s no longer holds the pop-up back
  ck(!(await pop(p).count()),'events: nothing appears while a finger/pointer is down',await pop(p).count());
  await p.mouse.up();ck(await waitPop(p,5000),'events: appears after the gesture ends and things settle');await ctx.close();}
 
