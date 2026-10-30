@@ -14,6 +14,7 @@ ck(D.every(r=>!('internalNotes' in r)&&!('whereNow' in r)&&!('precision' in r)),
 for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone'],[320,640,'small phone']]){
   const n=tag+': ';
   const ctx=await b.newContext({viewport:{width:vw,height:vh},hasTouch:vw<500});
+  await ctx.addInitScript(()=>{try{sessionStorage.setItem('ojj-qp-shown','1');}catch(e){}});   // F-035: the quiz pop-up has its own tests; keep it out of this one
   await ctx.addInitScript(()=>{window.__shared=null;Object.defineProperty(navigator,'share',{value:d=>{window.__shared=d;return Promise.resolve();},configurable:true});});
   const p=await ctx.newPage();p.on('pageerror',e=>errs.push(n+e.message));p.on('console',m=>{if(m.type()==='error'&&!ign(m.text()))errs.push(n+m.text());});
   // public page: nothing is LOCKED today, so nothing draws and the page says so

@@ -41,7 +41,7 @@ await p.evaluate(()=>MV.selectParent('MOV-054'));await p.waitForTimeout(300);
 ck(await p.evaluate(()=>document.querySelectorAll('#map g.route.selected').length)===2,n+' parent chip MOV-054 lights 2 legs');
 // Play stops on touch, Next, Previous, slider; camera stays recognisable
 await p.evaluate(()=>{document.getElementById('reset').click();});await p.waitForTimeout(300);
-const minDeg=n==='phone'?46:34;
+const minDeg=n==='phone'?46:34;   // the automatic camera; a person's own zoom may go to 16 (F-160)
 await p.evaluate(()=>{MV.setYear(1400);MV.follow();MV.togglePlay();});let minSeen=999,moves=new Set();
 for(let i=0;i<14;i++){await p.waitForTimeout(250);const s=await p.evaluate(()=>MV.state());minSeen=Math.min(minSeen,s.V.degW);moves.add(Math.round(s.V.lon)+','+Math.round(s.V.lat));}
 const st=await p.evaluate(()=>MV.state());

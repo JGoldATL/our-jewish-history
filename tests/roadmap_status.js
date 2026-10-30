@@ -32,10 +32,6 @@ const open=async(p,q)=>{await p.goto(SITE+'roadmap.html'+(q||''));await p.fill('
  ck('admin can save Merged',mw.raw.prepare('SELECT status FROM roadmap_features WHERE id=?').get(target).status==='Merged');
  ck('the summary names the change',/status Killed to Merged/.test(mw.raw.prepare('SELECT summary FROM roadmap_versions ORDER BY version_id DESC LIMIT 1').get().summary));
  ck('no page errors (admin)',p.errs.length===0,p.errs);await ctx.close();}
-// JewHate footer data version
-for(const pg of ['jewhate.html','jewhate-entry.html?id='+encodeURIComponent(JSON.parse(require('fs').readFileSync(__dirname+'/../data/jewhate.json','utf8')).entries[0].id)]){
- const {ctx,p}=await mk();await p.goto(SITE+pg);await p.waitForTimeout(2200);const t=await p.evaluate(()=>(document.getElementById('siteVer')||{}).textContent);
- ck(pg.split('?')[0]+': footer reads data v2.0.0',/data v2\.0\.0$/.test(t||''),t);await ctx.close();}
 // old globe subtitle
 for(const vp of [{width:1280,height:800},{width:390,height:844}]){
  const {ctx,p}=await mk(vp);await p.goto(SITE+'index.html');await p.waitForTimeout(2500);

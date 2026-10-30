@@ -5,14 +5,13 @@
   var DRAFTS=/[?&]drafts=1\b/.test(location.search),Q=DRAFTS?'?drafts=1':'';
   var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
   function $(s,r){return (r||document).querySelector(s);}
-  var JEWHATE_DATA_VERSION='v2.0.0';   // CEO 10/30: the JewHate footer reads data v2.0.0 (the data file itself still names the v0.5.1 export)
   if(window.OJJQuizPrompt)OJJQuizPrompt.init({kind:'jewhate'});   // F-035: the quiz pop-up after three cards
   function el(tag,cls,txt,parent){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;if(parent)parent.appendChild(e);return e;}
   function yearText(e){if(e.year==null)return null;var y=e.year<0?Math.abs(e.year)+' BCE':String(e.year);return (e.approx?'c. ':'')+y;}   // BCE kept, CE years are bare
   function label(e){return e.shortLabel||e.title;}   // Dataset's Short label when present; the Sheet Title until then
   function load(cb){
     fetch('data/jewhate.json',{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();}).then(function(d){
-      (function(){var m=(d.source||'').match(/v\d+(?:\.\d+)+/),el=document.getElementById('siteVer');window.SITE_DATA_VERSION=JEWHATE_DATA_VERSION||(m?m[0]:'unknown');if(el)el.textContent='v'+(window.SITE_VERSION||'')+'; data '+window.SITE_DATA_VERSION;})();   /* footer reads "version; data version" on every page */
+      (function(){var m=(d.source||'').match(/v\d+(?:\.\d+)+/),el=document.getElementById('siteVer');window.SITE_DATA_VERSION=m?m[0]:'unknown';if(el)el.textContent='v'+(window.SITE_VERSION||'')+'; data '+window.SITE_DATA_VERSION;})();   /* footer reads "version; data version" on every page */
       var list=d.entries.filter(function(e){return e.status==='LOCKED'||(DRAFTS&&e.status==='LEANING');});
       cb(list,d);
     }).catch(function(){var m=$('#msg');if(m){m.hidden=false;m.textContent='The entries could not be loaded. Please try again.';}});

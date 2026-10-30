@@ -37,7 +37,8 @@ let anim=null,raf=0,drag=null,moved=false,followT=0;
 function QP(id){try{if(window.OJJQuizPrompt)OJJQuizPrompt.cardOpened(id);}catch(e){}}
 if(window.OJJQuizPrompt)OJJQuizPrompt.init({kind:'movements',busy:()=>playing||!!anim});
 const phone=()=>matchMedia('(max-width:620px) and (orientation:portrait)').matches;
-const MIN_DEG=()=>phone()?46:34;            // never zoom in further than this width in degrees: a region stays recognisable
+const MIN_DEG=()=>phone()?46:34;            // the automatic camera (cards, Play, Previous and Next) never frames tighter than this width in degrees: a region stays recognisable
+const MIN_USER_DEG=()=>phone()?46:16;       // F-160: a person who zooms in themselves on a tablet or desktop can go to 16 degrees, close enough for the Land of Israel picture (Tier 1) to show; phones stay at 46
 
 /* ---------- data ---------- */
 /* v0.7.5: the six headline eras come from the Sheet (Eras column Q, Headline era): each name starts where its first data era starts. If the Sheet has no Headline era column the built-in list above is used. */
@@ -103,7 +104,7 @@ const px=(lon,lat)=>{const F=NEF(),c=nProj(V.lon,V.lat),q=nProj(lon,lat);return 
 const anchorAt=(x,y)=>{const F=NEF(),c=nProj(V.lon,V.lat);return nInv(c[0]+(x-W/2)/F,c[1]-(y-H/2)/F);};
 function placeAnchor(a,x,y){const F=NEF(),q=nProj(a[0],a[1]),c=nInv(q[0]-(x-W/2)/F,q[1]+(y-H/2)/F);V.lon=c[0];V.lat=c[1];}
 function clampView(){
-  const maxDeg=Math.min(360,NE_MAXK*W/H);V.degW=clamp(V.degW,MIN_DEG(),Math.max(MIN_DEG(),maxDeg));
+  const maxDeg=Math.min(360,NE_MAXK*W/H);V.degW=clamp(V.degW,MIN_USER_DEG(),Math.max(MIN_USER_DEG(),maxDeg));
   const hh=H/2/NEF(),lo=-NE_YM+hh,hi=NE_YM-hh;{const c=nProj(V.lon,V.lat),yy=lo>hi?0:clamp(c[1],lo,hi);if(yy!==c[1]){const r=nInv(c[0],yy);V.lon=r[0];V.lat=r[1];}}V.lon=clamp(V.lon,-180,180);   // when the height limit bites, the sideways position is kept
 }
 function size(){const w=$('mapWrap');W=w.clientWidth;H=w.clientHeight;}

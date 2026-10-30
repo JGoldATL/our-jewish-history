@@ -6,18 +6,23 @@
    OJJInset.load() returns a promise of how many insets are ready; OJJInset.draw(svg,{x0,y0,NF,NE_XM,NE_YM,W,H}) draws the ones that apply (x0,y0 are the base picture's top-left on screen, NF is pixels per map unit). */
 (function(){
 'use strict';
-var M=null,BAD={};
+var M=null,BAD={},WARM={};
+/* F-159 cross-fade: an inset is fully drawn once the zoom reaches baseScale (as before). Over the last fadeBand (default 15 percent) of zoom before that it fades in from transparent, so the sharper picture eases in instead of switching on. */
+var FADE_BAND=0.15;
 function load(){
   return fetch('images/inset/manifest.json').then(function(r){return r.ok?r.json():null;}).then(function(j){M=j&&j.insets&&j.insets.length?j:null;return M?M.insets.length:0;}).catch(function(){M=null;return 0;});
 }
 function draw(svg,c){
   if(!M)return 0;var basePx=M.baseWidthPx/(2*c.NE_XM),n=0;
   M.insets.map(function(s,i){return [s.z==null?i:s.z,i,s];}).sort(function(p,q){return p[0]-q[0]||p[1]-q[1];}).forEach(function(t){var s=t[2];
-    if(BAD[s.id]||c.NF<s.baseScale*basePx)return;
+    if(BAD[s.id])return;
+    var band=s.fadeBand==null?FADE_BAND:s.fadeBand,r=c.NF/(s.baseScale*basePx),op=band>0?Math.max(0,Math.min(1,(r-(1-band))/band)):(r>=1?1:0);
+    if(r>=1-2*band&&!WARM[s.id]){WARM[s.id]=1;try{(new Image()).src=s.file;}catch(e){}}   // load the picture just before it starts to fade in
+    if(op<=0)return;op=op*op*(3-2*op);   // smoothstep
     var x=c.x0+(s.x0+c.NE_XM)*c.NF,y=c.y0+(c.NE_YM-s.y1)*c.NF,w=(s.x1-s.x0)*c.NF,h=(s.y1-s.y0)*c.NF;
     if(x>c.W||y>c.H||x+w<0||y+h<0)return;
     var im=document.createElementNS('http://www.w3.org/2000/svg','image');
-    im.setAttribute('href',s.file);im.setAttribute('x',x);im.setAttribute('y',y);im.setAttribute('width',w);im.setAttribute('height',h);im.setAttribute('preserveAspectRatio','none');im.setAttribute('data-inset',s.id);
+    im.setAttribute('href',s.file);im.setAttribute('x',x);im.setAttribute('y',y);im.setAttribute('width',w);im.setAttribute('height',h);im.setAttribute('preserveAspectRatio','none');im.setAttribute('data-inset',s.id);if(op<1)im.setAttribute('opacity',op.toFixed(3));
     im.addEventListener('error',function(){BAD[s.id]=1;im.remove();});
     svg.appendChild(im);n++;
   });
