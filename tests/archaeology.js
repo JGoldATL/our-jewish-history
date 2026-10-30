@@ -86,7 +86,7 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone'],[320,640,'small
   const dd=await p.evaluate(()=>document.querySelector('#story details').innerText);
   ck(/Limits/.test(dd),n+'Deep dive ends with Limits');
   await p.click('#story .ojj-share');await p.waitForTimeout(200);const s1=await p.evaluate(()=>window.__shared);
-  ck(s1&&/archaeology\.html\?a=ARC-006$/.test(s1.url)&&!/drafts/.test(s1.url)&&s1.text==='Who said Jewish history wasn’t real? Check this out:',n+'Share sends the Archaeology line and a link with no drafts flag');
+  ck(s1&&/archaeology\.html\?a=ARC-006&utm_source=share$/.test(s1.url)&&!/drafts/.test(s1.url)&&s1.text==='Who said Jewish history wasn’t real? Check this out:',n+'Share sends the Archaeology line and a link with no drafts flag');
   // year note in the Deep dive
   await p.evaluate(()=>{ARC.select('ARC-002');});await p.waitForTimeout(200);
   // lens toggle
