@@ -150,6 +150,7 @@ const sameCard=(r,q)=>!!r&&!!q&&(r===q||(GROUPS.get(r)||[]).includes(q));
 /* ---------- state ---------- */
 let trails=false,tour=null,selected=null,promptOpen=true,lastAutoIdx=-1;
 /* F-035: tell the quiz pop-up when a person opens a card themselves (tap, pager, swipe, arrow key). Autoplay, Play and a friend's link do not call this. */
+let userScrub=false;   // true while a finger or the mouse is dragging the timeline arc
 function QP(id){try{if(window.OJJQuizPrompt)OJJQuizPrompt.cardOpened(id);}catch(e){}}
 if(window.OJJQuizPrompt)OJJQuizPrompt.init({kind:'events',busy:()=>tour!=null||turnAnim!=null});
 const currentYear=()=>yearAt(position);
@@ -249,7 +250,8 @@ function renderCore(){
   drawArcLive();
   
   // (if the user turned the globe and then moved the timeline, turnToRecord brings the action into view)
-  const idx=lastMilestoneIdx(dy);if(!selected){if(idx!==lastAutoIdx){lastAutoIdx=idx;if(idx>=0){fillStory(milestones[idx].record,milestones[idx].type,false);turnToRecord(milestones[idx].record,milestones[idx].type);}}}
+  const idx=lastMilestoneIdx(dy);if(!selected){if(idx!==lastAutoIdx){lastAutoIdx=idx;if(idx>=0){if(tour==null&&userScrub)QP(milestones[idx].record.id);   /* F-035: dragging the timeline with a finger brings each card up in turn; that is the person's own action and counts. Play (the tour) does not. */
+    fillStory(milestones[idx].record,milestones[idx].type,false);turnToRecord(milestones[idx].record,milestones[idx].type);}}}
 }
 function drawGeo(g){if(!GEO)return;const line=(pts,cls)=>{let d='',pen=false;for(const [lo,la] of pts){const q=project(lo,la);if(!q.vis){pen=false;continue;}d+=(pen?' L':' M')+q.x.toFixed(1)+','+q.y.toFixed(1);pen=true;}if(d)el('path',{d,class:cls},g);};
   for(const c of GEO.coast)line(c,'coast');for(const r of GEO.rivers)line(r,'river');}
@@ -370,12 +372,12 @@ function initInteraction(){
   // arc slider
   const arc=$('arcHit');let scrubbing=false;
   const scrub=e=>{stopTour();dismissPrompt();selected=null;setPos(posFromPointer(e));};
-  $('arc').addEventListener('pointerdown',e=>{if(!e.target.closest('#arcHit,.bead,.notch'))return;scrubbing=true;$('arc').setPointerCapture?.(e.pointerId);const n=e.target.closest('.notch');if(n){selectMilestone(+n.dataset.i);return;}scrub(e);});
-  $('arc').addEventListener('pointermove',e=>{if(scrubbing)scrub(e);});$('arc').addEventListener('pointerup',()=>{scrubbing=false;});$('arc').addEventListener('pointercancel',()=>{scrubbing=false;});
+  $('arc').addEventListener('pointerdown',e=>{if(!e.target.closest('#arcHit,.bead,.notch'))return;scrubbing=userScrub=true;$('arc').setPointerCapture?.(e.pointerId);const n=e.target.closest('.notch');if(n){selectMilestone(+n.dataset.i);return;}scrub(e);});
+  $('arc').addEventListener('pointermove',e=>{if(scrubbing)scrub(e);});$('arc').addEventListener('pointerup',()=>{scrubbing=userScrub=false;});$('arc').addEventListener('pointercancel',()=>{scrubbing=userScrub=false;});
   const arcTouch=e=>{const t=e.touches[0];if(!t)return;stopTour();dismissPrompt();selected=null;setPos(posFromPointer(t));};
-  $('arc').addEventListener('touchstart',e=>{if(!e.target.closest('#arcHit,.bead'))return;e.preventDefault();scrubbing=true;arcTouch(e);},{passive:false});
+  $('arc').addEventListener('touchstart',e=>{if(!e.target.closest('#arcHit,.bead'))return;e.preventDefault();scrubbing=userScrub=true;arcTouch(e);},{passive:false});
   $('arc').addEventListener('touchmove',e=>{if(!scrubbing)return;e.preventDefault();arcTouch(e);},{passive:false});
-  $('arc').addEventListener('touchend',()=>{scrubbing=false;});$('arc').addEventListener('touchcancel',()=>{scrubbing=false;});
+  $('arc').addEventListener('touchend',()=>{scrubbing=userScrub=false;});$('arc').addEventListener('touchcancel',()=>{scrubbing=userScrub=false;});
   $('arcSlider').addEventListener('keydown',e=>{const y=Math.round(currentYear());let n=null;if(e.key==='ArrowRight'||e.key==='ArrowUp')n=y+(e.shiftKey?25:1);if(e.key==='ArrowLeft'||e.key==='ArrowDown')n=y-(e.shiftKey?25:1);if(e.key==='Home')n=DATA.timeline.start;if(e.key==='End')n=DATA.timeline.end;if(e.key==='PageUp'){step(1);e.preventDefault();return;}if(e.key==='PageDown'){step(-1);e.preventDefault();return;}if(n!=null){e.preventDefault();stopTour();dismissPrompt();selected=null;setYearExact(Math.max(DATA.timeline.start,Math.min(DATA.timeline.end,n)));}});
   $('play').addEventListener('click',()=>tour!=null?stopTour():startTour());$('introPlay').addEventListener('click',startTour);
   $('introExplore').addEventListener('click',()=>{dismissPrompt();$('arcSlider').focus();$('arcWrap').classList.add('attention');setTimeout(()=>$('arcWrap').classList.remove('attention'),2600);});

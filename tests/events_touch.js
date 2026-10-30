@@ -19,6 +19,15 @@ for(const [name,dev] of devs){for(const how of ['next button taps','card swipes'
   ck(n===3&&up,name+': three cards by '+how+' count 3 and the pop-up appears',{n,up});
   ck(await p.evaluate(()=>window.__ev.some(e=>e[1]==='quiz_prompt_shown'&&e[2].page_kind==='events')),name+' / '+how+': shown event sent');
   ck(errs.length===0,name+' / '+how+': no page errors',errs);await ctx.close();}}
+// dragging the timeline bead with a finger brings each card up in turn: that is the person's own action and counts (the missed hook behind Jeffrey's report)
+for(const [name,dev] of devs.slice(0,3)){const ctx=await b.newContext({...dev});await ctx.addInitScript(()=>{window.__ev=[];window.gtag=function(){window.__ev.push([].slice.call(arguments));};});const p=await ctx.newPage();await p.goto(BASE+'events.html?qp=reset');await p.waitForTimeout(3200);
+ const cd=await p.context().newCDPSession(p);const tt=(type,x,y)=>cd.send('Input.dispatchTouchEvent',{type,touchPoints:type==='touchEnd'?[]:[{x,y}]});
+ const bd=await p.locator('#arc .bead').first().boundingBox();const x=bd.x+bd.width/2,y=bd.y+bd.height/2;await tt('touchStart',x,y);for(let i=1;i<=40;i++){await tt('touchMove',x+i*5,y+Math.sin(i/8)*30+i*1.2);await p.waitForTimeout(40);}
+ const during=await p.locator('.ojjqp').count();await tt('touchEnd');
+ const n=await count(p);let up=false;try{await p.waitForSelector('.ojjqp',{timeout:6000});up=true;}catch(e){}
+ ck(n>=3&&up&&during===0,name+': dragging the timeline counts the cards it brings up, and the pop-up waits until the finger lifts',{n,up,during});await ctx.close();}
+{const ctx=await b.newContext({...devices['iPhone 13']});await ctx.addInitScript(()=>{window.gtag=function(){};});const p=await ctx.newPage();await p.goto(BASE+'events.html?qp=reset');await p.waitForTimeout(3200);
+ const pl=await centre(p,'#play');await p.touchscreen.tap(pl[0],pl[1]);await p.waitForTimeout(9000);ck((await count(p))===0,'Play still does not count the cards it shows',await count(p));ck(await p.locator('.ojjqp').count()===0,'no pop-up during Play');await ctx.close();}
 // a touch that never ends (finger lost) must not block the pop-up: the guard releases after about 1.5 s
 {const ctx=await b.newContext({...devices['iPhone 13']});await ctx.addInitScript(()=>{window.gtag=function(){};});const p=await ctx.newPage();await p.goto(BASE+'events.html?qp=reset');await p.waitForTimeout(3200);
  for(let k=0;k<2;k++){const c=await centre(p,'#pgHost .pgb[data-step="1"]');await p.touchscreen.tap(c[0],c[1]);await p.waitForTimeout(900);}
