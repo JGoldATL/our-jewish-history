@@ -24,7 +24,7 @@ button:focus-visible,select:focus-visible,a:focus-visible,[tabindex]:focus-visib
 .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 32px 0;padding-top:max(20px,env(safe-area-inset-top));flex-wrap:wrap}
 .brand{display:flex;flex-direction:column;gap:2px}
 .brand h1{margin:0;font-family:var(--serif);font-weight:700;font-size:30px;line-height:1;color:var(--cream);letter-spacing:.3px}
-.brand p{margin:0;font-size:13px;color:var(--muted)}
+.brand p{margin:2px 0 0;font:italic 600 17px var(--serif);color:var(--amber)}   /* same title sentence style as Events and Movements (F-127) */
 .tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;position:relative}
 .pill{height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);font-size:14px;cursor:pointer}
 .pill:hover{background:rgba(239,230,211,.12)}
@@ -170,7 +170,7 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
  #panel .mnav{position:sticky;bottom:-24px;z-index:3;padding:10px 0 12px;margin-bottom:-12px;background:linear-gradient(to bottom,rgba(14,24,34,0),rgba(14,24,34,.94) 30%)}
 }
 @media (max-width:620px){
- .brand p{display:none}.brand h1{font-size:24px}.top{gap:10px;padding:10px 16px 6px}
+ .brand h1{font-size:24px}.brand p{font-size:14px;margin:1px 0 0}.top{gap:10px;padding:10px 16px 6px}
  .pill,.seg button{white-space:nowrap}.pill{height:38px;padding:0 10px;font-size:12.5px}.seg{padding:3px}.seg button{height:30px;padding:0 7px;font-size:12px}
  #stage{height:min(calc(84vw + 80px),48svh)}#panel>.rule{display:none}
  #panel>div:first-child{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}.year{font-size:40px;letter-spacing:-1px}.year span{font-size:18px;margin-left:8px}.era{font-size:13px}#panel{gap:10px}#story h2{font-size:28px}

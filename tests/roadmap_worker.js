@@ -46,7 +46,7 @@ const CODE='test-code-'+Math.random().toString(36).slice(2),ADMIN='test-admin-'+
   ok(!JSON.stringify(raw.prepare('SELECT * FROM gate_fail').all()).match(/\d+\.\d+\.\d+\.\d+/),'no IP stored with failed tries');
 
   // read
-  const R=await call('GET','/roadmap',{gate:T,admin:A});ok(R.s===200&&R.d.rows.length===69&&R.d.version===1&&R.d.admin===true&&R.d.config.lists.status.length===6,'GET /roadmap (admin token) returns 69 rows, version 1, lists, admin true');
+  const R=await call('GET','/roadmap',{gate:T,admin:A});ok(R.s===200&&R.d.rows.length===69&&R.d.version===1&&R.d.admin===true&&R.d.config.lists.status.length===8,'GET /roadmap (admin token) returns 69 rows, version 1, lists, admin true');
 
   // edit => one version, right summary
   const ed=await call('POST','/roadmap/save',{gate:T,admin:A,body:{base_version:1,name:'Tester',changes:[{id:'F-024',field:'status',value:'In build'}]}});
@@ -115,6 +115,10 @@ const CODE='test-code-'+Math.random().toString(36).slice(2),ADMIN='test-admin-'+
   // v0.5.1: visitors (code only) see public columns, can comment and recommend; everything else is admin only
   const pub=await call('GET','/roadmap',{gate:T});
   ok(pub.s===200&&pub.d.admin===false&&pub.d.rows.length===69&&Object.keys(pub.d.rows[0]).sort().join()==='about,area,feature,id,rec,sort_order,status,type','a visitor gets only id, type, feature, about, area, rec, status (no source, notes, owner, priority, mine)');
+  // v2.4.2: Killed and Merged are allowed statuses (save and import), and still refused when misspelled
+  ok(pub.d.config.lists.status.includes('Killed')&&pub.d.config.lists.status.includes('Merged'),'Killed and Merged are in the Worker status list');
+  for(const sv of ['Killed','Merged','Approved']) ok((await call('POST','/roadmap/save',{gate:T,admin:A,body:{changes:[{id:'F-005',field:'status',value:sv}]}})).s===200,'admin can save status '+sv);
+  ok((await call('POST','/roadmap/save',{gate:T,admin:A,body:{changes:[{id:'F-005',field:'status',value:'Killd'}]}})).s===400,'a misspelled status is still refused');
   // v2.4.0 Type column (earlier tests imported 3 rows and restored the old seed snapshot, which had no Type, so give every row a Type again)
   raw.prepare('SELECT id FROM roadmap_features ORDER BY sort_order').all().forEach((r,i)=>raw.prepare('UPDATE roadmap_features SET type=? WHERE id=?').run(TYPES[i%4],r.id));
   const pub2=await call('GET','/roadmap',{gate:T});

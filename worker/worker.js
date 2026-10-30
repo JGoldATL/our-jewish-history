@@ -83,7 +83,7 @@ const GATE_FAIL_WINDOW_MIN = 10, GATE_FAIL_MAX = 60;   // whole-site ceiling on 
 const RM_CONFIG = {                              // the one place the allowed lists live; the page receives them from GET /roadmap
   lists: {
     area: ['Globe', 'Quiz', 'Movements map', 'Religion layers', 'Data', 'Growth', 'Site', 'Strategy', 'Heritage tools'],
-    status: ['Idea', 'Approved', 'In build', 'Built', 'Live', 'Parked'],
+    status: ['Idea', 'Approved', 'In build', 'Built', 'Live', 'Parked', 'Killed', 'Merged'],   // Killed and Merged (v2.4.2): kept for history, hidden from the default view
     version: ['v0.4.0', 'v0.4.1', 'v0.5.0', 'v0.6.0', 'v0.7.0', 'v0.8.0', 'v1.0.0', 'v1.0.+', 'Unplaced'],
     effort: ['S', 'M', 'L'],
     owner: ['Web dev', 'Dataset', 'Strategy', 'CEO'],
