@@ -1,5 +1,5 @@
 /* ONE shared header standard (Creative Design comp 10/27, CEO-approved). Loaded after nav.js on Events, Movements, JewHate and Archaeology.
-   Wide (1140 px and up: with six nav items the nav is 544 px wide and the widest title, "The History of JewHate" at 50 px, needs about 560 px beside it): the nav pill sits top right and level with the title; one title size everywhere.
+   Wide (1140 px and up: with six nav items the nav is about 552 px wide and the widest title, "The History of JewHate" at 50 px, needs about 560 px beside it): the nav pill sits top right and level with the title; one title size everywhere.
    Narrower: the nav pill stays centered above the title (nav.js default). Phones are not changed here (the v2.2.0 dock replaces the top nav on phones).
    Nothing else may set the wide nav position or the title size: subnav.js and jewhate.css used to, and no longer do. */
 (function(){

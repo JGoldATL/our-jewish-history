@@ -59,7 +59,7 @@
       pickedAt=Date.now();cur=i;renderTabs();var items=tabs[i].items;track.replaceChildren();cards=items.map(function(e,n){var c=card(e,n,items.length);track.appendChild(c);return c;});
       track.setAttribute('aria-labelledby','tab'+i);
       try{sessionStorage.setItem(TABKEY,JSON.stringify({t:i}));}catch(e){}
-      idx=Math.floor(items.length/2);mark();var c0=cards[idx];if(c0)track.scrollLeft=c0.offsetLeft-(track.clientWidth-c0.clientWidth)/2;
+      idx=TJ?Math.floor(Math.random()*items.length):Math.floor(items.length/2);mark();   /* Thank Jews: a random card comes to the front on every visit and every tab; JewHate opens on its middle card */var c0=cards[idx];if(c0)track.scrollLeft=c0.offsetLeft-(track.clientWidth-c0.clientWidth)/2;
     }
     function mark(){
       var n=cards.length;cards.forEach(function(c,i){var on=i===idx;c.classList.toggle('cur',on);if(on)c.removeAttribute('inert');else c.setAttribute('inert','');});

@@ -40,7 +40,7 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone']]){
   ck(sizes.every(s=>s>=43.5),n+'touch targets at least 44 px ('+Math.min(...sizes).toFixed(0)+')');
   ck(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),n+'no sideways page scroll');
   if(vw>=760){const g=await p.evaluate(()=>{const nv=document.querySelector('#gnBar .gp').getBoundingClientRect(),h=document.querySelector('.brand h1').getBoundingClientRect();return {nl:nv.left,hr:h.right,ht:h.top,nb:nv.bottom}});ck(g.nl>g.hr&&g.ht<g.nb,n+'nav on the right, title raised into the nav row');}
-  const items=await p.$$eval('#gnBar .gp-btn',b=>b.map(x=>x.textContent.trim()));ck(items.join(',')==='Events,Movements,JewHate,Archaeology,Thank Jews,Quiz','nav pill order: '+items.join(' > '));
+  const items=await p.$$eval('#gnBar .gp-btn',b=>b.map(x=>x.textContent.trim()));ck(items.join(',')==='Events,Movements,JewHate,Archaeology,Thank Jews?,Quiz','nav pill order: '+items.join(' > '));
   await ctx.close();
 }
 // drafts flag

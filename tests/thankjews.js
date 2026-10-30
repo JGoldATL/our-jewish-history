@@ -15,7 +15,7 @@ const mk=async(vp,touch)=>{const ctx=await b.newContext({viewport:vp,isMobile:!!
 // ---- index page, desktop
 {const {ctx,p}=await mk({width:1280,height:800});await p.goto(BASE+'thankjews.html');await p.waitForSelector('.card');await p.waitForTimeout(800);
  const html=await p.content();ck(!/name="robots"/.test(html),'page is indexable (no robots tag)');
- ck(await p.title()==='Thank Jews | Our Jewish Journey','page title');
+ ck(await p.title()==='Thank Jews? | Our Jewish Journey','page title is Thank Jews?');ck((await p.textContent('.brand h1')).trim()==='Thank Jews?','page heading is Thank Jews?');
  const tabs=await p.$$eval('#tabs .tab',t=>t.map(x=>x.textContent.replace(/\s+/g,' ').trim()));ck(tabs.length===7&&/^All 76$/.test(tabs[0]),'seven tabs: All 76 plus six families',tabs);
  ck(tabs.slice(1).map(t=>+t.match(/(\d+)$/)[1]).join()==='21,16,15,10,7,7','family tabs sorted by size 21, 16, 15, 10, 7, 7',tabs);
  const c=await p.evaluate(()=>{const k=document.querySelector('.card.cur');return {fam:k.querySelector('.fam').textContent,h:k.querySelector('h2').textContent,sum:(k.querySelector('.sum')||{}).textContent,lie:!!k.querySelector('.lie'),lb:/the lie/i.test(k.textContent),why:!!k.querySelector('.why'),cat:/\b(Invention|Entertainment)\b/.test(k.querySelector('.fam').textContent),link:k.querySelector('a.read').getAttribute('href'),share:!!k.querySelector('.ojj-share')};});
@@ -26,9 +26,15 @@ const mk=async(vp,touch)=>{const ctx=await b.newContext({viewport:vp,isMobile:!!
  await p.locator('.card.cur .ojj-share').click();await p.waitForTimeout(300);const sh=await p.evaluate(()=>window.__shared[0]);
  ck(!!sh&&sh.text==='Did you know Jews are responsible for this…'&&/thankjews-entry\.html\?id=/.test(sh.url)&&/utm_source=share/.test(sh.url),'Share sends Jeffrey\'s line and a link with utm_source=share',sh);
  ck(await p.evaluate(()=>window.__ev.some(e=>e[1]==='share'&&e[2].content_type==='thankjews')),'GA4 share event carries page kind thankjews');
- const nav=await p.$$eval('#gnBar .gp-btn',t=>t.map(x=>x.textContent));ck(nav.join()==='Events,Movements,JewHate,Archaeology,Thank Jews,Quiz','main nav: Thank Jews between Archaeology and Quiz, Quiz rightmost',nav);
- ck(await p.evaluate(()=>document.querySelector('#gnBar .gp-btn[aria-pressed="true"]').textContent)==='Thank Jews','Thank Jews is the highlighted nav item here');
+ const nav=await p.$$eval('#gnBar .gp-btn',t=>t.map(x=>x.textContent));ck(nav.every(x=>x.length<=11),'every nav label is 11 characters or fewer (the rule)',nav);ck(nav.join()==='Events,Movements,JewHate,Archaeology,Thank Jews?,Quiz','main nav: Thank Jews between Archaeology and Quiz, Quiz rightmost',nav);
+ ck(await p.evaluate(()=>document.querySelector('#gnBar .gp-btn[aria-pressed="true"]').textContent)==='Thank Jews?','Thank Jews? is the highlighted nav item here');
  ck(p.errs.length===0,'index: no page errors',p.errs);await ctx.close();}
+// ---- a random card comes to the front on every visit, so a card is front and centre twice only by coincidence
+{const seen=[];for(let k=0;k<14;k++){const {ctx,p}=await mk({width:1280,height:800});await p.goto(BASE+'thankjews.html');await p.evaluate(()=>sessionStorage.clear());await p.reload();await p.waitForSelector('.card.cur');seen.push(await p.textContent('.card.cur h2'));await ctx.close();}
+ const distinct=new Set(seen).size;ck(distinct>=9,'front card differs between visits ('+distinct+' different cards in 14 visits)',seen);
+ ck(seen.filter(x=>x==='Visiting nurses').length<=3,'it does not always open on the same middle card',seen);
+ const {ctx,p}=await mk({width:1280,height:800});await p.goto(BASE+'thankjews.html');await p.waitForSelector('.card.cur');const tabs=[];for(let k=0;k<8;k++){await p.locator('#tabs .tab').nth(1+(k%2)).click();await p.waitForTimeout(250);tabs.push(await p.textContent('.card.cur h2'));}
+ ck(new Set(tabs).size>=3,'switching tabs also brings a random card to the front',tabs);await ctx.close();}
 // ---- family tab filters, All shows every card
 {const {ctx,p}=await mk({width:1280,height:800});await p.goto(BASE+'thankjews.html?');await p.evaluate(()=>sessionStorage.clear());await p.reload();await p.waitForSelector('.card');
  ck(await p.locator('.card').count()===76,'All tab holds 76 cards');await p.locator('#tabs .tab').nth(1).click();await p.waitForTimeout(300);
@@ -42,7 +48,7 @@ const mk=async(vp,touch)=>{const ctx=await b.newContext({viewport:vp,isMobile:!!
  const src=await p.evaluate(()=>{const a=document.querySelector('.src a');return a&&{t:a.textContent,h:a.href};});ck(!!src&&src.h===rec.source.url,'entry: source link opens the source',src);
  ck(/Field: Clothing/.test(t),'entry: Field kept as a small tag');
  ck((await p.getAttribute('#back','href'))==='thankjews.html','entry: back link returns to Thank Jews');
- ck((await p.title())==='Blue jeans | Thank Jews | Our Jewish Journey','entry: page title');
+ ck((await p.title())==='Blue jeans | Thank Jews? | Our Jewish Journey','entry: page title');
  ck(!/name="robots"/.test(await p.content()),'entry page is indexable');
  await p.goto(BASE+'thankjews-entry.html?id=NOPE');await p.waitForTimeout(600);ck(await p.locator('#msg').isVisible(),'entry: an unknown id shows a plain message');
  ck(p.errs.length===0,'entry: no page errors',p.errs);await ctx.close();}
