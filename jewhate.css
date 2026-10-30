@@ -84,3 +84,8 @@ details.more summary{cursor:pointer;min-height:44px;display:flex;align-items:cen
 .ehead{position:relative}
 .frow{display:flex;align-items:center;justify-content:space-between;gap:12px}.frow .ojj-share{flex:0 0 44px;margin:-9px -9px -9px 0}
 .ehead .lie{max-width:760px}
+
+/* Thank Jews (F-103): plain summary on a card, and the small Field tag on an entry */
+.card .sum{margin:0;font-size:17px;line-height:1.5;color:var(--soft)}
+.card .why{margin:0;font-size:15px;line-height:1.45;color:var(--muted)}
+.sec .tag{margin:12px 0 0;font-size:13px;color:var(--muted)}

@@ -73,11 +73,11 @@
   function glassMount(){
     var P=window.OJJPill;if(!P)return;var root=document.documentElement;root.classList.add('nav-glass');
     var s=document.createElement('style');s.textContent=CSS_G;document.head.appendChild(s);
-    var cur=({'events.html':'events','index.html':null,'':null,'movements.html':'movements','jewhate.html':'jewhate','jewhate-entry.html':'jewhate','archaeology.html':'archaeology','quiz.html':'quiz','roadmap.html':'roadmap','strategy.html':'strategy','feedback.html':'feedback'})[here];
+    var cur=({'events.html':'events','index.html':null,'':null,'movements.html':'movements','jewhate.html':'jewhate','jewhate-entry.html':'jewhate','archaeology.html':'archaeology','thankjews.html':'thankjews','thankjews-entry.html':'thankjews','quiz.html':'quiz','roadmap.html':'roadmap','strategy.html':'strategy','feedback.html':'feedback'})[here];
     function go(it){if(it.value===cur){if(cur==='quiz')location.reload();return;}location.href=it.href;}
-    var main=[{label:'Events',value:'events',href:'events.html'},{label:'Movements',value:'movements',href:'movements.html'},{label:'JewHate',value:'jewhate',href:'jewhate.html'},{label:'Archaeology',value:'archaeology',href:'archaeology.html'},{label:'Quiz',value:'quiz',href:'quiz.html'}];
+    var main=[{label:'Events',value:'events',href:'events.html'},{label:'Movements',value:'movements',href:'movements.html'},{label:'JewHate',value:'jewhate',href:'jewhate.html'},{label:'Archaeology',value:'archaeology',href:'archaeology.html'},{label:'Thank Jews',value:'thankjews',href:'thankjews.html'},{label:'Quiz',value:'quiz',href:'quiz.html'}];
     var bar=document.createElement('div');bar.className='gn';bar.id='gnBar';
-    var pMain=P.create({label:'Pages',items:main,value:main.some(function(m){return m.value===cur;})?cur:null,always:true,onSelect:go});
+    var pMain=P.create({label:'Pages',items:main,value:main.some(function(m){return m.value===cur;})?cur:null,always:true,scroll:true,onSelect:go});
     bar.appendChild(pMain.el);document.body.insertBefore(bar,document.body.firstChild);pMain.refresh();
     // More (hamburger, bottom left) is the original control; the Sources entry opens the Sources dialog on the globe
     menu.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[data-sources]');if(a){var sl=document.getElementById('sourcesLink');if(sl){e.preventDefault();set(false);sl.click();}}});

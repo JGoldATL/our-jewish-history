@@ -4,7 +4,7 @@ const {chromium}=require('playwright');const RF=process.env.FONTS?require(proces
 let fail=0;const ck=(n,ok,x)=>{console.log((ok?'ok   ':'FAIL ')+n+(x!==undefined?' '+JSON.stringify(x):''));if(!ok)fail++;};
 const PAGES=['events','movements','jewhate','archaeology'];
 (async()=>{const b=await chromium.launch();
-for(const [vw,vh,wide] of [[1366,1024,1],[1180,820,1],[1024,768,1],[1000,700,1],[999,700,0],[960,700,0],[901,700,0],[900,700,0],[820,1180,0],[768,1024,0]]){
+for(const [vw,vh,wide] of [[1366,1024,1],[1180,820,1],[1140,700,1],[1139,700,0],[1024,768,0],[1000,700,0],[999,700,0],[960,700,0],[901,700,0],[900,700,0],[820,1180,0],[768,1024,0]]){
   const sizes=[];
   for(const pg of PAGES){
     const cx=await b.newContext({viewport:{width:vw,height:vh}});if(RF)await RF.attach(cx);const p=await cx.newPage();await p.goto(SITE+pg+'.html');await p.waitForTimeout(1800);

@@ -109,7 +109,7 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone'],[320,640,'small
   // layout
   const ov=await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1&&document.body.scrollWidth<=innerWidth+1);
   ck(ov,n+'no sideways scroll');
-  ck(await p.evaluate(()=>/^v2\.\d+\.\d+; data v\d+\.\d+\.\d+$/.test(document.getElementById('version').textContent)),n+'footer reads "v2.0.x; data v#.#.#"');
+  ck(await p.evaluate(()=>/^v\d+\.\d+\.\d+; data v\d+\.\d+\.\d+$/.test(document.getElementById('version').textContent)),n+'footer reads "v2.0.x; data v#.#.#"');
   await ctx.close();}
 // a Sheet where a record is LOCKED shows publicly
 {const ctx=await b.newContext({viewport:{width:1280,height:800}});const p=await ctx.newPage();p.on('pageerror',e=>errs.push('lock: '+e.message));

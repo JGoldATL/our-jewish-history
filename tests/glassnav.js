@@ -22,7 +22,8 @@ for(const [sn,vp] of Object.entries(sizes)){
     ok(r.th.every(x=>x!==false),`${sn} ${pg}: thumb sits under the selected item`);
     if(cur)ok(JSON.stringify(r.sel[0])===JSON.stringify([cur]),`${sn} ${pg}: "${cur}" is on`);
     ok(!r.hs,`${sn} ${pg}: no sideways scroll`);
-    ok(r.over.every(x=>!x)&&r.dots===0,`${sn} ${pg}: four pages fit, no arrow or dots`);
+    if(sn==='phone')ok(r.over.every(x=>x)&&r.dots>=1,`${sn} ${pg}: six pages do not fit a phone, so the bar scrolls and shows its arrow and dots`);
+    else ok(r.over.every(x=>!x)&&r.dots===0,`${sn} ${pg}: six pages fit, no arrow or dots`);
     if(pg==='events.html'||pg==='roadmap.html')await p.screenshot({path:`${OUT}/gn_${sn}_${pg.replace('.html','')}.png`});
     if(sn==='desktop'&&pg==='events.html'){
       // fade on map drag; none on pill tap
