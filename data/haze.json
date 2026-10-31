@@ -1,0 +1,1005 @@
+{
+ "schema": "haze-1",
+ "mock": true,
+ "source": "INVENTED mock data for the layout mockup; not from the Master Sheet",
+ "snapshots": [
+  {
+   "year": 650,
+   "label": "650: sample wave",
+   "period": "650 to 750",
+   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
+   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "sources": [
+    {
+     "name": "Sample source name (placeholder)",
+     "url": ""
+    }
+   ]
+  },
+  {
+   "year": 750,
+   "label": "750: sample wave",
+   "period": "750 to 850",
+   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
+   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "sources": [
+    {
+     "name": "Sample source name (placeholder)",
+     "url": ""
+    }
+   ]
+  },
+  {
+   "year": 850,
+   "label": "850: sample wave",
+   "period": "850 to 950",
+   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
+   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "sources": [
+    {
+     "name": "Sample source name (placeholder)",
+     "url": ""
+    }
+   ]
+  },
+  {
+   "year": 950,
+   "label": "950: sample wave",
+   "period": "950 to 1100",
+   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
+   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "sources": [
+    {
+     "name": "Sample source name (placeholder)",
+     "url": ""
+    }
+   ]
+  },
+  {
+   "year": 1100,
+   "label": "1100: sample wave",
+   "period": "1100 to 1250",
+   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
+   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "sources": [
+    {
+     "name": "Sample source name (placeholder)",
+     "url": ""
+    }
+   ]
+  },
+  {
+   "year": 1250,
+   "label": "1250: sample wave",
+   "period": "1250 to 1400",
+   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
+   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "sources": [
+    {
+     "name": "Sample source name (placeholder)",
+     "url": ""
+    }
+   ]
+  },
+  {
+   "year": 1400,
+   "label": "1400: sample wave",
+   "period": "1400 to 1550",
+   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
+   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "sources": [
+    {
+     "name": "Sample source name (placeholder)",
+     "url": ""
+    }
+   ]
+  },
+  {
+   "year": 1550,
+   "label": "1550: sample wave",
+   "period": "1550 to 1700",
+   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
+   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "sources": [
+    {
+     "name": "Sample source name (placeholder)",
+     "url": ""
+    }
+   ]
+  },
+  {
+   "year": 1700,
+   "label": "1700: sample wave",
+   "period": "1700 to 1850",
+   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
+   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "sources": [
+    {
+     "name": "Sample source name (placeholder)",
+     "url": ""
+    }
+   ]
+  },
+  {
+   "year": 1850,
+   "label": "1850: sample wave",
+   "period": "1850 to 1950",
+   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
+   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "sources": [
+    {
+     "name": "Sample source name (placeholder)",
+     "url": ""
+    }
+   ]
+  },
+  {
+   "year": 1950,
+   "label": "1950: sample wave",
+   "period": "1950 to 2020",
+   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
+   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "sources": [
+    {
+     "name": "Sample source name (placeholder)",
+     "url": ""
+    }
+   ]
+  },
+  {
+   "year": 2020,
+   "label": "2020: sample wave",
+   "period": "2020, the present",
+   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
+   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "sources": [
+    {
+     "name": "Sample source name (placeholder)",
+     "url": ""
+    }
+   ]
+  }
+ ],
+ "anchors": [
+  {
+   "id": "MOCK-ARABIAN-HEARTLAND",
+   "name": "Arabian heartland",
+   "lat": 24,
+   "lon": 39,
+   "s": [
+    [
+     400,
+     5
+    ],
+    [
+     432,
+     5
+    ],
+    [
+     464,
+     5
+    ],
+    [
+     496,
+     5
+    ],
+    [
+     520,
+     5
+    ],
+    [
+     520,
+     5
+    ],
+    [
+     520,
+     5
+    ],
+    [
+     520,
+     5
+    ],
+    [
+     520,
+     5
+    ],
+    [
+     520,
+     5
+    ],
+    [
+     520,
+     5
+    ],
+    [
+     520,
+     5
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-MESOPOTAMIA",
+   "name": "Mesopotamia",
+   "lat": 33,
+   "lon": 44,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     500,
+     4
+    ],
+    [
+     540,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     620,
+     5
+    ],
+    [
+     650,
+     5
+    ],
+    [
+     650,
+     5
+    ],
+    [
+     650,
+     5
+    ],
+    [
+     650,
+     5
+    ],
+    [
+     650,
+     5
+    ],
+    [
+     650,
+     5
+    ],
+    [
+     650,
+     5
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-NILE-DELTA",
+   "name": "Nile Delta",
+   "lat": 30,
+   "lon": 31,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     350,
+     3
+    ],
+    [
+     378,
+     3
+    ],
+    [
+     406,
+     3
+    ],
+    [
+     434,
+     4
+    ],
+    [
+     455,
+     4
+    ],
+    [
+     455,
+     4
+    ],
+    [
+     455,
+     5
+    ],
+    [
+     455,
+     5
+    ],
+    [
+     455,
+     5
+    ],
+    [
+     455,
+     5
+    ],
+    [
+     455,
+     5
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-IRANIAN-PLATEAU",
+   "name": "Iranian plateau",
+   "lat": 34,
+   "lon": 52,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     500,
+     4
+    ],
+    [
+     540,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     620,
+     5
+    ],
+    [
+     650,
+     5
+    ],
+    [
+     650,
+     5
+    ],
+    [
+     650,
+     5
+    ],
+    [
+     650,
+     5
+    ],
+    [
+     650,
+     5
+    ],
+    [
+     650,
+     5
+    ],
+    [
+     650,
+     5
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-LEVANT",
+   "name": "Levant",
+   "lat": 34,
+   "lon": 36,
+   "s": [
+    [
+     300,
+     4
+    ],
+    [
+     324,
+     4
+    ],
+    [
+     348,
+     4
+    ],
+    [
+     372,
+     5
+    ],
+    [
+     390,
+     5
+    ],
+    [
+     390,
+     5
+    ],
+    [
+     390,
+     5
+    ],
+    [
+     390,
+     5
+    ],
+    [
+     390,
+     5
+    ],
+    [
+     390,
+     5
+    ],
+    [
+     390,
+     5
+    ],
+    [
+     390,
+     5
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-IFRIQIYA",
+   "name": "Ifriqiya",
+   "lat": 35,
+   "lon": 10,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     400,
+     3
+    ],
+    [
+     432,
+     3
+    ],
+    [
+     464,
+     3
+    ],
+    [
+     496,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     5
+    ],
+    [
+     520,
+     5
+    ],
+    [
+     520,
+     5
+    ],
+    [
+     520,
+     5
+    ],
+    [
+     520,
+     5
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-SOUTHERN-IBERIA",
+   "name": "Southern Iberia",
+   "lat": 38,
+   "lon": -4,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     400,
+     3
+    ],
+    [
+     432,
+     3
+    ],
+    [
+     464,
+     3
+    ],
+    [
+     496,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-LOWER-INDUS",
+   "name": "Lower Indus",
+   "lat": 26,
+   "lon": 68,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     300,
+     2
+    ],
+    [
+     324,
+     2
+    ],
+    [
+     348,
+     2
+    ],
+    [
+     372,
+     3
+    ],
+    [
+     390,
+     3
+    ],
+    [
+     390,
+     3
+    ],
+    [
+     390,
+     4
+    ],
+    [
+     390,
+     4
+    ],
+    [
+     390,
+     4
+    ],
+    [
+     390,
+     5
+    ],
+    [
+     390,
+     5
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-TRANSOXIANA",
+   "name": "Transoxiana",
+   "lat": 39,
+   "lon": 66,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     400,
+     2
+    ],
+    [
+     432,
+     2
+    ],
+    [
+     464,
+     2
+    ],
+    [
+     496,
+     3
+    ],
+    [
+     520,
+     3
+    ],
+    [
+     520,
+     3
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     5
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-SOUTH-ARABIA",
+   "name": "South Arabia",
+   "lat": 15,
+   "lon": 45,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     400,
+     2
+    ],
+    [
+     432,
+     2
+    ],
+    [
+     464,
+     2
+    ],
+    [
+     496,
+     3
+    ],
+    [
+     520,
+     3
+    ],
+    [
+     520,
+     3
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     5
+    ],
+    [
+     520,
+     5
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-ANATOLIA",
+   "name": "Anatolia",
+   "lat": 39,
+   "lon": 33,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     450,
+     2
+    ],
+    [
+     486,
+     2
+    ],
+    [
+     522,
+     2
+    ],
+    [
+     558,
+     3
+    ],
+    [
+     585,
+     3
+    ],
+    [
+     585,
+     3
+    ],
+    [
+     585,
+     4
+    ],
+    [
+     585,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-NORTHERN-INDIA",
+   "name": "Northern India",
+   "lat": 28,
+   "lon": 77,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     450,
+     2
+    ],
+    [
+     486,
+     2
+    ],
+    [
+     522,
+     2
+    ],
+    [
+     558,
+     3
+    ],
+    [
+     585,
+     3
+    ],
+    [
+     585,
+     3
+    ],
+    [
+     585,
+     4
+    ],
+    [
+     585,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-WEST-AFRICA",
+   "name": "West Africa",
+   "lat": 15,
+   "lon": -5,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     500,
+     2
+    ],
+    [
+     540,
+     2
+    ],
+    [
+     580,
+     2
+    ],
+    [
+     620,
+     3
+    ],
+    [
+     650,
+     3
+    ],
+    [
+     650,
+     3
+    ],
+    [
+     650,
+     4
+    ],
+    [
+     650,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-MALAY-ARCHIPELAGO",
+   "name": "Malay archipelago",
+   "lat": -5,
+   "lon": 110,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     500,
+     2
+    ],
+    [
+     540,
+     2
+    ],
+    [
+     580,
+     2
+    ],
+    [
+     620,
+     3
+    ],
+    [
+     650,
+     3
+    ],
+    [
+     650,
+     3
+    ]
+   ]
+  },
+  {
+   "id": "MOCK-BALKANS",
+   "name": "Balkans",
+   "lat": 43,
+   "lon": 21,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     350,
+     2
+    ],
+    [
+     378,
+     2
+    ],
+    [
+     406,
+     2
+    ],
+    [
+     434,
+     3
+    ],
+    [
+     455,
+     3
+    ]
+   ]
+  }
+ ]
+}

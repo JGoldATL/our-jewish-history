@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>
+if(location.hostname==='jgoldatl.github.io'){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-W0VSWJ8FCS';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config','G-W0VSWJ8FCS');}
+</script>
+<title>Islamic Conquest | Our Jewish Journey</title>
+<meta name="description" content="How Muslim rule spread across the world, wave by wave from 610 to the present, and what it meant for Jewish communities.">
+<meta property="og:title" content="Islamic Conquest | Our Jewish Journey">
+<meta property="og:description" content="How Muslim rule spread, wave by wave, and what it meant for Jewish communities.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="jewhate.css">
+<style>
+.hz{display:grid;gap:14px}
+#stage{position:relative;height:clamp(300px,50svh,620px);border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#0b1624;touch-action:none}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;transform:translateZ(0)}
+#mock{background:#c62828;color:#fff;text-align:center;font:800 15px/1.15 var(--sans);letter-spacing:.04em;padding:7px;border-radius:12px;margin-bottom:10px}
+#mock[hidden]{display:none}
+.key{position:absolute;left:10px;bottom:10px;z-index:2;display:flex;flex-direction:column;gap:5px;padding:8px 11px;border-radius:12px;background:rgba(14,24,34,.78);border:1px solid rgba(239,230,211,.22);font-size:12.5px;line-height:1.2;pointer-events:none}
+.key b{font-weight:600;color:var(--cream)}
+.key .bar{height:8px;width:100%;border-radius:5px;background:linear-gradient(90deg,rgba(95,122,85,.28),#5F7A55)}
+.key .ends{display:flex;justify-content:space-between;gap:14px;color:var(--muted);font-size:11px;white-space:nowrap}
+.ctl{display:flex;align-items:center;gap:12px}
+.play{min-height:44px;min-width:78px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);font:600 14px var(--sans);cursor:pointer}
+.yr{font:700 30px/1 var(--serif);color:var(--cream);min-width:2.6em;font-variant-numeric:tabular-nums}
+.sl{flex:1;min-width:0;position:relative;padding:6px 12px 20px 0}
+.sl input{width:100%;margin:0;accent-color:#E8B27A}
+.ticks{position:absolute;left:8px;right:8px;bottom:0;height:16px}
+.tick{position:absolute;transform:translateX(-50%);top:0;width:30px;height:16px;border:0;background:none;color:var(--muted);font:11px var(--sans);cursor:pointer;padding:0;text-align:center}
+.tick[aria-current=true]{color:var(--amber2);font-weight:700}
+.wc{padding:16px 18px;border-radius:18px;border:1px solid var(--line);background:rgba(239,230,211,.05)}
+.wc .k{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.wc h2{margin:6px 0 8px;font-family:var(--serif);font-weight:700;font-size:30px;line-height:1;color:var(--cream)}
+.wc p{margin:0 0 10px;font-size:16px;line-height:1.5;color:var(--text)}
+.wc h3{margin:12px 0 4px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
+.wc ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--soft)}
+@media (min-width:901px){.hz{grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr);align-items:start}#stage{height:calc(100svh - 230px);min-height:420px}.right{display:grid;gap:14px}}
+.foot{display:flex;align-items:center;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));font-size:12px;color:var(--muted)}
+.foot .grow{margin-right:auto}
+</style>
+</head>
+<body data-page="haze">
+<header class="top"><div class="brand"><h1><a href="haze.html">Islamic Conquest</a></h1><p>How Muslim rule spread, wave by wave, and what it meant for Jewish communities.</p></div></header>
+<main class="wrap">
+<p class="msg" id="msg" role="status" hidden></p>
+<div class="hz" id="hz">
+ <div class="left">
+  <div id="mock" hidden>MOCKUP: invented data</div>
+  <div id="stage"><canvas id="gl" aria-label="Globe showing where Muslim rule held in the selected wave"></canvas>
+   <div class="key" aria-label="Key"><b>Islamic rule</b><div class="bar"></div><div class="ends"><span>Looser or less certain</span><span>Firmer</span></div></div>
+  </div>
+  <div class="ctl"><button class="play" id="play" type="button">Play</button><div class="yr" id="yr">650</div>
+   <div class="sl"><input id="sl" type="range" min="0" max="11" step="0.01" value="0" aria-label="Wave"><div class="ticks" id="ticks"></div></div></div>
+ </div>
+ <div class="right"><article class="wc" id="card" aria-live="polite"></article></div>
+</div>
+</main>
+<footer class="foot"><span class="grow" id="hint">Drag the globe to turn it · pinch or scroll to zoom</span><span id="version"></span></footer>
+<script src="version.js"></script>
+<script src="nav.js"></script>
+<script src="pill.js"></script>
+<script src="header.js"></script>
+<script src="haze.js"></script>
+</body>
+</html>

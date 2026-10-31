@@ -28,7 +28,7 @@ const mk=async(vp,touch)=>{const ctx=await b.newContext({viewport:vp,isMobile:!!
  await p.locator('.card.cur .ojj-share').click();await p.waitForTimeout(300);const sh=await p.evaluate(()=>window.__shared[0]);
  ck(!!sh&&sh.text==='Did you know Jews are responsible for this…'&&/thankjews-entry\.html\?id=/.test(sh.url)&&/utm_source=share/.test(sh.url),'Share sends Jeffrey\'s line and a link with utm_source=share',sh);
  ck(await p.evaluate(()=>window.__ev.some(e=>e[1]==='share'&&e[2].content_type==='thankjews')),'GA4 share event carries page kind thankjews');
- const nav=await p.$$eval('#gnBar .gp-btn',t=>t.map(x=>x.textContent));ck(nav.every(x=>x.length<=11),'every nav label is 11 characters or fewer (the rule)',nav);ck(nav.join()==='Events,Movements,JewHate,Archaeology,Thank Jews?,Quiz','main nav: Thank Jews between Archaeology and Quiz, Quiz rightmost',nav);
+ const nav=await p.$$eval('#gnBar .gp-btn',t=>t.map(x=>x.textContent));ck(nav.every(x=>x.length<=12),'every nav label is 12 characters or fewer (rule raised from 11 for Islamic Rule, Jeffrey and Strategy 2026-10-31)',nav);ck(nav.join()==='Events,Movements,JewHate,Archaeology,Thank Jews?,Islamic Rule,Quiz','main nav: Thank Jews and Islamic Rule between Archaeology and Quiz, Quiz rightmost',nav);
  ck(await p.evaluate(()=>document.querySelector('#gnBar .gp-btn[aria-pressed="true"]').textContent)==='Thank Jews?','Thank Jews? is the highlighted nav item here');
  ck(p.errs.length===0,'index: no page errors',p.errs);await ctx.close();}
 // ---- a random card comes to the front on every visit, so a card is front and centre twice only by coincidence
