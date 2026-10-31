@@ -44,12 +44,14 @@
     function renderTabs(){[].forEach.call(tabBar.children,function(b,i){b.setAttribute('aria-selected',String(i===cur));b.tabIndex=i===cur?0:-1;});}
     function card(e,n,m){
       var c=el('article','card');c.setAttribute('role','group');c.setAttribute('aria-roledescription','slide');c.setAttribute('aria-label',(n+1)+' of '+m+': '+label(e));
-      var fr=el('div','frow',null,c);var f=el('div','fam',e.family||'',fr);if(e.status!=='LOCKED')el('span','draft','Draft, not signed off',f);OJJShare.attach(fr,{kind:KIND,label:false,title:label(e)+' | '+SHARE_TITLE,url:ENTRY+'?id='+encodeURIComponent(e.id)});
+      var fr=el('div','frow',null,c);var f=el('div',TJ?'lead':'fam',TJ?'Thank Jews for\u2026':(e.family||''),fr);   // Thank Jews card (Jeffrey 2026-10-31): the lead-in sits on top, the family moves to the bottom row beside Deep dive
+      if(e.status!=='LOCKED')el('span','draft','Draft, not signed off',f);OJJShare.attach(fr,{kind:KIND,label:false,title:label(e)+' | '+SHARE_TITLE,url:ENTRY+'?id='+encodeURIComponent(e.id)});
       el('h2',null,label(e),c);
       if(TJ){el('p','sum',e.summary,c);if(CFG.showWhy&&e.why)el('p','why',e.why,c);}   // Thank Jews card: family, headline, plain summary with no label (Jeffrey 2026-10-30); the handoff's "why it matters" line is one switch (CFG.showWhy)
       else{var lie=el('div','lie',null,c);el('span','lb','The lie',lie);el('p',null,e.lie||e.title,lie);}
       var foot=el('div','cfoot',null,c);
       var a=el('a','read','Deep dive',foot);a.href=ENTRY+'?id='+encodeURIComponent(e.id)+(DRAFTS?'&drafts=1':'');
+      if(TJ)el('div','fam',e.family||'',foot);
       return c;
     }
     var pickedAt=0,qpT=0;
