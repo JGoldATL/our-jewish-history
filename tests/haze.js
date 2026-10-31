@@ -1,7 +1,7 @@
 // F-021 "Islamic Conquest" page. Run: NODE_PATH=$(npm root -g) node tests/haze.js   (needs python3 -m http.server 8778 in the repo root; headless Chromium with software WebGL)
-// HAZE_DATA=/path/to/haze.json feeds the page real or draft data in place of data/haze.json (the committed file is the mock until rows are LOCKED).
+// HAZE_DATA=/path/to/haze.json feeds the page other data (for example a draft review copy) in place of data/haze.json.
 const {chromium}=require('playwright');const fs=require('fs');const BASE=process.env.BASE||'http://localhost:8778/';
-const DATA=process.env.HAZE_DATA?fs.readFileSync(process.env.HAZE_DATA,'utf8'):null;
+const DATA=fs.readFileSync(process.env.HAZE_DATA||'data/haze.json','utf8');   // run from the repo root; the committed file is real once rows are LOCKED
 let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined?'':' '+JSON.stringify(x)));if(!c)bad++;};
 (async()=>{const b=await chromium.launch({args:['--use-gl=swiftshader','--enable-webgl','--ignore-gpu-blocklist']});
  async function open(w,h){const p=await b.newPage({viewport:{width:w,height:h},deviceScaleFactor:1});p.__errs=[];p.on('pageerror',e=>p.__errs.push(e.message));p.on('console',m=>{if(m.type()==='error')p.__errs.push(m.text())});

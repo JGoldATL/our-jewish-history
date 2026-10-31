@@ -1,238 +1,378 @@
 {
- "schema": "haze-1",
- "mock": true,
- "source": "INVENTED mock data for the layout mockup; not from the Master Sheet",
+ "schema": "haze-2",
+ "mock": false,
+ "draft": false,
+ "source": "Jewish_Continuity_Master_Dataset_v4.1.0",
+ "sheetModified": "2026-10-31T21:50:00Z",
+ "exportSha256": "a68d2a6aedee372b2a5050ddfa4b0fa7b7123207ff712548a36da1ea57b62af0",
+ "generated": "2026-10-31T21:51:21Z",
  "snapshots": [
   {
    "year": 650,
-   "label": "650: sample wave",
-   "period": "650 to 750",
-   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
-   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "label": "650: the founding wave",
+   "title": "650: Arab armies conquer Byzantine and Persian lands",
+   "period": "650 to 700",
+   "summary": "Arab armies beat Byzantium at Yarmuk (636) and Persia at Nahavand (639), then took Syria, Egypt and Iraq.",
+   "note": "",
+   "jewish": "Jewish communities in Babylonia and the Land of Israel came under Arab rule.",
    "sources": [
     {
-     "name": "Sample source name (placeholder)",
-     "url": ""
+     "name": "OpenStax, Rice University — The Arab-Islamic Conquests and the First Islamic States",
+     "url": "https://openstax.org/books/world-history-volume-1/pages/11-2-the-arab-islamic-conquests-and-the-first-islamic-states"
+    },
+    {
+     "name": "Encyclopaedia Iranica — Arab conquest of Iran, Michael Morony",
+     "url": "https://www.iranicaonline.org/articles/arab-ii/"
+    },
+    {
+     "name": "The Cambridge History of Egypt — Egypt as a province in the Islamic caliphate, 641–868",
+     "url": "https://www.cambridge.org/core/books/abs/cambridge-history-of-egypt/egypt-as-a-province-in-the-islamic-caliphate-641868/FF5C416D97BB2C72F30F2E435B6AD7F4"
     }
-   ]
+   ],
+   "hold": false
   },
   {
-   "year": 750,
-   "label": "750: sample wave",
-   "period": "750 to 850",
-   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
-   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "year": 700,
+   "label": "700: Umayyad conquests",
+   "title": "700: Umayyad armies reach Spain, Sindh and Samarkand",
+   "period": "700 to 800",
+   "summary": "Umayyad armies took Carthage (697), crossed into Spain (711), conquered Sindh (711) and took Samarkand (712).",
+   "note": "",
+   "jewish": "Jewish communities in Syria, Iraq and Spain came under Umayyad rule.",
    "sources": [
     {
-     "name": "Sample source name (placeholder)",
-     "url": ""
+     "name": "Cambridge University Press — The Cambridge Ancient History, Vandal and Byzantine Africa",
+     "url": "https://www.cambridge.org/core/books/cambridge-ancient-history/vandal-and-byzantine-africa/9F02D40C880F6A818097EF865FCAD72D"
+    },
+    {
+     "name": "The Cambridge History of Islam — The Iberian Peninsula and Sicily",
+     "url": "https://www.cambridge.org/core/books/abs/cambridge-history-of-islam/iberian-peninsula-and-sicily/BE2CB856085CACB43BB28E903EE0736C"
+    },
+    {
+     "name": "Princeton University Press — A New History of India, introductory chapter",
+     "url": "https://assets.press.princeton.edu/chapters/i9061.pdf"
     }
-   ]
+   ],
+   "hold": false
   },
   {
-   "year": 850,
-   "label": "850: sample wave",
-   "period": "850 to 950",
-   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
-   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "year": 800,
+   "label": "800: Abbasids and Sicily",
+   "title": "800: Abbasid rule and the conquest of Sicily",
+   "period": "800 to 900",
+   "summary": "Abbasid caliphs held Baghdad while Aghlabid forces began the conquest of Sicily (827) and took Palermo (831).",
+   "note": "",
+   "jewish": "Baghdad's Jewish academies and communal self-government grew under Abbasid rule.",
    "sources": [
     {
-     "name": "Sample source name (placeholder)",
-     "url": ""
+     "name": "Cambridge University Press — Tied to Two Empires: Material Evidence of the Islamic Conquest of Sicily",
+     "url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/E37D78FCB27528C0C947C132DA79F845/9781009384261c17_481-512.pdf/tied_to_two_empires_the_material_evidence_of_the_islamic_conquest_of_sicily.pdf"
+    },
+    {
+     "name": "Oxford Handbook of the Jewish Diaspora — Jews and Diaspora in the Medieval Islamic Middle East",
+     "url": "https://academic.oup.com/edited-volume/37080/chapter-abstract/323170779"
+    },
+    {
+     "name": "Cambridge History of Judaism — Jewish Perceptions of and Attitudes toward Islam and Muslims",
+     "url": "https://doi.org/10.1017/9781139048873.005"
     }
-   ]
+   ],
+   "hold": false
   },
   {
-   "year": 950,
-   "label": "950: sample wave",
-   "period": "950 to 1100",
-   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
-   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "year": 900,
+   "label": "900: Fatimid takeovers",
+   "title": "900: Fatimid and Qarakhanid takeovers",
+   "period": "900 to 1000",
+   "summary": "Fatimids overthrew the Aghlabids (909) and conquered Egypt (969); Qarakhanids overthrew the Samanids at Bukhara (999).",
+   "note": "",
+   "jewish": "Jewish communities in Córdoba, Qayrawan and Fustat stayed linked across the rival caliphates.",
    "sources": [
     {
-     "name": "Sample source name (placeholder)",
-     "url": ""
+     "name": "Metropolitan Museum of Art — Western North Africa, 500–1000",
+     "url": "https://www.metmuseum.org/ja/toah/ht/06/afw.html"
+    },
+    {
+     "name": "Cambridge History of Egypt — The Fatimid State, 969–1171",
+     "url": "https://www.cambridge.org/core/books/abs/cambridge-history-of-egypt/fatimid-state-9691171/080331DBC1E5357E041934999E235B78"
+    },
+    {
+     "name": "Encyclopaedia Iranica — Abd al-Malek b. Nuh",
+     "url": "https://www.iranicaonline.org/articles/abd-al-malek-b-nuh-b-mansur-samanid-ruler-in-khorasan-and-transoxania-r-999/"
     }
-   ]
+   ],
+   "hold": false
+  },
+  {
+   "year": 1000,
+   "label": "1000: Seljuk conquests",
+   "title": "1000: Seljuk Turks conquer Iran and Iraq",
+   "period": "1000 to 1100",
+   "summary": "Seljuk Turks beat the Ghaznavids at Dandanqan (1040) and the Byzantines at Manzikert (1071).",
+   "note": "",
+   "jewish": "Jews in Fatimid Cairo suffered persecution under al-Hakim, then recovered.",
+   "sources": [
+    {
+     "name": "Encyclopaedia Iranica, “Iran ii: Islamic period—The Saljuqids”",
+     "url": "https://www.iranicaonline.org/articles/iran-ii2-islamic-period-page-3/"
+    },
+    {
+     "name": "Cambridge University Press, “Turkish Migrations and the Ottoman Empire”",
+     "url": "https://www.cambridge.org/core/books/abs/islamic-societies-to-the-nineteenth-century/turkish-migrations-and-the-ottoman-empire/CE1C646DC6E35DECD9A0FEB0F964E70C"
+    },
+    {
+     "name": "Yaacov Lev, “Persecutions and conversion to Islam in eleventh-century Egypt” (1988)",
+     "url": "https://cris.biu.ac.il/en/publications/persecutions-and-conversion-to-islam-in-eleventh-century-egypt/"
+    }
+   ],
+   "hold": false
   },
   {
    "year": 1100,
-   "label": "1100: sample wave",
-   "period": "1100 to 1250",
-   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
-   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "label": "1100: Saladin and Ghurids",
+   "title": "1100: Saladin and the Ghurids expand",
+   "period": "1100 to 1200",
+   "summary": "Saladin took Jerusalem (1187), while the Ghurids conquered Lahore (1186) and Delhi (1192).",
+   "note": "",
+   "jewish": "Maimonides led Cairo's Jewish community from 1165, and Jews resettled in Jerusalem after 1187.",
    "sources": [
     {
-     "name": "Sample source name (placeholder)",
-     "url": ""
+     "name": "Cambridge University Press, “Too Big to be Owned: Reflections on Jerusalem in Islamic History”",
+     "url": "https://www.cambridge.org/core/journals/review-of-middle-east-studies/article/too-big-to-be-owned-reflections-on-jerusalem-in-islamic-history/4F1E56BF8F7081B74B274910DE983C1D/share/3537df2708390298bc7af0ed715a05f8afc63fd6"
+    },
+    {
+     "name": "Encyclopaedia Iranica, “Delhi Sultanate i: Political and Cultural History”",
+     "url": "https://www.iranicaonline.org/articles/delhi-sultanate/delhi-sultanate-i-political-and-cultural-history/"
+    },
+    {
+     "name": "Cambridge History of Egypt, “The Non-Muslim Communities: The Jewish Community”",
+     "url": "https://www.cambridge.org/core/books/abs/cambridge-history-of-egypt/nonmuslim-communities-the-jewish-community/E72B648209C123448D59B069324ED196"
     }
-   ]
+   ],
+   "hold": false
   },
   {
-   "year": 1250,
-   "label": "1250: sample wave",
-   "period": "1250 to 1400",
-   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
-   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "year": 1200,
+   "label": "1200: Khwarazm and Delhi",
+   "title": "1200: Khwarazmshah and Delhi Sultanate conquests",
+   "period": "1200 to 1300",
+   "summary": "Khwarazmshahs beat the last western Seljuk sultan (1194) and took the Ghurid heartland (1215); Delhi's sultans ruled from 1206.",
+   "note": "",
+   "jewish": "Almohad rule forced many Jews in Spain and Morocco to convert or flee.",
    "sources": [
     {
-     "name": "Sample source name (placeholder)",
-     "url": ""
+     "name": "Encyclopaedia Iranica, “Chronology of Iranian History, Part 1”",
+     "url": "https://www.iranicaonline.org/articles/chronology-of-iranian-history-part-1/"
+    },
+    {
+     "name": "Encyclopaedia Iranica, “Ghurids”",
+     "url": "https://www.iranicaonline.org/articles/ghurids/"
+    },
+    {
+     "name": "Encyclopaedia Iranica, “Delhi Sultanate i: Political and Cultural History”",
+     "url": "https://www.iranicaonline.org/articles/delhi-sultanate/delhi-sultanate-i-political-and-cultural-history/"
     }
-   ]
+   ],
+   "hold": false
+  },
+  {
+   "year": 1300,
+   "label": "1300: Mamluks and Timur",
+   "title": "1300: Mamluk and Timurid conquests",
+   "period": "1300 to 1400",
+   "summary": "Mamluks captured Acre (1291), ending the Crusader states, and Timur took control of Transoxiana (1370).",
+   "note": "In Southeast Asia and West Africa the research records Muslim-ruled port states and kingdoms, such as Pasai and Mali, not conquests.",
+   "jewish": "Jewish settlement revived in Jerusalem and Safed under Mamluk rule.",
+   "sources": [
+    {
+     "name": "Journal of the Royal Asiatic Society, Michael Ehrlich, The Jewish Communities of Safed and Jerusalem During the Fourteenth Century",
+     "url": "https://www.cambridge.org/core/journals/journal-of-the-royal-asiatic-society/article/jewish-communities-of-safed-and-jerusalem-during-the-fourteenth-century/DAFA875AAE01C52DEDB26B198731DAE3"
+    },
+    {
+     "name": "Metropolitan Museum of Art, The Art of the Timurid Period (ca. 1370–1507)",
+     "url": "https://www.metmuseum.org/pt/essays/the-art-of-the-timurid-period-ca-1370-1507"
+    }
+   ],
+   "hold": false
   },
   {
    "year": 1400,
-   "label": "1400: sample wave",
-   "period": "1400 to 1550",
-   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
-   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "label": "1400: Timur and the Ottomans",
+   "title": "1400: Timur's sacks and Ottoman conquests",
+   "period": "1400 to 1500",
+   "summary": "Timur sacked Delhi (1398) and Damascus (1400); Ottomans took Constantinople (1453), Serbia (1459) and Bosnia (1463).",
+   "note": "",
+   "jewish": "Jews in Mamluk Egypt faced growing restrictions, and exiles from Spain reached Fez.",
    "sources": [
     {
-     "name": "Sample source name (placeholder)",
-     "url": ""
+     "name": "Metropolitan Museum of Art, The Art of the Timurid Period (ca. 1370–1507)",
+     "url": "https://www.metmuseum.org/pt/essays/the-art-of-the-timurid-period-ca-1370-1507"
+    },
+    {
+     "name": "Metropolitan Museum of Art, Eastern Mediterranean, 1400–1600",
+     "url": "https://www.metmuseum.org/es/toah/ht/08/wae.html"
+    },
+    {
+     "name": "Metropolitan Museum of Art, The Art of the Ottomans before 1600",
+     "url": "https://www.metmuseum.org/essays/the-art-of-the-ottomans-before-1600"
     }
-   ]
+   ],
+   "hold": false
   },
   {
-   "year": 1550,
-   "label": "1550: sample wave",
-   "period": "1550 to 1700",
-   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
-   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "year": 1500,
+   "label": "1500: Ottoman conquests",
+   "title": "1500: Ottoman and Mughal conquests",
+   "period": "1500 to 1600",
+   "summary": "Ottomans took Egypt (1517), Baghdad (1534) and Cyprus (1570); Babur won at Panipat (1526) and founded the Mughal empire.",
+   "note": "",
+   "jewish": "Jews expelled from Spain in 1492 found refuge in Ottoman lands and North Africa.",
    "sources": [
     {
-     "name": "Sample source name (placeholder)",
-     "url": ""
+     "name": "Metropolitan Museum of Art, Egypt, 1600–1800",
+     "url": "https://82nd-and-fifth.metmuseum.org/toah/ht/09/afe.html"
+    },
+    {
+     "name": "Encyclopedia.com, Ottoman Empire (Columbia/Gale reference entry)",
+     "url": "https://www.encyclopedia.com/history/modern-europe/turkish-and-ottoman-history/ottoman-empire"
+    },
+    {
+     "name": "Metropolitan Museum of Art, The Greater Ottoman Empire, 1600–1800",
+     "url": "https://www.metmuseum.org/ko/essays/the-greater-ottoman-empire-1600-1800"
     }
-   ]
+   ],
+   "hold": false
+  },
+  {
+   "year": 1600,
+   "label": "1600: three empires at war",
+   "title": "1600: Ottoman, Safavid and Mughal wars",
+   "period": "1600 to 1700",
+   "summary": "Safavids took Baghdad (1623) and Ottomans retook it (1638); Mughals took Bijapur (1686) and Golconda (1687).",
+   "note": "",
+   "jewish": "Jews in Safavid Iran faced forced conversion under Abbas II from 1656 to 1662.",
+   "sources": [
+    {
+     "name": "Metropolitan Museum of Art, Iraq, 1600–1800",
+     "url": "https://www.metmuseum.org/it/toah/ht/09/wam.html"
+    },
+    {
+     "name": "Harvard University, A Timeline of South Asian History, Mughal Period",
+     "url": "https://timelinesouthasianhistory.hsites.harvard.edu/mughal-period-and-transition-c-1526-ce-1707-ce"
+    },
+    {
+     "name": "Encyclopaedia Iranica, Conversion of Persian Jews to Other Religions",
+     "url": "https://www.iranicaonline.org/articles/conversion-iv/"
+    }
+   ],
+   "hold": false
   },
   {
    "year": 1700,
-   "label": "1700: sample wave",
-   "period": "1700 to 1850",
-   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
-   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "label": "1700: Nader Shah's conquests",
+   "title": "1700: Nader Shah takes the throne and Delhi",
+   "period": "1700 to 1800",
+   "summary": "Nader Shah took the Iranian throne (1736) and then Delhi (1739).",
+   "note": "",
+   "jewish": "Nader Shah moved Jewish families to Mashhad, and Jerusalem's Ashkenazi community collapsed in 1720.",
    "sources": [
     {
-     "name": "Sample source name (placeholder)",
-     "url": ""
+     "name": "Encyclopaedia Iranica, Nāder Shah",
+     "url": "https://www.iranicaonline.org/articles/nader-shah/"
+    },
+    {
+     "name": "Encyclopaedia Iranica, Khorasan: Safavid and Afsharid Periods",
+     "url": "https://www.iranicaonline.org/articles/khorasan-x-history-in-the-safavid-and-afsharid-periods/"
+    },
+    {
+     "name": "Genealogy (peer-reviewed), Surnames of Jewish People in Land of Israel, 16th–20th Centuries",
+     "url": "https://www.mdpi.com/2313-5778/7/3/49"
     }
-   ]
+   ],
+   "hold": false
   },
   {
-   "year": 1850,
-   "label": "1850: sample wave",
-   "period": "1850 to 1950",
-   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
-   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "year": 1800,
+   "label": "1800: Egypt and the Mahdists",
+   "title": "1800: Egyptian and Mahdist conquests in Sudan",
+   "period": "1800 to 1900",
+   "summary": "Egypt's Muhammad Ali conquered northern Sudan (1820), and the Mahdists captured Khartoum (1885).",
+   "note": "",
+   "jewish": "Ottoman Jews gained legal equality on paper from 1839, and Damascus Jews faced a blood libel in 1840.",
    "sources": [
     {
-     "name": "Sample source name (placeholder)",
-     "url": ""
+     "name": "The Cambridge History of Egypt, Egyptian Empire, 1805–1885",
+     "url": "https://www.cambridge.org/core/books/abs/cambridge-history-of-egypt/egyptian-empire-18051885/614CD24EA4DC46D0398F54F5EEA08701"
+    },
+    {
+     "name": "Kim Searcy, The Encyclopedia of Empire, Mahdist State (Wiley)",
+     "url": "https://onlinelibrary.wiley.com/doi/10.1002/9781118455074.wbeoe057"
+    },
+    {
+     "name": "Julia Phillips Cohen, Becoming Ottomans (Oxford University Press)",
+     "url": "https://academic.oup.com/book/7399"
     }
-   ]
+   ],
+   "hold": false
   },
   {
-   "year": 1950,
-   "label": "1950: sample wave",
-   "period": "1950 to 2020",
-   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
-   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "year": 1900,
+   "label": "1900: Saudi conquests",
+   "title": "1900: Saudi conquests in Arabia",
+   "period": "1900 to 1920",
+   "summary": "Abdulaziz captured Riyadh (1902) and took eastern Arabia (1913).",
+   "note": "",
+   "jewish": "Algerian Jews became French citizens in 1870, and Baghdad's Jewish schools modernized from 1864.",
    "sources": [
     {
-     "name": "Sample source name (placeholder)",
-     "url": ""
+     "name": "Madawi al-Rasheed, A History of Saudi Arabia: The Emerging State 1902–1932",
+     "url": "https://www.cambridge.org/core/books/abs/history-of-saudi-arabia/emerging-state-19021932/89B3D34A6AC46FB63ACC9387D19C9B10"
+    },
+    {
+     "name": "Nationalities Papers, From Paris to Taif: Sovereignty, Borders, and Minorities (Cambridge University Press)",
+     "url": "https://www.cambridge.org/core/journals/nationalities-papers/article/from-paris-to-taif-sovereignty-borders-and-the-question-of-minorities-in-the-arabian-peninsula/5C5BA7D9286B7F0CEB317E8739E88838"
+    },
+    {
+     "name": "US Holocaust Memorial Museum, Jews of the Maghreb on Eve of World War II",
+     "url": "https://encyclopedia.ushmm.org/content/en/article/jews-of-the-maghreb-on-the-eve-of-world-war-ii"
     }
-   ]
+   ],
+   "hold": false
   },
   {
    "year": 2020,
-   "label": "2020: sample wave",
-   "period": "2020, the present",
-   "summary": "Sample text for layout only. Real wording on who held which places comes from Dataset.",
-   "jewish": "Sample line for layout only. The real line on Jewish communities in this wave comes from Dataset.",
+   "label": "1920 to 2020: modern states",
+   "title": "1920 to 2020: new states take shape",
+   "period": "1920 to 2020",
+   "summary": "New states took shape: Turkey (1923), Saudi Arabia (1932), Indonesia (1945), Pakistan (1947) and Algeria (1962).",
+   "note": "",
+   "jewish": "Most Jewish communities in Muslim lands emigrated between 1948 and the 1970s, mainly to Israel and France.",
    "sources": [
     {
-     "name": "Sample source name (placeholder)",
-     "url": ""
+     "name": "US Holocaust Memorial Museum / Encyclopaedia Britannica, Dissolution of Ottoman Empire",
+     "url": "https://encyclopedia.ushmm.org/content/en/map/the-dissolution-of-the-ottoman-empire-1807-1924"
+    },
+    {
+     "name": "Madawi al-Rasheed, A History of Saudi Arabia (Cambridge University Press)",
+     "url": "https://www.cambridge.org/core/books/history-of-saudi-arabia/introduction/5A336E8394415A63DE76F5AC1A9648C0"
+    },
+    {
+     "name": "CIA, The World Factbook, Independence field (MIT archived edition)",
+     "url": "https://start.csail.mit.edu/mirror/cia.gov/library/publications/the-world-factbook/fields/2088.html"
     }
-   ]
+   ],
+   "hold": true
   }
  ],
  "anchors": [
   {
-   "id": "MOCK-ARABIAN-HEARTLAND",
-   "name": "Arabian heartland",
-   "lat": 24,
-   "lon": 39,
+   "id": "HIJ",
+   "name": "Mecca and Medina (Hijaz)",
+   "lat": 22.5,
+   "lon": 40.0,
    "s": [
     [
-     400,
-     5
-    ],
-    [
-     432,
-     5
-    ],
-    [
-     464,
-     5
-    ],
-    [
-     496,
-     5
-    ],
-    [
-     520,
-     5
-    ],
-    [
-     520,
-     5
-    ],
-    [
-     520,
-     5
-    ],
-    [
-     520,
-     5
-    ],
-    [
-     520,
-     5
-    ],
-    [
-     520,
-     5
-    ],
-    [
-     520,
-     5
-    ],
-    [
-     520,
-     5
-    ]
-   ]
-  },
-  {
-   "id": "MOCK-MESOPOTAMIA",
-   "name": "Mesopotamia",
-   "lat": 33,
-   "lon": 44,
-   "s": [
-    [
-     0,
-     0
-    ],
-    [
-     500,
-     4
-    ],
-    [
-     540,
+     580,
      4
     ],
     [
@@ -240,111 +380,271 @@
      4
     ],
     [
-     620,
-     5
+     580,
+     3
     ],
     [
-     650,
-     5
+     580,
+     3
     ],
     [
-     650,
-     5
+     580,
+     3
     ],
     [
-     650,
-     5
+     580,
+     3
     ],
     [
-     650,
-     5
+     580,
+     3
     ],
     [
-     650,
-     5
+     580,
+     3
     ],
     [
-     650,
-     5
+     580,
+     3
     ],
     [
-     650,
-     5
+     580,
+     3
+    ],
+    [
+     580,
+     3
+    ],
+    [
+     580,
+     3
+    ],
+    [
+     580,
+     3
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
     ]
    ]
   },
   {
-   "id": "MOCK-NILE-DELTA",
-   "name": "Nile Delta",
-   "lat": 30,
-   "lon": 31,
+   "id": "DAM",
+   "name": "Damascus and inland Syria",
+   "lat": 33.514,
+   "lon": 36.277,
+   "s": [
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "ALE",
+   "name": "Aleppo and northern Syria",
+   "lat": 36.202,
+   "lon": 37.134,
    "s": [
     [
      0,
      0
     ],
     [
-     350,
-     3
+     0,
+     0
     ],
     [
-     378,
-     3
+     0,
+     0
     ],
     [
-     406,
-     3
+     0,
+     0
     ],
     [
-     434,
+     340,
      4
     ],
     [
-     455,
+     340,
      4
     ],
     [
-     455,
+     340,
      4
     ],
     [
-     455,
-     5
+     0,
+     0
     ],
     [
-     455,
-     5
+     0,
+     0
     ],
     [
-     455,
-     5
+     0,
+     0
     ],
     [
-     455,
-     5
+     0,
+     0
     ],
     [
-     455,
-     5
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
     ]
    ]
   },
   {
-   "id": "MOCK-IRANIAN-PLATEAU",
-   "name": "Iranian plateau",
-   "lat": 34,
-   "lon": 52,
+   "id": "PAL",
+   "name": "Jerusalem",
+   "lat": 31.768,
+   "lon": 35.214,
    "s": [
     [
      0,
      0
     ],
     [
-     500,
+     0,
+     0
+    ],
+    [
+     290,
      4
     ],
     [
-     540,
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "EGY",
+   "name": "Cairo and the Nile Delta",
+   "lat": 30.044,
+   "lon": 31.236,
+   "s": [
+    [
+     580,
      4
     ],
     [
@@ -352,192 +652,44 @@
      4
     ],
     [
-     620,
-     5
-    ],
-    [
-     650,
-     5
-    ],
-    [
-     650,
-     5
-    ],
-    [
-     650,
-     5
-    ],
-    [
-     650,
-     5
-    ],
-    [
-     650,
-     5
-    ],
-    [
-     650,
-     5
-    ],
-    [
-     650,
-     5
-    ]
-   ]
-  },
-  {
-   "id": "MOCK-LEVANT",
-   "name": "Levant",
-   "lat": 34,
-   "lon": 36,
-   "s": [
-    [
-     300,
+     580,
      4
     ],
     [
-     324,
+     580,
      4
     ],
     [
-     348,
+     580,
      4
     ],
     [
-     372,
-     5
-    ],
-    [
-     390,
-     5
-    ],
-    [
-     390,
-     5
-    ],
-    [
-     390,
-     5
-    ],
-    [
-     390,
-     5
-    ],
-    [
-     390,
-     5
-    ],
-    [
-     390,
-     5
-    ],
-    [
-     390,
-     5
-    ],
-    [
-     390,
-     5
-    ]
-   ]
-  },
-  {
-   "id": "MOCK-IFRIQIYA",
-   "name": "Ifriqiya",
-   "lat": 35,
-   "lon": 10,
-   "s": [
-    [
-     0,
-     0
-    ],
-    [
-     400,
-     3
-    ],
-    [
-     432,
-     3
-    ],
-    [
-     464,
-     3
-    ],
-    [
-     496,
+     580,
      4
     ],
     [
-     520,
+     580,
      4
     ],
     [
-     520,
+     580,
      4
     ],
     [
-     520,
-     5
-    ],
-    [
-     520,
-     5
-    ],
-    [
-     520,
-     5
-    ],
-    [
-     520,
-     5
-    ],
-    [
-     520,
-     5
-    ]
-   ]
-  },
-  {
-   "id": "MOCK-SOUTHERN-IBERIA",
-   "name": "Southern Iberia",
-   "lat": 38,
-   "lon": -4,
-   "s": [
-    [
-     0,
-     0
-    ],
-    [
-     400,
-     3
-    ],
-    [
-     432,
-     3
-    ],
-    [
-     464,
-     3
-    ],
-    [
-     496,
+     580,
      4
     ],
     [
-     520,
+     580,
      4
     ],
     [
-     520,
+     580,
      4
     ],
     [
-     0,
-     0
-    ],
-    [
-     0,
-     0
+     580,
+     4
     ],
     [
      0,
@@ -554,346 +706,758 @@
    ]
   },
   {
-   "id": "MOCK-LOWER-INDUS",
-   "name": "Lower Indus",
-   "lat": 26,
-   "lon": 68,
+   "id": "IRQ",
+   "name": "Baghdad and central Iraq",
+   "lat": 33.315,
+   "lon": 44.366,
    "s": [
     [
-     0,
-     0
-    ],
-    [
-     300,
-     2
-    ],
-    [
-     324,
-     2
-    ],
-    [
-     348,
-     2
-    ],
-    [
-     372,
-     3
-    ],
-    [
-     390,
-     3
-    ],
-    [
-     390,
-     3
-    ],
-    [
-     390,
+     580,
      4
     ],
     [
-     390,
+     580,
      4
     ],
     [
-     390,
+     580,
      4
     ],
     [
-     390,
-     5
-    ],
-    [
-     390,
-     5
-    ]
-   ]
-  },
-  {
-   "id": "MOCK-TRANSOXIANA",
-   "name": "Transoxiana",
-   "lat": 39,
-   "lon": 66,
-   "s": [
-    [
-     0,
-     0
-    ],
-    [
-     0,
-     0
-    ],
-    [
-     400,
-     2
-    ],
-    [
-     432,
-     2
-    ],
-    [
-     464,
-     2
-    ],
-    [
-     496,
-     3
-    ],
-    [
-     520,
-     3
-    ],
-    [
-     520,
-     3
-    ],
-    [
-     520,
+     580,
      4
     ],
     [
-     520,
+     580,
      4
     ],
     [
-     520,
+     580,
      4
     ],
     [
-     520,
-     5
-    ]
-   ]
-  },
-  {
-   "id": "MOCK-SOUTH-ARABIA",
-   "name": "South Arabia",
-   "lat": 15,
-   "lon": 45,
-   "s": [
-    [
-     0,
-     0
-    ],
-    [
-     400,
-     2
-    ],
-    [
-     432,
-     2
-    ],
-    [
-     464,
-     2
-    ],
-    [
-     496,
-     3
-    ],
-    [
-     520,
-     3
-    ],
-    [
-     520,
-     3
-    ],
-    [
-     520,
+     580,
      4
     ],
     [
-     520,
+     580,
      4
     ],
     [
-     520,
+     580,
      4
     ],
     [
-     520,
-     5
-    ],
-    [
-     520,
-     5
-    ]
-   ]
-  },
-  {
-   "id": "MOCK-ANATOLIA",
-   "name": "Anatolia",
-   "lat": 39,
-   "lon": 33,
-   "s": [
-    [
-     0,
-     0
-    ],
-    [
-     0,
-     0
-    ],
-    [
-     0,
-     0
-    ],
-    [
-     0,
-     0
-    ],
-    [
-     450,
-     2
-    ],
-    [
-     486,
-     2
-    ],
-    [
-     522,
-     2
-    ],
-    [
-     558,
-     3
-    ],
-    [
-     585,
-     3
-    ],
-    [
-     585,
-     3
-    ],
-    [
-     585,
+     580,
      4
-    ],
-    [
-     585,
-     4
-    ]
-   ]
-  },
-  {
-   "id": "MOCK-NORTHERN-INDIA",
-   "name": "Northern India",
-   "lat": 28,
-   "lon": 77,
-   "s": [
-    [
-     0,
-     0
-    ],
-    [
-     0,
-     0
-    ],
-    [
-     0,
-     0
-    ],
-    [
-     0,
-     0
-    ],
-    [
-     450,
-     2
-    ],
-    [
-     486,
-     2
-    ],
-    [
-     522,
-     2
-    ],
-    [
-     558,
-     3
-    ],
-    [
-     585,
-     3
-    ],
-    [
-     585,
-     3
-    ],
-    [
-     585,
-     4
-    ],
-    [
-     585,
-     4
-    ]
-   ]
-  },
-  {
-   "id": "MOCK-WEST-AFRICA",
-   "name": "West Africa",
-   "lat": 15,
-   "lon": -5,
-   "s": [
-    [
-     0,
-     0
-    ],
-    [
-     0,
-     0
-    ],
-    [
-     0,
-     0
-    ],
-    [
-     0,
-     0
     ],
     [
      500,
-     2
+     5
     ],
     [
-     540,
-     2
+     580,
+     4
     ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "MOS",
+   "name": "Mosul and the Jazira",
+   "lat": 36.34,
+   "lon": 43.13,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "KON",
+   "name": "Konya and central Anatolia",
+   "lat": 37.87,
+   "lon": 32.49,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "BUR",
+   "name": "Bursa and western Anatolia",
+   "lat": 40.19,
+   "lon": 29.06,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "BAL",
+   "name": "Edirne and the Balkans",
+   "lat": 41.68,
+   "lon": 26.56,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "DIY",
+   "name": "Diyarbakir and eastern Anatolia",
+   "lat": 37.91,
+   "lon": 40.24,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "ISF",
+   "name": "Isfahan and central Iran",
+   "lat": 32.65,
+   "lon": 51.67,
+   "s": [
+    [
+     690,
+     3
+    ],
+    [
+     690,
+     3
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     3
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "SHI",
+   "name": "Shiraz and Fars",
+   "lat": 29.59,
+   "lon": 52.58,
+   "s": [
+    [
+     520,
+     3
+    ],
+    [
+     520,
+     3
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     3
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     3
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "TAB",
+   "name": "Tabriz and Azerbaijan",
+   "lat": 38.08,
+   "lon": 46.292,
+   "s": [
     [
      580,
      2
     ],
     [
-     620,
+     580,
      3
     ],
     [
-     650,
+     520,
      3
     ],
     [
-     650,
+     520,
      3
     ],
     [
-     650,
+     520,
      4
     ],
     [
-     650,
+     520,
      4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
     ]
    ]
   },
   {
-   "id": "MOCK-MALAY-ARCHIPELAGO",
-   "name": "Malay archipelago",
-   "lat": -5,
-   "lon": 110,
+   "id": "KHO",
+   "name": "Khorasan: Nishapur and Mashhad",
+   "lat": 36.3,
+   "lon": 59.6,
+   "s": [
+    [
+     690,
+     3
+    ],
+    [
+     690,
+     3
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "SIS",
+   "name": "Sistan",
+   "lat": 31.0,
+   "lon": 61.5,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     400,
+     3
+    ],
+    [
+     460,
+     2
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "KIR",
+   "name": "Kirman",
+   "lat": 30.28,
+   "lon": 57.08,
    "s": [
     [
      0,
@@ -916,40 +1480,256 @@
      0
     ],
     [
+     400,
+     4
+    ],
+    [
      0,
      0
     ],
     [
-     500,
-     2
+     0,
+     0
     ],
     [
-     540,
-     2
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "ALA",
+   "name": "Alamut and Qumis",
+   "lat": 36.45,
+   "lon": 50.58,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     230,
+     4
+    ],
+    [
+     230,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "TAR",
+   "name": "Tabarestan (Caspian)",
+   "lat": 36.55,
+   "lon": 52.68,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "BUK",
+   "name": "Bukhara and Samarkand",
+   "lat": 39.9,
+   "lon": 66.0,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
     ],
     [
      580,
-     2
+     4
     ],
     [
-     620,
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
      3
     ],
     [
-     650,
-     3
-    ],
-    [
-     650,
+     580,
      3
     ]
    ]
   },
   {
-   "id": "MOCK-BALKANS",
-   "name": "Balkans",
-   "lat": 43,
-   "lon": 21,
+   "id": "KHV",
+   "name": "Khiva and Khwarazm",
+   "lat": 41.38,
+   "lon": 60.36,
    "s": [
     [
      0,
@@ -980,24 +1760,3844 @@
      0
     ],
     [
-     350,
-     2
+     0,
+     0
     ],
     [
-     378,
-     2
+     0,
+     0
     ],
     [
-     406,
-     2
+     0,
+     0
     ],
     [
-     434,
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     400,
      3
     ],
     [
-     455,
+     400,
      3
+    ],
+    [
+     400,
+     3
+    ]
+   ]
+  },
+  {
+   "id": "KAS",
+   "name": "Kashgar and the Tarim Basin",
+   "lat": 39.47,
+   "lon": 75.99,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     580,
+     3
+    ],
+    [
+     580,
+     3
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "VOL",
+   "name": "Volga Bulgar lands",
+   "lat": 55.0,
+   "lon": 49.0,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "HOR",
+   "name": "Lower Volga (Golden Horde)",
+   "lat": 47.0,
+   "lon": 46.0,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "CRI",
+   "name": "Crimea",
+   "lat": 45.0,
+   "lon": 34.2,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     3
+    ],
+    [
+     340,
+     3
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "GHZ",
+   "name": "Ghazni, Kabul and Kandahar",
+   "lat": 33.55,
+   "lon": 68.42,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     3
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "SIN",
+   "name": "Sindh and Mansura",
+   "lat": 25.8,
+   "lon": 68.4,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "PUN",
+   "name": "Punjab and Lahore",
+   "lat": 31.55,
+   "lon": 74.34,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "DEL",
+   "name": "Delhi and northern India",
+   "lat": 28.61,
+   "lon": 77.21,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "BEN",
+   "name": "Bengal",
+   "lat": 23.8,
+   "lon": 89.4,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "GUJ",
+   "name": "Gujarat",
+   "lat": 22.3,
+   "lon": 72.6,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "BID",
+   "name": "Bidar and Gulbarga",
+   "lat": 17.9,
+   "lon": 77.5,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "AHM",
+   "name": "Ahmadnagar and the northern Deccan",
+   "lat": 19.09,
+   "lon": 74.74,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "BIJ",
+   "name": "Bijapur",
+   "lat": 16.83,
+   "lon": 75.72,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "GOL",
+   "name": "Golconda and Hyderabad",
+   "lat": 17.38,
+   "lon": 78.48,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     3
+    ],
+    [
+     340,
+     3
+    ]
+   ]
+  },
+  {
+   "id": "KSH",
+   "name": "Kashmir",
+   "lat": 34.08,
+   "lon": 74.8,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     3
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "MAL",
+   "name": "Maldives",
+   "lat": 4.18,
+   "lon": 73.51,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     170,
+     4
+    ],
+    [
+     170,
+     4
+    ],
+    [
+     170,
+     4
+    ],
+    [
+     170,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "KAI",
+   "name": "Kairouan and Tunis",
+   "lat": 35.68,
+   "lon": 10.1,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     520,
+     3
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     3
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "TRI",
+   "name": "Tripolitania and Cyrenaica",
+   "lat": 32.89,
+   "lon": 13.19,
+   "s": [
+    [
+     460,
+     3
+    ],
+    [
+     460,
+     3
+    ],
+    [
+     460,
+     3
+    ],
+    [
+     460,
+     3
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "ALG",
+   "name": "Algiers and the central Maghreb",
+   "lat": 36.75,
+   "lon": 3.06,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "TLE",
+   "name": "Tlemcen",
+   "lat": 34.88,
+   "lon": -1.32,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "TAH",
+   "name": "Tahert",
+   "lat": 35.37,
+   "lon": 1.32,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "FEZ",
+   "name": "Fez and northern Morocco",
+   "lat": 34.03,
+   "lon": -5.0,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     520,
+     3
+    ],
+    [
+     520,
+     3
+    ],
+    [
+     520,
+     2
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "MAR",
+   "name": "Marrakesh and Atlantic Morocco",
+   "lat": 31.63,
+   "lon": -8.0,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "COR",
+   "name": "Cordoba and Andalusia",
+   "lat": 37.88,
+   "lon": -4.78,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "GRA",
+   "name": "Granada",
+   "lat": 37.18,
+   "lon": -3.6,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "ZAR",
+   "name": "Zaragoza and the Ebro",
+   "lat": 41.65,
+   "lon": -0.88,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "SIC",
+   "name": "Palermo and Sicily",
+   "lat": 38.12,
+   "lon": 13.36,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "MLT",
+   "name": "Malta",
+   "lat": 35.9,
+   "lon": 14.45,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     200,
+     2
+    ],
+    [
+     170,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "CRE",
+   "name": "Crete",
+   "lat": 35.24,
+   "lon": 24.81,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     200,
+     3
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "CYP",
+   "name": "Cyprus",
+   "lat": 35.1,
+   "lon": 33.4,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     200,
+     1
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "SAN",
+   "name": "Sanaa and the Yemeni highlands",
+   "lat": 15.35,
+   "lon": 44.2,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "TAI",
+   "name": "Taizz and southern Yemen",
+   "lat": 13.58,
+   "lon": 44.02,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "ZAB",
+   "name": "Zabid and the Tihama",
+   "lat": 14.2,
+   "lon": 43.3,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     290,
+     3
+    ],
+    [
+     290,
+     3
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "AHS",
+   "name": "Al-Ahsa and eastern Arabia",
+   "lat": 25.4,
+   "lon": 49.6,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "OMA",
+   "name": "Oman: Muscat and the interior",
+   "lat": 23.6,
+   "lon": 58.4,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "NAJ",
+   "name": "Najd: Diriyah and Riyadh",
+   "lat": 24.7,
+   "lon": 46.7,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     630,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "HAI",
+   "name": "Hail",
+   "lat": 27.5,
+   "lon": 41.7,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     460,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "ZAN",
+   "name": "Zanzibar and the Swahili coast",
+   "lat": -6.17,
+   "lon": 39.2,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     3
+    ],
+    [
+     520,
+     3
+    ]
+   ]
+  },
+  {
+   "id": "KIL",
+   "name": "Kilwa",
+   "lat": -8.96,
+   "lon": 39.51,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     260,
+     3
+    ],
+    [
+     230,
+     4
+    ],
+    [
+     230,
+     4
+    ],
+    [
+     230,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "SEN",
+   "name": "Senegal River valley",
+   "lat": 16.5,
+   "lon": -14.5,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "FUT",
+   "name": "Futa Jallon",
+   "lat": 11.3,
+   "lon": -12.3,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "MLI",
+   "name": "Upper Niger: Mali",
+   "lat": 13.0,
+   "lon": -7.5,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "SON",
+   "name": "Gao and Timbuktu (Songhay)",
+   "lat": 16.5,
+   "lon": -2.0,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     690,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "BOR",
+   "name": "Lake Chad: Borno",
+   "lat": 12.9,
+   "lon": 13.5,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "SOK",
+   "name": "Sokoto and the Hausa states",
+   "lat": 13.06,
+   "lon": 5.24,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     580,
+     4
+    ],
+    [
+     580,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "ADA",
+   "name": "Harar (Adal)",
+   "lat": 9.31,
+   "lon": 42.12,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     460,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "DAR",
+   "name": "Darfur",
+   "lat": 13.5,
+   "lon": 25.0,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ],
+    [
+     520,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "SUD",
+   "name": "Nile Sudan",
+   "lat": 15.6,
+   "lon": 32.5,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     840,
+     3
+    ],
+    [
+     840,
+     3
+    ],
+    [
+     840,
+     3
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "ACE",
+   "name": "Aceh and Pasai",
+   "lat": 5.55,
+   "lon": 95.32,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ]
+   ]
+  },
+  {
+   "id": "MLC",
+   "name": "Malacca and Johor",
+   "lat": 2.2,
+   "lon": 102.25,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     400,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "PAT",
+   "name": "Patani",
+   "lat": 6.87,
+   "lon": 101.25,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "BRU",
+   "name": "Brunei",
+   "lat": 4.89,
+   "lon": 114.94,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     390,
+     3
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     3
+    ],
+    [
+     340,
+     3
+    ]
+   ]
+  },
+  {
+   "id": "SUL",
+   "name": "Sulu",
+   "lat": 6.05,
+   "lon": 121.0,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     290,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "TER",
+   "name": "Ternate and Tidore",
+   "lat": 0.79,
+   "lon": 127.38,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     230,
+     4
+    ],
+    [
+     230,
+     4
+    ],
+    [
+     230,
+     4
+    ],
+    [
+     230,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "DEM",
+   "name": "Demak (north Java)",
+   "lat": -6.9,
+   "lon": 110.5,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "JAV",
+   "name": "Central Java courts",
+   "lat": -7.6,
+   "lon": 110.8,
+   "s": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     340,
+     4
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
     ]
    ]
   }

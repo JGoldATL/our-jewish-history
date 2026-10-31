@@ -6,7 +6,7 @@ let fail=0;const ck=(n,ok,x)=>{console.log((ok?'PASS ':'FAIL ')+n+(x!==undefined
  const vtxt=await (await fetch(BASE+'version.js')).text();const SITE=(vtxt.match(/SITE_VERSION='([^']+)'/)||[])[1],DATA=(vtxt.match(/SITE_DATA_VERSION='([^']+)'/)||[])[1];
  ck('version.js holds both a site version and a data version',!!SITE&&/^v\d+\.\d+\.\d+/.test(DATA||''),{SITE,DATA});
  const grab=async f=>JSON.parse(await (await fetch(BASE+'data/'+f)).text());
- const srcs={'history.json':(await grab('history.json')).sheet?.meta?.source,'archaeology.json':(await grab('archaeology.json')).source,'jewhate.json':(await grab('jewhate.json')).source,'inventions.json':(await grab('inventions.json')).source};
+ const srcs={'history.json':(await grab('history.json')).sheet?.meta?.source,'archaeology.json':(await grab('archaeology.json')).source,'jewhate.json':(await grab('jewhate.json')).source,'inventions.json':(await grab('inventions.json')).source,'haze.json':(await grab('haze.json')).source};
  for(const [f,s] of Object.entries(srcs))ck(f+' was built from the data version in version.js',typeof s==='string'&&s.includes(DATA),s);
  const want='v'+SITE+'; data '+DATA;
  const b=await chromium.launch();const errs=[];
