@@ -1,34 +1,14 @@
 {
  "schema": "inventions-1",
  "source": "Jewish_Continuity_Master_Dataset_v4.1.0",
- "sheetModified": "2026-10-31T02:22:26Z",
- "exportSha256": "b192de3a46bad3bc",
- "generated": "2026-10-31T02:22:37Z",
+ "sheetModified": "2026-10-31T04:41:14Z",
+ "exportSha256": "412d0c10bdf36442",
+ "generated": "2026-10-31T06:09:47Z",
  "entries": [
-  {
-   "id": "INV-001",
-   "status": "LOCKED",
-   "order": 1,
-   "category": "Invention",
-   "family": "Science and discovery",
-   "field": "Mathematics",
-   "shortLabel": "Algebra reaches Europe",
-   "summary": "In 1145 a math book by Abraham bar Hiyya was translated into Latin, giving European scholars new ways to solve equations.",
-   "why": "The algebra taught in schools today grew from methods like these.",
-   "year": 1145,
-   "approx": false,
-   "origin": "Barcelona / Italy; County of Barcelona / Italian city-states",
-   "originator": "Abraham bar Hiyya; Plato of Tivoli (translator)",
-   "deepDive": "In 1145 the Latin translation of a Hebrew book by Abraham bar Hiyya, a Jewish scholar in Barcelona, reached European readers. Called the Liber embadorum, it was the first work to bring the solution of quadratic equations into Latin mathematics. The Italian mathematician Fibonacci later built his own geometry book on it. The methods it carried are the ancestors of the equations students still solve in school today.",
-   "source": {
-    "name": "Dictionary of Scientific Biography, Plato of Tivoli (via Encyclopedia.com)",
-    "url": "https://www.encyclopedia.com/science/encyclopedias-almanacs-transcripts-and-maps/plato-tivoli"
-   }
-  },
   {
    "id": "INV-002",
    "status": "LOCKED",
-   "order": 2,
+   "order": 1,
    "category": "Invention",
    "family": "Health and medicine",
    "field": "Medicine",
@@ -48,7 +28,7 @@
   {
    "id": "INV-003",
    "status": "LOCKED",
-   "order": 3,
+   "order": 2,
    "category": "Invention",
    "family": "Science and discovery",
    "field": "Astronomy",
@@ -66,29 +46,9 @@
    }
   },
   {
-   "id": "INV-004",
-   "status": "LOCKED",
-   "order": 4,
-   "category": "Invention",
-   "family": "Science and discovery",
-   "field": "Astronomy",
-   "shortLabel": "Testing star predictions",
-   "summary": "Gersonides compared his predictions of where the planets would be with what he actually saw in the sky.",
-   "why": "Checking a theory against real observations is how science still works.",
-   "year": 1320,
-   "approx": true,
-   "origin": "Provence; Kingdom of France",
-   "originator": "Levi ben Gershon (Gersonides)",
-   "deepDive": "Gersonides did not simply trust the ancient astronomers. He measured the sky himself, using a pinhole device called a camera obscura, and compared his results with what Ptolemy's model predicted. Ptolemy's model said Mars should change in apparent size about sixfold; Gersonides found about twofold. He drew up his own astronomical tables and a new model of the heavens. Checking a theory against careful observation is how science still works.",
-   "source": {
-    "name": "Biographical Encyclopedia of Astronomers (Springer), Gersonides: Levi ben Gerson, via University of St Andrews",
-    "url": "https://mathshistory.st-andrews.ac.uk/BEA/levi_bea.pdf"
-   }
-  },
-  {
    "id": "INV-005",
    "status": "LOCKED",
-   "order": 5,
+   "order": 3,
    "category": "Invention",
    "family": "Everyday life and engineering",
    "field": "Navigation",
@@ -106,29 +66,9 @@
    }
   },
   {
-   "id": "INV-006",
-   "status": "LOCKED",
-   "order": 6,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Medicine",
-   "shortLabel": "Valves in your veins",
-   "summary": "Amatus Lusitanus reported tiny valves inside veins and suggested they help steer the flow of blood.",
-   "why": "It was a step toward understanding how blood circulates through the body.",
-   "year": 1551,
-   "approx": true,
-   "origin": "Ferrara; Duchy of Ferrara",
-   "originator": "Amatus Lusitanus (João Rodrigues de Castelo Branco)",
-   "deepDive": "In 1547 Amatus Lusitanus, a Portuguese-born Jewish doctor who taught anatomy in Ferrara, blew air into a vein while scholars watched. The air would not get past the tiny valve inside, which suggested that valves steer blood in one direction. He published the account in 1551. Historians still debate how well he understood circulation, but his careful experiment was an early step toward explaining how blood moves through the body.",
-   "source": {
-    "name": "Garrison-Morton (Jeremy Norman, History of Medicine), Rodrigues de Castelo Branco (Amatus Lusitanus)",
-    "url": "https://historyofmedicine.com/author/d/joo-amato-lusitano-amatus-lusitanus-rodrigues-de-castelo-branco"
-   }
-  },
-  {
    "id": "INV-009",
    "status": "LOCKED",
-   "order": 7,
+   "order": 4,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Finance",
@@ -148,7 +88,7 @@
   {
    "id": "INV-010",
    "status": "LOCKED",
-   "order": 8,
+   "order": 5,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Education",
@@ -166,29 +106,9 @@
    }
   },
   {
-   "id": "INV-011",
-   "status": "LOCKED",
-   "order": 9,
-   "category": "Invention",
-   "family": "Society and ideas",
-   "field": "Economics",
-   "shortLabel": "National debt and credit",
-   "summary": "Isaac de Pinto wrote one of the first serious studies of how government borrowing and credit move money through an economy.",
-   "why": "Countries still argue over the same questions of debt and credit.",
-   "year": 1771,
-   "approx": false,
-   "origin": "Amsterdam; Dutch Republic",
-   "originator": "Isaac de Pinto",
-   "deepDive": "In 1771 Isaac de Pinto, an Amsterdam banker and a main investor in the Dutch East India Company, published a treatise on circulation and credit. At a time when many feared public borrowing, he argued that public credit could make a country richer by putting more money into circulation. The book was translated into English in 1774. His interests also included Jewish emancipation. Countries still argue over the same questions about debt and credit.",
-   "source": {
-    "name": "The Historical Journal (Cambridge University Press), article on national debt and political obligation, DOI 10.1017/S0018246X21000832 (article title not visible in the extract)",
-    "url": "https://doi.org/10.1017/S0018246X21000832"
-   }
-  },
-  {
    "id": "INV-012",
    "status": "LOCKED",
-   "order": 10,
+   "order": 6,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Civil liberties",
@@ -208,11 +128,11 @@
   {
    "id": "INV-013",
    "status": "LOCKED",
-   "order": 11,
+   "order": 7,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Mechanical computing",
-   "shortLabel": "Early calculator",
+   "shortLabel": "The Early calculator",
    "summary": "Abraham Stern built a machine that could do arithmetic and even find square roots.",
    "why": "Machines began doing number work people once did by hand.",
    "year": 1817,
@@ -228,7 +148,7 @@
   {
    "id": "INV-016",
    "status": "LOCKED",
-   "order": 12,
+   "order": 8,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Animal welfare",
@@ -246,49 +166,9 @@
    }
   },
   {
-   "id": "INV-017",
-   "status": "LOCKED",
-   "order": 13,
-   "category": "Entertainment",
-   "family": "Arts and entertainment",
-   "field": "Music and theater",
-   "shortLabel": "Grand opera",
-   "summary": "Giacomo Meyerbeer's Robert le diable dazzled Paris in 1831 with huge sets, special effects and soaring music.",
-   "why": "Its spectacle became the model for opera houses across Europe.",
-   "year": 1831,
-   "approx": false,
-   "origin": "Paris; Kingdom of France",
-   "originator": "Giacomo Meyerbeer",
-   "deepDive": "On 21 November 1831 the Paris Opéra premiered Robert le diable by Giacomo Meyerbeer. He had first planned a smaller comic opera, then reworked it into a five-act spectacle with lavish staging and a story full of the supernatural. Audiences were wild for it: by 1893 it had been performed 751 times at the Opéra. Its blend of music and spectacle helped define grand opera.",
-   "source": {
-    "name": "Encyclopaedia Britannica, Robert le Diable",
-    "url": "https://britannica.com/topic/Robert-le-Diable-opera-by-Meyerbeer"
-   }
-  },
-  {
-   "id": "INV-018",
-   "status": "LOCKED",
-   "order": 14,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Neuroscience",
-   "shortLabel": "The nervous system",
-   "summary": "Robert Remak found thin nerve fibers with no protective coating, an early step in mapping how the nervous system is wired.",
-   "why": "It is an early piece of the map doctors still use to understand nerves.",
-   "year": 1836,
-   "approx": false,
-   "origin": "Berlin; Kingdom of Prussia",
-   "originator": "Robert Remak",
-   "deepDive": "In 1836 Robert Remak, a young Jewish researcher in Berlin, published his first studies of the fine structure of nerves. His 1838 doctoral thesis described thin gray fibers with no protective coating, the myelin sheath, now called Remak's fibers. He also showed that the coated nerve fibers are not hollow tubes, as had been believed. These were early pieces of the map doctors still use to understand how nerves are wired.",
-   "source": {
-    "name": "Journal of Neurology via PubMed Central, Robert Remak (1815-1865), Grzybowski and Pietrzak, 2013",
-    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3675270/"
-   }
-  },
-  {
    "id": "INV-021",
    "status": "LOCKED",
-   "order": 15,
+   "order": 9,
    "category": "Invention",
    "family": "Science and discovery",
    "field": "Mathematics",
@@ -306,73 +186,13 @@
    }
   },
   {
-   "id": "INV-023",
-   "status": "LOCKED",
-   "order": 16,
-   "category": "Invention",
-   "family": "Science and discovery",
-   "field": "Cell biology",
-   "shortLabel": "How cells multiply",
-   "summary": "Robert Remak showed that new cells come from existing cells splitting in two.",
-   "why": "Growth, healing and many diseases all start with cell division.",
-   "year": 1852,
-   "approx": false,
-   "origin": "Berlin; Kingdom of Prussia",
-   "originator": "Robert Remak",
-   "deepDive": "In 1852 Robert Remak, a Jewish physician and embryologist in Berlin, published what he had seen in frog eggs: one cell dividing into two, then four, and on from there. Some scientists, including Matthias Schleiden, had thought cells formed the way crystals do. Three years later Rudolf Virchow made the same idea famous with a Latin motto meaning every cell comes from a cell, without citing Remak. Growth and healing both rest on cell division.",
-   "source": {
-    "name": "Garrison-Morton (Jeremy Norman, History of Medicine), Remak, Robert, 1852 entry",
-    "url": "https://www.historyofmedicine.com/author/d/robert-remak"
-   }
-  },
-  {
-   "id": "INV-024",
-   "status": "LOCKED",
-   "order": 17,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Healthcare institution",
-   "shortLabel": "Mount Sinai Hospital",
-   "summary": "Jewish charities in New York opened a hospital in 1855 that took in patients of every background.",
-   "why": "It grew into Mount Sinai, one of America's leading hospitals.",
-   "year": 1855,
-   "approx": false,
-   "origin": "New York City; United States",
-   "originator": "Founders of Jews’ Hospital in New York",
-   "deepDive": "In 1852 nine men representing Jewish charities in New York agreed to build a hospital for the city's poor Jews. The Jews' Hospital opened in 1855 with 45 beds on West 28th Street. At first it admitted Jewish patients and accident victims. During the Civil War it widened its doors, and in 1866 it dropped its sectarian charter and took the name Mount Sinai. A medical school followed in 1968.",
-   "source": {
-    "name": "Baron, The Mount Sinai Hospital: A brief history, Mount Sinai Journal of Medicine 67(1), 2000 (catalog abstract only; full text not opened)",
-    "url": "https://acnpsearch.tweb-dev.unibo.it/singlejournalindex/68697415"
-   }
-  },
-  {
-   "id": "INV-026",
-   "status": "LOCKED",
-   "order": 18,
-   "category": "Invention",
-   "family": "Society and ideas",
-   "field": "Labor and political organization",
-   "shortLabel": "Workers' political party",
-   "summary": "Ferdinand Lassalle founded the first organized party for German workers in 1863.",
-   "why": "It gave working people an organized political voice.",
-   "year": 1863,
-   "approx": false,
-   "origin": "Leipzig; Kingdom of Saxony",
-   "originator": "Ferdinand Lassalle",
-   "deepDive": "On 23 May 1863 in Leipzig, the German socialist writer and organizer Ferdinand Lassalle founded the General German Workers' Association and was elected its president. He had urged working people to organize peacefully and to press for the right to vote. Lassalle died in 1864, but in 1875 his association merged with another workers' party to form the forerunner of today's Social Democratic Party of Germany. It gave working people an organized political voice.",
-   "source": {
-    "name": "Encyclopaedia Britannica, Ferdinand Lassalle",
-    "url": "https://www.britannica.com/biography/Ferdinand-Lassalle"
-   }
-  },
-  {
    "id": "INV-027",
    "status": "LOCKED",
-   "order": 19,
+   "order": 10,
    "category": "Invention",
    "family": "Health and medicine",
    "field": "Immunology",
-   "shortLabel": "White blood cells",
+   "shortLabel": "Understanding white blood cells",
    "summary": "Your body's first responders: Julius Cohnheim watched white blood cells squeeze out of blood vessels into injured tissue to fight infection.",
    "why": "It showed that inflammation is your body sending defenders to the injury.",
    "year": 1867,
@@ -386,29 +206,9 @@
    }
   },
   {
-   "id": "INV-029",
-   "status": "LOCKED",
-   "order": 20,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Microbiology",
-   "shortLabel": "Sorting bacteria",
-   "summary": "Ferdinand Cohn sorted bacteria into groups by how they look and behave.",
-   "why": "Naming and grouping germs made it possible to study and fight them.",
-   "year": 1872,
-   "approx": false,
-   "origin": "Breslau (now Wrocław); Kingdom of Prussia / German Empire",
-   "originator": "Ferdinand Cohn",
-   "deepDive": "In 1872 Ferdinand Cohn, a botanist from Breslau, published a study that sorted bacteria into groups by their shape: balls, rods, curved forms and spirals. Until then many scientists lumped these tiny organisms together. Cohn argued that bacteria are living things that can be arranged into genera and species, and his was the first systematic attempt to do it. His groups are still the basis of how bacteria are named. In 1876 he also helped launch Robert Koch's anthrax discovery.",
-   "source": {
-    "name": "Encyclopaedia Britannica, Ferdinand Cohn",
-    "url": "https://www.britannica.com/biography/Ferdinand-Cohn"
-   }
-  },
-  {
    "id": "INV-030",
    "status": "LOCKED",
-   "order": 21,
+   "order": 11,
    "category": "Invention",
    "family": "Everyday life and engineering",
    "field": "Clothing",
@@ -426,234 +226,14 @@
    }
   },
   {
-   "id": "INV-031",
-   "status": "LOCKED",
-   "order": 22,
-   "category": "Invention",
-   "family": "Arts and entertainment",
-   "field": "Visual arts",
-   "shortLabel": "Impressionist art",
-   "summary": "Camille Pissarro helped stage the first independent Impressionist exhibition, in Paris in 1874.",
-   "why": "Impressionism changed how the world paints and looks at art.",
-   "year": 1874,
-   "approx": false,
-   "origin": "Paris; French Third Republic",
-   "originator": "Camille Pissarro and fellow Impressionists",
-   "deepDive": "On 15 April 1874 about thirty artists opened an exhibition in Paris, in the former studio of the photographer Nadar. They had formed their own cooperative, the Société anonyme, because the official Salon kept turning them away. Camille Pissarro was among the artists who set it up and showed his landscapes there. The show was poorly received, and one critic used the word impressionist as an insult. The name stuck, and the artists in that room changed how people paint and see.",
-   "source": {
-    "name": "National Gallery of Art, press release on Paris 1874: The Impressionist Moment",
-    "url": "https://www.nga.gov/node/911391"
-   }
-  },
-  {
-   "id": "INV-033",
-   "status": "LOCKED",
-   "order": 23,
-   "category": "Invention",
-   "family": "Computing and communication",
-   "field": "Communications",
-   "shortLabel": "The telephone microphone",
-   "summary": "Emile Berliner patented a better transmitter, the part of the phone you speak into.",
-   "why": "Phone calls became clear enough for everyday conversation.",
-   "year": 1877,
-   "approx": false,
-   "origin": "Washington, DC; United States",
-   "originator": "Emile Berliner",
-   "deepDive": "In 1877 Emile Berliner, a young German-born inventor in Washington, DC, built a better transmitter for the new telephone, the part you speak into. His loose-contact design made the voice louder and clearer. He filed for a patent on 4 June 1877, and the Bell company bought his rights and hired him. Thomas Edison had filed a similar claim that spring, and the two collided in a long legal fight over credit. Either way, the improved microphone helped make phone calls clear enough for everyday use.",
-   "source": {
-    "name": "Encyclopedia.com, Emile Berliner",
-    "url": "https://www.encyclopedia.com/science/encyclopedias-almanacs-transcripts-and-maps/emile-berliner"
-   }
-  },
-  {
-   "id": "INV-034",
-   "status": "LOCKED",
-   "order": 24,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Immunology",
-   "shortLabel": "Allergy cells",
-   "summary": "Paul Ehrlich used colored dyes to spot a new kind of cell, the mast cell, now known for its role in allergies.",
-   "why": "These cells store histamine, the chemical behind many allergic reactions.",
-   "year": 1878,
-   "approx": false,
-   "origin": "Leipzig; German Empire",
-   "originator": "Paul Ehrlich",
-   "deepDive": "As a medical student in the late 1870s, Paul Ehrlich was fascinated by colored dyes. Using them to stain tissue under the microscope, he spotted a new kind of cell packed with dark granules. In his 1878 doctoral thesis he named it the mast cell. His staining methods went on to help doctors tell different blood cells apart. Today we know that mast cells store histamine, a chemical the body releases in allergic reactions.",
-   "source": {
-    "name": "Dictionary of Scientific Biography, Ehrlich, Paul (via Encyclopedia.com)",
-    "url": "https://www.encyclopedia.com/medicine/medical-journals/ehrlich-paul"
-   }
-  },
-  {
-   "id": "INV-035",
-   "status": "LOCKED",
-   "order": 25,
-   "category": "Invention",
-   "family": "Science and discovery",
-   "field": "Scientific publishing",
-   "shortLabel": "America's math journal",
-   "summary": "James Joseph Sylvester founded the American Journal of Mathematics in 1878.",
-   "why": "American mathematicians finally had a major journal of their own.",
-   "year": 1878,
-   "approx": false,
-   "origin": "Baltimore, Maryland; United States",
-   "originator": "James Joseph Sylvester",
-   "deepDive": "In 1878 James Joseph Sylvester, an English mathematician then teaching at the new Johns Hopkins University in Baltimore, founded the American Journal of Mathematics and served as its first editor. It was the first research journal in mathematics in the United States, giving American mathematicians a place to publish their work at home. Sylvester also introduced graduate study in mathematics to American universities and gave the whole field a boost.",
-   "source": {
-    "name": "Encyclopaedia Britannica, James Joseph Sylvester",
-    "url": "https://britannica.com/print/article/577621"
-   }
-  },
-  {
-   "id": "INV-036",
-   "status": "LOCKED",
-   "order": 26,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Healthcare institution",
-   "shortLabel": "Michael Reese Hospital",
-   "summary": "Michael Reese's fortune built a Chicago hospital open to all, whatever their religion or nationality.",
-   "why": "Chicago gained a major charity hospital with its doors open to everyone.",
-   "year": 1880,
-   "approx": false,
-   "origin": "Chicago; United States",
-   "originator": "Michael Reese’s heirs and Jewish philanthropic network",
-   "deepDive": "Michael Reese, a German Jewish immigrant who made his money in Chicago, died in 1878 and left funds toward a hospital. The United Hebrew Relief Association used them to build one, on the condition that it be named for him and treat all patients, whatever their race, religion or nationality. Michael Reese Hospital opened on 23 October 1881, and a nursing school followed in 1890. Historians note the promise of care for all took longer to keep. It became a major charity hospital.",
-   "source": {
-    "name": "University of Illinois Chicago, Mapping Care, Michael Reese Hospital School of Nursing",
-    "url": "https://www.mappingcare.digital.uic.edu/page/michael-reese-hospital-school-of-nursing.45"
-   }
-  },
-  {
-   "id": "INV-037",
-   "status": "LOCKED",
-   "order": 27,
-   "category": "Invention",
-   "family": "Everyday life and engineering",
-   "field": "Office technology",
-   "shortLabel": "Faster office printing",
-   "summary": "David Gestetner invented a stencil pen that let one master copy print page after page.",
-   "why": "Schools and offices could make copies quickly and cheaply.",
-   "year": 1881,
-   "approx": false,
-   "origin": "London; United Kingdom",
-   "originator": "David Gestetner",
-   "deepDive": "In 1881 David Gestetner, a Hungarian-born immigrant in London, invented the Cyclostyle, a pen with a tiny toothed wheel that punched holes in waxed paper to make a stencil. Ink pushed through the holes, so one master could make copy after copy. His rotary design, patented in 1901, wrapped the stencil around a revolving drum so copies came out continuously. His company employed 6,000 people by his death in 1939.",
-   "source": {
-    "name": "Science Museum Group Collection, Gestetner's rotary cyclostyle no 6 duplicator",
-    "url": "https://collection.sciencemuseumgroup.org.uk/objects/co38123/gestetners-rotary-cyclostyle-no-6-duplicator-copier"
-   }
-  },
-  {
-   "id": "INV-038",
-   "status": "LOCKED",
-   "order": 28,
-   "category": "Invention",
-   "family": "Society and ideas",
-   "field": "Literature and civic culture",
-   "shortLabel": "The New Colossus",
-   "summary": "Emma Lazarus wrote the poem now linked to the Statue of Liberty, welcoming the world's tired and poor.",
-   "why": "Her words became America's promise to newcomers.",
-   "year": 1883,
-   "approx": false,
-   "origin": "New York City; United States",
-   "originator": "Emma Lazarus",
-   "deepDive": "In 1883 the New York poet Emma Lazarus, whose family was Sephardic Jewish, was asked to write a sonnet for an art and literary auction raising money for the pedestal of the Statue of Liberty. Inspired by her work with refugees on Ward's Island, she wrote The New Colossus on 2 November 1883. It calls the statue the Mother of Exiles. Lazarus died in 1887, and in 1903 her words were placed on a plaque inside the pedestal. Her welcome to newcomers still defines the statue.",
-   "source": {
-    "name": "U.S. National Park Service, Emma Lazarus",
-    "url": "https://www.nps.gov/stli/learn/historyculture/emma-lazarus.htm"
-   }
-  },
-  {
-   "id": "INV-039",
-   "status": "LOCKED",
-   "order": 29,
-   "category": "Invention",
-   "family": "Everyday life and engineering",
-   "field": "Retail",
-   "shortLabel": "Marks & Spencer",
-   "summary": "Michael Marks opened a market stall in Leeds where everything cost one penny.",
-   "why": "His stall grew into Marks & Spencer and helped make clear, fixed prices normal in shops.",
-   "year": 1884,
-   "approx": false,
-   "origin": "Leeds; United Kingdom",
-   "originator": "Michael Marks",
-   "deepDive": "In 1884 Michael Marks, a Jewish refugee from Poland who had come to England a few years earlier, opened a stall in Leeds' Kirkgate Market. Its sign told shoppers there was no need to ask the price, because everything cost a penny. In 1894 he took on Thomas Spencer, a cashier, as his partner, and Marks & Spencer was born. That market stall grew into one of Britain's best-known clothing and food retailers.",
-   "source": {
-    "name": "Encyclopaedia Britannica, Marks & Spencer PLC",
-    "url": "https://eb.com/money/Marks-and-Spencer-PLC"
-   }
-  },
-  {
-   "id": "INV-040",
-   "status": "LOCKED",
-   "order": 30,
-   "category": "Invention",
-   "family": "Society and ideas",
-   "field": "Labor rights",
-   "shortLabel": "American Federation of Labor",
-   "summary": "Samuel Gompers became the first president of a new federation joining America's trade unions.",
-   "why": "The unions it led pushed for shorter hours, fair bargaining and better labor laws.",
-   "year": 1886,
-   "approx": false,
-   "origin": "Columbus, Ohio; United States",
-   "originator": "Samuel Gompers and participating trade unions",
-   "deepDive": "In December 1886 delegates from craft unions met in Columbus, Ohio, unhappy with the Knights of Labor, and formed the American Federation of Labor. They chose Samuel Gompers, a cigar maker born in London to a Dutch Jewish family, as president; he declined at first and accepted when nominated a second time. He led the federation for nearly forty years. It became the first lasting national labor union in the United States and gave working people an organized national voice.",
-   "source": {
-    "name": "The Clio, Samuel Gompers, labor leader and first president of the AFL",
-    "url": "https://theclio.com/entry/27459"
-   }
-  },
-  {
-   "id": "INV-041",
-   "status": "LOCKED",
-   "order": 31,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Neurology",
-   "shortLabel": "Tay–Sachs disease",
-   "summary": "Bernard Sachs described a rare inherited disease of the nervous system in young children, now called Tay–Sachs.",
-   "why": "Knowing the disease made diagnosis possible, and later genetic testing.",
-   "year": 1887,
-   "approx": false,
-   "origin": "New York City; United States",
-   "originator": "Bernard Sachs; Warren Tay (earlier ophthalmologic observation)",
-   "deepDive": "In 1881 the English eye doctor Warren Tay noticed a cherry-colored spot in the retina of a sick infant. In 1887 the New York neurologist Bernard Sachs described the same illness in a two-year-old girl without knowing of Tay's report. Later he saw that it ran in families and named it amaurotic family idiocy. Doctors came to call it Tay-Sachs disease. A careful description and a name gave doctors a way to recognize a rare inherited illness and a first step toward understanding it.",
-   "source": {
-    "name": "Encyclopedia.com, Tay-Sachs and \"Jewish\" Diseases",
-    "url": "https://www.encyclopedia.com/social-sciences/encyclopedias-almanacs-transcripts-and-maps/tay-sachs-and-jewish-diseases"
-   }
-  },
-  {
-   "id": "INV-042",
-   "status": "LOCKED",
-   "order": 32,
-   "category": "Invention",
-   "family": "Society and ideas",
-   "field": "Language",
-   "shortLabel": "Esperanto language",
-   "summary": "In 1887 L. L. Zamenhof published Esperanto, a new language designed to be easy for anyone to learn.",
-   "why": "People around the world still use it as a shared second language.",
-   "year": 1887,
-   "approx": false,
-   "origin": "Warsaw; Russian Empire",
-   "originator": "Ludwik Lejzer Zamenhof",
-   "deepDive": "In 1887 Ludwik Lejzer Zamenhof, an eye doctor in Warsaw, published a short book under the pen name Doktoro Esperanto, meaning one who hopes. It set out a new language with simple, regular grammar, meant to be everyone's second language. Zamenhof grew up in Białystok, where Poles, Russians, Germans and Jews often could not understand one another, and he hoped a shared language would ease such divisions. The language took its name from his pen name and remains the most widely spoken invented language.",
-   "source": {
-    "name": "Encyclopaedia Britannica, L.L. Zamenhof",
-    "url": "https://www.britannica.com/biography/L-L-Zamenhof"
-   }
-  },
-  {
    "id": "INV-043",
    "status": "LOCKED",
-   "order": 33,
+   "order": 12,
    "category": "Invention",
    "family": "Arts and entertainment",
    "field": "Recorded audio",
-   "shortLabel": "The music record",
-   "summary": "Emile Berliner traded Edison's cylinders for flat discs that could be copied by the thousands.",
+   "shortLabel": "The Gramophone",
+   "summary": "Emile Berliner traded Edison's cylinders for flat discs that could be copied by the thousands... the predecessor to Vinyl records.",
    "why": "Music could be recorded once and sold by the million.",
    "year": 1887,
    "approx": false,
@@ -668,7 +248,7 @@
   {
    "id": "INV-045",
    "status": "LOCKED",
-   "order": 34,
+   "order": 13,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Law and civil liberties",
@@ -688,7 +268,7 @@
   {
    "id": "INV-047",
    "status": "LOCKED",
-   "order": 35,
+   "order": 14,
    "category": "Invention",
    "family": "Arts and entertainment",
    "field": "Photography",
@@ -708,7 +288,7 @@
   {
    "id": "INV-048",
    "status": "LOCKED",
-   "order": 36,
+   "order": 15,
    "category": "Invention",
    "family": "Health and medicine",
    "field": "Vaccines",
@@ -726,109 +306,9 @@
    }
   },
   {
-   "id": "INV-049",
-   "status": "LOCKED",
-   "order": 37,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Public health",
-   "shortLabel": "Safe milk for children",
-   "summary": "Nathan Straus paid to have milk pasteurized and set up stations where families could get safe milk.",
-   "why": "Fewer babies fell sick from germs in milk.",
-   "year": 1892,
-   "approx": false,
-   "origin": "New York City; United States",
-   "originator": "Nathan Straus",
-   "deepDive": "Nathan Straus, the co-owner of Macy's department store, believed pasteurized milk could stop babies from dying of diseases carried in raw milk. In 1892 he and his wife funded a laboratory for pasteurized milk, and in 1893 the first of his milk depots opened in Lower Manhattan, selling safe milk for a penny a glass and giving it to families who could not pay. By 1920 he had set up nearly 300 depots in 36 American cities. His crusade helped make pasteurized milk the norm.",
-   "source": {
-    "name": "Columbia University, Sheffield Farms project, Chapter 5: Community Actions",
-    "url": "https://sheffieldfarms.neighbors.columbia.edu/content/chapter-5-community-actions"
-   }
-  },
-  {
-   "id": "INV-050",
-   "status": "LOCKED",
-   "order": 38,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Orthopedics",
-   "shortLabel": "Stronger bones",
-   "summary": "Julius Wolff showed that bones reshape themselves to handle the loads placed on them.",
-   "why": "Doctors still use his idea that bones adapt to the loads placed on them.",
-   "year": 1892,
-   "approx": false,
-   "origin": "Berlin; German Empire",
-   "originator": "Julius Wolff",
-   "deepDive": "In 1892 the Berlin surgeon Julius Wolff published The Law of Bone Transformation after years of studying cut sections of bone. He found that the spongy inside of a bone is built as a regular lattice of tiny struts that cross at right angles, and that when the way a bone is used changes, its inner structure and outer shape change to match. His idea that bone adapts to mechanical stress became a foundation of orthopedics, the care of bones and joints.",
-   "source": {
-    "name": "Clinical Orthopaedics and Related Research (Springer), on Julius Wolff",
-    "url": "https://link.springer.com/doi/10.1007/s11999-010-1258-z"
-   }
-  },
-  {
-   "id": "INV-051",
-   "status": "LOCKED",
-   "order": 39,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Public health",
-   "shortLabel": "Visiting nurses",
-   "summary": "Lillian Wald started a service of nurses who visited poor families at home in New York.",
-   "why": "Community nursing became a regular part of public health.",
-   "year": 1893,
-   "approx": false,
-   "origin": "New York City; United States",
-   "originator": "Lillian Wald",
-   "deepDive": "In the autumn of 1893 Lillian Wald, a young nurse, left medical school with her friend Mary Brewster and moved into a poor immigrant neighborhood on New York's Lower East Side, offering her services as a visiting nurse. In the first months they visited over 125 families. Her service grew into the Henry Street Settlement, and in 1902 a Henry Street nurse in a public school led New York to start the world's first citywide school nursing program. Community nursing became a regular part of public health.",
-   "source": {
-    "name": "Encyclopaedia Britannica, Lillian D. Wald",
-    "url": "https://www.britannica.com/print/article/634378"
-   }
-  },
-  {
-   "id": "INV-052",
-   "status": "LOCKED",
-   "order": 40,
-   "category": "Invention",
-   "family": "Society and ideas",
-   "field": "Sociology",
-   "shortLabel": "The modern workplace",
-   "summary": "Émile Durkheim studied how splitting work into specialized jobs changes the bonds between people.",
-   "why": "His ideas still help explain modern jobs and society.",
-   "year": 1893,
-   "approx": false,
-   "origin": "Bordeaux; French Third Republic",
-   "originator": "Émile Durkheim",
-   "deepDive": "In 1893 the French sociologist Émile Durkheim published The Division of Labour in Society, his doctoral thesis. He asked what holds a society together when people no longer do the same work. In small traditional communities, he argued, people are bound by being alike; in modern societies, by depending on one another's specialized jobs, a bond he called organic solidarity. He warned that this works only when the work is fairly regulated and suits the person doing it.",
-   "source": {
-    "name": "Charles University (Prague), course reading on Durkheim's The Division of Labor in Society",
-    "url": "https://dl1.cuni.cz/mod/resource/view.php?id=818483"
-   }
-  },
-  {
-   "id": "INV-053",
-   "status": "LOCKED",
-   "order": 41,
-   "category": "Invention",
-   "family": "Society and ideas",
-   "field": "Sociology",
-   "shortLabel": "Sociology as science",
-   "summary": "Émile Durkheim laid out rules for studying society with evidence, the way scientists study nature.",
-   "why": "Sociology became a research field of its own.",
-   "year": 1895,
-   "approx": false,
-   "origin": "Bordeaux; French Third Republic",
-   "originator": "Émile Durkheim",
-   "deepDive": "In 1895 Émile Durkheim, a French scholar born into a Jewish family in Épinal, published The Rules of Sociological Method. He argued that society could be studied scientifically by treating social facts, such as laws, customs and shared beliefs, as things that shape individuals from outside. That same year he set up the first sociology department in Europe and became France's first professor of sociology.",
-   "source": {
-    "name": "Wikipedia, Émile Durkheim",
-    "url": "https://en.wikipedia.org/wiki/%C3%89mile_Durkheim"
-   }
-  },
-  {
    "id": "INV-054",
    "status": "LOCKED",
-   "order": 42,
+   "order": 16,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Psychology",
@@ -848,11 +328,11 @@
   {
    "id": "INV-055",
    "status": "LOCKED",
-   "order": 43,
+   "order": 17,
    "category": "Invention",
    "family": "Science and discovery",
    "field": "Mathematics",
-   "shortLabel": "Prime numbers",
+   "shortLabel": "The Prime Number Theorem",
    "summary": "Jacques Hadamard proved a rule for how often prime numbers appear as numbers grow larger.",
    "why": "Prime numbers later became the base of public-key encryption.",
    "year": 1896,
@@ -866,33 +346,13 @@
    }
   },
   {
-   "id": "INV-056",
-   "status": "LOCKED",
-   "order": 44,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Medical diagnostics",
-   "shortLabel": "Typhoid blood test",
-   "summary": "Fernand Widal devised a blood test to tell whether a patient had typhoid fever.",
-   "why": "Lab tests became a standard way to diagnose infections.",
-   "year": 1896,
-   "approx": false,
-   "origin": "Paris; French Third Republic",
-   "originator": "Fernand Widal",
-   "deepDive": "In June 1896 the French physician Fernand Widal showed that blood serum from a typhoid patient makes typhoid bacteria clump together. Doctors could now test for the disease in its early stage, instead of guessing from symptoms. He built on the clumping work of Gruber and Durham. The Widal test is still used in some places, though a single result can mislead because other infections can cause false readings.",
-   "source": {
-    "name": "PubMed Central, Hoke, The Serum Diagnosis of Typhoid Fever (1898)",
-    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8930751/"
-   }
-  },
-  {
    "id": "INV-057",
    "status": "LOCKED",
-   "order": 45,
+   "order": 18,
    "category": "Invention",
    "family": "Health and medicine",
    "field": "Vaccines",
-   "shortLabel": "Plague vaccine",
+   "shortLabel": "The Bubonic Plague vaccine",
    "summary": "During a plague epidemic in India, Waldemar Haffkine made and tested an early vaccine against plague.",
    "why": "It gave doctors one of the first tools against plague outbreaks.",
    "year": 1897,
@@ -906,89 +366,9 @@
    }
   },
   {
-   "id": "INV-058",
-   "status": "LOCKED",
-   "order": 46,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Immunology",
-   "shortLabel": "How antibodies work",
-   "summary": "Paul Ehrlich gave one of the first explanations of how the body makes antibodies to fight poisons and germs.",
-   "why": "It laid groundwork for today's vaccines and antibody medicines.",
-   "year": 1897,
-   "approx": false,
-   "origin": "Berlin; German Empire",
-   "originator": "Paul Ehrlich",
-   "deepDive": "In 1897 Paul Ehrlich proposed that cells carry side chains on their surface that lock onto toxins, and that the body answers an attack by making extra side chains that float free in the blood as antitoxins. It was one of the first explanations of how antibodies work. Ehrlich shared the 1908 Nobel Prize in Physiology or Medicine with Élie Metchnikoff for their work on immunity. His idea that a chemical could be built to hit a single target, a magic bullet, led to the first modern drug against syphilis.",
-   "source": {
-    "name": "Neue Deutsche Biographie (Deutsche Biographie), Ehrlich, Paul",
-    "url": "https://www.deutsche-biographie.de/sfz69700.html"
-   }
-  },
-  {
-   "id": "INV-059",
-   "status": "LOCKED",
-   "order": 47,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Sociology and public health",
-   "shortLabel": "Studying suicide with data",
-   "summary": "Émile Durkheim used population records to show that suicide rates rise and fall with social conditions.",
-   "why": "It showed that social conditions shape personal lives, and that data can reveal how.",
-   "year": 1897,
-   "approx": false,
-   "origin": "Bordeaux; French Third Republic",
-   "originator": "Émile Durkheim",
-   "deepDive": "In 1897 Émile Durkheim published Suicide, a study of suicide rates across populations, including Catholic and Protestant communities. He used statistics to argue that rates differ with the strength of social ties and are not only a matter of individual psychology. The book is treated as an early model of quantitative social research and helped separate sociology from psychology and political philosophy.",
-   "source": {
-    "name": "Wikipedia, Émile Durkheim",
-    "url": "https://en.wikipedia.org/wiki/%C3%89mile_Durkheim"
-   }
-  },
-  {
-   "id": "INV-061",
-   "status": "LOCKED",
-   "order": 48,
-   "category": "Invention",
-   "family": "Society and ideas",
-   "field": "Psychology",
-   "shortLabel": "Dreams and the mind",
-   "summary": "In 1899 Sigmund Freud's The Interpretation of Dreams argued that dreams reveal hidden thoughts.",
-   "why": "It shaped how people think and talk about the unconscious mind.",
-   "year": 1899,
-   "approx": false,
-   "origin": "Vienna; Austria-Hungary",
-   "originator": "Sigmund Freud",
-   "deepDive": "Sigmund Freud's Die Traumdeutung, The Interpretation of Dreams, argued that dreams carry meaning and offer a way into the unconscious mind. It reached readers in November 1899, though the title page says 1900. The first printing was only 600 copies and took eight years to sell. Seven more editions followed in Freud's lifetime, and the book became the best known of his works.",
-   "source": {
-    "name": "Library of Congress, Die Traumdeutung (Sigmund Freud Collection)",
-    "url": "https://www.loc.gov/resource/rbctos.2017freud50592/?sp=13"
-   }
-  },
-  {
-   "id": "INV-062",
-   "status": "LOCKED",
-   "order": 49,
-   "category": "Invention",
-   "family": "Health and medicine",
-   "field": "Public health",
-   "shortLabel": "School nurses",
-   "summary": "Lillian Wald helped bring nurses into New York's public schools to care for children and keep them in class.",
-   "why": "School nurses are now part of education systems in many countries.",
-   "year": 1902,
-   "approx": false,
-   "origin": "New York City; United States",
-   "originator": "Lillian Wald and Henry Street nurse Lina Rogers, with the New York City Board of Health",
-   "deepDive": "In October 1902 Lillian Wald, who founded the Henry Street Settlement, sent her nurse Lina Rogers into four New York City schools. Until then sick children were simply sent home. Rogers treated common problems at school, visited families and sent children back to class. The trial was extended and 27 more nurses were hired that year. Reports of how far absence fell vary by source, so no figure is given here.",
-   "source": {
-    "name": "University of Virginia School of Nursing, Flashback Friday: Lina Rogers, first school nurse",
-    "url": "https://nursing.virginia.edu/news/flashback-school-nurses/"
-   }
-  },
-  {
    "id": "INV-063",
    "status": "LOCKED",
-   "order": 50,
+   "order": 19,
    "category": "Invention",
    "family": "Science and discovery",
    "field": "Physics",
@@ -1006,49 +386,9 @@
    }
   },
   {
-   "id": "INV-064",
-   "status": "LOCKED",
-   "order": 51,
-   "category": "Invention",
-   "family": "Science and discovery",
-   "field": "Physics",
-   "shortLabel": "Light in tiny packets",
-   "summary": "Albert Einstein explained how light knocks electrons out of metal, showing that light comes in tiny packets of energy.",
-   "why": "It helped found quantum physics and the light sensors in modern devices.",
-   "year": 1905,
-   "approx": false,
-   "origin": "Bern; Switzerland",
-   "originator": "Albert Einstein",
-   "deepDive": "In March 1905 Albert Einstein proposed that light comes in tiny packets of energy, later called photons. This explained the photoelectric effect, in which light knocks electrons out of metal, something the wave theory of light could not do. He thought it the most revolutionary of his 1905 papers because it pushed forward the young quantum theory. It won him the 1921 Nobel Prize in Physics.",
-   "source": {
-    "name": "Kavli Institute for Theoretical Physics, Marking Einstein's Annus Mirabilis",
-    "url": "https://www.kitp.ucsb.edu/node/14437"
-   }
-  },
-  {
-   "id": "INV-065",
-   "status": "LOCKED",
-   "order": 52,
-   "category": "Invention",
-   "family": "Science and discovery",
-   "field": "Physics",
-   "shortLabel": "Special relativity",
-   "summary": "Albert Einstein showed that time and space depend on how fast you are moving.",
-   "why": "It changed how physicists think about time and space.",
-   "year": 1905,
-   "approx": false,
-   "origin": "Bern; Switzerland",
-   "originator": "Albert Einstein",
-   "deepDive": "In June 1905 Albert Einstein published his special theory of relativity. Assuming that the speed of light is the same for every observer, he showed that space and time are not fixed: lengths can contract and time can slow for something moving relative to an observer. It replaced the Newtonian idea of absolute time. The follow-up paper gave E = mc2.",
-   "source": {
-    "name": "Kavli Institute for Theoretical Physics, Marking Einstein's Annus Mirabilis",
-    "url": "https://www.kitp.ucsb.edu/node/14437"
-   }
-  },
-  {
    "id": "INV-066",
    "status": "LOCKED",
-   "order": 53,
+   "order": 20,
    "category": "Invention",
    "family": "Health and medicine",
    "field": "Medicine",
@@ -1068,7 +408,7 @@
   {
    "id": "INV-067",
    "status": "LOCKED",
-   "order": 54,
+   "order": 21,
    "category": "Entertainment",
    "family": "Arts and entertainment",
    "field": "Cosmetics and film",
@@ -1086,69 +426,9 @@
    }
   },
   {
-   "id": "INV-068",
-   "status": "LOCKED",
-   "order": 55,
-   "category": "Invention",
-   "family": "Science and discovery",
-   "field": "Physics",
-   "shortLabel": "General relativity",
-   "summary": "Albert Einstein explained gravity as the bending of space and time.",
-   "why": "It predicted how light bends around stars and how gravity slows time.",
-   "year": 1915,
-   "approx": false,
-   "origin": "Berlin; German Empire",
-   "originator": "Albert Einstein",
-   "deepDive": "In November 1915 Albert Einstein presented the field equations of general relativity, a theory that describes gravity as the bending of space and time. It explained an oddity in the orbit of Mercury. In 1919 eclipse observations at Sobral in Brazil and Príncipe off West Africa showed starlight bent by the Sun as predicted, and made him world famous. GPS satellites also need relativity corrections to keep accurate time.",
-   "source": {
-    "name": "arXiv, The 1919 eclipse results which verified General Relativity and their later detractors",
-    "url": "https://arxiv.org/pdf/2010.13744"
-   }
-  },
-  {
-   "id": "INV-069",
-   "status": "LOCKED",
-   "order": 56,
-   "category": "Invention",
-   "family": "Everyday life and engineering",
-   "field": "Cosmetics and product design",
-   "shortLabel": "Makeup for every face",
-   "summary": "Max Factor matched makeup shades to each person's skin, hair and eye color.",
-   "why": "Choosing makeup by your own coloring became the norm.",
-   "year": 1918,
-   "approx": false,
-   "origin": "Los Angeles, California; United States",
-   "originator": "Max Factor",
-   "deepDive": "In 1918 Max Factor released Color Harmony, a range of face powders in several shades chosen to match a person's skin, hair and eye colour. It let him give each film actor a consistent, custom look under the lights. The idea of matching makeup to colouring moved from the studio to the shop, where it is still used today. Some sources date the Color Harmony idea to 1920.",
-   "source": {
-    "name": "ASU FIDM Museum, Max Factor and Hollywood",
-    "url": "https://asufidmmuseum.asu.edu/learn/articles/max-factor-and-hollywood"
-   }
-  },
-  {
-   "id": "INV-070",
-   "status": "LOCKED",
-   "order": 57,
-   "category": "Invention",
-   "family": "Science and discovery",
-   "field": "Mathematics and physics",
-   "shortLabel": "Noether's theorem",
-   "summary": "Emmy Noether proved that every smooth symmetry in nature comes with something that is conserved, such as energy.",
-   "why": "Physicists use it to find the basic laws of the universe.",
-   "year": 1918,
-   "approx": false,
-   "origin": "Göttingen; German Empire",
-   "originator": "Emmy Noether",
-   "deepDive": "In 1918 Emmy Noether, working in Göttingen, proved that every continuous symmetry of a physical system gives a conserved quantity. Because the laws of physics are the same at any time, energy is conserved; because they are the same in any place, momentum is conserved. She took up the problem to help Hilbert and Klein with puzzles in general relativity. Her theorem underlies the Standard Model of particle physics.",
-   "source": {
-    "name": "arXiv, Colloquium: A Century of Noether's Theorem",
-    "url": "https://arxiv.org/pdf/1902.01989"
-   }
-  },
-  {
    "id": "INV-071",
    "status": "LOCKED",
-   "order": 58,
+   "order": 22,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Psychology",
@@ -1166,29 +446,9 @@
    }
   },
   {
-   "id": "INV-072",
-   "status": "LOCKED",
-   "order": 59,
-   "category": "Entertainment",
-   "family": "Arts and entertainment",
-   "field": "Music",
-   "shortLabel": "Rhapsody in Blue",
-   "summary": "George Gershwin blended jazz with a full orchestra in his 1924 Rhapsody in Blue.",
-   "why": "It brought jazz into the concert hall.",
-   "year": 1924,
-   "approx": false,
-   "origin": "New York City; United States",
-   "originator": "George Gershwin",
-   "deepDive": "George Gershwin's Rhapsody in Blue premiered on 12 February 1924 at Aeolian Hall in New York, in bandleader Paul Whiteman's concert An Experiment in Modern Music, with Gershwin at the piano. It was one of the first successful works to blend jazz and classical music. Its success led Whiteman to repeat the concert the next month at Aeolian Hall and two months later at Carnegie Hall. Ferde Grofé orchestrated the original.",
-   "source": {
-    "name": "Library of Congress, Rhapsody in Blue at 100",
-    "url": "https://blogs.loc.gov/music/2024/02/rhapsody-in-blue-at-100/"
-   }
-  },
-  {
    "id": "INV-073",
    "status": "LOCKED",
-   "order": 60,
+   "order": 23,
    "category": "Entertainment",
    "family": "Arts and entertainment",
    "field": "Film and sound",
@@ -1206,29 +466,9 @@
    }
   },
   {
-   "id": "INV-075",
-   "status": "LOCKED",
-   "order": 61,
-   "category": "Invention",
-   "family": "Science and discovery",
-   "field": "Scientific infrastructure",
-   "shortLabel": "Weizmann Institute",
-   "summary": "Chaim Weizmann and the Sieff family opened a science institute in 1934 that later became the Weizmann Institute.",
-   "why": "It grew into a major center for scientific research.",
-   "year": 1934,
-   "approx": false,
-   "origin": "Rehovot; British Mandate of Palestine",
-   "originator": "Chaim Weizmann and Sieff family backers",
-   "deepDive": "In 1934 Chaim Weizmann, a chemist and later Israel's first president, founded a research institute in Rehovot, fourteen years before the State of Israel existed. It was first called the Daniel Sieff Research Institute, for the son of its London backers, Israel and Rebecca Sieff, and was renamed the Weizmann Institute of Science in 1949. Today it offers only postgraduate degrees in the natural and exact sciences.",
-   "source": {
-    "name": "Wikipedia, Weizmann Institute of Science",
-    "url": "https://en.wikipedia.org/wiki/Weizmann_Institute_of_Science"
-   }
-  },
-  {
    "id": "INV-097",
    "status": "LOCKED",
-   "order": 62,
+   "order": 24,
    "category": "Invention",
    "family": "Everyday life and engineering",
    "field": "Agriculture and water",
@@ -1248,11 +488,11 @@
   {
    "id": "INV-103",
    "status": "LOCKED",
-   "order": 63,
+   "order": 25,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Computing",
-   "shortLabel": "How ZIP files shrink",
+   "shortLabel": ".ZIP files",
    "summary": "Abraham Lempel and Jacob Ziv found a way to shrink computer files without losing a single bit.",
    "why": "It is behind smaller files and faster downloads on almost every device.",
    "year": 1977,
@@ -1266,69 +506,9 @@
    }
   },
   {
-   "id": "INV-106",
-   "status": "LOCKED",
-   "order": 64,
-   "category": "Invention",
-   "family": "Science and discovery",
-   "field": "Biochemistry",
-   "shortLabel": "Cells taking out trash",
-   "summary": "Aaron Ciechanover and Avram Hershko, with Irwin Rose, found how cells tag worn-out proteins for disposal.",
-   "why": "It won the 2004 Nobel Prize and helps explain cancer and other diseases.",
-   "year": 1981,
-   "approx": true,
-   "origin": "Haifa / Philadelphia; Israel / United States",
-   "originator": "Aaron Ciechanover, Avram Hershko and Irwin Rose",
-   "deepDive": "At the start of the 1980s Aaron Ciechanover and Avram Hershko of the Technion in Haifa, working with Irwin Rose in Philadelphia, found how cells get rid of proteins they no longer need. A small protein called ubiquitin is attached as a label, and the tagged protein is sent to the cell's disposal unit, the proteasome, to be broken down. The process controls cell division, DNA repair and parts of the immune defense. When it fails, people fall ill. The three shared the 2004 Nobel Prize in Chemistry.",
-   "source": {
-    "name": "NobelPrize.org, Nobel Prize in Chemistry 2004 press release",
-    "url": "https://www.nobelprize.org/prizes/chemistry/2004/press-release/"
-   }
-  },
-  {
-   "id": "INV-107",
-   "status": "LOCKED",
-   "order": 65,
-   "category": "Invention",
-   "family": "Science and discovery",
-   "field": "Materials science",
-   "shortLabel": "Impossible crystals",
-   "summary": "Dan Shechtman found crystals with a pattern that never repeats, something textbooks said was impossible.",
-   "why": "It won the 2011 Nobel Prize and changed the definition of a crystal.",
-   "year": 1982,
-   "approx": false,
-   "origin": "Haifa; Israel",
-   "originator": "Dan Shechtman",
-   "deepDive": "On 8 April 1982 Dan Shechtman, a materials scientist from the Technion working at the US National Bureau of Standards, saw an electron diffraction pattern that textbooks said was impossible: a crystal with a regular order that never repeats. For years many scientists rejected the finding. Other groups made quasicrystals by 1987, and the discovery changed how scientists define a crystal. Shechtman received the 2011 Nobel Prize in Chemistry.",
-   "source": {
-    "name": "NobelPrize.org, Dan Shechtman facts",
-    "url": "https://www.nobelprize.org/prizes/chemistry/2011/shechtman/facts/"
-   }
-  },
-  {
-   "id": "INV-115",
-   "status": "LOCKED",
-   "order": 66,
-   "category": "Invention",
-   "family": "Computing and communication",
-   "field": "Cybersecurity",
-   "shortLabel": "The network firewall",
-   "summary": "Gil Shwed, Marius Nacht and Shlomo Kramer founded Check Point and built a firewall that tracks every connection.",
-   "why": "Firewalls like it are a basic defense on business networks.",
-   "year": 1993,
-   "approx": false,
-   "origin": "Ramat Gan; Israel",
-   "originator": "Gil Shwed, Marius Nacht and Shlomo Kramer",
-   "deepDive": "Gil Shwed first developed the idea for what became FireWall-1 in April 1993 and started Check Point Software that July with two friends. FireWall-1 was unveiled at the 1994 NetWorld+Interop show and used stateful inspection, which tracks each network connection and lets through only traffic that belongs to a known one. It was not the first firewall, but it created the mass market for them.",
-   "source": {
-    "name": "Computerworld, It's been 20 years since Check Point FireWall-1 made firewalls mainstream",
-    "url": "https://www.computerworld.com/?p=1383395"
-   }
-  },
-  {
    "id": "NEW-001",
    "status": "LOCKED",
-   "order": 67,
+   "order": 26,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Digital communication",
@@ -1348,11 +528,11 @@
   {
    "id": "INV-117",
    "status": "LOCKED",
-   "order": 68,
+   "order": 27,
    "category": "Invention",
    "family": "Health and medicine",
    "field": "Medicine and pharmaceuticals",
-   "shortLabel": "MS drug approval",
+   "shortLabel": "Multiple sclerosis drug approval",
    "summary": "In 1996 the US FDA approved glatiramer acetate, developed at the Weizmann Institute, to treat multiple sclerosis.",
    "why": "Patients gained a new drug that reduces relapses.",
    "year": 1996,
@@ -1368,7 +548,7 @@
   {
    "id": "INV-118",
    "status": "LOCKED",
-   "order": 69,
+   "order": 28,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Internet communication",
@@ -1388,7 +568,7 @@
   {
    "id": "INV-121",
    "status": "LOCKED",
-   "order": 70,
+   "order": 29,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Internet search",
@@ -1408,7 +588,7 @@
   {
    "id": "INV-123",
    "status": "LOCKED",
-   "order": 71,
+   "order": 30,
    "category": "Invention",
    "family": "Health and medicine",
    "field": "Medical imaging",
@@ -1426,29 +606,9 @@
    }
   },
   {
-   "id": "INV-125",
-   "status": "LOCKED",
-   "order": 72,
-   "category": "Invention",
-   "family": "Everyday life and engineering",
-   "field": "Automotive safety and software",
-   "shortLabel": "Cars that see hazards",
-   "summary": "Amnon Shashua and Ziv Aviram founded Mobileye to teach cars to spot hazards with a single camera.",
-   "why": "Its camera systems help cars warn drivers of danger.",
-   "year": 1999,
-   "approx": false,
-   "origin": "Jerusalem; Israel",
-   "originator": "Amnon Shashua and Ziv Aviram / Mobileye",
-   "deepDive": "In 1999 Hebrew University professor Amnon Shashua and businessman Ziv Aviram founded Mobileye in Jerusalem. The idea began on a car ride, when Shashua said a camera could give a collision warning, since a person with one working eye can still judge depth. Mobileye's software detects vehicles using only a camera and a processor. In March 2017 Intel announced a $15.3 billion takeover, the largest purchase of an Israeli company to that date.",
-   "source": {
-    "name": "Wikipedia, Mobileye",
-    "url": "https://en.wikipedia.org/wiki/Mobileye"
-   }
-  },
-  {
    "id": "INV-126",
    "status": "LOCKED",
-   "order": 73,
+   "order": 31,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Computing",
@@ -1466,29 +626,9 @@
    }
   },
   {
-   "id": "INV-127",
-   "status": "LOCKED",
-   "order": 74,
-   "category": "Invention",
-   "family": "Science and discovery",
-   "field": "Structural biology",
-   "shortLabel": "The ribosome map",
-   "summary": "Ada Yonath mapped the ribosome, the cell's protein factory, atom by atom.",
-   "why": "It shows how antibiotics work and won her the 2009 Nobel Prize.",
-   "year": 2000,
-   "approx": false,
-   "origin": "Rehovot; Israel",
-   "originator": "Ada Yonath and Weizmann Institute collaborators",
-   "deepDive": "The ribosome is the cell's protein factory, built from hundreds of thousands of atoms. In the 1970s Ada Yonath of the Weizmann Institute set out to map it with X-ray crystallography, a goal many thought impossible. In 2000 she and other researchers completed the structure. The maps show how many antibiotics attack bacterial ribosomes, which helps in designing new drugs. Yonath shared the 2009 Nobel Prize in Chemistry.",
-   "source": {
-    "name": "NobelPrize.org, Ada E. Yonath facts",
-    "url": "https://www.nobelprize.org/prizes/chemistry/2009/yonath/facts/"
-   }
-  },
-  {
    "id": "INV-132",
    "status": "LOCKED",
-   "order": 75,
+   "order": 32,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Social media",
@@ -1508,7 +648,7 @@
   {
    "id": "INV-142",
    "status": "LOCKED",
-   "order": 76,
+   "order": 33,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Navigation and mobile software",

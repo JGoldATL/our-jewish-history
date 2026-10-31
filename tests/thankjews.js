@@ -1,13 +1,13 @@
 // F-103 Thank Jews pages. Run: python3 -m http.server 8778 &  then  NODE_PATH=$(npm root -g) node tests/thankjews.js  (headless Chromium only)
 const {chromium}=require('playwright');const BASE=process.env.BASE||'http://localhost:8778/';let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined?'':' '+JSON.stringify(x)));if(!c)bad++;};
 const fs=require('fs');const D=JSON.parse(fs.readFileSync(__dirname+'/../data/inventions.json','utf8'));const E=D.entries;
-const FAM={'Health and medicine':21,'Science and discovery':16,'Society and ideas':15,'Computing and communication':10,'Everyday life and engineering':7,'Arts and entertainment':7};
+const FAM={'Health and medicine':7,'Science and discovery':4,'Society and ideas':7,'Computing and communication':8,'Everyday life and engineering':3,'Arts and entertainment':4};
 (async()=>{
 // ---- data file
-ck(E.length===76&&E.every(e=>e.status==='LOCKED'),'data: 76 records, all LOCKED');
-const fc={};E.forEach(e=>fc[e.family]=(fc[e.family]||0)+1);ck(JSON.stringify(Object.keys(FAM).map(k=>fc[k]))===JSON.stringify(Object.values(FAM)),'data: family counts match the Read Me (21, 16, 15, 10, 7, 7)',fc);
-ck(E.filter(e=>e.category==='Invention').length===72&&E.filter(e=>e.category==='Entertainment').length===4,'data: Category kept in the file (72 Invention, 4 Entertainment)');
-ck(E.every(e=>e.shortLabel.length<=28&&e.summary.length>=52&&e.summary.length<=140&&e.deepDive.length>=330&&e.deepDive.length<=510),'data: label 28 or fewer, summary 52 to 140, deep dive 330 to 510 on every record');
+ck(E.length===33&&E.every(e=>e.status==='LOCKED'),'data: 33 records, all LOCKED');
+const fc={};E.forEach(e=>fc[e.family]=(fc[e.family]||0)+1);ck(JSON.stringify(Object.keys(FAM).map(k=>fc[k]))===JSON.stringify(Object.values(FAM)),'data: family counts match the Read Me (7, 4, 7, 10, 7, 7)',fc);
+ck(E.filter(e=>e.category==='Invention').length===31&&E.filter(e=>e.category==='Entertainment').length===2,'data: Category kept in the file (31 Invention, 2 Entertainment)');
+ck(E.every(e=>e.shortLabel.length<=32&&e.summary.length>=52&&e.summary.length<=140&&e.deepDive.length>=330&&e.deepDive.length<=510),'data: label 32 or fewer (Dataset hard maximum; target 28), summary 52 to 140, deep dive 330 to 510 on every record');
 ck(E.every(e=>!/\bCE\b|—|\bmyth\b|\bGod\b/i.test([e.shortLabel,e.summary,e.why,e.deepDive].join(' '))),'data: no CE, em dash, myth or God in the public text');
 ck(E.every(e=>e.source.name&&/^https?:\/\//.test(e.source.url)),'data: every record has one source with a link');
 const b=await chromium.launch();
@@ -16,8 +16,8 @@ const mk=async(vp,touch)=>{const ctx=await b.newContext({viewport:vp,isMobile:!!
 {const {ctx,p}=await mk({width:1280,height:800});await p.goto(BASE+'thankjews.html');await p.waitForSelector('.card');await p.waitForTimeout(800);
  const html=await p.content();ck(!/name="robots"/.test(html),'page is indexable (no robots tag)');
  ck(await p.title()==='Thank Jews? | Our Jewish Journey','page title is Thank Jews?');ck((await p.textContent('.brand h1')).trim()==='Thank Jews?','page heading is Thank Jews?');
- const tabs=await p.$$eval('#tabs .tab',t=>t.map(x=>x.textContent.replace(/\s+/g,' ').trim()));ck(tabs.length===7&&/^All 76$/.test(tabs[0]),'seven tabs: All 76 plus six families',tabs);
- ck(tabs.slice(1).map(t=>+t.match(/(\d+)$/)[1]).join()==='21,16,15,10,7,7','family tabs sorted by size 21, 16, 15, 10, 7, 7',tabs);
+ const tabs=await p.$$eval('#tabs .tab',t=>t.map(x=>x.textContent.replace(/\s+/g,' ').trim()));ck(tabs.length===7&&/^All 33$/.test(tabs[0]),'seven tabs: All 33 plus six families',tabs);
+ ck(tabs.slice(1).map(t=>+t.match(/(\d+)$/)[1]).join()==='8,7,7,4,4,3','family tabs sorted by size 8, 7, 7, 4, 4, 3',tabs);
  const c=await p.evaluate(()=>{const k=document.querySelector('.card.cur');return {fam:k.querySelector('.fam').textContent,h:k.querySelector('h2').textContent,sum:(k.querySelector('.sum')||{}).textContent,lie:!!k.querySelector('.lie'),lb:/the lie/i.test(k.textContent),why:!!k.querySelector('.why'),cat:/\b(Invention|Entertainment)\b/.test(k.querySelector('.fam').textContent),link:k.querySelector('a.read').getAttribute('href'),share:!!k.querySelector('.ojj-share')};});
  const rec=E.find(e=>e.shortLabel===c.h);ck(!!rec&&c.sum===rec.summary&&c.fam===rec.family,'card shows family, headline and plain summary verbatim',c);
  ck(!c.lie&&!c.lb&&!c.why&&!c.cat,'card has no label on the summary, no "why it matters", no Category');
@@ -37,8 +37,8 @@ const mk=async(vp,touch)=>{const ctx=await b.newContext({viewport:vp,isMobile:!!
  ck(new Set(tabs).size>=3,'switching tabs also brings a random card to the front',tabs);await ctx.close();}
 // ---- family tab filters, All shows every card
 {const {ctx,p}=await mk({width:1280,height:800});await p.goto(BASE+'thankjews.html?');await p.evaluate(()=>sessionStorage.clear());await p.reload();await p.waitForSelector('.card');
- ck(await p.locator('.card').count()===76,'All tab holds 76 cards');await p.locator('#tabs .tab').nth(1).click();await p.waitForTimeout(300);
- const n=await p.locator('.card').count(),f=await p.$$eval('.card .fam',t=>[...new Set(t.map(x=>x.textContent))]);ck(n===21&&f.length===1&&f[0]==='Health and medicine','first family tab shows its 21 cards, all one family',{n,f});
+ ck(await p.locator('.card').count()===33,'All tab holds 33 cards');await p.locator('#tabs .tab').nth(1).click();await p.waitForTimeout(300);
+ const n=await p.locator('.card').count(),f=await p.$$eval('.card .fam',t=>[...new Set(t.map(x=>x.textContent))]);ck(n===8&&f.length===1&&f[0]==='Computing and communication','first family tab shows its 21 cards, all one family',{n,f});
  ck(await p.locator('#pager .ojjpg').count()===1,'shared pager is mounted');await ctx.close();}
 // ---- entry page
 {const {ctx,p}=await mk({width:1280,height:800});const rec=E.find(e=>e.id==='INV-030');await p.goto(BASE+'thankjews-entry.html?id=INV-030');await p.waitForSelector('#entry h1');await p.waitForTimeout(400);
