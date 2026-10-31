@@ -291,7 +291,7 @@ function begin(){$('intro').hidden=true;$('map').focus?.({preventScroll:true});}
     const res=await fetch('data/archaeology.json');DATA=await res.json();try{GEO=await (await fetch('data/geo.json')).json();}catch(_){GEO=null;}
     build();size();HOME=homeView();V={...HOME};clampView();ends();buildKey();wire();
     if(window.OJJInset)OJJInset.load().then(n=>{if(n)draw();});   // regional high-resolution pictures, if any are listed (F-149)
-    $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+(((DATA.source||'').match(/v\d+(?:\.\d+)+/)||[])[0]||'unknown');
+    $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+window.SITE_DATA_VERSION;
     const q=new URLSearchParams(location.search),k=q.get('a');
     let target=k&&BYID.get(k);if(target&&LINKED.has(target.id))target=RECS.find(r=>r.type==='Object'&&r.linkedSite===target.id)||target;   // a site that is not drawn opens its find
     setYear(HI);setView(HOME);
