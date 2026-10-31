@@ -129,7 +129,8 @@ const yearAt=p=>{const i=Math.max(0,Math.min(SNAP.length-2,Math.floor(p))),t=Mat
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 let shown=-1;
 function showCard(){const i=Math.max(0,Math.min(SNAP.length-1,Math.round(pos)));if(i===shown)return;shown=i;const s=SNAP[i];
-  $('card').innerHTML='<div class="k">Wave '+(i+1)+' of '+SNAP.length+' · '+esc(s.period)+'</div><h2>'+esc(s.label)+'</h2><p>'+esc(s.summary)+'</p><h3>What it meant for Jewish communities</h3><p>'+esc(s.jewish)+'</p><h3>Sources</h3><ul>'+s.sources.map(x=>'<li>'+esc(x.name)+(x.url?' | <a href="'+esc(x.url)+'" rel="noopener">'+esc(x.url)+'</a>':'')+'</li>').join('')+'</ul>';
+  $('cap').textContent=s.label;
+  $('card').innerHTML='<div class="k">Wave '+(i+1)+' of '+SNAP.length+' · '+esc(s.period)+'</div><h2>'+esc(s.title||s.label)+'</h2><p>'+esc(s.summary)+'</p>'+(s.note?'<p class="nbc">'+esc(s.note)+'</p>':'')+'<h3>What it meant for Jewish communities</h3><p>'+esc(s.jewish)+'</p><h3>Sources</h3><ul>'+s.sources.map(x=>'<li>'+(x.url?'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.name)+'</a>':esc(x.name))+'</li>').join('')+'</ul>';
   document.querySelectorAll('.tick').forEach((t,k)=>t.setAttribute('aria-current',k===i?'true':'false'));}
 function setPos(p,fromUser){pos=Math.max(0,Math.min(SNAP.length-1,p));$('sl').value=pos;$('yr').textContent=String(Math.round(yearAt(pos)));showCard();draw();}
 function stop(){if(timer){cancelAnimationFrame(timer);timer=null;}$('play').textContent='Play';}
@@ -158,15 +159,15 @@ function wire(){
 function fail(m){const e=$('msg');e.hidden=false;e.textContent=m;$('hz').hidden=true;}
 function check(d){   // reports problems, never fixes them (same stance as the loaders)
   if(!d||!Array.isArray(d.snapshots)||d.snapshots.length<2||!Array.isArray(d.anchors))throw new Error('haze.json is missing snapshots or anchors');
+  for(const s of d.snapshots){if(!s.label||!s.summary||!s.jewish||!Array.isArray(s.sources))throw new Error('Wave '+s.year+' is missing card text');}
   for(const a of d.anchors){if(!(a.lat>=-90&&a.lat<=90&&a.lon>=-180&&a.lon<=180))throw new Error('Bad latitude or longitude on '+a.id);if(!Array.isArray(a.s)||a.s.length!==d.snapshots.length)throw new Error('Anchor '+a.id+' does not have one entry per wave');}
 }
 (async()=>{
   try{
     const r=await fetch('data/haze.json');if(!r.ok)throw new Error('Could not load data/haze.json');DATA=await r.json();check(DATA);
     SNAP=DATA.snapshots;ANCH=DATA.anchors;
-    $('mock').hidden=!DATA.mock;
-    window.SITE_DATA_VERSION=DATA.mock?'mock':(((DATA.source||'').match(/v\d+(?:\.\d+)+/)||['unknown'])[0]);
-    $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+window.SITE_DATA_VERSION;
+    if(DATA.mock||DATA.draft){$('mock').hidden=false;$('mock').textContent=DATA.mock?'MOCKUP: invented data':'DRAFT: Dataset\u2019s placements, not signed off';}
+    $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+window.SITE_DATA_VERSION;   // the one data version, from version.js
     wire();initGL();const g=camTarget(0);if(g){view.lon=g.lon;view.lat=g.lat;view.deg=g.deg;}setPos(0);requestAnimationFrame(frame);
   }catch(e){fail('This page could not load: '+e.message);}
 })();

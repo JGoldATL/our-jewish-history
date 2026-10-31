@@ -17,7 +17,7 @@ if(location.hostname==='jgoldatl.github.io'){var s=document.createElement('scrip
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600&family=Instrument+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="jewhate.css">
 <style>
-.hz{display:grid;gap:14px}
+.hz{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}.left,.right{min-width:0}
 #stage{position:relative;height:clamp(300px,50svh,620px);border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#0b1624;touch-action:none}
 #gl{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;transform:translateZ(0)}
 #mock{background:#c62828;color:#fff;text-align:center;font:800 15px/1.15 var(--sans);letter-spacing:.04em;padding:7px;border-radius:12px;margin-bottom:10px}
@@ -34,12 +34,14 @@ if(location.hostname==='jgoldatl.github.io'){var s=document.createElement('scrip
 .ticks{position:absolute;left:8px;right:8px;bottom:0;height:16px}
 .tick{position:absolute;transform:translateX(-50%);top:0;width:30px;height:16px;border:0;background:none;color:var(--muted);font:11px var(--sans);cursor:pointer;padding:0;text-align:center}
 .tick[aria-current=true]{color:var(--amber2);font-weight:700}
+.cap{margin-top:-4px;font:600 13px var(--sans);letter-spacing:.04em;color:var(--amber2)}
+.wc .nbc{font-size:14.5px;font-style:italic;color:var(--soft);border-left:3px solid rgba(232,178,122,.5);padding-left:10px}
 .wc{padding:16px 18px;border-radius:18px;border:1px solid var(--line);background:rgba(239,230,211,.05)}
 .wc .k{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .wc h2{margin:6px 0 8px;font-family:var(--serif);font-weight:700;font-size:30px;line-height:1;color:var(--cream)}
 .wc p{margin:0 0 10px;font-size:16px;line-height:1.5;color:var(--text)}
 .wc h3{margin:12px 0 4px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
-.wc ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--soft)}
+.wc ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--soft)}.wc li,.wc a{overflow-wrap:anywhere}
 @media (min-width:901px){.hz{grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr);align-items:start}#stage{height:calc(100svh - 230px);min-height:420px}.right{display:grid;gap:14px}}
 .foot{display:flex;align-items:center;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));font-size:12px;color:var(--muted)}
 .foot .grow{margin-right:auto}
@@ -57,6 +59,7 @@ if(location.hostname==='jgoldatl.github.io'){var s=document.createElement('scrip
   </div>
   <div class="ctl"><button class="play" id="play" type="button">Play</button><div class="yr" id="yr">650</div>
    <div class="sl"><input id="sl" type="range" min="0" max="11" step="0.01" value="0" aria-label="Wave"><div class="ticks" id="ticks"></div></div></div>
+  <div class="cap" id="cap" aria-live="polite"></div>
  </div>
  <div class="right"><article class="wc" id="card" aria-live="polite"></article></div>
 </div>
