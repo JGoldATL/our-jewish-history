@@ -77,7 +77,8 @@ def main():
             continue
         seen.add(rid)
         try:
-            year = int(r['Year'])
+            y=r['Year'].strip()
+            year = int(y[:-2] if y.endswith('.0') else y)
         except ValueError:
             problems.append(f'{rid}: Year "{r["Year"]}" is not a whole number')
             continue

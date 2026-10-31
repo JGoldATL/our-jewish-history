@@ -1,9 +1,9 @@
 {
  "schema": "archaeology-1",
- "source": "Google Sheet Jewish_Continuity_Master_Dataset_v2.0.0",
- "sheetModified": null,
- "exportSha256": "af912b5634569fd6",
- "generated": "2026-10-21T10:17:33Z",
+ "source": "Google Sheet Jewish_Continuity_Master_Dataset_v4.1.0",
+ "sheetModified": "2026-10-31T02:22:26Z",
+ "exportSha256": "b192de3a46bad3bc",
+ "generated": "2026-10-31T02:22:34Z",
  "records": [
   {
    "id": "ARC-001",
@@ -217,7 +217,7 @@
    "open": "Yes",
    "symbol": "Writing",
    "importance": 1,
-   "subhead": "House of David' in stone",
+   "subhead": "The 'House of David' in stone",
    "story": "In 1993 workers at Tel Dan found a broken piece of basalt carved in Aramaic. Two more pieces turned up in 1994. Most scholars read one line as 'House of David,' the royal family of Judah.",
    "deepDive": "The stone was set up by a king of Aram to boast of victories over the king of Israel and the House of David. It is dated to about 840 BCE. Later it was smashed and its pieces were reused in building, which is how they survived. If the reading is right, it is the earliest known mention of David outside the Bible.",
    "shows": "Read by most scholars as the earliest mention of King David's royal family outside the Bible.",
@@ -316,7 +316,7 @@
      "url": "https://en.wikipedia.org/wiki/Mesha_Stele"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-009",
@@ -392,7 +392,7 @@
      "url": "https://cojs.org/?p=6525"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-011",
@@ -470,7 +470,7 @@
      "url": "https://en.wikipedia.org/wiki/Black_Obelisk_of_Shalmaneser_III"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-013",
@@ -548,7 +548,7 @@
      "url": "https://en.wikipedia.org/wiki/Pool_of_Siloam"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-015",
@@ -608,7 +608,7 @@
    "whereToSee": "Istanbul Archaeology Museums, Istanbul",
    "open": "Yes",
    "symbol": "Writing",
-   "importance": 2,
+   "importance": 1,
    "subhead": "Words of the tunnel diggers",
    "story": "In 1880 a teenage student fell into the water of the Siloam tunnel and saw letters on the rock wall. The Hebrew text tells how two crews digging from opposite ends heard each other and broke through.",
    "deepDive": "The inscription is in the old Hebrew alphabet and is dated by its letter shapes to about 700 BCE. Conrad Schick, the student's teacher, reported it in 1880, and Archibald Sayce made the first reading in 1881. It was later cut from the wall and taken to Istanbul, then the Ottoman capital. It is still there; the Israel Museum shows a copy.",
@@ -626,7 +626,7 @@
      "url": "https://en.wikipedia.org/wiki/Siloam_inscription"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-017",
@@ -786,7 +786,7 @@
      "url": "https://en.wikipedia.org/wiki/Lachish_letters"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-021",
@@ -865,7 +865,7 @@
      "url": "https://www.britishmuseum.org/collection/object/W_1855-1003-1"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-023",
@@ -986,7 +986,7 @@
      "url": "https://en.wikipedia.org/wiki/Jehoiachin%27s_Rations_Tablets"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-026",
@@ -1064,7 +1064,7 @@
      "url": "https://en.wikipedia.org/wiki/Elephantine_papyri_and_ostraca"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-028",
@@ -1197,7 +1197,7 @@
    "year": 1838,
    "yearNote": "Identified by Edward Robinson and Eli Smith in May 1838, seen through a telescope from Ein Gedi.",
    "foundBy": "Edward Robinson and Eli Smith; dug by Yigael Yadin 1963 to 1965",
-   "periodLabel": "Built under Herod; siege ends 73 CE",
+   "periodLabel": "Built under Herod; siege ends 73",
    "periodStart": -37,
    "periodEnd": 73,
    "era": "Ancient History",
@@ -1211,7 +1211,7 @@
    "subhead": "The last fortress of the revolt",
    "story": "Masada is a fortress on a cliff-top above the Dead Sea, built under King Herod. In 1838 two American scholars identified it from a distance. Yigael Yadin dug it from 1963 to 1965.",
    "deepDive": "Edward Robinson and Eli Smith never climbed it; they named it after viewing its northern cliff through a telescope from Ein Gedi. Later visitors drew plans of its palaces and the Roman siege camps. Yadin's teams uncovered almost the whole built area of the summit. It became a UNESCO World Heritage site in 2001.",
-   "shows": "Herod's fortress, where the revolt against Rome ended in 73 CE.",
+   "shows": "Herod's fortress, where the revolt against Rome ended in 73.",
    "limits": "The story of the defenders' mass suicide comes from the writer Josephus; the dig did not confirm it.",
    "events": [
     {
@@ -1266,7 +1266,7 @@
      "url": "https://en.wikipedia.org/wiki/Temple_Warning_inscription"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-033",
@@ -1276,7 +1276,7 @@
    "year": 2014,
    "yearNote": "Year it was announced (August 2014); exact find date not published.",
    "foundBy": "Israel Antiquities Authority (Pablo Betzer and Eyal Marco)",
-   "periodLabel": "69 to 70 CE",
+   "periodLabel": "69 to 70",
    "periodStart": 69,
    "periodEnd": 70,
    "era": "Ancient History",
@@ -1289,7 +1289,7 @@
    "importance": 3,
    "subhead": "Money of the revolt against Rome",
    "story": "In 2014 diggers widening the Jerusalem to Tel Aviv highway found a clay money box hidden in a house. Inside were 114 bronze coins struck by Jewish rebels in 'Year Four' of their revolt against Rome.",
-   "deepDive": "Year Four of the revolt was 69 to 70 CE, the last year before Rome destroyed Jerusalem. One side of each coin shows a cup and the Hebrew words 'For the Redemption of Zion.' The other shows a lulav between two etrogs, plants of the holiday of Sukkot. The box seems to have been hidden a few months before Jerusalem fell.",
+   "deepDive": "Year Four of the revolt was 69 to 70, the last year before Rome destroyed Jerusalem. One side of each coin shows a cup and the Hebrew words 'For the Redemption of Zion.' The other shows a lulav between two etrogs, plants of the holiday of Sukkot. The box seems to have been hidden a few months before Jerusalem fell.",
    "shows": "Jewish rebels minted their own coins with Hebrew words during the war with Rome.",
    "limits": "The exact day it was found was not published; 2014 is the year it was announced.",
    "events": [
@@ -1317,7 +1317,7 @@
    "year": 1953,
    "yearNote": "Year Yohanan Aharoni explored it; Yadin dug it in 1960 and 1961. Sources disagree on when it was found.",
    "foundBy": "Yohanan Aharoni; dug by Yigael Yadin",
-   "periodLabel": "Refuge cave of the Bar Kokhba revolt, 132 to 135 CE",
+   "periodLabel": "Refuge cave of the Bar Kokhba revolt, 132 to 135",
    "periodStart": 132,
    "periodEnd": 135,
    "era": "Ancient History",
@@ -1330,7 +1330,7 @@
    "subhead": "A refuge cave of the last revolt",
    "story": "The Cave of Letters is high in the cliffs of Nahal Hever, near the Dead Sea. Jews hid here during the Bar Kokhba revolt. Yigael Yadin's team dug it in 1960 and 1961.",
    "deepDive": "Bedouin knew the cave first, and Yohanan Aharoni explored it in 1953 and 1955. Yadin came in 1960 to search it before looters could. His team found bones, bronze vessels, everyday objects and bundles of papyrus. Among them were letters from Shimon bar Kosiba, known as Bar Kokhba, and the family papers of a woman named Babatha.",
-   "shows": "The hiding place of Jewish families in the revolt of 132 to 135 CE.",
+   "shows": "The hiding place of Jewish families in the revolt of 132 to 135.",
    "limits": "Sources disagree on when the cave was first found.",
    "events": [
     {
@@ -1357,7 +1357,7 @@
    "linkedSite": "ARC-034",
    "year": 1960,
    "foundBy": "Yigael Yadin's team",
-   "periodLabel": "c. 132 to 135 CE",
+   "periodLabel": "c. 132 to 135",
    "periodStart": 132,
    "periodEnd": 135,
    "era": "Ancient History",
@@ -1367,7 +1367,7 @@
    "symbol": "Writing",
    "importance": 2,
    "subhead": "Orders from the leader of the revolt",
-   "story": "In 1960 Yigael Yadin's team found a bundle of letters in a Dead Sea cave. They were sent by Shimon bar Kosiba, known as Bar Kokhba, who led the Jewish revolt against Rome in 132 to 135 CE.",
+   "story": "In 1960 Yigael Yadin's team found a bundle of letters in a Dead Sea cave. They were sent by Shimon bar Kosiba, known as Bar Kokhba, who led the Jewish revolt against Rome in 132 to 135.",
    "deepDive": "There are fifteen letters, most in Aramaic and Hebrew and two in Greek. Most are addressed to two officers, Yehonatan and Masabala. They order wheat taken and a man arrested, and one asks for the four species for the holiday of Sukkot. They show the leader of a war still keeping the festivals.",
    "shows": "Letters written by the leader of the last great Jewish revolt in the Land.",
    "limits": "Some letters may come from the 1961 season rather than 1960.",
@@ -1383,7 +1383,7 @@
      "url": "https://en.wikipedia.org/wiki/Cave_of_Letters"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-036",
@@ -1393,7 +1393,7 @@
    "year": 2009,
    "yearNote": "Announced September 2009.",
    "foundBy": "Boaz Langford, Amos Frumkin, Boaz Zissu and Hanan Eshel",
-   "periodLabel": "c. 132 to 135 CE",
+   "periodLabel": "c. 132 to 135",
    "periodStart": 132,
    "periodEnd": 135,
    "era": "Ancient History",
@@ -1407,7 +1407,7 @@
    "subhead": "Rebel coins struck over Roman ones",
    "story": "In 2009 cave researchers from two Israeli universities reported about 120 gold, silver and bronze coins from the Te'omim Cave, west of Jerusalem. Most were coins of the Bar Kokhba revolt.",
    "deepDive": "Many of the coins are Roman coins that the rebels struck again with Jewish images and slogans. Others are ordinary Roman coins. The cave also held pottery and weapons, signs that people hid there during the revolt. The work was done by teams from the Hebrew University of Jerusalem and Bar-Ilan University.",
-   "shows": "Jews minted coins with Hebrew slogans during the revolt of 132 to 135 CE.",
+   "shows": "Jews minted coins with Hebrew slogans during the revolt of 132 to 135.",
    "limits": "The coins came out in three batches, and the counts differ between reports.",
    "events": [
     {
@@ -1502,7 +1502,7 @@
      "url": "https://en.wikipedia.org/wiki/Beit_She%27arim_necropolis"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-039",
@@ -1510,7 +1510,7 @@
    "name": "Dura-Europos Synagogue",
    "year": 1932,
    "foundBy": "Excavations at Dura-Europos (Robert du Mesnil du Buisson, vice-director)",
-   "periodLabel": "Last rebuilt 244 CE",
+   "periodLabel": "Last rebuilt 244",
    "periodStart": 200,
    "periodEnd": 256,
    "era": "Middle Ages",
@@ -1522,9 +1522,9 @@
    "symbol": "Site",
    "importance": 2,
    "subhead": "A painted synagogue on the Euphrates",
-   "story": "In 1932 diggers at Dura-Europos, a Roman border town in Syria, found a synagogue whose walls were covered with paintings of Bible stories. Its last rebuilding is dated to 244 CE.",
-   "deepDive": "The town was abandoned in 256 or 257 CE, and the synagogue lay buried until 1932. At first the diggers took it for a Greek temple. Its wall paintings were moved to the National Museum in Damascus and set up as they were in the hall. The town was heavily looted during Syria's civil war, and the building may have been destroyed.",
-   "shows": "Jewish art and worship in a Roman town far from the Land, about 244 CE.",
+   "story": "In 1932 diggers at Dura-Europos, a Roman border town in Syria, found a synagogue whose walls were covered with paintings of Bible stories. Its last rebuilding is dated to 244.",
+   "deepDive": "The town was abandoned in 256 or 257, and the synagogue lay buried until 1932. At first the diggers took it for a Greek temple. Its wall paintings were moved to the National Museum in Damascus and set up as they were in the hall. The town was heavily looted during Syria's civil war, and the building may have been destroyed.",
+   "shows": "Jewish art and worship in a Roman town far from the Land, about 244.",
    "limits": "The site has been looted, and its present state is not fully known.",
    "sources": [
     {
@@ -1587,7 +1587,7 @@
    "lon": 31.231,
    "whereToSee": "Ben Ezra Synagogue, Old Cairo; Cambridge University Library",
    "open": "Yes",
-   "symbol": "Writing",
+   "symbol": "Site",
    "importance": 1,
    "subhead": "A synagogue storeroom full of history",
    "story": "Jews do not throw away writings that may hold God's name. For centuries the Jews of Old Cairo stored such papers in a room of the Ben Ezra Synagogue. In 1896 Solomon Schechter saw what it held.",
@@ -1655,7 +1655,7 @@
      "url": "https://juedisches-leben.erfurt.de/jl/en/middle-ages/erfurt_treasure"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-043",
@@ -1664,7 +1664,7 @@
    "linkedSite": "ARC-042",
    "year": 1998,
    "foundBy": "Dig team at Michaelisstrasse 43, near the Old Synagogue",
-   "periodLabel": "Late 1200s to 1349 CE",
+   "periodLabel": "Late 1200s to 1349",
    "periodStart": 1290,
    "periodEnd": 1349,
    "era": "Middle Ages",
@@ -1692,7 +1692,7 @@
      "url": "https://juedisches-leben.erfurt.de/jl/en/middle-ages/erfurt_treasure"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-044",
@@ -1713,7 +1713,7 @@
    "symbol": "Site",
    "importance": 2,
    "subhead": "Where the two Temples stood",
-   "story": "The Temple Mount is the hilltop in Jerusalem where the First and Second Temples stood. Rome destroyed the Second Temple in 70 CE. In 1867 Charles Warren surveyed the walls around it.",
+   "story": "The Temple Mount is the hilltop in Jerusalem where the First and Second Temples stood. Rome destroyed the Second Temple in 70. In 1867 Charles Warren surveyed the walls around it.",
    "deepDive": "The Bible says King Solomon built the First Temple here, and Babylon destroyed it in 586 BCE. The Second Temple was rebuilt and later enlarged by King Herod, then burned by Rome in 70 CE. Warren could not dig on the mount itself, so he dug shafts along its walls. Finds from around the mount, such as a Greek warning stone, come from Herod's Temple.",
    "shows": "The holiest place in Judaism, site of both Temples in Jerusalem.",
    "limits": "No excavation has been allowed on the mount itself, so its finds come from around it.",
@@ -1733,7 +1733,7 @@
      "url": "https://en.wikipedia.org/wiki/Temple_Warning_inscription"
     }
    ],
-   "status": "DRAFT"
+   "status": "LOCKED"
   },
   {
    "id": "ARC-045",
@@ -1742,7 +1742,7 @@
    "year": 1873,
    "yearNote": "Year Conder and Kitchener of the Palestine Exploration Fund first examined it.",
    "foundBy": "C.R. Conder and H.H. Kitchener; later Gideon Mann and a 2009 university team",
-   "periodLabel": "Refuge cave of the Bar Kokhba revolt, 132 to 135 CE",
+   "periodLabel": "Refuge cave of the Bar Kokhba revolt, 132 to 135",
    "periodStart": 132,
    "periodEnd": 135,
    "era": "Ancient History",
@@ -1756,7 +1756,7 @@
    "subhead": "A hiding cave in the Jerusalem hills",
    "story": "The Te'omim Cave lies in the hills west of Jerusalem, near Beit Shemesh. Explorers first mapped it in 1873. Jews hid here during the Bar Kokhba revolt and left coins, pottery and weapons.",
    "deepDive": "C.R. Conder and H.H. Kitchener examined the cave for the Palestine Exploration Fund on 17 October 1873. In the 1970s Gideon Mann found narrow passages to inner rooms with pottery from the revolt. Cave researchers from the Hebrew University and Bar-Ilan University returned in 2009 and found the coin hoard. The cave is on a walking trail and closes in winter to protect bats.",
-   "shows": "A refuge used by Jews in the revolt against Rome, 132 to 135 CE.",
+   "shows": "A refuge used by Jews in the revolt against Rome, 132 to 135.",
    "limits": "The cave was used in many periods, so not every find belongs to the revolt.",
    "events": [
     {

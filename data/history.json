@@ -2518,13 +2518,13 @@
   "sheet": {
     "meta": {
       "schema": "sheet-1",
-      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v2.0.0",
+      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v4.1.0",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-10-20T03:01:36Z",
-      "exportSha256": "8d32c9981f35e0e2",
+      "sheetModified": "2026-10-31T02:22:26Z",
+      "exportSha256": "b192de3a46bad3bc",
       "mode": "preview",
       "counts": {
-        "places": 122,
+        "places": 135,
         "events": 129,
         "communities": 155,
         "movements": 111,
@@ -2534,7 +2534,7 @@
         "eras": 8,
         "cameraStops": 38,
         "eraAssignment": 265,
-        "questions": 46
+        "questions": 45
       }
     },
     "places": [
@@ -3648,6 +3648,136 @@
         "lat": 49.45,
         "lon": 11.08,
         "landOfIsrael": false
+      },
+      {
+        "id": "place-thebes",
+        "historicalName": "Thebes",
+        "modernName": "Luxor, Egypt",
+        "role": "settlement",
+        "lat": 25.725,
+        "lon": 32.6066,
+        "landOfIsrael": false,
+        "mapLabel": "Thebes"
+      },
+      {
+        "id": "place-dhiban",
+        "historicalName": "Dibon",
+        "modernName": "Dhiban, Jordan",
+        "role": "settlement",
+        "lat": 31.5005,
+        "lon": 35.7765,
+        "landOfIsrael": false,
+        "mapLabel": "Dibon"
+      },
+      {
+        "id": "place-kurkh",
+        "historicalName": "Kurkh (Tushhan)",
+        "modernName": "Üçtepe, Diyarbakır Province, Turkey",
+        "role": "settlement",
+        "lat": 37.82,
+        "lon": 40.53,
+        "landOfIsrael": false,
+        "mapLabel": "Kurkh"
+      },
+      {
+        "id": "place-tel-dan",
+        "historicalName": "Dan",
+        "modernName": "Tel Dan, Israel",
+        "role": "settlement",
+        "lat": 33.2486,
+        "lon": 35.6524,
+        "landOfIsrael": true,
+        "mapLabel": "Dan"
+      },
+      {
+        "id": "place-nimrud",
+        "historicalName": "Kalhu",
+        "modernName": "Nimrud, Iraq",
+        "role": "settlement",
+        "lat": 36.0981,
+        "lon": 43.3289,
+        "landOfIsrael": false,
+        "mapLabel": "Nimrud"
+      },
+      {
+        "id": "place-nineveh",
+        "historicalName": "Nineveh",
+        "modernName": "Mosul, Iraq",
+        "role": "settlement",
+        "lat": 36.3594,
+        "lon": 43.1528,
+        "landOfIsrael": false,
+        "mapLabel": "Nineveh"
+      },
+      {
+        "id": "place-masada",
+        "historicalName": "Masada",
+        "modernName": "Masada, Israel",
+        "role": "settlement",
+        "lat": 31.3156,
+        "lon": 35.3539,
+        "landOfIsrael": true,
+        "mapLabel": "Masada"
+      },
+      {
+        "id": "place-nahal-hever",
+        "historicalName": "Nahal Hever",
+        "modernName": "Nahal Hever, Judean Desert, Israel",
+        "role": "settlement",
+        "lat": 31.4326,
+        "lon": 35.3429,
+        "landOfIsrael": true,
+        "mapLabel": "Nahal Hever"
+      },
+      {
+        "id": "place-beit-shearim",
+        "historicalName": "Beit She'arim",
+        "modernName": "Beit She'arim, Israel",
+        "role": "settlement",
+        "lat": 32.7022,
+        "lon": 35.1269,
+        "landOfIsrael": true,
+        "mapLabel": "Beit She'arim"
+      },
+      {
+        "id": "place-dura-europos",
+        "historicalName": "Dura-Europos",
+        "modernName": "Near as-Salihiyah, Syria",
+        "role": "settlement",
+        "lat": 34.747,
+        "lon": 40.73,
+        "landOfIsrael": false,
+        "mapLabel": "Dura-Europos"
+      },
+      {
+        "id": "place-sardis",
+        "historicalName": "Sardis",
+        "modernName": "Sart, Manisa Province, Turkey",
+        "role": "settlement",
+        "lat": 38.4883,
+        "lon": 28.0403,
+        "landOfIsrael": false,
+        "mapLabel": "Sardis"
+      },
+      {
+        "id": "place-erfurt",
+        "historicalName": "Erfurt",
+        "modernName": "Erfurt, Germany",
+        "role": "settlement",
+        "lat": 50.9786,
+        "lon": 11.0293,
+        "landOfIsrael": false,
+        "mapLabel": "Erfurt"
+      },
+      {
+        "id": "place-gezer",
+        "historicalName": "Gezer",
+        "modernName": "Tel Gezer, Israel",
+        "role": "settlement",
+        "lat": 31.8606,
+        "lon": 34.9136,
+        "landOfIsrael": true,
+        "mapLabel": "Gezer"
       }
     ],
     "events": [
@@ -7863,7 +7993,8 @@
           "concentration": "small",
           "presenceStatus": "documented",
           "footprintRadiusKm": 25
-        }
+        },
+        "recordStatus": "LOCKED"
       },
       {
         "id": "DES-013",
@@ -10655,7 +10786,7 @@
         "id": "CTX-002",
         "family": "CTX",
         "startYear": 70,
-        "dateDisplay": "70 CE",
+        "dateDisplay": "70",
         "links": [
           "DES-001"
         ]
@@ -10664,7 +10795,7 @@
         "id": "CTX-003",
         "family": "CTX",
         "startYear": 135,
-        "dateDisplay": "After 135 CE",
+        "dateDisplay": "After 135",
         "links": [
           "CHG-004",
           "POP-016"
@@ -10674,7 +10805,7 @@
         "id": "CTX-004",
         "family": "CTX",
         "startYear": 224,
-        "dateDisplay": "224 CE",
+        "dateDisplay": "224",
         "links": [
           "POP-019"
         ]
@@ -10683,42 +10814,42 @@
         "id": "CTX-005",
         "family": "CTX",
         "startYear": 614,
-        "dateDisplay": "614 CE",
+        "dateDisplay": "614",
         "links": []
       },
       {
         "id": "CTX-006",
         "family": "CTX",
         "startYear": 628,
-        "dateDisplay": "628–630 CE",
+        "dateDisplay": "628–630",
         "links": []
       },
       {
         "id": "CTX-007",
         "family": "CTX",
         "startYear": 634,
-        "dateDisplay": "634–638 CE",
+        "dateDisplay": "634–638",
         "links": []
       },
       {
         "id": "CTX-008",
         "family": "CTX",
         "startYear": 641,
-        "dateDisplay": "641–642 CE",
+        "dateDisplay": "641–642",
         "links": []
       },
       {
         "id": "CTX-009",
         "family": "CTX",
         "startYear": 650,
-        "dateDisplay": "c. 650 CE",
+        "dateDisplay": "c. 650",
         "links": []
       },
       {
         "id": "CTX-010",
         "family": "CTX",
         "startYear": 711,
-        "dateDisplay": "711 CE",
+        "dateDisplay": "711",
         "links": [
           "POP-031"
         ]
@@ -10727,14 +10858,14 @@
         "id": "CTX-011",
         "family": "CTX",
         "startYear": 1000,
-        "dateDisplay": "c. 1000 CE",
+        "dateDisplay": "c. 1000",
         "links": []
       },
       {
         "id": "CTX-013",
         "family": "CTX",
         "startYear": 1220,
-        "dateDisplay": "c. 1220 CE",
+        "dateDisplay": "c. 1220",
         "links": [
           "POP-039"
         ]
@@ -10743,14 +10874,14 @@
         "id": "CTX-014",
         "family": "CTX",
         "startYear": 1263,
-        "dateDisplay": "1263 CE",
+        "dateDisplay": "1263",
         "links": []
       },
       {
         "id": "CTX-015",
         "family": "CTX",
         "startYear": 1264,
-        "dateDisplay": "1264 CE",
+        "dateDisplay": "1264",
         "links": [
           "POP-042"
         ]
@@ -10759,7 +10890,7 @@
         "id": "CTX-016",
         "family": "CTX",
         "startYear": 1275,
-        "dateDisplay": "1275 CE",
+        "dateDisplay": "1275",
         "links": [
           "POP-041"
         ]
@@ -10768,21 +10899,21 @@
         "id": "CTX-017",
         "family": "CTX",
         "startYear": 1516,
-        "dateDisplay": "1516–17 CE",
+        "dateDisplay": "1516–17",
         "links": []
       },
       {
         "id": "CTX-018",
         "family": "CTX",
         "startYear": 1516,
-        "dateDisplay": "1516 CE",
+        "dateDisplay": "1516",
         "links": []
       },
       {
         "id": "CTX-019",
         "family": "CTX",
         "startYear": 1536,
-        "dateDisplay": "1536 CE",
+        "dateDisplay": "1536",
         "links": [
           "MOV-024"
         ]
@@ -10791,14 +10922,14 @@
         "id": "CTX-020",
         "family": "CTX",
         "startYear": 1555,
-        "dateDisplay": "1555 CE",
+        "dateDisplay": "1555",
         "links": []
       },
       {
         "id": "CTX-021",
         "family": "CTX",
         "startYear": 1591,
-        "dateDisplay": "1591–93 CE",
+        "dateDisplay": "1591–93",
         "links": [
           "POP-046"
         ]
@@ -10807,7 +10938,7 @@
         "id": "CTX-022",
         "family": "CTX",
         "startYear": 1655,
-        "dateDisplay": "1655–56 CE",
+        "dateDisplay": "1655–56",
         "links": [
           "POP-055"
         ]
@@ -10816,7 +10947,7 @@
         "id": "CTX-023",
         "family": "CTX",
         "startYear": 1666,
-        "dateDisplay": "1666 CE",
+        "dateDisplay": "1666",
         "links": []
       },
       {
@@ -10832,7 +10963,7 @@
         "id": "CTX-025",
         "family": "CTX",
         "startYear": 1772,
-        "dateDisplay": "1772–95 CE",
+        "dateDisplay": "1772–95",
         "links": [
           "CHG-019"
         ]
@@ -10841,21 +10972,21 @@
         "id": "CTX-026",
         "family": "CTX",
         "startYear": 1782,
-        "dateDisplay": "1782 CE",
+        "dateDisplay": "1782",
         "links": []
       },
       {
         "id": "CTX-027",
         "family": "CTX",
         "startYear": 1791,
-        "dateDisplay": "1791 CE",
+        "dateDisplay": "1791",
         "links": []
       },
       {
         "id": "CTX-028",
         "family": "CTX",
         "startYear": 1791,
-        "dateDisplay": "1791 onward CE",
+        "dateDisplay": "1791 onward",
         "links": [
           "CTX-029"
         ]
@@ -10864,7 +10995,7 @@
         "id": "CTX-029",
         "family": "CTX",
         "startYear": 1804,
-        "dateDisplay": "1804 / 1835 CE",
+        "dateDisplay": "1804 / 1835",
         "links": [
           "CHG-020"
         ]
@@ -10873,49 +11004,49 @@
         "id": "CTX-030",
         "family": "CTX",
         "startYear": 1840,
-        "dateDisplay": "1840 CE",
+        "dateDisplay": "1840",
         "links": []
       },
       {
         "id": "CTX-031",
         "family": "CTX",
         "startYear": 1856,
-        "dateDisplay": "1856–69 CE",
+        "dateDisplay": "1856–69",
         "links": []
       },
       {
         "id": "CTX-032",
         "family": "CTX",
         "startYear": 1858,
-        "dateDisplay": "1858 CE",
+        "dateDisplay": "1858",
         "links": []
       },
       {
         "id": "CTX-033",
         "family": "CTX",
         "startYear": 1860,
-        "dateDisplay": "1860 CE",
+        "dateDisplay": "1860",
         "links": []
       },
       {
         "id": "CTX-034",
         "family": "CTX",
         "startYear": 1867,
-        "dateDisplay": "1867–71 CE",
+        "dateDisplay": "1867–71",
         "links": []
       },
       {
         "id": "CTX-035",
         "family": "CTX",
         "startYear": 1870,
-        "dateDisplay": "1870 CE",
+        "dateDisplay": "1870",
         "links": []
       },
       {
         "id": "CTX-036",
         "family": "CTX",
         "startYear": 1878,
-        "dateDisplay": "1878 CE",
+        "dateDisplay": "1878",
         "links": [
           "CHG-025"
         ]
@@ -10924,7 +11055,7 @@
         "id": "CTX-037",
         "family": "CTX",
         "startYear": 1891,
-        "dateDisplay": "1891 CE",
+        "dateDisplay": "1891",
         "links": [
           "POP-069"
         ]
@@ -10933,14 +11064,14 @@
         "id": "CTX-038",
         "family": "CTX",
         "startYear": 1894,
-        "dateDisplay": "1894–1906 CE",
+        "dateDisplay": "1894–1906",
         "links": []
       },
       {
         "id": "CTX-039",
         "family": "CTX",
         "startYear": 1897,
-        "dateDisplay": "1897 CE",
+        "dateDisplay": "1897",
         "links": []
       },
       {
@@ -10965,7 +11096,7 @@
         "id": "VOY-003",
         "family": "VOY",
         "startYear": 1080,
-        "dateDisplay": "c. 1080–1240 CE",
+        "dateDisplay": "c. 1080–1240",
         "links": [
           "EVD-020"
         ]
@@ -16496,7 +16627,7 @@
         ],
         "correct": "B",
         "quickTake": "Same Roman, two disasters: Titus burned the Temple, then Pompeii went under on his watch nine years later.",
-        "deepDive": "Titus led the destruction on Tisha B'Av in 70 CE, and nine years later he was emperor when Vesuvius erupted. His victory arch still stands in Rome, showing soldiers carrying off the Temple menorah. That carving became the model for the emblem of the State of Israel.",
+        "deepDive": "Titus led the destruction on Tisha B'Av in 70, and nine years later he was emperor when Vesuvius erupted. His victory arch still stands in Rome, showing soldiers carrying off the Temple menorah. That carving became the model for the emblem of the State of Israel.",
         "jewishEvent": "Second Temple destroyed",
         "jewishYear": 70,
         "worldAnchor": "Vesuvius buries Pompeii",
@@ -16550,7 +16681,7 @@
         ],
         "correct": "B",
         "quickTake": "Hadrian built one wall to keep the Scots out, and renamed Jerusalem to keep the Jews out.",
-        "deepDive": "Hadrian ruled from 117 to 138 CE. Shimon bar Koseva led the revolt from 132 to 135, and Rabbi Akiva called him “Bar Kokhba,” son of a star. After Rome crushed it, Jerusalem became “Aelia Capitolina,” Jews were barred from the city, and the province was renamed “Syria Palaestina.” Jewish life moved north to the Galilee. His actual letters were found in Judean desert caves in the 1960s.",
+        "deepDive": "Hadrian ruled from 117 to 138. Shimon bar Koseva led the revolt from 132 to 135, and Rabbi Akiva called him “Bar Kokhba,” son of a star. After Rome crushed it, Jerusalem became “Aelia Capitolina,” Jews were barred from the city, and the province was renamed “Syria Palaestina.” Jewish life moved north to the Galilee. His actual letters were found in Judean desert caves in the 1960s.",
         "jewishEvent": "Bar Kokhba revolt",
         "jewishYear": 132,
         "worldAnchor": "Hadrian's Wall begun",
@@ -16696,7 +16827,7 @@
         ],
         "correct": "A",
         "quickTake": "One Mishnah, two Talmuds. The Babylonian one was done before Muhammad was born.",
-        "deepDive": "The Babylonian Talmud was largely complete around 500 CE, about 70 years before Muhammad was born. Many people don't know there are two Talmuds. Both discuss the same Mishnah: the Jerusalem Talmud, actually written mostly in the Galilee around 400 CE, and the Babylonian Talmud, from the great academies of Sura and Pumbedita in today's Iraq. The Babylonian one had more time and more scholars, so it grew longer and more complete, and it became the one most Jews study today.",
+        "deepDive": "The Babylonian Talmud was largely complete around 500, about 70 years before Muhammad was born. Many people don't know there are two Talmuds. Both discuss the same Mishnah: the Jerusalem Talmud, actually written mostly in the Galilee around 400, and the Babylonian Talmud, from the great academies of Sura and Pumbedita in today's Iraq. The Babylonian one had more time and more scholars, so it grew longer and more complete, and it became the one most Jews study today.",
         "jewishEvent": "Babylonian Talmud completed",
         "jewishYear": 500,
         "worldAnchor": "Muhammad born",
@@ -16896,7 +17027,7 @@
         "place": "Galilee",
         "lat": 32.75,
         "lon": 35.28,
-        "question": "Which of these already existed when the Mishnah was completed, around 200 CE?",
+        "question": "Which of these already existed when the Mishnah was completed, around 200?",
         "choices": [
           "The Colosseum",
           "Hadrian's Wall",
@@ -16906,7 +17037,7 @@
         ],
         "correct": "E",
         "quickTake": "Rome had the Colosseum. The Jews had the Mishnah. Only one is still in daily use.",
-        "deepDive": "Around 200 CE in the Galilee, Rabbi Judah HaNasi organized the Oral Law into the Mishnah. For centuries it had been passed down by memory. After two failed revolts, writing it down was a way to make sure it survived. Its six sections are why the Talmud is nicknamed “Shas,” short for shisha sedarim, six orders.",
+        "deepDive": "Around 200 in the Galilee, Rabbi Judah HaNasi organized the Oral Law into the Mishnah. For centuries it had been passed down by memory. After two failed revolts, writing it down was a way to make sure it survived. Its six sections are why the Talmud is nicknamed “Shas,” short for shisha sedarim, six orders.",
         "jewishEvent": "Mishnah completed",
         "jewishYear": 200,
         "worldAnchor": "Colosseum opens",
@@ -17377,7 +17508,7 @@
       },
       {
         "id": "Q071",
-        "status": "draft",
+        "status": "approved",
         "mode": "random",
         "era": "Medieval & Modern",
         "style": "Find the impostor",
@@ -17427,32 +17558,6 @@
           982,
           1192,
           1215
-        ]
-      },
-      {
-        "id": "Q073",
-        "status": "draft",
-        "mode": "random",
-        "era": "Medieval & Modern",
-        "style": "Which came first?",
-        "place": "Reggio di Calabria",
-        "lat": 38.11,
-        "lon": 15.65,
-        "question": "Which came first: the Gutenberg Bible or the first dated printed Hebrew book?",
-        "choices": [
-          "The Gutenberg Bible",
-          "The first dated printed Hebrew book"
-        ],
-        "correct": "A",
-        "quickTake": "Gutenberg printed first, but only by about 20 years. Rashi's Torah commentary was the first Hebrew book to carry a date.",
-        "deepDive": "The Gutenberg Bible was printed around 1455. The first dated printed Hebrew book was Rashi's commentary on the Torah, printed by Abraham Garton in Reggio di Calabria, Italy, in February 1475. Earlier Hebrew books exist, including an undated edition of Rashi printed in Rome, which is why the word dated matters. Within a few decades Jewish printers were at work across Italy, Spain and Portugal.",
-        "jewishEvent": "Rashi's Torah commentary is printed",
-        "jewishYear": 1475,
-        "worldAnchor": "Gutenberg Bible is printed",
-        "worldYear": 1455,
-        "choiceYears": [
-          1455,
-          1475
         ]
       },
       {
