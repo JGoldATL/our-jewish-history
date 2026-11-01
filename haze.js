@@ -7,12 +7,12 @@ const $=id=>document.getElementById(id);
 const D2R=Math.PI/180;
 const HAZE=[0.306,0.439,0.282];            // #4E7048, deep moss (Creative Design, 2026-10-31)
 let DATA=null,SNAP=[],ANCH=[],pos=0,auto=true,timer=null;
-const view={lon:40,lat:28,deg:30,R:0,baseR:0,cx:0,cy:0};
+const view={lon:40,lat:28,deg:30,R:0,baseR:0,cx:0,cy:0,zoom:1};   // zoom below 1 shrinks the globe so a wide spread fits (used at Today)
 
 /* ---------- globe (copied from app.js and haze-test.html; see the feasibility note on why it is copied, not shared) ---------- */
 const VS='attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
 const FS=`precision highp float;
-uniform vec2 uC;uniform float uR;uniform vec2 uCen;uniform float uK;uniform sampler2D uW;uniform sampler2D uG;uniform vec4 uGB;uniform float uDpr;uniform vec2 uSize;uniform sampler2D uWash;uniform vec3 uHaze;
+uniform vec2 uC;uniform float uR;uniform vec2 uCen;uniform float uK;uniform sampler2D uW;uniform sampler2D uG;uniform vec4 uGB;uniform float uDpr;uniform vec2 uSize;uniform sampler2D uWash;uniform vec3 uHaze;uniform sampler2D uFill;uniform sampler2D uBord;uniform float uFin;
 void main(){
  vec2 px=vec2(gl_FragCoord.x,uSize.y-gl_FragCoord.y)/uDpr;
  vec2 d=(px-uC)/uR;float r=length(d);
@@ -29,10 +29,16 @@ void main(){
  float land=smoothstep(0.07,0.0,col.b-col.r);
  float wa=texture2D(uWash,vec2(gl_FragCoord.x/uSize.x,1.-gl_FragCoord.y/uSize.y)).a;
  float lum=dot(col,vec3(.3,.59,.11));col=mix(col,vec3(lum),land*.32);col*=mix(vec3(1.),vec3(.96,.99,1.02),land);   // cool land on this page only (Creative Design: 32 percent toward grey, then x0.96, x0.99, x1.02)
- float ha=wa*land;float hs=clamp(ha*1.05,0.,0.8);col=mix(col,uHaze,hs);                    // 0.8 is Jeffrey's approved cap
- float L2=dot(col,vec3(.3,.59,.11));col=clamp(mix(vec3(L2),col,1.+1.1*hs),0.,1.);           // punchy: keep the haze colour saturated
+ vec2 muv=vec2((LON+180.)/360.,(90.-LAT)/180.);
+ vec3 fm=uFin>0.?texture2D(uFill,muv).rgb:vec3(0.);                                         // final map: R = Muslim-majority state, G = Arab League member
+ float fz=fm.r*.88*uFin;                                                                    // same green at 88 percent (Creative Design)
+ float ha=wa*land*(1.-uFin);float hs=clamp(ha*1.05+fz,0.,0.88);col=mix(col,uHaze,hs);      // the haze caps at 0.8 (Jeffrey); the haze fades out as the final map fades in
+ float L2=dot(col,vec3(.3,.59,.11));col=clamp(mix(vec3(L2),col,1.+1.1*hs),0.,1.);           // punchy: keep the green saturated
  float nz=fract(sin(dot(floor(gl_FragCoord.xy/(uDpr*2.)),vec2(12.9898,78.233)))*43758.5453);
- if(nz<ha*0.35)col+=0.05;                                                                   // fine dot texture: meaning does not rest on colour alone
+ if(nz<max(ha,fz)*0.35)col+=0.05;                                                           // fine dot texture: meaning does not rest on colour alone
+ float stripe=step(fract((gl_FragCoord.x+gl_FragCoord.y)/(7.*uDpr)),.3);
+ col=mix(col,vec3(1.,.98,.94),stripe*fm.g*fm.r*uFin*.85);                                   // Arab League: cream diagonal hatch inside the green, no second colour
+ if(uFin>0.){float bc=texture2D(uBord,muv).r;vec3 lc=bc>.85?vec3(1.,.98,.94):(bc>.55?vec3(.11,.14,.16):vec3(.19,.29,.34));col=mix(col,lc,(bc>.2?1.:0.)*uFin*.8);}   // land borders: cream beside green, ink round Israel, slate elsewhere
  vec3 n=vec3(d.x,-d.y,sqrt(max(0.,1.-r*r)));
  vec3 L=normalize(vec3(-.45,.55,.75));
  float diff=.62+.48*max(dot(n,L),0.);
@@ -50,8 +56,9 @@ function initGL(){
   const p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,VS));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(p);gl.useProgram(p);
   const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
   const a=gl.getAttribLocation(p,'a');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
-  for(const n of ['uC','uR','uCen','uK','uW','uG','uGB','uDpr','uSize','uWash','uHaze'])uni[n]=gl.getUniformLocation(p,n);
-  gl.uniform1i(uni.uW,0);gl.uniform1i(uni.uG,1);gl.uniform1i(uni.uWash,2);gl.uniform4f(uni.uGB,-20,80,0,60);
+  for(const n of ['uC','uR','uCen','uK','uW','uG','uGB','uDpr','uSize','uWash','uHaze','uFill','uBord','uFin'])uni[n]=gl.getUniformLocation(p,n);
+  gl.uniform1i(uni.uW,0);gl.uniform1i(uni.uG,1);gl.uniform1i(uni.uWash,2);gl.uniform1i(uni.uFill,3);gl.uniform1i(uni.uBord,4);gl.uniform1f(uni.uFin,0);gl.uniform4f(uni.uGB,-20,80,0,60);
+  for(const u of [3,4]){gl.activeTexture(gl.TEXTURE0+u);const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,1,1,0,gl.RGB,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0]));gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);}
   washTex=gl.createTexture();gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,washTex);
   for(const [k,v] of [[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR],[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE]])gl.texParameteri(gl.TEXTURE_2D,k,v);
   loadTex('images/tex-world.jpg',0,true);loadTex('images/tex-region.jpg',1,false);
@@ -94,34 +101,60 @@ function drawWash(p){
     for(const l of lobesFor(a,i))lobe(x+l.dx*rad,y+l.dy*rad,l.r*rad*1.25,l.sx,l.rot,m*.42);
   });
 }
+/* ---------- final map (present-day sovereign states, current borders): loaded only when the slider nears "Today" ---------- */
+const FIN={ready:false,loading:false,states:null,outlines:null};
+function loadFinTex(src,unit,smooth,cb){const img=new Image();img.onerror=()=>{FIN.loading=false;};
+  img.onload=()=>{gl.activeTexture(gl.TEXTURE0+unit);const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);const fmt=smooth?gl.RGB:gl.LUMINANCE;gl.texImage2D(gl.TEXTURE_2D,0,fmt,fmt,gl.UNSIGNED_BYTE,img);
+    const f=smooth?gl.LINEAR:gl.NEAREST;gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,f);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,f);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);cb();};img.src=src;}
+function loadFinal(){if(FIN.ready||FIN.loading||!gl||gl.getParameter(gl.MAX_TEXTURE_SIZE)<4096)return;FIN.loading=true;let n=0;const done=()=>{if(++n===3){FIN.ready=true;draw();}};
+  loadFinTex('images/final-fill.png',3,true,done);loadFinTex('images/final-border.png',4,false,done);
+  fetch('data/states.json').then(r=>r.json()).then(j=>{FIN.states=j.states;FIN.outlines=j.outlines;done();}).catch(()=>{FIN.loading=false;});}
+const finAt=p=>FIN.ready&&TODAY(SNAP.length-1)?Math.max(0,Math.min(1,p-(SNAP.length-2))):0;
+function drawOverlay(fin){
+  const c=$('ov'),dpr=Math.min(2,window.devicePixelRatio||1),w=c.clientWidth,h=c.clientHeight;if(c.width!==Math.round(w*dpr)||c.height!==Math.round(h*dpr)){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);}
+  const x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,w,h);if(!FIN.ready||fin<=0.02)return;
+  x.save();x.globalAlpha=Math.min(1,fin);x.setLineDash([4,3]);x.lineWidth=1.2;x.strokeStyle='#183B4B';   // West Bank and Gaza, Western Sahara: thin dashed outline, no fill, no label, no wording
+  for(const k in FIN.outlines)for(const ring of FIN.outlines[k]){x.beginPath();let pen=false;for(const [lo,la] of ring){const q=project(lo,la);if(q.vis){if(!pen){x.moveTo(q.x,q.y);pen=true;}else x.lineTo(q.x,q.y);}else pen=false;}x.stroke();}
+  x.restore();
+  if(fin>0.6){x.save();x.globalAlpha=Math.min(1,(fin-0.6)/0.4);x.font='italic 12px Georgia, serif';x.textAlign='center';x.textBaseline='middle';x.lineJoin='round';const boxes=[];
+    for(const s of FIN.states){if(view.deg>60&&s.area<20&&!s.star)continue;   // wide view: small states are unlabelled, but Kosovo always is (it carries the footnote asterisk)
+     const q=project(s.lon,s.lat);if(!q.vis||q.x<10||q.x>w-10||q.y<10||q.y>h-10)continue;
+      const t=s.name+(s.star?'*':''),tw=x.measureText(t).width,b={l:q.x-tw/2-3,r:q.x+tw/2+3,t:q.y-8,bt:q.y+8};if(boxes.some(o=>b.l<o.r&&b.r>o.l&&b.t<o.bt&&b.bt>o.t))continue;boxes.push(b);
+      x.strokeStyle='#FFFAF0';x.lineWidth=3;x.strokeText(t,q.x,q.y);x.fillStyle='#183B4B';x.fillText(t,q.x,q.y);}x.restore();}
+}
 function draw(){
   if(!gl||texReady<2||!SNAP.length)return;const c=$('gl'),dpr=Math.min(2,window.devicePixelRatio||1),w=c.clientWidth,h=c.clientHeight;
   if(c.width!==Math.round(w*dpr)||c.height!==Math.round(h*dpr)){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);}
-  view.cx=w/2;view.cy=h/2;view.baseR=Math.max(w*0.95,h*0.62);view.R=view.baseR;
+  view.cx=w/2;view.cy=h/2;view.baseR=Math.max(w*0.95,h*0.62);view.R=view.baseR*view.zoom;
   drawWash(pos);
   gl.viewport(0,0,c.width,c.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
   gl.uniform2f(uni.uC,view.cx,view.cy);gl.uniform1f(uni.uR,view.R);gl.uniform2f(uni.uCen,view.lon*D2R,view.lat*D2R);gl.uniform1f(uni.uK,90/view.deg);gl.uniform1f(uni.uDpr,dpr);gl.uniform2f(uni.uSize,c.width,c.height);
-  gl.uniform3fv(uni.uHaze,HAZE);
+  gl.uniform3fv(uni.uHaze,HAZE);const fin=finAt(pos);gl.uniform1f(uni.uFin,fin);
   gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,washTex);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,wc);
   gl.drawArrays(gl.TRIANGLES,0,6);
+  drawOverlay(fin);
 }
 
 /* ---------- follow camera: centre on the strong anchors, widen until every one is on screen (limit 84 degrees) ---------- */
 function camTarget(p){
-  const act=[];for(const a of ANCH){const s=stateAt(a,p);if(s.k>0.3)act.push(a);}
+  const act=[];if(FIN.ready&&FIN.states&&p>=SNAP.length-1.5){for(const s of FIN.states)if(s.area>=3)act.push({lon:s.lon,lat:s.lat});}   // at Today, frame the states
+  else for(const a of ANCH){const s=stateAt(a,p);if(s.k>0.3)act.push(a);}
   if(!act.length)return null;
   let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;for(const a of act){x0=Math.min(x0,a.lon);x1=Math.max(x1,a.lon);y0=Math.min(y0,a.lat);y1=Math.max(y1,a.lat);}
-  const lon=(x0+x1)/2,lat=Math.max(-60,Math.min(70,(y0+y1)/2)),sv={lon:view.lon,lat:view.lat,deg:view.deg},c=$('gl'),w=c.clientWidth||390,h=c.clientHeight||420,m=36;
-  if(!view.R){view.cx=w/2;view.cy=h/2;view.baseR=Math.max(w*0.95,h*0.62);view.R=view.baseR;}
-  let deg=84;view.lon=lon;view.lat=lat;
-  for(let d=20;d<=84;d+=2){view.deg=d;let ok=true;for(const a of act){const q=project(a.lon,a.lat);if(!q.vis||q.x<m||q.x>w-m||q.y<m||q.y>h-m-30){ok=false;break;}}if(ok){deg=d;break;}}
-  view.lon=sv.lon;view.lat=sv.lat;view.deg=sv.deg;
-  return {lon,lat,deg};
+  const lon=(x0+x1)/2,lat=Math.max(-60,Math.min(70,(y0+y1)/2)),sv={lon:view.lon,lat:view.lat,deg:view.deg,R:view.R},c=$('gl'),w=c.clientWidth||390,h=c.clientHeight||420,m=36;
+  if(!view.baseR){view.cx=w/2;view.cy=h/2;view.baseR=Math.max(w*0.95,h*0.62);}
+  const fits=()=>{for(const a of act){const q=project(a.lon,a.lat);if(!q.vis||q.x<m||q.x>w-m||q.y<m||q.y>h-m-30)return false;}return true;};
+  let deg=84,zoom=1;view.lon=lon;view.lat=lat;
+  const finalView=FIN.ready&&FIN.states&&p>=SNAP.length-1.5;
+  if(!finalView){view.R=view.baseR;for(let d=20;d<=84;d+=2){view.deg=d;if(fits()){deg=d;break;}}}
+  else{view.deg=84;zoom=0.7;for(let z=1;z>=0.7;z-=0.05){view.R=view.baseR*z;if(fits()){zoom=z;break;}}}   // at Today: widest view, then shrink the globe (to 70 percent at most, so it stays readable) until every state fits; drag for the far edges
+  view.lon=sv.lon;view.lat=sv.lat;view.deg=sv.deg;view.R=sv.R;
+  return {lon,lat,deg,zoom};
 }
 let lastF=0;
 function frame(t){const dt=Math.min(.1,(t-lastF)/1000);lastF=t;
-  if(auto){const g=camTarget(pos);if(g){const k=1-Math.exp(-dt*3),dl=((g.lon-view.lon+540)%360)-180,nl=view.lon+dl*k,nla=view.lat+(g.lat-view.lat)*k,nd=view.deg+(g.deg-view.deg)*k;
-    if(Math.abs(nl-view.lon)+Math.abs(nla-view.lat)+Math.abs(nd-view.deg)>0.002){view.lon=nl;view.lat=nla;view.deg=nd;draw();}}}
+  if(auto){const g=camTarget(pos);if(g){const k=1-Math.exp(-dt*3),dl=((g.lon-view.lon+540)%360)-180,nl=view.lon+dl*k,nla=view.lat+(g.lat-view.lat)*k,nd=view.deg+(g.deg-view.deg)*k,nz=view.zoom+(g.zoom-view.zoom)*k;
+    if(Math.abs(nl-view.lon)+Math.abs(nla-view.lat)+Math.abs(nd-view.deg)+Math.abs(nz-view.zoom)*50>0.002){view.lon=nl;view.lat=nla;view.deg=nd;view.zoom=nz;draw();}}}
   requestAnimationFrame(frame);}
 
 /* ---------- controls and card ---------- */
@@ -131,10 +164,11 @@ let shown=-1;
 const TODAY=i=>!!(SNAP[i]&&SNAP[i].hold);   // the closing card is the present-day map: its slider stop reads "Today"
 function setKey(mode){$('key').innerHTML=mode==='final'?'<b>Muslim-majority states</b><div class="sw"><i class="hi"></i>Muslim-majority state</div><div class="sw"><i class="ar"></i>Arab League member</div><div class="fn">* Kosovo: recognized by many states, not all.</div>':'<b>Islamic rule</b><div class="sw"><i class="lo"></i>Looser or less certain</div><div class="sw"><i class="hi"></i>Firmer</div>';}
 function showCard(){const i=Math.max(0,Math.min(SNAP.length-1,Math.round(pos)));if(i===shown)return;shown=i;const s=SNAP[i];
-  $('cap').textContent=TODAY(i)?'Today':s.label;
+  $('cap').textContent=TODAY(i)?'Present-day states':s.label;
   $('card').innerHTML='<div class="k">Wave '+(i+1)+' of '+SNAP.length+' · '+esc(s.period)+'</div><h2>'+esc(s.title||s.label)+'</h2><p>'+esc(s.summary)+'</p>'+(s.note?'<p class="nbc">'+esc(s.note)+'</p>':'')+(s.spread&&s.spread.text?'<h3>How Islam spread</h3><p>'+esc(s.spread.text)+'</p>':'')+'<h3>What it meant for Jewish communities</h3><p>'+esc(s.jewish)+'</p><h3>Sources</h3><ul>'+[...s.sources,...((s.spread&&s.spread.sources)||[])].filter((x,k,a)=>a.findIndex(y=>y.url===x.url&&y.name===x.name)===k).map(x=>'<li>'+(x.url?'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.name)+'</a>':esc(x.name))+'</li>').join('')+'</ul>';
   document.querySelectorAll('.tick').forEach((t,k)=>t.setAttribute('aria-current',k===i?'true':'false'));}
-function setPos(p,fromUser){pos=Math.max(0,Math.min(SNAP.length-1,p));$('sl').value=pos;$('yr').textContent=(TODAY(SNAP.length-1)&&pos>=SNAP.length-1-1e-6)?'Today':String(Math.round(yearAt(pos)));showCard();draw();}
+let keyMode='haze';
+function setPos(p,fromUser){pos=Math.max(0,Math.min(SNAP.length-1,p));if(TODAY(SNAP.length-1)&&pos>=SNAP.length-2.5)loadFinal();const km=finAt(pos)>0.5?'final':'haze';if(km!==keyMode){keyMode=km;setKey(km);}$('sl').value=pos;$('yr').textContent=(TODAY(SNAP.length-1)&&pos>=SNAP.length-1-1e-6)?'Today':String(Math.round(yearAt(pos)));showCard();draw();}
 function stop(){if(timer){cancelAnimationFrame(timer);timer=null;}$('play').textContent='Play';}
 function tick(t){const dt=Math.min(.1,(t-last)/1000);last=t;const p=pos+dt*(SNAP.length-1)/14;   // about 14 seconds end to end (a starting guess to tune on a phone)
   if(p>=SNAP.length-1){setPos(SNAP.length-1);stop();return;}setPos(p);timer=requestAnimationFrame(tick);}
@@ -170,6 +204,6 @@ function check(d){   // reports problems, never fixes them (same stance as the l
     SNAP=DATA.snapshots;ANCH=DATA.anchors;
     if(DATA.mock||DATA.draft){$('mock').hidden=false;$('mock').textContent=DATA.mock?'MOCKUP: invented data':'DRAFT: Dataset\u2019s placements, not signed off';}
     $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+window.SITE_DATA_VERSION;   // the one data version, from version.js
-    setKey('haze');wire();initGL();const g=camTarget(0);if(g){view.lon=g.lon;view.lat=g.lat;view.deg=g.deg;}setPos(0);requestAnimationFrame(frame);
+    setKey('haze');wire();initGL();const g=camTarget(0);if(g){view.lon=g.lon;view.lat=g.lat;view.deg=g.deg;view.zoom=g.zoom;}setPos(0);requestAnimationFrame(frame);
   }catch(e){fail('This page could not load: '+e.message);}
 })();
