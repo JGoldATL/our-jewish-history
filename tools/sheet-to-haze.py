@@ -119,12 +119,24 @@ def main():
             if not m: P('card %d: %s is not "Name | URL": %r' % (y, k, s[:60])); continue
             srcs.append({"name": m.group(1).strip(), "url": m.group(2).strip()})
         if not srcs: P("card %d: no source" % y)
-        public = " ".join([label, title, per, summ, note, jew] + [s["name"] for s in srcs])
+        sp_text = g(r, "Spread line")
+        sp_srcs = []
+        for k in ("Spread source 1", "Spread source 2"):
+            s = g(r, k)
+            if not s: continue
+            m = re.match(r"^(.+?)\s*\|\s*(https?://\S+)$", s)
+            if not m: P('card %d: %s is not "Name | URL": %r' % (y, k, s[:60])); continue
+            sp_srcs.append({"name": m.group(1).strip(), "url": m.group(2).strip()})
+        if sp_text and not sp_srcs: P("card %d: Spread line has no source" % y)
+        if sp_srcs and not sp_text: P("card %d: Spread source given without a Spread line" % y)
+        public = " ".join([label, title, per, summ, note, jew, sp_text] + [s["name"] for s in srcs + sp_srcs])
         if re.search(r"\b\d{1,4}\s*CE\b", public) and "BCE" not in public: P('card %d: "CE" after a year' % y)
         if re.search(r"disputed", public, re.I): P('card %d: the word "disputed" must not appear' % y)
         if re.search(r"palestin", public, re.I): P('card %d: "Palestine/Palestinian" must not appear (only Syria Palaestina)' % y)
-        cards.append({"year": y, "label": label, "title": title, "period": per, "summary": summ, "note": note,
-                      "jewish": jew, "sources": srcs})
+        card = {"year": y, "label": label, "title": title, "period": per, "summary": summ, "note": note,
+                "jewish": jew, "sources": srcs}
+        if sp_text: card["spread"] = {"text": sp_text, "sources": sp_srcs}   # shown only when not blank (900, 1700, 1900 and the closing card have none)
+        cards.append(card)
     cards.sort(key=lambda c: c["year"])
 
     # ---------- anchors ----------

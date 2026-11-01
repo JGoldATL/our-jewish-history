@@ -5,7 +5,7 @@
    The slider position is a wave index (0 to n-1) so every wave gets the same room; the year readout is interpolated between wave years. */
 const $=id=>document.getElementById(id);
 const D2R=Math.PI/180;
-const HAZE=[0.373,0.478,0.333];            // #5F7A55, provisional: Creative Design sets the final green
+const HAZE=[0.306,0.439,0.282];            // #4E7048, deep moss (Creative Design, 2026-10-31)
 let DATA=null,SNAP=[],ANCH=[],pos=0,auto=true,timer=null;
 const view={lon:40,lat:28,deg:30,R:0,baseR:0,cx:0,cy:0};
 
@@ -28,7 +28,7 @@ void main(){
  else{col=texture2D(uW,vec2((LON+180.)/360.,(90.-LAT)/180.)).rgb;}
  float land=smoothstep(0.07,0.0,col.b-col.r);
  float wa=texture2D(uWash,vec2(gl_FragCoord.x/uSize.x,1.-gl_FragCoord.y/uSize.y)).a;
- float lum=dot(col,vec3(.3,.59,.11));col=mix(col,vec3(lum)*vec3(.90,.98,1.06),land*.6);   // cool land on this page only
+ float lum=dot(col,vec3(.3,.59,.11));col=mix(col,vec3(lum),land*.32);col*=mix(vec3(1.),vec3(.96,.99,1.02),land);   // cool land on this page only (Creative Design: 32 percent toward grey, then x0.96, x0.99, x1.02)
  float ha=wa*land;float hs=clamp(ha*1.05,0.,0.8);col=mix(col,uHaze,hs);                    // 0.8 is Jeffrey's approved cap
  float L2=dot(col,vec3(.3,.59,.11));col=clamp(mix(vec3(L2),col,1.+1.1*hs),0.,1.);           // punchy: keep the haze colour saturated
  float nz=fract(sin(dot(floor(gl_FragCoord.xy/(uDpr*2.)),vec2(12.9898,78.233)))*43758.5453);
@@ -128,11 +128,13 @@ function frame(t){const dt=Math.min(.1,(t-lastF)/1000);lastF=t;
 const yearAt=p=>{const i=Math.max(0,Math.min(SNAP.length-2,Math.floor(p))),t=Math.max(0,Math.min(1,p-i));return SNAP[i].year+(SNAP[i+1].year-SNAP[i].year)*t;};
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 let shown=-1;
+const TODAY=i=>!!(SNAP[i]&&SNAP[i].hold);   // the closing card is the present-day map: its slider stop reads "Today"
+function setKey(mode){$('key').innerHTML=mode==='final'?'<b>Muslim-majority states</b><div class="sw"><i class="hi"></i>Muslim-majority state</div><div class="sw"><i class="ar"></i>Arab League member</div><div class="fn">* Kosovo: recognized by many states, not all.</div>':'<b>Islamic rule</b><div class="sw"><i class="lo"></i>Looser or less certain</div><div class="sw"><i class="hi"></i>Firmer</div>';}
 function showCard(){const i=Math.max(0,Math.min(SNAP.length-1,Math.round(pos)));if(i===shown)return;shown=i;const s=SNAP[i];
-  $('cap').textContent=s.label;
-  $('card').innerHTML='<div class="k">Wave '+(i+1)+' of '+SNAP.length+' · '+esc(s.period)+'</div><h2>'+esc(s.title||s.label)+'</h2><p>'+esc(s.summary)+'</p>'+(s.note?'<p class="nbc">'+esc(s.note)+'</p>':'')+'<h3>What it meant for Jewish communities</h3><p>'+esc(s.jewish)+'</p><h3>Sources</h3><ul>'+s.sources.map(x=>'<li>'+(x.url?'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.name)+'</a>':esc(x.name))+'</li>').join('')+'</ul>';
+  $('cap').textContent=TODAY(i)?'Today':s.label;
+  $('card').innerHTML='<div class="k">Wave '+(i+1)+' of '+SNAP.length+' · '+esc(s.period)+'</div><h2>'+esc(s.title||s.label)+'</h2><p>'+esc(s.summary)+'</p>'+(s.note?'<p class="nbc">'+esc(s.note)+'</p>':'')+(s.spread&&s.spread.text?'<h3>How Islam spread</h3><p>'+esc(s.spread.text)+'</p>':'')+'<h3>What it meant for Jewish communities</h3><p>'+esc(s.jewish)+'</p><h3>Sources</h3><ul>'+[...s.sources,...((s.spread&&s.spread.sources)||[])].filter((x,k,a)=>a.findIndex(y=>y.url===x.url&&y.name===x.name)===k).map(x=>'<li>'+(x.url?'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.name)+'</a>':esc(x.name))+'</li>').join('')+'</ul>';
   document.querySelectorAll('.tick').forEach((t,k)=>t.setAttribute('aria-current',k===i?'true':'false'));}
-function setPos(p,fromUser){pos=Math.max(0,Math.min(SNAP.length-1,p));$('sl').value=pos;$('yr').textContent=String(Math.round(yearAt(pos)));showCard();draw();}
+function setPos(p,fromUser){pos=Math.max(0,Math.min(SNAP.length-1,p));$('sl').value=pos;$('yr').textContent=(TODAY(SNAP.length-1)&&pos>=SNAP.length-1-1e-6)?'Today':String(Math.round(yearAt(pos)));showCard();draw();}
 function stop(){if(timer){cancelAnimationFrame(timer);timer=null;}$('play').textContent='Play';}
 function tick(t){const dt=Math.min(.1,(t-last)/1000);last=t;const p=pos+dt*(SNAP.length-1)/14;   // about 14 seconds end to end (a starting guess to tune on a phone)
   if(p>=SNAP.length-1){setPos(SNAP.length-1);stop();return;}setPos(p);timer=requestAnimationFrame(tick);}
@@ -140,8 +142,8 @@ let last=0;
 function wire(){
   const n=SNAP.length,LABELLED=new Set(n<8?SNAP.map((_,i)=>i):[0,Math.round((n-1)/3),Math.round((n-1)*2/3),Math.round((n-1)*5/6),n-1]);   // first, last and a few between, so the labels never crowd
   $('sl').max=SNAP.length-1;
-  const mk=()=>{const W=$('ticks').clientWidth||250,max=Math.max(2,Math.floor(W/48)),pick=new Set([0,n-1]);for(let k=1;k<max-1;k++)pick.add(Math.round(k*(n-1)/(max-1)));document.querySelectorAll('.tick').forEach((t,i)=>{t.textContent=pick.has(i)?SNAP[i].year:'·';});};
-  $('ticks').innerHTML=SNAP.map((s,i)=>'<button type="button" class="tick" data-i="'+i+'" style="left:'+(i/(SNAP.length-1)*100)+'%" aria-label="Wave '+(i+1)+': '+s.year+'">'+(LABELLED.has(i)?s.year:'·')+'</button>').join('');
+  const mk=()=>{const W=$('ticks').clientWidth||250,max=Math.max(2,Math.floor(W/48)),pick=new Set([0,n-1]);for(let k=1;k<max-1;k++)pick.add(Math.round(k*(n-1)/(max-1)));document.querySelectorAll('.tick').forEach((t,i)=>{t.textContent=pick.has(i)?(TODAY(i)?'Today':SNAP[i].year):'·';});};
+  $('ticks').innerHTML=SNAP.map((s,i)=>'<button type="button" class="tick" data-i="'+i+'" style="left:'+(i/(SNAP.length-1)*100)+'%" aria-label="Wave '+(i+1)+': '+(TODAY(i)?'Today':s.year)+'">'+(LABELLED.has(i)?(TODAY(i)?'Today':s.year):'·')+'</button>').join('');
   mk();window.addEventListener('resize',mk);
   $('ticks').addEventListener('click',e=>{const b=e.target.closest('.tick');if(!b)return;stop();auto=true;setPos(+b.dataset.i);});
   $('sl').addEventListener('input',e=>{stop();auto=true;setPos(+e.target.value);});
@@ -168,6 +170,6 @@ function check(d){   // reports problems, never fixes them (same stance as the l
     SNAP=DATA.snapshots;ANCH=DATA.anchors;
     if(DATA.mock||DATA.draft){$('mock').hidden=false;$('mock').textContent=DATA.mock?'MOCKUP: invented data':'DRAFT: Dataset\u2019s placements, not signed off';}
     $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+window.SITE_DATA_VERSION;   // the one data version, from version.js
-    wire();initGL();const g=camTarget(0);if(g){view.lon=g.lon;view.lat=g.lat;view.deg=g.deg;}setPos(0);requestAnimationFrame(frame);
+    setKey('haze');wire();initGL();const g=camTarget(0);if(g){view.lon=g.lon;view.lat=g.lat;view.deg=g.deg;}setPos(0);requestAnimationFrame(frame);
   }catch(e){fail('This page could not load: '+e.message);}
 })();

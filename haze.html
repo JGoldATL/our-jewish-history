@@ -24,8 +24,12 @@ if(location.hostname==='jgoldatl.github.io'){var s=document.createElement('scrip
 #mock[hidden]{display:none}
 .key{position:absolute;left:10px;bottom:10px;z-index:2;display:flex;flex-direction:column;gap:5px;padding:8px 11px;border-radius:12px;background:rgba(14,24,34,.78);border:1px solid rgba(239,230,211,.22);font-size:12.5px;line-height:1.2;pointer-events:none}
 .key b{font-weight:600;color:var(--cream)}
-.key .bar{height:8px;width:100%;border-radius:5px;background:linear-gradient(90deg,rgba(95,122,85,.28),#5F7A55)}
-.key .ends{display:flex;justify-content:space-between;gap:14px;color:var(--muted);font-size:11px;white-space:nowrap}
+.key .sw{display:flex;align-items:center;gap:8px;color:var(--text);font-size:12px;white-space:nowrap}
+.key .sw i{width:22px;height:13px;border-radius:3px;flex:none;border:1px solid rgba(239,230,211,.3)}
+.key .sw i.lo{background:radial-gradient(rgba(255,255,255,.4) 1px,transparent 1.3px) 0 0/7px 7px,rgba(78,112,72,.58)}
+.key .sw i.hi{background:radial-gradient(rgba(255,255,255,.45) 1px,transparent 1.3px) 0 0/4px 4px,rgba(78,112,72,.8)}
+.key .sw i.ar{background:repeating-linear-gradient(45deg,rgba(255,250,240,.85) 0 2px,transparent 2px 5px),rgba(78,112,72,.88)}
+.key .fn{color:var(--muted);font-size:11px;white-space:normal;max-width:210px;line-height:1.25}
 .ctl{display:flex;align-items:center;gap:12px}
 .play{min-height:44px;min-width:78px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);font:600 14px var(--sans);cursor:pointer}
 .yr{font:700 30px/1 var(--serif);color:var(--cream);min-width:2.6em;font-variant-numeric:tabular-nums}
@@ -55,7 +59,7 @@ if(location.hostname==='jgoldatl.github.io'){var s=document.createElement('scrip
  <div class="left">
   <div id="mock" hidden>MOCKUP: invented data</div>
   <div id="stage"><canvas id="gl" aria-label="Globe showing where Muslim rule held in the selected wave"></canvas>
-   <div class="key" aria-label="Key"><b>Islamic rule</b><div class="bar"></div><div class="ends"><span>Looser or less certain</span><span>Firmer</span></div></div>
+   <div class="key" id="key" aria-label="Key"></div>
   </div>
   <div class="ctl"><button class="play" id="play" type="button">Play</button><div class="yr" id="yr">650</div>
    <div class="sl"><input id="sl" type="range" min="0" max="11" step="0.01" value="0" aria-label="Wave"><div class="ticks" id="ticks"></div></div></div>
