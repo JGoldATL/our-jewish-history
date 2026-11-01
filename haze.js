@@ -6,7 +6,7 @@
 const $=id=>document.getElementById(id);
 const D2R=Math.PI/180;
 const HAZE=[0.306,0.439,0.282];            // #4E7048, deep moss (Creative Design, 2026-10-31)
-let DATA=null,SNAP=[],ANCH=[],pos=0,auto=true,timer=null;
+let DATA=null,SNAP=[],ANCH=[],pos=0,auto=true,timer=null,cover=true;   // cover: the opening state (bare globe, green glow, title, Play) until Play, a drag or the slider is touched
 const view={lon:40,lat:28,deg:30,R:0,baseR:0,cx:0,cy:0,zoom:1};   // zoom below 1 shrinks the globe so a wide spread fits (used at Today)
 
 /* ---------- globe (copied from app.js and haze-test.html; see the feasibility note on why it is copied, not shared) ---------- */
@@ -112,7 +112,10 @@ function loadFinal(){if(FIN.ready||FIN.loading||!gl||gl.getParameter(gl.MAX_TEXT
 const finAt=p=>FIN.ready&&TODAY(SNAP.length-1)?Math.max(0,Math.min(1,p-(SNAP.length-2))):0;
 function drawOverlay(fin){
   const c=$('ov'),dpr=Math.min(2,window.devicePixelRatio||1),w=c.clientWidth,h=c.clientHeight;if(c.width!==Math.round(w*dpr)||c.height!==Math.round(h*dpr)){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);}
-  const x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,w,h);if(!FIN.ready||fin<=0.02)return;
+  const x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,w,h);
+  if(cover){const R=view.R,g=x.createRadialGradient(view.cx,view.cy,R*0.9,view.cx,view.cy,R*1.28);   // soft green shadow round the rim of the bare globe
+    g.addColorStop(0,'rgba(110,168,100,.55)');g.addColorStop(.3,'rgba(78,112,72,.34)');g.addColorStop(1,'rgba(78,112,72,0)');x.fillStyle=g;x.fillRect(0,0,w,h);}
+  if(!FIN.ready||fin<=0.02)return;
   x.save();x.globalAlpha=Math.min(1,fin);x.setLineDash([4,3]);x.lineWidth=1.2;x.strokeStyle='#183B4B';   // West Bank and Gaza, Western Sahara: thin dashed outline, no fill, no label, no wording
   for(const k in FIN.outlines)for(const ring of FIN.outlines[k]){x.beginPath();let pen=false;for(const [lo,la] of ring){const q=project(lo,la);if(q.vis){if(!pen){x.moveTo(q.x,q.y);pen=true;}else x.lineTo(q.x,q.y);}else pen=false;}x.stroke();}
   x.restore();
@@ -122,8 +125,10 @@ function drawOverlay(fin){
       const t=s.name+(s.star?'*':''),tw=x.measureText(t).width,b={l:q.x-tw/2-3,r:q.x+tw/2+3,t:q.y-8,bt:q.y+8};if(boxes.some(o=>b.l<o.r&&b.r>o.l&&b.t<o.bt&&b.bt>o.t))continue;boxes.push(b);
       x.strokeStyle='#FFFAF0';x.lineWidth=3;x.strokeText(t,q.x,q.y);x.fillStyle='#183B4B';x.fillText(t,q.x,q.y);}x.restore();}
 }
+function dismissCover(){if(!cover)return;cover=false;$('stage').classList.remove('cover-on');draw();}
 function draw(){
   if(!gl||texReady<2||!SNAP.length)return;const c=$('gl'),dpr=Math.min(2,window.devicePixelRatio||1),w=c.clientWidth,h=c.clientHeight;
+  if(cover){view.deg=84;view.zoom=Math.min(1,Math.min(w,h)*0.40/Math.max(w*0.95,h*0.62));}   // cover: the whole globe, rim in view
   if(c.width!==Math.round(w*dpr)||c.height!==Math.round(h*dpr)){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);}
   view.cx=w/2;view.cy=h/2;view.baseR=Math.max(w*0.95,h*0.62);view.R=view.baseR*view.zoom;
   drawWash(pos);
@@ -179,17 +184,18 @@ function wire(){
   const mk=()=>{const W=$('ticks').clientWidth||250,max=Math.max(2,Math.floor(W/48)),pick=new Set([0,n-1]);for(let k=1;k<max-1;k++)pick.add(Math.round(k*(n-1)/(max-1)));document.querySelectorAll('.tick').forEach((t,i)=>{t.textContent=pick.has(i)?(TODAY(i)?'Today':SNAP[i].year):'·';});};
   $('ticks').innerHTML=SNAP.map((s,i)=>'<button type="button" class="tick" data-i="'+i+'" style="left:'+(i/(SNAP.length-1)*100)+'%" aria-label="Wave '+(i+1)+': '+(TODAY(i)?'Today':s.year)+'">'+(LABELLED.has(i)?(TODAY(i)?'Today':s.year):'·')+'</button>').join('');
   mk();window.addEventListener('resize',mk);
-  $('ticks').addEventListener('click',e=>{const b=e.target.closest('.tick');if(!b)return;stop();auto=true;setPos(+b.dataset.i);});
-  $('sl').addEventListener('input',e=>{stop();auto=true;setPos(+e.target.value);});
-  $('play').addEventListener('click',()=>{if(timer){stop();return;}if(pos>=SNAP.length-1)pos=0;auto=true;$('play').textContent='Pause';last=performance.now();timer=requestAnimationFrame(tick);});
+  $('ticks').addEventListener('click',e=>{const b=e.target.closest('.tick');if(!b)return;dismissCover();stop();auto=true;setPos(+b.dataset.i);});
+  $('sl').addEventListener('input',e=>{dismissCover();stop();auto=true;setPos(+e.target.value);});
+  $('coverPlay').addEventListener('click',()=>$('play').click());
+  $('play').addEventListener('click',()=>{dismissCover();if(timer){stop();return;}if(pos>=SNAP.length-1)pos=0;auto=true;$('play').textContent='Pause';last=performance.now();timer=requestAnimationFrame(tick);});
   const cv=$('gl'),ptrs=new Map();let pinch=0;
-  cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});pinch=0;});
+  cv.addEventListener('pointerdown',e=>{dismissCover();cv.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});pinch=0;});
   cv.addEventListener('pointermove',e=>{const p=ptrs.get(e.pointerId);if(!p)return;auto=false;
     if(ptrs.size===1){const dpp=1/(view.R*90/view.deg)/D2R;view.lon-=(e.clientX-p.x)*dpp/Math.max(.2,Math.cos(view.lat*D2R));view.lat=Math.max(-70,Math.min(80,view.lat+(e.clientY-p.y)*dpp));p.x=e.clientX;p.y=e.clientY;}
     else{p.x=e.clientX;p.y=e.clientY;const [a,b]=[...ptrs.values()],d=Math.hypot(a.x-b.x,a.y-b.y);if(pinch)view.deg=Math.max(14,Math.min(84,view.deg*pinch/d));pinch=d;}
     draw();});
   const up=e=>{ptrs.delete(e.pointerId);pinch=0;};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
-  cv.addEventListener('wheel',e=>{e.preventDefault();auto=false;view.deg=Math.max(14,Math.min(84,view.deg*(e.deltaY<0?1/1.1:1.1)));draw();},{passive:false});
+  cv.addEventListener('wheel',e=>{e.preventDefault();dismissCover();auto=false;view.deg=Math.max(14,Math.min(84,view.deg*(e.deltaY<0?1/1.1:1.1)));draw();},{passive:false});
   window.addEventListener('resize',draw);
 }
 function fail(m){const e=$('msg');e.hidden=false;e.textContent=m;$('hz').hidden=true;}

@@ -180,12 +180,12 @@ def main():
         if y not in card_years: P("wave %d has anchors but no card (or the card is not %s)" % (y, "/".join(sorted(want))))
     empty = [c["year"] for c in cards if c["year"] not in by_year]
     for y in empty:
-        if card_years and y != card_years[-1]: P("card %d has no anchors (allowed only for the closing card)" % y)
+        if card_years and y not in (card_years[0], card_years[-1]): P("card %d has no anchors (allowed only for the opening card, which shows no haze, and the closing card)" % y)
     if card_years != sorted(set(card_years)): P("card years are not in order")
 
     snaps = []
     for i, c in enumerate(cards):
-        s = dict(c); s["hold"] = c["year"] not in by_year   # the closing card keeps the last wave's haze (it does not fade it out)
+        s = dict(c); s["hold"] = c["year"] not in by_year and i == len(cards) - 1   # the closing card keeps the last wave's haze; an empty OPENING card shows none
         snaps.append(s)
     anchors = []
     for aid in order:

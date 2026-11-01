@@ -48,6 +48,26 @@ let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined
  ck(p.__errs.length===0,'no page errors at 390 px',p.__errs);await p.close();
  for(const [w,h] of [[320,640],[390,844],[820,1180]]){const q=await open(w,h);let ov=0;for(let i=0;i<n;i+=2){await q.evaluate(x=>{const s=document.getElementById('sl');s.value=x;s.dispatchEvent(new Event('input'));},i);await q.waitForTimeout(120);ov=Math.max(ov,await q.evaluate(()=>document.documentElement.scrollWidth-innerWidth));}
   ck(ov<=0,w+' px: no sideways scroll on any wave',ov);ck(q.__errs.length===0,w+' px: no page errors',q.__errs);await q.close();}
+ // v3.2.0 cover: the page opens on a bare globe with a green glow, title and Play; Play, the slider, a drag or a wheel turn start the story
+ if(DATA&&JSON.parse(DATA).snapshots[0].anchorsNone!==false){const d0=JSON.parse(DATA);
+  ck(d0.snapshots[0].hold!==true&&d0.anchors.every(a=>!a.s[0][1]),'opening wave has no haze anywhere and is not a hold card');
+  const c1=await open(390,844);
+  const st=await c1.evaluate(()=>({on:document.getElementById('stage').classList.contains('cover-on'),vis:getComputedStyle(document.getElementById('cover')).display,key:getComputedStyle(document.getElementById('key')).display,title:document.querySelector('#cover h2').textContent,btn:document.getElementById('coverPlay').textContent,yr:document.getElementById('yr').textContent,pos:pos}));
+  ck(st.on&&st.vis==='flex'&&st.key==='none'&&st.title==='Islamic Conquest'&&st.btn==='Play'&&st.pos===0,'cover: shown at load with title and Play; the key is hidden',st);
+  const gc=await greens(c1);ck(gc>1500,'cover: green glow round the rim',gc);
+  await c1.click('#coverPlay');await c1.waitForTimeout(1200);
+  const st2=await c1.evaluate(()=>({on:document.getElementById('stage').classList.contains('cover-on'),playing:document.getElementById('play').textContent,pos:pos}));
+  ck(!st2.on&&st2.playing==='Pause'&&st2.pos>0,'cover Play: dismisses the cover and starts the spread',st2);await c1.close();
+  const c2=await open(390,844);await c2.evaluate(()=>{const s=document.getElementById('sl');s.value=0;s.dispatchEvent(new Event('input'));});await c2.waitForTimeout(600);
+  const g0=await greens(c2);ck(!(await c2.evaluate(()=>document.getElementById('stage').classList.contains('cover-on')))&&g0<gc/4,'slider: dismisses the cover; the first wave shows a bare globe (no green)',{g0,gc});
+  const cap0=await c2.evaluate(()=>({k:document.querySelector('#card .k').textContent,h:document.querySelector('#card h2').textContent,yr:document.getElementById('yr').textContent}));
+  ck(/^Wave 1 of 16/.test(cap0.k)&&cap0.h==='600: Before Muslim rule'&&cap0.yr==='600','first wave: card and year read 600',cap0);
+  await setPos(c2,1);const g1=await greens(c2);ck(g1>g0+1500,'650 wave: the green has grown in',{g0,g1});await c2.close();
+  const c3=await open(390,844);const box=await c3.locator('#gl').boundingBox();await c3.mouse.move(box.x+120,box.y+120);await c3.mouse.down();await c3.mouse.move(box.x+200,box.y+130);await c3.mouse.up();
+  ck(!(await c3.evaluate(()=>document.getElementById('stage').classList.contains('cover-on'))),'dragging the globe dismisses the cover',null);await c3.close();
+  const c4=await open(390,844);await c4.click('#play');await c4.waitForTimeout(300);
+  ck(!(await c4.evaluate(()=>document.getElementById('stage').classList.contains('cover-on'))),'the bottom Play button also dismisses the cover',null);
+  ck(c4.__errs.length===0,'cover: no page errors',c4.__errs);await c4.close();}
  // nav pill on a phone: Islamic Rule fits and Quiz is reachable
  const ph=await open(320,640);const reach=await ph.evaluate(()=>{const tr=document.querySelector('#gnBar .gp-track');if(!tr)return null;tr.scrollLeft=tr.scrollWidth;const q=[...document.querySelectorAll('#gnBar .gp-btn')].find(x=>x.textContent==='Quiz'),r=q.getBoundingClientRect(),t=tr.getBoundingClientRect();return {quizVisible:r.right<=t.right+2&&r.left>=t.left-2};});
  ck(reach&&reach.quizVisible,'320 px: scrolled to the end, Quiz is last and fully visible',reach);await ph.close();
