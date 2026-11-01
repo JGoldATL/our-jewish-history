@@ -38,7 +38,7 @@ let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined
   const png=(f)=>{const b=fs.readFileSync(f);return [b.readUInt32BE(16),b.readUInt32BE(20)];};
   ck(png('images/final-fill.png').join()==='4096,2048'&&png('images/final-border.png').join()==='4096,2048','final map images are 4096 by 2048');}
  // Spread line shows only where there is one (fixture: two cards given a line)
- {const q=await b.newPage({viewport:{width:390,height:844}});const d=JSON.parse(DATA);d.snapshots[1].spread={text:'Fixture spread line.',sources:[{name:'Fixture source',url:'https://example.org/x'},d.snapshots[1].sources[0]]};
+ {const q=await b.newPage({viewport:{width:390,height:844}});const d=JSON.parse(DATA);d.snapshots.forEach(x=>{delete x.spread;});d.snapshots[1].spread={text:'Fixture spread line.',sources:[{name:'Fixture source',url:'https://example.org/x'},d.snapshots[1].sources[0]]};
   await q.route('**/data/haze.json',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(d)}));await q.goto(BASE+'haze.html');await q.waitForSelector('#card h2');await q.waitForTimeout(1500);
   const has=async i=>{await q.evaluate(x=>{const s=document.getElementById('sl');s.value=x;s.dispatchEvent(new Event('input'));},i);await q.waitForTimeout(150);return q.evaluate(()=>({h:[...document.querySelectorAll('#card h3')].map(x=>x.textContent).includes('How Islam spread'),li:document.querySelectorAll('#card li').length}));};
   const a1=await has(1),a2=await has(2);ck(a1.h&&!a2.h&&a1.li===d.snapshots[1].sources.length+1,'Spread line: shown only where present, with its source added and a duplicate source dropped',{a1,a2});await q.close();}
@@ -49,7 +49,7 @@ let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined
  for(const [w,h] of [[320,640],[390,844],[820,1180]]){const q=await open(w,h);let ov=0;for(let i=0;i<n;i+=2){await q.evaluate(x=>{const s=document.getElementById('sl');s.value=x;s.dispatchEvent(new Event('input'));},i);await q.waitForTimeout(120);ov=Math.max(ov,await q.evaluate(()=>document.documentElement.scrollWidth-innerWidth));}
   ck(ov<=0,w+' px: no sideways scroll on any wave',ov);ck(q.__errs.length===0,w+' px: no page errors',q.__errs);await q.close();}
  // v3.2.0 cover: the page opens on a bare globe with a green glow, title and Play; Play, the slider, a drag or a wheel turn start the story
- if(DATA&&JSON.parse(DATA).snapshots[0].anchorsNone!==false){const d0=JSON.parse(DATA);
+ if(DATA&&JSON.parse(DATA).snapshots[0].year<650){const d0=JSON.parse(DATA);
   ck(d0.snapshots[0].hold!==true&&d0.anchors.every(a=>!a.s[0][1]),'opening wave has no haze anywhere and is not a hold card');
   const c1=await open(390,844);
   const st=await c1.evaluate(()=>({on:document.getElementById('stage').classList.contains('cover-on'),vis:getComputedStyle(document.getElementById('cover')).display,key:getComputedStyle(document.getElementById('key')).display,title:document.querySelector('#cover h2').textContent,btn:document.getElementById('coverPlay').textContent,yr:document.getElementById('yr').textContent,pos:pos}));
