@@ -2,11 +2,35 @@
  "schema": "haze-2",
  "mock": false,
  "draft": false,
- "source": "Jewish_Continuity_Master_Dataset_v4.1.0",
- "sheetModified": "2026-10-31T21:50:00Z",
- "exportSha256": "a68d2a6aedee372b2a5050ddfa4b0fa7b7123207ff712548a36da1ea57b62af0",
- "generated": "2026-10-31T21:51:21Z",
+ "source": "Master Sheet v4.1.0: Islam Haze Wave Cards (16 cards, locked by Jeffrey 2026-11-01) and Haze Anchors (unchanged, already live)",
+ "sheetModified": "",
+ "exportSha256": "1c05a7c9f12fa68bbc1799e81c47496681dd3b8431c9b8e4e4e10581e6786ddb",
+ "generated": "2026-11-01T20:38:52Z",
  "snapshots": [
+  {
+   "year": 600,
+   "label": "600: before Muslim rule",
+   "title": "600: Before Muslim rule",
+   "period": "Before 622",
+   "summary": "No Muslim state yet exists. Byzantium rules Syria and Egypt, and Persia rules Iraq and Iran.",
+   "note": "",
+   "jewish": "Jewish communities lived in Babylonia under Persian rule, in the Land of Israel under Byzantine rule, and in Arabia.",
+   "sources": [
+    {
+     "name": "Metropolitan Museum of Art, Byzantium and Islam: Age of Transition (exhibition overview)",
+     "url": "https://www.metmuseum.org/exhibitions/byzantium-and-islam"
+    },
+    {
+     "name": "Encyclopaedia Iranica, Judeo-Persian Communities of Iran iii: The Parthian and Sasanian Periods",
+     "url": "https://iranicaonline.org/articles/judeo-persian-communities-iii-parthian-and-sasanian-periods"
+    },
+    {
+     "name": "Cambridge History of Judaism, Phillip I. Lieberman, Judaism in Pre-Islamic Arabia (chapter page; abstract only)",
+     "url": "https://www.cambridge.org/core/books/cambridge-history-of-judaism/judaism-in-preislamic-arabia/C9F5F6DD0AF09B26594CD08D742C7A4F"
+    }
+   ],
+   "hold": false
+  },
   {
    "year": 650,
    "label": "650: the founding wave",
@@ -29,6 +53,19 @@
      "url": "https://www.cambridge.org/core/books/abs/cambridge-history-of-egypt/egypt-as-a-province-in-the-islamic-caliphate-641868/FF5C416D97BB2C72F30F2E435B6AD7F4"
     }
    ],
+   "spread": {
+    "text": "In conquered Persian lands, some soldiers and elites adopted Islam to retain property or gain military and political roles.",
+    "sources": [
+     {
+      "name": "Elton L. Daniel, Conversion ii: Of Iranians to Islam (full article)",
+      "url": "https://www.iranicaonline.org/articles/conversion-ii/"
+     },
+     {
+      "name": "Michael G. Morony, Arab conquest of Iran (full article)",
+      "url": "https://www.iranicaonline.org/articles/arab-ii/"
+     }
+    ]
+   },
    "hold": false
   },
   {
@@ -53,6 +90,15 @@
      "url": "https://assets.press.princeton.edu/chapters/i9061.pdf"
     }
    ],
+   "spread": {
+    "text": "In early-700s Transoxiana, rulers encouraged conversion with mosques, Persian Quran readings and payments for Friday prayers.",
+    "sources": [
+     {
+      "name": "Elton L. Daniel, Conversion ii: Of Iranians to Islam (full article)",
+      "url": "https://www.iranicaonline.org/articles/conversion-ii/"
+     }
+    ]
+   },
    "hold": false
   },
   {
@@ -77,6 +123,15 @@
      "url": "https://doi.org/10.1017/9781139048873.005"
     }
    ],
+   "spread": {
+    "text": "In Sicily during the 800s–900s, Muslim settlement reshaped towns while religious change in rural areas was slower.",
+    "sources": [
+     {
+      "name": "Alex Metcalfe, The Muslims of Sicily under Christian Rule, pp. 289–290 (full author PDF)",
+      "url": "https://eprints.lancs.ac.uk/id/eprint/156612/1/Metcalfe_Muslims_under_Christian_rule.doc.pdf"
+     }
+    ]
+   },
    "hold": false
   },
   {
@@ -125,6 +180,19 @@
      "url": "https://cris.biu.ac.il/en/publications/persecutions-and-conversion-to-islam-in-eleventh-century-egypt/"
     }
    ],
+   "spread": {
+    "text": "In Anatolia, conversion and the adoption of Islamic culture transformed society over roughly 1100–1500.",
+    "sources": [
+     {
+      "name": "University of St Andrews, The Islamisation of Anatolia project (project overview only)",
+      "url": "https://www.islam-anatolia.ac.uk/"
+     },
+     {
+      "name": "A. C. S. Peacock, Islamisation in Medieval Anatolia (publisher summary only)",
+      "url": "https://www.cambridge.org/core/books/abs/islamisation/islamisation-in-medieval-anatolia/F6AE8B2B559A0517E56C709F32312076"
+     }
+    ]
+   },
    "hold": false
   },
   {
@@ -149,6 +217,19 @@
      "url": "https://www.cambridge.org/core/books/abs/cambridge-history-of-egypt/nonmuslim-communities-the-jewish-community/E72B648209C123448D59B069324ED196"
     }
    ],
+   "spread": {
+    "text": "In Delhi, Chishti Sufis helped spread Islam through personal ties and shrine communities in the 1200s–1300s.",
+    "sources": [
+     {
+      "name": "Raziuddin Aquil, Hazrat-i-Dehli: The Making of the Chishti Sufi Centre and the Stronghold of Islam (full article)",
+      "url": "https://www.sahapedia.org/hazrat-i-dehli-the-making-of-the-chishti-sufi-centre-and-the-stronghold-of-islam"
+     },
+     {
+      "name": "Gavin R. G. Hambly, Delhi Sultanate i: Political and Cultural History (full article; territorial background)",
+      "url": "https://www.iranicaonline.org/articles/delhi-sultanate/delhi-sultanate-i-political-and-cultural-history/"
+     }
+    ]
+   },
    "hold": false
   },
   {
@@ -173,6 +254,15 @@
      "url": "https://www.iranicaonline.org/articles/delhi-sultanate/delhi-sultanate-i-political-and-cultural-history/"
     }
    ],
+   "spread": {
+    "text": "In the 1200s, Muslim migrants fleeing Mongol attacks enlarged Delhi’s Muslim community.",
+    "sources": [
+     {
+      "name": "Raziuddin Aquil, Hazrat-i-Dehli: The Making of the Chishti Sufi Centre and the Stronghold of Islam (full article)",
+      "url": "https://www.sahapedia.org/hazrat-i-dehli-the-making-of-the-chishti-sufi-centre-and-the-stronghold-of-islam"
+     }
+    ]
+   },
    "hold": false
   },
   {
@@ -193,6 +283,15 @@
      "url": "https://www.metmuseum.org/pt/essays/the-art-of-the-timurid-period-ca-1370-1507"
     }
    ],
+   "spread": {
+    "text": "In 1300s Mali, rulers supported Islam by building mosques and encouraging Islamic learning.",
+    "sources": [
+     {
+      "name": "Metropolitan Museum of Art, Trade and the Spread of Islam in Africa (complete essay reproduced at Buffalo State)",
+      "url": "https://faculty.buffalostate.edu/oroszkj/Africa%20I/Trade%20and%20Islam.pdf"
+     }
+    ]
+   },
    "hold": false
   },
   {
@@ -217,6 +316,15 @@
      "url": "https://www.metmuseum.org/essays/the-art-of-the-ottomans-before-1600"
     }
    ],
+   "spread": {
+    "text": "In Bosnia, conversion to Islam was gradual, with its main phase extending from 1463 through the late 1500s.",
+    "sources": [
+     {
+      "name": "Ines Aščerić-Todd, Patarenes, Protestants and Islam in Bosnia, pp. 214–215 (full author PDF)",
+      "url": "https://www.pure.ed.ac.uk/ws/files/297338561/Asceric_ToddI2022ICMRPatarenesProtestantsAndIslamInBosnia.pdf"
+     }
+    ]
+   },
    "hold": false
   },
   {
@@ -241,6 +349,15 @@
      "url": "https://www.metmuseum.org/ko/essays/the-greater-ottoman-empire-1600-1800"
     }
    ],
+   "spread": {
+    "text": "In Cyprus during 1571–1640, Muslim settlement and local Christian conversions expanded the Muslim population.",
+    "sources": [
+     {
+      "name": "Ronald C. Jennings, Christians and Muslims in Ottoman Cyprus and the Mediterranean World, 1571–1640 (book description and chapter previews only)",
+      "url": "https://www.jstor.org/stable/j.ctt9qfp86"
+     }
+    ]
+   },
    "hold": false
   },
   {
@@ -265,6 +382,15 @@
      "url": "https://www.iranicaonline.org/articles/conversion-iv/"
     }
    ],
+   "spread": {
+    "text": "Around Bijapur, Sufi songs carried Islamic teachings into village households in the 1600s–early 1700s.",
+    "sources": [
+     {
+      "name": "Richard M. Eaton, Sufi Folk Literature and the Expansion of Indian Islam, pp. 119–127 (full text transcription on Paperzz)",
+      "url": "https://paperzz.com/doc/9414803/sufi-folk-literature-and-the-expansion-of-indian-islam"
+     }
+    ]
+   },
    "hold": false
   },
   {
@@ -313,6 +439,15 @@
      "url": "https://academic.oup.com/book/7399"
     }
    ],
+   "spread": {
+    "text": "In the 1800s, Sufi teachers expanded Islamic religious networks along Sudan’s Nile Valley.",
+    "sources": [
+     {
+      "name": "Helen Chapin Metz, ed., Sudan: A Country Study, pp. 104–106 (full Library of Congress PDF)",
+      "url": "https://tile.loc.gov/storage-services/master/frd/frdcstdy/su/sudancountrystud00metz/sudancountrystud00metz.pdf"
+     }
+    ]
+   },
    "hold": false
   },
   {
@@ -371,6 +506,10 @@
    "lat": 22.5,
    "lon": 40.0,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      580,
      4
@@ -439,6 +578,10 @@
    "lat": 33.514,
    "lon": 36.277,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      520,
      4
@@ -524,6 +667,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      340,
      4
     ],
@@ -571,10 +718,14 @@
   },
   {
    "id": "PAL",
-   "name": "Jerusalem",
+   "name": "Jerusalem and the Land of Israel",
    "lat": 31.768,
    "lon": 35.214,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -644,6 +795,10 @@
    "lon": 31.236,
    "s": [
     [
+     0,
+     0
+    ],
+    [
      580,
      4
     ],
@@ -711,6 +866,10 @@
    "lat": 33.315,
    "lon": 44.366,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      580,
      4
@@ -804,6 +963,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      340,
      4
     ],
@@ -847,6 +1010,10 @@
    "lat": 37.87,
    "lon": 32.49,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -915,6 +1082,10 @@
    "lat": 40.19,
    "lon": 29.06,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -1016,6 +1187,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      580,
      4
     ],
@@ -1051,6 +1226,10 @@
    "lat": 37.91,
    "lon": 40.24,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -1120,6 +1299,10 @@
    "lon": 51.67,
    "s": [
     [
+     0,
+     0
+    ],
+    [
      690,
      3
     ],
@@ -1187,6 +1370,10 @@
    "lat": 29.59,
    "lon": 52.58,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      520,
      3
@@ -1256,6 +1443,10 @@
    "lon": 46.292,
    "s": [
     [
+     0,
+     0
+    ],
+    [
      580,
      2
     ],
@@ -1324,6 +1515,10 @@
    "lon": 59.6,
    "s": [
     [
+     0,
+     0
+    ],
+    [
      690,
      3
     ],
@@ -1391,6 +1586,10 @@
    "lat": 31.0,
    "lon": 61.5,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -1480,6 +1679,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      400,
      4
     ],
@@ -1527,6 +1730,10 @@
    "lat": 36.45,
    "lon": 50.58,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -1608,6 +1815,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      290,
      4
     ],
@@ -1663,6 +1874,10 @@
    "lat": 39.9,
    "lon": 66.0,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -1780,6 +1995,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      400,
      3
     ],
@@ -1799,6 +2018,10 @@
    "lat": 39.47,
    "lon": 75.99,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -1884,6 +2107,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      520,
      4
     ],
@@ -1935,6 +2162,10 @@
    "lat": 47.0,
    "lon": 46.0,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -2040,6 +2271,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      340,
      4
     ],
@@ -2071,6 +2306,10 @@
    "lat": 33.55,
    "lon": 68.42,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -2152,6 +2391,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      520,
      4
     ],
@@ -2207,6 +2450,10 @@
    "lat": 31.55,
    "lon": 74.34,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -2300,6 +2547,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      690,
      4
     ],
@@ -2343,6 +2594,10 @@
    "lat": 23.8,
    "lon": 89.4,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -2448,6 +2703,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      460,
      4
     ],
@@ -2479,6 +2738,10 @@
    "lat": 17.9,
    "lon": 77.5,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -2584,6 +2847,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      340,
      4
     ],
@@ -2652,6 +2919,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      340,
      4
     ],
@@ -2683,6 +2954,10 @@
    "lat": 17.38,
    "lon": 78.48,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -2792,6 +3067,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      290,
      4
     ],
@@ -2819,6 +3098,10 @@
    "lat": 4.18,
    "lon": 73.51,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -2892,6 +3175,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      520,
      3
     ],
@@ -2955,6 +3242,10 @@
    "lat": 32.89,
    "lon": 13.19,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      460,
      3
@@ -3023,6 +3314,10 @@
    "lat": 36.75,
    "lon": 3.06,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -3120,6 +3415,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      400,
      4
     ],
@@ -3159,6 +3458,10 @@
    "lat": 35.37,
    "lon": 1.32,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -3227,6 +3530,10 @@
    "lat": 34.03,
    "lon": -5.0,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -3316,6 +3623,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      520,
      4
     ],
@@ -3363,6 +3674,10 @@
    "lat": 37.88,
    "lon": -4.78,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -3460,6 +3775,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      290,
      4
     ],
@@ -3499,6 +3818,10 @@
    "lat": 41.65,
    "lon": -0.88,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -3580,6 +3903,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      340,
      4
     ],
@@ -3635,6 +3962,10 @@
    "lat": 35.9,
    "lon": 14.45,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -3716,6 +4047,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      200,
      3
     ],
@@ -3771,6 +4106,10 @@
    "lat": 35.1,
    "lon": 33.4,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -3839,6 +4178,10 @@
    "lat": 15.35,
    "lon": 44.2,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -3932,6 +4275,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      400,
      4
     ],
@@ -3975,6 +4322,10 @@
    "lat": 14.2,
    "lon": 43.3,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -4043,6 +4394,10 @@
    "lat": 25.4,
    "lon": 49.6,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -4156,6 +4511,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      460,
      4
     ],
@@ -4179,6 +4538,10 @@
    "lat": 24.7,
    "lon": 46.7,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -4300,6 +4663,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      460,
      4
     ],
@@ -4315,6 +4682,10 @@
    "lat": -6.17,
    "lon": 39.2,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -4408,6 +4779,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      260,
      3
     ],
@@ -4451,6 +4826,10 @@
    "lat": 16.5,
    "lon": -14.5,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -4568,6 +4947,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      290,
      4
     ],
@@ -4587,6 +4970,10 @@
    "lat": 13.0,
    "lon": -7.5,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -4692,6 +5079,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      690,
      4
     ],
@@ -4723,6 +5114,10 @@
    "lat": 12.9,
    "lon": 13.5,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -4844,6 +5239,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      580,
      4
     ],
@@ -4859,6 +5258,10 @@
    "lat": 9.31,
    "lon": 42.12,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -4976,6 +5379,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      520,
      4
     ],
@@ -4995,6 +5402,10 @@
    "lat": 15.6,
    "lon": 32.5,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -5063,6 +5474,10 @@
    "lat": 5.55,
    "lon": 95.32,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -5168,6 +5583,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      400,
      4
     ],
@@ -5199,6 +5618,10 @@
    "lat": 6.87,
    "lon": 101.25,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -5300,6 +5723,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      390,
      3
     ],
@@ -5335,6 +5762,10 @@
    "lat": 6.05,
    "lon": 121.0,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
@@ -5440,6 +5871,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      230,
      4
     ],
@@ -5508,6 +5943,10 @@
      0
     ],
     [
+     0,
+     0
+    ],
+    [
      340,
      4
     ],
@@ -5539,6 +5978,10 @@
    "lat": -7.6,
    "lon": 110.8,
    "s": [
+    [
+     0,
+     0
+    ],
     [
      0,
      0
