@@ -106,7 +106,7 @@ const FIN={ready:false,loading:false,states:null,outlines:null};
 function loadFinTex(src,unit,smooth,cb){const img=new Image();img.onerror=()=>{FIN.loading=false;};
   img.onload=()=>{gl.activeTexture(gl.TEXTURE0+unit);const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);const fmt=smooth?gl.RGB:gl.LUMINANCE;gl.texImage2D(gl.TEXTURE_2D,0,fmt,fmt,gl.UNSIGNED_BYTE,img);
     const f=smooth?gl.LINEAR:gl.NEAREST;gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,f);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,f);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);cb();};img.src=src;}
-function loadFinal(){if(FIN.ready||FIN.loading||!gl||gl.getParameter(gl.MAX_TEXTURE_SIZE)<4096)return;FIN.loading=true;let n=0;const done=()=>{if(++n===3){FIN.ready=true;draw();}};
+function loadFinal(){if(FIN.ready||FIN.loading||!gl||gl.getParameter(gl.MAX_TEXTURE_SIZE)<4096)return;FIN.loading=true;let n=0;const done=()=>{if(++n===3){FIN.ready=true;setPos(pos);}};
   loadFinTex('images/final-fill.png',3,true,done);loadFinTex('images/final-border.png',4,false,done);
   fetch('data/states.json').then(r=>r.json()).then(j=>{FIN.states=j.states;FIN.outlines=j.outlines;done();}).catch(()=>{FIN.loading=false;});}
 const finAt=p=>FIN.ready&&TODAY(SNAP.length-1)?Math.max(0,Math.min(1,p-(SNAP.length-2))):0;
@@ -167,7 +167,7 @@ const yearAt=p=>{const i=Math.max(0,Math.min(SNAP.length-2,Math.floor(p))),t=Mat
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 let shown=-1;
 const TODAY=i=>!!(SNAP[i]&&SNAP[i].hold);   // the closing card is the present-day map: its slider stop reads "Today"
-function setKey(mode){$('key').innerHTML=mode==='final'?'<b>Muslim-majority states</b><div class="sw"><i class="hi"></i>Muslim-majority state</div><div class="sw"><i class="ar"></i>Arab League member</div><div class="fn">* Kosovo: recognized by many states, not all.</div>':'<b>Islamic rule</b><div class="sw"><i class="lo"></i>Looser or less certain</div><div class="sw"><i class="hi"></i>Firmer</div>';}
+function setKey(mode){$('key').innerHTML=mode==='final'?'<b>Muslim-majority states</b><div class="sw"><i class="hi"></i>Muslim-majority state</div><div class="sw"><i class="ar"></i>Arab League member</div><div class="fn">* Kosovo: recognized by many states, not all.</div>':'';}   // the key appears only in the present-day view (solid green = Muslim-majority state; green with white lines = Arab League member); the haze waves have no key
 function showCard(){const i=Math.max(0,Math.min(SNAP.length-1,Math.round(pos)));if(i===shown)return;shown=i;const s=SNAP[i];
   $('cap').textContent=TODAY(i)?'Present-day states':s.label;
   $('card').innerHTML='<div class="k">Wave '+(i+1)+' of '+SNAP.length+' · '+esc(s.period)+'</div><h2>'+esc(s.title||s.label)+'</h2><p>'+esc(s.summary)+'</p>'+(s.note?'<p class="nbc">'+esc(s.note)+'</p>':'')+(s.spread&&s.spread.text?'<h3>How Islam spread</h3><p>'+esc(s.spread.text)+'</p>':'')+'<h3>What it meant for Jewish communities</h3><p>'+esc(s.jewish)+'</p><h3>Sources</h3><ul>'+[...s.sources,...((s.spread&&s.spread.sources)||[])].filter((x,k,a)=>a.findIndex(y=>y.url===x.url&&y.name===x.name)===k).map(x=>'<li>'+(x.url?'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.name)+'</a>':esc(x.name))+'</li>').join('')+'</ul>';

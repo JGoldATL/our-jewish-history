@@ -21,6 +21,7 @@ let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined
  ck(seen===n&&badTxt.length===0,'no card or label ever shows control type, certainty, "disputed", "Palestine" or CE',badTxt);
  if(DATA){const d=JSON.parse(DATA);const noteIdx=d.snapshots.map((s,i)=>s.note?i:-1).filter(i=>i>=0);ck(JSON.stringify(notes)===JSON.stringify(noteIdx)&&noteIdx.length>=1,'the not-by-conquest note shows only on the cards that have one',{notes,noteIdx});
   const last=d.snapshots.length-1;ck(d.snapshots[last].hold===true,'closing card is a hold card in the data',d.snapshots[last].hold);
+  await setPos(p,2);const kh=await p.evaluate(()=>({txt:document.getElementById('key').innerText.trim(),disp:getComputedStyle(document.getElementById('key')).display}));ck(kh.txt===''&&kh.disp==='none','haze waves: no key is shown',kh);
   await setPos(p,last-1);const g1=await greens(p);await setPos(p,last-0.5);const gm=await greens(p);await setPos(p,last);await p.waitForTimeout(2500);const g2=await greens(p);
   ck(g1>2000&&gm>2000&&g2>2000,'green never drops out between 1900, the cross-fade and Today',{g1,gm,g2});
   const fin=await p.evaluate(()=>({ready:FIN.ready,n:FIN.states&&FIN.states.length,key:document.getElementById('key').innerText,cap:document.getElementById('cap').innerText,yr:document.getElementById('yr').textContent,ticks:[...document.querySelectorAll('.tick')].pop().textContent}));
@@ -42,6 +43,10 @@ let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined
   await q.route('**/data/haze.json',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(d)}));await q.goto(BASE+'haze.html');await q.waitForSelector('#card h2');await q.waitForTimeout(1500);
   const has=async i=>{await q.evaluate(x=>{const s=document.getElementById('sl');s.value=x;s.dispatchEvent(new Event('input'));},i);await q.waitForTimeout(150);return q.evaluate(()=>({h:[...document.querySelectorAll('#card h3')].map(x=>x.textContent).includes('How Islam spread'),li:document.querySelectorAll('#card li').length}));};
   const a1=await has(1),a2=await has(2);ck(a1.h&&!a2.h&&a1.li===d.snapshots[1].sources.length+1,'Spread line: shown only where present, with its source added and a duplicate source dropped',{a1,a2});await q.close();}
+ { // jumping straight to Today in one move still shows the present-day key once the final map has loaded
+  const j=await open(390,844);await j.evaluate(()=>{const s=document.getElementById('sl');s.value=document.getElementById('sl').max;s.dispatchEvent(new Event('input'));});await j.waitForTimeout(6000);
+  const kj=await j.evaluate(()=>({txt:document.getElementById('key').innerText,disp:getComputedStyle(document.getElementById('key')).display}));
+  ck(kj.disp!=='none'&&/Muslim-majority state/.test(kj.txt)&&/Arab League member/.test(kj.txt),'jump straight to Today: the key shows (solid green and green with white lines)',kj);await j.close();}
  // controls
  await setPos(p,0);const y0=await p.textContent('#yr');await setPos(p,3);const y3=await p.textContent('#yr');ck(y0!==y3&&/^\d{3,4}$/.test(y3),'slider moves the year readout',[y0,y3]);
  await p.click('#play');await p.waitForTimeout(1500);const pl=await p.textContent('#play');await p.click('#play');ck(pl==='Pause'&&(await p.textContent('#play'))==='Play','Play starts and pauses',pl);
