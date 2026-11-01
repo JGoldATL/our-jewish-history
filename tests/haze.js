@@ -46,6 +46,15 @@ let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined
  if(DATA){const d=JSON.parse(DATA);ck(!/"sources"|https?:\/\//.test(JSON.stringify(d.snapshots)),'the data file carries no card sources or URLs',null);
   const q=await open(390,844);let links=0,heads=0;for(let i=0;i<d.snapshots.length;i++){await q.evaluate(x=>{const s=document.getElementById('sl');s.value=x;s.dispatchEvent(new Event('input'));},i);await q.waitForTimeout(100);const r=await q.evaluate(()=>({a:document.querySelectorAll('#card a').length,s:/Sources/.test(document.getElementById('card').innerText)}));links+=r.a;heads+=r.s?1:0;}
   ck(links===0&&heads===0,'no wave shows any source link or Sources heading',{links,heads});await q.close();}
+ { // Play pace matches the Events page: about 20 s of travel plus a 1.5 s hold on every wave (about 45 s in all); not the old flat 14 s
+  const q=await open(390,844);await q.click('#coverPlay');const T0=Date.now();const samples=[];
+  while(Date.now()-T0<62000){samples.push(await q.evaluate(()=>({p:pos,play:document.getElementById('play').textContent})));await q.waitForTimeout(100);if(samples.length>30&&samples.at(-1).play==='Play')break;}
+  const total=(Date.now()-T0)/1000;let runs=0,cur=0,prev=null;const held=new Set();
+  for(const s of samples){if(prev!==null&&Math.abs(s.p-prev)<1e-9&&Math.abs(s.p-Math.round(s.p))<1e-6){cur++;if(cur===11){runs++;held.add(Math.round(s.p));}}else cur=0;prev=s.p;}
+  const first=samples.slice(0,10).every(s=>s.p===0);
+  ck(first,'Play from the cover holds on the opening wave first',samples.slice(0,3));
+  ck(held.size>=14,'Play holds about 1.5 s on the waves (waves held: '+held.size+' of 16)',[...held]);
+  ck(total>=36&&total<=56,'Play takes about 45 seconds end to end ('+total.toFixed(1)+' s), not 14',total);await q.close();}
  { // jumping straight to Today in one move still shows the present-day key once the final map has loaded
   const j=await open(390,844);await j.evaluate(()=>{const s=document.getElementById('sl');s.value=document.getElementById('sl').max;s.dispatchEvent(new Event('input'));});await j.waitForTimeout(6000);
   const kj=await j.evaluate(()=>({txt:document.getElementById('key').innerText,disp:getComputedStyle(document.getElementById('key')).display}));
@@ -63,7 +72,7 @@ let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined
   const st=await c1.evaluate(()=>({on:document.getElementById('stage').classList.contains('cover-on'),vis:getComputedStyle(document.getElementById('cover')).display,key:getComputedStyle(document.getElementById('key')).display,title:document.querySelector('#cover h2').textContent,btn:document.getElementById('coverPlay').textContent,yr:document.getElementById('yr').textContent,pos:pos}));
   ck(st.on&&st.vis==='flex'&&st.key==='none'&&st.title==='Islamic Conquest'&&st.btn==='Play'&&st.pos===0,'cover: shown at load with title and Play; the key is hidden',st);
   const gc=await greens(c1);ck(gc>1500,'cover: green glow round the rim',gc);
-  await c1.click('#coverPlay');await c1.waitForTimeout(1200);
+  await c1.click('#coverPlay');await c1.waitForTimeout(2600);
   const st2=await c1.evaluate(()=>({on:document.getElementById('stage').classList.contains('cover-on'),playing:document.getElementById('play').textContent,pos:pos}));
   ck(!st2.on&&st2.playing==='Pause'&&st2.pos>0,'cover Play: dismisses the cover and starts the spread',st2);await c1.close();
   const c2=await open(390,844);await c2.evaluate(()=>{const s=document.getElementById('sl');s.value=0;s.dispatchEvent(new Event('input'));});await c2.waitForTimeout(600);
