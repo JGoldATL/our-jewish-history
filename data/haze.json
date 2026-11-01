@@ -5,7 +5,7 @@
  "source": "Master Sheet v4.1.0: Islam Haze Wave Cards (16 cards, locked by Jeffrey 2026-11-01) and Haze Anchors (unchanged, already live)",
  "sheetModified": "",
  "exportSha256": "1c05a7c9f12fa68bbc1799e81c47496681dd3b8431c9b8e4e4e10581e6786ddb",
- "generated": "2026-11-01T20:38:52Z",
+ "generated": "2026-11-01T21:08:18Z",
  "snapshots": [
   {
    "year": 600,
@@ -15,20 +15,6 @@
    "summary": "No Muslim state yet exists. Byzantium rules Syria and Egypt, and Persia rules Iraq and Iran.",
    "note": "",
    "jewish": "Jewish communities lived in Babylonia under Persian rule, in the Land of Israel under Byzantine rule, and in Arabia.",
-   "sources": [
-    {
-     "name": "Metropolitan Museum of Art, Byzantium and Islam: Age of Transition (exhibition overview)",
-     "url": "https://www.metmuseum.org/exhibitions/byzantium-and-islam"
-    },
-    {
-     "name": "Encyclopaedia Iranica, Judeo-Persian Communities of Iran iii: The Parthian and Sasanian Periods",
-     "url": "https://iranicaonline.org/articles/judeo-persian-communities-iii-parthian-and-sasanian-periods"
-    },
-    {
-     "name": "Cambridge History of Judaism, Phillip I. Lieberman, Judaism in Pre-Islamic Arabia (chapter page; abstract only)",
-     "url": "https://www.cambridge.org/core/books/cambridge-history-of-judaism/judaism-in-preislamic-arabia/C9F5F6DD0AF09B26594CD08D742C7A4F"
-    }
-   ],
    "hold": false
   },
   {
@@ -39,32 +25,8 @@
    "summary": "Arab armies beat Byzantium at Yarmuk (636) and Persia at Nahavand (639), then took Syria, Egypt and Iraq.",
    "note": "",
    "jewish": "Jewish communities in Babylonia and the Land of Israel came under Arab rule.",
-   "sources": [
-    {
-     "name": "OpenStax, Rice University — The Arab-Islamic Conquests and the First Islamic States",
-     "url": "https://openstax.org/books/world-history-volume-1/pages/11-2-the-arab-islamic-conquests-and-the-first-islamic-states"
-    },
-    {
-     "name": "Encyclopaedia Iranica — Arab conquest of Iran, Michael Morony",
-     "url": "https://www.iranicaonline.org/articles/arab-ii/"
-    },
-    {
-     "name": "The Cambridge History of Egypt — Egypt as a province in the Islamic caliphate, 641–868",
-     "url": "https://www.cambridge.org/core/books/abs/cambridge-history-of-egypt/egypt-as-a-province-in-the-islamic-caliphate-641868/FF5C416D97BB2C72F30F2E435B6AD7F4"
-    }
-   ],
    "spread": {
-    "text": "In conquered Persian lands, some soldiers and elites adopted Islam to retain property or gain military and political roles.",
-    "sources": [
-     {
-      "name": "Elton L. Daniel, Conversion ii: Of Iranians to Islam (full article)",
-      "url": "https://www.iranicaonline.org/articles/conversion-ii/"
-     },
-     {
-      "name": "Michael G. Morony, Arab conquest of Iran (full article)",
-      "url": "https://www.iranicaonline.org/articles/arab-ii/"
-     }
-    ]
+    "text": "In conquered Persian lands, some soldiers and elites adopted Islam to retain property or gain military and political roles."
    },
    "hold": false
   },
@@ -76,28 +38,8 @@
    "summary": "Umayyad armies took Carthage (697), crossed into Spain (711), conquered Sindh (711) and took Samarkand (712).",
    "note": "",
    "jewish": "Jewish communities in Syria, Iraq and Spain came under Umayyad rule.",
-   "sources": [
-    {
-     "name": "Cambridge University Press — The Cambridge Ancient History, Vandal and Byzantine Africa",
-     "url": "https://www.cambridge.org/core/books/cambridge-ancient-history/vandal-and-byzantine-africa/9F02D40C880F6A818097EF865FCAD72D"
-    },
-    {
-     "name": "The Cambridge History of Islam — The Iberian Peninsula and Sicily",
-     "url": "https://www.cambridge.org/core/books/abs/cambridge-history-of-islam/iberian-peninsula-and-sicily/BE2CB856085CACB43BB28E903EE0736C"
-    },
-    {
-     "name": "Princeton University Press — A New History of India, introductory chapter",
-     "url": "https://assets.press.princeton.edu/chapters/i9061.pdf"
-    }
-   ],
    "spread": {
-    "text": "In early-700s Transoxiana, rulers encouraged conversion with mosques, Persian Quran readings and payments for Friday prayers.",
-    "sources": [
-     {
-      "name": "Elton L. Daniel, Conversion ii: Of Iranians to Islam (full article)",
-      "url": "https://www.iranicaonline.org/articles/conversion-ii/"
-     }
-    ]
+    "text": "In early-700s Transoxiana, rulers encouraged conversion with mosques, Persian Quran readings and payments for Friday prayers."
    },
    "hold": false
   },
@@ -109,28 +51,8 @@
    "summary": "Abbasid caliphs held Baghdad while Aghlabid forces began the conquest of Sicily (827) and took Palermo (831).",
    "note": "",
    "jewish": "Baghdad's Jewish academies and communal self-government grew under Abbasid rule.",
-   "sources": [
-    {
-     "name": "Cambridge University Press — Tied to Two Empires: Material Evidence of the Islamic Conquest of Sicily",
-     "url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/E37D78FCB27528C0C947C132DA79F845/9781009384261c17_481-512.pdf/tied_to_two_empires_the_material_evidence_of_the_islamic_conquest_of_sicily.pdf"
-    },
-    {
-     "name": "Oxford Handbook of the Jewish Diaspora — Jews and Diaspora in the Medieval Islamic Middle East",
-     "url": "https://academic.oup.com/edited-volume/37080/chapter-abstract/323170779"
-    },
-    {
-     "name": "Cambridge History of Judaism — Jewish Perceptions of and Attitudes toward Islam and Muslims",
-     "url": "https://doi.org/10.1017/9781139048873.005"
-    }
-   ],
    "spread": {
-    "text": "In Sicily during the 800s–900s, Muslim settlement reshaped towns while religious change in rural areas was slower.",
-    "sources": [
-     {
-      "name": "Alex Metcalfe, The Muslims of Sicily under Christian Rule, pp. 289–290 (full author PDF)",
-      "url": "https://eprints.lancs.ac.uk/id/eprint/156612/1/Metcalfe_Muslims_under_Christian_rule.doc.pdf"
-     }
-    ]
+    "text": "In Sicily during the 800s–900s, Muslim settlement reshaped towns while religious change in rural areas was slower."
    },
    "hold": false
   },
@@ -142,20 +64,6 @@
    "summary": "Fatimids overthrew the Aghlabids (909) and conquered Egypt (969); Qarakhanids overthrew the Samanids at Bukhara (999).",
    "note": "",
    "jewish": "Jewish communities in Córdoba, Qayrawan and Fustat stayed linked across the rival caliphates.",
-   "sources": [
-    {
-     "name": "Metropolitan Museum of Art — Western North Africa, 500–1000",
-     "url": "https://www.metmuseum.org/ja/toah/ht/06/afw.html"
-    },
-    {
-     "name": "Cambridge History of Egypt — The Fatimid State, 969–1171",
-     "url": "https://www.cambridge.org/core/books/abs/cambridge-history-of-egypt/fatimid-state-9691171/080331DBC1E5357E041934999E235B78"
-    },
-    {
-     "name": "Encyclopaedia Iranica — Abd al-Malek b. Nuh",
-     "url": "https://www.iranicaonline.org/articles/abd-al-malek-b-nuh-b-mansur-samanid-ruler-in-khorasan-and-transoxania-r-999/"
-    }
-   ],
    "hold": false
   },
   {
@@ -166,32 +74,8 @@
    "summary": "Seljuk Turks beat the Ghaznavids at Dandanqan (1040) and the Byzantines at Manzikert (1071).",
    "note": "",
    "jewish": "Jews in Fatimid Cairo suffered persecution under al-Hakim, then recovered.",
-   "sources": [
-    {
-     "name": "Encyclopaedia Iranica, “Iran ii: Islamic period—The Saljuqids”",
-     "url": "https://www.iranicaonline.org/articles/iran-ii2-islamic-period-page-3/"
-    },
-    {
-     "name": "Cambridge University Press, “Turkish Migrations and the Ottoman Empire”",
-     "url": "https://www.cambridge.org/core/books/abs/islamic-societies-to-the-nineteenth-century/turkish-migrations-and-the-ottoman-empire/CE1C646DC6E35DECD9A0FEB0F964E70C"
-    },
-    {
-     "name": "Yaacov Lev, “Persecutions and conversion to Islam in eleventh-century Egypt” (1988)",
-     "url": "https://cris.biu.ac.il/en/publications/persecutions-and-conversion-to-islam-in-eleventh-century-egypt/"
-    }
-   ],
    "spread": {
-    "text": "In Anatolia, conversion and the adoption of Islamic culture transformed society over roughly 1100–1500.",
-    "sources": [
-     {
-      "name": "University of St Andrews, The Islamisation of Anatolia project (project overview only)",
-      "url": "https://www.islam-anatolia.ac.uk/"
-     },
-     {
-      "name": "A. C. S. Peacock, Islamisation in Medieval Anatolia (publisher summary only)",
-      "url": "https://www.cambridge.org/core/books/abs/islamisation/islamisation-in-medieval-anatolia/F6AE8B2B559A0517E56C709F32312076"
-     }
-    ]
+    "text": "In Anatolia, conversion and the adoption of Islamic culture transformed society over roughly 1100–1500."
    },
    "hold": false
   },
@@ -203,32 +87,8 @@
    "summary": "Saladin took Jerusalem (1187), while the Ghurids conquered Lahore (1186) and Delhi (1192).",
    "note": "",
    "jewish": "Maimonides led Cairo's Jewish community from 1165, and Jews resettled in Jerusalem after 1187.",
-   "sources": [
-    {
-     "name": "Cambridge University Press, “Too Big to be Owned: Reflections on Jerusalem in Islamic History”",
-     "url": "https://www.cambridge.org/core/journals/review-of-middle-east-studies/article/too-big-to-be-owned-reflections-on-jerusalem-in-islamic-history/4F1E56BF8F7081B74B274910DE983C1D/share/3537df2708390298bc7af0ed715a05f8afc63fd6"
-    },
-    {
-     "name": "Encyclopaedia Iranica, “Delhi Sultanate i: Political and Cultural History”",
-     "url": "https://www.iranicaonline.org/articles/delhi-sultanate/delhi-sultanate-i-political-and-cultural-history/"
-    },
-    {
-     "name": "Cambridge History of Egypt, “The Non-Muslim Communities: The Jewish Community”",
-     "url": "https://www.cambridge.org/core/books/abs/cambridge-history-of-egypt/nonmuslim-communities-the-jewish-community/E72B648209C123448D59B069324ED196"
-    }
-   ],
    "spread": {
-    "text": "In Delhi, Chishti Sufis helped spread Islam through personal ties and shrine communities in the 1200s–1300s.",
-    "sources": [
-     {
-      "name": "Raziuddin Aquil, Hazrat-i-Dehli: The Making of the Chishti Sufi Centre and the Stronghold of Islam (full article)",
-      "url": "https://www.sahapedia.org/hazrat-i-dehli-the-making-of-the-chishti-sufi-centre-and-the-stronghold-of-islam"
-     },
-     {
-      "name": "Gavin R. G. Hambly, Delhi Sultanate i: Political and Cultural History (full article; territorial background)",
-      "url": "https://www.iranicaonline.org/articles/delhi-sultanate/delhi-sultanate-i-political-and-cultural-history/"
-     }
-    ]
+    "text": "In Delhi, Chishti Sufis helped spread Islam through personal ties and shrine communities in the 1200s–1300s."
    },
    "hold": false
   },
@@ -240,28 +100,8 @@
    "summary": "Khwarazmshahs beat the last western Seljuk sultan (1194) and took the Ghurid heartland (1215); Delhi's sultans ruled from 1206.",
    "note": "",
    "jewish": "Almohad rule forced many Jews in Spain and Morocco to convert or flee.",
-   "sources": [
-    {
-     "name": "Encyclopaedia Iranica, “Chronology of Iranian History, Part 1”",
-     "url": "https://www.iranicaonline.org/articles/chronology-of-iranian-history-part-1/"
-    },
-    {
-     "name": "Encyclopaedia Iranica, “Ghurids”",
-     "url": "https://www.iranicaonline.org/articles/ghurids/"
-    },
-    {
-     "name": "Encyclopaedia Iranica, “Delhi Sultanate i: Political and Cultural History”",
-     "url": "https://www.iranicaonline.org/articles/delhi-sultanate/delhi-sultanate-i-political-and-cultural-history/"
-    }
-   ],
    "spread": {
-    "text": "In the 1200s, Muslim migrants fleeing Mongol attacks enlarged Delhi’s Muslim community.",
-    "sources": [
-     {
-      "name": "Raziuddin Aquil, Hazrat-i-Dehli: The Making of the Chishti Sufi Centre and the Stronghold of Islam (full article)",
-      "url": "https://www.sahapedia.org/hazrat-i-dehli-the-making-of-the-chishti-sufi-centre-and-the-stronghold-of-islam"
-     }
-    ]
+    "text": "In the 1200s, Muslim migrants fleeing Mongol attacks enlarged Delhi’s Muslim community."
    },
    "hold": false
   },
@@ -273,24 +113,8 @@
    "summary": "Mamluks captured Acre (1291), ending the Crusader states, and Timur took control of Transoxiana (1370).",
    "note": "In Southeast Asia and West Africa the research records Muslim-ruled port states and kingdoms, such as Pasai and Mali, not conquests.",
    "jewish": "Jewish settlement revived in Jerusalem and Safed under Mamluk rule.",
-   "sources": [
-    {
-     "name": "Journal of the Royal Asiatic Society, Michael Ehrlich, The Jewish Communities of Safed and Jerusalem During the Fourteenth Century",
-     "url": "https://www.cambridge.org/core/journals/journal-of-the-royal-asiatic-society/article/jewish-communities-of-safed-and-jerusalem-during-the-fourteenth-century/DAFA875AAE01C52DEDB26B198731DAE3"
-    },
-    {
-     "name": "Metropolitan Museum of Art, The Art of the Timurid Period (ca. 1370–1507)",
-     "url": "https://www.metmuseum.org/pt/essays/the-art-of-the-timurid-period-ca-1370-1507"
-    }
-   ],
    "spread": {
-    "text": "In 1300s Mali, rulers supported Islam by building mosques and encouraging Islamic learning.",
-    "sources": [
-     {
-      "name": "Metropolitan Museum of Art, Trade and the Spread of Islam in Africa (complete essay reproduced at Buffalo State)",
-      "url": "https://faculty.buffalostate.edu/oroszkj/Africa%20I/Trade%20and%20Islam.pdf"
-     }
-    ]
+    "text": "In 1300s Mali, rulers supported Islam by building mosques and encouraging Islamic learning."
    },
    "hold": false
   },
@@ -302,28 +126,8 @@
    "summary": "Timur sacked Delhi (1398) and Damascus (1400); Ottomans took Constantinople (1453), Serbia (1459) and Bosnia (1463).",
    "note": "",
    "jewish": "Jews in Mamluk Egypt faced growing restrictions, and exiles from Spain reached Fez.",
-   "sources": [
-    {
-     "name": "Metropolitan Museum of Art, The Art of the Timurid Period (ca. 1370–1507)",
-     "url": "https://www.metmuseum.org/pt/essays/the-art-of-the-timurid-period-ca-1370-1507"
-    },
-    {
-     "name": "Metropolitan Museum of Art, Eastern Mediterranean, 1400–1600",
-     "url": "https://www.metmuseum.org/es/toah/ht/08/wae.html"
-    },
-    {
-     "name": "Metropolitan Museum of Art, The Art of the Ottomans before 1600",
-     "url": "https://www.metmuseum.org/essays/the-art-of-the-ottomans-before-1600"
-    }
-   ],
    "spread": {
-    "text": "In Bosnia, conversion to Islam was gradual, with its main phase extending from 1463 through the late 1500s.",
-    "sources": [
-     {
-      "name": "Ines Aščerić-Todd, Patarenes, Protestants and Islam in Bosnia, pp. 214–215 (full author PDF)",
-      "url": "https://www.pure.ed.ac.uk/ws/files/297338561/Asceric_ToddI2022ICMRPatarenesProtestantsAndIslamInBosnia.pdf"
-     }
-    ]
+    "text": "In Bosnia, conversion to Islam was gradual, with its main phase extending from 1463 through the late 1500s."
    },
    "hold": false
   },
@@ -335,28 +139,8 @@
    "summary": "Ottomans took Egypt (1517), Baghdad (1534) and Cyprus (1570); Babur won at Panipat (1526) and founded the Mughal empire.",
    "note": "",
    "jewish": "Jews expelled from Spain in 1492 found refuge in Ottoman lands and North Africa.",
-   "sources": [
-    {
-     "name": "Metropolitan Museum of Art, Egypt, 1600–1800",
-     "url": "https://82nd-and-fifth.metmuseum.org/toah/ht/09/afe.html"
-    },
-    {
-     "name": "Encyclopedia.com, Ottoman Empire (Columbia/Gale reference entry)",
-     "url": "https://www.encyclopedia.com/history/modern-europe/turkish-and-ottoman-history/ottoman-empire"
-    },
-    {
-     "name": "Metropolitan Museum of Art, The Greater Ottoman Empire, 1600–1800",
-     "url": "https://www.metmuseum.org/ko/essays/the-greater-ottoman-empire-1600-1800"
-    }
-   ],
    "spread": {
-    "text": "In Cyprus during 1571–1640, Muslim settlement and local Christian conversions expanded the Muslim population.",
-    "sources": [
-     {
-      "name": "Ronald C. Jennings, Christians and Muslims in Ottoman Cyprus and the Mediterranean World, 1571–1640 (book description and chapter previews only)",
-      "url": "https://www.jstor.org/stable/j.ctt9qfp86"
-     }
-    ]
+    "text": "In Cyprus during 1571–1640, Muslim settlement and local Christian conversions expanded the Muslim population."
    },
    "hold": false
   },
@@ -368,28 +152,8 @@
    "summary": "Safavids took Baghdad (1623) and Ottomans retook it (1638); Mughals took Bijapur (1686) and Golconda (1687).",
    "note": "",
    "jewish": "Jews in Safavid Iran faced forced conversion under Abbas II from 1656 to 1662.",
-   "sources": [
-    {
-     "name": "Metropolitan Museum of Art, Iraq, 1600–1800",
-     "url": "https://www.metmuseum.org/it/toah/ht/09/wam.html"
-    },
-    {
-     "name": "Harvard University, A Timeline of South Asian History, Mughal Period",
-     "url": "https://timelinesouthasianhistory.hsites.harvard.edu/mughal-period-and-transition-c-1526-ce-1707-ce"
-    },
-    {
-     "name": "Encyclopaedia Iranica, Conversion of Persian Jews to Other Religions",
-     "url": "https://www.iranicaonline.org/articles/conversion-iv/"
-    }
-   ],
    "spread": {
-    "text": "Around Bijapur, Sufi songs carried Islamic teachings into village households in the 1600s–early 1700s.",
-    "sources": [
-     {
-      "name": "Richard M. Eaton, Sufi Folk Literature and the Expansion of Indian Islam, pp. 119–127 (full text transcription on Paperzz)",
-      "url": "https://paperzz.com/doc/9414803/sufi-folk-literature-and-the-expansion-of-indian-islam"
-     }
-    ]
+    "text": "Around Bijapur, Sufi songs carried Islamic teachings into village households in the 1600s–early 1700s."
    },
    "hold": false
   },
@@ -401,20 +165,6 @@
    "summary": "Nader Shah took the Iranian throne (1736) and then Delhi (1739).",
    "note": "",
    "jewish": "Nader Shah moved Jewish families to Mashhad, and Jerusalem's Ashkenazi community collapsed in 1720.",
-   "sources": [
-    {
-     "name": "Encyclopaedia Iranica, Nāder Shah",
-     "url": "https://www.iranicaonline.org/articles/nader-shah/"
-    },
-    {
-     "name": "Encyclopaedia Iranica, Khorasan: Safavid and Afsharid Periods",
-     "url": "https://www.iranicaonline.org/articles/khorasan-x-history-in-the-safavid-and-afsharid-periods/"
-    },
-    {
-     "name": "Genealogy (peer-reviewed), Surnames of Jewish People in Land of Israel, 16th–20th Centuries",
-     "url": "https://www.mdpi.com/2313-5778/7/3/49"
-    }
-   ],
    "hold": false
   },
   {
@@ -425,28 +175,8 @@
    "summary": "Egypt's Muhammad Ali conquered northern Sudan (1820), and the Mahdists captured Khartoum (1885).",
    "note": "",
    "jewish": "Ottoman Jews gained legal equality on paper from 1839, and Damascus Jews faced a blood libel in 1840.",
-   "sources": [
-    {
-     "name": "The Cambridge History of Egypt, Egyptian Empire, 1805–1885",
-     "url": "https://www.cambridge.org/core/books/abs/cambridge-history-of-egypt/egyptian-empire-18051885/614CD24EA4DC46D0398F54F5EEA08701"
-    },
-    {
-     "name": "Kim Searcy, The Encyclopedia of Empire, Mahdist State (Wiley)",
-     "url": "https://onlinelibrary.wiley.com/doi/10.1002/9781118455074.wbeoe057"
-    },
-    {
-     "name": "Julia Phillips Cohen, Becoming Ottomans (Oxford University Press)",
-     "url": "https://academic.oup.com/book/7399"
-    }
-   ],
    "spread": {
-    "text": "In the 1800s, Sufi teachers expanded Islamic religious networks along Sudan’s Nile Valley.",
-    "sources": [
-     {
-      "name": "Helen Chapin Metz, ed., Sudan: A Country Study, pp. 104–106 (full Library of Congress PDF)",
-      "url": "https://tile.loc.gov/storage-services/master/frd/frdcstdy/su/sudancountrystud00metz/sudancountrystud00metz.pdf"
-     }
-    ]
+    "text": "In the 1800s, Sufi teachers expanded Islamic religious networks along Sudan’s Nile Valley."
    },
    "hold": false
   },
@@ -458,20 +188,6 @@
    "summary": "Abdulaziz captured Riyadh (1902) and took eastern Arabia (1913).",
    "note": "",
    "jewish": "Algerian Jews became French citizens in 1870, and Baghdad's Jewish schools modernized from 1864.",
-   "sources": [
-    {
-     "name": "Madawi al-Rasheed, A History of Saudi Arabia: The Emerging State 1902–1932",
-     "url": "https://www.cambridge.org/core/books/abs/history-of-saudi-arabia/emerging-state-19021932/89B3D34A6AC46FB63ACC9387D19C9B10"
-    },
-    {
-     "name": "Nationalities Papers, From Paris to Taif: Sovereignty, Borders, and Minorities (Cambridge University Press)",
-     "url": "https://www.cambridge.org/core/journals/nationalities-papers/article/from-paris-to-taif-sovereignty-borders-and-the-question-of-minorities-in-the-arabian-peninsula/5C5BA7D9286B7F0CEB317E8739E88838"
-    },
-    {
-     "name": "US Holocaust Memorial Museum, Jews of the Maghreb on Eve of World War II",
-     "url": "https://encyclopedia.ushmm.org/content/en/article/jews-of-the-maghreb-on-the-eve-of-world-war-ii"
-    }
-   ],
    "hold": false
   },
   {
@@ -482,20 +198,6 @@
    "summary": "New states took shape: Turkey (1923), Saudi Arabia (1932), Indonesia (1945), Pakistan (1947) and Algeria (1962).",
    "note": "",
    "jewish": "Most Jewish communities in Muslim lands emigrated between 1948 and the 1970s, mainly to Israel and France.",
-   "sources": [
-    {
-     "name": "US Holocaust Memorial Museum / Encyclopaedia Britannica, Dissolution of Ottoman Empire",
-     "url": "https://encyclopedia.ushmm.org/content/en/map/the-dissolution-of-the-ottoman-empire-1807-1924"
-    },
-    {
-     "name": "Madawi al-Rasheed, A History of Saudi Arabia (Cambridge University Press)",
-     "url": "https://www.cambridge.org/core/books/history-of-saudi-arabia/introduction/5A336E8394415A63DE76F5AC1A9648C0"
-    },
-    {
-     "name": "CIA, The World Factbook, Independence field (MIT archived edition)",
-     "url": "https://start.csail.mit.edu/mirror/cia.gov/library/publications/the-world-factbook/fields/2088.html"
-    }
-   ],
    "hold": true
   }
  ],

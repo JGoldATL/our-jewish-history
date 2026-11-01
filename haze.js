@@ -170,7 +170,7 @@ const TODAY=i=>!!(SNAP[i]&&SNAP[i].hold);   // the closing card is the present-d
 function setKey(mode){$('key').innerHTML=mode==='final'?'<b>Muslim-majority states</b><div class="sw"><i class="hi"></i>Muslim-majority state</div><div class="sw"><i class="ar"></i>Arab League member</div><div class="fn">* Kosovo: recognized by many states, not all.</div>':'';}   // the key appears only in the present-day view (solid green = Muslim-majority state; green with white lines = Arab League member); the haze waves have no key
 function showCard(){const i=Math.max(0,Math.min(SNAP.length-1,Math.round(pos)));if(i===shown)return;shown=i;const s=SNAP[i];
   $('cap').textContent=TODAY(i)?'Present-day states':s.label;
-  $('card').innerHTML='<div class="k">Wave '+(i+1)+' of '+SNAP.length+' · '+esc(s.period)+'</div><h2>'+esc(s.title||s.label)+'</h2><p>'+esc(s.summary)+'</p>'+(s.note?'<p class="nbc">'+esc(s.note)+'</p>':'')+(s.spread&&s.spread.text?'<h3>How Islam spread</h3><p>'+esc(s.spread.text)+'</p>':'')+'<h3>What it meant for Jewish communities</h3><p>'+esc(s.jewish)+'</p><h3>Sources</h3><ul>'+[...s.sources,...((s.spread&&s.spread.sources)||[])].filter((x,k,a)=>a.findIndex(y=>y.url===x.url&&y.name===x.name)===k).map(x=>'<li>'+(x.url?'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.name)+'</a>':esc(x.name))+'</li>').join('')+'</ul>';
+  $('card').innerHTML='<div class="k">Wave '+(i+1)+' of '+SNAP.length+' · '+esc(s.period)+'</div><h2>'+esc(s.title||s.label)+'</h2><p>'+esc(s.summary)+'</p>'+(s.note?'<p class="nbc">'+esc(s.note)+'</p>':'')+(s.spread&&s.spread.text?'<h3>How Islam spread</h3><p>'+esc(s.spread.text)+'</p>':'')+'<h3>What it meant for Jewish communities</h3><p>'+esc(s.jewish)+'</p>';   // no sources on the cards (Jeffrey, 2026-11-01): they stay in the Master Sheet, not in the page or its data
   document.querySelectorAll('.tick').forEach((t,k)=>t.setAttribute('aria-current',k===i?'true':'false'));}
 let keyMode='haze';
 function setPos(p,fromUser){pos=Math.max(0,Math.min(SNAP.length-1,p));if(TODAY(SNAP.length-1)&&pos>=SNAP.length-2.5)loadFinal();const km=finAt(pos)>0.5?'final':'haze';if(km!==keyMode){keyMode=km;setKey(km);}$('sl').value=pos;$('yr').textContent=(TODAY(SNAP.length-1)&&pos>=SNAP.length-1-1e-6)?'Today':String(Math.round(yearAt(pos)));showCard();draw();}
@@ -201,7 +201,7 @@ function wire(){
 function fail(m){const e=$('msg');e.hidden=false;e.textContent=m;$('hz').hidden=true;}
 function check(d){   // reports problems, never fixes them (same stance as the loaders)
   if(!d||!Array.isArray(d.snapshots)||d.snapshots.length<2||!Array.isArray(d.anchors))throw new Error('haze.json is missing snapshots or anchors');
-  for(const s of d.snapshots){if(!s.label||!s.summary||!s.jewish||!Array.isArray(s.sources))throw new Error('Wave '+s.year+' is missing card text');}
+  for(const s of d.snapshots){if(!s.label||!s.summary||!s.jewish)throw new Error('Wave '+s.year+' is missing card text');}
   for(const a of d.anchors){if(!(a.lat>=-90&&a.lat<=90&&a.lon>=-180&&a.lon<=180))throw new Error('Bad latitude or longitude on '+a.id);if(!Array.isArray(a.s)||a.s.length!==d.snapshots.length)throw new Error('Anchor '+a.id+' does not have one entry per wave');}
 }
 (async()=>{

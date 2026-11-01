@@ -62,6 +62,7 @@ def main():
     ap.add_argument("--anchors-tab", default="Haze Anchors"), ap.add_argument("--cards-tab", default="Haze Wave Cards")
     ap.add_argument("--out", default="data/haze.json")
     ap.add_argument("--drafts", action="store_true", help="include DRAFT rows (review copies only)")
+    ap.add_argument("--with-sources", action="store_true", help="also write card sources into the file (audit copies only; the public file has none)")
     ap.add_argument("--dry-run", action="store_true"), ap.add_argument("--force", action="store_true")
     ap.add_argument("--sheet-name", default=""), ap.add_argument("--sheet-modified", default="")
     a = ap.parse_args()
@@ -134,8 +135,10 @@ def main():
         if re.search(r"disputed", public, re.I): P('card %d: the word "disputed" must not appear' % y)
         if re.search(r"palestin", public, re.I): P('card %d: "Palestine/Palestinian" must not appear (only Syria Palaestina)' % y)
         card = {"year": y, "label": label, "title": title, "period": per, "summary": summ, "note": note,
-                "jewish": jew, "sources": srcs}
-        if sp_text: card["spread"] = {"text": sp_text, "sources": sp_srcs}   # shown only when not blank (900, 1700, 1900 and the closing card have none)
+                "jewish": jew}
+        if a.with_sources: card["sources"] = srcs   # sources are checked above but NOT written to the public file unless asked (Jeffrey, 2026-11-01: no sources on the cards)
+        if sp_text: card["spread"] = {"text": sp_text}
+        if sp_text and a.with_sources: card["spread"]["sources"] = sp_srcs   # shown only when not blank (900, 1700, 1900 and the closing card have none)
         cards.append(card)
     cards.sort(key=lambda c: c["year"])
 
