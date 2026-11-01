@@ -110,6 +110,11 @@ let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++;};
   ok(await post('x'.repeat(1100000))===413,'oversized body refused (413)');
   ok(await W.fetch(new Request('https://x/'),env).then(r=>r.status)===405,'GET refused (405)');
   ok(await W.fetch(new Request('https://x/',{method:'OPTIONS',headers:{Origin:'https://jgoldatl.github.io'}}),env).then(r=>r.status)===204,'OPTIONS answered');
+  for(const o of ['https://ourjewishhistory.com','https://www.ourjewishhistory.com','https://jgoldatl.github.io']){   // v3.1.1: both hosts are allowed and echoed back
+    const r=await W.fetch(new Request('https://x/',{method:'OPTIONS',headers:{Origin:o}}),env);
+    ok(r.status===204&&r.headers.get('Access-Control-Allow-Origin')===o&&/Origin/.test(r.headers.get('Vary')||''),'CORS allows '+o);}
+  { const r=await W.fetch(new Request('https://x/',{method:'OPTIONS',headers:{Origin:'https://evil.example'}}),env);
+    ok(r.headers.get('Access-Control-Allow-Origin')!=='https://evil.example','CORS does not echo an unlisted origin'); }
   ok(raw.prepare('SELECT COUNT(*) n FROM sqlite_master WHERE name=\'responses\'').get().n===1,'table intact after injection attempt');
 
   // caps

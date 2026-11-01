@@ -63,7 +63,7 @@ function logNote(t){try{let n=document.getElementById('logNote');if(!n){n=docume
 function logRow(o){
   try{
     if(!LOG_URL||!VISIT||draftsShown)return;
-    if(!LOG_TEST&&location.hostname!=='jgoldatl.github.io')return;
+    if(!LOG_TEST&&!/^(www\.)?ourjewishhistory\.com$|^jgoldatl\.github\.io$/.test(location.hostname))return;
     const body=JSON.stringify(Object.assign({visit_id:(LOG_TEST?'test-':'')+VISIT},CTX,ROUND?{round_id:ROUND}:{},o));
     const p=fetch(LOG_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body,keepalive:true});
     if(LOG_TEST)p.then(r=>logNote('log test: Worker replied '+r.status+(r.status===204?' (saved)':' (refused)'))).catch(e=>logNote('log test: could not reach the Worker ('+(e&&e.message||'blocked')+')'));

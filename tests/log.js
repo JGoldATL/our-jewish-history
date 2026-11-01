@@ -17,7 +17,7 @@ async function open(browser,{url,withUrl=true,logMode='ok',draftFixture=false}){
   if(draftFixture){const h=JSON.parse(fs.readFileSync('data/history.json','utf8'));h.sheet.meta.mode='preview';h.sheet.questions.forEach(q=>q.status='draft');
     await p.route(/data\/history\.json/,r=>r.fulfill({contentType:'application/json',body:JSON.stringify(h)}));}
   // serve the repo for the pretend production host, and patch in the fake logger address when asked
-  await p.route(/^https:\/\/jgoldatl\.github\.io\//,r=>{
+  await p.route(/^https:\/\/(www\.)?(jgoldatl\.github\.io|ourjewishhistory\.com)\//,r=>{
     const f=new URL(r.request().url()).pathname.replace(/^\//,'')||'index.html';
     const fp=path.join(process.cwd(),f);
     if(!fs.existsSync(fp))return r.fulfill({status:404,body:''});
@@ -95,6 +95,10 @@ async function play(p){
   { // 3. pretend production host logs without ?logtest and without "test-"
     const {p,errs,posts,ctx}=await open(browser,{url:'https://jgoldatl.github.io/quiz.html'});await play(p);await p.waitForTimeout(400);
     ok(posts.length===4,'production host: 4 rows sent ('+posts.length+')');ok(posts.every(x=>!x.visit_id.startsWith('test-')),'production ids carry no "test-" prefix');ok(errs.length===0,'no page errors');await ctx.close();
+  }
+  { // 3b. v3.1.1: the custom domain logs the same way
+    const {p,errs,posts,ctx}=await open(browser,{url:'https://ourjewishhistory.com/quiz.html'});await play(p);await p.waitForTimeout(400);
+    ok(posts.length===4,'ourjewishhistory.com: 4 rows sent ('+posts.length+')');ok(errs.length===0,'no page errors');await ctx.close();
   }
   { // 4. the quiz works if logging is blocked, errors, or never answers
     for(const mode of ['fail','500','hang']){

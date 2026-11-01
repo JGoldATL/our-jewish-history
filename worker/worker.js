@@ -5,7 +5,8 @@
 // The quiz posts text/plain JSON (a "simple" request, so no CORS preflight). Replies carry no body and the quiz ignores them.
 // Trust rule: the browser sends only a visit id, a question id and its pick. Era, style and right/wrong come from the question_lock table.
 
-const ALLOW_ORIGIN = 'https://jgoldatl.github.io';
+const ALLOW_ORIGINS = ['https://ourjewishhistory.com', 'https://www.ourjewishhistory.com', 'https://jgoldatl.github.io'];   // v3.1.1: the custom domain and the old address
+const ALLOW_ORIGIN = ALLOW_ORIGINS[0];                                                                                      // fallback when the caller is not listed
 const MAX_BODY = 1000000;        // bytes: only feedback rows with a photo come near this
 const MAX_BODY_OTHER = 4096;     // answers and surveys are tiny
 const MAX_IMAGE_CHARS = 900000;  // a photo, shrunk and base64-encoded by the page, stays well under this
@@ -18,7 +19,8 @@ const TOPICS = ['Idea', 'Problem', 'Question', 'Praise'];   // feedback page
 const MAX_FEEDBACK_PER_VISIT = 5, MAX_FEEDBACK_PER_HOUR = 100;
 
 const cors = (origin) => ({
-  'Access-Control-Allow-Origin': origin === ALLOW_ORIGIN ? origin : ALLOW_ORIGIN,
+  'Access-Control-Allow-Origin': ALLOW_ORIGINS.includes(origin) ? origin : ALLOW_ORIGIN,
+  'Vary': 'Origin',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, X-Gate-Token, X-Admin-Token',
   'Access-Control-Max-Age': '86400',

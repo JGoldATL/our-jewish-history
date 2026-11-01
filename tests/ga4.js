@@ -13,7 +13,7 @@ async function open(browser,url,{block=false}={}){
   await p.route(/cdnjs.*topojson\.min\.js/,r=>r.fulfill({contentType:'text/javascript',body:fs.readFileSync(VEND+'/topojson-client/dist/topojson-client.min.js')}));
   await p.route(/fonts\.(googleapis|gstatic)\.com/,r=>r.abort());
   await p.route(/googletagmanager|google-analytics/,r=>block?r.abort():r.fulfill({contentType:'text/javascript',body:'/*stub*/'}));
-  await p.route(/^https:\/\/jgoldatl\.github\.io\//,r=>{const f=new URL(r.request().url()).pathname.replace(/^\//,'')||'index.html';const fp=path.join(process.cwd(),f);
+  await p.route(/^https:\/\/(www\.)?(jgoldatl\.github\.io|ourjewishhistory\.com)\//,r=>{const f=new URL(r.request().url()).pathname.replace(/^\//,'')||'index.html';const fp=path.join(process.cwd(),f);
     if(!fs.existsSync(fp))return r.fulfill({status:404,body:''});r.fulfill({contentType:MIME[path.extname(fp)]||'application/octet-stream',body:fs.readFileSync(fp)});});
   await p.goto(url);await p.waitForTimeout(1200);return {p,errs,gtag,other,ctx};
 }
@@ -24,6 +24,9 @@ async function open(browser,url,{block=false}={}){
     ok(r.gtag.some(u=>u.includes('gtag/js?id='+ID)),f+': production host requests the GA4 tag');
     const dl=await r.p.evaluate(()=>JSON.stringify(window.dataLayer||[]));
     ok(dl.includes(ID),f+': config call for '+ID+' is queued');ok(r.other.length===0,f+': no GoatCounter request');ok(r.errs.length===0,f+': no page errors');await r.ctx.close();
+    for(const host of ['https://ourjewishhistory.com/','https://www.ourjewishhistory.com/']){
+      r=await open(browser,host+f);
+      ok(r.gtag.some(u=>u.includes('gtag/js?id='+ID)),f+': '+host+' requests the GA4 tag');await r.ctx.close();}
     r=await open(browser,'http://localhost:8778/'+f);
     ok(r.gtag.length===0,f+': local host sends nothing to Google ('+r.gtag.length+')');await r.ctx.close();
     r=await open(browser,'https://jgoldatl.github.io/'+f,{block:true});

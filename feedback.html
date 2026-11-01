@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<!-- Google Analytics 4: production only (counts visits on jgoldatl.github.io, not previews or local files) -->
+<!-- Google Analytics 4: production only (counts visits on ourjewishhistory.com and jgoldatl.github.io, not previews or local files) -->
 <script>
-if(location.hostname==='jgoldatl.github.io'){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-W0VSWJ8FCS';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config','G-W0VSWJ8FCS');}
+if(/^(www\.)?ourjewishhistory\.com$|^jgoldatl\.github\.io$/.test(location.hostname)){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-W0VSWJ8FCS';document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config','G-W0VSWJ8FCS');}
 </script>
 <title>Feedback · Our Jewish Journey</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -60,7 +60,7 @@ input[type=file]{box-sizing:border-box;width:100%;font:inherit;font-size:15px;co
 <script>
 (function(){
   var LOG_URL='https://patient-sound-f420journeysquiz-log.jeffreyagold-bbd.workers.dev/';
-  var TEST=/[?&]logtest=1\b/.test(location.search),PROD=location.hostname==='jgoldatl.github.io';
+  var TEST=/[?&]logtest=1\b/.test(location.search),PROD=/^(www\.)?ourjewishhistory\.com$|^jgoldatl\.github\.io$/.test(location.hostname);
   var visit='';try{var a=new Uint8Array(10);crypto.getRandomValues(a);visit=Array.prototype.map.call(a,function(x){return (x%36).toString(36);}).join('')+Date.now().toString(36);}catch(e){}
   var m=document.getElementById('fbMsg'),t=document.getElementById('fbTopic'),b=document.getElementById('fbSend'),s=document.getElementById('fbStatus'),c=document.getElementById('fbCount');
   var img='',fi=document.getElementById('fbImg'),th=document.getElementById('fbThumb'),pv=document.getElementById('fbPrev');
