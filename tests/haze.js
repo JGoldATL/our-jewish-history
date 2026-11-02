@@ -55,6 +55,9 @@ let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined
   ck(first,'Play from the cover holds on the opening wave first',samples.slice(0,3));
   ck(held.size>=14,'Play holds about 1.5 s on the waves (waves held: '+held.size+' of 16)',[...held]);
   ck(total>=36&&total<=56,'Play takes about 45 seconds end to end ('+total.toFixed(1)+' s), not 14',total);await q.close();}
+ { // v3.2.x: wider region view: the camera never zooms in tighter than 50 degrees, and the early waves are framed wide
+  const q=await open(390,844);const r=await q.evaluate(()=>{const o=[];for(let x=0.4;x<=4;x+=0.1){const g=camTarget(x);if(g)o.push(g.deg);}return {min:Math.min(...o),w1:camTarget(1).deg,w1zoom:camTarget(1).zoom};});
+  ck(r.min>=50&&r.w1>=80,'camera: never tighter than 50 degrees; the 650 wave is framed wide (deg '+Math.round(r.w1)+', globe '+r.w1zoom.toFixed(2)+')',r);await q.close();}
  { // jumping straight to Today in one move still shows the present-day key once the final map has loaded
   const j=await open(390,844);await j.evaluate(()=>{const s=document.getElementById('sl');s.value=document.getElementById('sl').max;s.dispatchEvent(new Event('input'));});await j.waitForTimeout(6000);
   const kj=await j.evaluate(()=>({txt:document.getElementById('key').innerText,disp:getComputedStyle(document.getElementById('key')).display}));

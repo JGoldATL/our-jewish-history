@@ -146,16 +146,19 @@ function camTarget(p){
   else for(const a of ANCH){const s=stateAt(a,p);if(s.k>0.3)act.push(a);}
   if(!act.length)return null;
   let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;for(const a of act){x0=Math.min(x0,a.lon);x1=Math.max(x1,a.lon);y0=Math.min(y0,a.lat);y1=Math.max(y1,a.lat);}
-  const lon=(x0+x1)/2,lat=Math.max(-60,Math.min(70,(y0+y1)/2)),sv={lon:view.lon,lat:view.lat,deg:view.deg,R:view.R},c=$('gl'),w=c.clientWidth||390,h=c.clientHeight||420,m=36;
+  const lon=(x0+x1)/2,lat=Math.max(-60,Math.min(70,(y0+y1)/2)),sv={lon:view.lon,lat:view.lat,deg:view.deg,R:view.R},c=$('gl'),w=c.clientWidth||390,h=c.clientHeight||420;let m=36;
   if(!view.baseR){view.cx=w/2;view.cy=h/2;view.baseR=Math.max(w*0.95,h*0.62);}
   const fits=()=>{for(const a of act){const q=project(a.lon,a.lat);if(!q.vis||q.x<m||q.x>w-m||q.y<m||q.y>h-m-30)return false;}return true;};
   let deg=84,zoom=1;view.lon=lon;view.lat=lat;
   const finalView=FIN.ready&&FIN.states&&p>=SNAP.length-1.5;
-  if(!finalView){view.R=view.baseR;for(let d=20;d<=84;d+=2){view.deg=d;if(fits()){deg=d;break;}}}
+  if(!finalView){m=HAZE_PAD;view.R=view.baseR;let ok=false;for(let d=MIN_DEG;d<=84;d+=2){view.deg=d;if(fits()){deg=d;ok=true;break;}}
+    if(!ok){deg=84;view.deg=84;zoom=MIN_ZOOM;for(let z=1;z>=MIN_ZOOM;z-=0.05){view.R=view.baseR*z;if(fits()){zoom=z;break;}}}}   // wide first, then shrink the globe a little if the spread is still wider than the screen
   else{view.deg=84;zoom=0.7;for(let z=1;z>=0.7;z-=0.05){view.R=view.baseR*z;if(fits()){zoom=z;break;}}}   // at Today: widest view, then shrink the globe (to 70 percent at most, so it stays readable) until every state fits; drag for the far edges
   view.lon=sv.lon;view.lat=sv.lat;view.deg=sv.deg;view.R=sv.R;
   return {lon,lat,deg,zoom};
 }
+const HAZE_PAD=96,MIN_ZOOM=0.78;   // each haze place sits at least 96 px inside the frame (the haze reaches well past its centre), and the globe may shrink to 78 percent when 84 degrees is not wide enough
+const MIN_DEG=50;   // widest-first: never zoom in tighter than this (degrees across the globe), so the early waves show the whole region round the Middle East, not just the first places
 let lastF=0;
 function frame(t){const dt=Math.min(.1,(t-lastF)/1000);lastF=t;
   if(auto){const g=camTarget(pos);if(g){const k=1-Math.exp(-dt*3),dl=((g.lon-view.lon+540)%360)-180,nl=view.lon+dl*k,nla=view.lat+(g.lat-view.lat)*k,nd=view.deg+(g.deg-view.deg)*k,nz=view.zoom+(g.zoom-view.zoom)*k;
