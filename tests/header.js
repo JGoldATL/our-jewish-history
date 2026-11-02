@@ -23,8 +23,9 @@ const hit=(a,b)=>a.left<b.right-.5&&a.right>b.left+.5&&a.top<b.bottom-.5&&a.bott
   const r=await p.evaluate(()=>{const R=e=>{const q=e.getBoundingClientRect();return {left:q.left,right:q.right,top:q.top,bottom:q.bottom};};
    const bar=document.getElementById('gnBar'),pill=bar.querySelector('.gp'),track=bar.querySelector('.gp-track'),btns=[...bar.querySelectorAll('.gp-btn')],cue=bar.querySelector('.gp-cue'),h1=document.querySelector('header.top .brand h1'),tag=document.querySelector('header.top .brand p,header.top .brand span'),on=btns.find(x=>x.getAttribute('aria-pressed')==='true'),tr=R(track);
    const lh=parseFloat(getComputedStyle(h1).lineHeight);
+   const lines=e=>{if(!e)return [];const g=document.createRange();g.selectNodeContents(e);return [...g.getClientRects()].filter(q=>q.width>1).map(q=>({left:q.left,right:q.right,top:q.top,bottom:q.bottom}));};
    return {order:btns.map(x=>x.textContent.trim()).join(','),pill:R(pill),btn0:getComputedStyle(btns[0]),font:parseFloat(getComputedStyle(btns[0]).fontSize),h:btns[0].getBoundingClientRect().height,swipes:track.scrollWidth>track.clientWidth+2,
-    cueShown:getComputedStyle(cue).display!=='none',cueRect:R(cue),btnRects:btns.map(R),h1:R(h1),tag:tag?R(tag):null,title:parseFloat(getComputedStyle(h1).fontSize),lines:Math.round(h1.getBoundingClientRect().height/lh),
+    cueShown:getComputedStyle(cue).display!=='none',cueRect:R(cue),btnRects:btns.map(R),h1:R(h1),h1lines:lines(h1),taglines:lines(tag),tag:tag?R(tag):null,title:parseFloat(getComputedStyle(h1).fontSize),lines:Math.round(h1.getBoundingClientRect().height/lh),
     over:document.documentElement.scrollWidth-innerWidth,labels:btns.map(x=>x.textContent.trim().length),onIn:on?(R(on).left>=tr.left-1&&R(on).right<=tr.right+1):null,quizLast:btns[btns.length-1].textContent.trim()==='Quiz',
     fontsOK:document.fonts.check('700 20px "Cormorant Garamond"')&&document.fonts.check('600 14px "Instrument Sans"'),trackRect:tr};});
   const t=pg+' '+w+' px: ';
@@ -33,7 +34,7 @@ const hit=(a,b)=>a.left<b.right-.5&&a.right>b.left+.5&&a.top<b.bottom-.5&&a.bott
   ck(r.font>=13.99&&r.font<=17.01&&r.h>=35.9&&r.h<=40.1,t+'compact nav: text 14 to 17 px, items 36 to 40 px',{font:r.font,h:r.h});
   ck(r.swipes===(w<655),t+'pill swipes only below about 655 px (swipes: '+r.swipes+')');
   if(TITLE[w])ck(Math.abs(r.title-TITLE[w])<=1,t+'title '+TITLE[w]+' px at this width',r.title);
-  if(w>=950){const narrow=r.h1.right<=r.pill.left+1||r.h1.bottom<=r.pill.top+1||r.h1.top>=r.pill.bottom-1;ck(!hit(r.h1,r.pill)&&(!r.tag||!hit(r.tag,r.pill)),t+'nav shares the title line and does not overlap the title or tagline',{h1:r.h1,pill:r.pill});
+  if(w>=950){const narrow=r.h1.right<=r.pill.left+1||r.h1.bottom<=r.pill.top+1||r.h1.top>=r.pill.bottom-1;ck(!r.h1lines.some(q=>hit(q,r.pill))&&!r.taglines.some(q=>hit(q,r.pill)),t+'nav shares the title line and does not overlap the title or tagline',{h1:r.h1lines,pill:r.pill});
    ck(r.pill.top<r.h1.top+r.title*1.1&&r.pill.bottom>r.h1.top,t+'nav is level with the title',{pill:[r.pill.top,r.pill.bottom],h1top:r.h1.top});}
   else ck(r.pill.bottom<=r.h1.top+1,t+'nav sits above the title',{pill:r.pill.bottom,h1:r.h1.top});
   if(r.fontsOK)ck(r.lines<=2,t+'title fits in two lines or fewer',r.lines);

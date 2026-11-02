@@ -11,6 +11,8 @@ if(/^(www\.)?ourjewishhistory\.com$|^jgoldatl\.github\.io$/.test(location.hostna
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600&family=Instrument+Sans:wght@400;500;600&display=swap">
 <style>
 /* "When in the World?" quiz. Its own section of Jewish Journeys, so it has its own dusk palette (plum and amber) instead of the globe's navy.
    Layout: one card per screen, phone first. Fonts are the site's locked families: Georgia for headings, questions and quick takes; Arial for everything else. */
@@ -29,10 +31,10 @@ body{min-height:100svh}
 .wrap{padding-top:8px}
 header.top{position:relative;padding:12px 0 0;max-width:none}
 .brand{max-width:560px;margin:0 auto;padding:8px 112px 8px 16px}
-.brand h1{font-family:var(--serif);font-weight:600;font-size:1.5rem;margin:0;color:var(--gold);line-height:1.02;text-wrap:balance}
-.brand span{display:block;margin-top:4px;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.brand h1{font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-weight:700;margin:0;color:#F6EBD6;letter-spacing:.3px}
+.brand p{margin:0;font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-style:italic;font-weight:600;color:#E8B27A;font-variant-numeric:lining-nums tabular-nums}
 #globe{position:absolute;top:10px;right:16px;width:88px;height:88px;flex:none}
-@media (min-width:950px){#globe{top:calc(var(--gn-h,58px) + 6px);right:28px}.brand{max-width:none;margin:0;padding:0 calc(var(--nav-w,640px) + 16px) 0 0}}
+@media (min-width:950px){#globe{top:calc(var(--gn-h,58px) + 6px);right:28px}.brand{max-width:none;margin:0;padding:0}}
 .dots{display:flex;gap:6px;margin-bottom:14px}
 .dots i{flex:1;height:4px;border-radius:2px;background:var(--line)}
 .dots i.on{background:var(--gold)}
@@ -71,7 +73,7 @@ header.top{position:relative;padding:12px 0 0;max-width:none}
 .tl::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--line)}
 .tl li{position:relative;padding-left:30px;padding-bottom:6px}
 .tl li::before{content:"";position:absolute;left:1px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px var(--surface)}
-.tl .yr{font-size:.78rem;letter-spacing:.06em;color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums}
+.tl .yr{font-size:.78rem;letter-spacing:.06em;color:var(--gold);font-weight:700;font-variant-numeric:lining-nums tabular-nums}
 .tl .ev{font-family:var(--serif);font-size:1.1rem}
 .tl .mw{font-size:.9rem;color:var(--muted)}
 .tl li.gap{font-size:.8rem;color:var(--muted);font-style:italic;padding-bottom:14px}
@@ -94,7 +96,7 @@ header.top{position:relative;padding:12px 0 0;max-width:none}
 </style>
 </head>
 <body>
-<header class="top"><div class="brand"><h1>When in the World?</h1><span id="count"></span></div><canvas id="globe" width="176" height="176" aria-label="Globe showing where this question takes place" role="img"></canvas></header>
+<header class="top"><div class="brand"><h1>When in the World?</h1><p id="count"></p></div><canvas id="globe" width="176" height="176" aria-label="Globe showing where this question takes place" role="img"></canvas></header>
 <div class="wrap">
   <div class="dots" id="dots"></div>
   <div id="stage" aria-live="polite"></div>
