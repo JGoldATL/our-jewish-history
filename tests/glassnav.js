@@ -16,14 +16,14 @@ for(const [sn,vp] of Object.entries(sizes)){
     const r=await p.evaluate(()=>{const vis=e=>{if(!e)return false;const r=e.getBoundingClientRect(),s=getComputedStyle(e.closest('.gn-short,.gn-full,.gn-more')||e);return r.width>0&&s.display!=='none';};
       const pills=[...document.querySelectorAll('.gn .gp')].filter(vis);const sn=document.querySelector('.sn'),snr=sn&&sn.getBoundingClientRect();const sel=pills.map(x=>[...x.querySelectorAll('.gp-btn[aria-pressed="true"]')].map(b=>b.textContent));
       const th=pills.map(x=>{const t=x.querySelector('.gp-thumb'),on=x.querySelector('.gp-btn[aria-pressed="true"]');return on?Math.abs(t.offsetLeft-on.offsetLeft)<2&&Math.abs(t.offsetWidth-on.offsetWidth)<2:null;});
-      const over=pills.map(x=>x.classList.contains('over'));const dots=[...document.querySelectorAll('.gn .gp-dots')].filter(vis).length;
+      const over=pills.map(x=>x.classList.contains('over'));const dots=[...document.querySelectorAll('.gn .gp-cue')].filter(vis).length;
       return {more:!!sn&&getComputedStyle(sn).display!=='none'&&snr.left<80&&snr.top>innerHeight/2&&/More/.test(sn.textContent),n:pills.length,sel,th,over,dots,old:!!document.querySelector('.sn')&&getComputedStyle(document.querySelector('.sn')).display!=='none',hs:document.documentElement.scrollWidth>innerWidth+1};});
     ok(r.n===1,`${sn} ${pg}: one page pill`);ok(r.more,`${sn} ${pg}: More (hamburger) sits bottom left`);
     ok(r.th.every(x=>x!==false),`${sn} ${pg}: thumb sits under the selected item`);
     if(cur)ok(JSON.stringify(r.sel[0])===JSON.stringify([cur]),`${sn} ${pg}: "${cur}" is on`);
     ok(!r.hs,`${sn} ${pg}: no sideways scroll`);
-    if(sn==='phone')ok(r.over.every(x=>x)&&r.dots>=1,`${sn} ${pg}: six pages do not fit a phone, so the bar scrolls and shows its arrow and dots`);
-    else ok(r.over.every(x=>!x)&&r.dots===0,`${sn} ${pg}: six pages fit, no arrow or dots`);
+    if(sn==='phone')ok(r.over.every(x=>x)&&r.dots>=1,`${sn} ${pg}: seven pages do not fit a phone, so the bar scrolls and shows the gold cue arrow`);
+    else ok(r.over.every(x=>!x)&&r.dots===0,`${sn} ${pg}: seven pages fit, no cue arrow`);
     if(pg==='events.html'||pg==='roadmap.html')await p.screenshot({path:`${OUT}/gn_${sn}_${pg.replace('.html','')}.png`});
     if(sn==='desktop'&&pg==='events.html'){
       // fade on map drag; none on pill tap

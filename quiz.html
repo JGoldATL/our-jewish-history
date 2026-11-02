@@ -26,10 +26,13 @@ html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans)
 body{min-height:100svh}
 [hidden]{display:none!important}
 .wrap{max-width:560px;margin:0 auto;padding:20px 16px 48px;padding-bottom:max(48px,env(safe-area-inset-bottom))}
-.brand{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;position:sticky;top:0;z-index:2;background:var(--bg);padding:8px 0;padding-top:max(8px,env(safe-area-inset-top))}
-.brand h1{font-family:var(--serif);font-weight:600;font-size:1.5rem;margin:0;color:var(--gold)}
-.brand span{display:block;margin-top:2px;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
-#globe{width:88px;height:88px;flex:none}
+.wrap{padding-top:8px}
+header.top{position:relative;padding:12px 0 0;max-width:none}
+.brand{max-width:560px;margin:0 auto;padding:8px 112px 8px 16px}
+.brand h1{font-family:var(--serif);font-weight:600;font-size:1.5rem;margin:0;color:var(--gold);line-height:1.02;text-wrap:balance}
+.brand span{display:block;margin-top:4px;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+#globe{position:absolute;top:10px;right:16px;width:88px;height:88px;flex:none}
+@media (min-width:950px){#globe{top:calc(var(--gn-h,58px) + 6px);right:28px}.brand{max-width:none;margin:0;padding:0 calc(var(--nav-w,640px) + 16px) 0 0}}
 .dots{display:flex;gap:6px;margin-bottom:14px}
 .dots i{flex:1;height:4px;border-radius:2px;background:var(--line)}
 .dots i.on{background:var(--gold)}
@@ -91,8 +94,8 @@ body{min-height:100svh}
 </style>
 </head>
 <body>
+<header class="top"><div class="brand"><h1>When in the World?</h1><span id="count"></span></div><canvas id="globe" width="176" height="176" aria-label="Globe showing where this question takes place" role="img"></canvas></header>
 <div class="wrap">
-  <div class="brand"><div><h1>When in the World?</h1><span id="count"></span></div><canvas id="globe" width="176" height="176" aria-label="Globe showing where this question takes place" role="img"></canvas></div>
   <div class="dots" id="dots"></div>
   <div id="stage" aria-live="polite"></div>
   <p class="foot"><span id="mode"></span><a href="events.html" id="backLink">Back to Events</a> &middot; <a href="movements.html" id="moveLink">See the Movements map</a></p>
@@ -104,5 +107,6 @@ body{min-height:100svh}
 <script src="quiz.js"></script>
 <script src="pill.js"></script>
 <script src="nav.js"></script>
+<script src="header.js"></script>
 </body>
 </html>

@@ -30,6 +30,17 @@
   '.gp.over .gp-next{display:block}'+
   '.gp-next span{display:inline-block;animation:gpnudge 1.6s ease-in-out infinite}'+
   '@keyframes gpnudge{0%,60%,100%{transform:none}30%{transform:translateX(3px)}}'+
+  /* header lock (Jeffrey, 2026-11-01): the page-navigation pill is compact and fluid (text 14 to 17 px, items 36 to 40 px high); when it is wider than its space it swipes, and a gold right arrow (a CUE only, not a button) sits in its own slot at the right end and hides at the end of the swipe */
+  /* nav sizes follow Creative Design's measured pill widths: about 610 px at 768, 640 at 1024, 790 at 1366; text 14 to 17 px, items 36 to 40 px */
+  ':root{--gp-f:14px;--gp-pad:9.2px;--gp-h:36px}'+
+  '@media (min-width:768px){:root{--gp-f:calc(14.2px + (100vw - 768px) * .00234);--gp-pad:calc(8.1px + (100vw - 768px) * .00156)}}'+
+  '@media (min-width:1024px){:root{--gp-f:calc(14.8px + (100vw - 1024px) * .00643);--gp-pad:calc(8.5px + (100vw - 1024px) * .01579);--gp-h:calc(36px + (100vw - 1024px) * .00446)}}'+
+  '@media (min-width:1366px){:root{--gp-f:17px;--gp-pad:13.9px}}'+
+  '@media (min-width:1920px){:root{--gp-h:40px}}'+
+  '.gp-nav .gp-btn{font-size:var(--gp-f);min-height:var(--gp-h);padding:0 var(--gp-pad);display:flex;align-items:center}'+
+  '.gp-cue{display:none;flex:0 0 24px;height:24px;align-items:center;justify-content:center;color:#E0B04F;pointer-events:none}'+
+  '.gp-cue svg{width:14px;height:14px;display:block;animation:gpnudge 1.6s ease-in-out infinite}'+
+  '.gp.over .gp-cue{display:flex}.gp.over.atend .gp-cue{visibility:hidden}'+
   '.gp-dots{display:none;justify-content:center;gap:5px;margin-top:6px;transition:opacity .35s ease}'+
   '.gp-wrap.over .gp-dots{display:flex}'+
   '.gp-dots i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25)}.gp-dots i.on{background:#F0BA62}'+
@@ -59,8 +70,9 @@
       b.addEventListener('click',function(){if(it.soon)return;if(it.value===cur&&!o.always)return;if(o.onSelect)o.onSelect(it,b);});
       if(it.style)b.style.cssText=it.style;track.appendChild(b);btns.push(b);});
     pill.appendChild(track);
-    if(o.scroll){next=h('button','gp-next');next.type='button';next.setAttribute('aria-label',o.nextLabel||'More');next.innerHTML='<span aria-hidden="true">›</span>';pill.appendChild(next);}
-    wrap.appendChild(pill);if(o.scroll)wrap.appendChild(dots);
+    if(o.scroll&&o.cue){var cue=h('span','gp-cue');cue.setAttribute('aria-hidden','true');cue.innerHTML='<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 1.5 L10 7 L4.5 12.5"/></svg>';pill.appendChild(cue);}
+    else if(o.scroll){next=h('button','gp-next');next.type='button';next.setAttribute('aria-label',o.nextLabel||'More');next.innerHTML='<span aria-hidden="true">›</span>';pill.appendChild(next);}
+    wrap.appendChild(pill);if(o.cls)wrap.className+=' '+o.cls;if(o.scroll&&!o.cue)wrap.appendChild(dots);
     var cur=o.value==null?null:o.value;
     function place(){var on=btns.filter(function(b){return b.getAttribute('aria-pressed')==='true';})[0];
       if(!on){thumb.className='gp-thumb none';return;}thumb.className='gp-thumb';thumb.style.left=on.offsetLeft+'px';thumb.style.width=on.offsetWidth+'px';}

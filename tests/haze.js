@@ -11,7 +11,7 @@ let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined
  const p=await open(390,844);
  const n=await p.evaluate(()=>document.querySelectorAll('.tick').length),info=await p.evaluate(()=>({title:document.title,h1:document.querySelector('.brand h1').textContent,nav:[...document.querySelectorAll('#gnBar .gp-btn')].map(x=>x.textContent),cur:document.querySelector('#gnBar .gp-btn[aria-selected=true],#gnBar .gp-btn.on,#gnBar .gp-btn[aria-current]')?.textContent}));
  ck(info.title==='Islamic Conquest | Our Jewish Journey'&&info.h1==='Islamic Conquest','page title and heading are Islamic Conquest',info);
- ck(info.nav.join()==='Events,Movements,JewHate,Archaeology,Thank Jews?,Islamic Rule,Quiz','nav: Islamic Rule after Thank Jews?, Quiz rightmost',info.nav);
+ ck(info.nav.join()==='Events,Movements,JewHate,Archaeology,Islamic Rule,Thank Jews?,Quiz','nav: Islamic Rule before Thank Jews?, Quiz rightmost',info.nav);
  ck(n>=12,'one tick per wave',n);
  const foot=await p.textContent('#version');ck(/^v\d+\.\d+\.\d+; data v\d+\.\d+\.\d+$/.test(foot.trim()),'footer reads "version; data version"',foot);
  // text rules on every wave
