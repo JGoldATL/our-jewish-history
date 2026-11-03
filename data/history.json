@@ -2520,10 +2520,10 @@
   "sheet": {
     "meta": {
       "schema": "sheet-1",
-      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v5.0.0",
+      "source": "Google Sheet Jewish_Continuity_Master_Dataset_dv5.0.0",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-11-02T00:00:00Z",
-      "exportSha256": "721fbb5d3285625a",
+      "sheetModified": "2026-11-03T04:00:00Z",
+      "exportSha256": "915730d89afad43e",
       "mode": "preview",
       "counts": {
         "places": 143,
@@ -2534,7 +2534,7 @@
         "evidence": 20,
         "cards": 224,
         "eras": 8,
-        "cameraStops": 38,
+        "cameraStops": 47,
         "eraAssignment": 281,
         "questions": 45
       }
@@ -15838,6 +15838,207 @@
           "EVT-0096",
           "EVT-0097",
           "EVT-0098"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-8.1",
+        "stop": "8.1",
+        "era": 8,
+        "startYear": 1903,
+        "label": "Kishinev and the Russian Empire pogroms",
+        "centerPlaceId": "place-kiev",
+        "centerLat": 50.45,
+        "centerLon": 30.52,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-kishinev",
+          "place-poland"
+        ],
+        "reachDeg": 5.6,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "CHG-030",
+          "CHG-031",
+          "EVT-0138",
+          "EVT-0139"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-8.2",
+        "stop": "8.2",
+        "era": 8,
+        "startYear": 1907,
+        "label": "The Galveston Movement",
+        "centerPlaceId": "place-us",
+        "centerLat": 39.8,
+        "centerLon": -98.6,
+        "role": "region",
+        "framePlaceIds": [
+          "place-galveston"
+        ],
+        "reachDeg": 11.0,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0140"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-8.3",
+        "stop": "8.3",
+        "era": 8,
+        "startYear": 1909,
+        "label": "Tel Aviv begins",
+        "centerPlaceId": "place-j",
+        "centerLat": 31.778,
+        "centerLon": 35.235,
+        "role": "region",
+        "framePlaceIds": [
+          "place-tel-aviv"
+        ],
+        "reachDeg": 0.5,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0141",
+          "POP-071"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-8.4",
+        "stop": "8.4",
+        "era": 8,
+        "startYear": 1913,
+        "label": "The Beilis trial and the expulsions from the front",
+        "centerPlaceId": "place-kiev",
+        "centerLat": 50.45,
+        "centerLon": 30.52,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-kovno"
+        ],
+        "reachDeg": 6.4,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0142",
+          "EVT-0143"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-8.5",
+        "stop": "8.5",
+        "era": 8,
+        "startYear": 1917,
+        "label": "Equal rights in Russia and the Balfour Declaration",
+        "centerPlaceId": "place-kiev",
+        "centerLat": 50.45,
+        "centerLon": 30.52,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-petrograd",
+          "place-london"
+        ],
+        "reachDeg": 19.2,
+        "viewDeg": 22.1,
+        "fits": true,
+        "recordIds": [
+          "EVT-0144",
+          "EVT-0145"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-8.6",
+        "stop": "8.6",
+        "era": 8,
+        "startYear": 1918,
+        "label": "Pogroms across Ukraine",
+        "centerPlaceId": "place-kiev",
+        "centerLat": 50.45,
+        "centerLon": 30.52,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-ukraine"
+        ],
+        "reachDeg": 1.5,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0147"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-8.7",
+        "stop": "8.7",
+        "era": 8,
+        "startYear": 1919,
+        "label": "The Ruslan at Jaffa and the British Mandate",
+        "centerPlaceId": "place-j",
+        "centerLat": 31.778,
+        "centerLon": 35.235,
+        "role": "region",
+        "framePlaceIds": [
+          "place-jaffa",
+          "place-san-remo",
+          "place-israel"
+        ],
+        "reachDeg": 24.6,
+        "viewDeg": 28.3,
+        "fits": true,
+        "recordIds": [
+          "EVT-0146",
+          "EVT-0148"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-8.8",
+        "stop": "8.8",
+        "era": 8,
+        "startYear": 1921,
+        "label": "America sets immigration quotas",
+        "centerPlaceId": "place-us",
+        "centerLat": 39.8,
+        "centerLon": -98.6,
+        "role": "region",
+        "framePlaceIds": [],
+        "reachDeg": 0.0,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0149"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-8.9",
+        "stop": "8.9",
+        "era": 8,
+        "startYear": 1924,
+        "label": "The Fourth Aliyah, the Hebrew University and Hebron",
+        "centerPlaceId": "place-j",
+        "centerLat": 31.778,
+        "centerLon": 35.235,
+        "role": "region",
+        "framePlaceIds": [
+          "place-israel",
+          "place-hebron"
+        ],
+        "reachDeg": 0.3,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0150",
+          "EVT-0151",
+          "EVT-0152"
         ],
         "status": "approved"
       }

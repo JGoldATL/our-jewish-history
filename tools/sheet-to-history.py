@@ -271,8 +271,8 @@ def build_eras(wb, places, all_ids, rep):
     for r in raw['Camera Stops'] or []:
         sid = str(r.get('stop')) if r.get('stop') is not None else None
         label = f'STOP-{sid}'
-        if not sid or not re.fullmatch(r'[4-7]\.\d{1,2}[ab]?', sid):
-            rep.reject('Camera Stops', label, r['_row'], 'stop number is not like 4.1 or 7.11a (era 4 to 7)'); continue
+        if not sid or not re.fullmatch(r'[4-8]\.\d{1,2}[ab]?', sid):
+            rep.reject('Camera Stops', label, r['_row'], 'stop number is not like 4.1 or 8.9 or 7.11a (era 4 to 8)'); continue
         if r.get('era') != int(sid.split('.')[0]) or r.get('era') not in ok_eras:
             rep.reject('Camera Stops', label, r['_row'], f'era {r.get("era")!r} does not match the stop number or is not a loaded era'); continue
         if num(r.get('start')) is None:
