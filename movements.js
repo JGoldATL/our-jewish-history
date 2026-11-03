@@ -435,7 +435,7 @@ function wire(){
     if(!DATA.sheet?.movements?.length)throw new Error('no movements');
     build();size();HOME=homeView();V={...HOME};clampView();ticks();selectors();buildKey();wire();
     if(window.OJJInset)OJJInset.load().then(n=>{if(n)draw();});   // regional high-resolution pictures, if any are listed (F-149)
-    $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+window.SITE_DATA_VERSION;
+    $('version').textContent=window.SITE_FOOTER;
     setYear(MINY);card();{const v=followTarget();setView(v||HOME);}
     {const q=new URLSearchParams(location.search),k=q.get('m'),ev=k&&EVENTS.get(k);if(ev){const rid=q.get('r'),rr=rid&&route(rid);auto=true;setYear(clamp(ev.routes[0].start,MINY,MAXY));if(rr&&rr.ev===k)selectRoute(rid);else selectEvent(k);}}   // deep link from Share: ?m=EVENT or ?m=EVENT&r=ROUTE
     {const vp=(new URLSearchParams(location.search).get('view')||'').split(',').map(Number);if(vp.length===3&&vp.every(Number.isFinite)&&vp[2]>0.2&&vp[2]<=360){auto=false;setView({lon:vp[0],lat:vp[1],degW:vp[2]});}}   // ?view=lon,lat,degrees-across: open at that place and zoom (for checking map pictures; F-149)

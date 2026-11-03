@@ -179,6 +179,12 @@ function drawArcStatic(){
   milestones.forEach((m,i)=>{if(seen.has(m.date))return;seen.add(m.date);const [x,y]=arcPt(posForYear(m.date));const c=el('circle',{cx:x,cy:y,r:3,class:'notch'},g);c.dataset.i=i;});
   const placed=[];const lateYears=DATA.timeline.end>200?[...DATA.eras.filter(e=>e.startDate>200).map(e=>e.startDate)]:[];for(const yr of [-2000,-1300,-1208,-722,-586,-539,-332,-205,-63,70,117,200,...lateYears]){const pos=posForYear(yr),[x,y]=arcPt(pos,ARC.narrow?16:22),a=arcAngle(pos);if(yr!==1898&&(x<44||x>ARC.w-44))continue;if(placed.some(([px,py])=>Math.hypot(px-x,py-y)<46)&&yr!==200&&yr!==-1300&&yr!==1898)continue;if(yr!==200&&yr!==1898&&Math.hypot(x-arcPt(1,22)[0],y-arcPt(1,22)[1])<46)continue;placed.push([x,y]);const t=el('text',{x,y,class:'tick','text-anchor':Math.cos(a)<-0.3?'end':Math.cos(a)>0.3?'start':'middle','dominant-baseline':Math.sin(a)>0.5?'hanging':'middle'},g);t.textContent=yearLabel(yr).replace(' / 1 CE','');const bb=t.getBBox();if(bb.x<4)t.setAttribute('x',x+4-bb.x);else if(bb.x+bb.width>ARC.w-4)t.setAttribute('x',x-(bb.x+bb.width-ARC.w+4));}
 }
+let SHEETSYMS=null;
+function sheetSymbolRecords(){const S=DATA.sheet;if(!S||/[?&]engine=1/.test(location.search))return [];const from=DATA.timeline.modernFrom??1898,cards=new Map((S.cards||[]).map(k=>[k.id,k])),seen=new Set(),out=[];
+  const add=(c,sym,label)=>{const k=sym+'|'+c.placeId+'|'+Math.round(c.startYear);if(seen.has(k))return;seen.add(k);out.push({c,sym,label,card:cards.get(c.id)||(c.links||[]).map(i=>cards.get(i)).find(Boolean)||null});};
+  for(const e of S.events||[])if(e.mapSymbol?.kind==='octagon'&&e.startYear>=from)add(e,'destroyed','Pogrom or attack');
+  for(const c of S.communities||[]){const k=c.mapSymbol?.kind;if(k==='blackSquare')add(c,'noLonger','Community no longer exists');else if(k==='octagon'&&c.noEngineFields&&c.startYear>=from)add(c,'destroyed','Pogrom or attack');}
+  return out;}
 function drawArcLive(){const g=$('arcLive');g.replaceChildren();el('path',{d:arcD(0,Math.max(0.0001,position)),class:'arcFill'},g);const [x,y]=arcPt(position);el('circle',{cx:x,cy:y,r:11,class:'bead'},g);const s=$('arcSlider');s.setAttribute('aria-valuenow',Math.round(currentYear()));s.setAttribute('aria-valuetext',yearLabel(Math.round(currentYear())));}
 function posFromPointer(e){const r=$('arc').getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let a=Math.atan2(y-ARC.cy,x-ARC.cx);if(a<-Math.PI/2)a+=2*Math.PI;const p=(a-ARC.a0)/(ARC.a1-ARC.a0);return Math.max(0,Math.min(1,p));}
 
@@ -240,9 +246,11 @@ function renderCore(){
   for(const fd of frame.destructions){const c=DATA.communityDestructions.find(r=>r.id===fd.id),past=trails&&c.startDate<=y;if(!fd.visible&&!past)continue;const pop=DATA.populations.find(p=>p.id===c.populationId);const q=P(pop?.coordinates||INDEX.places.get(c.place).coordinates);if(!q.vis)continue;
     const g=communitySymbol(layers.mark,'destroyed',symSize);const sx=q.x+symSize*.62,sy=q.y-symSize*.62;obstacles.push({x:sx-symSize/2,y:sy-symSize/2,w:symSize,h:symSize});g.setAttribute('transform',`translate(${sx.toFixed(1)} ${sy.toFixed(1)})`);g.setAttribute('opacity',fd.visible?1:.5);g.setAttribute('tabindex',0);g.setAttribute('role','button');g.setAttribute('aria-label',c.title);if(selected?.record===c||isCardOf(c))g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(c,'destruction');});}
   // "Community no longer exists": black square at the place, from its year. Display window (a design choice, not history): full for 20 years, fading out by 30.
-  for(const c of (DATA.sheet?.communities||[])){if(c.mapSymbol?.kind!=='blackSquare'||/[?&]engine=1/.test(location.search))continue;const pp=SHEETPL.get(c.placeId);if(!Number.isFinite(pp?.lat))continue;const age=y-c.startYear,past=trails&&age>=0;let op=age<0?0:age<=20?1:Math.max(0,1-(age-20)/10);if(past)op=Math.max(op,.5);if(op<=.01)continue;
-    const q=P([(pp.lon+15)*15,(58-pp.lat)*650/53]);if(!q.vis)continue;const g=communitySymbol(layers.mark,'noLonger',symSize);const sx=q.x+symSize*.62,sy=q.y-symSize*.62;obstacles.push({x:sx-symSize/2,y:sy-symSize/2,w:symSize,h:symSize});g.setAttribute('transform',`translate(${sx.toFixed(1)} ${sy.toFixed(1)})`);g.setAttribute('opacity',op.toFixed(2));g.setAttribute('tabindex',0);g.setAttribute('role','button');g.setAttribute('aria-label','Community no longer exists: '+(pp.historicalName||c.placeId)+', '+c.dateDisplay);
-    const card=DATA.sheet.cards.find(k=>k.id===c.id);if(card){if(selected?.record===card)g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(card,'sheet');});}}
+  // Sheet symbols (black squares from the Communities tab; from 1898, red octagons from the Events and Communities tabs). One symbol per kind, place and year, so two linked records do not draw twice.
+  SHEETSYMS??=sheetSymbolRecords();
+  for(const r of SHEETSYMS){const c=r.c,pp=SHEETPL.get(c.placeId);if(!Number.isFinite(pp?.lat))continue;const age=y-c.startYear,past=trails&&age>=0;let op=age<0?0:age<=20?1:Math.max(0,1-(age-20)/10);if(past)op=Math.max(op,.5);if(op<=.01)continue;
+    const q=P([(pp.lon+15)*15,(58-pp.lat)*650/53]);if(!q.vis)continue;const g=communitySymbol(layers.mark,r.sym,symSize);const sx=q.x+symSize*.62,sy=q.y-symSize*.62;obstacles.push({x:sx-symSize/2,y:sy-symSize/2,w:symSize,h:symSize});g.setAttribute('transform',`translate(${sx.toFixed(1)} ${sy.toFixed(1)})`);g.setAttribute('opacity',op.toFixed(2));g.setAttribute('tabindex',0);g.setAttribute('role','button');g.setAttribute('aria-label',r.label+': '+(pp.historicalName||c.placeId)+', '+c.dateDisplay);
+    const card=r.card;if(card){if(selected?.record===card)g.classList.add('selected');g.addEventListener('click',()=>{if(!dragMoved)openStory(card,'sheet');});}}
   for(const c of DATA.populationChanges){if(!canRenderConversion(c))continue;const vis=activeAt(c,y),past=trails&&c.startDate<=y;if(!vis&&!past)continue;const pop=DATA.populations.find(p=>p.id===c.populationId);const q=P(pop.coordinates);if(!q.vis)continue;const g=communitySymbol(layers.mark,'converted',symSize,c);g.setAttribute('transform',`translate(${(q.x+symSize*.62).toFixed(1)} ${(q.y-symSize*.62).toFixed(1)})`);g.setAttribute('opacity',vis?1:.5);g.addEventListener('click',()=>openStory(c,'change'));}
   addSheetPlaceLabels(frame,labels,layers.mark,P,scale);
   drawGlobe();
@@ -464,7 +472,7 @@ async function boot(){
   try{
     const res=await fetch('data/history.json');DATA=plainCEDeep(await res.json());try{GEO=await (await fetch('data/geo.json')).json();}catch(_){GEO=null;}assertHistory(DATA);addSheetMovements();addSheetEras();$('arcSlider').setAttribute('aria-valuemin',DATA.timeline.start);$('arcSlider').setAttribute('aria-valuemax',DATA.timeline.end);INDEX=indexData(DATA);
     buildTimeline();buildMilestones();initGL();initInteraction();
-    position=posForYear(DATA.presentation?.openingYear??-1208);$('version').textContent='v'+APP_VERSION+'; data '+window.SITE_DATA_VERSION;   // v0.7.7 (CEO): site version; data version
+    position=posForYear(DATA.presentation?.openingYear??-1208);$('version').textContent=window.SITE_FOOTER;   // v0.7.7 (CEO): site version; data version
     layout();
     openAtStart();
   }catch(err){$('error').hidden=false;$('error').textContent='The map could not load: '+err.message;console.error(err);}

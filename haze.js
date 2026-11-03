@@ -218,7 +218,7 @@ function check(d){   // reports problems, never fixes them (same stance as the l
     const r=await fetch('data/haze.json');if(!r.ok)throw new Error('Could not load data/haze.json');DATA=await r.json();check(DATA);
     SNAP=DATA.snapshots;ANCH=DATA.anchors;
     if(DATA.mock||DATA.draft){$('mock').hidden=false;$('mock').textContent=DATA.mock?'MOCKUP: invented data':'DRAFT: Dataset\u2019s placements, not signed off';}
-    $('version').textContent='v'+(window.SITE_VERSION||'')+'; data '+window.SITE_DATA_VERSION;   // the one data version, from version.js
+    $('version').textContent=window.SITE_FOOTER;   // the one data version, from version.js
     setKey('haze');wire();initGL();const g=camTarget(0);if(g){view.lon=g.lon;view.lat=g.lat;view.deg=g.deg;view.zoom=g.zoom;}setPos(0);requestAnimationFrame(frame);
   }catch(e){fail('This page could not load: '+e.message);}
 })();

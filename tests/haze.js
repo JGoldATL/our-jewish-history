@@ -13,7 +13,7 @@ let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined
  ck(info.title==='Islamic Conquest | Our Jewish Journey'&&info.h1==='Islamic Conquest','page title and heading are Islamic Conquest',info);
  ck(info.nav.join()==='Events,Movements,JewHate,Archaeology,Islamic Rule,Thank Jews?,Quiz','nav: Islamic Rule before Thank Jews?, Quiz rightmost',info.nav);
  ck(n>=12,'one tick per wave',n);
- const foot=await p.textContent('#version');ck(/^v\d+\.\d+\.\d+; data v\d+\.\d+\.\d+$/.test(foot.trim()),'footer reads "version; data version"',foot);
+ const foot=await p.textContent('#version');ck(/^v\d+\.\d+\.\d+, dv\d+\.\d+\.\d+$/.test(foot.trim()),'footer reads "version, dversion"',foot);
  // text rules on every wave
  const forbidden=/direct rule|vassal|tributary|raid only|shared|disputed|approximate|exact|palestin|\d\s?CE\b/i;let seen=0,badTxt=[];const notes=[];
  for(let i=0;i<n;i++){await p.evaluate(x=>{const s=document.getElementById('sl');s.value=x;s.dispatchEvent(new Event('input'));},i);await p.waitForTimeout(150);

@@ -1,4 +1,4 @@
-// F-footer: every page's footer reads "v<site>; data <data>" from the ONE value in version.js, and every data file that names a Sheet version still agrees with it.
+// F-footer: every page's footer reads "v<site>, d<data>" (for example v3.3.1, dv5.0.0) from the ONE value in version.js, and every data file that names a Sheet version still agrees with it.
 // Run: NODE_PATH=$(npm root -g) node tests/footer_version.js   (needs python3 -m http.server 8778 in the repo root; headless Chromium only)
 const {chromium}=require('playwright');const BASE=process.env.SITE||'http://localhost:8778/';
 let fail=0;const ck=(n,ok,x)=>{console.log((ok?'PASS ':'FAIL ')+n+(x!==undefined?' '+JSON.stringify(x):''));if(!ok)fail++;};
@@ -8,7 +8,7 @@ let fail=0;const ck=(n,ok,x)=>{console.log((ok?'PASS ':'FAIL ')+n+(x!==undefined
  const grab=async f=>JSON.parse(await (await fetch(BASE+'data/'+f)).text());
  const srcs={'history.json':(await grab('history.json')).sheet?.meta?.source,'archaeology.json':(await grab('archaeology.json')).source,'jewhate.json':(await grab('jewhate.json')).source,'inventions.json':(await grab('inventions.json')).source,'haze.json':(await grab('haze.json')).source};
  for(const [f,s] of Object.entries(srcs))ck(f+' was built from the data version in version.js',typeof s==='string'&&s.includes(DATA),s);
- const want='v'+SITE+'; data '+DATA;
+ const want='v'+SITE+', d'+DATA;
  const b=await chromium.launch();const errs=[];
  for(const pg of ['index.html','events.html','movements.html','jewhate.html','jewhate-entry.html','archaeology.html','thankjews.html','haze.html','thankjews-entry.html?id=INV-002','quiz.html','merch.html','roadmap.html','strategy.html','feedback.html']){
   for(const w of [390,1280]){const p=await b.newPage({viewport:{width:w,height:820}});p.on('pageerror',e=>errs.push(pg+': '+e.message));await p.goto(BASE+pg);await p.waitForTimeout(1500);

@@ -13,6 +13,9 @@ let fail=0;const ck=(n,ok,x)=>{console.log((ok?'PASS ':'FAIL ')+n+(x!==undefined
   ck(w+'px: modern card years move forward along the arc (every gap above zero)',r.minGap>0,r.minGap);
   ck(w+'px: the arc gives 1898 to 1932 a visible stretch',r.pos1932-r.pos1898>0.02,{from:r.pos1898,to:r.pos1932});
   ck(w+'px: 1898 era marker is drawn',r.tickText.some(t=>/1898/.test(t)),r.tickText);
-  ck(w+'px: footer reads v3.3.0; data v5.0.0 (site number not yet chosen)',/data v5\.0\.0/.test(r.ver),r.ver);
+  ck(w+'px: footer reads v3.3.1, dv5.0.0',r.ver==='v3.3.1, dv5.0.0',r.ver);
+  const sy=await p.evaluate(async()=>{SHEETSYMS??=sheetSymbolRecords();const oct=SHEETSYMS.filter(r=>r.sym==='destroyed').map(r=>r.c.id).sort();const i=milestones.findIndex(m=>m.record.id==='EVT-0139');selectMilestone(i);await new Promise(r=>setTimeout(r,2500));return {oct,poland:[...document.querySelectorAll('g.sym')].map(g=>g.getAttribute('aria-label')||'').filter(t=>/^Pogrom or attack: Poland/.test(t)).length};});
+  ck(w+'px: four modern octagons, one per place and year (EVT-0138, 0139, 0147, 0152; the linked CHG-030 and CHG-031 do not double up)',JSON.stringify(sy.oct)===JSON.stringify(['EVT-0138','EVT-0139','EVT-0147','EVT-0152']),sy.oct);
+  ck(w+'px: the 1905 Poland octagon is drawn on the globe',sy.poland===1,sy.poland);
   await p.close();}
  ck('no page errors',errs.length===0,errs);await b.close();console.log(fail?fail+' FAILED':'ALL PASSED');process.exit(fail?1:0);})();
