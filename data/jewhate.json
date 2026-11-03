@@ -1,9 +1,9 @@
 {
  "schema": "jewhate-1",
- "source": "Google Sheet Jewish_Continuity_Master_Dataset_v4.1.0",
- "sheetModified": "2026-10-31T02:22:26Z",
- "exportSha256": "b192de3a46bad3bc",
- "generated": "2026-10-31T02:22:36Z",
+ "source": "Google Sheet Jewish_Continuity_Master_Dataset_v5.0.0",
+ "sheetModified": "2026-11-02T00:00:00Z",
+ "exportSha256": "721fbb5d3285625a",
+ "generated": "2026-11-03T03:02:24Z",
  "entries": [
   {
    "id": "JH-001",

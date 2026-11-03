@@ -2461,7 +2461,7 @@
   ],
   "timeline": {
     "start": -2000,
-    "end": 1897,
+    "end": 1932,
     "range": 10000,
     "quietWeight": 0.12,
     "movementWeight": 2.8,
@@ -2476,7 +2476,9 @@
       200
     ],
     "earlyUntil": -1300,
-    "earlyQuietWeight": 0.03
+    "earlyQuietWeight": 0.03,
+    "modernFrom": 1898,
+    "cardWeight": 1.5
   },
   "concentrationStyles": {
     "very small": 0.1,
@@ -2518,22 +2520,22 @@
   "sheet": {
     "meta": {
       "schema": "sheet-1",
-      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v4.1.0",
+      "source": "Google Sheet Jewish_Continuity_Master_Dataset_v5.0.0",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-10-31T02:22:26Z",
-      "exportSha256": "b192de3a46bad3bc",
+      "sheetModified": "2026-11-02T00:00:00Z",
+      "exportSha256": "721fbb5d3285625a",
       "mode": "preview",
       "counts": {
-        "places": 135,
-        "events": 129,
+        "places": 143,
+        "events": 144,
         "communities": 155,
         "movements": 111,
         "context": 43,
         "evidence": 20,
-        "cards": 209,
+        "cards": 224,
         "eras": 8,
         "cameraStops": 38,
-        "eraAssignment": 265,
+        "eraAssignment": 281,
         "questions": 45
       }
     },
@@ -3778,6 +3780,78 @@
         "lon": 34.9136,
         "landOfIsrael": true,
         "mapLabel": "Gezer"
+      },
+      {
+        "id": "place-galveston",
+        "historicalName": "Galveston, Texas",
+        "modernName": "Galveston, Texas, United States",
+        "role": "settlement",
+        "lat": 29.3,
+        "lon": -94.8,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-kovno",
+        "historicalName": "Kovno and Courland provinces",
+        "modernName": "Kaunas area (Lithuania) and western Latvia",
+        "role": "region",
+        "lat": 55.5,
+        "lon": 23.9,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-kiev",
+        "historicalName": "Kiev",
+        "modernName": "Kyiv, Ukraine",
+        "role": "settlement",
+        "lat": 50.45,
+        "lon": 30.52,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-petrograd",
+        "historicalName": "Petrograd",
+        "modernName": "Saint Petersburg, Russia",
+        "role": "settlement",
+        "lat": 59.93,
+        "lon": 30.34,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-jaffa",
+        "historicalName": "Jaffa",
+        "modernName": "Jaffa, Israel",
+        "role": "settlement",
+        "lat": 32.05,
+        "lon": 34.75,
+        "landOfIsrael": true
+      },
+      {
+        "id": "place-ukraine",
+        "historicalName": "Ukraine (civil war towns)",
+        "modernName": "Ukraine",
+        "role": "region",
+        "lat": 49,
+        "lon": 31,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-san-remo",
+        "historicalName": "San Remo, Italy",
+        "modernName": "San Remo, Italy",
+        "role": "settlement",
+        "lat": 43.82,
+        "lon": 7.78,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-hebron",
+        "historicalName": "Hebron",
+        "modernName": "Hebron, West Bank",
+        "role": "settlement",
+        "lat": 31.53,
+        "lon": 35.1,
+        "landOfIsrael": true
       }
     ],
     "events": [
@@ -5289,6 +5363,231 @@
         "movementIds": [],
         "evidenceIds": [],
         "hasCard": true
+      },
+      {
+        "id": "EVT-0138",
+        "startYear": 1903,
+        "endYear": null,
+        "dateDisplay": 1903,
+        "placeId": "place-kishinev",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0139",
+        "startYear": 1905,
+        "endYear": 1906,
+        "dateDisplay": "1905–1906",
+        "placeId": "place-poland",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0140",
+        "startYear": 1907,
+        "endYear": null,
+        "dateDisplay": 1907,
+        "placeId": "place-galveston",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "None (no arrow on this card, Jeffrey 11:08)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0141",
+        "startYear": 1909,
+        "endYear": null,
+        "dateDisplay": 1909,
+        "placeId": "place-tel-aviv",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "None (POP-071 carries the blue emerges treatment)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0142",
+        "startYear": 1913,
+        "endYear": null,
+        "dateDisplay": 1913,
+        "placeId": "place-kiev",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "None",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0143",
+        "startYear": 1915,
+        "endYear": null,
+        "dateDisplay": 1915,
+        "placeId": "place-kovno",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "None (no arrow on this card, Jeffrey 11:08; no destination sourced)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0144",
+        "startYear": 1917,
+        "endYear": null,
+        "dateDisplay": 1917,
+        "placeId": "place-petrograd",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "None",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0145",
+        "startYear": 1917,
+        "endYear": null,
+        "dateDisplay": 1917,
+        "placeId": "place-london",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "None",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0146",
+        "startYear": 1919,
+        "endYear": null,
+        "dateDisplay": 1919,
+        "placeId": "place-jaffa",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "None (no arrow on this card, Jeffrey 11:08)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0147",
+        "startYear": 1918,
+        "endYear": 1921,
+        "dateDisplay": "1918–1921",
+        "placeId": "place-ukraine",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0148",
+        "startYear": 1920,
+        "endYear": 1923,
+        "dateDisplay": "1920–1923",
+        "placeId": "place-san-remo",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "None",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0149",
+        "startYear": 1921,
+        "endYear": 1924,
+        "dateDisplay": "1921–1924",
+        "placeId": "place-us",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "None",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0150",
+        "startYear": 1924,
+        "endYear": 1929,
+        "dateDisplay": "1924–1929",
+        "placeId": "place-israel",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "None (no arrow on this card, Jeffrey 11:08)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0151",
+        "startYear": 1925,
+        "endYear": null,
+        "dateDisplay": 1925,
+        "placeId": "place-j",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "None",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0152",
+        "startYear": 1929,
+        "endYear": null,
+        "dateDisplay": 1929,
+        "placeId": "place-hebron",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
       }
     ],
     "communities": [
@@ -5506,7 +5805,7 @@
         ],
         "hasCard": false,
         "mapSymbol": {
-          "text": "Split diamond (forced conversion to Christianity)",
+          "text": "Split diamond with cross (forced conversion to Christianity)",
           "kind": "splitDiamond",
           "status": "leaning"
         },
@@ -5550,7 +5849,7 @@
         ],
         "hasCard": true,
         "mapSymbol": {
-          "text": "Split diamond (forced conversion to Christianity)",
+          "text": "Split diamond with cross (forced conversion to Christianity)",
           "kind": "splitDiamond",
           "status": "leaning"
         },
@@ -5687,8 +5986,8 @@
         "links": [],
         "hasCard": true,
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion to Islam)",
-          "kind": "purpleDiamond",
+          "text": "Split diamond with crescent (forced conversion to Islam)",
+          "kind": "splitDiamond",
           "status": "leaning"
         },
         "recordStatus": "LOCKED",
@@ -5805,8 +6104,15 @@
         "endYear": null,
         "dateDisplay": 1903,
         "placeId": "place-kishinev",
-        "links": [],
+        "links": [
+          "EVT-0138"
+        ],
         "hasCard": false,
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        },
         "recordStatus": "LOCKED",
         "noEngineFields": true
       },
@@ -5837,11 +6143,11 @@
         "links": [],
         "hasCard": true,
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion to Islam)",
-          "kind": "purpleDiamond",
+          "text": "Split diamond with crescent (forced conversion to Islam)",
+          "kind": "splitDiamond",
           "status": "leaning"
         },
-        "recordStatus": "LEANING",
+        "recordStatus": "LOCKED",
         "noEngineFields": true
       },
       {
@@ -5854,11 +6160,11 @@
         "links": [],
         "hasCard": true,
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion to Islam)",
-          "kind": "purpleDiamond",
+          "text": "Split diamond with crescent (forced conversion to Islam)",
+          "kind": "splitDiamond",
           "status": "leaning"
         },
-        "recordStatus": "LEANING",
+        "recordStatus": "LOCKED",
         "noEngineFields": true
       },
       {
@@ -5871,11 +6177,11 @@
         "links": [],
         "hasCard": true,
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion to Islam)",
-          "kind": "purpleDiamond",
+          "text": "Split diamond with crescent (forced conversion to Islam)",
+          "kind": "splitDiamond",
           "status": "leaning"
         },
-        "recordStatus": "LEANING",
+        "recordStatus": "LOCKED",
         "noEngineFields": true
       },
       {
@@ -12474,8 +12780,8 @@
         "endYear": null,
         "placeId": "place-maghreb",
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion to Islam)",
-          "kind": "purpleDiamond",
+          "text": "Split diamond with crescent (forced conversion to Islam)",
+          "kind": "splitDiamond",
           "status": "leaning"
         }
       },
@@ -12491,8 +12797,8 @@
         "endYear": null,
         "placeId": "place-yemen",
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion to Islam)",
-          "kind": "purpleDiamond",
+          "text": "Split diamond with crescent (forced conversion to Islam)",
+          "kind": "splitDiamond",
           "status": "leaning"
         }
       },
@@ -13001,7 +13307,7 @@
         "endYear": 1497,
         "placeId": "place-iberia",
         "mapSymbol": {
-          "text": "Split diamond (forced conversion to Christianity)",
+          "text": "Split diamond with cross (forced conversion to Christianity)",
           "kind": "splitDiamond",
           "status": "leaning"
         }
@@ -13464,8 +13770,8 @@
         "endYear": 1662,
         "placeId": "place-persia",
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion to Islam)",
-          "kind": "purpleDiamond",
+          "text": "Split diamond with crescent (forced conversion to Islam)",
+          "kind": "splitDiamond",
           "status": "leaning"
         }
       },
@@ -13848,8 +14154,8 @@
         "endYear": null,
         "placeId": "place-mashhad",
         "mapSymbol": {
-          "text": "Purple diamond (forced conversion to Islam)",
-          "kind": "purpleDiamond",
+          "text": "Split diamond with crescent (forced conversion to Islam)",
+          "kind": "splitDiamond",
           "status": "leaning"
         }
       },
@@ -14231,6 +14537,23 @@
         "meanwhileStatus": "approved"
       },
       {
+        "id": "EVT-0138",
+        "recordId": "EVT-0138",
+        "type": "Event",
+        "date": 1903,
+        "title": "Kishinev pogrom",
+        "description": "A mob attacked the Jews of Kishinev during Easter 1903. Officials were accused of failing to stop it, and protests followed abroad.",
+        "status": "approved",
+        "startYear": 1903,
+        "endYear": null,
+        "placeId": "place-kishinev",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
         "id": "EVT-0103",
         "recordId": "EVT-0103",
         "type": "Movement",
@@ -14245,6 +14568,244 @@
           "MOV-043",
           "MOV-051"
         ]
+      },
+      {
+        "id": "EVT-0139",
+        "recordId": "EVT-0139",
+        "type": "Event",
+        "date": "1905–1906",
+        "title": "Pogroms of 1905 and 1906",
+        "description": "In 1905 and 1906 pogroms struck many towns of the Russian Empire, among them Kiev and Bialystok.",
+        "status": "approved",
+        "startYear": 1905,
+        "endYear": 1906,
+        "placeId": "place-poland",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0140",
+        "recordId": "EVT-0140",
+        "type": "Event",
+        "date": 1907,
+        "title": "The Galveston Movement begins",
+        "description": "The SS Cassel reached Galveston, Texas, on July 1, 1907, the first ship of a plan to send Jewish immigrants inland.",
+        "status": "approved",
+        "startYear": 1907,
+        "endYear": null,
+        "placeId": "place-galveston",
+        "mapSymbol": {
+          "text": "None (no arrow on this card, Jeffrey 11:08)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0141",
+        "recordId": "EVT-0141",
+        "type": "Event",
+        "date": 1909,
+        "title": "Tel Aviv begins",
+        "description": "On April 11, 1909, Jewish families drew lots for homes on dunes north of Jaffa. The new neighborhood, Ahuzat Bayit, became Tel Aviv.",
+        "status": "approved",
+        "startYear": 1909,
+        "endYear": null,
+        "placeId": "place-tel-aviv",
+        "mapSymbol": {
+          "text": "None (POP-071 carries the blue emerges treatment)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0142",
+        "recordId": "EVT-0142",
+        "type": "Event",
+        "date": 1913,
+        "title": "The Beilis trial",
+        "description": "In 1913 a Kiev jury acquitted Mendel Beilis of a false blood libel charge, after a trial that drew attention around the world.",
+        "status": "approved",
+        "startYear": 1913,
+        "endYear": null,
+        "placeId": "place-kiev",
+        "mapSymbol": {
+          "text": "None",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0143",
+        "recordId": "EVT-0143",
+        "type": "Event",
+        "date": 1915,
+        "title": "The Russian army expels Jews from the front",
+        "description": "In 1915 the Russian army ordered Jews out of areas near the front. In May about 200,000 were expelled from Kovno and Courland.",
+        "status": "approved",
+        "startYear": 1915,
+        "endYear": null,
+        "placeId": "place-kovno",
+        "mapSymbol": {
+          "text": "None (no arrow on this card, Jeffrey 11:08; no destination sourced)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0144",
+        "recordId": "EVT-0144",
+        "type": "Event",
+        "date": 1917,
+        "title": "Russia gives its Jews equal rights",
+        "description": "In 1917 Russia's new Provisional Government repealed the laws that restricted Jews and gave them equal rights for the first time.",
+        "status": "approved",
+        "startYear": 1917,
+        "endYear": null,
+        "placeId": "place-petrograd",
+        "mapSymbol": {
+          "text": "None",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0145",
+        "recordId": "EVT-0145",
+        "type": "Event",
+        "date": 1917,
+        "title": "The Balfour Declaration",
+        "description": "On November 2, 1917, Britain's foreign secretary, Arthur Balfour, said his government favored a Jewish national home in Palestine.",
+        "status": "approved",
+        "startYear": 1917,
+        "endYear": null,
+        "placeId": "place-london",
+        "mapSymbol": {
+          "text": "None",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0147",
+        "recordId": "EVT-0147",
+        "type": "Event",
+        "date": "1918–1921",
+        "title": "Pogroms across Ukraine",
+        "description": "From 1918 to 1921 armies and armed bands attacked Jewish towns across Ukraine during the civil war. Estimates of the dead differ widely.",
+        "status": "approved",
+        "startYear": 1918,
+        "endYear": 1921,
+        "placeId": "place-ukraine",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
+      },
+      {
+        "id": "EVT-0146",
+        "recordId": "EVT-0146",
+        "type": "Event",
+        "date": 1919,
+        "title": "The Ruslan reaches Jaffa",
+        "description": "On December 19, 1919, the steamship Ruslan reached Jaffa from Odessa with hundreds of immigrants, many later community leaders.",
+        "status": "approved",
+        "startYear": 1919,
+        "endYear": null,
+        "placeId": "place-jaffa",
+        "mapSymbol": {
+          "text": "None (no arrow on this card, Jeffrey 11:08)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0148",
+        "recordId": "EVT-0148",
+        "type": "Event",
+        "date": "1920–1923",
+        "title": "The British Mandate begins",
+        "description": "In April 1920 the Allied powers at San Remo gave Britain the mandate for Palestine. The League of Nations confirmed it in July 1922.",
+        "status": "approved",
+        "startYear": 1920,
+        "endYear": 1923,
+        "placeId": "place-san-remo",
+        "mapSymbol": {
+          "text": "None",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0149",
+        "recordId": "EVT-0149",
+        "type": "Event",
+        "date": "1921–1924",
+        "title": "America sets immigration quotas",
+        "description": "Laws of 1921 and 1924 set strict US immigration quotas. They sharply cut arrivals from eastern and southern Europe, home to many Jews.",
+        "status": "approved",
+        "startYear": 1921,
+        "endYear": 1924,
+        "placeId": "place-us",
+        "mapSymbol": {
+          "text": "None",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0150",
+        "recordId": "EVT-0150",
+        "type": "Event",
+        "date": "1924–1929",
+        "title": "The Fourth Aliyah",
+        "description": "From 1924 to about 1929, roughly 80,000 Jews, many from Poland, moved to the Land of Israel as the US closed its doors.",
+        "status": "approved",
+        "startYear": 1924,
+        "endYear": 1929,
+        "placeId": "place-israel",
+        "mapSymbol": {
+          "text": "None (no arrow on this card, Jeffrey 11:08)",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0151",
+        "recordId": "EVT-0151",
+        "type": "Event",
+        "date": 1925,
+        "title": "The Hebrew University opens",
+        "description": "On April 1, 1925, the Hebrew University opened on Mount Scopus in Jerusalem. Lord Balfour spoke at the ceremony.",
+        "status": "approved",
+        "startYear": 1925,
+        "endYear": null,
+        "placeId": "place-j",
+        "mapSymbol": {
+          "text": "None",
+          "kind": null,
+          "status": null
+        }
+      },
+      {
+        "id": "EVT-0152",
+        "recordId": "EVT-0152",
+        "type": "Event",
+        "date": 1929,
+        "title": "Violence in Hebron, 1929",
+        "description": "In August 1929 Arab rioters killed dozens of Jews in Hebron. British officials moved the survivors to Jerusalem.",
+        "status": "approved",
+        "startYear": 1929,
+        "endYear": null,
+        "placeId": "place-hebron",
+        "mapSymbol": {
+          "text": "Red octagon",
+          "kind": "octagon",
+          "status": "locked"
+        }
       }
     ],
     "eras": [
@@ -16579,32 +17140,112 @@
       },
       {
         "id": "CHG-030",
-        "era": null,
+        "era": 8,
         "runsPast": null
       },
       {
         "id": "MOV-043",
-        "era": null,
+        "era": 8,
         "runsPast": null
       },
       {
         "id": "MOV-051",
-        "era": null,
+        "era": 8,
         "runsPast": null
       },
       {
         "id": "CHG-031",
-        "era": null,
+        "era": 8,
         "runsPast": null
       },
       {
         "id": "POP-071",
-        "era": null,
+        "era": 8,
         "runsPast": null
       },
       {
         "id": "EVT-0031",
-        "era": null,
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0103",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0138",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0139",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0140",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0141",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0142",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0143",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0144",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0145",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0146",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0147",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0148",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0149",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0150",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0151",
+        "era": 8,
+        "runsPast": null
+      },
+      {
+        "id": "EVT-0152",
+        "era": 8,
         "runsPast": null
       }
     ],
