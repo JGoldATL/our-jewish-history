@@ -267,7 +267,7 @@ def build_eras(wb, places, all_ids, rep):
     eras.sort(key=lambda e: e['era'])
     ok_eras = {e['era'] for e in eras}
 
-    stops = []
+    stops = []; used_stop_ids = set()
     for r in raw['Camera Stops'] or []:
         sid = str(r.get('stop')) if r.get('stop') is not None else None
         label = f'STOP-{sid}'
@@ -277,6 +277,11 @@ def build_eras(wb, places, all_ids, rep):
             rep.reject('Camera Stops', label, r['_row'], f'era {r.get("era")!r} does not match the stop number or is not a loaded era'); continue
         if num(r.get('start')) is None:
             rep.reject('Camera Stops', label, r['_row'], f'start year is not a number: {r.get("start")!r}'); continue
+        if label in used_stop_ids:   # reported, not fixed: a Sheet that turns the text 7.10 into the number 7.1 gives two rows with one Stop label
+            new_label = f'{label}@{int(num(r.get("start")))}'
+            rep.warn('Camera Stops', label, r['_row'], f'duplicate Stop {sid!r} (earlier row has the same label); this row, which starts {int(num(r.get("start")))}, is loaded as {new_label}. Retype the Stop cell as text (for example 7.10) in the Sheet.')
+            label = new_label
+        used_stop_ids.add(label)
         st = status_of(r.get('status'))
         if st not in ('approved', 'draft'):
             rep.reject('Camera Stops', label, r['_row'], f'status {r.get("status")!r} is not approved or draft'); continue
@@ -293,11 +298,12 @@ def build_eras(wb, places, all_ids, rep):
         if not fits:
             rep.warn('Camera Stops', label, r['_row'],
                      f'the frame reaches {reach:.0f} degrees from the centre, so the view would need {want:.0f} degrees of half-width; the engine shows at most {VIEW_MAX:.0f}, so the view is clamped and part of the frame is off screen')
-        stops.append({'id': label, 'stop': sid, 'era': r['era'], 'startYear': r['start'], 'label': r.get('label'),
+        stops.append({'_row': r['_row'], 'id': label, 'stop': sid, 'era': r['era'], 'startYear': r['start'], 'label': r.get('label'),
                       'centerPlaceId': c, 'centerLat': by_id[c]['lat'], 'centerLon': by_id[c]['lon'], 'role': role,
                       'framePlaceIds': fr, 'reachDeg': round(reach, 1), 'viewDeg': round(min(VIEW_MAX, max(VIEW_MIN, want)), 1),
                       'fits': fits, 'recordIds': links(r.get('records')), 'status': st})
-    stops.sort(key=lambda x: (x['startYear'], [(int(m.group(1)), m.group(2)) for m in re.finditer(r'(\d+)([ab]?)', x['stop'])]))
+    stops.sort(key=lambda x: (x['startYear'], x['_row']))   # same year: the Sheet's row order (a stop number can be mangled, 7.10 read as 7.1)
+    for x in stops: x.pop('_row')
     for a, b in zip(stops, stops[1:]):
         if a['startYear'] == b['startYear']:
             rep.warn('Camera Stops', b['id'], 0, f'starts in the same year as {a["id"]} ({a["startYear"]}); by year the camera shows {b["id"]}, and cards in {a["id"]} turn the globe on their own')

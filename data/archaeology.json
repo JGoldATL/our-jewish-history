@@ -1,9 +1,9 @@
 {
  "schema": "archaeology-1",
- "source": "Google Sheet Jewish_Continuity_Master_Dataset_v5.0.0",
- "sheetModified": "2026-11-02T00:00:00Z",
- "exportSha256": "721fbb5d3285625a",
- "generated": "2026-11-03T03:02:23Z",
+ "source": "Google Sheet Jewish_Continuity_Master_Dataset_dv5.0.0",
+ "sheetModified": "2026-11-03T05:30:00Z",
+ "exportSha256": "6aec3704dd5eb88e",
+ "generated": "2026-11-03T05:23:45Z",
  "records": [
   {
    "id": "ARC-001",

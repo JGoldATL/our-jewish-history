@@ -2522,8 +2522,8 @@
       "schema": "sheet-1",
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_dv5.0.0",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-11-03T04:00:00Z",
-      "exportSha256": "915730d89afad43e",
+      "sheetModified": "2026-11-03T05:30:00Z",
+      "exportSha256": "6aec3704dd5eb88e",
       "mode": "preview",
       "counts": {
         "places": 143,
@@ -2534,7 +2534,7 @@
         "evidence": 20,
         "cards": 224,
         "eras": 8,
-        "cameraStops": 47,
+        "cameraStops": 49,
         "eraAssignment": 281,
         "questions": 45
       }
@@ -15748,8 +15748,8 @@
         "status": "approved"
       },
       {
-        "id": "STOP-7.10",
-        "stop": "7.10",
+        "id": "STOP-7.1@1881",
+        "stop": "7.1",
         "era": 7,
         "startYear": 1881,
         "label": "The move to the Land of Israel",
@@ -15867,6 +15867,29 @@
         "status": "approved"
       },
       {
+        "id": "STOP-8.1b",
+        "stop": "8.1b",
+        "era": 8,
+        "startYear": 1906,
+        "label": "Kishinev and the Russian Empire pogroms, hold",
+        "centerPlaceId": "place-kiev",
+        "centerLat": 50.45,
+        "centerLon": 30.52,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-kishinev",
+          "place-poland"
+        ],
+        "reachDeg": 5.6,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "CHG-031",
+          "EVT-0139"
+        ],
+        "status": "approved"
+      },
+      {
         "id": "STOP-8.2",
         "stop": "8.2",
         "era": 8,
@@ -15893,15 +15916,15 @@
         "era": 8,
         "startYear": 1909,
         "label": "Tel Aviv begins",
-        "centerPlaceId": "place-j",
-        "centerLat": 31.778,
-        "centerLon": 35.235,
-        "role": "region",
+        "centerPlaceId": "place-tel-aviv",
+        "centerLat": 32.08,
+        "centerLon": 34.78,
+        "role": "settlement",
         "framePlaceIds": [
-          "place-tel-aviv"
+          "place-jaffa"
         ],
-        "reachDeg": 0.5,
-        "viewDeg": 24.0,
+        "reachDeg": 0.0,
+        "viewDeg": 12.0,
         "fits": true,
         "recordIds": [
           "EVT-0141",
@@ -16000,6 +16023,29 @@
         "status": "approved"
       },
       {
+        "id": "STOP-8.7b",
+        "stop": "8.7b",
+        "era": 8,
+        "startYear": 1920,
+        "label": "The British Mandate begins, hold",
+        "centerPlaceId": "place-j",
+        "centerLat": 31.778,
+        "centerLon": 35.235,
+        "role": "region",
+        "framePlaceIds": [
+          "place-jaffa",
+          "place-san-remo",
+          "place-israel"
+        ],
+        "reachDeg": 24.6,
+        "viewDeg": 28.3,
+        "fits": true,
+        "recordIds": [
+          "EVT-0148"
+        ],
+        "status": "approved"
+      },
+      {
         "id": "STOP-8.8",
         "stop": "8.8",
         "era": 8,
@@ -16024,16 +16070,17 @@
         "era": 8,
         "startYear": 1924,
         "label": "The Fourth Aliyah, the Hebrew University and Hebron",
-        "centerPlaceId": "place-j",
-        "centerLat": 31.778,
-        "centerLon": 35.235,
-        "role": "region",
+        "centerPlaceId": "place-tel-aviv",
+        "centerLat": 32.08,
+        "centerLon": 34.78,
+        "role": "settlement",
         "framePlaceIds": [
+          "place-j",
           "place-israel",
           "place-hebron"
         ],
-        "reachDeg": 0.3,
-        "viewDeg": 24.0,
+        "reachDeg": 0.6,
+        "viewDeg": 12.0,
         "fits": true,
         "recordIds": [
           "EVT-0150",
