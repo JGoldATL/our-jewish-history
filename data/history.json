@@ -2522,8 +2522,8 @@
       "schema": "sheet-1",
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_dv5.0.0",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
-      "sheetModified": "2026-11-03T05:30:00Z",
-      "exportSha256": "6aec3704dd5eb88e",
+      "sheetModified": "2026-11-03T18:00:04Z",
+      "exportSha256": "d2166c21b6e98997",
       "mode": "preview",
       "counts": {
         "places": 143,
@@ -2534,7 +2534,7 @@
         "evidence": 20,
         "cards": 224,
         "eras": 8,
-        "cameraStops": 49,
+        "cameraStops": 51,
         "eraAssignment": 281,
         "questions": 45
       }
@@ -15862,6 +15862,53 @@
           "CHG-030",
           "CHG-031",
           "EVT-0138",
+          "EVT-0139"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-8.1a",
+        "stop": "8.1a",
+        "era": 8,
+        "startYear": 1904,
+        "label": "The Second Aliyah",
+        "centerPlaceId": "place-j",
+        "centerLat": 31.778,
+        "centerLon": 35.235,
+        "role": "region",
+        "framePlaceIds": [
+          "place-yemen",
+          "place-eastern-europe"
+        ],
+        "reachDeg": 19.7,
+        "viewDeg": 24.0,
+        "fits": true,
+        "recordIds": [
+          "EVT-0103",
+          "MOV-043",
+          "MOV-051"
+        ],
+        "status": "approved"
+      },
+      {
+        "id": "STOP-8.1c",
+        "stop": "8.1c",
+        "era": 8,
+        "startYear": 1905,
+        "label": "Kishinev and the Russian Empire pogroms, return",
+        "centerPlaceId": "place-kiev",
+        "centerLat": 50.45,
+        "centerLon": 30.52,
+        "role": "settlement",
+        "framePlaceIds": [
+          "place-kishinev",
+          "place-poland"
+        ],
+        "reachDeg": 5.6,
+        "viewDeg": 12.0,
+        "fits": true,
+        "recordIds": [
+          "CHG-031",
           "EVT-0139"
         ],
         "status": "approved"
