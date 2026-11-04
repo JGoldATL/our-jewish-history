@@ -25,7 +25,7 @@ def remap(rgb, alpha=None):
     seac = bm.M1_SEA * (1 - w) + bm.M1_SHALLOW * w
     soft = cv2.GaussianBlur(land.astype(np.float32), (0, 0), 0.8)[..., None]
     res = out * soft + seac * (1 - soft)
-    return np.clip(res, 0, 255).astype(np.uint8)
+    return np.clip(bm.apply_E(np.clip(res, 0, 255), soft[..., 0]), 0, 255).astype(np.uint8)   # Satellite E post-step on the remap
 
 os.makedirs(f'{root}/images/m1/inset', exist_ok=True)
 im = Image.open(f'{root}/images/map-globe.webp').convert('RGB')

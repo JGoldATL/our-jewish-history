@@ -248,7 +248,22 @@ def cmd_build(a):
 # Recipe: Creative Design, claude/design-m1-satellite-recipe.py, variant "satm". Output goes to images/m1/ so the aged pictures stay untouched.
 M1_LAND = np.array([0xA8, 0xB8, 0x8A], np.float32); M1_SEA = np.array([0x2B, 0x6A, 0x8E], np.float32)
 M1_WARM = np.array([196, 190, 142], np.float32); M1_SHALLOW = np.array([70, 140, 172], np.float32)
-M1 = dict(strength=1.15, floor=1.0, warm=0.35, shallow=0.45, knee=0.95, slope=0.4)   # relief 115 pct; warm tint up to 35 pct on the brightest relief; shallow band 45 pct; shadows below the knee keep 40 pct of their depth
+M1 = dict(strength=1.15, floor=1.0, warm=0.35, shallow=0.45, knee=0.0, slope=1.0)   # Satellite as first drawn: relief 115 pct; warm tint up to 35 pct on the brightest relief; shallow band 45 pct; FULL shadows (no knee)
+# Satellite E post-step (Jeffrey 3 Nov 21:00, claude/design-m1-satellite-e-recipe.py): sea x0.70/0.78/0.82, land lifted 6 pct and relief widened 45 pct about the median, colour 12 pct stronger.
+E = dict(sea=np.array([0.70, 0.78, 0.82], np.float32), lift=1.06, widen=1.45, chroma=1.12, med=np.array([168, 184, 138], np.float32), floor=46.0)   # floor: darkest land brightness after widening (cap against black specks)
+
+
+def apply_E(img, cov):
+    """img = finished Satellite picture; cov = real Natural Earth land coverage 0..1 (1 land). Returns the E picture."""
+    m = (1 - np.clip(cov, 0, 1))[..., None]
+    land = E['med'] * E['lift'] + (img - E['med']) * E['widen']
+    g = land.mean(axis=-1, keepdims=True)
+    # soft cap on the darkest values: below the floor, brightness is compressed instead of reaching black (no isolated black pixels on Tibet, Arctic islands, Antarctica)
+    f2 = E['floor'] * 2; g2 = np.where(g < f2, f2 - (f2 - g) * 0.5, g)   # below 2 x floor the shadow depth is halved: darkest land ends at the floor, never black
+    land = land + (g2 - g)   # additive, so a pure black pixel is lifted too
+    g = land.mean(axis=-1, keepdims=True); land = np.clip(g + (land - g) * E['chroma'], 0, 255)
+    sea = img * E['sea']
+    return np.clip(sea * m + land * (1 - m), 0, 255)
 
 
 def m1_land_rgb(f):
@@ -273,6 +288,7 @@ def cmd_build_m1(a):
         else: d = cv2.distanceTransform(1 - l8, cv2.DIST_L2, 5)
         w = np.clip(1 - d / 16, 0, 1)[..., None] * M1['shallow'] * (1 - np.clip(cov, 0, 1)[..., None])
         out = np.clip(out * (1 - w) + M1_SHALLOW * w, 0, 255)
+        out = apply_E(out, cov)
         write_jpg(f"{a.out}/images/m1/tex-{tex['name']}.jpg", out, 92)
         print('m1', tex['name'], 'land factor P1, P5, P50 =', [round(float(np.percentile(f[land], q)), 3) for q in (1, 5, 50)])
 
