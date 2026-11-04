@@ -25,14 +25,15 @@ function draw(svg,c){
     im.setAttribute('href',s.file);im.setAttribute('x',x);im.setAttribute('y',y);im.setAttribute('width',w);im.setAttribute('height',h);im.setAttribute('preserveAspectRatio','none');im.setAttribute('data-inset',s.id);if(op<1)im.setAttribute('opacity',op.toFixed(3));
     im.addEventListener('error',function(){BAD[s.id]=1;im.remove();});
     svg.appendChild(im);n++;
-    if(MIX>0){var m=document.createElementNS('http://www.w3.org/2000/svg','image');   // M1 Satellite copy on top, faded in with the base map
+    if(MIX>0&&!HOLD_M1[s.id]){var m=document.createElementNS('http://www.w3.org/2000/svg','image');   // M1 Satellite copy on top, faded in with the base map
       ['x','y','width','height'].forEach(function(k){m.setAttribute(k,im.getAttribute(k));});m.setAttribute('href',s.file.replace('images/inset/','images/m1/inset/'));m.setAttribute('preserveAspectRatio','none');m.setAttribute('opacity',(op*MIX).toFixed(3));svg.appendChild(m);}
   });
   return n;
 }
 /* M1 Satellite base map (3 Nov): the aged picture shows before 1898; from 1898 the M1 picture fades in over about 0.7 s (DECIDED 1 Nov). Used by movements.js. */
+var HOLD_M1={'tier2-near-east':1};   // Tier 2 stays aged until the OpenTopography credit question is answered (tools/inset-sources.md)
 var MIX=0,TARGET=0,RAF=0,LAST=0,READY=0,LOADING=false,REDRAW=null,FADE_S=0.7,M1_FROM=1898,M1_BASE='images/m1/map-globe.webp';
-function preload(){if(LOADING)return;LOADING=true;var n=0,files=[M1_BASE].concat((M&&M.insets||[]).map(function(s){return s.file.replace('images/inset/','images/m1/inset/');}));
+function preload(){if(LOADING)return;LOADING=true;var n=0,files=[M1_BASE].concat((M&&M.insets||[]).filter(function(s){return !HOLD_M1[s.id];}).map(function(s){return s.file.replace('images/inset/','images/m1/inset/');}));
   files.forEach(function(f){var i=new Image();i.onload=i.onerror=function(){if(++n===files.length){READY=1;kick();}};i.src=f;});}
 function kick(){if(RAF||!READY)return;LAST=performance.now();RAF=requestAnimationFrame(step);}
 function step(t){RAF=0;var dt=Math.max(0,(t-LAST)/1000);LAST=t;var dir=Math.sign(TARGET-MIX);if(!dir)return;MIX=Math.max(0,Math.min(1,MIX+dir*dt/FADE_S));if((dir>0&&MIX>=TARGET)||(dir<0&&MIX<=TARGET))MIX=TARGET;if(REDRAW)REDRAW();if(MIX!==TARGET)RAF=requestAnimationFrame(step);}
