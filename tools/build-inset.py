@@ -130,7 +130,7 @@ def relief_cmd(argv):
     ap.add_argument('--px-per-deg', type=float); ap.add_argument('--az', type=float); ap.add_argument('--alt', type=float); ap.add_argument('--exag', type=float); ap.add_argument('--sigma-deg', type=float)
     ap.add_argument('--strength', type=float, help='1 = full shading range of the colour ramp; lower is flatter'); ap.add_argument('--factor', type=int, help='block-average the DEM by this factor'); ap.add_argument('--wrap', type=float, help='soft light: 0 = plain hillshade (steep slopes facing away go flat black), 1 = half-lambert, no flat dark patches')
     ap.add_argument('--quality', type=int, default=82); ap.add_argument('--out'); ap.add_argument('--tone-ref', default='base', help="'base' (map-globe.webp) or the id of the inset beneath, whose finished file is matched at the outer band")
-    ap.add_argument('--no-manifest', action='store_true'); ap.add_argument('--debug-npz', help='also save height, land coverage and grid for checks'); a = ap.parse_args(argv)
+    ap.add_argument('--look', default='aged', choices=['aged', 'm1e'], help="'m1e' = Satellite E palette (Jeffrey 3 Nov); writes to --out so the aged inset stays"); ap.add_argument('--no-manifest', action='store_true'); ap.add_argument('--debug-npz', help='also save height, land coverage and grid for checks'); a = ap.parse_args(argv)
     here = os.path.dirname(os.path.abspath(__file__)); R = dict(RECIPE[a.id])
     for k in ('px_per_deg', 'az', 'alt', 'exag', 'sigma_deg', 'strength', 'wrap', 'factor'):
         v = getattr(a, k); R[k] = R[k] if v is None else v
@@ -174,6 +174,12 @@ def relief_cmd(argv):
     s = R['px_per_deg'] / (4800 / 360.0)                                                       # output pixels per base pixel: the coast-effect curves are scaled from base pixels to degrees
     L = relief * bm.sane(bm.ratio(prof['land'], d_in / s, th), .8, 1.8); S = BASE_SEA * bm.sane(bm.ratio(prof['sea'], d_out / s, th), .55, 1.0)
     c = np.clip(cov, 0, 1)[..., None]
+    M1E = a.look == 'm1e'
+    if M1E:
+        # Satellite E: the same hillshade drives the Satellite colours (relief factor = ramp brightness over its median), the same coast-effect curves, shallow band and E post-step as build-map.py build-m1; E's colours are absolute, so no tone matching to a base picture
+        f = relief.mean(-1) / LAND_P50.mean(); Lm = bm.m1_land_rgb(f) * bm.sane(bm.ratio(prof['land'], d_in / s, th), .8, 1.8)
+        Sm = bm.M1_SEA * bm.sane(bm.ratio(prof['sea'], d_out / s, th), .55, 1.0)
+        wsh = np.clip(1 - d_out / (16 * s), 0, 1)[..., None] * bm.M1['shallow'] * (1 - c); Sm = Sm * (1 - wsh) + bm.M1_SHALLOW * wsh
     # tone: scale the land colours so the outer band (0.15 to 0.8 degree inside the edge) averages what the layer beneath shows there
     dist = cv2.distanceTransform(np.pad(valid, 1).astype(np.uint8), cv2.DIST_L2, 5)[1:-1, 1:-1]; band = (dist > .15 * R['px_per_deg']) & (dist < .8 * R['px_per_deg'])
     if a.tone_ref == 'base':
@@ -183,9 +189,11 @@ def relief_cmd(argv):
         mf = json.load(open('images/inset/manifest.json'))['insets']; e = next(q for q in mf if q['id'] == a.tone_ref)
         ref = ref_sampler(np.array(Image.open(e['file']).convert('RGBA'), np.float32), (e['x0'], e['x1'], e['y0'], e['y1']))
     bref = ref(MX, MY); lm = band & (cov > .98) & (d_in > 3 * s) & ~np.isnan(bref).any(2) & (np.abs(bref - BASE_SEA).max(2) >= 14)
-    gain = bref[lm].mean(0) / L[lm].mean(0); L = np.clip(L * gain, 0, 255)
+    gain = bref[lm].mean(0) / L[lm].mean(0)
+    if not M1E: L = np.clip(L * gain, 0, 255)
     # contrast of the outer band, for the record (the inset is sharper, so it is higher; the mean is what is matched)
     cr = float(L[lm].std() / max(1e-6, bref[lm].std())); rgb = np.clip(c * L + (1 - c) * S, 0, 255)
+    if M1E: rgb = np.clip(bm.apply_E(c * Lm + (1 - c) * Sm, cov), 0, 255)
     tt = np.clip(dist / (FEATHER_DEG * R['px_per_deg']), 0, 1); alpha = (tt * tt * (3 - 2 * tt) * 255).round().astype(np.uint8)      # soft edge on the projected geographic boundary
     out = Image.fromarray(np.round(rgb).astype(np.uint8), 'RGB').convert('RGBA'); out.putalpha(Image.fromarray(alpha))
     dst = a.out or f; out.save(dst, quality=a.quality, method=6)
