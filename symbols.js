@@ -37,7 +37,7 @@
   function applyNewKey(key){if(!key)return;key.querySelectorAll('div').forEach(function(d){if(d.querySelector('svg[data-sym]'))d.remove();});
     var h=document.createElement('div');h.innerHTML=newKeyRows();while(h.firstChild)key.insertBefore(h.firstChild,null);}
   function fillStatic(){document.querySelectorAll('svg[data-sym]').forEach(function(s){s.innerHTML=box(s.getAttribute('data-sym'));});
-    try{if(/[?&]newkey=1/.test(location.search))applyNewKey(document.getElementById('key'));}catch(e){}}
+    try{applyNewKey(document.getElementById('key'));}catch(e){}}
   window.SYM_ART={sym:sym,box:box,svg:svg,six:SIX,applyNewKey:applyNewKey,fill:fillStatic,R:R};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fillStatic);else fillStatic();
 })();
