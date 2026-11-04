@@ -33,6 +33,7 @@
     var nat=parseFloat(getComputedStyle(st).height),extra=Math.max(0,Math.round(br.offsetHeight-(window.innerWidth>=1240?80:54)));
     if(nat>0&&extra>0)st.style.height=Math.max(300,nat-extra)+'px';}
   function sync(){var bar=document.getElementById('gnBar'),pill=bar&&bar.querySelector('.gp-wrap');if(!pill)return false;
+    var tp=document.querySelector('header.top');if(tp)root.style.setProperty('--hdr-h',tp.offsetHeight+'px');   /* F-171: the card panel on Events and Movements is sized from the real header height */
     root.style.setProperty('--gn-h',bar.offsetHeight+'px');root.style.setProperty('--nav-w',Math.ceil(pill.getBoundingClientRect().width)+'px');fitMap();return true;}
   function watch(){if(watching)return;var bar=document.getElementById('gnBar');if(!bar)return;watching=true;
     if(window.ResizeObserver){var ro=new ResizeObserver(sync);ro.observe(bar);var pill=bar.querySelector('.gp-wrap');if(pill)ro.observe(pill);var br=document.querySelector('header.top .brand');if(br)ro.observe(br);}

@@ -12,9 +12,12 @@ let ok=true,seen=new Set();
 for(const y of [-1900,-586,-200,70,900,1290,1492,1500,1590,1630,1800,1845,1881,1889]){await p.evaluate(yy=>setYearExact(yy),y);await p.waitForTimeout(250);
   const n=await p.evaluate(()=>[...document.querySelectorAll('#ov g.route')].map(g=>g.getAttribute('aria-label')));const all=await p.evaluate(()=>DATA.movements.filter(m=>EV_VOL.has(m.id)).map(m=>m.title));
   for(const t of n){if(!all.includes(t)){ok=false;console.log('  unexpected route',y,t);}else seen.add(t);}}
-ck(ok,'no route other than the voluntary-migration set is drawn on Events');ck(seen.size>=6,'voluntary-migration arrows do draw ('+seen.size+' seen)');
+ck(ok,'no route other than the voluntary-migration set is drawn on Events');
+// F-173 (3 Nov): a card showing draws only its own arrows, so the arrows are seen by opening the cards that own them
+{const got=await p.evaluate(async()=>{const t=new Set();for(let i=0;i<milestones.length;i++){selectMilestone(i,true);await new Promise(r=>setTimeout(r,25));for(const g of document.querySelectorAll('#ov g.route'))t.add(g.getAttribute('aria-label'));}selectMilestone(0,true);return [...t];});const all=await p.evaluate(()=>DATA.movements.filter(m=>EV_VOL.has(m.id)).map(m=>m.title));for(const t of got)seen.add(t);ck(got.every(t=>all.includes(t)),'every arrow drawn with a card open is a charcoal route');}
+ck(seen.size>=6,'voluntary-migration arrows do draw ('+seen.size+' seen, by opening the cards that own them)');
 await p.evaluate(()=>setYearExact(1500));await p.waitForTimeout(400);
-ck(await p.evaluate(()=>{const ok=new Set(DATA.movements.filter(m=>EV_VOL.has(m.id)).map(m=>m.title));const r=[...document.querySelectorAll('#ov g.route')].map(g=>g.getAttribute('aria-label'));return r.length>0&&r.every(t=>ok.has(t));}),'1500: every arrow drawn is one of the charcoal routes');
+ck(await p.evaluate(()=>{const ok=new Set(DATA.movements.filter(m=>EV_VOL.has(m.id)).map(m=>m.title));const r=[...document.querySelectorAll('#ov g.route')].map(g=>g.getAttribute('aria-label'));return r.every(t=>ok.has(t));}),'1500: every arrow drawn is one of the charcoal routes (F-173: none is drawn unless the showing card owns it)');
 ck(await p.$('#pgHost .ojjpg')&&await p.$('#play')&&await p.$('#story'),'cards, the pager, Play present');
 await p.click('#pgHost [data-step="1"]');await p.waitForTimeout(500);ck(await p.evaluate(()=>document.querySelector('#story h2')?.textContent.length>0),'Next opens a card');
 ck(p.errs.length===0,'events: no page errors '+p.errs.join('|'));await p.close();

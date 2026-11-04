@@ -227,9 +227,10 @@ function renderCore(){
       if(r.label&&st.nodeOpacity>.08)labels.push({text:r.label,x:q.x,y:q.y,side:r.labelSide||'right',prio:['j','b','alexNode','israel'].includes(p.id)?2:1,record:p});}
   }
   for(const w of sheetWashes(y,frame)){const pts=w.pts.map(P);if(!pts.some(q=>q.vis))continue;wctx.save();wctx.shadowColor=`rgba(0,0,0,${w.a.toFixed(3)})`;wctx.shadowBlur=washBlur*2;wctx.shadowOffsetX=20000;wctx.beginPath();pts.forEach((q,i)=>{const x=q.x*WS-20000,yy=q.y*WS;i?wctx.lineTo(x,yy):wctx.moveTo(x,yy);});wctx.closePath();wctx.fillStyle='#000';wctx.fill();wctx.restore();}   // v0.8.0 F-019: Sheet shading
-  // movement routes
+  // movement routes. F-173 (Events): the card that is showing (open, or auto-shown while the year is dragged or Play runs) draws only its own arrows; 'View all routes' (trails) still draws every arrow.
+  const arrowCard=EVENTS_ONLY&&!trails?activeCardRecord(y):undefined;
   const defs=$('ovDefs');defs.querySelectorAll('.dyn').forEach(n=>n.remove());
-  for(const fm of frame.movements){if(!fm.visible)continue;if(EVENTS_ONLY&&!EV_VOL.has(fm.id))continue;const m=DATA.movements.find(r=>r.id===fm.id);const win=movementWindow(m),past=trails&&win[1]<=y;const op0=Math.max(fm.opacity,past?.28:0);if(op0<=.01)continue;const op=1;   /* CEO 10/20: every arrow is 100% opaque on every map; it is drawn or it is not */
+  for(const fm of frame.movements){if(!fm.visible)continue;if(EVENTS_ONLY&&!EV_VOL.has(fm.id))continue;const m=DATA.movements.find(r=>r.id===fm.id);if(arrowCard!==undefined&&!ownsArrow(arrowCard,m))continue;const win=movementWindow(m),past=trails&&win[1]<=y;const op0=Math.max(fm.opacity,past?.28:0);if(op0<=.01)continue;const op=1;   /* CEO 10/20: every arrow is 100% opaque on every map; it is drawn or it is not */
     const pts=routePoints(m).filter(q=>q.vis);if(pts.length<6)continue;const traditional=m.evidenceStatus==='traditional account';
     const d=ribbon(pts,(traditional?13:15)*scale,7.5*scale,24*scale,15*scale);if(!d)continue;
     const g=el('g',{class:'route',opacity:op.toFixed(3),tabindex:0,role:'button','aria-label':m.title},layers.route);
@@ -268,7 +269,7 @@ function geoLabels(){if(!GEO)return [];const out=[];for(const [text,kind,lo,la] 
 // label with the same name is already queued; camera-only Places (place-cam-*) are never drawn.
 function addSheetPlaceLabels(frame,labels,mark,P,scale){
   if(!SHEETPL.size)return;
-  const want=new Set();for(const fm of frame.movements){if(!fm.visible||fm.opacity<.3)continue;if(EVENTS_ONLY&&!EV_VOL.has(fm.id))continue;const m=DATA.movements.find(r=>r.id===fm.id);if(!m)continue;for(const id of [m.origin,m.destination])if(typeof id==='string')want.add(id);}
+  const want=new Set();for(const fm of frame.movements){if(!fm.visible||fm.opacity<.3)continue;if(EVENTS_ONLY&&!EV_VOL.has(fm.id))continue;const m=DATA.movements.find(r=>r.id===fm.id);if(!m)continue;if(EVENTS_ONLY&&!trails&&!ownsArrow(activeCardRecord(currentYear()),m))continue;for(const id of [m.origin,m.destination])if(typeof id==='string')want.add(id);}
   const sp=selected?.record?.placeId;if(typeof sp==='string')want.add(sp);
   const have=new Set(labels.map(l=>String(l.text).toLowerCase()));
   for(const id of want){const pl=SHEETPL.get(id);if(!pl||pl.cameraOnly||pl.lat==null||pl.lon==null)continue;const text=(pl.mapLabel?String(pl.mapLabel):String(pl.historicalName||'').split(/\s*[\/(]/)[0]).trim();if(!text||have.has(text.toLowerCase()))continue;
@@ -286,6 +287,9 @@ function lastMilestoneIdx(y){let idx=-1;for(let i=0;i<milestones.length;i++)if(m
 /* ---------- story ---------- */
 // An engine map object that has a Sheet card (DATA.cardLinks) opens that card; the object lights up while its card is open.
 const isCardOf=r=>selected?.type==='sheet'&&DATA.cardLinks?.[r.id]===selected.record.id;
+/* F-173: the card showing now is the open card, or else the card auto-shown for the year (dragging the year, Play). An arrow belongs to it when it is that record, in its group, or linked to it by cardLinks. */
+function activeCardRecord(y){if(selected)return selected.record;if(promptOpen)return null;const i=lastMilestoneIdx(Math.round(y));return i>=0?milestones[i].record:null;}
+const ownsArrow=(rec,m)=>!!rec&&!!m&&(rec===m||sameCard(rec,m)||DATA.cardLinks?.[m.id]===rec.id);
 function openStory(record,type){if(type!=='sheet'&&milestones[0]?.type==='sheet'){const cid=DATA.cardLinks?.[record.id],m=cid&&milestones.find(x=>x.record.id===cid);if(m){record=m.record;type='sheet';}}QP(record.id);stopTour();dismissPrompt();selected={record,type};fillStory(record,type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
 function fillStory(record,type,user){const kind=type==='sheet'?record.type:{movement:'Movement',population:'Community',change:'Community',destruction:'Event',event:'Event'}[type]||'';
   $('storyKicker').textContent=kind+(type==='sheet'&&record.status==='draft'?' · Draft':'');$('storyDate').textContent=record.date||'';$('storyTitle').textContent=record.title||record.historicalPlaceName||'';$('storyText').textContent=type==='sheet'?record.description||'':record.story||'';
@@ -296,12 +300,12 @@ let shown=null;
 /* The one Sources list for the whole site. The map-relief elevation credit lives here (moved from the Archaeology footer, CEO 10/30). */
 const ELEVATION_SOURCE={id:'elevation-srtm',title:'NASA Shuttle Radar Topography Mission (SRTM) Global, distributed by OpenTopography',url:'https://doi.org/10.5069/G9445JDF',supports:'Elevation data for the high-resolution map relief on Movements and Archaeology. NASA SRTM, 2013, doi:10.5069/G9445JDF.'};
 function openSources(){const list=$('allSources');if(!list.childElementCount){for(const src of [...DATA.sources,ELEVATION_SOURCE].sort((a,b)=>(a.title||'').localeCompare(b.title||''))){const row=document.createElement('li');const a=document.createElement(src.url?'a':'span');if(src.url){a.href=src.url;a.target='_blank';a.rel='noopener';}a.textContent=src.title||src.id;row.appendChild(a);if(src.supports){const sm=document.createElement('small');sm.textContent=src.supports;row.appendChild(sm);}list.appendChild(row);}}$('sourcesDlg').hidden=false;$('sourcesClose').focus();}
-function closeStory(){selected=null;lastAutoIdx=-1;render();}
+function closeStory(){selected=null;pagerOff=true;lastAutoIdx=-1;render();}
 
 /* ---------- playback ---------- */
 function setPos(p){position=Math.max(0,Math.min(1,p));render();}
 function setYearExact(y){position=posForYear(y);render();}
-function startTour(){stopTour();dismissPrompt();selected=null;lastAutoIdx=-1;view.manual=false;view.zoom=1;view.R=view.baseR;if(position>=0.999)position=posForYear(DATA.presentation?.openingYear??DATA.timeline.start);const from=position,dur=DATA.presentation?.tourDurationMs||20000,dwell=DATA.presentation?.cardDwellMs??1500,t0=performance.now();
+function startTour(){stopTour();dismissPrompt();selected=null;pagerOff=false;lastAutoIdx=-1;view.manual=false;view.zoom=1;view.R=view.baseR;if(position>=0.999)position=posForYear(DATA.presentation?.openingYear??DATA.timeline.start);const from=position,dur=DATA.presentation?.tourDurationMs||20000,dwell=DATA.presentation?.cardDwellMs??1500,t0=performance.now();
   // Play moves quickly through long gaps in history, but holds still for cardDwellMs (1.5 seconds) each time a card comes up, so it can be read.
   let last=t0,prevIdx=lastMilestoneIdx(Math.round(currentYear())),dwellUntil=prevIdx>=0?t0+dwell:0;
   const step=now=>{const dt=now-last;last=now;if(now<dwellUntil){tour=requestAnimationFrame(step);return;}
@@ -360,7 +364,7 @@ function openAtStart(){
 }
 function dismissPrompt(){if(!promptOpen)return;promptOpen=false;$('prompt').hidden=true;$('panel').classList.remove('inviting');$('play').hidden=false;$('options').hidden=false;}
 if(PREVIEW)window.OJJ_SUB={moved:()=>!!view.manual||view.zoom!==1,resetView(){view.manual=false;view.zoom=1;view.R=view.baseR;render();}};   // F-085 subnav: Reset is the map position only
-function reset(){stopTour();dismissPrompt();selected=null;lastAutoIdx=-1;position=0;view.manual=true;const j=svgToLonLat(INDEX.places.get('place-j').coordinates);view.lon=j[0];view.lat=j[1];view.deg=15;setZoom(1);}
+function reset(){stopTour();dismissPrompt();selected=null;pagerOff=true;lastAutoIdx=-1;position=0;view.manual=true;const j=svgToLonLat(INDEX.places.get('place-j').coordinates);view.lon=j[0];view.lat=j[1];view.deg=15;setZoom(1);}
 
 /* ---------- interaction ---------- */
 let dragMoved=false;
@@ -381,20 +385,20 @@ function initInteraction(){
   stage.addEventListener('wheel',e=>{e.preventDefault();stopTour();const r0=stage.getBoundingClientRect();setZoom(view.zoom*Math.exp(-e.deltaY*0.0018),e.clientX-r0.left,e.clientY-r0.top);},{passive:false});
   // arc slider
   const arc=$('arcHit');let scrubbing=false;
-  const scrub=e=>{stopTour();dismissPrompt();selected=null;setPos(posFromPointer(e));};
+  const scrub=e=>{stopTour();dismissPrompt();selected=null;pagerOff=false;setPos(posFromPointer(e));};
   $('arc').addEventListener('pointerdown',e=>{if(!e.target.closest('#arcHit,.bead,.notch'))return;scrubbing=userScrub=true;$('arc').setPointerCapture?.(e.pointerId);const n=e.target.closest('.notch');if(n){selectMilestone(+n.dataset.i);return;}scrub(e);});
   $('arc').addEventListener('pointermove',e=>{if(scrubbing)scrub(e);});$('arc').addEventListener('pointerup',()=>{scrubbing=userScrub=false;});$('arc').addEventListener('pointercancel',()=>{scrubbing=userScrub=false;});
-  const arcTouch=e=>{const t=e.touches[0];if(!t)return;stopTour();dismissPrompt();selected=null;setPos(posFromPointer(t));};
+  const arcTouch=e=>{const t=e.touches[0];if(!t)return;stopTour();dismissPrompt();selected=null;pagerOff=false;setPos(posFromPointer(t));};
   $('arc').addEventListener('touchstart',e=>{if(!e.target.closest('#arcHit,.bead'))return;e.preventDefault();scrubbing=userScrub=true;arcTouch(e);},{passive:false});
   $('arc').addEventListener('touchmove',e=>{if(!scrubbing)return;e.preventDefault();arcTouch(e);},{passive:false});
   $('arc').addEventListener('touchend',()=>{scrubbing=userScrub=false;});$('arc').addEventListener('touchcancel',()=>{scrubbing=userScrub=false;});
-  $('arcSlider').addEventListener('keydown',e=>{const y=Math.round(currentYear());let n=null;if(e.key==='ArrowRight'||e.key==='ArrowUp')n=y+(e.shiftKey?25:1);if(e.key==='ArrowLeft'||e.key==='ArrowDown')n=y-(e.shiftKey?25:1);if(e.key==='Home')n=DATA.timeline.start;if(e.key==='End')n=DATA.timeline.end;if(e.key==='PageUp'){step(1);e.preventDefault();return;}if(e.key==='PageDown'){step(-1);e.preventDefault();return;}if(n!=null){e.preventDefault();stopTour();dismissPrompt();selected=null;setYearExact(Math.max(DATA.timeline.start,Math.min(DATA.timeline.end,n)));}});
+  $('arcSlider').addEventListener('keydown',e=>{const y=Math.round(currentYear());let n=null;if(e.key==='ArrowRight'||e.key==='ArrowUp')n=y+(e.shiftKey?25:1);if(e.key==='ArrowLeft'||e.key==='ArrowDown')n=y-(e.shiftKey?25:1);if(e.key==='Home')n=DATA.timeline.start;if(e.key==='End')n=DATA.timeline.end;if(e.key==='PageUp'){step(1);e.preventDefault();return;}if(e.key==='PageDown'){step(-1);e.preventDefault();return;}if(n!=null){e.preventDefault();stopTour();dismissPrompt();selected=null;pagerOff=false;setYearExact(Math.max(DATA.timeline.start,Math.min(DATA.timeline.end,n)));}});
   $('play').addEventListener('click',()=>tour!=null?stopTour():startTour());$('introPlay').addEventListener('click',startTour);
   $('introExplore').addEventListener('click',()=>{dismissPrompt();$('arcSlider').focus();$('arcWrap').classList.add('attention');setTimeout(()=>$('arcWrap').classList.remove('attention'),2600);});
   $('reset').addEventListener('click',reset);
   if($('prev'))$('prev').addEventListener('click',()=>step(-1));if($('next'))$('next').addEventListener('click',()=>step(1));
   if($('pgHost')&&window.matchMedia){const mq=matchMedia('(max-width:900px)'),place=()=>{const pl=$('play'),yr=document.querySelector('#panel>div:first-child'),bar=document.querySelector('.mnav');if(!pl||!yr||!bar)return;if(mq.matches){if(pl.parentNode!==yr)yr.appendChild(pl);}else if(pl.parentNode!==bar)bar.appendChild(pl);};place();(mq.addEventListener?mq.addEventListener('change',place):mq.addListener(place));}   // F-147 follow-up: on phones and upright tablets Play lives beside the year, so the pager bar stays one row
-  if(window.OJJPager&&$('pgHost')){OJJPager.swipe($('story'),d=>{if(selected)step(d);});OJJPager.keys(d=>step(d),()=>!!selected&&$('sourcesDlg').hidden&&document.activeElement?.id!=='arcSlider');}
+  if(window.OJJPager&&$('pgHost')){OJJPager.swipe($('story'),d=>{if(shownCardIdx()>=0)step(d);});OJJPager.keys(d=>step(d),()=>shownCardIdx()>=0&&$('sourcesDlg').hidden&&document.activeElement?.id!=='arcSlider');}
   $('closeStory').addEventListener('click',closeStory);$('sourcesLink').addEventListener('click',openSources);if(/[?&]sources=1/.test(location.search))setTimeout(openSources,400);if(PREVIEW){const kk=$('key');if(kk)kk.innerHTML="<h2>Map key</h2>\n<div><svg width=\"44\" height=\"18\" aria-hidden=\"true\"><path d=\"M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z\" fill=\"#2D6CB8\" stroke=\"#FFF2DE\"/></svg>Return to the Land</div>\n<div><svg width=\"44\" height=\"18\" aria-hidden=\"true\"><path d=\"M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z\" fill=\"#B8352B\" stroke=\"#FFF2DE\"/></svg>Forced expulsion</div>\n<div><svg width=\"44\" height=\"18\" aria-hidden=\"true\"><path d=\"M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z\" fill=\"#41464A\" stroke=\"#FFF2DE\"/></svg>Voluntary migration</div>\n<div><svg width=\"44\" height=\"18\" aria-hidden=\"true\"><path d=\"M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z\" fill=\"rgba(255,242,222,.5)\" stroke=\"#3F463F\" stroke-dasharray=\"3 2\"/></svg>Biblical/Traditional Account</div>\n<div><svg width=\"44\" height=\"18\" aria-hidden=\"true\"><ellipse cx=\"22\" cy=\"9\" rx=\"20\" ry=\"8\" fill=\"#2E5AA8\" opacity=\".75\"/></svg>Jewish population. Darker means larger, not a census.</div>\n<div><svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\" data-sym=\"oct\"></svg>Massacred community</div>\n<div><svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\" data-sym=\"sq\"></svg>Community no longer exists</div>\n<div><svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\" data-sym=\"splitI\"></svg>Forced conversion to Islam</div>\n<div><svg width=\"30\" height=\"30\" viewBox=\"-18 -18 36 36\" aria-hidden=\"true\" data-sym=\"split\"></svg>Forced conversion to Christianity</div>\n";if(kk&&window.SYM_ART)SYM_ART.fill();}$('sourcesClose').addEventListener('click',()=>{$('sourcesDlg').hidden=true;$('sourcesLink').focus();});
   for(const b of document.querySelectorAll('[data-trails]'))b.addEventListener('click',()=>{trails=b.dataset.trails==='on';for(const o of document.querySelectorAll('[data-trails]'))o.setAttribute('aria-pressed',String(o===b));render();});
   $('keyBtn').addEventListener('click',()=>{const k=$('key');k.hidden=!k.hidden;$('keyBtn').setAttribute('aria-expanded',String(!k.hidden));});
@@ -403,16 +407,19 @@ function initInteraction(){
 }
 /* Shared card pager (F-147, Events): "next" is the next card in milestones order, which is the order shown on the page (by date). Shown while a card is open. */
 let PG=null,pgKey='';
+/* F-174: the card showing now is the open card, or the card auto-shown for the year (dragging the year, Play). Next and Previous step from it, so Next is there at every year and runs on to the last card. */
+let pagerOff=false;   // true after the person closes the card with the X (F-147: no pager with no card open) or presses Reset; dragging the year, the keyboard or Play turn it off again
+function shownCardIdx(){if(selected)return milestones.findIndex(m=>m.type===selected.type&&sameCard(m.record,selected.record));if(promptOpen||pagerOff)return -1;return lastMilestoneIdx(Math.round(currentYear()));}
 function syncPager(){
   if(!window.OJJPager||!$('pgHost'))return;
   if(!PG)PG=OJJPager.mount($('pgHost'),{label:'card',onStep:d=>step(d),onGo:k=>selectMilestone(k)});
-  const i=selected?milestones.findIndex(m=>m.type===selected.type&&sameCard(m.record,selected.record)):-1,key=i+'|'+milestones.length;
+  const i=shownCardIdx(),key=i+'|'+milestones.length;
   if(key===pgKey)return;pgKey=key;
   if(i<0){PG.hide();return;}
   const r=milestones[i].record;PG.update({count:milestones.length,index:i,title:r.title||r.name||''});
 }
-function step(dir){const y=Math.round(currentYear());let i=selected?milestones.findIndex(m=>m.type===selected.type&&sameCard(m.record,selected.record)):-1;   // from the open card, go to the next / previous card (cards that share a year are all reached)
-  if(i<0){i=lastMilestoneIdx(y);if(dir>0){i=milestones.findIndex(m=>m.date>y);if(i<0)return;}else{while(i>=0&&milestones[i].date>=y)i--;if(i<0)return;}}
+function step(dir){const y=Math.round(currentYear());let i=shownCardIdx();   // from the card showing, go to the next / previous card (cards that share a year are all reached)
+  if(i<0){if(dir>0){i=milestones.findIndex(m=>m.date>y);if(i<0)return;}else return;}
   else{i+=dir;if(i<0||i>=milestones.length)return;}
   selectMilestone(i);}
 function selectMilestone(i,silent){const m=milestones[i];if(!m)return;if(!silent)QP(m.record.id);stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();turnToRecord(m.record,m.type);if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});}
