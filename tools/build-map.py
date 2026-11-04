@@ -13,6 +13,7 @@ Get the two Natural Earth files:
 
 Run from the repo root:
     python3 tools/build-map.py build   --land package/land-10m.json --lakes ne_10m_lakes.geojson
+    python3 tools/build-map.py build-m1 --land package/land-10m.json --lakes ne_10m_lakes.geojson     # M1 Satellite look into images/m1/ (aged pictures untouched)
     python3 tools/build-map.py extract --land ... --lakes ... --old-region OLD_tex-region.jpg --old-world OLD_tex-world.jpg
 (`extract` was run once, on the textures of commit 77355dd, to make images/src/. Pass B, sharper relief from elevation data,
 only has to replace the two relief files in images/src/; the mask and effects stay the same.)
@@ -242,6 +243,40 @@ def cmd_build(a):
     build_geo(polys, load_lakes(a.lakes, 'region'), f'{a.out}/data/geo.json')
 
 
+# ---- M1 Satellite palette (Jeffrey 3 Nov: "M1 = Satellite C") ----------------------------------------------
+# Same relief, same Natural Earth coast mask and the same coast-effect profile as the aged look; only the colours change.
+# Recipe: Creative Design, claude/design-m1-satellite-recipe.py, variant "satm". Output goes to images/m1/ so the aged pictures stay untouched.
+M1_LAND = np.array([0xA8, 0xB8, 0x8A], np.float32); M1_SEA = np.array([0x2B, 0x6A, 0x8E], np.float32)
+M1_WARM = np.array([196, 190, 142], np.float32); M1_SHALLOW = np.array([70, 140, 172], np.float32)
+M1 = dict(strength=1.15, floor=1.0, warm=0.35, shallow=0.45, knee=0.95, slope=0.4)   # relief 115 pct; warm tint up to 35 pct on the brightest relief; shallow band 45 pct; shadows below the knee keep 40 pct of their depth
+
+
+def m1_land_rgb(f):
+    fa = np.where(f < 1, 1 - M1['strength'] * M1['floor'] * (1 - f), 1 + M1['strength'] * (f - 1))
+    fa = np.where(fa < M1['knee'], M1['knee'] - (M1['knee'] - fa) * M1['slope'], fa)
+    rgb = M1_LAND * fa[..., None]
+    t = np.clip((f - 1) / 0.12, 0, 1)[..., None] * M1['warm']
+    return np.clip(rgb * (1 - t) + M1_WARM * fa[..., None] * t, 0, 255)
+
+
+def cmd_build_m1(a):
+    global SEA
+    polys = load_land(a.land); fx = json.load(open(f'{a.out}/images/src/fx.json')); os.makedirs(f'{a.out}/images/m1', exist_ok=True); aged_sea = SEA.copy()
+    for tex in (REGION, WORLD):
+        lakes = load_lakes(a.lakes, tex['name']); cov = land_coverage(polys, lakes, tex); land = cov >= LAND_THRESHOLD
+        prof = {k: np.array(v, np.float32) for k, v in fx[tex['name']].items()}
+        g = read_rgb(f"{a.out}/images/src/relief-{tex['name']}.jpg").mean(axis=2); f = g / np.median(g[land])
+        SEA = M1_SEA.copy(); out = apply_effects(m1_land_rgb(f), cov, prof, tex['wrap']); SEA = aged_sea
+        l8 = land.astype(np.uint8)
+        if tex['wrap']:
+            pad = 24; d = cv2.distanceTransform(1 - np.pad(l8, ((0, 0), (pad, pad)), mode='wrap'), cv2.DIST_L2, 5)[:, pad:-pad]
+        else: d = cv2.distanceTransform(1 - l8, cv2.DIST_L2, 5)
+        w = np.clip(1 - d / 16, 0, 1)[..., None] * M1['shallow'] * (1 - np.clip(cov, 0, 1)[..., None])
+        out = np.clip(out * (1 - w) + M1_SHALLOW * w, 0, 255)
+        write_jpg(f"{a.out}/images/m1/tex-{tex['name']}.jpg", out, 92)
+        print('m1', tex['name'], 'land factor P1, P5, P50 =', [round(float(np.percentile(f[land], q)), 3) for q in (1, 5, 50)])
+
+
 # ---- vector coast (the faint outline drawn over the globe) ----------------------------------------------------
 GEO_BOX = (-15.0, 5.0, 65.0, 58.0)     # same area the previous coast layer covered
 def cross(p, q, b):
@@ -285,7 +320,7 @@ def build_geo(polys, lakes, path, eps=0.012, chunk=160):
     print('coast pieces', len(lines), 'points', sum(len(l) for l in lines), 'file bytes', os.path.getsize(path))
 
 if __name__ == '__main__':
-    ap = argparse.ArgumentParser(); ap.add_argument('cmd', choices=['build', 'extract'])
+    ap = argparse.ArgumentParser(); ap.add_argument('cmd', choices=['build', 'extract', 'build-m1'])
     ap.add_argument('--land', required=True); ap.add_argument('--lakes', required=True); ap.add_argument('--old-region'); ap.add_argument('--old-world')
     ap.add_argument('--out', default='.', help='repo root to write into')
-    a = ap.parse_args(); {'build': cmd_build, 'extract': cmd_extract}[a.cmd](a)
+    a = ap.parse_args(); {'build': cmd_build, 'extract': cmd_extract, 'build-m1': cmd_build_m1}[a.cmd](a)
