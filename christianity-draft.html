@@ -32,6 +32,8 @@
 .key .sw i.ar{background:repeating-linear-gradient(45deg,rgba(255,250,240,.85) 0 2px,transparent 2px 5px),rgba(123,87,158,.88)}
 .key .fn{color:var(--muted);font-size:11px;white-space:normal;max-width:210px;line-height:1.25}
 .ctl{display:flex;align-items:center;gap:12px}
+.btns{display:flex;gap:8px}.play:disabled{opacity:.4;cursor:default}
+@media (max-width:600px){.ctl{flex-wrap:wrap}.btns{order:2;width:100%;justify-content:center}.btns .play{flex:1;max-width:120px}.yr{order:0}.sl{order:1}}
 .play{min-height:44px;min-width:78px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);font:600 14px var(--sans);cursor:pointer}
 .yr{font:700 30px/1 var(--serif);color:var(--cream);min-width:2.6em;font-variant-numeric:tabular-nums}
 .sl{flex:1;min-width:0;position:relative;padding:6px 12px 20px 0}
@@ -64,7 +66,7 @@
    <div id="cover"><h2>Christianity (Draft)</h2><p>Press Play to watch the Church spread, wave by wave.</p><button type="button" id="coverPlay">Play</button></div>
    <div class="key" id="key" aria-label="Key"></div>
   </div>
-  <div class="ctl"><button class="play" id="play" type="button">Play</button><div class="yr" id="yr">650</div>
+  <div class="ctl"><div class="btns"><button class="play step" id="prev" type="button" aria-label="Previous wave">&#8249; Prev</button><button class="play" id="play" type="button">Play</button><button class="play step" id="next" type="button" aria-label="Next wave">Next &#8250;</button></div><div class="yr" id="yr">650</div>
    <div class="sl"><input id="sl" type="range" min="0" max="11" step="0.01" value="0" aria-label="Wave"><div class="ticks" id="ticks"></div></div></div>
   <div class="cap" id="cap" aria-live="polite"></div>
  </div>

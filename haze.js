@@ -191,7 +191,7 @@ function showCard(){const i=Math.max(0,Math.min(SNAP.length-1,Math.round(pos)));
   $('card').innerHTML='<div class="k">Wave '+(i+1)+' of '+SNAP.length+' · '+esc(s.period)+'</div><h2>'+esc(s.title||s.label)+'</h2><p>'+esc(s.summary)+'</p>'+(s.note?'<p class="nbc">'+esc(s.note)+'</p>':'')+(s.spread&&s.spread.text?'<h3>How Islam spread</h3><p>'+esc(s.spread.text)+'</p>':'')+'<h3>What it meant for Jewish communities</h3><p>'+esc(s.jewish)+'</p>'+(CFG.draftLabel?'<p class="draftlab">'+esc(CFG.draftLabel)+'</p>':'');   // no sources on the cards (Jeffrey, 2026-11-01): they stay in the Master Sheet, not in the page or its data
   document.querySelectorAll('.tick').forEach((t,k)=>t.setAttribute('aria-current',k===i?'true':'false'));}
 let keyMode='haze';
-function setPos(p,fromUser){pos=Math.max(0,Math.min(SNAP.length-1,p));if(TODAY(SNAP.length-1)&&pos>=SNAP.length-2.5)loadFinal();const km=finAt(pos)>0.5?'final':'haze';if(km!==keyMode){keyMode=km;setKey(km);}$('sl').value=pos;$('yr').textContent=(TODAY(SNAP.length-1)&&pos>=SNAP.length-1-1e-6)?'Today':String(Math.round(yearAt(pos)));showCard();draw();}
+function setPos(p,fromUser){pos=Math.max(0,Math.min(SNAP.length-1,p));if(TODAY(SNAP.length-1)&&pos>=SNAP.length-2.5)loadFinal();const km=finAt(pos)>0.5?'final':'haze';if(km!==keyMode){keyMode=km;setKey(km);}$('sl').value=pos;if($('prev')){$('prev').disabled=Math.round(pos)<=0;$('next').disabled=Math.round(pos)>=SNAP.length-1;}$('yr').textContent=(TODAY(SNAP.length-1)&&pos>=SNAP.length-1-1e-6)?'Today':String(Math.round(yearAt(pos)));showCard();draw();}
 function stop(){if(timer){cancelAnimationFrame(timer);timer=null;}$('play').textContent='Play';}
 const PLAY_MS=20000,HOLD_MS=1500;   // same pace as the Events page Play (app.js startTour): 20 seconds of travel end to end, and a 1.5 second hold each time a card comes up so it can be read
 let holdUntil=0;
@@ -211,6 +211,8 @@ function wire(){
   $('ticks').addEventListener('click',e=>{const b=e.target.closest('.tick');if(!b)return;dismissCover();stop();auto=true;setPos(+b.dataset.i);});
   $('sl').addEventListener('input',e=>{dismissCover();stop();auto=true;setPos(+e.target.value);});
   $('coverPlay').addEventListener('click',()=>$('play').click());
+  const stepTo=d=>{dismissCover();stop();auto=true;setPos(Math.max(0,Math.min(SNAP.length-1,Math.round(pos)+d)));};   // Previous and Next (Jeffrey, 5 Nov): one wave at a time, by hand; stop Play first; Next ends on the last wave
+  if($('prev'))$('prev').addEventListener('click',()=>stepTo(-1));if($('next'))$('next').addEventListener('click',()=>stepTo(1));
   $('play').addEventListener('click',()=>{dismissCover();if(timer){stop();return;}if(pos>=SNAP.length-1)pos=0;auto=true;$('play').textContent='Pause';last=performance.now();holdUntil=Math.abs(pos-Math.round(pos))<1e-6?last+HOLD_MS:0;timer=requestAnimationFrame(tick);});
   const cv=$('gl'),ptrs=new Map();let pinch=0;
   cv.addEventListener('pointerdown',e=>{dismissCover();cv.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});pinch=0;});
