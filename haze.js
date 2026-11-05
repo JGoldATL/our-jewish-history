@@ -5,7 +5,8 @@
    The slider position is a wave index (0 to n-1) so every wave gets the same room; the year readout is interpolated between wave years. */
 const $=id=>document.getElementById(id);
 const D2R=Math.PI/180;
-const HAZE=[0.306,0.439,0.282];            // #4E7048, deep moss (Creative Design, 2026-10-31)
+const CFG=document.body.dataset;   // F-166: a page may set data-data (JSON file), data-haze (r,g,b 0 to 1), data-draft-label, data-noun; the Islam page sets none and behaves as before
+const HAZE=CFG.haze?CFG.haze.split(',').map(Number):[0.306,0.439,0.282];            // #4E7048, deep moss (Creative Design, 2026-10-31)
 let DATA=null,SNAP=[],ANCH=[],pos=0,auto=true,timer=null,cover=true;   // cover: the opening state (bare globe, green glow, title, Play) until Play, a drag or the slider is touched
 const view={lon:40,lat:28,deg:30,R:0,baseR:0,cx:0,cy:0,zoom:1};   // zoom below 1 shrinks the globe so a wide spread fits (used at Today)
 
@@ -173,7 +174,7 @@ const TODAY=i=>!!(SNAP[i]&&SNAP[i].hold);   // the closing card is the present-d
 function setKey(mode){$('key').innerHTML=mode==='final'?'<b>Muslim-majority states</b><div class="sw"><i class="hi"></i>Muslim-majority state</div><div class="sw"><i class="ar"></i>Arab League member</div><div class="fn">* Kosovo: recognized by many states, not all.</div>':'';}   // the key appears only in the present-day view (solid green = Muslim-majority state; green with white lines = Arab League member); the haze waves have no key
 function showCard(){const i=Math.max(0,Math.min(SNAP.length-1,Math.round(pos)));if(i===shown)return;shown=i;const s=SNAP[i];
   $('cap').textContent=TODAY(i)?'Present-day states':s.label;
-  $('card').innerHTML='<div class="k">Wave '+(i+1)+' of '+SNAP.length+' · '+esc(s.period)+'</div><h2>'+esc(s.title||s.label)+'</h2><p>'+esc(s.summary)+'</p>'+(s.note?'<p class="nbc">'+esc(s.note)+'</p>':'')+(s.spread&&s.spread.text?'<h3>How Islam spread</h3><p>'+esc(s.spread.text)+'</p>':'')+'<h3>What it meant for Jewish communities</h3><p>'+esc(s.jewish)+'</p>';   // no sources on the cards (Jeffrey, 2026-11-01): they stay in the Master Sheet, not in the page or its data
+  $('card').innerHTML='<div class="k">Wave '+(i+1)+' of '+SNAP.length+' · '+esc(s.period)+'</div><h2>'+esc(s.title||s.label)+'</h2><p>'+esc(s.summary)+'</p>'+(s.note?'<p class="nbc">'+esc(s.note)+'</p>':'')+(s.spread&&s.spread.text?'<h3>How Islam spread</h3><p>'+esc(s.spread.text)+'</p>':'')+'<h3>What it meant for Jewish communities</h3><p>'+esc(s.jewish)+'</p>'+(CFG.draftLabel?'<p class="draftlab">'+esc(CFG.draftLabel)+'</p>':'');   // no sources on the cards (Jeffrey, 2026-11-01): they stay in the Master Sheet, not in the page or its data
   document.querySelectorAll('.tick').forEach((t,k)=>t.setAttribute('aria-current',k===i?'true':'false'));}
 let keyMode='haze';
 function setPos(p,fromUser){pos=Math.max(0,Math.min(SNAP.length-1,p));if(TODAY(SNAP.length-1)&&pos>=SNAP.length-2.5)loadFinal();const km=finAt(pos)>0.5?'final':'haze';if(km!==keyMode){keyMode=km;setKey(km);}$('sl').value=pos;$('yr').textContent=(TODAY(SNAP.length-1)&&pos>=SNAP.length-1-1e-6)?'Today':String(Math.round(yearAt(pos)));showCard();draw();}
@@ -215,9 +216,9 @@ function check(d){   // reports problems, never fixes them (same stance as the l
 }
 (async()=>{
   try{
-    const r=await fetch('data/haze.json');if(!r.ok)throw new Error('Could not load data/haze.json');DATA=await r.json();check(DATA);
+    const r=await fetch(CFG.data||'data/haze.json');if(!r.ok)throw new Error('Could not load '+(CFG.data||'data/haze.json'));DATA=await r.json();check(DATA);
     SNAP=DATA.snapshots;ANCH=DATA.anchors;
-    if(DATA.mock||DATA.draft){$('mock').hidden=false;$('mock').textContent=DATA.mock?'MOCKUP: invented data':'DRAFT: Dataset\u2019s placements, not signed off';}
+    if(DATA.mock||DATA.draft){$('mock').hidden=false;$('mock').textContent=DATA.mock?'MOCKUP: invented data':(CFG.draftLabel||'DRAFT: Dataset\u2019s placements, not signed off');}
     $('version').textContent=window.SITE_FOOTER;   // the one data version, from version.js
     setKey('haze');wire();initGL();const g=camTarget(0);if(g){view.lon=g.lon;view.lat=g.lat;view.deg=g.deg;view.zoom=g.zoom;}setPos(0);requestAnimationFrame(frame);
   }catch(e){fail('This page could not load: '+e.message);}

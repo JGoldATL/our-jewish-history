@@ -64,8 +64,20 @@ def main():
     ap.add_argument("--drafts", action="store_true", help="include DRAFT rows (review copies only)")
     ap.add_argument("--with-sources", action="store_true", help="also write card sources into the file (audit copies only; the public file has none)")
     ap.add_argument("--dry-run", action="store_true"), ap.add_argument("--force", action="store_true")
+    ap.add_argument("--trail", choices=["islam", "christianity-draft"], default="islam",
+                    help="christianity-draft (F-166): the unlisted draft page only. Reads DRAFT, 'DRAFT (weak)' and LOCKED rows, needs no Control type, Date certainty or "
+                         "Not-by-conquest columns, accepts a different name per wave, ignores Source 4, writes data/christianity-draft.json (never data/haze.json).")
     ap.add_argument("--sheet-name", default=""), ap.add_argument("--sheet-modified", default="")
     a = ap.parse_args()
+    xt = a.trail == "christianity-draft"
+    if xt:
+        a.drafts = True
+        if a.out == "data/haze.json": a.out = "data/christianity-draft.json"
+        if a.anchors_tab == "Haze Anchors": a.anchors_tab = "Catholic Anchors TAB"
+        if a.cards_tab == "Haze Wave Cards": a.cards_tab = "Catholic Wave Cards"
+    elif a.out != "data/haze.json" and "christianity" in a.out:
+        sys.exit("The public trail must not write the draft page file.")
+    if xt and a.out == "data/haze.json": sys.exit("The draft trail must never write data/haze.json.")
 
     if a.anchors and a.cards:
         arows, crows = read_csv(a.anchors), read_csv(a.cards)
@@ -78,12 +90,21 @@ def main():
 
     problems = []
     P = problems.append
-    for need, rows, name in ((A_COLS, arows, "anchors"), (C_COLS, crows, "cards")):
+    weak = 0
+    if xt:   # draft trail: the Sheet export may leave the first header blank (it is Record ID); 'DRAFT (weak)' counts as DRAFT
+        for rows in (arows,):
+            if rows and "" in rows[0] and "Record ID" not in rows[0]:
+                for r in rows: r["Record ID"] = r.pop("")
+        for r in arows + crows:
+            if "Status" in r and (r["Status"] or "").strip().upper() == "DRAFT (WEAK)":
+                r["Status"] = "DRAFT"; weak += 1
+    a_need = [c for c in A_COLS if not (xt and c in ("Control type", "Date certainty"))]
+    for need, rows, name in ((a_need, arows, "anchors"), (C_COLS, crows, "cards")):
         have = set(rows[0].keys()) if rows else set()
         missing = [c for c in need if c not in have]
         if missing:
             sys.exit("Missing %s columns: %s" % (name, missing))
-    if not any(k.strip().startswith(NBC) for k in crows[0]):
+    if not xt and not any(k.strip().startswith(NBC) for k in crows[0]):
         sys.exit("Missing cards column: %s" % NBC)
 
     want = {"LOCKED", "DRAFT"} if a.drafts else {"LOCKED"}
@@ -166,11 +187,11 @@ def main():
         km, it = whole(g(r, "Radius km")), whole(g(r, "Intensity"))
         if km is None or not 150 <= km <= 1500: P("anchor %s %d: Radius km %r is not a whole number from 150 to 1500" % (aid, y, g(r, "Radius km")))
         if it is None or not 1 <= it <= 5: P("anchor %s %d: Intensity %r is not a whole number from 1 to 5" % (aid, y, g(r, "Intensity")))
-        if g(r, "Control type") not in CONTROL: P("anchor %s %d: Control type %r is not one of %s" % (aid, y, g(r, "Control type"), sorted(CONTROL)))
+        if not xt and g(r, "Control type") not in CONTROL: P("anchor %s %d: Control type %r is not one of %s" % (aid, y, g(r, "Control type"), sorted(CONTROL)))
         if not name: P("anchor %s %d: Anchor name is empty" % (aid, y))
         if re.search(r"palestin", name, re.I): P("anchor %s: name must not say Palestine" % aid)
         prev = info.get(aid)
-        if prev and (prev[0], prev[1], prev[2]) != (name, lat, lon):
+        if prev and ((prev[1], prev[2]) != (lat, lon) if xt else (prev[0], prev[1], prev[2]) != (name, lat, lon)):
             P("anchor %s: name or position differs between waves (%s vs %s)" % (aid, prev[:3], (name, lat, lon)))
         info.setdefault(aid, (name, lat, lon))
         if aid not in order: order.append(aid)
@@ -204,7 +225,7 @@ def main():
 
     sha = hashlib.sha256(b"".join(open(p, "rb").read() for p in src_files)).hexdigest()
     ver = re.findall(r"v\d+(?:\.\d+)+", a.sheet_name)
-    out = {"schema": "haze-2", "mock": False, "draft": bool(a.drafts),
+    out = {"schema": "haze-2", "trail": a.trail, "mock": False, "draft": bool(a.drafts),
            "source": (a.sheet_name or "CSV files from Dataset") + (" (DRAFT rows included, review copy)" if a.drafts else ""),
            "sheetModified": a.sheet_modified, "exportSha256": sha, "generated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
            "snapshots": snaps, "anchors": anchors}
@@ -214,6 +235,7 @@ def main():
     if skipped: print("Skipped (not %s): %s" % ("/".join(sorted(want)), dict(skipped)))
     per_wave = collections.Counter({y: len(v) for y, v in by_year.items()})
     print("Anchors per wave:", dict(sorted(per_wave.items())))
+    if xt: print("Draft trail: 'DRAFT (weak)' rows counted as DRAFT: %d (names may differ between waves; first name kept)" % weak)
     print("Problems: %d" % len(problems))
     for p in problems[:60]: print("  -", p)
     if len(problems) > 60: print("  ... and %d more" % (len(problems) - 60))
