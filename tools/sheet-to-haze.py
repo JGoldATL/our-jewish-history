@@ -64,18 +64,19 @@ def main():
     ap.add_argument("--drafts", action="store_true", help="include DRAFT rows (review copies only)")
     ap.add_argument("--with-sources", action="store_true", help="also write card sources into the file (audit copies only; the public file has none)")
     ap.add_argument("--dry-run", action="store_true"), ap.add_argument("--force", action="store_true")
-    ap.add_argument("--trail", choices=["islam", "christianity-draft"], default="islam",
+    ap.add_argument("--trail", choices=["islam", "christianity-draft", "judaism-draft"], default="islam",
                     help="christianity-draft (F-166): the unlisted draft page only. Reads DRAFT, 'DRAFT (weak)' and LOCKED rows, needs no Control type, Date certainty or "
                          "Not-by-conquest columns, accepts a different name per wave, ignores Source 4, writes data/christianity-draft.json (never data/haze.json).")
     ap.add_argument("--sheet-name", default=""), ap.add_argument("--sheet-modified", default="")
     a = ap.parse_args()
-    xt = a.trail == "christianity-draft"
+    xt = a.trail in ("christianity-draft", "judaism-draft")
+    jud = a.trail == "judaism-draft"
     if xt:
         a.drafts = True
-        if a.out == "data/haze.json": a.out = "data/christianity-draft.json"
-        if a.anchors_tab == "Haze Anchors": a.anchors_tab = "Catholic Anchors TAB"
-        if a.cards_tab == "Haze Wave Cards": a.cards_tab = "Catholic Wave Cards"
-    elif a.out != "data/haze.json" and "christianity" in a.out:
+        if a.out == "data/haze.json": a.out = "data/judaism-draft.json" if jud else "data/christianity-draft.json"
+        if a.anchors_tab == "Haze Anchors": a.anchors_tab = "Jewish Anchors" if jud else "Catholic Anchors TAB"   # Jewish tab names are Dataset's suggestion, unverified until imported
+        if a.cards_tab == "Haze Wave Cards": a.cards_tab = "Jewish Wave Cards" if jud else "Catholic Wave Cards"
+    elif a.out != "data/haze.json" and ("christianity" in a.out or "judaism" in a.out):
         sys.exit("The public trail must not write the draft page file.")
     if xt and a.out == "data/haze.json": sys.exit("The draft trail must never write data/haze.json.")
 
@@ -186,7 +187,7 @@ def main():
         if not (-90 <= lat <= 90 and -180 <= lon <= 180): P("anchor %s %d: latitude/longitude out of range" % (aid, y))
         km, it = whole(g(r, "Radius km")), whole(g(r, "Intensity"))
         if km is None or not 150 <= km <= 1500: P("anchor %s %d: Radius km %r is not a whole number from 150 to 1500" % (aid, y, g(r, "Radius km")))
-        if it is None or not 1 <= it <= 5: P("anchor %s %d: Intensity %r is not a whole number from 1 to 5" % (aid, y, g(r, "Intensity")))
+        if it is None or not (0 if jud else 1) <= it <= 5: P("anchor %s %d: Intensity %r is not a whole number from 1 to 5" % (aid, y, g(r, "Intensity")))
         if not xt and g(r, "Control type") not in CONTROL: P("anchor %s %d: Control type %r is not one of %s" % (aid, y, g(r, "Control type"), sorted(CONTROL)))
         if not name: P("anchor %s %d: Anchor name is empty" % (aid, y))
         if re.search(r"palestin", name, re.I): P("anchor %s: name must not say Palestine" % aid)

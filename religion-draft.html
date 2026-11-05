@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Religion Spread (Draft) | Our Jewish Journey</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="jewhate.css">
+<style>
+.hz{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}.left,.right{min-width:0}
+#stage{position:relative;height:clamp(300px,50svh,620px);border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#0b1624;touch-action:none}
+#cover{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;pointer-events:none}
+.cover-on #cover{display:flex}.cover-on .key{display:none}
+#cover h2{margin:0 0 6px;font-family:var(--serif);font-weight:700;font-size:clamp(30px,7vw,46px);line-height:1;color:var(--cream);text-shadow:0 2px 14px rgba(11,22,36,.9)}
+#cover p{margin:0 0 14px;max-width:26em;font-size:15px;line-height:1.35;color:var(--text);text-shadow:0 1px 10px rgba(11,22,36,.95)}
+#cover button{pointer-events:auto;min-height:46px;min-width:110px;border-radius:999px;border:1px solid rgba(239,230,211,.5);background:rgba(123,87,158,.85);color:#fff;font:600 16px var(--sans);cursor:pointer}
+#ov{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;transform:translateZ(0)}
+#mock{background:#c62828;color:#fff;text-align:center;font:800 15px/1.15 var(--sans);letter-spacing:.04em;padding:7px;border-radius:12px;margin-bottom:10px}
+#mock[hidden]{display:none}
+.key:empty{display:none}.key{position:absolute;left:10px;bottom:10px;z-index:2;display:flex;flex-direction:column;gap:5px;padding:8px 11px;border-radius:12px;background:rgba(14,24,34,.78);border:1px solid rgba(239,230,211,.22);font-size:12.5px;line-height:1.2;pointer-events:none}
+.key b{font-weight:600;color:var(--cream)}
+.key .sw{display:flex;align-items:center;gap:8px;color:var(--text);font-size:12px;white-space:nowrap}
+.key .sw i{width:22px;height:13px;border-radius:3px;flex:none;border:1px solid rgba(239,230,211,.3)}
+.key .sw i.lo{background:radial-gradient(rgba(255,255,255,.4) 1px,transparent 1.3px) 0 0/7px 7px,rgba(123,87,158,.58)}
+.key .sw i.hi{background:radial-gradient(rgba(255,255,255,.45) 1px,transparent 1.3px) 0 0/4px 4px,rgba(123,87,158,.8)}
+.key .sw i.ar{background:repeating-linear-gradient(45deg,rgba(255,250,240,.85) 0 2px,transparent 2px 5px),rgba(123,87,158,.88)}
+.key .fn{color:var(--muted);font-size:11px;white-space:normal;max-width:210px;line-height:1.25}
+.ctl{display:flex;align-items:center;gap:12px}
+.btns{display:flex;gap:8px}.play:disabled{opacity:.4;cursor:default}
+@media (max-width:600px){.ctl{flex-wrap:wrap}.btns{order:2;width:100%;justify-content:center}.btns .play{flex:1;max-width:120px}.yr{order:0}.sl{order:1}}
+.play{min-height:44px;min-width:78px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);font:600 14px var(--sans);cursor:pointer}
+.yr{font:700 30px/1 var(--serif);color:var(--cream);min-width:2.6em;font-variant-numeric:tabular-nums}
+.sl{flex:1;min-width:0;position:relative;padding:6px 12px 20px 0}
+.sl input{width:100%;margin:0;accent-color:#E8B27A}
+.ticks{position:absolute;left:8px;right:8px;bottom:0;height:16px}
+.tick{position:absolute;transform:translateX(-50%);top:0;width:30px;height:16px;border:0;background:none;color:var(--muted);font:11px var(--sans);cursor:pointer;padding:0;text-align:center}
+.tick[aria-current=true]{color:var(--amber2);font-weight:700}
+.cap{margin-top:-4px;font:600 13px var(--sans);letter-spacing:.04em;color:var(--amber2)}
+.wc .draftlab{margin-top:12px;font:600 12px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--amber2)}
+.draftbadge{position:absolute;left:10px;top:10px;z-index:2;padding:4px 9px;border-radius:6px;background:#FFFAF5;border:1px dashed #66746F;color:#183E50;font:600 11px var(--sans);pointer-events:none}.draftbadge[hidden]{display:none}
+.chips{position:absolute;left:10px;bottom:10px;z-index:2;display:flex;flex-wrap:wrap;gap:6px;max-width:calc(100% - 20px)}.cover-on .chips,.cover-on .draftbadge{display:none}
+.chip{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:4px 11px;border-radius:999px;border:1px solid rgba(239,230,211,.3);background:rgba(14,24,34,.82);color:var(--text);font:600 12.5px var(--sans);cursor:pointer}
+.chip[aria-pressed=false]{opacity:.5}.chip:disabled{opacity:.4;cursor:default}.chip .dot{width:12px;height:12px;border-radius:50%;flex:none;border:1px solid rgba(239,230,211,.4)}
+.lc{padding:0 0 14px}.lc+.lc{border-top:1px solid var(--line);padding-top:14px}.lc .lh{display:flex;align-items:center;gap:8px;font:700 13px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--cream)}.lc .lh i{width:12px;height:12px;border-radius:50%;background:var(--lc)}
+.wc .draftchip{display:inline-block;padding:3px 8px;border-radius:6px;background:#FFFAF5;border:1px dashed #66746F;color:#183E50;font:600 11px var(--sans);letter-spacing:0;text-transform:none}
+.wc .nbc{font-size:14.5px;font-style:italic;color:var(--soft);border-left:3px solid rgba(232,178,122,.5);padding-left:10px}
+.wc{padding:16px 18px;border-radius:18px;border:1px solid var(--line);background:rgba(239,230,211,.05)}
+.wc .k{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.wc h2{margin:6px 0 8px;font-family:var(--serif);font-weight:700;font-size:30px;line-height:1;color:var(--cream)}
+.wc p{margin:0 0 10px;font-size:16px;line-height:1.5;color:var(--text)}
+.wc h3{margin:12px 0 4px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
+.wc ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--soft)}.wc li,.wc a{overflow-wrap:anywhere}
+@media (min-width:901px){.hz{grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr);align-items:start}#stage{height:calc(100svh - 230px);min-height:420px}.right{display:grid;gap:14px}}
+.foot{display:flex;align-items:center;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));font-size:12px;color:var(--muted)}
+.foot .grow{margin-right:auto}
+</style>
+</head>
+<body data-page="religion-draft">
+<header class="top"><div class="brand"><h1><a href="religion-draft.html">Religion Spread (Draft)</a></h1><p>How Islam and Christianity spread, wave by wave, and what it meant for Jewish communities. Judaism joins when its data is ready.</p></div></header>
+<main class="wrap">
+<p class="msg" id="msg" role="status" hidden></p>
+<div class="hz" id="hz">
+ <div class="left">
+    <div id="stage" class="cover-on"><canvas id="gl" aria-label="Map showing where each religion had spread by the selected year"></canvas><canvas id="ov" aria-hidden="true"></canvas>
+   <div id="cover"><h2>Religion Spread (Draft)</h2><p>Press Play to watch Islam and Christianity spread, wave by wave.</p><button type="button" id="coverPlay">Play</button></div>
+   <div class="draftbadge" id="draftbadge">Draft: sources under review</div>
+   <div class="chips" id="chips" aria-label="Layers"><button type="button" class="chip" data-l="islam" aria-pressed="true"><i class="dot" style="background:#4E7048"></i>Islam</button><button type="button" class="chip" data-l="christ" aria-pressed="true"><i class="dot" style="background:#E8B923"></i>Christianity</button><button type="button" class="chip" data-l="jew" aria-pressed="true" disabled title="Data in preparation"><i class="dot" style="background:#3D82D4"></i><span>Judaism (soon)</span></button></div>
+  </div>
+  <div class="ctl"><div class="btns"><button class="play step" id="prev" type="button" aria-label="Previous wave">&#8249; Prev</button><button class="play" id="play" type="button">Play</button><button class="play step" id="next" type="button" aria-label="Next wave">Next &#8250;</button></div><div class="yr" id="yr">650</div>
+   <div class="sl"><input id="sl" type="range" min="0" max="11" step="0.01" value="0" aria-label="Wave"><div class="ticks" id="ticks"></div></div></div>
+  <div class="cap" id="cap" aria-live="polite"></div>
+ </div>
+ <div class="right"><article class="wc" id="card" aria-live="polite"></article></div>
+</div>
+</main>
+<footer class="foot"><span class="grow" id="hint">Drag the map to move it · pinch or scroll to zoom</span><span id="version"></span></footer>
+<script src="version.js"></script>
+<script src="nav.js"></script>
+<script src="pill.js"></script>
+<script src="header.js"></script>
+<script src="religion.js"></script>
+</body>
+</html>
