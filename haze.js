@@ -6,23 +6,26 @@
 const $=id=>document.getElementById(id);
 const D2R=Math.PI/180;
 const CFG=document.body.dataset;   // F-166: a page may set data-data (JSON file), data-haze (r,g,b 0 to 1), data-draft-label, data-noun; the Islam page sets none and behaves as before
+const FLAT=CFG.flat==='1';   // F-166 (Jeffrey 5 Nov, 1a): a flat world map in place of the globe, so the whole land shows when zoomed out
 const HAZE=CFG.haze?CFG.haze.split(',').map(Number):[0.306,0.439,0.282];            // #4E7048, deep moss (Creative Design, 2026-10-31)
 let DATA=null,SNAP=[],ANCH=[],pos=0,auto=true,timer=null,cover=true;   // cover: the opening state (bare globe, green glow, title, Play) until Play, a drag or the slider is touched
-const view={lon:40,lat:28,deg:30,R:0,baseR:0,cx:0,cy:0,zoom:1};   // zoom below 1 shrinks the globe so a wide spread fits (used at Today)
+const view={lon:40,lat:28,deg:30,R:0,baseR:0,cx:0,cy:0,zoom:1,sc:1};   // sc: flat map only, pixels per degree   // zoom below 1 shrinks the globe so a wide spread fits (used at Today)
 
 /* ---------- globe (copied from app.js and haze-test.html; see the feasibility note on why it is copied, not shared) ---------- */
 const VS='attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
 const FS=`precision highp float;
-uniform vec2 uC;uniform float uR;uniform vec2 uCen;uniform float uK;uniform sampler2D uW;uniform sampler2D uG;uniform vec4 uGB;uniform float uDpr;uniform vec2 uSize;uniform sampler2D uWash;uniform vec3 uHaze;uniform sampler2D uFill;uniform sampler2D uBord;uniform float uFin;
+uniform vec2 uC;uniform float uR;uniform vec2 uCen;uniform float uK;uniform sampler2D uW;uniform sampler2D uG;uniform vec4 uGB;uniform float uDpr;uniform vec2 uSize;uniform sampler2D uWash;uniform vec3 uHaze;uniform sampler2D uFill;uniform sampler2D uBord;uniform float uFin;uniform float uFlat;
 void main(){
  vec2 px=vec2(gl_FragCoord.x,uSize.y-gl_FragCoord.y)/uDpr;
- vec2 d=(px-uC)/uR;float r=length(d);
+ vec2 d=(px-uC)/uR;float r=length(d);float LON,LAT;float fl=uFlat;
+ if(fl>.5){LON=degrees(uCen.x)+d.x;LAT=degrees(uCen.y)-d.y;if(abs(LAT)>84.){gl_FragColor=vec4(0.);return;}}   // flat map: uR is pixels per degree
+ else{
  if(r>1.0){gl_FragColor=vec4(0.);return;}
  float dp=asin(min(r,1.0));float del=dp/uK;float th=atan(d.x,-d.y);
  float p0=uCen.y,l0=uCen.x;
  float lat=asin(sin(p0)*cos(del)+cos(p0)*sin(del)*cos(th));
  float lon=l0+atan(sin(th)*sin(del)*cos(p0),cos(del)-sin(p0)*sin(lat));
- float LON=degrees(lon),LAT=degrees(lat);
+ LON=degrees(lon);LAT=degrees(lat);}
  LON=mod(LON+180.,360.)-180.;
  vec3 col;
  if(LON>=uGB.x&&LON<=uGB.y&&LAT>=uGB.z&&LAT<=uGB.w){col=texture2D(uG,vec2((LON-uGB.x)/(uGB.y-uGB.x),(uGB.w-LAT)/(uGB.w-uGB.z))).rgb;}
@@ -44,10 +47,11 @@ void main(){
  vec3 L=normalize(vec3(-.45,.55,.75));
  float diff=.62+.48*max(dot(n,L),0.);
  float limb=1.-.55*pow(r,3.2);
+ if(fl>.5){diff=1.;limb=1.;}
  col*=diff*limb;
- float spec=pow(max(dot(reflect(-L,n),vec3(0.,0.,1.)),0.),24.)*.10;
+ float spec=pow(max(dot(reflect(-L,n),vec3(0.,0.,1.)),0.),24.)*(fl>.5?0.:.10);
  col+=spec;
- float a=clamp((1.-r)*uR*uDpr,0.,1.);
+ float a=fl>.5?1.:clamp((1.-r)*uR*uDpr,0.,1.);
  gl_FragColor=vec4(col*a,a);
 }`;
 let gl,uni={},texReady=0,washTex;const wc=document.createElement('canvas'),wx=wc.getContext('2d');
@@ -57,7 +61,7 @@ function initGL(){
   const p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,VS));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(p);gl.useProgram(p);
   const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
   const a=gl.getAttribLocation(p,'a');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
-  for(const n of ['uC','uR','uCen','uK','uW','uG','uGB','uDpr','uSize','uWash','uHaze','uFill','uBord','uFin'])uni[n]=gl.getUniformLocation(p,n);
+  for(const n of ['uC','uR','uCen','uK','uW','uG','uGB','uDpr','uSize','uWash','uHaze','uFill','uBord','uFin','uFlat'])uni[n]=gl.getUniformLocation(p,n);
   gl.uniform1i(uni.uW,0);gl.uniform1i(uni.uG,1);gl.uniform1i(uni.uWash,2);gl.uniform1i(uni.uFill,3);gl.uniform1i(uni.uBord,4);gl.uniform1f(uni.uFin,0);gl.uniform4f(uni.uGB,-20,80,0,60);
   for(const u of [3,4]){gl.activeTexture(gl.TEXTURE0+u);const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,1,1,0,gl.RGB,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0]));gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);}
   washTex=gl.createTexture();gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,washTex);
@@ -69,6 +73,7 @@ function loadTex(src,unit,wrap,tries){tries=tries||0;const img=new Image();img.o
     gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,wrap?gl.REPEAT:gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);texReady++;draw();};img.src=src;}
 function project(lon,lat){
+  if(FLAT){const dx=((lon-view.lon+540)%360+360)%360-180;return {x:view.cx+dx*view.sc,y:view.cy-(lat-view.lat)*view.sc,vis:true};}
   const l0=view.lon*D2R,p0=view.lat*D2R,l=lon*D2R,p=lat*D2R;
   const cosd=Math.sin(p0)*Math.sin(p)+Math.cos(p0)*Math.cos(p)*Math.cos(l-l0);
   const d=Math.acos(Math.max(-1,Math.min(1,cosd)));
@@ -97,7 +102,7 @@ function drawWash(p){
   wx.clearRect(0,0,w,h);wx.globalCompositeOperation='lighter';
   ANCH.forEach((a,i)=>{
     const s=stateAt(a,p);if(s.k<=0.005)return;const q=project(a.lon,a.lat);if(!q.vis)return;
-    const rad=Math.max(34,view.R*Math.sin(Math.min(Math.PI/2,s.km/6371*90/view.deg)))/2;   // km to half-size canvas px; 34 is the minimum on-screen softness
+    const rad=Math.max(34,FLAT?view.sc*s.km/111:view.R*Math.sin(Math.min(Math.PI/2,s.km/6371*90/view.deg)))/2;   // km to half-size canvas px; 34 is the minimum on-screen softness
     const x=q.x/2,y=q.y/2,m=.8*Math.min(1,s.k/.2)*(.4+.6*s.k);                                // a present anchor starts at 40 percent strength
     for(const l of lobesFor(a,i))lobe(x+l.dx*rad,y+l.dy*rad,l.r*rad*1.25,l.sx,l.rot,m*.42);
   });
@@ -114,7 +119,7 @@ const finAt=p=>FIN.ready&&TODAY(SNAP.length-1)?Math.max(0,Math.min(1,p-(SNAP.len
 function drawOverlay(fin){
   const c=$('ov'),dpr=Math.min(2,window.devicePixelRatio||1),w=c.clientWidth,h=c.clientHeight;if(c.width!==Math.round(w*dpr)||c.height!==Math.round(h*dpr)){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);}
   const x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,w,h);
-  if(cover){const R=view.R,g=x.createRadialGradient(view.cx,view.cy,R*0.9,view.cx,view.cy,R*1.28);   // soft green shadow round the rim of the bare globe
+  if(cover&&!FLAT){const R=view.R,g=x.createRadialGradient(view.cx,view.cy,R*0.9,view.cx,view.cy,R*1.28);   // soft green shadow round the rim of the bare globe
     g.addColorStop(0,'rgba(110,168,100,.55)');g.addColorStop(.3,'rgba(78,112,72,.34)');g.addColorStop(1,'rgba(78,112,72,0)');x.fillStyle=g;x.fillRect(0,0,w,h);}
   if(!FIN.ready||fin<=0.02)return;
   x.save();x.globalAlpha=Math.min(1,fin);x.setLineDash([4,3]);x.lineWidth=1.2;x.strokeStyle='#183B4B';   // West Bank and Gaza, Western Sahara: thin dashed outline, no fill, no label, no wording
@@ -129,12 +134,12 @@ function drawOverlay(fin){
 function dismissCover(){if(!cover)return;cover=false;$('stage').classList.remove('cover-on');draw();}
 function draw(){
   if(!gl||texReady<2||!SNAP.length)return;const c=$('gl'),dpr=Math.min(2,window.devicePixelRatio||1),w=c.clientWidth,h=c.clientHeight;
-  if(cover){view.deg=84;view.zoom=Math.min(1,Math.min(w,h)*0.40/Math.max(w*0.95,h*0.62));}   // cover: the whole globe, rim in view
+  if(cover){if(FLAT){view.sc=Math.max(w/360,Math.min(w/300,h/170));view.lon=10;view.lat=22;}else{view.deg=84;view.zoom=Math.min(1,Math.min(w,h)*0.40/Math.max(w*0.95,h*0.62));}}   // cover: the whole globe, rim in view
   if(c.width!==Math.round(w*dpr)||c.height!==Math.round(h*dpr)){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);}
-  view.cx=w/2;view.cy=h/2;view.baseR=Math.max(w*0.95,h*0.62);view.R=view.baseR*view.zoom;
+  view.cx=w/2;view.cy=h/2;view.baseR=Math.max(w*0.95,h*0.62);view.R=FLAT?view.sc:view.baseR*view.zoom;
   drawWash(pos);
   gl.viewport(0,0,c.width,c.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
-  gl.uniform2f(uni.uC,view.cx,view.cy);gl.uniform1f(uni.uR,view.R);gl.uniform2f(uni.uCen,view.lon*D2R,view.lat*D2R);gl.uniform1f(uni.uK,90/view.deg);gl.uniform1f(uni.uDpr,dpr);gl.uniform2f(uni.uSize,c.width,c.height);
+  gl.uniform2f(uni.uC,view.cx,view.cy);gl.uniform1f(uni.uR,view.R);gl.uniform2f(uni.uCen,view.lon*D2R,view.lat*D2R);gl.uniform1f(uni.uK,90/view.deg);gl.uniform1f(uni.uFlat,FLAT?1:0);gl.uniform1f(uni.uDpr,dpr);gl.uniform2f(uni.uSize,c.width,c.height);
   gl.uniform3fv(uni.uHaze,HAZE);const fin=finAt(pos);gl.uniform1f(uni.uFin,fin);
   gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,washTex);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,wc);
   gl.drawArrays(gl.TRIANGLES,0,6);
@@ -143,6 +148,13 @@ function draw(){
 
 /* ---------- follow camera: centre on the strong anchors, widen until every one is on screen (limit 84 degrees) ---------- */
 function camTarget(p){
+  if(FLAT){   // fit the haze so far (it only grows), with room round it; never tighter than 3 px per degree, never wider than the whole world
+    const act=ANCH.filter(a=>stateAt(a,p).k>0.3);if(!act.length)return null;const c=$('gl'),w=c.clientWidth||390,h=c.clientHeight||420;
+    let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;for(const a of act){x0=Math.min(x0,a.lon);x1=Math.max(x1,a.lon);y0=Math.min(y0,a.lat);y1=Math.max(y1,a.lat);}
+    const padX=22,padY=16,spanX=Math.max(30,x1-x0+2*padX),spanY=Math.max(20,y1-y0+2*padY);
+    const sc=Math.max(w/360,Math.min(6,w/spanX,(h-30)/spanY));
+    return {lon:(x0+x1)/2,lat:Math.max(-60,Math.min(70,(y0+y1)/2)),sc};
+  }
   const act=[];if(FIN.ready&&FIN.states&&p>=SNAP.length-1.5){for(const s of FIN.states)if(s.area>=3)act.push({lon:s.lon,lat:s.lat});}   // at Today, frame the states
   else for(const a of ANCH){const s=stateAt(a,p);if(s.k>0.3)act.push(a);}
   if(!act.length)return null;
@@ -162,7 +174,9 @@ const HAZE_PAD=96,MIN_ZOOM=0.78;   // each haze place sits at least 96 px inside
 const MIN_DEG=50;   // widest-first: never zoom in tighter than this (degrees across the globe), so the early waves show the whole region round the Middle East, not just the first places
 let lastF=0;
 function frame(t){const dt=Math.min(.1,(t-lastF)/1000);lastF=t;
-  if(auto){const g=camTarget(pos);if(g){const k=1-Math.exp(-dt*3),dl=((g.lon-view.lon+540)%360)-180,nl=view.lon+dl*k,nla=view.lat+(g.lat-view.lat)*k,nd=view.deg+(g.deg-view.deg)*k,nz=view.zoom+(g.zoom-view.zoom)*k;
+  if(auto&&FLAT){const g=camTarget(pos);if(g){const k=1-Math.exp(-dt*3),nl=view.lon+(g.lon-view.lon)*k,nla=view.lat+(g.lat-view.lat)*k,ns=view.sc*Math.pow(g.sc/view.sc,k);
+    if(Math.abs(nl-view.lon)+Math.abs(nla-view.lat)+Math.abs(Math.log(ns/view.sc))*50>0.002){view.lon=nl;view.lat=nla;view.sc=ns;draw();}}}
+  else if(auto){const g=camTarget(pos);if(g){const k=1-Math.exp(-dt*3),dl=((g.lon-view.lon+540)%360)-180,nl=view.lon+dl*k,nla=view.lat+(g.lat-view.lat)*k,nd=view.deg+(g.deg-view.deg)*k,nz=view.zoom+(g.zoom-view.zoom)*k;
     if(Math.abs(nl-view.lon)+Math.abs(nla-view.lat)+Math.abs(nd-view.deg)+Math.abs(nz-view.zoom)*50>0.002){view.lon=nl;view.lat=nla;view.deg=nd;view.zoom=nz;draw();}}}
   requestAnimationFrame(frame);}
 
@@ -201,11 +215,13 @@ function wire(){
   const cv=$('gl'),ptrs=new Map();let pinch=0;
   cv.addEventListener('pointerdown',e=>{dismissCover();cv.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});pinch=0;});
   cv.addEventListener('pointermove',e=>{const p=ptrs.get(e.pointerId);if(!p)return;auto=false;
+    if(FLAT){const w2=$('gl').clientWidth||390,mn=w2/360;if(ptrs.size===1){view.lon-=(e.clientX-p.x)/view.sc;view.lat=Math.max(-70,Math.min(80,view.lat+(e.clientY-p.y)/view.sc));p.x=e.clientX;p.y=e.clientY;}
+      else{p.x=e.clientX;p.y=e.clientY;const [a,b]=[...ptrs.values()],d=Math.hypot(a.x-b.x,a.y-b.y);if(pinch)view.sc=Math.max(mn,Math.min(10,view.sc*d/pinch));pinch=d;}draw();return;}
     if(ptrs.size===1){const dpp=1/(view.R*90/view.deg)/D2R;view.lon-=(e.clientX-p.x)*dpp/Math.max(.2,Math.cos(view.lat*D2R));view.lat=Math.max(-70,Math.min(80,view.lat+(e.clientY-p.y)*dpp));p.x=e.clientX;p.y=e.clientY;}
     else{p.x=e.clientX;p.y=e.clientY;const [a,b]=[...ptrs.values()],d=Math.hypot(a.x-b.x,a.y-b.y);if(pinch)view.deg=Math.max(14,Math.min(84,view.deg*pinch/d));pinch=d;}
     draw();});
   const up=e=>{ptrs.delete(e.pointerId);pinch=0;};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
-  cv.addEventListener('wheel',e=>{e.preventDefault();dismissCover();auto=false;view.deg=Math.max(14,Math.min(84,view.deg*(e.deltaY<0?1/1.1:1.1)));draw();},{passive:false});
+  cv.addEventListener('wheel',e=>{e.preventDefault();dismissCover();auto=false;if(FLAT){view.sc=Math.max(($('gl').clientWidth||390)/360,Math.min(10,view.sc*(e.deltaY<0?1.1:1/1.1)));}else view.deg=Math.max(14,Math.min(84,view.deg*(e.deltaY<0?1/1.1:1.1)));draw();},{passive:false});
   window.addEventListener('resize',draw);
 }
 function fail(m){const e=$('msg');e.hidden=false;e.textContent=m;$('hz').hidden=true;}
@@ -220,6 +236,6 @@ function check(d){   // reports problems, never fixes them (same stance as the l
     SNAP=DATA.snapshots;ANCH=DATA.anchors;
     if(DATA.mock||DATA.draft){$('mock').hidden=false;$('mock').textContent=DATA.mock?'MOCKUP: invented data':(CFG.draftLabel||'DRAFT: Dataset\u2019s placements, not signed off');}
     $('version').textContent=window.SITE_FOOTER;   // the one data version, from version.js
-    setKey('haze');wire();initGL();const g=camTarget(0);if(g){view.lon=g.lon;view.lat=g.lat;view.deg=g.deg;view.zoom=g.zoom;}setPos(0);requestAnimationFrame(frame);
+    setKey('haze');wire();initGL();const g=camTarget(0);if(g){view.lon=g.lon;view.lat=g.lat;if(FLAT)view.sc=g.sc;else{view.deg=g.deg;view.zoom=g.zoom;}}setPos(0);requestAnimationFrame(frame);
   }catch(e){fail('This page could not load: '+e.message);}
 })();
