@@ -217,7 +217,7 @@ def main():
         s, last = [], [0, 0]
         for c in cards:
             if c["year"] in by_year:
-                last = by_year[c["year"]].get(aid, [0, 0])
+                last = by_year[c["year"]].get(aid, last if xt else [0, 0])   # draft trail (Jeffrey, 5 Nov): once a place has haze it stays, at its last radius and intensity, until a later row changes it; the Islam trail keeps its own rule
             elif c["year"] not in by_year:
                 pass   # hold: repeat the previous wave's entry (last)
             s.append(list(last))
