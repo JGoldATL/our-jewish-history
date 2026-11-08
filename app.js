@@ -194,7 +194,10 @@ let SHEETSYMS=null;
 function sheetSymbolRecords(){const S=DATA.sheet;if(!S||/[?&]engine=1/.test(location.search))return [];const from=DATA.timeline.modernFrom??1898,cards=new Map((S.cards||[]).map(k=>[k.id,k])),seen=new Set(),out=[];
   const add=(c,sym,label)=>{const k=sym+'|'+c.placeId+'|'+Math.round(c.startYear);if(seen.has(k))return;seen.add(k);out.push({c,sym,label,card:cards.get(c.id)||(c.links||[]).map(i=>cards.get(i)).find(Boolean)||null});};
   for(const e of S.events||[])if(e.mapSymbol?.kind==='octagon'&&e.startYear>=from)add(e,'destroyed','Pogrom or attack');
-  for(const c of S.communities||[]){const k=c.mapSymbol?.kind;if(k==='blackSquare')add(c,'noLonger','Community no longer exists');else if(k==='octagon'&&c.noEngineFields)add(c,'destroyed','Pogrom or attack');}
+  /* 3.3.5 (Dataset 4 Nov): the two black squares CHG-010 and CHG-014 are held for a second source, so none is drawn; split diamonds follow the record's own text:
+     cross = forced conversion to Christianity (CHG-013, 015), crescent = forced conversion to Islam (CHG-023, 032, 033, 034). No record is the plain purple diamond (unknown). */
+  const HELD_SQ=new Set(['CHG-010','CHG-014']);
+  for(const c of S.communities||[]){const k=c.mapSymbol?.kind,tx=String(c.mapSymbol?.text||'');if(k==='blackSquare'){if(!HELD_SQ.has(c.id))add(c,'noLonger','Community no longer exists');}else if(k==='splitDiamond'){if(/Christianity/.test(tx))add(c,'convChristian','Forced conversion to Christianity');else if(/Islam/.test(tx))add(c,'convIslam','Forced conversion to Islam');}else if(k==='octagon'&&c.noEngineFields)add(c,'destroyed','Pogrom or attack');}
   return out.sort((a,b)=>b.c.startYear-a.c.startYear);}   // newest first: where one place has several of the same symbol, only the newest drawn one shows
 function drawArcLive(){const g=$('arcLive');g.replaceChildren();el('path',{d:arcD(0,Math.max(0.0001,position)),class:'arcFill'},g);const [x,y]=arcPt(position);el('circle',{cx:x,cy:y,r:11,class:'bead'},g);const s=$('arcSlider');s.setAttribute('aria-valuenow',Math.round(currentYear()));s.setAttribute('aria-valuetext',yearLabel(Math.round(currentYear())));}
 function posFromPointer(e){const r=$('arc').getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let a=Math.atan2(y-ARC.cy,x-ARC.cx);if(a<-Math.PI/2)a+=2*Math.PI;const p=(a-ARC.a0)/(ARC.a1-ARC.a0);return Math.max(0,Math.min(1,p));}
@@ -207,7 +210,7 @@ function followCamera(y){if(view.manual)return;const s=DATA.cameraStates;let i=0
 // Community symbols (locked 2 Oct 2026, Map-Icon-Decisions): shape + color carry the meaning, never color alone.
 // Murdered community = red octagon; forced conversion = purple diamond; forced conversion to Christianity = split diamond (half star, half cross).
 function drawSymbol(inner,kind,record){   /* the art lives in symbols.js (Creative Design's final six-symbol set, cream halo on all six). The record-to-symbol mapping is unchanged: noLonger = black square, destroyed = red octagon, conversion to Christianity = split diamond with a cross, every other conversion = split diamond with a crescent (Jeffrey and Dataset have not yet said which records are Islam and which unknown; HOLD, Design instructions B6). */
-  const type=kind==='noLonger'?'sq':kind==='destroyed'?'oct':(record?.conversionReligion==='Christianity'?'split':'splitI');inner.innerHTML=SYM_ART.box(type);}
+  const type=kind==='noLonger'?'sq':kind==='destroyed'?'oct':kind==='convChristian'?'split':kind==='convIslam'?'splitI':(record?.conversionReligion==='Christianity'?'split':record?.conversionReligion==='Islam'?'splitI':'dia');inner.innerHTML=SYM_ART.box(type);}
 function communitySymbol(parent,kind,size,record){const g=el('g',{class:'sym'},parent);const inner=el('g',{transform:`scale(${size/36})`},g);drawSymbol(inner,kind,record);return g;}
 
 /* ---------- render ---------- */
@@ -227,8 +230,8 @@ function renderCore(){
       if(r.label&&st.nodeOpacity>.08)labels.push({text:r.label,x:q.x,y:q.y,side:r.labelSide||'right',prio:['j','b','alexNode','israel'].includes(p.id)?2:1,record:p});}
   }
   for(const w of sheetWashes(y,frame)){const pts=w.pts.map(P);if(!pts.some(q=>q.vis))continue;wctx.save();wctx.shadowColor=`rgba(0,0,0,${w.a.toFixed(3)})`;wctx.shadowBlur=washBlur*2;wctx.shadowOffsetX=20000;wctx.beginPath();pts.forEach((q,i)=>{const x=q.x*WS-20000,yy=q.y*WS;i?wctx.lineTo(x,yy):wctx.moveTo(x,yy);});wctx.closePath();wctx.fillStyle='#000';wctx.fill();wctx.restore();}   // v0.8.0 F-019: Sheet shading
-  // movement routes. F-173 (Events): the card that is showing (open, or auto-shown while the year is dragged or Play runs) draws only its own arrows; 'View all routes' (trails) still draws every arrow.
-  const arrowCard=EVENTS_ONLY&&!trails?activeCardRecord(y):undefined;
+  // movement routes. F-173 (Events and, from 3.3.5, the home page): the card that is showing (open, or auto-shown while the year is dragged or Play runs) draws only its own arrows; 'View all routes' (trails) still draws every arrow.
+  const arrowCard=!trails?activeCardRecord(y):undefined;
   const defs=$('ovDefs');defs.querySelectorAll('.dyn').forEach(n=>n.remove());
   for(const fm of frame.movements){if(!fm.visible)continue;if(EVENTS_ONLY&&!EV_VOL.has(fm.id))continue;const m=DATA.movements.find(r=>r.id===fm.id);if(arrowCard!==undefined&&!ownsArrow(arrowCard,m))continue;const win=movementWindow(m),past=trails&&win[1]<=y;const op0=Math.max(fm.opacity,past?.28:0);if(op0<=.01)continue;const op=1;   /* CEO 10/20: every arrow is 100% opaque on every map; it is drawn or it is not */
     const pts=routePoints(m).filter(q=>q.vis);if(pts.length<6)continue;const traditional=m.evidenceStatus==='traditional account';
@@ -269,7 +272,7 @@ function geoLabels(){if(!GEO)return [];const out=[];for(const [text,kind,lo,la] 
 // label with the same name is already queued; camera-only Places (place-cam-*) are never drawn.
 function addSheetPlaceLabels(frame,labels,mark,P,scale){
   if(!SHEETPL.size)return;
-  const want=new Set();for(const fm of frame.movements){if(!fm.visible||fm.opacity<.3)continue;if(EVENTS_ONLY&&!EV_VOL.has(fm.id))continue;const m=DATA.movements.find(r=>r.id===fm.id);if(!m)continue;if(EVENTS_ONLY&&!trails&&!ownsArrow(activeCardRecord(currentYear()),m))continue;for(const id of [m.origin,m.destination])if(typeof id==='string')want.add(id);}
+  const want=new Set();for(const fm of frame.movements){if(!fm.visible||fm.opacity<.3)continue;if(EVENTS_ONLY&&!EV_VOL.has(fm.id))continue;const m=DATA.movements.find(r=>r.id===fm.id);if(!m)continue;if(!trails&&!ownsArrow(activeCardRecord(currentYear()),m))continue;for(const id of [m.origin,m.destination])if(typeof id==='string')want.add(id);}
   const sp=selected?.record?.placeId;if(typeof sp==='string')want.add(sp);
   const have=new Set(labels.map(l=>String(l.text).toLowerCase()));
   for(const id of want){const pl=SHEETPL.get(id);if(!pl||pl.cameraOnly||pl.lat==null||pl.lon==null)continue;const text=(pl.mapLabel?String(pl.mapLabel):String(pl.historicalName||'').split(/\s*[\/(]/)[0]).trim();if(!text||have.has(text.toLowerCase()))continue;
