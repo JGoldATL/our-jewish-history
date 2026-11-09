@@ -11,15 +11,20 @@ const D2R=Math.PI/180;
 const svgToLonLat=([x,y])=>[x/15-15,58-y*53/650];
 
 /* ---------- globe projection: magnified orthographic ---------- */
-const view={lon:35,lat:31,deg:15,R:390,baseR:390,zoom:1,cx:450,cy:420,manual:false};
+const view={lon:35,lat:31,deg:15,R:390,baseR:390,zoom:1,cx:450,cy:420,manual:false,sc:6,fsc:6,minSc:1};
+/* F-176 (Jeffrey 7 Nov, decisions 9 Nov): Events and the home page draw a FLAT lon/lat map instead of the globe (window.OJJ_FLAT). Plain equirectangular, re-scaled at every camera frame: x uses cos(latitude of the frame centre) so places keep their shape. view.sc = pixels per degree of latitude. */
+const FLAT=!!window.OJJ_FLAT;let cover=FLAT;
+const kxOf=()=>Math.max(.4,Math.cos(view.lat*D2R));
 const ZMIN=1,ZMAX=3.2;
-function unproject(x,y){const dx=(x-view.cx)/view.R,dy=(y-view.cy)/view.R,r=Math.hypot(dx,dy);if(r>=1)return null;const del=Math.asin(r)/(90/view.deg),th=Math.atan2(dx,-dy),p0=view.lat*D2R,l0=view.lon*D2R;const lat=Math.asin(Math.sin(p0)*Math.cos(del)+Math.cos(p0)*Math.sin(del)*Math.cos(th));const lon=l0+Math.atan2(Math.sin(th)*Math.sin(del)*Math.cos(p0),Math.cos(del)-Math.sin(p0)*Math.sin(lat));return [lon/D2R,lat/D2R];}
+function unproject(x,y){if(FLAT)return [view.lon+(x-view.cx)/(view.sc*kxOf()),view.lat-(y-view.cy)/view.sc];const dx=(x-view.cx)/view.R,dy=(y-view.cy)/view.R,r=Math.hypot(dx,dy);if(r>=1)return null;const del=Math.asin(r)/(90/view.deg),th=Math.atan2(dx,-dy),p0=view.lat*D2R,l0=view.lon*D2R;const lat=Math.asin(Math.sin(p0)*Math.cos(del)+Math.cos(p0)*Math.sin(del)*Math.cos(th));const lon=l0+Math.atan2(Math.sin(th)*Math.sin(del)*Math.cos(p0),Math.cos(del)-Math.sin(p0)*Math.sin(lat));return [lon/D2R,lat/D2R];}
 // Zoom brings the globe closer while keeping the spot under the pointer (or the screen centre) in place.
-function setZoom(z,ax,ay){const nz=Math.max(ZMIN,Math.min(ZMAX,z));if(ax==null){const st=$('stage');ax=st.clientWidth/2;ay=Math.min(view.cy,st.clientHeight/2);}
+function setZoom(z,ax,ay){if(FLAT){const nz=Math.max(.45,Math.min(6,z));if(ax==null){ax=view.cx;ay=view.cy;}const a=unproject(ax,ay);view.zoom=nz;view.sc=Math.max(view.minSc,Math.min(view.fsc*6,view.fsc*nz));const b=unproject(ax,ay);view.lon+=a[0]-b[0];view.lat=Math.max(-70,Math.min(80,view.lat+a[1]-b[1]));view.manual=true;flatStop();render();return;}
+  const nz=Math.max(ZMIN,Math.min(ZMAX,z));if(ax==null){const st=$('stage');ax=st.clientWidth/2;ay=Math.min(view.cy,st.clientHeight/2);}
   const anchor=unproject(ax,ay);view.zoom=nz;view.R=view.baseR*nz;
   if(anchor&&nz>1.001){for(let i=0;i<3;i++){const q=project(anchor[0],anchor[1]),k=90/view.deg,dpp=1/(view.R*k)/D2R;view.lat=Math.max(-70,Math.min(80,view.lat-(q.y-ay)*dpp));view.lon+=(q.x-ax)*dpp/Math.max(.2,Math.cos(view.lat*D2R));}view.manual=true;}
   render();}
 function project(lon,lat){
+  if(FLAT){const dx=((lon-view.lon+540)%360+360)%360-180;return {x:view.cx+dx*view.sc*kxOf(),y:view.cy-(lat-view.lat)*view.sc,vis:true,depth:0};}
   const l0=view.lon*D2R,p0=view.lat*D2R,l=lon*D2R,p=lat*D2R;
   const cosd=Math.sin(p0)*Math.sin(p)+Math.cos(p0)*Math.cos(p)*Math.cos(l-l0);
   const d=Math.acos(Math.max(-1,Math.min(1,cosd)));
@@ -34,16 +39,17 @@ const P=c=>{const [lo,la]=svgToLonLat(c);return project(lo,la);};
 let gl,prog,uni={},texReady=0,washTex=null;const washCanvas=document.createElement('canvas'),wctx=washCanvas.getContext('2d');
 const VS='attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
 const FS=`precision highp float;
-uniform vec2 uC;uniform float uR;uniform vec2 uCen;uniform float uK;uniform sampler2D uW;uniform sampler2D uG;uniform vec4 uGB;uniform float uDpr;uniform vec2 uSize;uniform sampler2D uWash;uniform sampler2D uW2;uniform sampler2D uG2;uniform float uMix;
+uniform vec2 uC;uniform float uR;uniform vec2 uCen;uniform float uK;uniform sampler2D uW;uniform sampler2D uG;uniform vec4 uGB;uniform float uDpr;uniform vec2 uSize;uniform sampler2D uWash;uniform sampler2D uW2;uniform sampler2D uG2;uniform float uMix;uniform float uFlat;uniform float uKx;
 void main(){
  vec2 px=vec2(gl_FragCoord.x,uSize.y-gl_FragCoord.y)/uDpr;
- vec2 d=(px-uC)/uR;float r=length(d);
- if(r>1.0){gl_FragColor=vec4(0.);return;}
+ vec2 d=(px-uC)/uR;float r=length(d);float LON;float LAT;bool outside=uFlat<.5&&r>1.0;
+ if(uFlat>.5){r=0.;d=vec2(0.);LON=degrees(uCen.x)+(px.x-uC.x)/(uR*uKx);LAT=degrees(uCen.y)-(px.y-uC.y)/uR;}
+ else{
  float dp=asin(min(r,1.0));float del=dp/uK;float th=atan(d.x,-d.y);
  float p0=uCen.y,l0=uCen.x;
  float lat=asin(sin(p0)*cos(del)+cos(p0)*sin(del)*cos(th));
  float lon=l0+atan(sin(th)*sin(del)*cos(p0),cos(del)-sin(p0)*sin(lat));
- float LON=degrees(lon),LAT=degrees(lat);
+ LON=degrees(lon);LAT=degrees(lat);}
  LON=mod(LON+180.,360.)-180.;
  vec3 col;
  if(LON>=uGB.x&&LON<=uGB.y&&LAT>=uGB.z&&LAT<=uGB.w){
@@ -60,11 +66,12 @@ void main(){
  vec3 L=normalize(vec3(-.45,.55,.75));
  float diff=.62+.48*max(dot(n,L),0.);
  float limb=1.-.55*pow(r,3.2);
+ if(uFlat>.5){diff=1.;limb=1.;}
  col*=diff*limb;
- float spec=pow(max(dot(reflect(-L,n),vec3(0.,0.,1.)),0.),24.)*.10;
+ float spec=pow(max(dot(reflect(-L,n),vec3(0.,0.,1.)),0.),24.)*(uFlat>.5?0.:.10);
  col+=spec;
- float a=clamp((1.-r)*uR*uDpr,0.,1.);
- gl_FragColor=vec4(col*a,a);
+ float a=uFlat>.5?1.:clamp((1.-r)*uR*uDpr,0.,1.);
+ gl_FragColor=outside?vec4(0.):vec4(col*a,a);
 }`;
 function initGL(){
   const c=$('gl');gl=c.getContext('webgl',{premultipliedAlpha:true,antialias:true});if(!gl)throw new Error('WebGL is not available in this browser.');
@@ -72,7 +79,7 @@ function initGL(){
   prog=gl.createProgram();gl.attachShader(prog,sh(gl.VERTEX_SHADER,VS));gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(prog);gl.useProgram(prog);
   const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
   const a=gl.getAttribLocation(prog,'a');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
-  for(const n of ['uC','uR','uCen','uK','uW','uG','uGB','uDpr','uSize','uWash','uW2','uG2','uMix'])uni[n]=gl.getUniformLocation(prog,n);
+  for(const n of ['uC','uR','uCen','uK','uW','uG','uGB','uDpr','uSize','uWash','uW2','uG2','uMix','uFlat','uKx'])uni[n]=gl.getUniformLocation(prog,n);
   gl.uniform1i(uni.uW,0);gl.uniform1i(uni.uG,1);gl.uniform1i(uni.uWash,2);washTex=gl.createTexture();gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,washTex);for(const [k,v] of [[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR],[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE]])gl.texParameteri(gl.TEXTURE_2D,k,v);gl.uniform4f(uni.uGB,-20,80,0,60);
   gl.uniform1i(uni.uW2,3);gl.uniform1i(uni.uG2,4);gl.uniform1f(uni.uMix,0);for(const u of [3,4]){gl.activeTexture(gl.TEXTURE0+u);const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,1,1,0,gl.RGB,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0]));gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);}
   loadTex('images/tex-world.jpg',0,true);loadTex('images/tex-region.jpg',1,false);
@@ -90,7 +97,7 @@ function drawGlobe(){
   if(!gl||texReady<2)return;const c=$('gl'),dpr=Math.min(2,window.devicePixelRatio||1),w=c.clientWidth,h=c.clientHeight;
   if(c.width!==Math.round(w*dpr)||c.height!==Math.round(h*dpr)){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);}
   gl.viewport(0,0,c.width,c.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
-  gl.uniform2f(uni.uC,view.cx,view.cy);gl.uniform1f(uni.uR,view.R);gl.uniform2f(uni.uCen,view.lon*D2R,view.lat*D2R);gl.uniform1f(uni.uK,90/view.deg);gl.uniform1f(uni.uDpr,dpr);gl.uniform2f(uni.uSize,c.width,c.height);gl.uniform1f(uni.uMix,m1Mix);
+  gl.uniform2f(uni.uC,view.cx,view.cy);gl.uniform1f(uni.uR,FLAT?view.sc:view.R);gl.uniform2f(uni.uCen,view.lon*D2R,view.lat*D2R);gl.uniform1f(uni.uK,90/view.deg);gl.uniform1f(uni.uDpr,dpr);gl.uniform2f(uni.uSize,c.width,c.height);gl.uniform1f(uni.uMix,m1Mix);gl.uniform1f(uni.uFlat,FLAT?1:0);gl.uniform1f(uni.uKx,kxOf());
   gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,washTex);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,washCanvas);
   gl.drawArrays(gl.TRIANGLES,0,6);
 }
@@ -172,6 +179,12 @@ const currentYear=()=>yearAt(position);
 let ARC={cx:0,cy:0,r:0,a0:0,a1:0};
 function layout(){
   const stage=$('stage'),w=stage.clientWidth,h=stage.clientHeight,narrow=w<620;
+  if(FLAT){const sh=narrow?54:62,mh=Math.max(120,h-sh);   // the map above, the straight timeline line under it
+    view.cx=w/2;view.cy=mh/2;view.baseR=390;view.minSc=Math.max(.5,w/360);
+    for(const id of ['gl','ov'])$(id).style.height=mh+'px';const ar=$('arc');ar.style.top='auto';ar.style.bottom='0';ar.style.height=sh+'px';
+    ARC={flat:true,x0:20,x1:w-20,y:Math.round(sh*0.32),w,h:sh,narrow};
+    $('ov').setAttribute('viewBox',`0 0 ${w} ${mh}`);ar.setAttribute('viewBox',`0 0 ${w} ${sh}`);
+    flatKey='';drawArcStatic();render();return;}
   const R=narrow?Math.max(100,Math.min(w*0.42,(h-80)/2)):Math.max(150,Math.min(w*0.44,h*0.40));
   view.baseR=R;view.R=R*view.zoom;view.cx=w/2;view.cy=narrow?R+18:Math.min(h/2-18,R+44);
   ARC={cx:view.cx,cy:view.cy,r:R+(narrow?18:34),a0:162*D2R,a1:18*D2R,w,h,narrow};
@@ -181,13 +194,15 @@ function layout(){
 
 /* ---------- arc timeline ---------- */
 const arcAngle=pos=>ARC.a0+(ARC.a1-ARC.a0)*pos;
-const arcPt=(pos,dr=0)=>{const a=arcAngle(pos);return [ARC.cx+(ARC.r+dr)*Math.cos(a),ARC.cy+(ARC.r+dr)*Math.sin(a)];};
-function arcD(p0,p1,dr=0){const a=arcPt(p0,dr),b=arcPt(p1,dr);const large=Math.abs(arcAngle(p1)-arcAngle(p0))>Math.PI?1:0;return `M${a[0].toFixed(1)},${a[1].toFixed(1)} A${ARC.r+dr},${ARC.r+dr} 0 ${large} 0 ${b[0].toFixed(1)},${b[1].toFixed(1)}`;}
+const arcPt=(pos,dr=0)=>{if(ARC.flat)return [ARC.x0+(ARC.x1-ARC.x0)*pos,ARC.y];const a=arcAngle(pos);return [ARC.cx+(ARC.r+dr)*Math.cos(a),ARC.cy+(ARC.r+dr)*Math.sin(a)];};
+function arcD(p0,p1,dr=0){const a=arcPt(p0,dr),b=arcPt(p1,dr);if(ARC.flat)return `M${a[0].toFixed(1)},${a[1].toFixed(1)} L${b[0].toFixed(1)},${b[1].toFixed(1)}`;const large=Math.abs(arcAngle(p1)-arcAngle(p0))>Math.PI?1:0;return `M${a[0].toFixed(1)},${a[1].toFixed(1)} A${ARC.r+dr},${ARC.r+dr} 0 ${large} 0 ${b[0].toFixed(1)},${b[1].toFixed(1)}`;}
 function drawArcStatic(){
   const g=$('arcStatic');g.replaceChildren();
   el('path',{d:arcD(0,1),class:'arcHalo'},g);el('path',{d:arcD(0,1),class:'arcTrack'},g);el('path',{d:arcD(0,1),class:'arcHit',id:'arcHit'},g);
   const seen=new Set();
   milestones.forEach((m,i)=>{if(seen.has(m.date))return;seen.add(m.date);const [x,y]=arcPt(posForYear(m.date));const c=el('circle',{cx:x,cy:y,r:3,class:'notch'},g);c.dataset.i=i;});
+  if(ARC.flat){const boxes=[];const yrs=[-2000,1898,-586,-332,-63,70,200,1096,1492,1700,-1300];for(const yr of yrs){if(yr<DATA.timeline.start||yr>DATA.timeline.end)continue;const [x]=arcPt(posForYear(yr));const t=el('text',{x,y:ARC.y+(ARC.narrow?20:22),class:'tick','text-anchor':'middle','dominant-baseline':'hanging'},g);t.textContent=yearLabel(yr).replace(' / 1 CE','');let bb=t.getBBox();if(bb.x<4){t.setAttribute('x',x+4-bb.x);bb=t.getBBox();}else if(bb.x+bb.width>ARC.w-4){t.setAttribute('x',x-(bb.x+bb.width-ARC.w+4));bb=t.getBBox();}
+      if(boxes.some(o=>bb.x<o.x+o.width+10&&bb.x+bb.width+10>o.x)){t.remove();continue;}boxes.push(bb);}return;}
   const placed=[];const lateYears=DATA.timeline.end>200?[...DATA.eras.filter(e=>e.startDate>200).map(e=>e.startDate)]:[];for(const yr of [-2000,-1300,-1208,-722,-586,-539,-332,-205,-63,70,117,200,...lateYears]){const pos=posForYear(yr),[x,y]=arcPt(pos,ARC.narrow?16:22),a=arcAngle(pos);if(yr!==1898&&(x<44||x>ARC.w-44))continue;if(placed.some(([px,py])=>Math.hypot(px-x,py-y)<46)&&yr!==200&&yr!==-1300&&yr!==1898)continue;if(yr!==200&&yr!==1898&&Math.hypot(x-arcPt(1,22)[0],y-arcPt(1,22)[1])<46)continue;placed.push([x,y]);const t=el('text',{x,y,class:'tick','text-anchor':Math.cos(a)<-0.3?'end':Math.cos(a)>0.3?'start':'middle','dominant-baseline':Math.sin(a)>0.5?'hanging':'middle'},g);t.textContent=yearLabel(yr).replace(' / 1 CE','');const bb=t.getBBox();if(bb.x<4)t.setAttribute('x',x+4-bb.x);else if(bb.x+bb.width>ARC.w-4)t.setAttribute('x',x-(bb.x+bb.width-ARC.w+4));}
 }
 let SHEETSYMS=null;
@@ -197,10 +212,36 @@ function sheetSymbolRecords(){const S=DATA.sheet;if(!S||/[?&]engine=1/.test(loca
   for(const c of S.communities||[]){const k=c.mapSymbol?.kind;if(k==='blackSquare')add(c,'noLonger','Community no longer exists');else if(k==='octagon'&&c.noEngineFields)add(c,'destroyed','Pogrom or attack');}
   return out.sort((a,b)=>b.c.startYear-a.c.startYear);}   // newest first: where one place has several of the same symbol, only the newest drawn one shows
 function drawArcLive(){const g=$('arcLive');g.replaceChildren();el('path',{d:arcD(0,Math.max(0.0001,position)),class:'arcFill'},g);const [x,y]=arcPt(position);el('circle',{cx:x,cy:y,r:11,class:'bead'},g);const s=$('arcSlider');s.setAttribute('aria-valuenow',Math.round(currentYear()));s.setAttribute('aria-valuetext',yearLabel(Math.round(currentYear())));}
-function posFromPointer(e){const r=$('arc').getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let a=Math.atan2(y-ARC.cy,x-ARC.cx);if(a<-Math.PI/2)a+=2*Math.PI;const p=(a-ARC.a0)/(ARC.a1-ARC.a0);return Math.max(0,Math.min(1,p));}
+function posFromPointer(e){const r=$('arc').getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;if(ARC.flat)return Math.max(0,Math.min(1,(x-ARC.x0)/(ARC.x1-ARC.x0)));let a=Math.atan2(y-ARC.cy,x-ARC.cx);if(a<-Math.PI/2)a+=2*Math.PI;const p=(a-ARC.a0)/(ARC.a1-ARC.a0);return Math.max(0,Math.min(1,p));}
 
 /* ---------- camera ---------- */
-function followCamera(y){if(view.manual)return;const s=DATA.cameraStates;let i=0;while(i+1<s.length&&s[i+1].startDate<=y)i++;const a=s[i],b=s[Math.min(i+1,s.length-1)],span=b.startDate-a.startDate,t=span>0?Math.min(1,Math.max(0,(y-a.startDate)/span)):0,e=t*t*(3-2*t),mix=k=>a[k]+(b[k]-a[k])*e;
+/* F-176 (2a): in the flat map the camera frames the open card itself: its own place plus the ends of its own arrows, with room round them (not the era camera). */
+let flatKey='',flatTo=null,flatRaf=0,flatLast=0;const FLATPTS=new Map();
+function flatStop(){if(flatRaf){cancelAnimationFrame(flatRaf);flatRaf=0;}flatTo=null;}
+function flatWide(){const w=$('stage').clientWidth,mh=view.cy*2;return {lon:10,lat:22,sc:Math.max(w/360,Math.min(w/300,mh/170))};}
+function flatPts(rec,type){let r=FLATPTS.get(rec.id);if(r)return r;r=[];
+  if(type==='sheet'){const p=SHEETPLACES.get(rec.placeId);if(p&&Number.isFinite(p.lat)&&Number.isFinite(p.lon))r.push([p.lon,p.lat]);}else r.push(...recordLonLats(rec,type));
+  for(const m of DATA.movements){if(!ownsArrow(rec,m))continue;for(const c of [m.originCoordinates||INDEX.places.get(m.origin)?.coordinates,m.destinationCoordinates||INDEX.places.get(m.destination)?.coordinates])if(c)r.push(svgToLonLat(c));}
+  FLATPTS.set(rec.id,r);return r;}
+function flatFrame(rec,type){const pts=flatPts(rec,type);if(!pts.length)return null;const w=$('stage').clientWidth,mh=view.cy*2;
+  let lo0=1e9,lo1=-1e9,la0=1e9,la1=-1e9;for(const [lo,la] of pts){lo0=Math.min(lo0,lo);lo1=Math.max(lo1,lo);la0=Math.min(la0,la);la1=Math.max(la1,la);}
+  const lat=(la0+la1)/2,lon=(lo0+lo1)/2,kx=Math.max(.4,Math.cos(lat*D2R)),pl=SHEETPLACES.get(rec.placeId),reg=pl&&pl.role==='region';
+  let min=reg?22:14;if(!(lon>-20&&lon<80&&lat>0&&lat<60))min*=1.5;   // outside the region picture only the coarser world picture exists, so do not magnify as far
+  const span=Math.min(120,Math.max(min,(la1-la0)*1.45+10,((lo1-lo0)*kx*1.45+10*kx)/(w/mh)));
+  return {lon,lat:Math.max(-60,Math.min(70,lat)),sc:Math.max(view.minSc,mh/span)};}
+function flatGo(t){flatStop();view.zoom=1;view.fsc=t.sc;
+  if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches||!Number.isFinite(view.sc)||view.sc<=0){view.lon=t.lon;view.lat=t.lat;view.sc=t.sc;return;}
+  flatTo=t;flatLast=performance.now();const tick=now=>{flatRaf=0;if(!flatTo)return;const dt=Math.min(.1,(now-flatLast)/1000);flatLast=now;const k=1-Math.exp(-dt*6.5),dl=((flatTo.lon-view.lon+540)%360+360)%360-180;
+    view.lon+=dl*k;view.lat+=(flatTo.lat-view.lat)*k;view.sc*=Math.pow(flatTo.sc/view.sc,k);
+    if(Math.abs(dl)<.02&&Math.abs(flatTo.lat-view.lat)<.02&&Math.abs(Math.log(flatTo.sc/view.sc))<.004){view.lon=flatTo.lon;view.lat=flatTo.lat;view.sc=flatTo.sc;flatTo=null;}
+    render();if(flatTo)flatRaf=requestAnimationFrame(tick);};
+  flatRaf=requestAnimationFrame(tick);}
+function flatCamera(y){
+  if(cover){if(flatKey!=='cover'){flatKey='cover';view.manual=false;const t=flatWide();flatStop();view.zoom=1;view.fsc=t.sc;view.lon=t.lon;view.lat=t.lat;view.sc=t.sc;}return;}
+  const rec=activeCardRecord(y),type=rec?(selected&&selected.record===rec?selected.type:(milestones.find(m=>m.record===rec)||{}).type):null;
+  const key=rec?rec.id+'|'+$('stage').clientWidth+'x'+Math.round(view.cy*2):'none';if(key===flatKey)return;
+  const t=rec&&type?flatFrame(rec,type):null;if(!t&&rec)return;flatKey=key;view.manual=false;flatGo(t||flatWide());}
+function followCamera(y){if(FLAT){flatCamera(y);return;}if(view.manual)return;const s=DATA.cameraStates;let i=0;while(i+1<s.length&&s[i+1].startDate<=y)i++;const a=s[i],b=s[Math.min(i+1,s.length-1)],span=b.startDate-a.startDate,t=span>0?Math.min(1,Math.max(0,(y-a.startDate)/span)):0,e=t*t*(3-2*t),mix=k=>a[k]+(b[k]-a[k])*e;
   const [lon,lat]=svgToLonLat([mix('centerX'),mix('centerY')]);view.lon=lon;view.lat=lat;view.deg=Math.max(10,Math.min(45,26/mix('scale')));}
 
 /* ---------- symbols ---------- */
@@ -216,9 +257,9 @@ function render(){renderCore();syncPager();}
 function renderCore(){
   if(!DATA)return;const y=currentYear(),frame=computeFrame(y),dy=Math.round(y);m1Want(y);
   followCamera(y);
-  const ov=$('ov'),scale=(view.baseR/390)*Math.min(1.6,Math.sqrt(view.zoom));const layers={geo:$('lGeo'),route:$('lRoute'),mark:$('lMark'),label:$('lLabel')};for(const k in layers)layers[k].replaceChildren();
+  const ov=$('ov'),scale=FLAT?1:(view.baseR/390)*Math.min(1.6,Math.sqrt(view.zoom));const layers={geo:$('lGeo'),route:$('lRoute'),mark:$('lMark'),label:$('lLabel')};for(const k in layers)layers[k].replaceChildren();
   const st0=$('stage'),WS=0.5;washCanvas.width=Math.max(2,Math.round(st0.clientWidth*WS));washCanvas.height=Math.max(2,Math.round(st0.clientHeight*WS));wctx.clearRect(0,0,washCanvas.width,washCanvas.height);
-  const pxPerDeg=view.R*(90/view.deg)*D2R,washBlur=Math.max(6,Math.min(48,pxPerDeg*0.7))*WS;
+  const pxPerDeg=FLAT?view.sc*kxOf():view.R*(90/view.deg)*D2R,washBlur=Math.max(6,Math.min(48,pxPerDeg*0.7))*WS;
   // population wash and anchors
   const labels=[];drawGeo(layers.geo);
   for(const st of frame.populations){const p=DATA.populations.find(r=>r.id===st.id);if(!st.visible||st.intensity<=0.01)continue;
@@ -306,7 +347,7 @@ function closeStory(){selected=null;pagerOff=true;lastAutoIdx=-1;render();}
 /* ---------- playback ---------- */
 function setPos(p){position=Math.max(0,Math.min(1,p));render();}
 function setYearExact(y){position=posForYear(y);render();}
-function startTour(){stopTour();dismissPrompt();selected=null;pagerOff=false;lastAutoIdx=-1;view.manual=false;view.zoom=1;view.R=view.baseR;if(position>=0.999)position=posForYear(DATA.presentation?.openingYear??DATA.timeline.start);const from=position,dur=DATA.presentation?.tourDurationMs||20000,dwell=DATA.presentation?.cardDwellMs??1500,t0=performance.now();
+function startTour(){stopTour();dismissPrompt();selected=null;pagerOff=false;lastAutoIdx=-1;view.manual=false;if(!FLAT){view.zoom=1;view.R=view.baseR;}if(position>=0.999)position=posForYear(DATA.presentation?.openingYear??DATA.timeline.start);const from=position,dur=DATA.presentation?.tourDurationMs||20000,dwell=DATA.presentation?.cardDwellMs??1500,t0=performance.now();
   // Play moves quickly through long gaps in history, but holds still for cardDwellMs (1.5 seconds) each time a card comes up, so it can be read.
   let last=t0,prevIdx=lastMilestoneIdx(Math.round(currentYear())),dwellUntil=prevIdx>=0?t0+dwell:0;
   const step=now=>{const dt=now-last;last=now;if(now<dwellUntil){tour=requestAnimationFrame(step);return;}
@@ -333,6 +374,7 @@ function placesFit(pts,s){const keep={lon:view.lon,lat:view.lat,zoom:view.zoom,R
   const st=$('stage'),w=st.clientWidth,h=st.clientHeight,m=Math.min(44,w*.08);const ok=pts.every(([lo,la])=>{const q=project(lo,la);return q.vis&&q.depth<1&&q.x>=m&&q.x<=w-m&&q.y>=m&&q.y<=h-m;});Object.assign(view,keep);return ok;}
 function recordLonLats(record,type){if(type==='sheet'){const p=SHEETPLACES.get(record.placeId);return p&&Number.isFinite(p.lat)&&Number.isFinite(p.lon)?[[p.lon,p.lat]]:[];}return recordPlaces(record,type).map(svgToLonLat);}
 function turnToRecord(record,type){
+  if(FLAT)return;   // flat map: the camera frames the open card itself (flatCamera)
   if(!view.manual)return;cancelTurn();                       // the story camera is still in charge and already follows the story
   const pts=recordLonLats(record,type);if(!pts.length)return;
   const [lon,lat]=pts.length>1?meanLonLat(pts):pts[0];const to={lon,lat:Math.max(-70,Math.min(80,lat)),zoom:view.zoom,deg:view.deg};
@@ -352,7 +394,7 @@ function openAtStart(){
   stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);
   view.manual=false;render();                                                    // the era camera's own view of this year
   if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});
-  if(!F||!Number.isFinite(F.lat)||!Number.isFinite(F.lon)||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)return;
+  if(FLAT||!F||!Number.isFinite(F.lat)||!Number.isFinite(F.lon)||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)return;
   const to={lon:view.lon,lat:view.lat,deg:view.deg,zoom:view.zoom};
   view.manual=true;view.lon=F.lon;view.lat=F.lat;view.deg=15;view.zoom=1;view.R=view.baseR;render();   // start on Ur
   const from={lon:view.lon,lat:view.lat,deg:view.deg,zoom:view.zoom},dl=(((to.lon-from.lon+180)%360)+360)%360-180;
@@ -363,9 +405,10 @@ function openAtStart(){
       if(t<1){render();turnAnim=requestAnimationFrame(tick);}else{turnAnim=null;view.manual=false;render();}};   // any touch cancels the turn and keeps the visitor's view
     turnAnim=requestAnimationFrame(tick);},500);
 }
-function dismissPrompt(){if(!promptOpen)return;promptOpen=false;$('prompt').hidden=true;$('panel').classList.remove('inviting');$('play').hidden=false;$('options').hidden=false;}
-if(PREVIEW)window.OJJ_SUB={moved:()=>!!view.manual||view.zoom!==1,resetView(){view.manual=false;view.zoom=1;view.R=view.baseR;render();}};   // F-085 subnav: Reset is the map position only
-function reset(){stopTour();dismissPrompt();selected=null;pagerOff=true;lastAutoIdx=-1;position=0;view.manual=true;const j=svgToLonLat(INDEX.places.get('place-j').coordinates);view.lon=j[0];view.lat=j[1];view.deg=15;setZoom(1);}
+function dismissCover(){if(!FLAT||!cover)return;cover=false;$('stage').classList.remove('cover-on');flatKey='';}
+function dismissPrompt(){dismissCover();if(!promptOpen)return;promptOpen=false;$('prompt').hidden=true;$('panel').classList.remove('inviting');$('play').hidden=false;$('options').hidden=false;}
+if(PREVIEW)window.OJJ_SUB={moved:()=>!!view.manual||view.zoom!==1,resetView(){view.manual=false;view.zoom=1;if(FLAT){flatKey='';}else view.R=view.baseR;render();}};   // F-085 subnav: Reset is the map position only
+function reset(){if(FLAT){stopTour();dismissPrompt();selected=null;pagerOff=true;lastAutoIdx=-1;position=0;cover=true;flatKey='';$('stage').classList.add('cover-on');view.manual=false;render();return;}stopTour();dismissPrompt();selected=null;pagerOff=true;lastAutoIdx=-1;position=0;view.manual=true;const j=svgToLonLat(INDEX.places.get('place-j').coordinates);view.lon=j[0];view.lat=j[1];view.deg=15;setZoom(1);}
 
 /* ---------- interaction ---------- */
 let dragMoved=false;
@@ -375,6 +418,7 @@ function initInteraction(){
   stage.addEventListener('pointermove',e=>{if(!ptrs.has(e.pointerId))return;ptrs.set(e.pointerId,[e.clientX,e.clientY]);
     if(ptrs.size===2&&pinch){if(gesture)return;const [a,b]=[...ptrs.values()];const d=Math.hypot(a[0]-b[0],a[1]-b[1]);dragMoved=true;stopTour();const r0=$('ov').getBoundingClientRect();setZoom(pinch.zoom*d/pinch.d,(a[0]+b[0])/2-r0.left,(a[1]+b[1])/2-r0.top);return;}
     const dx=e.clientX-last[0],dy=e.clientY-last[1];if(Math.abs(dx)+Math.abs(dy)<1)return;if(!dragMoved&&Math.hypot(e.clientX-last[0],e.clientY-last[1])<3)return;if(!dragMoved)try{stage.setPointerCapture(e.pointerId);}catch(_){}dragMoved=true;last=[e.clientX,e.clientY];
+    if(FLAT){view.lat=Math.max(-70,Math.min(80,view.lat+dy/view.sc));view.lon-=dx/(view.sc*kxOf());view.manual=true;flatStop();stopTour();dismissPrompt();render();return;}
     const k=90/view.deg,degPerPx=1/(view.R*k)/D2R;view.lat=Math.max(-70,Math.min(80,view.lat+dy*degPerPx));view.lon-=dx*degPerPx/Math.max(.2,Math.cos(view.lat*D2R));view.manual=true;stopTour();dismissPrompt();render();});
   stage.addEventListener('click',e=>{if(dragMoved||e.target.closest('.route,.anchor,.sym,.event'))return;if(tour==null)return;stopTour();const i=lastMilestoneIdx(Math.round(currentYear()));if(i<0)return;const m=milestones[i];QP(m.record.id);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});});
   let gesture=null;
@@ -397,6 +441,7 @@ function initInteraction(){
   $('play').addEventListener('click',()=>tour!=null?stopTour():startTour());$('introPlay').addEventListener('click',startTour);
   $('introExplore').addEventListener('click',()=>{dismissPrompt();$('arcSlider').focus();$('arcWrap').classList.add('attention');setTimeout(()=>$('arcWrap').classList.remove('attention'),2600);});
   $('reset').addEventListener('click',reset);
+  if($('coverPlay'))$('coverPlay').addEventListener('click',startTour);
   if($('prev'))$('prev').addEventListener('click',()=>step(-1));if($('next'))$('next').addEventListener('click',()=>step(1));
   if($('pgHost')&&window.matchMedia){const mq=matchMedia('(max-width:900px)'),place=()=>{const pl=$('play'),yr=document.querySelector('#panel>div:first-child'),bar=document.querySelector('.mnav');if(!pl||!yr||!bar)return;if(mq.matches){if(pl.parentNode!==yr)yr.appendChild(pl);}else if(pl.parentNode!==bar)bar.appendChild(pl);};place();(mq.addEventListener?mq.addEventListener('change',place):mq.addListener(place));}   // F-147 follow-up: on phones and upright tablets Play lives beside the year, so the pager bar stays one row
   if(window.OJJPager&&$('pgHost')){OJJPager.swipe($('story'),d=>{if(shownCardIdx()>=0)step(d);});OJJPager.keys(d=>step(d),()=>shownCardIdx()>=0&&$('sourcesDlg').hidden&&document.activeElement?.id!=='arcSlider');}
@@ -481,6 +526,7 @@ async function boot(){
     position=posForYear(DATA.presentation?.openingYear??-1208);$('version').textContent=window.SITE_FOOTER;   // v0.7.7 (CEO): site version; data version
     layout();
     openAtStart();
+    if(FLAT&&!/[?&]card=/.test(location.search)){cover=true;$('stage').classList.add('cover-on');flatKey='';render();}   // the cover shows over the whole map until Play, a drag, the slider or a card button is used; a shared ?card= link skips it
   }catch(err){$('error').hidden=false;$('error').textContent='The map could not load: '+err.message;console.error(err);}
 }
 boot();
