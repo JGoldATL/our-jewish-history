@@ -6,18 +6,16 @@ const fs=require('fs');const WANT=JSON.parse(fs.readFileSync(__dirname+'/../data
 async function open(url,w=1194,h=834){const p=await b.newPage({viewport:{width:w,height:h}});p.errs=[];p.on('pageerror',e=>p.errs.push(e.message));await p.goto(BASE+url);await p.waitForTimeout(2000);return p;}
 let p=await open('events.html');
 ck((await p.title())==='Our Jewish Journey: Events','page title says Events');
-{const got=await p.evaluate(()=>[...EV_VOL].sort());ck(got.length>=10&&got.every(id=>WANT.includes(id)),'every route Events draws is a Voluntary migration + Charcoal row in the Sheet ('+got.length+' of the '+WANT.length+' Sheet rows are ready to draw: '+got.join(' ')+')');}
-// at every year no arrow outside the set is drawn, and old globe draws more
-let ok=true,seen=new Set();
-for(const y of [-1900,-586,-200,70,900,1290,1492,1500,1590,1630,1800,1845,1881,1889]){await p.evaluate(yy=>setYearExact(yy),y);await p.waitForTimeout(250);
-  const n=await p.evaluate(()=>[...document.querySelectorAll('#ov g.route')].map(g=>g.getAttribute('aria-label')));const all=await p.evaluate(()=>DATA.movements.filter(m=>EV_VOL.has(m.id)).map(m=>m.title));
-  for(const t of n){if(!all.includes(t)){ok=false;console.log('  unexpected route',y,t);}else seen.add(t);}}
-ck(ok,'no route other than the voluntary-migration set is drawn on Events');
-// F-173 (3 Nov): a card showing draws only its own arrows, so the arrows are seen by opening the cards that own them
-{const got=await p.evaluate(async()=>{const t=new Set();for(let i=0;i<milestones.length;i++){selectMilestone(i,true);await new Promise(r=>setTimeout(r,25));for(const g of document.querySelectorAll('#ov g.route'))t.add(g.getAttribute('aria-label'));}selectMilestone(0,true);return [...t];});const all=await p.evaluate(()=>DATA.movements.filter(m=>EV_VOL.has(m.id)).map(m=>m.title));for(const t of got)seen.add(t);ck(got.every(t=>all.includes(t)),'every arrow drawn with a card open is a charcoal route');}
-ck(seen.size>=6,'voluntary-migration arrows do draw ('+seen.size+' seen, by opening the cards that own them)');
+// 3.3.6 (Jeffrey 8 Nov): the 15 Oct rule "arrows only for the Voluntary migration + Charcoal routes" is removed. Events draws any route; F-173 still limits the map to the showing card's own arrows.
+{const n=await p.evaluate(()=>EV_VOL.size);ck(n===0,'the voluntary-migration-only rule is gone (EV_VOL empty, '+n+')');}
+// F-173: open every card; each shows only arrows it owns, and now every kind of route can appear (red, blue, dotted, charcoal)
+const seen=new Set();
+{const r=await p.evaluate(async()=>{const t=new Set(),bad=[];promptOpen=false;for(let i=0;i<milestones.length;i++){selectMilestone(i,true);await new Promise(r=>setTimeout(r,25));const rec=milestones[i].record,own=DATA.movements.filter(m=>ownsArrow(rec,m)).map(m=>m.title);for(const g of document.querySelectorAll('#ov g.route')){const a=g.getAttribute('aria-label');t.add(a);if(!own.includes(a))bad.push(rec.id+' '+a);}}selectMilestone(0,true);return {seen:[...t],bad,kinds:new Set(DATA.movements.filter(m=>t.has(m.title)).map(m=>m.arrowTreatment||m.rendering||'')).size};});
+ for(const t of r.seen)seen.add(t);ck(r.bad.length===0,'each open card draws only its own arrows ('+r.bad.slice(0,2).join(' | ')+')');
+ ck(r.seen.length>=25,'Events now draws far more than the old 11 routes when the cards are opened ('+r.seen.length+' distinct arrows)');}
+{const r=await p.evaluate(async()=>{const id=milestones.findIndex(m=>m.record.id==='EVT-0001');selectMilestone(id,true);await new Promise(r=>setTimeout(r,300));return document.querySelectorAll('#ov g.route').length;});ck(r>=1,'Abraham (EVT-0001, dotted traditional route) now draws its arrow on Events ('+r+')');}
+ck(seen.size>=6,'arrows do draw ('+seen.size+' seen, by opening the cards that own them)');
 await p.evaluate(()=>setYearExact(1500));await p.waitForTimeout(400);
-ck(await p.evaluate(()=>{const ok=new Set(DATA.movements.filter(m=>EV_VOL.has(m.id)).map(m=>m.title));const r=[...document.querySelectorAll('#ov g.route')].map(g=>g.getAttribute('aria-label'));return r.every(t=>ok.has(t));}),'1500: every arrow drawn is one of the charcoal routes (F-173: none is drawn unless the showing card owns it)');
 ck(await p.$('#pgHost .ojjpg')&&await p.$('#play')&&await p.$('#story'),'cards, the pager, Play present');
 await p.click('#pgHost [data-step="1"]');await p.waitForTimeout(500);ck(await p.evaluate(()=>document.querySelector('#story h2')?.textContent.length>0),'Next opens a card');
 ck(p.errs.length===0,'events: no page errors '+p.errs.join('|'));await p.close();

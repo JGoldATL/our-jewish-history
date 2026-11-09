@@ -230,7 +230,7 @@ function renderCore(){
   // movement routes. F-173 (Events): the card that is showing (open, or auto-shown while the year is dragged or Play runs) draws only its own arrows; 'View all routes' (trails) still draws every arrow.
   const arrowCard=EVENTS_ONLY&&!trails?activeCardRecord(y):undefined;
   const defs=$('ovDefs');defs.querySelectorAll('.dyn').forEach(n=>n.remove());
-  for(const fm of frame.movements){if(!fm.visible)continue;if(EVENTS_ONLY&&!EV_VOL.has(fm.id))continue;const m=DATA.movements.find(r=>r.id===fm.id);if(arrowCard!==undefined&&!ownsArrow(arrowCard,m))continue;const win=movementWindow(m),past=trails&&win[1]<=y;const op0=Math.max(fm.opacity,past?.28:0);if(op0<=.01)continue;const op=1;   /* CEO 10/20: every arrow is 100% opaque on every map; it is drawn or it is not */
+  for(const fm of frame.movements){if(!fm.visible)continue;const m=DATA.movements.find(r=>r.id===fm.id);if(arrowCard!==undefined&&!ownsArrow(arrowCard,m))continue;const win=movementWindow(m),past=trails&&win[1]<=y;const op0=Math.max(fm.opacity,past?.28:0);if(op0<=.01)continue;const op=1;   /* CEO 10/20: every arrow is 100% opaque on every map; it is drawn or it is not */
     const pts=routePoints(m).filter(q=>q.vis);if(pts.length<6)continue;const traditional=m.evidenceStatus==='traditional account';
     const d=ribbon(pts,(traditional?13:15)*scale,7.5*scale,24*scale,15*scale);if(!d)continue;
     const g=el('g',{class:'route',opacity:op.toFixed(3),tabindex:0,role:'button','aria-label':m.title},layers.route);
@@ -269,7 +269,7 @@ function geoLabels(){if(!GEO)return [];const out=[];for(const [text,kind,lo,la] 
 // label with the same name is already queued; camera-only Places (place-cam-*) are never drawn.
 function addSheetPlaceLabels(frame,labels,mark,P,scale){
   if(!SHEETPL.size)return;
-  const want=new Set();for(const fm of frame.movements){if(!fm.visible||fm.opacity<.3)continue;if(EVENTS_ONLY&&!EV_VOL.has(fm.id))continue;const m=DATA.movements.find(r=>r.id===fm.id);if(!m)continue;if(EVENTS_ONLY&&!trails&&!ownsArrow(activeCardRecord(currentYear()),m))continue;for(const id of [m.origin,m.destination])if(typeof id==='string')want.add(id);}
+  const want=new Set();for(const fm of frame.movements){if(!fm.visible||fm.opacity<.3)continue;const m=DATA.movements.find(r=>r.id===fm.id);if(!m)continue;if(EVENTS_ONLY&&!trails&&!ownsArrow(activeCardRecord(currentYear()),m))continue;for(const id of [m.origin,m.destination])if(typeof id==='string')want.add(id);}
   const sp=selected?.record?.placeId;if(typeof sp==='string')want.add(sp);
   const have=new Set(labels.map(l=>String(l.text).toLowerCase()));
   for(const id of want){const pl=SHEETPL.get(id);if(!pl||pl.cameraOnly||pl.lat==null||pl.lon==null)continue;const text=(pl.mapLabel?String(pl.mapLabel):String(pl.historicalName||'').split(/\s*[\/(]/)[0]).trim();if(!text||have.has(text.toLowerCase()))continue;
@@ -438,7 +438,7 @@ function addSheetMovements(){
   const xy=p=>[(p.lon+15)*15,(58-p.lat)*650/53];
   const ok=m=>m.arrowEndsReady&&!covered.has(m.eventId)&&[m.originPlaceId,m.destinationPlaceId].every(id=>Number.isFinite(pl.get(id)?.lat)&&Number.isFinite(pl.get(id)?.lon));
   const ready=new Map(S.movements.filter(ok).map(m=>[m.id,m]));
-  if(EVENTS_ONLY)for(const m of ready.values())if(String(m.character||'').trim().toLowerCase()==='voluntary migration'&&String(m.arrowTreatment||'').trim().toLowerCase()==='charcoal')EV_VOL.add(m.id);
+  /* 3.3.6 (Jeffrey 8 Nov): the 15 Oct rule "Events draws only the Voluntary migration + Charcoal routes" was not intended for this page and is removed: Events draws any route, and F-173 still limits the map to the showing card's own arrows. EV_VOL stays as an empty set for old callers. */
   // Branch rule (dataset chat): the New Amsterdam arrow (23 refugees) draws only together with the Amsterdam, Curacao and Barbados branches.
   const needs={'MOV-055':['MOV-052','MOV-053','MOV-054']};
   for(const [id,req] of Object.entries(needs))if(ready.has(id)&&!req.every(r=>ready.has(r)))ready.delete(id);
