@@ -21,8 +21,8 @@ ck(await p.evaluate(()=>{const ok=new Set(DATA.movements.filter(m=>EV_VOL.has(m.
 ck(await p.$('#pgHost .ojjpg')&&await p.$('#play')&&await p.$('#story'),'cards, the pager, Play present');
 await p.click('#pgHost [data-step="1"]');await p.waitForTimeout(500);ck(await p.evaluate(()=>document.querySelector('#story h2')?.textContent.length>0),'Next opens a card');
 ck(p.errs.length===0,'events: no page errors '+p.errs.join('|'));await p.close();
-p=await open('index.html');await p.evaluate(()=>{setYearExact(1500);trails=true;render();});await p.waitForTimeout(500);
-ck(await p.evaluate(()=>typeof EVENTS_ONLY!=='undefined'&&EVENTS_ONLY===false)&&await p.evaluate(()=>document.querySelectorAll('#ov g.route').length)>10,'old globe (index.html): with past routes on, every arrow is still drawn (3.3.5 F-173: a showing card draws only its own; that rule is tested in tests/v335.js)');ck(p.errs.length===0,'old globe: no page errors');await p.close();
+p=await open('index.html');await p.evaluate(()=>setYearExact(1500));await p.waitForTimeout(500);
+ck(await p.evaluate(()=>typeof EVENTS_ONLY!=='undefined'&&EVENTS_ONLY===false)&&await p.evaluate(()=>document.querySelectorAll('#ov g.route').length)>10,'old globe (index.html) unchanged: all arrows still drawn');ck(p.errs.length===0,'old globe: no page errors');await p.close();
 // nav: Events present, Globe absent, original nav links
 for(const [w,h,n] of [[1194,834,'desktop'],[820,1180,'ipad'],[390,780,'phone']]){
   p=await open('events.html?nav=glass',w,h);const l=await p.evaluate(()=>[...document.querySelectorAll('.gn .gp-btn')].map(x=>x.textContent.replace(/\s*soon$/,'')));ck(l.includes('Events')&&!l.includes('Globe'),n+' glass nav: Events present, Globe absent ('+l.join(',')+')');await p.close();}

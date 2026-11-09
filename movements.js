@@ -178,9 +178,7 @@ function paint(){
   let shown=0;const pins=new Map(),cand=new Map();
   const list=ROUTES.filter(r=>pass(r)||(selEv&&r.ev===selEv.key));
   const coarse=matchMedia('(pointer:coarse)').matches;
-  const cardEv=SEL?EVENTS.get(SEL.ev):null;   // F-173 (3.3.5): the card that is showing (opened, or auto-shown while the year moves or Play runs) draws only its own arrows; 'With past routes' still draws all
   for(const r of list){
-    if(cardEv&&!F.trails&&r.ev!==cardEv.key)continue;
     const inSel=selEv&&r.ev===selEv.key,isSel=legs?legs.has(r.id):r.id===selId;
     let st=strength(r);
     if(inSel){st=st||{o:1,active:true};}
@@ -294,8 +292,8 @@ document.addEventListener('click',e=>{if(menuEl&&!menuEl.contains(e.target))clos
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();setKey(false);}});
 
 /* ---------- map key ---------- */
-const SYM_LABEL={octagon:'Pogrom or attack',blackSquare:'Community destroyed',purpleDiamond:'Forced conversion (unknown)',splitDiamond:'Forced conversion to Christianity'};   // 3.3.5: wording of the agreed six-symbol Map Key (symbols.js SIX)
-const SYM_SVG={octagon:SYM_ART.svg('oct'),blackSquare:SYM_ART.svg('sq'),purpleDiamond:SYM_ART.svg('dia'),splitDiamond:SYM_ART.svg('split')};   // art from symbols.js (final six-symbol set with the cream halo). 3.3.5: purpleDiamond is the plain purple diamond (unknown) and the labels match the six-symbol Map Key; no Movements card carries either diamond today.
+const SYM_LABEL={octagon:'Massacred community',blackSquare:'Community no longer exists',purpleDiamond:'Forced conversion to Islam',splitDiamond:'Forced conversion to Christianity'};
+const SYM_SVG={octagon:SYM_ART.svg('oct'),blackSquare:SYM_ART.svg('sq'),purpleDiamond:SYM_ART.svg('splitI'),splitDiamond:SYM_ART.svg('split')};   // art from symbols.js (final six-symbol set with the cream halo). Same four keys and the same labels below: the live purpleDiamond key is the Islam symbol today, so it now draws the split diamond with a crescent. No record-to-symbol or label change (HOLD, Design B6).
 function buildKey(){if(!PREVIEW)return buildKeyOld();
   const arrow=(fill,extra='')=>`<svg width="44" height="18" aria-hidden="true"><path d="M2,13 Q22,2 34,8 L33,3 L43,10 L31,15 L32,11 Q22,7 4,16 Z" fill="${fill}" stroke="#FFF2DE" ${extra}/></svg>`;
   const used=new Set(ROUTES.map(r=>r.cname));

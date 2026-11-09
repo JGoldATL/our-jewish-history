@@ -22,6 +22,6 @@ ok(on.length>0&&on.every(r=>r[1]==='Red'&&r[2]===false),'movements, preview: con
 // card icon (simulated symbol on an event that has routes)
 p=await page(BASE+'movements.html?nav=glass',j=>{j.sheet.events.find(e=>e.id==='EVT-0071').mapSymbol={text:'Red octagon',kind:'octagon',status:'locked'};});
 await p.evaluate(()=>{MV.setYear(1654);MV.selectEvent('EVT-0071')});await p.waitForTimeout(400);
-ok(await p.evaluate(()=>{const i=document.querySelector('#story .kicker .kicon');return !!i&&i.getAttribute('aria-label')==='Pogrom or attack'&&!!i.querySelector('svg')}),'movements card: map key icon shown for an event with a map symbol');
+ok(await p.evaluate(()=>{const i=document.querySelector('#story .kicker .kicon');return !!i&&i.getAttribute('aria-label')==='Massacred community'&&!!i.querySelector('svg')}),'movements card: map key icon shown for an event with a map symbol');
 ok(p.errs.length===0,'movements preview: no page errors');
 console.log(f?f+' FAILED':'ALL PASS');await b.close();process.exit(f?1:0);})();
