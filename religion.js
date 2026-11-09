@@ -117,17 +117,10 @@ function draw(){
   gl.drawArrays(gl.TRIANGLES,0,6);
 }
 function camTarget(){
-  /* frame what the current card is about: anchors that are new or stronger at this step (the frontier), so a card on England frames England;
-     the last step, and any step with no frontier, frames all the haze so far */
-  const last=Math.round(pos)>=STOPS.length-1,all=[],front=[];
-  for(const L of active()){const st=layerState(L,pos);if(!st)continue;const j=Math.max(0,Math.min(L.snaps.length-1,Math.round(st.lp)));
-    for(const a of L.anch){if(stateAt(L,a,st.lp).k*st.fade<=0.3)continue;all.push(a);
-      const cur=a.s[j]||[0,0],prv=j>0?(a.s[j-1]||[0,0]):[0,0];
-      if(cur[1]>prv[1]||(cur[1]>0&&cur[0]>prv[0]))front.push(a);}}
-  const act=(!last&&front.length)?front:all;
+  const act=[];for(const L of active()){const st=layerState(L,pos);if(!st)continue;for(const a of L.anch)if(stateAt(L,a,st.lp).k*st.fade>0.3)act.push(a);}
   if(!act.length)return null;const c=$('gl'),w=c.clientWidth||390,h=c.clientHeight||420;
   let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;for(const a of act){x0=Math.min(x0,a.lon);x1=Math.max(x1,a.lon);y0=Math.min(y0,a.lat);y1=Math.max(y1,a.lat);}
-  const spanX=Math.max(36,x1-x0+30),spanY=Math.max(24,y1-y0+22);
+  const spanX=Math.max(30,x1-x0+44),spanY=Math.max(20,y1-y0+32);
   return {lon:(x0+x1)/2,lat:Math.max(-60,Math.min(70,(y0+y1)/2)),sc:Math.max(w/360,Math.min(6,w/spanX,(h-30)/spanY))};
 }
 function frame(t){const dt=Math.min(.1,(t-(frame.l||t))/1000);frame.l=t;

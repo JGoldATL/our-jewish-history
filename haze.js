@@ -149,9 +149,9 @@ function draw(){
 /* ---------- follow camera: centre on the strong anchors, widen until every one is on screen (limit 84 degrees) ---------- */
 function camTarget(p){
   if(FLAT){   // fit the haze so far (it only grows), with room round it; never tighter than 3 px per degree, never wider than the whole world
-    const all=ANCH.filter(a=>stateAt(a,p).k>0.3),j=Math.max(0,Math.min(SNAP.length-1,Math.round(p))),front=all.filter(a=>{const cur=a.s[j]||[0,0],prv=j>0?(a.s[j-1]||[0,0]):[0,0];return cur[1]>prv[1]||(cur[1]>0&&cur[0]>prv[0]);}),act=(j<SNAP.length-1&&front.length)?front:all;if(!act.length)return null;const c=$('gl'),w=c.clientWidth||390,h=c.clientHeight||420;
+    const act=ANCH.filter(a=>stateAt(a,p).k>0.3);if(!act.length)return null;const c=$('gl'),w=c.clientWidth||390,h=c.clientHeight||420;
     let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;for(const a of act){x0=Math.min(x0,a.lon);x1=Math.max(x1,a.lon);y0=Math.min(y0,a.lat);y1=Math.max(y1,a.lat);}
-    const padX=15,padY=11,spanX=Math.max(30,x1-x0+2*padX),spanY=Math.max(20,y1-y0+2*padY);
+    const padX=22,padY=16,spanX=Math.max(30,x1-x0+2*padX),spanY=Math.max(20,y1-y0+2*padY);
     const sc=Math.max(w/360,Math.min(6,w/spanX,(h-30)/spanY));
     return {lon:(x0+x1)/2,lat:Math.max(-60,Math.min(70,(y0+y1)/2)),sc};
   }
