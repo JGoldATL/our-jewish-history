@@ -255,7 +255,8 @@ function renderCore(){
   drawGlobe();
   const boxes=placeLabels(labels,layers.label,scale,obstacles);for(const l of geoLabels()){const fs=l.kind==='waterLabel'?13:11,w=l.text.length*fs*(l.kind==='waterLabel'?0.55:0.78),h=fs*1.2,b={x:l.x-w/2,y:l.y-h,w,h};if(boxes.some(o=>b.x<o.x+o.w&&b.x+b.w>o.x&&b.y<o.y+o.h&&b.y+b.h>o.y))continue;boxes.push(b);const t=el('text',{x:l.x.toFixed(1),y:l.y.toFixed(1),'text-anchor':'middle',class:l.kind==='waterLabel'?'seaName':'regionName'},layers.label);t.textContent=l.kind==='waterLabel'?l.text:l.text.toUpperCase();}
   // panel
-  $('year').innerHTML=dy<0?`${Math.abs(dy)}<span>BCE</span>`:`${Math.abs(dy)}`;   // project rule: CE years are the bare year$('era').textContent=eraLabel(y,frame);
+  const dyShow=milestones.length?Math.min(dy,milestones[milestones.length-1].date):dy;   // big year never runs past the last card (Hebron 1929), though the timeline ends 1932
+  $('year').innerHTML=dyShow<0?`${Math.abs(dyShow)}<span>BCE</span>`:`${Math.abs(dyShow)}`;   // project rule: CE years are the bare year$('era').textContent=eraLabel(y,frame);
   drawArcLive();
   
   // (if the user turned the globe and then moved the timeline, turnToRecord brings the action into view)
