@@ -11,19 +11,34 @@ const D2R=Math.PI/180;
 const svgToLonLat=([x,y])=>[x/15-15,58-y*53/650];
 
 /* ---------- globe projection: magnified orthographic ---------- */
-const view={lon:35,lat:31,deg:15,R:390,baseR:390,zoom:1,cx:450,cy:420,manual:false,sc:6,fsc:6,minSc:1};
+const view={lon:35,lat:31,deg:15,R:390,baseR:390,zoom:1,cx:450,cy:420,manual:false,sc:6,fsc:6,minSc:1,tilt:0,fk:0};
 /* F-176 (Jeffrey 7 Nov, decisions 9 Nov): Events and the home page draw a FLAT lon/lat map instead of the globe (window.OJJ_FLAT). Plain equirectangular, re-scaled at every camera frame: x uses cos(latitude of the frame centre) so places keep their shape. view.sc = pixels per degree of latitude. */
-const FLAT=!!window.OJJ_FLAT,COVER=!!window.OJJ_COVER;let cover=FLAT||COVER;   // COVER = Events and home: the globe with a cover, the card camera and lifted routes (LITE)
+const FLAT=!!window.OJJ_FLAT,COVER=!!window.OJJ_COVER,TILT=!!window.OJJ_TILT;let cover=FLAT||COVER;   // COVER = Events and home: the globe with a cover, the card camera and lifted routes (LITE)
 const kxOf=()=>Math.max(.4,Math.cos(view.lat*D2R));
-const ZMIN=COVER?.5:1,ZMAX=3.2;
+const ZMIN=COVER?.5:1,ZMAX=TILT?7:3.2;
 function unproject(x,y){if(FLAT)return [view.lon+(x-view.cx)/(view.sc*kxOf()),view.lat-(y-view.cy)/view.sc];const dx=(x-view.cx)/view.R,dy=(y-view.cy)/view.R,r=Math.hypot(dx,dy);if(r>=1)return null;const del=Math.asin(r)/(90/view.deg),th=Math.atan2(dx,-dy),p0=view.lat*D2R,l0=view.lon*D2R;const lat=Math.asin(Math.sin(p0)*Math.cos(del)+Math.cos(p0)*Math.sin(del)*Math.cos(th));const lon=l0+Math.atan2(Math.sin(th)*Math.sin(del)*Math.cos(p0),Math.cos(del)-Math.sin(p0)*Math.sin(lat));return [lon/D2R,lat/D2R];}
+/* FULL (Design 9 and 10 Nov): perspective globe. The camera sits D_CAM earth radii out, south of the target and tilted view.tilt degrees from straight down, looking at the target (screen centre). view.R is the silhouette radius in px at tilt 0. view.fk flattens: the screen radius from the target is blended from the true globe toward an equal-distance map, r = (1-k) sin c + k (2/pi) c, so the near edge stays at 1. */
+const D_CAM=2.6,RSIL=Math.sqrt((D_CAM-1)/(D_CAM+1));let TB=null,TBkey='';
+function tiltBasis(){const key=view.lon+'|'+view.lat+'|'+view.tilt+'|'+view.R;if(TB&&key===TBkey)return TB;
+  const l=view.lon*D2R,f=view.lat*D2R,t=view.tilt*D2R,cl=Math.cos(l),sl=Math.sin(l),cf=Math.cos(f),sf=Math.sin(f);
+  const T=[cf*cl,cf*sl,sf],e=[-sl,cl,0],n=[-sf*cl,-sf*sl,cf],ct=Math.cos(t),st=Math.sin(t);
+  const cam=[0,1,2].map(i=>D_CAM*(ct*T[i]-st*n[i]));let F=[T[0]-cam[0],T[1]-cam[1],T[2]-cam[2]];const Z0=Math.hypot(F[0],F[1],F[2]);F=F.map(x=>x/Z0);
+  const up=[e[1]*F[2]-e[2]*F[1],e[2]*F[0]-e[0]*F[2],e[0]*F[1]-e[1]*F[0]];
+  TB={cam,F,right:e,up,Z0,s:view.R/RSIL};TBkey=key;return TB;}
+function projectTilt(lon,lat,h){const lo=lon*D2R,la=lat*D2R,cla=Math.cos(la),P0=[cla*Math.cos(lo),cla*Math.sin(lo),Math.sin(la)],B=tiltBasis(),c=B.cam;
+  const dg=[c[0]-P0[0],c[1]-P0[1],c[2]-P0[2]],cosV=(P0[0]*dg[0]+P0[1]*dg[1]+P0[2]*dg[2])/Math.hypot(dg[0],dg[1],dg[2]),k=1+(h||0);
+  const d=[P0[0]*k-c[0],P0[1]*k-c[1],P0[2]*k-c[2]],z=d[0]*B.F[0]+d[1]*B.F[1]+d[2]*B.F[2],x=d[0]*B.right[0]+d[1]*B.right[1]+d[2]*B.right[2],y=d[0]*B.up[0]+d[1]*B.up[1]+d[2]*B.up[2];
+  let px=B.s*B.Z0*x/z,py=B.s*B.Z0*y/z;
+  if(view.fk>0){const rho=Math.hypot(px,py)/view.R;if(rho>0&&rho<1){const sc=((1-view.fk)*rho+view.fk*(2/Math.PI)*Math.asin(rho))/rho;px*=sc;py*=sc;}}
+  return {x:view.cx+px,y:view.cy-py,vis:cosV>0,depth:Math.acos(Math.max(0,Math.min(1,cosV)))};}
 // Zoom brings the globe closer while keeping the spot under the pointer (or the screen centre) in place.
 function setZoom(z,ax,ay){if(COVER&&typeof globeStop==='function')globeStop();if(FLAT){const nz=Math.max(.45,Math.min(6,z));if(ax==null){ax=view.cx;ay=view.cy;}const a=unproject(ax,ay);view.zoom=nz;view.sc=Math.max(view.minSc,Math.min(view.fsc*6,view.fsc*nz));const b=unproject(ax,ay);view.lon+=a[0]-b[0];view.lat=Math.max(-70,Math.min(80,view.lat+a[1]-b[1]));view.manual=true;flatStop();render();return;}
   const nz=Math.max(ZMIN,Math.min(ZMAX,z));if(ax==null){const st=$('stage');ax=st.clientWidth/2;ay=Math.min(view.cy,st.clientHeight/2);}
-  const anchor=unproject(ax,ay);view.zoom=nz;view.R=view.baseR*nz;
+  const anchor=TILT?null:unproject(ax,ay);view.zoom=nz;view.R=view.baseR*nz;if(TILT)view.manual=true;
   if(anchor&&nz>1.001){for(let i=0;i<3;i++){const q=project(anchor[0],anchor[1]),k=90/view.deg,dpp=1/(view.R*k)/D2R;view.lat=Math.max(-70,Math.min(80,view.lat-(q.y-ay)*dpp));view.lon+=(q.x-ax)*dpp/Math.max(.2,Math.cos(view.lat*D2R));}view.manual=true;}
   render();}
-function project(lon,lat){
+function project(lon,lat,h){
+  if(TILT)return projectTilt(lon,lat,h);
   if(FLAT){const dx=((lon-view.lon+540)%360+360)%360-180;return {x:view.cx+dx*view.sc*kxOf(),y:view.cy-(lat-view.lat)*view.sc,vis:true,depth:0};}
   const l0=view.lon*D2R,p0=view.lat*D2R,l=lon*D2R,p=lat*D2R;
   const cosd=Math.sin(p0)*Math.sin(p)+Math.cos(p0)*Math.cos(p)*Math.cos(l-l0);
@@ -40,10 +55,20 @@ let gl,prog,uni={},texReady=0,washTex=null;const washCanvas=document.createEleme
 const VS='attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
 const FS=`precision highp float;
 uniform vec2 uC;uniform float uR;uniform vec2 uCen;uniform float uK;uniform sampler2D uW;uniform sampler2D uG;uniform vec4 uGB;uniform float uDpr;uniform vec2 uSize;uniform sampler2D uWash;uniform sampler2D uW2;uniform sampler2D uG2;uniform float uMix;uniform float uFlat;uniform float uKx;
+uniform float uTilt;uniform vec3 uCam;uniform vec3 uFwd;uniform vec3 uRight;uniform vec3 uUp;uniform float uS;uniform float uZ0;uniform float uFk;uniform float uClip;
 void main(){
  vec2 px=vec2(gl_FragCoord.x,uSize.y-gl_FragCoord.y)/uDpr;
- vec2 d=(px-uC)/uR;float r=length(d);float LON;float LAT;bool outside=uFlat<.5&&r>1.0;
- if(uFlat>.5){r=0.;d=vec2(0.);LON=degrees(uCen.x)+(px.x-uC.x)/(uR*uKx);LAT=degrees(uCen.y)-(px.y-uC.y)/uR;}
+ vec2 d=(px-uC)/uR;float r=length(d);float LON;float LAT;bool outside=uFlat<.5&&uTilt<.5&&r>1.0;
+ float facing=1.;vec3 nv=vec3(0.,0.,1.);
+ if(uTilt>.5){
+  vec2 dp=px-uC;float rn=length(dp)/uR;vec2 dpo=dp;
+  if(uFk>.001&&rn<1.0){float c=rn*1.5707963;for(int i=0;i<6;i++){float g=(1.-uFk)*sin(c)+uFk*0.63662*c-rn;float gp=(1.-uFk)*cos(c)+uFk*0.63662;c-=g/gp;}dpo=dp*(sin(c)/max(rn,0.00001));}
+  vec3 ray=normalize(uFwd+uRight*(dpo.x/(uS*uZ0))+uUp*(-dpo.y/(uS*uZ0)));
+  float b=dot(uCam,ray);float disc=b*b-(dot(uCam,uCam)-1.);outside=disc<0.;
+  vec3 Pp=uCam+ray*(-b-sqrt(max(disc,0.)));
+  LON=degrees(atan(Pp.y,Pp.x));LAT=degrees(asin(clamp(Pp.z,-1.,1.)));
+  facing=clamp(-dot(Pp,ray),0.,1.);nv=vec3(dot(Pp,uRight),dot(Pp,uUp),facing);
+ }else if(uFlat>.5){r=0.;d=vec2(0.);LON=degrees(uCen.x)+(px.x-uC.x)/(uR*uKx);LAT=degrees(uCen.y)-(px.y-uC.y)/uR;}
  else{
  float dp=asin(min(r,1.0));float del=dp/uK;float th=atan(d.x,-d.y);
  float p0=uCen.y,l0=uCen.x;
@@ -62,6 +87,13 @@ void main(){
  float land=smoothstep(0.07,0.0,col.b-col.r);
  float wa=texture2D(uWash,vec2(gl_FragCoord.x/uSize.x,1.-gl_FragCoord.y/uSize.y)).a;
  col=mix(col,col*vec3(0.36,0.52,0.88),clamp(wa*land,0.,0.92));
+ float a;
+ if(uTilt>.5){
+  vec3 L=normalize(vec3(-.5,.65,.6));
+  col*=(0.66+.34*max(dot(nv,L),0.))*(0.8+.2*sqrt(facing));
+  col=mix(col,vec3(.043,.086,.141),pow(1.-facing,3.)*.6);
+  a=clamp(facing*7.,0.,1.)*clamp((uClip-length(px-uC))*uDpr,0.,1.);   // a close-up shows only the round window
+ }else{
  vec3 n=vec3(d.x,-d.y,sqrt(max(0.,1.-r*r)));
  vec3 L=normalize(vec3(-.45,.55,.75));
  float diff=.62+.48*max(dot(n,L),0.);
@@ -70,7 +102,8 @@ void main(){
  col*=diff*limb;
  float spec=pow(max(dot(reflect(-L,n),vec3(0.,0.,1.)),0.),24.)*(uFlat>.5?0.:.10);
  col+=spec;
- float a=uFlat>.5?1.:clamp((1.-r)*uR*uDpr,0.,1.);
+ a=uFlat>.5?1.:clamp((1.-r)*uR*uDpr,0.,1.);
+ }
  gl_FragColor=outside?vec4(0.):vec4(col*a,a);
 }`;
 function initGL(){
@@ -79,7 +112,7 @@ function initGL(){
   prog=gl.createProgram();gl.attachShader(prog,sh(gl.VERTEX_SHADER,VS));gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(prog);gl.useProgram(prog);
   const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
   const a=gl.getAttribLocation(prog,'a');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
-  for(const n of ['uC','uR','uCen','uK','uW','uG','uGB','uDpr','uSize','uWash','uW2','uG2','uMix','uFlat','uKx'])uni[n]=gl.getUniformLocation(prog,n);
+  for(const n of ['uC','uR','uCen','uK','uW','uG','uGB','uDpr','uSize','uWash','uW2','uG2','uMix','uFlat','uKx','uTilt','uCam','uFwd','uRight','uUp','uS','uZ0','uFk','uClip'])uni[n]=gl.getUniformLocation(prog,n);
   gl.uniform1i(uni.uW,0);gl.uniform1i(uni.uG,1);gl.uniform1i(uni.uWash,2);washTex=gl.createTexture();gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,washTex);for(const [k,v] of [[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR],[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE]])gl.texParameteri(gl.TEXTURE_2D,k,v);gl.uniform4f(uni.uGB,-20,80,0,60);
   gl.uniform1i(uni.uW2,3);gl.uniform1i(uni.uG2,4);gl.uniform1f(uni.uMix,0);for(const u of [3,4]){gl.activeTexture(gl.TEXTURE0+u);const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,1,1,0,gl.RGB,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0]));gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);}
   loadTex('images/tex-world.jpg',0,true);loadTex('images/tex-region.jpg',1,false);
@@ -97,7 +130,7 @@ function drawGlobe(){
   if(!gl||texReady<2)return;const c=$('gl'),dpr=Math.min(2,window.devicePixelRatio||1),w=c.clientWidth,h=c.clientHeight;
   if(c.width!==Math.round(w*dpr)||c.height!==Math.round(h*dpr)){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);}
   gl.viewport(0,0,c.width,c.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
-  gl.uniform2f(uni.uC,view.cx,view.cy);gl.uniform1f(uni.uR,FLAT?view.sc:view.R);gl.uniform2f(uni.uCen,view.lon*D2R,view.lat*D2R);gl.uniform1f(uni.uK,90/view.deg);gl.uniform1f(uni.uDpr,dpr);gl.uniform2f(uni.uSize,c.width,c.height);gl.uniform1f(uni.uMix,m1Mix);gl.uniform1f(uni.uFlat,FLAT?1:0);gl.uniform1f(uni.uKx,kxOf());
+  gl.uniform2f(uni.uC,view.cx,view.cy);gl.uniform1f(uni.uR,FLAT?view.sc:view.R);gl.uniform2f(uni.uCen,view.lon*D2R,view.lat*D2R);gl.uniform1f(uni.uK,90/view.deg);gl.uniform1f(uni.uDpr,dpr);gl.uniform2f(uni.uSize,c.width,c.height);gl.uniform1f(uni.uMix,m1Mix);gl.uniform1f(uni.uFlat,FLAT?1:0);gl.uniform1f(uni.uKx,kxOf());gl.uniform1f(uni.uTilt,TILT?1:0);if(TILT){const B=tiltBasis();gl.uniform3f(uni.uCam,...B.cam);gl.uniform3f(uni.uFwd,...B.F);gl.uniform3f(uni.uRight,...B.right);gl.uniform3f(uni.uUp,...B.up);gl.uniform1f(uni.uS,B.s);gl.uniform1f(uni.uZ0,B.Z0);gl.uniform1f(uni.uFk,view.fk);gl.uniform1f(uni.uClip,view.baseR*1.01);}
   gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,washTex);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,washCanvas);
   gl.drawArrays(gl.TRIANGLES,0,6);
 }
@@ -129,10 +162,15 @@ function sheetWashes(y,frame){const S=DATA.sheet;if(!S?.communities?.length||/[?
 function smoothPath(pts){if(pts.length<3)return '';let d=`M${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;for(let i=1;i<pts.length;i++)d+=` L${pts[i].x.toFixed(1)},${pts[i].y.toFixed(1)}`;return d+' Z';}
 function routePoints(m){const a=m.originCoordinates||INDEX.places.get(m.origin).coordinates,b=m.destinationCoordinates||INDEX.places.get(m.destination).coordinates,c=m.rendering?.control||[(a[0]+b[0])/2,(a[1]+b[1])/2];const out=[];for(let i=0;i<=48;i++){const t=i/48,u=1-t;out.push(P([u*u*a[0]+2*u*t*c[0]+t*t*b[0],u*u*a[1]+2*u*t*c[1]+t*t*b[1]]));}return out;}
 // LITE: the arc lifts off the globe (0.15 x the angle between its ends, sine profile, both ends on the ground), is hidden past the horizon, and grows during the second half of a camera move (REVEAL).
-function liftRoute(m){const g=routePoints(m);const A=svgToLonLat(m.originCoordinates||INDEX.places.get(m.origin).coordinates),B=svgToLonLat(m.destinationCoordinates||INDEX.places.get(m.destination).coordinates);
+function liftRoute(m){if(TILT)return liftRouteTilt(m);const g=routePoints(m);const A=svgToLonLat(m.originCoordinates||INDEX.places.get(m.origin).coordinates),B=svgToLonLat(m.destinationCoordinates||INDEX.places.get(m.destination).coordinates);
   const ang=Math.acos(Math.max(-1,Math.min(1,Math.sin(A[1]*D2R)*Math.sin(B[1]*D2R)+Math.cos(A[1]*D2R)*Math.cos(B[1]*D2R)*Math.cos((A[0]-B[0])*D2R)))),k=Math.min(2.5,90/view.deg);
   let n=g.length;if(REVEAL<1)n=Math.max(0,Math.min(n,Math.ceil(REVEAL*g.length)));
   const ground=[],pts=[];for(let i=0;i<n;i++){const q=g[i];if(!q.vis||q.depth>1.52)continue;const s=Math.sin(Math.PI*i/(g.length-1))*.15*ang*k;ground.push(q);pts.push({...q,x:view.cx+(q.x-view.cx)*(1+s),y:view.cy+(q.y-view.cy)*(1+s)});}
+  return {pts,ground};}
+function liftRouteTilt(m){const a=m.originCoordinates||INDEX.places.get(m.origin).coordinates,b=m.destinationCoordinates||INDEX.places.get(m.destination).coordinates,c=m.rendering?.control||[(a[0]+b[0])/2,(a[1]+b[1])/2];
+  const A=svgToLonLat(a),B=svgToLonLat(b),ang=Math.acos(Math.max(-1,Math.min(1,Math.sin(A[1]*D2R)*Math.sin(B[1]*D2R)+Math.cos(A[1]*D2R)*Math.cos(B[1]*D2R)*Math.cos((A[0]-B[0])*D2R))));
+  const N=48;let n=N+1;if(REVEAL<1)n=Math.max(0,Math.min(n,Math.ceil(REVEAL*(N+1))));const ground=[],pts=[];
+  for(let i=0;i<n;i++){const t=i/N,u=1-t,ll=svgToLonLat([u*u*a[0]+2*u*t*c[0]+t*t*b[0],u*u*a[1]+2*u*t*c[1]+t*t*b[1]]),g0=project(ll[0],ll[1],0);if(!g0.vis||g0.depth>1.45)continue;ground.push(g0);pts.push(project(ll[0],ll[1],Math.sin(Math.PI*t)*.15*ang));}
   return {pts,ground};}
 // Tapered ribbon: wide tail, narrower neck, broad integrated head. One clean arc; no bends.
 function ribbon(pts,tail,neck,headLen,headHalf){
@@ -250,25 +288,37 @@ function flatCamera(y){
 /* LITE (Jeffrey 10 Nov, Design brief): Events and home keep the globe. For the open card the camera pulls back as far as the card needs so that EVERY point (its place and both ends of every arrow of its own) sits inside 0.74 of the half-width and 0.70 of the half-height, then eases in 1.5 s; the route draws in the second half of the move. */
 let gRaf=0,gTo=null,REVEAL=1;const GPTS=new Map();
 function globeStop(){if(gRaf){cancelAnimationFrame(gRaf);gRaf=0;}gTo=null;REVEAL=1;}
-function globeFits(pts,t){const keep={lon:view.lon,lat:view.lat,deg:view.deg,zoom:view.zoom,R:view.R};Object.assign(view,{lon:t.lon,lat:t.lat,deg:t.deg,zoom:t.zoom,R:view.baseR*t.zoom});
+function globeFits(pts,t){const keep={lon:view.lon,lat:view.lat,deg:view.deg,zoom:view.zoom,R:view.R,tilt:view.tilt,fk:view.fk};Object.assign(view,{lon:t.lon,lat:t.lat,deg:t.deg,zoom:t.zoom,R:view.baseR*t.zoom,tilt:t.tilt||0,fk:t.fk||0});
   const st=$('stage'),hw=st.clientWidth/2*.74,hh=Math.min(view.cy,st.clientHeight-view.cy)*.70;
-  const ok=pts.every(([lo,la])=>{const q=project(lo,la);return q.vis&&Math.hypot(q.x-view.cx,q.y-view.cy)<=.84*view.R&&Math.abs(q.x-view.cx)<=hw&&Math.abs(q.y-view.cy)<=hh;});Object.assign(view,keep);return ok;}
-function globeFrame(rec,type){const pts=flatPts(rec,type);if(!pts.length)return null;
+  const ok=pts.every(([lo,la])=>{const q=project(lo,la);return q.vis&&Math.hypot(q.x-view.cx,q.y-view.cy)<=(TILT?Math.min(.9*view.R,.88*view.baseR):.84*view.R)&&Math.abs(q.x-view.cx)<=hw&&Math.abs(q.y-view.cy)<=hh;});Object.assign(view,keep);return ok;}
+const sstep=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};
+// FULL camera: flatten k from the route radius (0 at 40 degrees or less, about 0.35 at 65 and more, never above 0.4); tilt 42 degrees lowered in steps of 4 (and toward 0 as k rises); take the highest tilt whose globe is within 1.3 of the biggest.
+function tiltFrame(rec,type){const pts=flatPts(rec,type);if(!pts.length)return null;
+  const [lon,la]=pts.length>1?meanLonLat(pts):pts[0],c={lon,lat:Math.max(-70,Math.min(80,la))},pl=SHEETPLACES.get(rec.placeId),reg=pl&&pl.role==='region';
+  const v=g=>[Math.cos(g[1]*D2R)*Math.cos(g[0]*D2R),Math.cos(g[1]*D2R)*Math.sin(g[0]*D2R),Math.sin(g[1]*D2R)],C=v([c.lon,la]);
+  const rr=Math.max(0,...pts.map(p=>{const q=v(p);return Math.acos(Math.max(-1,Math.min(1,C[0]*q[0]+C[1]*q[1]+C[2]*q[2])))/D2R;}));
+  const fk=.35*sstep((rr-40)/25),tmax=Math.max(0,42*(1-fk/.4)),wd=sstep((rr-40)/25),zmax=(reg?4.1:7.5)*(1-wd)+1*wd,res=[];   // wide routes: the whole globe stays inside the circle
+  
+  for(let t=tmax;t>=-.001;t-=4){const tt=Math.max(0,t);let z=zmax;while(z>ZMIN&&!globeFits(pts,{...c,deg:90,zoom:z,tilt:tt,fk}))z*=.95;res.push({tilt:tt,zoom:Math.max(ZMIN,z)});}
+  if(res[res.length-1].tilt>0){let z=zmax;while(z>ZMIN&&!globeFits(pts,{...c,deg:90,zoom:z,tilt:0,fk}))z*=.95;res.push({tilt:0,zoom:Math.max(ZMIN,z)});}
+  const best=Math.max(...res.map(r=>r.zoom)),pick=res.find(r=>r.zoom>=best/1.3)||res[0];
+  return {...c,deg:90,zoom:pick.zoom,tilt:pick.tilt,fk};}
+function globeFrame(rec,type){if(TILT)return tiltFrame(rec,type);const pts=flatPts(rec,type);if(!pts.length)return null;
   const [lon,la]=pts.length>1?meanLonLat(pts):pts[0],c={lon,lat:Math.max(-70,Math.min(80,la))},pl=SHEETPLACES.get(rec.placeId),reg=pl&&pl.role==='region';
   for(let d=reg?22:12;d<=90.01;d*=1.05){const t={...c,deg:Math.min(90,d),zoom:1};if(globeFits(pts,t))return t;}
   for(let z=.95;z>=ZMIN-.001;z-=.05){const t={...c,deg:90,zoom:z};if(globeFits(pts,t))return t;}
   return {...c,deg:90,zoom:ZMIN};}
-function globeWide(){return {lon:22,lat:26,deg:90,zoom:.9};}
+function globeWide(){return TILT?{lon:22,lat:24,deg:90,zoom:.85,tilt:24,fk:0}:{lon:22,lat:26,deg:90,zoom:.9};}
 function globeGo(t){globeStop();
-  const apply=(o)=>{view.lon=o.lon;view.lat=o.lat;view.deg=o.deg;view.zoom=o.zoom;view.R=view.baseR*o.zoom;};
+  const apply=(o)=>{view.lon=o.lon;view.lat=o.lat;view.deg=o.deg;view.zoom=o.zoom;view.R=view.baseR*o.zoom;if(TILT){view.tilt=o.tilt||0;view.fk=o.fk||0;}};
   if(window.OJJ_FASTCAM||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){apply(t);return;}   // OJJ_FASTCAM: tests only
-  const from={lon:view.lon,lat:view.lat,deg:view.deg,zoom:view.zoom},dl=(((t.lon-from.lon+180)%360)+360)%360-180,t0=performance.now(),ms=1500;gTo=t;REVEAL=0;
+  const from={lon:view.lon,lat:view.lat,deg:view.deg,zoom:view.zoom,tilt:view.tilt,fk:view.fk},dl=(((t.lon-from.lon+180)%360)+360)%360-180,t0=performance.now(),ms=1500;gTo=t;REVEAL=0;
   const tick=now=>{gRaf=0;if(!gTo)return;const p=Math.max(0,Math.min(1,(now-t0)/ms)),e=p*p*(3-2*p);
-    apply({lon:from.lon+dl*e,lat:from.lat+(t.lat-from.lat)*e,deg:from.deg+(t.deg-from.deg)*e,zoom:from.zoom+(t.zoom-from.zoom)*e});REVEAL=Math.max(0,Math.min(1,(p-.5)/.5));
+    apply({lon:from.lon+dl*e,lat:from.lat+(t.lat-from.lat)*e,deg:from.deg+(t.deg-from.deg)*e,zoom:TILT?from.zoom*Math.pow(t.zoom/from.zoom,e):from.zoom+(t.zoom-from.zoom)*e,tilt:from.tilt+((t.tilt||0)-from.tilt)*e,fk:from.fk+((t.fk||0)-from.fk)*e});REVEAL=Math.max(0,Math.min(1,(p-.5)/.5));
     if(p>=1){gTo=null;REVEAL=1;}render();if(gTo)gRaf=requestAnimationFrame(tick);};
   gRaf=requestAnimationFrame(tick);}
 function globeCamera(y){
-  if(cover){if(flatKey!=='cover'){flatKey='cover';view.manual=false;globeStop();const w=globeWide();view.lon=w.lon;view.lat=w.lat;view.deg=w.deg;view.zoom=w.zoom;view.R=view.baseR*w.zoom;}return;}
+  if(cover){if(flatKey!=='cover'){flatKey='cover';view.manual=false;globeStop();const w=globeWide();view.lon=w.lon;view.lat=w.lat;view.deg=w.deg;view.zoom=w.zoom;view.R=view.baseR*w.zoom;if(TILT){view.tilt=w.tilt;view.fk=w.fk;}}return;}
   const rec=activeCardRecord(y),type=rec?(selected&&selected.record===rec?selected.type:(milestones.find(m=>m.record===rec)||{}).type):null;
   const key=rec?rec.id+'|'+$('stage').clientWidth+'x'+$('stage').clientHeight:'none';if(key===flatKey)return;
   const t=rec&&type?globeFrame(rec,type):null;if(!t&&rec)return;flatKey=key;view.manual=false;globeGo(t||globeWide());}
@@ -290,9 +340,9 @@ function renderCore(){
   followCamera(y);
   const ov=$('ov'),scale=FLAT?1:(view.baseR/390)*Math.min(1.6,Math.sqrt(view.zoom));const layers={geo:$('lGeo'),route:$('lRoute'),mark:$('lMark'),label:$('lLabel')};for(const k in layers)layers[k].replaceChildren();
   const st0=$('stage'),WS=0.5;washCanvas.width=Math.max(2,Math.round(st0.clientWidth*WS));washCanvas.height=Math.max(2,Math.round(st0.clientHeight*WS));wctx.clearRect(0,0,washCanvas.width,washCanvas.height);
-  const pxPerDeg=FLAT?view.sc*kxOf():view.R*(90/view.deg)*D2R,washBlur=Math.max(6,Math.min(48,pxPerDeg*0.7))*WS;
+  const pxPerDeg=FLAT?view.sc*kxOf():TILT?view.R/RSIL*D2R:view.R*(90/view.deg)*D2R,washBlur=Math.max(6,Math.min(48,pxPerDeg*0.7))*WS;
   // population wash and anchors
-  const labels=[];drawGeo(layers.geo);
+  const labels=[];if(TILT){let cp=document.getElementById('geoClip');if(!cp){cp=document.createElementNS('http://www.w3.org/2000/svg','clipPath');cp.id='geoClip';cp.appendChild(document.createElementNS('http://www.w3.org/2000/svg','circle'));(ov.querySelector('defs')||ov.insertBefore(document.createElementNS('http://www.w3.org/2000/svg','defs'),ov.firstChild)).appendChild(cp);}const c=cp.firstChild;c.setAttribute('cx',view.cx);c.setAttribute('cy',view.cy);c.setAttribute('r',view.baseR*1.01);layers.geo.setAttribute('clip-path','url(#geoClip)');}drawGeo(layers.geo);if(COVER)drawGrid(layers.geo);if(TILT&&view.R>view.baseR*1.01){el('circle',{cx:view.cx,cy:view.cy,r:view.baseR*1.01,fill:'none',stroke:'rgba(120,172,220,.16)','stroke-width':9},layers.geo);el('circle',{cx:view.cx,cy:view.cy,r:view.baseR*1.01,fill:'none',stroke:'rgba(160,200,235,.5)','stroke-width':1.6},layers.geo);}
   for(const st of frame.populations){const p=DATA.populations.find(r=>r.id===st.id);if(!st.visible||st.intensity<=0.01)continue;
     if(p.geographicFootprint){const pts=parseFootprint(p.geographicFootprint).map(P);if(pts.some(q=>q.vis)){const a=Math.min(.95,st.intensity*1.15)*(st.uncertain?.6:1);wctx.save();wctx.shadowColor=`rgba(0,0,0,${a.toFixed(3)})`;wctx.shadowBlur=washBlur*2;wctx.shadowOffsetX=20000;wctx.beginPath();pts.forEach((q,i)=>{const x=q.x*WS-20000,y=q.y*WS;i?wctx.lineTo(x,y):wctx.moveTo(x,y);});wctx.closePath();wctx.fillStyle='#000';wctx.fill();wctx.restore();}}
     const r=p.rendering||{};if(r.node&&st.nodeOpacity>0.05&&p.coordinates){const q=P(p.coordinates);if(!q.vis)continue;const isSel=selected&&(isCardOf(p)||selected.record===p||selected.record.populationId===p.id||(selected.type==='movement'&&[selected.record.origin,selected.record.destination].includes(p.place)));const g=el('g',{class:'anchor'+(st.uncertain?' uncertain':'')+(isSel?' selected':''),transform:`translate(${q.x.toFixed(1)} ${q.y.toFixed(1)})`,opacity:Math.max(.35,st.nodeOpacity).toFixed(2),tabindex:0,role:'button','aria-label':p.title},layers.mark);if(r.ring)el('circle',{r:9*Math.max(.8,scale),class:'ring'},g);el('circle',{r:4.6*Math.max(.8,scale),class:'dot'},g);g.addEventListener('click',()=>{if(!dragMoved)openStory(p,'population');});g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openStory(p,'population');}});
@@ -336,6 +386,11 @@ function renderCore(){
   const idx=lastMilestoneIdx(dy);if(!selected){if(idx!==lastAutoIdx){lastAutoIdx=idx;if(idx>=0){if(tour==null&&userScrub)QP(milestones[idx].record.id);   /* F-035: dragging the timeline with a finger brings each card up in turn; that is the person's own action and counts. Play (the tour) does not. */
     fillStory(milestones[idx].record,milestones[idx].type,false);turnToRecord(milestones[idx].record,milestones[idx].type);}}}
 }
+// Faint 10 degree grid (Jeffrey 10 Nov: keep it). Drawn through project(), so it follows the tilt and the flatten.
+function drawGrid(g){const parts=[];const run=pts=>{let d='',pen=false;for(const [lo,la] of pts){const q=project(lo,la);if(!q.vis){pen=false;continue;}d+=(pen?' L':' M')+q.x.toFixed(1)+','+q.y.toFixed(1);pen=true;}if(d)parts.push(d);};
+  for(let lo=-180;lo<180;lo+=10){const p=[];for(let la=-80;la<=80;la+=4)p.push([lo,la]);run(p);}
+  for(let la=-80;la<=80;la+=10){const p=[];for(let lo=-180;lo<=180;lo+=4)p.push([lo,la]);run(p);}
+  el('path',{d:parts.join(' '),class:'gridLine',fill:'none',stroke:'rgba(255,250,235,.16)','stroke-width':.8},g);}
 function drawGeo(g){if(!GEO)return;const line=(pts,cls)=>{let d='',pen=false;for(const [lo,la] of pts){const q=project(lo,la);if(!q.vis){pen=false;continue;}d+=(pen?' L':' M')+q.x.toFixed(1)+','+q.y.toFixed(1);pen=true;}if(d)el('path',{d,class:cls},g);};
   for(const c of GEO.coast)line(c,'coast');for(const r of GEO.rivers)line(r,'river');}
 function geoLabels(){if(!GEO)return [];const out=[];for(const [text,kind,lo,la] of GEO.labels){const q=project(lo,la);if(q.vis&&q.depth<1.05)out.push({text,x:q.x,y:q.y,kind});}return out;}
@@ -451,7 +506,7 @@ function initInteraction(){
     if(ptrs.size===2&&pinch){if(gesture)return;const [a,b]=[...ptrs.values()];const d=Math.hypot(a[0]-b[0],a[1]-b[1]);dragMoved=true;stopTour();const r0=$('ov').getBoundingClientRect();setZoom(pinch.zoom*d/pinch.d,(a[0]+b[0])/2-r0.left,(a[1]+b[1])/2-r0.top);return;}
     const dx=e.clientX-last[0],dy=e.clientY-last[1];if(Math.abs(dx)+Math.abs(dy)<1)return;if(!dragMoved&&Math.hypot(e.clientX-last[0],e.clientY-last[1])<3)return;if(!dragMoved)try{stage.setPointerCapture(e.pointerId);}catch(_){}dragMoved=true;last=[e.clientX,e.clientY];
     if(FLAT){view.lat=Math.max(-70,Math.min(80,view.lat+dy/view.sc));view.lon-=dx/(view.sc*kxOf());view.manual=true;flatStop();stopTour();dismissPrompt();render();return;}
-    const k=90/view.deg,degPerPx=1/(view.R*k)/D2R;view.lat=Math.max(-70,Math.min(80,view.lat+dy*degPerPx));view.lon-=dx*degPerPx/Math.max(.2,Math.cos(view.lat*D2R));view.manual=true;if(COVER)globeStop();stopTour();dismissPrompt();render();});
+    const k=90/view.deg,degPerPx=TILT?RSIL/view.R/D2R:1/(view.R*k)/D2R;view.lat=Math.max(-70,Math.min(80,view.lat+dy*degPerPx));view.lon-=dx*degPerPx/Math.max(.2,Math.cos(view.lat*D2R));view.manual=true;if(COVER)globeStop();stopTour();dismissPrompt();render();});
   stage.addEventListener('click',e=>{if(dragMoved||e.target.closest('.route,.anchor,.sym,.event'))return;if(tour==null)return;stopTour();const i=lastMilestoneIdx(Math.round(currentYear()));if(i<0)return;const m=milestones[i];QP(m.record.id);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});});
   let gesture=null;
   stage.addEventListener('touchmove',e=>{e.preventDefault();},{passive:false});
