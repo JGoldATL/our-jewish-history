@@ -46,7 +46,7 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 .layout{display:grid;grid-template-columns:minmax(0,1fr) 430px;gap:12px;padding:0 32px 18px;align-items:start}
 #stage{position:relative;height:calc(100svh - 110px);min-height:560px;max-height:980px}
 #gl,#ov,#arc{position:absolute;inset:0;width:100%;height:100%}
-#gl{filter:drop-shadow(0 40px 60px rgba(0,0,0,.55))}
+#gl{filter:drop-shadow(0 40px 60px rgba(0,0,0,.55)) drop-shadow(0 0 12px rgba(120,172,220,.45))}
 #gl,#ov{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 36px,#000 calc(100% - 36px),transparent 100%),linear-gradient(180deg,transparent 0,#000 30px,#000 calc(100% - 30px),transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 36px,#000 calc(100% - 36px),transparent 100%),linear-gradient(180deg,transparent 0,#000 30px,#000 calc(100% - 30px),transparent 100%);mask-composite:intersect}
 #ov{touch-action:none;cursor:grab}
 #ov:active{cursor:grabbing}
@@ -216,13 +216,14 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
  #panel.inviting .prompt{padding:12px 4px 4px}.prompt p{font-size:19px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-#cover{position:absolute;inset:0 0 62px 0;z-index:3;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;pointer-events:none;background:radial-gradient(ellipse at center,rgba(11,22,36,.6),rgba(11,22,36,.25) 72%)}
+#cover{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;pointer-events:none;background:radial-gradient(ellipse at center,rgba(11,22,36,.6),rgba(11,22,36,.25) 72%)}
 .cover-on #cover{display:flex}
+.cover-on #ov{visibility:hidden}
 #cover h2{margin:0 0 6px;font-family:var(--serif);font-weight:700;font-size:clamp(28px,6vw,40px);line-height:1;color:var(--cream);text-shadow:0 2px 14px rgba(11,22,36,.95);text-wrap:balance}
 #cover .csub{margin:-2px 0 8px;font:italic 600 19px var(--serif);color:var(--amber);text-shadow:0 1px 10px rgba(11,22,36,.98)}
 #cover p{margin:0 0 12px;max-width:22em;font-size:14.5px;line-height:1.35;color:var(--text);text-shadow:0 1px 10px rgba(11,22,36,.98)}
 #cover button{pointer-events:auto;min-height:46px;min-width:110px;border-radius:999px;border:0;background:linear-gradient(#E8B27A,#D79A4E);color:#2a1a08;font:700 16px var(--sans);cursor:pointer}
-@media (max-width:620px){#cover{inset:0 0 54px 0}}
+
 #stage.flatmap #gl,#stage.flatmap #ov{filter:none;-webkit-mask-image:none;mask-image:none}
 #stage.flatmap #gl{border-radius:14px;box-shadow:0 0 0 1px rgba(239,230,211,.16)}
 </style>
@@ -252,9 +253,9 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 </header>
 
 <main class="layout">
-<section id="stage" class="cover-on flatmap" aria-label="Globe">
+<section id="stage" class="cover-on" aria-label="Globe">
 <canvas id="gl" aria-hidden="true"></canvas>
-<svg id="ov" role="group" aria-label="Interactive map. Drag to move it; pinch or scroll to zoom.">
+<svg id="ov" role="group" aria-label="Interactive globe. Drag to turn it; pinch or scroll to zoom.">
 <defs id="ovDefs"><filter id="routeShadow" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="2.4"/></filter></defs>
 <g id="lGeo"></g><g id="lRoute"></g><g id="lMark"></g><g id="lLabel"></g>
 </svg>
@@ -284,14 +285,14 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 <button type="button" class="sheetHandle" id="sheetHandle" aria-expanded="false" aria-controls="story" aria-label="Show the full card"></button>
 </aside>
 </main>
-<footer class="foot"><span>Drag the map to move it · pinch or scroll to zoom</span><span class="footR"><button type="button" class="linkBtn" id="sourcesLink">Sources</button><span id="version"></span></span></footer>
+<footer class="foot"><span>Drag the globe to turn it · pinch or scroll to zoom</span><span class="footR"><button type="button" class="linkBtn" id="sourcesLink">Sources</button><span id="version"></span></span></footer>
 <div class="dlgWrap" id="sourcesDlg" hidden><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="sourcesTitle"><div class="dlgHead"><h2 id="sourcesTitle">Sources</h2><button type="button" id="sourcesClose" class="round" aria-label="Close sources">×</button></div><p class="dlgNote">Every reference used on this map, in one place.</p><ul id="allSources"></ul></div></div>
 <div class="error" id="error" hidden></div>
 <script src="engine.js"></script>
 <script src="version.js"></script>
 <script src="share.js"></script>
 <script src="symbols.js"></script>
-<script>window.OJJ_FLAT=true;</script>
+<script>window.OJJ_COVER=true;</script>
 <script src="app.js"></script>
 <script>
 /* Phone bottom sheet (portrait, up to 620 px wide): tap the handle, or swipe up on the card, to open it fully; swipe down to see the globe again. */

@@ -5,7 +5,7 @@ const ARGS=['--use-gl=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-b
 const SIZES=[['desktop 1280',{viewport:{width:1280,height:800}}],['iPad upright 820',{viewport:{width:820,height:1180},hasTouch:true}],['iPad landscape 1024',{viewport:{width:1024,height:768},hasTouch:true}],['phone 390',{viewport:{width:390,height:844},hasTouch:true,isMobile:true}]];
 const routeTitles=p=>p.evaluate(()=>[...document.querySelectorAll('#lRoute .route')].map(g=>g.getAttribute('aria-label')));
 (async()=>{const b=await chromium.launch({args:ARGS});const errs=[];
-for(const [nm,opts] of SIZES){const n=nm+': ';const c=await b.newContext(opts);const p=await c.newPage();p.on('pageerror',e=>errs.push(n+e.message));
+for(const [nm,opts] of SIZES){const n=nm+': ';const c=await b.newContext(opts);const p=await c.newPage();await p.addInitScript(()=>{window.OJJ_FASTCAM=true;});p.on('pageerror',e=>errs.push(n+e.message));
   await p.goto(BASE+'events.html');await p.waitForTimeout(4200);
   const T=await p.evaluate(()=>milestones.length);
   // F-173: with each card open, every arrow drawn belongs to that card

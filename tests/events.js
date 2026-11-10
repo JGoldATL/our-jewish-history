@@ -3,7 +3,7 @@ const {chromium}=require('playwright');const BASE=process.env.BASE||'http://loca
 // The qualifying routes are not a fixed list: they are every Sheet movement whose character is Voluntary migration and whose arrow treatment is exactly Charcoal (rule in app.js addSheetMovements).
 const fs=require('fs');const WANT=JSON.parse(fs.readFileSync(__dirname+'/../data/history.json','utf8')).sheet.movements.filter(m=>String(m.character||'').trim().toLowerCase()==='voluntary migration'&&String(m.arrowTreatment||'').trim().toLowerCase()==='charcoal').map(m=>m.id).sort();
 (async()=>{const b=await chromium.launch();
-async function open(url,w=1194,h=834){const p=await b.newPage({viewport:{width:w,height:h}});p.errs=[];p.on('pageerror',e=>p.errs.push(e.message));await p.goto(BASE+url);await p.waitForTimeout(2000);return p;}
+async function open(url,w=1194,h=834){const p=await b.newPage({viewport:{width:w,height:h}});await p.addInitScript(()=>{window.OJJ_FASTCAM=true;});p.errs=[];p.on('pageerror',e=>p.errs.push(e.message));await p.goto(BASE+url);await p.waitForTimeout(2000);return p;}
 let p=await open('events.html');
 ck((await p.title())==='Our Jewish Journey: Events','page title says Events');
 // 3.3.6 (Jeffrey 8 Nov): the 15 Oct rule "arrows only for the Voluntary migration + Charcoal routes" is removed. Events draws any route; F-173 still limits the map to the showing card's own arrows.

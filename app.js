@@ -13,12 +13,12 @@ const svgToLonLat=([x,y])=>[x/15-15,58-y*53/650];
 /* ---------- globe projection: magnified orthographic ---------- */
 const view={lon:35,lat:31,deg:15,R:390,baseR:390,zoom:1,cx:450,cy:420,manual:false,sc:6,fsc:6,minSc:1};
 /* F-176 (Jeffrey 7 Nov, decisions 9 Nov): Events and the home page draw a FLAT lon/lat map instead of the globe (window.OJJ_FLAT). Plain equirectangular, re-scaled at every camera frame: x uses cos(latitude of the frame centre) so places keep their shape. view.sc = pixels per degree of latitude. */
-const FLAT=!!window.OJJ_FLAT;let cover=FLAT;
+const FLAT=!!window.OJJ_FLAT,COVER=!!window.OJJ_COVER;let cover=FLAT||COVER;   // COVER = Events and home: the globe with a cover, the card camera and lifted routes (LITE)
 const kxOf=()=>Math.max(.4,Math.cos(view.lat*D2R));
-const ZMIN=1,ZMAX=3.2;
+const ZMIN=COVER?.5:1,ZMAX=3.2;
 function unproject(x,y){if(FLAT)return [view.lon+(x-view.cx)/(view.sc*kxOf()),view.lat-(y-view.cy)/view.sc];const dx=(x-view.cx)/view.R,dy=(y-view.cy)/view.R,r=Math.hypot(dx,dy);if(r>=1)return null;const del=Math.asin(r)/(90/view.deg),th=Math.atan2(dx,-dy),p0=view.lat*D2R,l0=view.lon*D2R;const lat=Math.asin(Math.sin(p0)*Math.cos(del)+Math.cos(p0)*Math.sin(del)*Math.cos(th));const lon=l0+Math.atan2(Math.sin(th)*Math.sin(del)*Math.cos(p0),Math.cos(del)-Math.sin(p0)*Math.sin(lat));return [lon/D2R,lat/D2R];}
 // Zoom brings the globe closer while keeping the spot under the pointer (or the screen centre) in place.
-function setZoom(z,ax,ay){if(FLAT){const nz=Math.max(.45,Math.min(6,z));if(ax==null){ax=view.cx;ay=view.cy;}const a=unproject(ax,ay);view.zoom=nz;view.sc=Math.max(view.minSc,Math.min(view.fsc*6,view.fsc*nz));const b=unproject(ax,ay);view.lon+=a[0]-b[0];view.lat=Math.max(-70,Math.min(80,view.lat+a[1]-b[1]));view.manual=true;flatStop();render();return;}
+function setZoom(z,ax,ay){if(COVER&&typeof globeStop==='function')globeStop();if(FLAT){const nz=Math.max(.45,Math.min(6,z));if(ax==null){ax=view.cx;ay=view.cy;}const a=unproject(ax,ay);view.zoom=nz;view.sc=Math.max(view.minSc,Math.min(view.fsc*6,view.fsc*nz));const b=unproject(ax,ay);view.lon+=a[0]-b[0];view.lat=Math.max(-70,Math.min(80,view.lat+a[1]-b[1]));view.manual=true;flatStop();render();return;}
   const nz=Math.max(ZMIN,Math.min(ZMAX,z));if(ax==null){const st=$('stage');ax=st.clientWidth/2;ay=Math.min(view.cy,st.clientHeight/2);}
   const anchor=unproject(ax,ay);view.zoom=nz;view.R=view.baseR*nz;
   if(anchor&&nz>1.001){for(let i=0;i<3;i++){const q=project(anchor[0],anchor[1]),k=90/view.deg,dpp=1/(view.R*k)/D2R;view.lat=Math.max(-70,Math.min(80,view.lat-(q.y-ay)*dpp));view.lon+=(q.x-ax)*dpp/Math.max(.2,Math.cos(view.lat*D2R));}view.manual=true;}
@@ -128,6 +128,12 @@ function sheetWashes(y,frame){const S=DATA.sheet;if(!S?.communities?.length||/[?
   return out;}
 function smoothPath(pts){if(pts.length<3)return '';let d=`M${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;for(let i=1;i<pts.length;i++)d+=` L${pts[i].x.toFixed(1)},${pts[i].y.toFixed(1)}`;return d+' Z';}
 function routePoints(m){const a=m.originCoordinates||INDEX.places.get(m.origin).coordinates,b=m.destinationCoordinates||INDEX.places.get(m.destination).coordinates,c=m.rendering?.control||[(a[0]+b[0])/2,(a[1]+b[1])/2];const out=[];for(let i=0;i<=48;i++){const t=i/48,u=1-t;out.push(P([u*u*a[0]+2*u*t*c[0]+t*t*b[0],u*u*a[1]+2*u*t*c[1]+t*t*b[1]]));}return out;}
+// LITE: the arc lifts off the globe (0.15 x the angle between its ends, sine profile, both ends on the ground), is hidden past the horizon, and grows during the second half of a camera move (REVEAL).
+function liftRoute(m){const g=routePoints(m);const A=svgToLonLat(m.originCoordinates||INDEX.places.get(m.origin).coordinates),B=svgToLonLat(m.destinationCoordinates||INDEX.places.get(m.destination).coordinates);
+  const ang=Math.acos(Math.max(-1,Math.min(1,Math.sin(A[1]*D2R)*Math.sin(B[1]*D2R)+Math.cos(A[1]*D2R)*Math.cos(B[1]*D2R)*Math.cos((A[0]-B[0])*D2R)))),k=Math.min(2.5,90/view.deg);
+  let n=g.length;if(REVEAL<1)n=Math.max(0,Math.min(n,Math.ceil(REVEAL*g.length)));
+  const ground=[],pts=[];for(let i=0;i<n;i++){const q=g[i];if(!q.vis||q.depth>1.52)continue;const s=Math.sin(Math.PI*i/(g.length-1))*.15*ang*k;ground.push(q);pts.push({...q,x:view.cx+(q.x-view.cx)*(1+s),y:view.cy+(q.y-view.cy)*(1+s)});}
+  return {pts,ground};}
 // Tapered ribbon: wide tail, narrower neck, broad integrated head. One clean arc; no bends.
 function ribbon(pts,tail,neck,headLen,headHalf){
   const L=[0];for(let i=1;i<pts.length;i++)L.push(L[i-1]+Math.hypot(pts[i].x-pts[i-1].x,pts[i].y-pts[i-1].y));
@@ -241,7 +247,32 @@ function flatCamera(y){
   const rec=activeCardRecord(y),type=rec?(selected&&selected.record===rec?selected.type:(milestones.find(m=>m.record===rec)||{}).type):null;
   const key=rec?rec.id+'|'+$('stage').clientWidth+'x'+Math.round(view.cy*2):'none';if(key===flatKey)return;
   const t=rec&&type?flatFrame(rec,type):null;if(!t&&rec)return;flatKey=key;view.manual=false;flatGo(t||flatWide());}
-function followCamera(y){if(FLAT){flatCamera(y);return;}if(view.manual)return;const s=DATA.cameraStates;let i=0;while(i+1<s.length&&s[i+1].startDate<=y)i++;const a=s[i],b=s[Math.min(i+1,s.length-1)],span=b.startDate-a.startDate,t=span>0?Math.min(1,Math.max(0,(y-a.startDate)/span)):0,e=t*t*(3-2*t),mix=k=>a[k]+(b[k]-a[k])*e;
+/* LITE (Jeffrey 10 Nov, Design brief): Events and home keep the globe. For the open card the camera pulls back as far as the card needs so that EVERY point (its place and both ends of every arrow of its own) sits inside 0.74 of the half-width and 0.70 of the half-height, then eases in 1.5 s; the route draws in the second half of the move. */
+let gRaf=0,gTo=null,REVEAL=1;const GPTS=new Map();
+function globeStop(){if(gRaf){cancelAnimationFrame(gRaf);gRaf=0;}gTo=null;REVEAL=1;}
+function globeFits(pts,t){const keep={lon:view.lon,lat:view.lat,deg:view.deg,zoom:view.zoom,R:view.R};Object.assign(view,{lon:t.lon,lat:t.lat,deg:t.deg,zoom:t.zoom,R:view.baseR*t.zoom});
+  const st=$('stage'),hw=st.clientWidth/2*.74,hh=Math.min(view.cy,st.clientHeight-view.cy)*.70;
+  const ok=pts.every(([lo,la])=>{const q=project(lo,la);return q.vis&&Math.hypot(q.x-view.cx,q.y-view.cy)<=.84*view.R&&Math.abs(q.x-view.cx)<=hw&&Math.abs(q.y-view.cy)<=hh;});Object.assign(view,keep);return ok;}
+function globeFrame(rec,type){const pts=flatPts(rec,type);if(!pts.length)return null;
+  const [lon,la]=pts.length>1?meanLonLat(pts):pts[0],c={lon,lat:Math.max(-70,Math.min(80,la))},pl=SHEETPLACES.get(rec.placeId),reg=pl&&pl.role==='region';
+  for(let d=reg?22:12;d<=90.01;d*=1.05){const t={...c,deg:Math.min(90,d),zoom:1};if(globeFits(pts,t))return t;}
+  for(let z=.95;z>=ZMIN-.001;z-=.05){const t={...c,deg:90,zoom:z};if(globeFits(pts,t))return t;}
+  return {...c,deg:90,zoom:ZMIN};}
+function globeWide(){return {lon:22,lat:26,deg:90,zoom:.9};}
+function globeGo(t){globeStop();
+  const apply=(o)=>{view.lon=o.lon;view.lat=o.lat;view.deg=o.deg;view.zoom=o.zoom;view.R=view.baseR*o.zoom;};
+  if(window.OJJ_FASTCAM||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){apply(t);return;}   // OJJ_FASTCAM: tests only
+  const from={lon:view.lon,lat:view.lat,deg:view.deg,zoom:view.zoom},dl=(((t.lon-from.lon+180)%360)+360)%360-180,t0=performance.now(),ms=1500;gTo=t;REVEAL=0;
+  const tick=now=>{gRaf=0;if(!gTo)return;const p=Math.max(0,Math.min(1,(now-t0)/ms)),e=p*p*(3-2*p);
+    apply({lon:from.lon+dl*e,lat:from.lat+(t.lat-from.lat)*e,deg:from.deg+(t.deg-from.deg)*e,zoom:from.zoom+(t.zoom-from.zoom)*e});REVEAL=Math.max(0,Math.min(1,(p-.5)/.5));
+    if(p>=1){gTo=null;REVEAL=1;}render();if(gTo)gRaf=requestAnimationFrame(tick);};
+  gRaf=requestAnimationFrame(tick);}
+function globeCamera(y){
+  if(cover){if(flatKey!=='cover'){flatKey='cover';view.manual=false;globeStop();const w=globeWide();view.lon=w.lon;view.lat=w.lat;view.deg=w.deg;view.zoom=w.zoom;view.R=view.baseR*w.zoom;}return;}
+  const rec=activeCardRecord(y),type=rec?(selected&&selected.record===rec?selected.type:(milestones.find(m=>m.record===rec)||{}).type):null;
+  const key=rec?rec.id+'|'+$('stage').clientWidth+'x'+$('stage').clientHeight:'none';if(key===flatKey)return;
+  const t=rec&&type?globeFrame(rec,type):null;if(!t&&rec)return;flatKey=key;view.manual=false;globeGo(t||globeWide());}
+function followCamera(y){if(FLAT){flatCamera(y);return;}if(COVER){globeCamera(y);return;}if(view.manual)return;const s=DATA.cameraStates;let i=0;while(i+1<s.length&&s[i+1].startDate<=y)i++;const a=s[i],b=s[Math.min(i+1,s.length-1)],span=b.startDate-a.startDate,t=span>0?Math.min(1,Math.max(0,(y-a.startDate)/span)):0,e=t*t*(3-2*t),mix=k=>a[k]+(b[k]-a[k])*e;
   const [lon,lat]=svgToLonLat([mix('centerX'),mix('centerY')]);view.lon=lon;view.lat=lat;view.deg=Math.max(10,Math.min(45,26/mix('scale')));}
 
 /* ---------- symbols ---------- */
@@ -272,9 +303,10 @@ function renderCore(){
   const arrowCard=EVENTS_ONLY&&!trails?activeCardRecord(y):undefined;
   const defs=$('ovDefs');defs.querySelectorAll('.dyn').forEach(n=>n.remove());
   for(const fm of frame.movements){if(!fm.visible)continue;const m=DATA.movements.find(r=>r.id===fm.id);if(arrowCard!==undefined&&!ownsArrow(arrowCard,m))continue;const win=movementWindow(m),past=trails&&win[1]<=y;const op0=Math.max(fm.opacity,past?.28:0);if(op0<=.01)continue;const op=1;   /* CEO 10/20: every arrow is 100% opaque on every map; it is drawn or it is not */
-    const pts=routePoints(m).filter(q=>q.vis);if(pts.length<6)continue;const traditional=m.evidenceStatus==='traditional account';
+    let pts=routePoints(m).filter(q=>q.vis),gpts=pts;if(COVER){const L=liftRoute(m);pts=L.pts;gpts=L.ground;}if(pts.length<6)continue;const traditional=m.evidenceStatus==='traditional account';
     const d=ribbon(pts,(traditional?13:15)*scale,7.5*scale,24*scale,15*scale);if(!d)continue;
     const g=el('g',{class:'route',opacity:op.toFixed(3),tabindex:0,role:'button','aria-label':m.title},layers.route);
+    if(COVER)el('path',{d:'M'+gpts.map(q=>q.x.toFixed(1)+','+q.y.toFixed(1)).join(' L'),fill:'none',stroke:'rgba(8,14,22,.55)','stroke-width':(3.4*scale).toFixed(1),'stroke-linecap':'round','stroke-linejoin':'round',class:'routeGround'},g);   // ground shadow under the lifted arc
     if(traditional){el('path',{d,class:'routeTrad'},g);}
     else{const [c1,c2]=COLORS[fm.color]||COLORS['#6d6256'];const gid='rg-'+m.id;const lg=el('linearGradient',{id:gid,class:'dyn',x1:0,y1:0,x2:0,y2:1},defs);el('stop',{offset:0,'stop-color':c1},lg);el('stop',{offset:1,'stop-color':c2},lg);
       el('path',{d,class:'routeShadow',transform:`translate(${2*scale} ${3.5*scale})`},g);el('path',{d,fill:`url(#${gid})`,class:'routeBody'+(!PREVIEW&&m.contested?' contested':'')},g);}
@@ -347,7 +379,7 @@ function closeStory(){selected=null;pagerOff=true;lastAutoIdx=-1;render();}
 /* ---------- playback ---------- */
 function setPos(p){position=Math.max(0,Math.min(1,p));render();}
 function setYearExact(y){position=posForYear(y);render();}
-function startTour(){stopTour();dismissPrompt();selected=null;pagerOff=false;lastAutoIdx=-1;view.manual=false;if(!FLAT){view.zoom=1;view.R=view.baseR;}if(position>=0.999)position=posForYear(DATA.presentation?.openingYear??DATA.timeline.start);const from=position,dur=DATA.presentation?.tourDurationMs||20000,dwell=DATA.presentation?.cardDwellMs??1500,t0=performance.now();
+function startTour(){stopTour();dismissPrompt();selected=null;pagerOff=false;lastAutoIdx=-1;view.manual=false;if(!FLAT&&!COVER){view.zoom=1;view.R=view.baseR;}if(position>=0.999)position=posForYear(DATA.presentation?.openingYear??DATA.timeline.start);const from=position,dur=DATA.presentation?.tourDurationMs||20000,dwell=DATA.presentation?.cardDwellMs??1500,t0=performance.now();
   // Play moves quickly through long gaps in history, but holds still for cardDwellMs (1.5 seconds) each time a card comes up, so it can be read.
   let last=t0,prevIdx=lastMilestoneIdx(Math.round(currentYear())),dwellUntil=prevIdx>=0?t0+dwell:0;
   const step=now=>{const dt=now-last;last=now;if(now<dwellUntil){tour=requestAnimationFrame(step);return;}
@@ -374,7 +406,7 @@ function placesFit(pts,s){const keep={lon:view.lon,lat:view.lat,zoom:view.zoom,R
   const st=$('stage'),w=st.clientWidth,h=st.clientHeight,m=Math.min(44,w*.08);const ok=pts.every(([lo,la])=>{const q=project(lo,la);return q.vis&&q.depth<1&&q.x>=m&&q.x<=w-m&&q.y>=m&&q.y<=h-m;});Object.assign(view,keep);return ok;}
 function recordLonLats(record,type){if(type==='sheet'){const p=SHEETPLACES.get(record.placeId);return p&&Number.isFinite(p.lat)&&Number.isFinite(p.lon)?[[p.lon,p.lat]]:[];}return recordPlaces(record,type).map(svgToLonLat);}
 function turnToRecord(record,type){
-  if(FLAT)return;   // flat map: the camera frames the open card itself (flatCamera)
+  if(FLAT||COVER)return;   // the camera frames the open card itself (flatCamera, globeCamera)
   if(!view.manual)return;cancelTurn();                       // the story camera is still in charge and already follows the story
   const pts=recordLonLats(record,type);if(!pts.length)return;
   const [lon,lat]=pts.length>1?meanLonLat(pts):pts[0];const to={lon,lat:Math.max(-70,Math.min(80,lat)),zoom:view.zoom,deg:view.deg};
@@ -394,7 +426,7 @@ function openAtStart(){
   stopTour();dismissPrompt();position=posForYear(m.date);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);
   view.manual=false;render();                                                    // the era camera's own view of this year
   if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});
-  if(FLAT||!F||!Number.isFinite(F.lat)||!Number.isFinite(F.lon)||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)return;
+  if(FLAT||COVER||!F||!Number.isFinite(F.lat)||!Number.isFinite(F.lon)||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)return;
   const to={lon:view.lon,lat:view.lat,deg:view.deg,zoom:view.zoom};
   view.manual=true;view.lon=F.lon;view.lat=F.lat;view.deg=15;view.zoom=1;view.R=view.baseR;render();   // start on Ur
   const from={lon:view.lon,lat:view.lat,deg:view.deg,zoom:view.zoom},dl=(((to.lon-from.lon+180)%360)+360)%360-180;
@@ -405,10 +437,10 @@ function openAtStart(){
       if(t<1){render();turnAnim=requestAnimationFrame(tick);}else{turnAnim=null;view.manual=false;render();}};   // any touch cancels the turn and keeps the visitor's view
     turnAnim=requestAnimationFrame(tick);},500);
 }
-function dismissCover(){if(!FLAT||!cover)return;cover=false;$('stage').classList.remove('cover-on');flatKey='';}
+function dismissCover(){if(!(FLAT||COVER)||!cover)return;cover=false;$('stage').classList.remove('cover-on');flatKey='';}
 function dismissPrompt(){dismissCover();if(!promptOpen)return;promptOpen=false;$('prompt').hidden=true;$('panel').classList.remove('inviting');$('play').hidden=false;$('options').hidden=false;}
 if(PREVIEW)window.OJJ_SUB={moved:()=>!!view.manual||view.zoom!==1,resetView(){view.manual=false;view.zoom=1;if(FLAT){flatKey='';}else view.R=view.baseR;render();}};   // F-085 subnav: Reset is the map position only
-function reset(){if(FLAT){stopTour();dismissPrompt();selected=null;pagerOff=true;lastAutoIdx=-1;position=0;cover=true;flatKey='';$('stage').classList.add('cover-on');view.manual=false;render();return;}stopTour();dismissPrompt();selected=null;pagerOff=true;lastAutoIdx=-1;position=0;view.manual=true;const j=svgToLonLat(INDEX.places.get('place-j').coordinates);view.lon=j[0];view.lat=j[1];view.deg=15;setZoom(1);}
+function reset(){if(FLAT||COVER){if(COVER)globeStop();stopTour();dismissPrompt();selected=null;pagerOff=true;lastAutoIdx=-1;position=0;cover=true;flatKey='';$('stage').classList.add('cover-on');view.manual=false;render();return;}stopTour();dismissPrompt();selected=null;pagerOff=true;lastAutoIdx=-1;position=0;view.manual=true;const j=svgToLonLat(INDEX.places.get('place-j').coordinates);view.lon=j[0];view.lat=j[1];view.deg=15;setZoom(1);}
 
 /* ---------- interaction ---------- */
 let dragMoved=false;
@@ -419,7 +451,7 @@ function initInteraction(){
     if(ptrs.size===2&&pinch){if(gesture)return;const [a,b]=[...ptrs.values()];const d=Math.hypot(a[0]-b[0],a[1]-b[1]);dragMoved=true;stopTour();const r0=$('ov').getBoundingClientRect();setZoom(pinch.zoom*d/pinch.d,(a[0]+b[0])/2-r0.left,(a[1]+b[1])/2-r0.top);return;}
     const dx=e.clientX-last[0],dy=e.clientY-last[1];if(Math.abs(dx)+Math.abs(dy)<1)return;if(!dragMoved&&Math.hypot(e.clientX-last[0],e.clientY-last[1])<3)return;if(!dragMoved)try{stage.setPointerCapture(e.pointerId);}catch(_){}dragMoved=true;last=[e.clientX,e.clientY];
     if(FLAT){view.lat=Math.max(-70,Math.min(80,view.lat+dy/view.sc));view.lon-=dx/(view.sc*kxOf());view.manual=true;flatStop();stopTour();dismissPrompt();render();return;}
-    const k=90/view.deg,degPerPx=1/(view.R*k)/D2R;view.lat=Math.max(-70,Math.min(80,view.lat+dy*degPerPx));view.lon-=dx*degPerPx/Math.max(.2,Math.cos(view.lat*D2R));view.manual=true;stopTour();dismissPrompt();render();});
+    const k=90/view.deg,degPerPx=1/(view.R*k)/D2R;view.lat=Math.max(-70,Math.min(80,view.lat+dy*degPerPx));view.lon-=dx*degPerPx/Math.max(.2,Math.cos(view.lat*D2R));view.manual=true;if(COVER)globeStop();stopTour();dismissPrompt();render();});
   stage.addEventListener('click',e=>{if(dragMoved||e.target.closest('.route,.anchor,.sym,.event'))return;if(tour==null)return;stopTour();const i=lastMilestoneIdx(Math.round(currentYear()));if(i<0)return;const m=milestones[i];QP(m.record.id);selected={record:m.record,type:m.type};fillStory(m.record,m.type,true);render();if(window.innerWidth<=900)$('panel').scrollTo({top:0,behavior:'smooth'});});
   let gesture=null;
   stage.addEventListener('touchmove',e=>{e.preventDefault();},{passive:false});
@@ -526,7 +558,7 @@ async function boot(){
     position=posForYear(DATA.presentation?.openingYear??-1208);$('version').textContent=window.SITE_FOOTER;   // v0.7.7 (CEO): site version; data version
     layout();
     openAtStart();
-    if(FLAT&&!/[?&]card=/.test(location.search)){cover=true;$('stage').classList.add('cover-on');flatKey='';render();}   // the cover shows over the whole map until Play, a drag, the slider or a card button is used; a shared ?card= link skips it
+    if((FLAT||COVER)&&!/[?&]card=/.test(location.search)){cover=true;$('stage').classList.add('cover-on');flatKey='';render();}   // the cover shows over the whole map until Play, a drag, the slider or a card button is used; a shared ?card= link skips it
   }catch(err){$('error').hidden=false;$('error').textContent='The map could not load: '+err.message;console.error(err);}
 }
 boot();
