@@ -407,7 +407,7 @@ function addSheetPlaceLabels(frame,labels,mark,P,scale){
     labels.push({text,x:q.x,y:q.y,side:'right',prio:1});}
 }
 function placeLabels(list,parent,scale,obstacles=[]){const boxes=[...obstacles];const fs=Math.max(14,17*Math.min(1.15,scale));list.sort((a,b)=>b.prio-a.prio);
-  for(const l of list){const w=l.text.length*fs*0.56,h=fs*1.1;const cand=l.side==='left'?[['end',-12,4],['start',12,4],['middle',0,fs+10]]:l.side==='below'?[['middle',0,fs+10],['start',12,4],['end',-12,4]]:[['start',12,4],['end',-12,4],['middle',0,fs+10],['middle',0,-14]];
+  for(const l of list){if(TILT&&Math.hypot(l.x-view.cx,l.y-view.cy)>view.baseR*0.97)continue;const w=l.text.length*fs*0.56,h=fs*1.1;const ext=[['start',12,-12],['end',-12,-12],['start',12,fs+8],['end',-12,fs+8]];const cand=(l.side==='left'?[['end',-12,4],['start',12,4],['middle',0,fs+10]]:l.side==='below'?[['middle',0,fs+10],['start',12,4],['end',-12,4]]:[['start',12,4],['end',-12,4],['middle',0,fs+10],['middle',0,-14]]).concat(ext);
     let placed=null;for(const [anchor,dx,dy] of cand){const x0=anchor==='start'?l.x+dx:anchor==='end'?l.x+dx-w:l.x-w/2,y0=l.y+dy-h*.8;const b={x:x0,y:y0,w,h};if(!boxes.some(o=>b.x<o.x+o.w&&b.x+b.w>o.x&&b.y<o.y+o.h&&b.y+b.h>o.y)){placed=[anchor,l.x+dx,l.y+dy];boxes.push(b);break;}}
     if(!placed&&l.prio>=2)placed=[cand[0][0],l.x+cand[0][1],l.y+cand[0][2]];if(!placed)continue;
     const t=el('text',{x:placed[1].toFixed(1),y:placed[2].toFixed(1),'text-anchor':placed[0],class:'label','font-size':fs.toFixed(1)},parent);t.textContent=l.text;}return boxes;}
