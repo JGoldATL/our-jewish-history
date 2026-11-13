@@ -2523,10 +2523,10 @@
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_dv5.0.0",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
       "sheetModified": "2026-11-03T18:00:04Z",
-      "exportSha256": "d2166c21b6e98997",
+      "exportSha256": "99a28495cd411505",
       "mode": "preview",
       "counts": {
-        "places": 143,
+        "places": 152,
         "events": 144,
         "communities": 155,
         "movements": 111,
@@ -2536,7 +2536,7 @@
         "eras": 8,
         "cameraStops": 51,
         "eraAssignment": 281,
-        "questions": 45
+        "questions": 50
       }
     },
     "places": [
@@ -3852,6 +3852,87 @@
         "lat": 31.53,
         "lon": 35.1,
         "landOfIsrael": true
+      },
+      {
+        "id": "place-milan",
+        "historicalName": "Milan",
+        "modernName": "Milan, Italy",
+        "role": "settlement",
+        "lat": 45.464,
+        "lon": 9.19,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-palermo",
+        "historicalName": "Palermo",
+        "modernName": "Palermo, Sicily, Italy",
+        "role": "settlement",
+        "lat": 38.116,
+        "lon": 13.361,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-toledo",
+        "historicalName": "Toledo",
+        "modernName": "Toledo, Spain",
+        "role": "settlement",
+        "lat": 39.863,
+        "lon": -4.027,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-lyon",
+        "historicalName": "Lyon",
+        "modernName": "Lyon, France",
+        "role": "settlement",
+        "lat": 45.764,
+        "lon": 4.836,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-avignon",
+        "historicalName": "Avignon",
+        "modernName": "Avignon, France",
+        "role": "settlement",
+        "lat": 43.949,
+        "lon": 4.806,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-mexico-city",
+        "historicalName": "Mexico City (New Spain)",
+        "modernName": "Mexico City, Mexico",
+        "role": "settlement",
+        "lat": 19.433,
+        "lon": -99.133,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-bologna",
+        "historicalName": "Bologna",
+        "modernName": "Bologna, Italy",
+        "role": "settlement",
+        "lat": 44.495,
+        "lon": 11.343,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-vatican",
+        "historicalName": "Vatican City",
+        "modernName": "Vatican City / Rome, Italy",
+        "role": "settlement",
+        "lat": 41.903,
+        "lon": 12.453,
+        "landOfIsrael": false
+      },
+      {
+        "id": "place-callinicum",
+        "historicalName": "Callinicum (Raqqa)",
+        "modernName": "Raqqa, Syria",
+        "role": "settlement",
+        "lat": 35.953,
+        "lon": 39.008,
+        "landOfIsrael": false
       }
     ],
     "events": [
@@ -6311,7 +6392,7 @@
         "startYear": 1348,
         "endYear": 1351,
         "dateDisplay": "1348–1351 (cluster)",
-        "placeId": "place-israel",
+        "placeId": "place-central-europe",
         "links": [],
         "hasCard": true,
         "mapSymbol": {
@@ -13097,7 +13178,7 @@
         "status": "approved",
         "startYear": 1348,
         "endYear": 1351,
-        "placeId": "place-israel",
+        "placeId": "place-central-europe",
         "mapSymbol": {
           "text": "Red octagon",
           "kind": "octagon",
@@ -18603,13 +18684,13 @@
         "place": "Jerusalem",
         "lat": 31.78,
         "lon": 35.22,
-        "question": "True or false: the Prophet Isaiah could have thrown discuss in the ancient Olympic Games.",
+        "question": "True or false: the Prophet Isaiah could have thrown the discus in the ancient Olympic Games.",
         "choices": [
           "True",
           "False"
         ],
         "correct": "A",
-        "quickTake": "The Olympics were 36 years old when Isaiah started prophesying, and there is no archeological evidence of Elijah's high school, college or Olympic discus gold medals.",
+        "quickTake": "The Olympics were 36 years old when Isaiah started prophesying, and there is no archeological evidence of Isaiah's high school, college or Olympic discus gold medals.",
         "deepDive": "The ancient Olympics are traditionally dated to 776 BCE. Isaiah began his mission in Jerusalem around 740 BCE, the year King Uzziah died, and prophesied for about forty years under four kings. His words are on a wall across from the United Nations: They shall beat their swords into plowshares. Nobody records him leaving Judah, so he could have gone, not that he did.",
         "jewishEvent": "Isaiah begins to prophesy",
         "jewishYear": -740,
@@ -18663,6 +18744,156 @@
         "jewishYear": -860,
         "worldAnchor": "Peanuts cross the Atlantic after Columbus",
         "worldYear": 1500
+      },
+      {
+        "id": "Q081",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Same year",
+        "place": "Savannah",
+        "lat": 32.08,
+        "lon": -81.09,
+        "question": "Jewish settlers reached Savannah in 1733. Which other event happened that year?",
+        "choices": [
+          "The Treaty of Paris ended the Seven Years' War",
+          "The First Continental Congress met",
+          "John Kay patented a machine with his flying shuttle",
+          "The first U.S. census was conducted"
+        ],
+        "correct": "C",
+        "quickTake": "The flying shuttle sped up weaving; the Atlantic crossing took much longer.",
+        "deepDive": "Jewish settlers reached Savannah aboard the William and Sarah on July 11, 1733. That May, John Kay received an English patent for a machine that included his flying shuttle.",
+        "jewishEvent": "Jewish settlers arrive in Savannah",
+        "jewishYear": 1733,
+        "worldAnchor": "John Kay patents flying shuttle machine",
+        "worldYear": 1733,
+        "choiceYears": [
+          1763,
+          1774,
+          1733,
+          1790
+        ]
+      },
+      {
+        "id": "Q082",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Same year",
+        "place": "Newport",
+        "lat": 41.49,
+        "lon": -71.31,
+        "question": "Touro Synagogue was dedicated in Newport in 1763. Which other event happened that year?",
+        "choices": [
+          "The First Continental Congress met",
+          "The French Revolution began",
+          "The first U.S. census was conducted",
+          "The Treaty of Paris ended the Seven Years' War"
+        ],
+        "correct": "D",
+        "quickTake": "The synagogue had been taking shape for years; the treaty settled a much larger map.",
+        "deepDive": "Construction of Touro Synagogue began in 1759; it was completed and dedicated in 1763. That year, the Treaty of Paris ended the Seven Years' War.",
+        "jewishEvent": "Touro Synagogue dedicated in Newport",
+        "jewishYear": 1763,
+        "worldAnchor": "Treaty of Paris ends Seven Years' War",
+        "worldYear": 1763,
+        "choiceYears": [
+          1774,
+          1789,
+          1790,
+          1763
+        ]
+      },
+      {
+        "id": "Q083",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Same year",
+        "place": "Charleston, South Carolina",
+        "lat": 32.78,
+        "lon": -79.93,
+        "question": "Francis Salvador was elected to South Carolina's First Provincial Congress in 1774. Which other event took place that year?",
+        "choices": [
+          "The U.S. Constitution was ratified",
+          "The First Continental Congress met",
+          "The U.S. Bill of Rights was ratified",
+          "The Declaration of Independence was adopted"
+        ],
+        "correct": "B",
+        "quickTake": "The two congresses make 1774 a busy year for anyone keeping minutes.",
+        "deepDive": "Salvador was elected in December 1774 to South Carolina's First Provincial Congress, which first met in January 1775. The Library of Congress qualifies broader 'first Jewish member' claims because Joseph Ottolengui had converted before serving in Georgia.",
+        "jewishEvent": "Francis Salvador elected to South Carolina's First Provincial Congress",
+        "jewishYear": 1774,
+        "worldAnchor": "First Continental Congress meets",
+        "worldYear": 1774,
+        "choiceYears": [
+          1788,
+          1774,
+          1791,
+          1776
+        ]
+      },
+      {
+        "id": "Q084",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Same year",
+        "place": "Newport",
+        "lat": 41.49,
+        "lon": -71.31,
+        "question": "George Washington answered Newport's Hebrew Congregation in 1790. Which other event happened that year?",
+        "choices": [
+          "The first U.S. census was conducted",
+          "The French Revolution began",
+          "The First Continental Congress met",
+          "The Treaty of Paris ended the Seven Years' War"
+        ],
+        "correct": "A",
+        "quickTake": "One letter and one census: the young republic was being counted in more than one way.",
+        "deepDive": "After Moses Seixas presented a welcome address, Washington replied to Newport's Hebrew Congregation on August 18, 1790. The first federal census was conducted that year.",
+        "jewishEvent": "Washington writes to Newport Hebrew Congregation",
+        "jewishYear": 1790,
+        "worldAnchor": "First U.S. census",
+        "worldYear": 1790,
+        "choiceYears": [
+          1790,
+          1789,
+          1774,
+          1763
+        ]
+      },
+      {
+        "id": "Q088",
+        "status": "approved",
+        "mode": "random",
+        "era": "Medieval & Modern",
+        "style": "Same year",
+        "place": "Tel Aviv",
+        "lat": 32.08,
+        "lon": 34.78,
+        "question": "An Israeli team at Tel Aviv University produced a small 3D-printed heart model in 2019. What else happened that year?",
+        "choices": [
+          "The Hubble Space Telescope launched",
+          "The first crewed Crew Dragon flight took place",
+          "The first image of a black hole was released",
+          "NASA's DART spacecraft hit Dimorphos"
+        ],
+        "correct": "C",
+        "quickTake": "A heart model is impressive; the quiz still asks for a year.",
+        "deepDive": "Researchers at Tel Aviv University reported a small 3D-printed heart model using human cells and blood vessels in 2019; it could not yet pump blood or be transplanted. The first black-hole image was released that year.",
+        "jewishEvent": "Israeli team reports 3D-printed heart model",
+        "jewishYear": 2019,
+        "worldAnchor": "First image of a black hole released",
+        "worldYear": 2019,
+        "choiceYears": [
+          1990,
+          2020,
+          2019,
+          2022
+        ]
       }
     ]
   },
