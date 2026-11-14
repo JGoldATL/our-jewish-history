@@ -2523,16 +2523,16 @@
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_dv6.0.0",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
       "sheetModified": "2026-11-03T18:00:04Z",
-      "exportSha256": "163734c437fb4e7c",
+      "exportSha256": "a71750b3ddee0c6b",
       "mode": "preview",
       "counts": {
         "places": 152,
-        "events": 144,
+        "events": 148,
         "communities": 155,
         "movements": 111,
         "context": 43,
         "evidence": 20,
-        "cards": 224,
+        "cards": 228,
         "eras": 8,
         "cameraStops": 51,
         "eraAssignment": 410,
@@ -5663,6 +5663,46 @@
           "kind": "octagon",
           "status": "locked"
         }
+      },
+      {
+        "id": "EVT-0153",
+        "startYear": -445,
+        "endYear": null,
+        "dateDisplay": "c. 445 BCE",
+        "placeId": "place-j",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0154",
+        "startYear": -300,
+        "endYear": -201,
+        "dateDisplay": "3rd century BCE",
+        "placeId": "place-alexNode",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0155",
+        "startYear": -40,
+        "endYear": -37,
+        "dateDisplay": "40–37 BCE",
+        "placeId": "place-j",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
+      },
+      {
+        "id": "EVT-0156",
+        "startYear": 1655,
+        "endYear": 1656,
+        "dateDisplay": "1655–1656",
+        "placeId": "place-england",
+        "movementIds": [],
+        "evidenceIds": [],
+        "hasCard": true
       }
     ],
     "communities": [
@@ -11934,6 +11974,18 @@
         }
       },
       {
+        "id": "EVT-0153",
+        "recordId": "EVT-0153",
+        "type": "Event",
+        "date": -445,
+        "title": "Nehemiah rebuilds Jerusalem's walls",
+        "description": "According to the Book of Nehemiah, Nehemiah led the rebuilding of Jerusalem's walls with permission from the Persian king.",
+        "status": "draft",
+        "startYear": -445,
+        "endYear": null,
+        "placeId": "place-j"
+      },
+      {
         "id": "EVT-0104",
         "recordId": "EVT-0104",
         "type": "Event",
@@ -11984,6 +12036,18 @@
           "kind": null,
           "status": null
         }
+      },
+      {
+        "id": "EVT-0154",
+        "recordId": "EVT-0154",
+        "type": "Event",
+        "date": -300,
+        "title": "The Torah is translated into Greek",
+        "description": "Jewish translators in Alexandria translated the Torah into Greek, producing the earliest part of the Septuagint.",
+        "status": "draft",
+        "startYear": -300,
+        "endYear": -201,
+        "placeId": "place-alexNode"
       },
       {
         "id": "EVT-0023",
@@ -12105,6 +12169,18 @@
           "kind": null,
           "status": null
         }
+      },
+      {
+        "id": "EVT-0155",
+        "recordId": "EVT-0155",
+        "type": "Event",
+        "date": -40,
+        "title": "Herod becomes king of Judea",
+        "description": "The Roman Senate named Herod king of Judea in 40 BCE and he secured the throne by capturing Jerusalem with Roman troops in 37 BCE.",
+        "status": "draft",
+        "startYear": -40,
+        "endYear": -37,
+        "placeId": "place-j"
       },
       {
         "id": "EVT-0106",
@@ -13754,6 +13830,18 @@
         "startYear": 1654,
         "endYear": null,
         "placeId": "place-guadeloupe"
+      },
+      {
+        "id": "EVT-0156",
+        "recordId": "EVT-0156",
+        "type": "Event",
+        "date": 1655,
+        "title": "Jews resettle in England",
+        "description": "Menasseh ben Israel petitioned Cromwell in 1655, and after Whitehall reached no decision, Cromwell tacitly allowed London's Jews to worship together in 1656.",
+        "status": "draft",
+        "startYear": 1655,
+        "endYear": 1656,
+        "placeId": "place-england"
       },
       {
         "id": "POP-053",
