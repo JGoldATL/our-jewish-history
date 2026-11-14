@@ -1,9 +1,9 @@
 {
  "schema": "inventions-1",
- "source": "Jewish_Continuity_Master_Dataset_dv5.0.0",
- "sheetModified": "2026-11-03T05:30:00Z",
- "exportSha256": "6aec3704dd5eb88e",
- "generated": "2026-11-03T05:23:48Z",
+ "source": "Jewish_Continuity_Master_Dataset_dv6.0.0",
+ "sheetModified": "",
+ "exportSha256": "624bc434642159f1",
+ "generated": "2026-11-14T00:07:11Z",
  "entries": [
   {
    "id": "INV-002",
@@ -66,9 +66,29 @@
    }
   },
   {
-   "id": "INV-009",
+   "id": "INV-006",
    "status": "LOCKED",
    "order": 4,
+   "category": "Invention",
+   "family": "Health and medicine",
+   "field": "Medicine",
+   "shortLabel": "Valves in your veins",
+   "summary": "Amatus Lusitanus reported tiny valves inside veins and suggested they help steer the flow of blood.",
+   "why": "It was a step toward understanding how blood circulates through the body.",
+   "year": 1551,
+   "approx": true,
+   "origin": "Ferrara; Duchy of Ferrara",
+   "originator": "Amatus Lusitanus (João Rodrigues de Castelo Branco)",
+   "deepDive": "In 1547 Amatus Lusitanus, a Portuguese-born Jewish doctor who taught anatomy in Ferrara, blew air into a vein while scholars watched. The air would not get past the tiny valve inside, which suggested that valves steer blood in one direction. He published the account in 1551. Historians still debate how well he understood circulation, but his careful experiment was an early step toward explaining how blood moves through the body.",
+   "source": {
+    "name": "Garrison-Morton (Jeremy Norman, History of Medicine), Rodrigues de Castelo Branco (Amatus Lusitanus)",
+    "url": "https://historyofmedicine.com/author/d/joo-amato-lusitano-amatus-lusitanus-rodrigues-de-castelo-branco"
+   }
+  },
+  {
+   "id": "INV-009",
+   "status": "LOCKED",
+   "order": 5,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Finance",
@@ -88,7 +108,7 @@
   {
    "id": "INV-010",
    "status": "LOCKED",
-   "order": 5,
+   "order": 6,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Education",
@@ -108,7 +128,7 @@
   {
    "id": "INV-012",
    "status": "LOCKED",
-   "order": 6,
+   "order": 7,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Civil liberties",
@@ -128,7 +148,7 @@
   {
    "id": "INV-013",
    "status": "LOCKED",
-   "order": 7,
+   "order": 8,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Mechanical computing",
@@ -148,7 +168,7 @@
   {
    "id": "INV-016",
    "status": "LOCKED",
-   "order": 8,
+   "order": 9,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Animal welfare",
@@ -166,9 +186,29 @@
    }
   },
   {
+   "id": "INV-018",
+   "status": "LOCKED",
+   "order": 10,
+   "category": "Invention",
+   "family": "Health and medicine",
+   "field": "Neuroscience",
+   "shortLabel": "The nervous system",
+   "summary": "Robert Remak found thin nerve fibers with no protective coating, an early step in mapping how the nervous system is wired.",
+   "why": "It is an early piece of the map doctors still use to understand nerves.",
+   "year": 1836,
+   "approx": false,
+   "origin": "Berlin; Kingdom of Prussia",
+   "originator": "Robert Remak",
+   "deepDive": "In 1836 Robert Remak, a young Jewish researcher in Berlin, published his first studies of the fine structure of nerves. His 1838 doctoral thesis described thin gray fibers with no protective coating, the myelin sheath, now called Remak's fibers. He also showed that the coated nerve fibers are not hollow tubes, as had been believed. These were early pieces of the map doctors still use to understand how nerves are wired.",
+   "source": {
+    "name": "Journal of Neurology via PubMed Central, Robert Remak (1815-1865), Grzybowski and Pietrzak, 2013",
+    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3675270/"
+   }
+  },
+  {
    "id": "INV-021",
    "status": "LOCKED",
-   "order": 9,
+   "order": 11,
    "category": "Invention",
    "family": "Science and discovery",
    "field": "Mathematics",
@@ -188,7 +228,7 @@
   {
    "id": "INV-027",
    "status": "LOCKED",
-   "order": 10,
+   "order": 12,
    "category": "Invention",
    "family": "Health and medicine",
    "field": "Immunology",
@@ -208,7 +248,7 @@
   {
    "id": "INV-030",
    "status": "LOCKED",
-   "order": 11,
+   "order": 13,
    "category": "Invention",
    "family": "Everyday life and engineering",
    "field": "Clothing",
@@ -226,9 +266,29 @@
    }
   },
   {
+   "id": "INV-041",
+   "status": "LOCKED",
+   "order": 14,
+   "category": "Invention",
+   "family": "Health and medicine",
+   "field": "Neurology",
+   "shortLabel": "Discovered Tay–Sachs disease",
+   "summary": "Bernard Sachs described a rare inherited disease of the nervous system in young children, now called Tay–Sachs.",
+   "why": "Knowing the disease made diagnosis possible, and later genetic testing.",
+   "year": 1887,
+   "approx": false,
+   "origin": "New York City; United States",
+   "originator": "Bernard Sachs; Warren Tay (earlier ophthalmologic observation)",
+   "deepDive": "In 1881 the English eye doctor Warren Tay noticed a cherry-colored spot in the retina of a sick infant. In 1887 the New York neurologist Bernard Sachs described the same illness in a two-year-old girl without knowing of Tay's report. Later he saw that it ran in families and named it amaurotic family idiocy. Doctors came to call it Tay-Sachs disease. A careful description and a name gave doctors a way to recognize a rare inherited illness and a first step toward understanding it.",
+   "source": {
+    "name": "Encyclopedia.com, Tay-Sachs and \"Jewish\" Diseases",
+    "url": "https://www.encyclopedia.com/social-sciences/encyclopedias-almanacs-transcripts-and-maps/tay-sachs-and-jewish-diseases"
+   }
+  },
+  {
    "id": "INV-043",
    "status": "LOCKED",
-   "order": 12,
+   "order": 15,
    "category": "Invention",
    "family": "Arts and entertainment",
    "field": "Recorded audio",
@@ -248,7 +308,7 @@
   {
    "id": "INV-045",
    "status": "LOCKED",
-   "order": 13,
+   "order": 16,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Law and civil liberties",
@@ -268,7 +328,7 @@
   {
    "id": "INV-047",
    "status": "LOCKED",
-   "order": 14,
+   "order": 17,
    "category": "Invention",
    "family": "Arts and entertainment",
    "field": "Photography",
@@ -288,7 +348,7 @@
   {
    "id": "INV-048",
    "status": "LOCKED",
-   "order": 15,
+   "order": 18,
    "category": "Invention",
    "family": "Health and medicine",
    "field": "Vaccines",
@@ -308,7 +368,7 @@
   {
    "id": "INV-054",
    "status": "LOCKED",
-   "order": 16,
+   "order": 19,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Psychology",
@@ -328,7 +388,7 @@
   {
    "id": "INV-055",
    "status": "LOCKED",
-   "order": 17,
+   "order": 20,
    "category": "Invention",
    "family": "Science and discovery",
    "field": "Mathematics",
@@ -348,7 +408,7 @@
   {
    "id": "INV-057",
    "status": "LOCKED",
-   "order": 18,
+   "order": 21,
    "category": "Invention",
    "family": "Health and medicine",
    "field": "Vaccines",
@@ -368,7 +428,7 @@
   {
    "id": "INV-063",
    "status": "LOCKED",
-   "order": 19,
+   "order": 22,
    "category": "Invention",
    "family": "Science and discovery",
    "field": "Physics",
@@ -388,7 +448,7 @@
   {
    "id": "INV-066",
    "status": "LOCKED",
-   "order": 20,
+   "order": 23,
    "category": "Invention",
    "family": "Health and medicine",
    "field": "Medicine",
@@ -408,7 +468,7 @@
   {
    "id": "INV-067",
    "status": "LOCKED",
-   "order": 21,
+   "order": 24,
    "category": "Entertainment",
    "family": "Arts and entertainment",
    "field": "Cosmetics and film",
@@ -428,7 +488,7 @@
   {
    "id": "INV-071",
    "status": "LOCKED",
-   "order": 22,
+   "order": 25,
    "category": "Invention",
    "family": "Society and ideas",
    "field": "Psychology",
@@ -448,7 +508,7 @@
   {
    "id": "INV-073",
    "status": "LOCKED",
-   "order": 23,
+   "order": 26,
    "category": "Entertainment",
    "family": "Arts and entertainment",
    "field": "Film and sound",
@@ -468,7 +528,7 @@
   {
    "id": "INV-097",
    "status": "LOCKED",
-   "order": 24,
+   "order": 27,
    "category": "Invention",
    "family": "Everyday life and engineering",
    "field": "Agriculture and water",
@@ -488,7 +548,7 @@
   {
    "id": "INV-103",
    "status": "LOCKED",
-   "order": 25,
+   "order": 28,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Computing",
@@ -508,7 +568,7 @@
   {
    "id": "NEW-001",
    "status": "LOCKED",
-   "order": 26,
+   "order": 29,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Digital communication",
@@ -528,7 +588,7 @@
   {
    "id": "INV-117",
    "status": "LOCKED",
-   "order": 27,
+   "order": 30,
    "category": "Invention",
    "family": "Health and medicine",
    "field": "Medicine and pharmaceuticals",
@@ -548,7 +608,7 @@
   {
    "id": "INV-118",
    "status": "LOCKED",
-   "order": 28,
+   "order": 31,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Internet communication",
@@ -568,7 +628,7 @@
   {
    "id": "INV-121",
    "status": "LOCKED",
-   "order": 29,
+   "order": 32,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Internet search",
@@ -588,7 +648,7 @@
   {
    "id": "INV-123",
    "status": "LOCKED",
-   "order": 30,
+   "order": 33,
    "category": "Invention",
    "family": "Health and medicine",
    "field": "Medical imaging",
@@ -608,7 +668,7 @@
   {
    "id": "INV-126",
    "status": "LOCKED",
-   "order": 31,
+   "order": 34,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Computing",
@@ -628,7 +688,7 @@
   {
    "id": "INV-132",
    "status": "LOCKED",
-   "order": 32,
+   "order": 35,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Social media",
@@ -648,7 +708,7 @@
   {
    "id": "INV-142",
    "status": "LOCKED",
-   "order": 33,
+   "order": 36,
    "category": "Invention",
    "family": "Computing and communication",
    "field": "Navigation and mobile software",

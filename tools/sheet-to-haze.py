@@ -74,7 +74,7 @@ def main():
     if xt:
         a.drafts = True
         if a.out == "data/haze.json": a.out = "data/judaism-draft.json" if jud else "data/christianity-draft.json"
-        if a.anchors_tab == "Haze Anchors": a.anchors_tab = "Jewish Anchors" if jud else "Catholic Anchors TAB"   # Jewish tab names are Dataset's suggestion, unverified until imported
+        if a.anchors_tab == "Haze Anchors": a.anchors_tab = "Jewish Anchors" if jud else "Catholic Anchors"   # Jewish tab names are Dataset's suggestion, unverified until imported
         if a.cards_tab == "Haze Wave Cards": a.cards_tab = "Jewish Wave Cards" if jud else "Catholic Wave Cards"
     elif a.out != "data/haze.json" and ("christianity" in a.out or "judaism" in a.out):
         sys.exit("The public trail must not write the draft page file.")

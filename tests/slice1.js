@@ -1,4 +1,4 @@
-// Slice 1 (modern cards 1898 to 1932, data v5.0.0): the 15 new Events cards load, the arc reaches 1932, each modern card has its own spot on the arc, the 1898 era marker shows, and no page errors.
+// Slice 1 (modern cards 1898 to 1932, data v6.0.0): the 15 new Events cards load, the arc reaches 1932, each modern card has its own spot on the arc, the 1898 era marker shows, and no page errors.
 // Run: NODE_PATH=$(npm root -g) node tests/slice1.js   (needs python3 -m http.server 8778 in the repo root)
 const {chromium}=require('playwright');const BASE=process.env.SITE||'http://localhost:8778/';
 let fail=0;const ck=(n,ok,x)=>{console.log((ok?'PASS ':'FAIL ')+n+(x!==undefined?' '+JSON.stringify(x):''));if(!ok)fail++;};
@@ -13,7 +13,7 @@ let fail=0;const ck=(n,ok,x)=>{console.log((ok?'PASS ':'FAIL ')+n+(x!==undefined
   ck(w+'px: modern card years move forward along the arc (every gap above zero)',r.minGap>0,r.minGap);
   ck(w+'px: the arc gives 1898 to 1932 a visible stretch',r.pos1932-r.pos1898>0.02,{from:r.pos1898,to:r.pos1932});
   ck(w+'px: 1898 era marker is drawn',r.tickText.some(t=>/1898/.test(t)),r.tickText);
-  ck(w+'px: footer reads v3.5.2, dv5.0.0',r.ver==='v3.5.2, dv5.0.0',r.ver);
+  ck(w+'px: footer reads v3.6.0, dv6.0.0',r.ver==='v3.6.0, dv6.0.0',r.ver);
   const sy=await p.evaluate(async()=>{SHEETSYMS??=sheetSymbolRecords();const oct=SHEETSYMS.filter(r=>r.sym==='destroyed').map(r=>r.c.id).sort();const seen={};for(const [id,place] of [['EVT-0138','Kishinev'],['EVT-0147','Ukraine'],['EVT-0152','Hebron']]){selectMilestone(milestones.findIndex(m=>m.record.id===id));await new Promise(r=>setTimeout(r,3200));seen[place]=[...document.querySelectorAll('g.sym')].map(g=>g.getAttribute('aria-label')||'').filter(t=>t.startsWith('Pogrom or attack: '+place)).length;}return {oct,seen};});
   ck(w+'px: five octagons, one per place and year (CHG-029 1881, EVT-0138, 0139, 0147, 0152; the linked CHG-030 and CHG-031 do not double up)',JSON.stringify(sy.oct)===JSON.stringify(['CHG-029','EVT-0138','EVT-0139','EVT-0147','EVT-0152']),sy.oct);
   ck(w+'px: the Era 8 camera stops put Kishinev, Ukraine and Hebron on screen, each with its octagon',sy.seen.Kishinev===1&&sy.seen.Ukraine===1&&sy.seen.Hebron===1,sy.seen);
