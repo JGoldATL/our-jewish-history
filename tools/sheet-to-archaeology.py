@@ -60,6 +60,54 @@ def table(wb, names):
     return name, hdr, out
 
 
+def adapt_new_tables(wb):
+    """--new-tables: build rows with the OLD Archaeology headers from Records v1 (Type Archaeology, Legacy tab Archaeology),
+    Find Dealers v1, Record Sources + Sources v1, Record Links. Map agreed with Dataset 2026-11-16 (claude/notes-dataset-2026-11-16-where-to-look.md).
+    The 10 Evidence-origin ARC rows (blank Record type in Find Dealers v1) are left out here; the old tab never had them."""
+    def T(name):
+        if name not in wb.sheetnames:
+            sys.exit('Missing tab: ' + name)
+        rows = list(wb[name].iter_rows(values_only=True))
+        hdr = [str(h).strip() if h is not None else '' for h in rows[0]]
+        return [{hdr[i]: v for i, v in enumerate(r) if hdr[i]} for r in rows[1:] if r and any(v not in (None, '') for v in r)]
+    fd = {text(r.get('Record ID')): r for r in T('Find Dealers v1')}
+    sv = {text(r.get('Source ID')): r for r in T('Sources v1')}
+    srcs, links, parent = {}, {}, {}
+    for r in T('Record Sources'):
+        srcs.setdefault(text(r.get('Record ID')), []).append(text(r.get('Source ID')))
+    for r in T('Record Links'):
+        rid, lid, kind = text(r.get('Record ID')), text(r.get('Linked ID')), text(r.get('Link kind'))
+        if not (rid or '').startswith('ARC') or text(r.get('Source tab')) != 'Archaeology':
+            continue   # links that came from the old Evidence tab (e.g. ARC-006 to EVT-0005) are not on the live page
+        if kind == 'illustrates':
+            links.setdefault(rid, []).append(lid)
+        elif kind == 'part of' and (lid or '').startswith('ARC'):
+            parent[rid] = lid
+    out = []
+    for i, r in enumerate(T('Records v1'), start=2):
+        if text(r.get('Type')) != 'Archaeology' or text(r.get('Legacy tab')) != 'Archaeology':
+            continue
+        rid = text(r.get('ID'))
+        f = fd.get(rid, {})
+        if not text(f.get('Record type')):
+            continue
+        d = {'_row': i, 'ID': rid, 'Record type': f.get('Record type'), 'Name': r.get('Title'), 'Linked site ID': parent.get(rid),
+             'Discovery year': f.get('Found year'), 'Year note': f.get('Year note'), 'Discovered by or excavation': f.get('Found by'),
+             'Period label': r.get('Display date'), 'Period start year': r.get('Start year'), 'Period end year': r.get('End year'),
+             'Headline era': r.get('Legacy headline era'), 'Place ID': r.get('Place ID'), 'Latitude': f.get('Latitude'),
+             'Longitude': f.get('Longitude'), 'Coordinate precision': f.get('Coordinate precision'), 'Where it is now': f.get('Where it is now'),
+             'Where to see it': f.get('Where to see it'), 'Open to public': f.get('Open to public'), 'Map symbol': r.get('Map symbol'),
+             'Importance': f.get('Importance'), 'Lost and found': f.get('Lost and found'), 'Year lost': f.get('Year lost'),
+             'Year rediscovered': f.get('Year rediscovered'), 'Subhead': r.get('Card title'), 'Brief story': r.get('Story text'),
+             'Deep dive': r.get('Deep dive'), 'What it shows': f.get('What it shows'), 'Limits': f.get('Limits'),
+             'Linked Event IDs': ', '.join(links.get(rid, [])) or None, 'Record status': r.get('Status'), 'Internal notes': r.get('Internal notes')}
+        for n, sid in enumerate(srcs.get(rid, [])[:2], start=1):
+            d[f'Source {n}'] = sv.get(sid, {}).get('Title')
+            d[f'Source {n} URL'] = sv.get(sid, {}).get('URL')
+        out.append(d)
+    return out
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('xlsx')
@@ -68,6 +116,7 @@ def main(argv=None):
     ap.add_argument('--report')
     ap.add_argument('--sheet-name', default='Jewish_Continuity_Master_Dataset_v2.0.0')
     ap.add_argument('--sheet-modified')
+    ap.add_argument('--new-tables', action='store_true', help='read Records v1, Find Dealers v1, Record Sources, Sources v1, Record Links instead of the Archaeology tab')
     ap.add_argument('--history', default='data/history.json', help='used only to check that Events cards exist for Linked Event IDs')
     a = ap.parse_args(argv)
     try:
@@ -76,10 +125,13 @@ def main(argv=None):
         sys.exit('pip install openpyxl')
     xlsx = Path(a.xlsx)
     wb = openpyxl.load_workbook(xlsx, read_only=True, data_only=True)
-    tab, hdr, rows = table(wb, TABS)
-    missing = [h for h in REQUIRED if h not in hdr]
-    if missing:
-        sys.exit('The ' + tab + ' tab is missing columns: ' + ', '.join(missing))
+    if a.new_tables:
+        tab, rows = 'Records v1 + Find Dealers v1 (new tables)', adapt_new_tables(wb)
+    else:
+        tab, hdr, rows = table(wb, TABS)
+        missing = [h for h in REQUIRED if h not in hdr]
+        if missing:
+            sys.exit('The ' + tab + ' tab is missing columns: ' + ', '.join(missing))
     place_ids = set()
     if 'Places' in wb.sheetnames:
         place_ids = {text(r.get('Place ID')) for r in table(wb, ('Places',))[2]}

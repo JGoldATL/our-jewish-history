@@ -55,7 +55,13 @@ def adapt(src, dst, include_new_drafts=False):
 
     # ---- tabs kept as they are (the new tables do not hold them)
     for t in ('Context & Voyages', 'Evidence', 'Questions', 'Places'):
-        copy_tab(t)
+        ws_ = copy_tab(t)
+        if t == 'Context & Voyages':   # the 16 Nov re-import turned bare years in Date (display) into numbers; the site keeps them as text
+            col = [c.value for c in ws_[1]].index('Date (display)')
+            for r in ws_.iter_rows(min_row=2):
+                v = r[col].value
+                if isinstance(v, (int, float)) and not isinstance(v, bool) and v == int(v):
+                    r[col].value = str(int(v))
 
     # ---- helper: overwrite named columns of a copied tab, keyed by the first column
     def overlay(name, new_by_id, colmap, extra_ids=()):
@@ -145,7 +151,8 @@ def adapt(src, dst, include_new_drafts=False):
         i = r['Leg ID']
         pops = [x for x in LINK.findall(str(r['Linked POP IDs'] or ''))]
         others = [x for x in LINK.findall(str(oldlinks.get(i) or '')) if x[:3] not in ('POP', 'MOV')]   # CHG/DES links are not in Routes: kept from the old tab
-        links_ = pops + others + chain(i)   # a child lists its parents; a parent does not list its children (the old build derives the branch lists)
+        prec = [r['Preceding leg ID']] if r.get('Preceding leg ID') else []   # new last Routes column (16 Nov): MOV-063 and MOV-067 follow MOV-052
+        links_ = pops + others + chain(i) + prec   # a child lists its parents; a parent does not list its children (the old build derives the branch lists)
         return {'Event ID': r['Record ID'], 'Title': r['Title'], 'Origin (historical)': blank(r['Origin (historical)']),
                 'Destination (historical)': blank(r['Destination (historical)']), 'Date (display)': r['Display date'],
                 'Start year': r['Start year'], 'End year': blank(r['End year']), 'Movement character': r['Movement character'],

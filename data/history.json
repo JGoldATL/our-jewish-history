@@ -2523,7 +2523,7 @@
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_dv6.0.0",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
       "sheetModified": "2026-11-03T18:00:04Z",
-      "exportSha256": "d7dcaf84bfa42bc6",
+      "exportSha256": "36e6b4f80b2c246c",
       "mode": "preview",
       "counts": {
         "places": 152,
@@ -9933,6 +9933,7 @@
         "arrowTreatment": "Red",
         "links": [
           "MOV-029",
+          "MOV-052",
           "POP-046"
         ],
         "character": "persecution-driven flight",
@@ -10036,6 +10037,7 @@
         "arrowTreatment": "Red",
         "links": [
           "MOV-029",
+          "MOV-052",
           "MOV-054",
           "POP-054"
         ],
@@ -11327,7 +11329,7 @@
         "id": "CTX-024",
         "family": "CTX",
         "startYear": 1700,
-        "dateDisplay": "18th century CE",
+        "dateDisplay": "18th century",
         "links": [
           "MOV-032"
         ]
@@ -11460,7 +11462,7 @@
         "id": "VOY-002",
         "family": "VOY",
         "startYear": 800,
-        "dateDisplay": "9th century CE",
+        "dateDisplay": "9th century",
         "links": [
           "POP-035"
         ]
@@ -11478,7 +11480,7 @@
         "id": "VOY-004",
         "family": "VOY",
         "startYear": 1600,
-        "dateDisplay": "17th century CE",
+        "dateDisplay": "17th century",
         "links": [
           "MOV-027"
         ]
@@ -11487,7 +11489,7 @@
         "id": "VOY-005",
         "family": "VOY",
         "startYear": 1800,
-        "dateDisplay": "19th century CE",
+        "dateDisplay": "19th century",
         "links": [
           "MOV-036"
         ]

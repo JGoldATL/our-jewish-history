@@ -30,7 +30,46 @@ def text(v):
     return '' if v is None else str(v).strip()
 
 
-def read_rows(path):
+def rows_from_new_tables(path):
+    """--new-tables: build rows with the OLD column names from Records v1 (Type Gift), Record Sources and Sources v1.
+    Map agreed with Dataset 2026-11-16. Each Gift has exactly one source: Source = Title + " | " + URL."""
+    from openpyxl import load_workbook
+    p = Path(path)
+    wb = load_workbook(p, read_only=True, data_only=True)
+
+    def T(name):
+        if name not in wb.sheetnames:
+            sys.exit('Missing tab: ' + name)
+        rs = [list(r) for r in wb[name].iter_rows(values_only=True)]
+        h = [text(x) for x in rs[0]]
+        return [{h[i]: text(v) for i, v in enumerate(r) if h[i]} for r in rs[1:] if any(text(v) for v in r)]
+    sv = {r['Source ID']: r for r in T('Sources v1')}
+    srcs = {}
+    for r in T('Record Sources'):
+        srcs.setdefault(r['Record ID'], []).append(r['Source ID'])
+    out = []
+    for r in T('Records v1'):
+        if r.get('Type') != 'Gift':
+            continue
+        ids = srcs.get(r['ID'], [])
+        if len(ids) != 1:
+            print(f'{r["ID"]}: expected 1 source, found {len(ids)}', file=sys.stderr)
+        s0 = sv.get(ids[0], {}) if ids else {}
+        def whole(v):
+            return v[:-2] if v.endswith('.0') else v
+        out.append({'Record ID': r['ID'], 'Status': r.get('Status', ''), 'Order': whole(r.get('Display order', '')),
+                    'Category': r.get('Category', ''), 'Family': r.get('Family', ''), 'Field': r.get('Field', ''),
+                    'Short label': r.get('Short label', ''), 'Card summary': r.get('Card description', ''),
+                    'Why it matters': r.get('Story text', ''), 'Year': whole(r.get('Start year', '')),
+                    'Approximate': r.get('Approximate', ''), 'Geographic origin': r.get('Geographic origin', ''),
+                    'Originator': r.get('Originator', ''), 'Deep dive': r.get('Deep dive', ''),
+                    'Source': (s0.get('Title', '') + ' | ' + s0.get('URL', '')) if s0 else ''})
+    return out, hashlib.sha256(p.read_bytes()).hexdigest()[:16]
+
+
+def read_rows(path, new_tables=False):
+    if new_tables:
+        return rows_from_new_tables(path)
     p = Path(path)
     if p.suffix.lower() == '.csv':
         raw = p.read_bytes()
@@ -61,11 +100,12 @@ def main():
     ap.add_argument('input')
     ap.add_argument('--out', default='data/inventions.json')
     ap.add_argument('--dry-run', action='store_true')
+    ap.add_argument('--new-tables', action='store_true', help='read Records v1 (Gift), Record Sources and Sources v1 instead of the Thank Jews For tab')
     ap.add_argument('--report')
     ap.add_argument('--sheet-name', default='Google Sheet Jewish_Continuity_Master_Dataset (tab Thank Jews For)')
     ap.add_argument('--sheet-modified', default='')
     a = ap.parse_args()
-    rows, digest = read_rows(a.input)
+    rows, digest = read_rows(a.input, a.new_tables)
     entries, problems, skipped, seen = [], [], [], set()
     for r in rows:
         rid = r['Record ID']

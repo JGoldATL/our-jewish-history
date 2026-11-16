@@ -65,6 +65,45 @@ def split_lie_record(s):
     return (m.group(1).strip(), m.group(2).strip()) if m else (None, None)
 
 
+def adapt_new_tables(wb):
+    """--new-tables: build the JewHate and JewHate Sources row lists (OLD headers) from Records v1 (Type Hard History, key Legacy ID),
+    Record Sources + Sources v1 (JHS ids kept), Record Links (kind related). Map agreed with Dataset 2026-11-16."""
+    def T(name):
+        if name not in wb.sheetnames:
+            sys.exit('Missing tab: ' + name)
+        rows = list(wb[name].iter_rows(values_only=True))
+        hdr = [str(h).strip() if h is not None else '' for h in rows[0]]
+        return [{hdr[i]: (None if v is None or str(v).strip() == '' else (v.strip() if isinstance(v, str) else v)) for i, v in enumerate(r) if hdr[i]}
+                for r in rows[1:] if r and any(v is not None and str(v).strip() != '' for v in r)]
+    sv = {text(r.get('Source ID')): r for r in T('Sources v1')}
+    refs, rel = {}, {}
+    for r in T('Record Sources'):
+        refs.setdefault(text(r.get('Record ID')), []).append(text(r.get('Source ID')))
+    for r in T('Record Links'):
+        if text(r.get('Link kind')) == 'related' and (text(r.get('Record ID')) or '').startswith('JH-'):
+            rel.setdefault(text(r.get('Record ID')), []).append(text(r.get('Linked ID')))
+    jh, used = [], []
+    for r in T('Records v1'):
+        if text(r.get('Type')) != 'Hard History':
+            continue
+        rid = text(r.get('Legacy ID')) or text(r.get('ID'))
+        jh.append({'JH ID': rid, 'Title': r.get('Card title'), 'Short label': r.get('Title'), 'Family': r.get('Family'),
+                   'Display order': r.get('Display order'), 'Related JH IDs': ';'.join(rel.get(rid, [])) or None,
+                   'Immediate factual correction': r.get('Story text'), 'Card summary': r.get('Card description'),
+                   'Historical significance (concise)': r.get('Significance'), 'First documented appearance year': r.get('Start year'),
+                   'Approximate date': r.get('Approximate'), 'Geographic origin': r.get('Geographic origin'), 'Originator (if known)': r.get('Originator'),
+                   'Historical circumstances': r.get('Detail: circumstances'), 'Documented motive': r.get('Detail: documented motive'),
+                   'Inferred motive': r.get('Detail: inferred motive'), 'How it spread': r.get('Detail: how it spread'),
+                   'Major historical uses': r.get('Detail: major uses'), 'Documented consequences': r.get('Detail: consequences'),
+                   'Evolution over time': r.get('Detail: evolution'), 'Modern manifestations': r.get('Detail: modern'),
+                   'Detailed historical correction': r.get('Detail: correction'), 'Deep Dive narrative': r.get('Deep dive'),
+                   'Source references': ';'.join(refs.get(rid, [])) or None, 'Record status': r.get('Status')})
+        used += refs.get(rid, [])
+    src = [{'Source ID': sid, 'Publisher': sv[sid].get('Publisher'), 'Title': sv[sid].get('Title'), 'URL': sv[sid].get('URL'),
+            'Source type': sv[sid].get('Type')} for sid in dict.fromkeys(used) if sid in sv]
+    return jh, src
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('xlsx')
@@ -73,6 +112,7 @@ def main(argv=None):
     ap.add_argument('--report')
     ap.add_argument('--sheet-name', default='Jewish_Continuity_Master_Dataset_v0.5.1')
     ap.add_argument('--sheet-modified')
+    ap.add_argument('--new-tables', action='store_true', help='read Records v1, Record Sources, Sources v1, Record Links instead of the three JewHate tabs')
     a = ap.parse_args(argv)
     try:
         import openpyxl
@@ -80,7 +120,10 @@ def main(argv=None):
         sys.exit('pip install openpyxl')
     xlsx = Path(a.xlsx)
     wb = openpyxl.load_workbook(xlsx, read_only=True, data_only=True)
-    jh, src = table(wb, 'JewHate'), table(wb, 'JewHate Sources')
+    if a.new_tables:
+        jh, src = adapt_new_tables(wb)
+    else:
+        jh, src = table(wb, 'JewHate'), table(wb, 'JewHate Sources')
     table(wb, 'JewHate Field Guide')   # must exist; it is the rulebook
     warns, dropped = [], []
 
