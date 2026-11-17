@@ -337,12 +337,12 @@ header.top h1,header.top h2,header.top h3{font-variant-numeric:normal;font-featu
   if(!panel||!story||!handle)return;
   function set(full){full=!!full&&mq.matches;document.body.classList.toggle('sheet-full',full);panel.classList.toggle('full',full);handle.setAttribute('aria-expanded',full?'true':'false');handle.setAttribute('aria-label',full?'Show the globe':'Show the full card');story.scrollTop=0;window.dispatchEvent(new Event('resize'));}
   handle.addEventListener('click',function(){set(!panel.classList.contains('full'));});
-  var y0=null;
-  panel.addEventListener('touchstart',function(e){y0=e.touches.length===1?e.touches[0].clientY:null;},{passive:true});
-  panel.addEventListener('touchend',function(e){if(y0===null||!mq.matches)return;var dy=y0-e.changedTouches[0].clientY;y0=null;
+  var y0=null,x0=0;
+  panel.addEventListener('touchstart',function(e){y0=e.touches.length===1?e.touches[0].clientY:null;x0=e.touches.length===1?e.touches[0].clientX:0;},{passive:true});
+  panel.addEventListener('touchend',function(e){if(y0===null||!mq.matches)return;var dy=y0-e.changedTouches[0].clientY,dx=Math.abs(e.changedTouches[0].clientX-x0);y0=null;
     if(!panel.classList.contains('full')&&dy>28&&!panel.classList.contains('inviting'))set(true);
     else if(panel.classList.contains('full')&&dy<-40&&story.scrollTop<=2)set(false);
-    else if(!panel.classList.contains('full')&&dy<-40&&story.classList.contains('pinned')&&window.OJJCloseCard)window.OJJCloseCard();}   /* 3.7.1: with the X gone, a swipe down on the half-open sheet closes a pinned card */,{passive:true});
+    else if(!panel.classList.contains('full')&&dy<-40&&dx<Math.abs(dy)*.5&&story.classList.contains('pinned')&&window.OJJCloseCard)window.OJJCloseCard();}   /* 3.7.1: with the X gone, a swipe down on the half-open sheet closes a pinned card */,{passive:true});
   panel.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('#prev,#next,#play'))story.scrollTop=0;});
   var onMq=function(){if(!mq.matches)set(false);};if(mq.addEventListener)mq.addEventListener('change',onMq);else if(mq.addListener)mq.addListener(onMq);
 })();

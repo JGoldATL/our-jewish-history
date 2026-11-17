@@ -11,7 +11,7 @@ for(const [name,dev] of devs){for(const how of ['next button taps','card swipes'
   await p.goto(BASE+'events.html?qp=reset');await p.waitForTimeout(3200);
   for(let k=0;k<3;k++){
     if(how==='next button taps'){const c=await centre(p,'#pgHost .pgb[data-step="1"]');await p.touchscreen.tap(c[0],c[1]);}
-    if(how==='card swipes'){const sb=await p.locator('#story').boundingBox();await swipe(p,sb.x+sb.width*.85,sb.y+40,sb.x+sb.width*.15,sb.y+40);}
+    if(how==='card swipes'){const sb=await p.locator('#story').boundingBox();await swipe(p,sb.x+sb.width*.85,sb.y+Math.min(40,sb.height*.4),sb.x+sb.width*.15,sb.y+Math.min(40,sb.height*.4));}
     if(how==='dots'){const c=await centre(p,'#pgHost .dotb',k+1);await p.touchscreen.tap(c[0],c[1]);}
     if(how==='timeline notches'){const c=await centre(p,'#arc .notch',6+k*5);await p.touchscreen.tap(c[0],c[1]);}
     await p.waitForTimeout(1000);}
