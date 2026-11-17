@@ -146,7 +146,20 @@ def adapt(src, dst, include_new_drafts=False, old_lists=False):
                           'Card date': blank(r['Card date']), 'Card title': blank(r['Card title']),
                           'Card description': blank(r['Card description']), 'Card status': blank(r['Card status'])}
         return c
-    overlay('Communities', {k: v for k, v in REC.items() if v['Legacy tab'] == 'Communities'}, cm_cols)
+    CM_COLS = ['Record ID', 'Family', 'Date (display)', 'Start year', 'End year', 'Place ID', 'Map symbol', 'Linked records', 'Card type', 'Card date',
+               'Card title', 'Card description', 'Card status', 'Concentration', 'Presence status', 'Footprint radius (km)', 'Record status']
+    if old_lists:   # the way back: POP and LOC rows come from the old Communities tab
+        overlay('Communities', {k: v for k, v in REC.items() if v['Legacy tab'] == 'Communities'}, cm_cols)
+    else:           # 16 Nov (job 3b): all 155 Community rows (107 POP, 1 LOC, 34 CHG, 13 DES) come from Records v1; Family = Legacy family; links from Record Links
+        ws = out.create_sheet('Communities'); ws.append(CM_COLS)
+        for r in rec:
+            if r['Legacy tab'] != 'Communities':
+                continue
+            c = cm_cols(r)
+            c.update({'Family': r['Legacy family'], 'Linked records': '; '.join(dict.fromkeys(comm_links.get(r['ID'], []))) or None,
+                      'Concentration': blank(r['Concentration']), 'Presence status': blank(r['Presence status']),
+                      'Footprint radius (km)': blank(r['Footprint radius (km)']), 'Record status': r['Status']})
+            ws.append([r['ID']] + [c[k] for k in CM_COLS[1:]])
 
     # ---- Movements from Routes; the old Linked records held POPs, other records, the branch children (on a top leg) and the parents (on a child)
     kids = collections.defaultdict(list)
@@ -219,15 +232,17 @@ def adapt(src, dst, include_new_drafts=False, old_lists=False):
                    blank(r['Frame place IDs']), '; '.join(dict.fromkeys(recs_of.get(s, []))) or None, r['Legacy status']])
     ws = out.create_sheet('Era Assignment')
     ws.append(['Record ID', 'Era (recommended boundaries)', 'Runs past era end?'])
+    seen_era = set()
+    def era_row(i, e):
+        if e not in (None, '') and i not in seen_era:   # POP and LOC now sit in Records v1 AND Community Eras: list each ID once
+            seen_era.add(i); ws.append([i, 'Era %d' % int(e), None])
     for r in rec:
-        if r['Legacy tab'] in ('Events', 'Communities') and r['Era'] not in (None, ''):
-            ws.append([r['ID'], 'Era %d' % int(r['Era']), None])
+        if r['Legacy tab'] in ('Events', 'Communities'):
+            era_row(r['ID'], r['Era'])
     for r in legs:
-        if r['Era'] not in (None, ''):
-            ws.append([r['Leg ID'], 'Era %d' % int(r['Era']), None])
+        era_row(r['Leg ID'], r['Era'])
     for r in ce:
-        if r['Era'] not in (None, ''):
-            ws.append([r['Record ID'], 'Era %d' % int(r['Era']), None])
+        era_row(r['Record ID'], r['Era'])
     out.save(dst)
     return notes
 
