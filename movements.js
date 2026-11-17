@@ -8,7 +8,7 @@
 'use strict';
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
 const DRAFTS=/[?&]drafts=1\b/.test(location.search);
-const FIRST_YEAR=-722;                     // the Assyrian exile of the Northern Kingdom: the first exile in the data
+const FIRST_YEAR=-2000;                    // 3.7.0 (Jeffrey, 17 Nov): the page opens at its earliest item, Abraham's journey (MOV-068, 2000 BCE); it was 722 BCE, the first exile, before
 const COLORS={Red:'#B8352B',Blue:'#2D6CB8',Charcoal:'#41464A'};   // same fills as the globe
 const OUTLINE='#FFF2DE',TRAD='#EFE6D3';
 /* The five accepted eras shown on the slider and in the Era filter. Boundaries follow the Sheet's seven data eras (Biblical = era 1; Ancient History = eras 2 and 3; Middle Ages = eras 4 and 5; Early Modern History = era 6, Modern History = era 7), and Contemporary History starts at 1898 (ERA-8), the year after the First Zionist Congress. v0.7.5 reads these names and start years from the Sheet; this list is the fallback. */

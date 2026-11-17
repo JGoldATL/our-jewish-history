@@ -1,4 +1,4 @@
-// Movements page: no page errors, route set (79; no returns; starts at the first exile), real taps on arrows, Play stops on touch / Previous / Next / slider,
+// Movements page: no page errors, route set (81; no returns; starts at Abraham, 2000 BCE), real taps on arrows, Play stops on touch / Previous / Next / slider,
 // the camera never zooms in past MIN_DEG, parent chips light their legs, no horizontal scroll, controls match the globe's.
 const {chromium,devices}=require('playwright');
 (async()=>{const b=await chromium.launch();let fail=0;const ck=(c,m)=>{if(!c){fail++;console.log('FAIL',m);}else console.log('ok  ',m);};
@@ -8,7 +8,7 @@ const ctx=await b.newContext(c);const p=await ctx.newPage();const errs=[];p.on('
 await p.goto('http://localhost:8778/movements.html?drafts=1');await p.waitForTimeout(1500);
 ck(errs.length===0,n+' no page errors '+errs.join('|'));
 const base=await p.evaluate(()=>({n:MV.routes.length,min:MV.minY,ret:MV.routes.filter(r=>r.m.character==='return/aliyah').length,causes:[...new Set(MV.routes.map(r=>r.cause))].sort()}));
-ck(base.n===79,n+' 79 routes ('+base.n+')');ck(base.min===-722,n+' starts at the first exile (722 BCE)');ck(base.ret===0,n+' no return routes');
+ck(base.n===81,n+' 81 routes ('+base.n+')');ck(base.min===-2000,n+' starts at the earliest item, Abraham (2000 BCE)');ck(base.ret===0,n+' no return routes');
 ck(JSON.stringify(base.causes.filter(Boolean))===JSON.stringify(['Deportation','Expulsion','Persecution','Voluntary migration']),n+' four cause headings '+base.causes);
 const ids=await p.evaluate(()=>[...document.querySelectorAll('#sel .pill')].map(x=>x.textContent.replace(/\s+/g,' ').trim()));
 ck(ids.length===2&&/^Era/.test(ids[0])&&/^Cause/.test(ids[1]),n+' only Era and Cause filters '+ids);
