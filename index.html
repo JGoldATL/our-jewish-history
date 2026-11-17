@@ -224,6 +224,9 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 #intro p{margin:0;max-width:30em;font-family:var(--sans);font-size:clamp(16px,2.4vw,20px);line-height:1.5;color:var(--text);text-wrap:pretty}
 body.intro-on #cover{opacity:0}
 #cover{transition:opacity .6s ease}
+#intro .hint{margin-top:26px;font:600 14px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+#intro .hint .tap{display:none}
+@media (hover:none) and (pointer:coarse){#intro .hint .tap{display:inline}#intro .hint .click{display:none}}
 #intro:focus-visible{outline:2px solid var(--amber);outline-offset:-6px}
 #cover{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;pointer-events:none;background:radial-gradient(ellipse at center,rgba(11,22,36,.6),rgba(11,22,36,.25) 72%)}
 .cover-on #cover{display:flex}
@@ -298,7 +301,7 @@ body.intro-on #cover{opacity:0}
 <div class="dlgWrap" id="sourcesDlg" hidden><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="sourcesTitle"><div class="dlgHead"><h2 id="sourcesTitle">Sources</h2><button type="button" id="sourcesClose" class="round" aria-label="Close sources">×</button></div><p class="dlgNote">Every reference used on this map, in one place.</p><ul id="allSources"></ul></div></div>
 <div class="error" id="error" hidden></div>
 <script src="engine.js"></script>
-<div id="intro" role="button" tabindex="0" aria-label="Our Jewish Journey. Click to begin." hidden><h2>Our Jewish Journey</h2><p>Before there was religion, being a Jew meant belonging to an ancient people with a homeland: the Land of Israel. Empires conquered us. Rulers expelled us. Jews were scattered across the world. This is our journey.</p></div>
+<div id="intro" role="button" tabindex="0" aria-label="Our Jewish Journey. Click or tap to begin." hidden><h2>Our Jewish Journey</h2><p>Before there was religion, being a Jew meant belonging to an ancient people with a homeland: the Land of Israel. Empires conquered us. Rulers expelled us. Jews were scattered across the world. This is our journey.</p><div class="hint" aria-hidden="true"><span class="tap">Tap to begin</span><span class="click">Click to begin</span></div></div>
 <script>
 /* Home overlay: once per visit (this tab), not on a shared ?card= link; automated browsers skip it unless ?overlay=1 so the older tests that click the home page are unaffected. */
 (function(){var el=document.getElementById('intro');if(!el)return;var q=location.search,seen=false;
