@@ -170,12 +170,12 @@ def adapt(src, dst, include_new_drafts=False, old_lists=False):
     if old_lists:
         oldmov = wb['Movements']; oh = [c.value for c in oldmov[1]]
         oldlinks = {r[0]: r[oh.index('Linked records')] for r in oldmov.iter_rows(min_row=2, values_only=True) if r[0]}
-    # CHG and DES links on legs: Record Links holds a Community row (CHG or DES) against a MOV id in either direction
+    # CHG and DES links on legs: Record Links holds a Community row (CHG or DES) against a MOV id in either direction; CTX and EVT only as MOV to CTX/EVT
     cd = collections.defaultdict(list)
     for r in rl:
         a, b = r['Record ID'], r['Linked ID']
-        if a.startswith('MOV') and b[:3] in ('CHG', 'DES'): cd[a].append(b)
-        elif b.startswith('MOV') and a[:3] in ('CHG', 'DES'): cd[b].append(a)
+        if a.startswith('MOV') and b[:3] in ('CHG', 'DES', 'CTX', 'EVT'): cd[a].append(b)   # 3.6.3: CTX and EVT too, but only with the MOV id in the Record ID column
+        elif b.startswith('MOV') and a[:3] in ('CHG', 'DES'): cd[b].append(a)   # (EVT-0015 to MOV-004 is the reverse direction and stays unread, as in 3.6.2)
 
     def chain(i):
         out_, p, seen_ = [], LEG[i]['Parent leg ID'], set()

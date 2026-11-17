@@ -2523,7 +2523,7 @@
       "source": "Google Sheet Jewish_Continuity_Master_Dataset_dv6.0.0",
       "sheetFileId": "1XbmQI73C3Ik-vePL-WO5_lgHWMFWTYST1hCZLCyGbV8",
       "sheetModified": "2026-11-03T18:00:04Z",
-      "exportSha256": "4d518b63d1703ffd",
+      "exportSha256": "031ecd1e93e280b6",
       "mode": "preview",
       "counts": {
         "places": 152,
@@ -8791,7 +8791,9 @@
         "destinationPlaceId": null,
         "arrowEndsReady": false,
         "arrowTreatment": "Red (branching)",
-        "links": [],
+        "links": [
+          "CHG-013"
+        ],
         "character": "persecution-driven flight",
         "parent": true,
         "branchIds": [
@@ -8969,7 +8971,10 @@
         "destinationPlaceId": null,
         "arrowEndsReady": false,
         "arrowTreatment": "Red (persecution-driven flight)",
-        "links": [],
+        "links": [
+          "CHG-015",
+          "CTX-019"
+        ],
         "character": "persecution-driven flight",
         "parent": true,
         "branchIds": [
@@ -9072,7 +9077,8 @@
         "arrowEndsReady": false,
         "arrowTreatment": "Red",
         "links": [
-          "CHG-016"
+          "CHG-016",
+          "DES-012"
         ],
         "character": "persecution-driven flight",
         "parent": true,
@@ -10058,7 +10064,9 @@
         "destinationPlaceId": "place-israel",
         "arrowEndsReady": true,
         "arrowTreatment": "Dotted (traditional)",
-        "links": [],
+        "links": [
+          "EVT-0001"
+        ],
         "character": "Other",
         "branch": {
           "subhead": "From Ur to Canaan",
@@ -10354,6 +10362,7 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Red",
         "links": [
+          "CHG-013",
           "MOV-016"
         ],
         "character": "persecution-driven flight",
@@ -10595,6 +10604,8 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
+          "CHG-015",
+          "CTX-019",
           "MOV-024"
         ],
         "character": "persecution-driven flight",
@@ -10619,6 +10630,8 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
+          "CHG-015",
+          "CTX-019",
           "MOV-024"
         ],
         "character": "persecution-driven flight",
@@ -10643,6 +10656,8 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
+          "CHG-015",
+          "CTX-019",
           "MOV-024"
         ],
         "character": "persecution-driven flight",
@@ -10667,6 +10682,8 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
+          "CHG-015",
+          "CTX-019",
           "MOV-024"
         ],
         "character": "persecution-driven flight",
@@ -10690,6 +10707,8 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
+          "CHG-015",
+          "CTX-019",
           "MOV-024"
         ],
         "character": "persecution-driven flight",
@@ -10713,6 +10732,8 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
+          "CHG-015",
+          "CTX-019",
           "MOV-024"
         ],
         "character": "persecution-driven flight",
@@ -10737,6 +10758,8 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
+          "CHG-015",
+          "CTX-019",
           "MOV-024"
         ],
         "character": "persecution-driven flight",
@@ -10760,6 +10783,8 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
+          "CHG-015",
+          "CTX-019",
           "MOV-024"
         ],
         "character": "persecution-driven flight",
@@ -10783,6 +10808,8 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
+          "CHG-015",
+          "CTX-019",
           "MOV-024"
         ],
         "character": "persecution-driven flight",
@@ -10807,6 +10834,8 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
+          "CHG-015",
+          "CTX-019",
           "MOV-024"
         ],
         "character": "persecution-driven flight",
@@ -10831,6 +10860,8 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
+          "CHG-015",
+          "CTX-019",
           "MOV-024"
         ],
         "character": "persecution-driven flight",
@@ -10855,6 +10886,8 @@
         "arrowEndsReady": true,
         "arrowTreatment": "Red (persecution-driven flight)",
         "links": [
+          "CHG-015",
+          "CTX-019",
           "MOV-024"
         ],
         "character": "persecution-driven flight",
@@ -10980,6 +11013,7 @@
         "arrowTreatment": "Red",
         "links": [
           "CHG-016",
+          "DES-012",
           "MOV-028"
         ],
         "character": "persecution-driven flight",
