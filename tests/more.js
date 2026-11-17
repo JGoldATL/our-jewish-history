@@ -1,7 +1,7 @@
 // The More menu (bottom left) and the page controls, as they are today (replaces the retired tests/nav.js, tests/header.js and tests/subnav.js, F-132).
 // Run: python3 -m http.server 8778 &  then  NODE_PATH=$(npm root -g) node tests/more.js   (headless Chromium only; no real iPad or phone)
 const {chromium}=require('playwright');const BASE=process.env.BASE||'http://localhost:8778/';let bad=0;const ck=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)bad++;};
-const WANT=['Roadmap>roadmap.html','Strategy>strategy.html','Feedback>feedback.html','Sources>events.html?sources=1'];
+const WANT=['Roadmap>roadmap.html','Strategy>strategy.html','Feedback>feedback.html','Merchandise>merch.html','Sources>events.html?sources=1'];
 (async()=>{const b=await chromium.launch({args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']});const errs=[];
 for(const [dn,vp] of [['iPhone',{width:390,height:844}],['iPad',{width:820,height:1180}],['desktop',{width:1280,height:800}]]){
  for(const pg of ['events.html','movements.html','jewhate.html','archaeology.html','quiz.html','roadmap.html','feedback.html']){

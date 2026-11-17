@@ -160,7 +160,7 @@ async function answer(p,wantRight){
   await p.click('#sv .pill:nth-child(2)');
   ok(await p.$eval('#sv .pill:nth-child(2)',e=>e.getAttribute('aria-pressed'))==='true','pill selects');
   ok(await p.$eval('#again',e=>e.textContent)==='Play 3 more','Play 3 more button');
-  ok(await p.$eval('.end a.btn',e=>e.textContent+'|'+e.getAttribute('href'))==='Back to the globe|index.html','Back to the globe link');
+  ok(await p.$eval('.end a.btn',e=>e.textContent+'|'+e.getAttribute('href'))==='Back to Events|events.html','Back to Events link (was Back to the globe)');
   const dotsOn=await p.evaluate(()=>1);
   await p.screenshot({path:'/tmp/claude-0/quiz-end-phone.png',fullPage:true});
 

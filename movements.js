@@ -1,6 +1,6 @@
 /* Movements page (F-084, v0.7.x). Flat map of Jewish movement, built on the globe's own styles, controls and card standard.
    Data: data/history.json "sheet" (Movements, Events cards, Places, Eras). Nothing here is written back.
-   Rules (CEO, Oct 13): the story starts at the first exile (722 BCE); return and aliyah routes are not shown; the camera follows the action and
+   Rules (CEO, Oct 13): the story starts at its earliest item, Abraham (2000 BCE; changed 17 Nov from the first exile, 722 BCE); return and aliyah routes are not shown; the camera follows the action and
    never zooms in past a recognisable region; touching the map, Previous, Next, the slider or a filter stops Play; tapping an arrow opens that journey.
    One card per event; a route or destination chip opens its branch card (event title stays, subhead names the destination).
    A parent row (Barbados, New Amsterdam) lights its leg rows. Only approved cards show (add ?drafts=1 to preview drafts). */

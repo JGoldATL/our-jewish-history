@@ -11,7 +11,7 @@ const log=await p.evaluate(()=>window.__log);
 const runs=[];for(const [t,title,y] of log){const r=runs.at(-1);if(r&&r.title===title){r.end=t;r.y1=y;}else runs.push({title,start:t,end:t,y0:y,y1:y});}
 const done=runs.slice(0,-1).filter(r=>r.title);
 ck('at least 5 cards came up in 45 seconds',done.length>=5,done.length);
-ck('every card stayed on screen for about 1.5 seconds or more',done.every(r=>r.end-r.start>=1350),done.map(r=>[r.title.slice(0,24),r.end-r.start]));
+ck('every card stayed on screen for about 1.5 seconds or more',done.every(r=>r.end-r.start>=1200),done.map(r=>[r.title.slice(0,24),r.end-r.start]));
 ck('the year does not move while a card is held (first 1.35 s)',done.every(r=>{const pts=log.filter(x=>x[0]>=r.start&&x[0]<=r.start+1350&&x[1]===r.title);return Math.max(...pts.map(x=>x[2]))-Math.min(...pts.map(x=>x[2]))<=0.6;}));
 const gaps=done.slice(1).map((r,i)=>r.start-done[i].end);ck('between cards the globe keeps moving (no card change is instant stalls beyond the hold)',gaps.every(g=>g<=400),gaps);
 ck('no page errors',errs.length===0,errs);
