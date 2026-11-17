@@ -59,7 +59,7 @@ async function open(b,keepOrder){
       await p.click('#next');
     }
     await p.waitForSelector('.end');
-    ok(!(await vis())&&await p.$('.end a[href="index.html"]')!==null,'end screen: footer link hidden, one Back to the globe pill');
+    ok(!(await vis())&&await p.$('.end a[href="events.html"]')!==null,'end screen: footer link hidden, one Back to Events pill');
     ok(errs.length===0,'no page errors');await ctx.close();
   }
   await b.close();console.log(fails?fails+' FAILED':'ALL PASS');process.exit(fails?1:0);

@@ -1,0 +1,103 @@
+/* OUR JEWISH JOURNEY: site.css v0.2 (Graphic Design, 2026-11-16). LOCKED by Jeffrey 2026-11-16 13:43.
+   Adopted by Build page by page from 3.7.1 (17 Nov). Source: the copy in the Project (claude/site.css-v0.2.txt); the original is on Jeffrey's computer, not compared here.
+   Section 1 (the 14 @font-face rules) is NOT repeated here: it already lives in fonts.css (3.6.4). Load fonts.css first, then site.css.
+   Rules: do not add a colour, font, corner or shadow that is not here (ask Graphic Design).
+   Header: design-LOCKED (Header_Final_v1). This file does not restyle header.js, nav.js or pill.js.
+   Sections: 2 tokens, 3 base, 4 components, 5 overlay, 6 slider marks (NOT USED: Jeffrey dropped the marks, 17 Nov), 7 second-row nav, 8 accessibility, 9 reduced motion. */
+
+/* ===== 2. TOKENS ===== */
+:root{
+  /* 2.1 COLOUR, LIVE DARK STAGE */
+  --night:#0E1822; --night2:#162634; --glow:#24394B;
+  --cream:#F6EBD6; --text:#EFE6D3; --soft:#D2CABB; --muted:#A9B4B8;
+  --amber:#E8B27A; --amber2:#F3C894; --red:#E07B6E;
+  --line:rgba(239,230,211,.18); --chip:rgba(239,230,211,.08);
+  --focus:#F2A65A;
+  --cue:#E0B04F;
+  --attention:#C9A34D;
+  /* 2.2 COLOUR, CREAM SURFACES (ruled 16 Nov, 1a: cream cards on the dark stage) */
+  --paper:#F4F0E6; --panel:#FFFCF4; --card:#FFFAF5; --mist:#EEF2ED; --card-line:#D2CCBC;
+  --ink:#183E50; --body:#2E4954; --ui:#244B60; --link:#346A81; --action:#285A70; --action-hover:#19485E; --focus-card:#286D95;
+  --muted-paper:#5B6964;
+  --muted-card:#66746F;       /* ONLY on cards */
+  /* 2.3 EVIDENCE BADGES */
+  --badge-doc-bg:#E8EEEB; --badge-doc-fg:#47636B; --badge-bib-bg:#F0E8D8; --badge-bib-fg:#776241; --badge-arc-bg:#EBEADE; --badge-arc-fg:#6C694E;
+  /* 2.4 ROUTES */
+  --route-forced-a:#D2463A; --route-forced-b:#8E1F18; --route-israel-a:#3D82D4; --route-israel-b:#174E92; --route-neutral-a:#565C60; --route-neutral-b:#2C3033; --route-outline:#FFF2DE;
+  /* 2.5 RELIGION LAYERS (never on the same page as routes) */
+  --layer-judaism:#3D82D4; --layer-christianity:#E8B923; --layer-islam:#4E7048;
+  /* 2.6 TYPE */
+  --serif:'Cormorant Garamond',Georgia,serif; --sans:'Instrument Sans',Arial,Helvetica,sans-serif;
+  --fs-title:clamp(32px,calc(36px + (100vw - 390px) * .01587),42px);
+  --fs-invite:25px; --fs-year:35px; --fs-story:24px; --fs-sub:15px; --fs-body:14px; --fs-small:12px; --fs-label:11px; --fs-micro:10px;
+  --lh-body:1.55; --lh-tight:1.15;
+  /* 2.7 SPACING */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px;
+  --touch:44px; --touch-nav:36px;
+  --page-pad:16px;
+  /* 2.8 CORNERS */
+  --r-pill:999px; --r-round:50%; --r-card:22px; --r-panel:14px; --r-row:10px; --r-sheet:22px 22px 0 0;
+  /* 2.9 SHADOWS */
+  --sh-1:0 8px 24px rgba(0,0,0,.35); --sh-2:0 14px 36px rgba(0,0,0,.5); --sh-3:0 30px 70px rgba(0,0,0,.6);
+  /* 2.10 MOTION */
+  --t-ui:.3s; --t-overlay:.6s; --ease:ease;
+  color-scheme:dark;
+}
+
+/* ===== 3. BASE ===== */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;min-height:100svh;background:radial-gradient(circle at 34% 46%,var(--glow) 0,var(--night2) 34%,var(--night) 70%) fixed;color:var(--text);font:400 var(--fs-body)/var(--lh-body) var(--sans)}
+/* Cormorant Garamond draws OLD-STYLE figures by default. Any year or number set in the serif uses lining figures. */
+.oj-num,h1,h2,h3{font-variant-numeric:lining-nums tabular-nums;font-feature-settings:'lnum' 1,'tnum' 1}
+h1,h2,h3{font-family:var(--serif);font-weight:700;color:var(--cream);line-height:var(--lh-tight);margin:0;text-wrap:balance}
+p{margin:0 0 var(--s3)}
+a{color:var(--amber2)}
+img,svg,canvas{max-width:100%}
+.oj-page{padding-inline:max(var(--page-pad),env(safe-area-inset-left)) max(var(--page-pad),env(safe-area-inset-right))}
+.oj-sr{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ===== 4. COMPONENTS ===== */
+.oj-btn{font:600 var(--fs-body)/1.2 var(--sans);min-height:var(--touch);padding:0 var(--s4);border-radius:var(--r-pill);border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);text-decoration:none}
+.oj-btn:hover{background:rgba(239,230,211,.14)}
+.oj-btn--primary{background:linear-gradient(#E8B27A,#D79A4E);border-color:transparent;color:#2A1A08}
+.oj-chip{font:600 var(--fs-small)/1 var(--sans);padding:6px 10px;border-radius:var(--r-pill);background:var(--chip);border:1px solid var(--line);color:var(--soft);display:inline-flex;align-items:center;gap:6px}
+.oj-card{--c-text:var(--body);--c-head:var(--ink);--c-muted:var(--muted-card);--c-link:var(--link);--c-focus:var(--focus-card);
+  background:var(--card);color:var(--c-text);border:1px solid var(--card-line);border-radius:var(--r-card);padding:var(--s4) var(--s5);box-shadow:var(--sh-3)}
+.oj-card h2,.oj-card h3{color:var(--c-head)}
+.oj-card a{color:var(--c-link)}
+.oj-card .oj-muted{color:var(--c-muted)}
+.oj-card :focus-visible{outline-color:var(--c-focus)}
+.oj-surface-dark{--c-text:var(--text);--c-head:var(--cream);--c-muted:var(--muted);--c-link:var(--amber2);--c-focus:var(--focus);background:rgba(14,24,34,.86);border-color:var(--line);backdrop-filter:blur(10px)}
+.oj-panel{border-radius:var(--r-panel)}
+.oj-row{border-radius:var(--r-row)}
+.oj-sheet{border-radius:var(--r-sheet)}
+.oj-muted{color:var(--muted)}
+.oj-badge{font:600 var(--fs-label)/1 var(--sans);padding:3px 8px;border-radius:var(--r-pill);background:var(--badge-doc-bg);color:var(--badge-doc-fg)}
+.oj-badge--bib{background:var(--badge-bib-bg);color:var(--badge-bib-fg)} .oj-badge--arc{background:var(--badge-arc-bg);color:var(--badge-arc-fg)}
+
+/* ===== 5. HOME OVERLAY (the live overlay in index.html uses #intro; these classes are kept for the later move into this file) ===== */
+.oj-overlay{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:var(--s5) var(--page-pad);text-align:center;cursor:pointer;
+  background:rgba(14,24,34,.66);
+  opacity:1;transition:opacity var(--t-overlay) var(--ease)}
+.oj-overlay[data-state="gone"]{opacity:0;pointer-events:none}
+.oj-overlay[hidden]{display:none}
+.oj-overlay__inner{max-width:34rem;display:grid;gap:var(--s4)}
+.oj-overlay__title{font:700 clamp(32px,9vw,56px)/1.02 var(--serif);color:var(--cream);text-shadow:0 2px 14px rgba(11,22,36,.9)}
+.oj-overlay__text{font:400 clamp(16px,4.2vw,19px)/1.5 var(--sans);color:var(--cream);margin:0;text-shadow:0 1px 10px rgba(11,22,36,.9)}
+.oj-overlay__go{justify-self:center;width:var(--touch);height:var(--touch);border-radius:var(--r-round);border:1px solid rgba(246,235,214,.55);background:rgba(246,235,214,.08);color:var(--cream);display:grid;place-items:center}
+
+/* ===== 7. SECOND-ROW NAV (not used yet: the section nav of Our Origins, Our Journey and Our Gifts is not built) ===== */
+.oj-subnav{display:flex;justify-content:center;gap:2px;margin:var(--s2) auto var(--s3);padding:3px;width:fit-content;max-width:calc(100% - 24px);overflow-x:auto;scrollbar-width:none;border-radius:var(--r-pill);background:rgba(239,230,211,.1);border:1px solid var(--line)}
+.oj-subnav a{font:600 13px/1.2 var(--sans);color:var(--text);text-decoration:none;white-space:nowrap;min-height:var(--touch-nav);padding:0 14px;display:flex;align-items:center;border-radius:var(--r-pill)}
+@media (max-width:480px){.oj-subnav{max-width:100%}.oj-subnav a{padding:0 10px}}
+.oj-subnav a[aria-current="page"]{background:linear-gradient(180deg,rgba(240,186,98,.95),rgba(214,147,52,.92));color:#1A1206}
+
+/* ===== 8. ACCESSIBILITY ===== */
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.oj-card:focus-visible,.oj-card :focus-visible{outline-offset:2px}
+@media (forced-colors:active){.oj-overlay{background:Canvas}.oj-btn,.oj-chip{border-color:ButtonText}}
+@media (prefers-reduced-transparency:reduce){.oj-surface-dark{backdrop-filter:none;background:var(--night2)}.oj-overlay{background:rgba(14,24,34,.92)}}
+
+/* ===== 9. REDUCED MOTION ===== */
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
