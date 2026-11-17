@@ -10,6 +10,7 @@ tools/sheet-to-history.py on it with the same options. The old build logic is un
 
 USAGE   python3 tools/sheet-to-history-v2.py EXPORT.xlsx [any option of sheet-to-history.py, e.g. --dry-run --out PATH --report PATH]
         --include-new-drafts   also load the four DRAFT Events EVT-0153 to 0156 (left out by default: the freeze question is open)
+        --old-lists            the way back: take the Events and Movements ID lists and leg CHG/DES links from the old tabs (default since 16 Nov: Records v1, Routes, Record Links)
         --keep-adapted PATH    keep the adapted workbook for inspection
 RULES (Jeffrey, 13 Nov): a movement belongs to its Event by top leg only (child legs are not listed on the Event); Routes wins where
 the old Events tab disagreed; Meanwhile lines come from World Pairs 'Chosen Meanwhile line'; era runs from the start year.
@@ -41,7 +42,7 @@ def stop_label(s):
     return s[1:] if s.upper().startswith('S') else s
 
 
-def adapt(src, dst, include_new_drafts=False):
+def adapt(src, dst, include_new_drafts=False, old_lists=False):
     wb = openpyxl.load_workbook(src, data_only=True)
     out = openpyxl.Workbook(); out.remove(out.active)
     notes = []
@@ -109,14 +110,28 @@ def adapt(src, dst, include_new_drafts=False):
                 'Meanwhile (card line)': (m['Chosen Meanwhile line'] if m else None),
                 'Meanwhile status': (m['Meanwhile status (Events tab)'] if m else None),
                 'Map symbol': blank(r['Map symbol']), 'Card status': blank(r['Card status'])}
-    ws, hdr, pos, seen = overlay('Events', {k: v for k, v in REC.items() if v['Legacy tab'] == 'Events'}, ev_cols)
-    if include_new_drafts:
-        for i in ('EVT-0153', 'EVT-0154', 'EVT-0155', 'EVT-0156'):
-            if i in REC and i not in seen:
-                row = [None] * len(hdr); row[0] = i
-                for c, v in ev_cols(REC[i]).items(): row[pos[c]] = v
-                ws.append(row)
-    else:
+    EV_COLS = ['Event ID', 'Start year', 'End year', 'Date (display)', 'Place ID', 'Movement record IDs', 'Evidence object IDs', 'Card type',
+               'Card date', 'Card title', 'Card description', 'Meanwhile (card line)', 'Meanwhile status', 'Map symbol', 'Card status']
+    DRAFTS = ('EVT-0153', 'EVT-0154', 'EVT-0155', 'EVT-0156')
+    if old_lists:   # the way back: the old Events tab supplies the ID list
+        ws, hdr, pos, seen = overlay('Events', {k: v for k, v in REC.items() if v['Legacy tab'] == 'Events'}, ev_cols)
+        if include_new_drafts:
+            for i in DRAFTS:
+                if i in REC and i not in seen:
+                    row = [None] * len(hdr); row[0] = i
+                    for c, v in ev_cols(REC[i]).items(): row[pos[c]] = v
+                    ws.append(row)
+    else:           # 16 Nov (job 3a): the ID list is Records v1 rows with Legacy tab Events, in Records v1 order
+        ws = out.create_sheet('Events'); ws.append(EV_COLS)
+        for r in rec:
+            if r['Legacy tab'] != 'Events':
+                continue
+            c = ev_cols(r); ws.append([r['ID']] + [c[k] for k in EV_COLS[1:]])
+        if include_new_drafts:   # the four drafts carry no Legacy tab, so they follow the Events rows, as before
+            for i in DRAFTS:
+                if i in REC:
+                    c = ev_cols(REC[i]); ws.append([i] + [c[k] for k in EV_COLS[1:]])
+    if not include_new_drafts:
         notes.append('left out: the four DRAFT Events EVT-0153 to 0156 (use --include-new-drafts)')
 
     # ---- Communities: CHG and DES from Records v1, POP and LOC stay as in the old tab
@@ -138,8 +153,16 @@ def adapt(src, dst, include_new_drafts=False):
     for r in legs:
         if r['Parent leg ID']:
             kids[r['Parent leg ID']].append(r['Leg ID'])
-    oldmov = wb['Movements']; oh = [c.value for c in oldmov[1]]
-    oldlinks = {r[0]: r[oh.index('Linked records')] for r in oldmov.iter_rows(min_row=2, values_only=True) if r[0]}
+    oldlinks = {}
+    if old_lists:
+        oldmov = wb['Movements']; oh = [c.value for c in oldmov[1]]
+        oldlinks = {r[0]: r[oh.index('Linked records')] for r in oldmov.iter_rows(min_row=2, values_only=True) if r[0]}
+    # CHG and DES links on legs: Record Links holds a Community row (CHG or DES) against a MOV id in either direction
+    cd = collections.defaultdict(list)
+    for r in rl:
+        a, b = r['Record ID'], r['Linked ID']
+        if a.startswith('MOV') and b[:3] in ('CHG', 'DES'): cd[a].append(b)
+        elif b.startswith('MOV') and a[:3] in ('CHG', 'DES'): cd[b].append(a)
 
     def chain(i):
         out_, p, seen_ = [], LEG[i]['Parent leg ID'], set()
@@ -150,7 +173,10 @@ def adapt(src, dst, include_new_drafts=False):
     def mv_cols(r):
         i = r['Leg ID']
         pops = [x for x in LINK.findall(str(r['Linked POP IDs'] or ''))]
-        others = [x for x in LINK.findall(str(oldlinks.get(i) or '')) if x[:3] not in ('POP', 'MOV')]   # CHG/DES links are not in Routes: kept from the old tab
+        if old_lists:
+            others = [x for x in LINK.findall(str(oldlinks.get(i) or '')) if x[:3] not in ('POP', 'MOV')]   # the way back: CHG/DES links from the old tab
+        else:   # from Record Links on the leg itself and on its parents
+            others = list(dict.fromkeys(x for j in [i] + chain(i) for x in cd.get(j, [])))
         prec = [r['Preceding leg ID']] if r.get('Preceding leg ID') else []   # new last Routes column (16 Nov): MOV-063 and MOV-067 follow MOV-052
         links_ = pops + others + chain(i) + prec   # a child lists its parents; a parent does not list its children (the old build derives the branch lists)
         return {'Event ID': r['Record ID'], 'Title': r['Title'], 'Origin (historical)': blank(r['Origin (historical)']),
@@ -163,7 +189,15 @@ def adapt(src, dst, include_new_drafts=False):
                 'Branch Group': blank(r['Branch group']), 'Branch Travel Mode': blank(r['Travel mode']),
                 'Size band': blank(r['Size band']), 'Size band figure': blank(r['Size band figure']),
                 'Size band basis (internal)': blank(r['Size band basis (internal)'])}
-    overlay('Movements', LEG, mv_cols)
+    MV_COLS = ['Movement ID', 'Event ID', 'Title', 'Origin (historical)', 'Destination (historical)', 'Date (display)', 'Start year', 'End year',
+               'Movement character', 'Arrow treatment', 'Linked records', 'Origin place ID', 'Destination place ID', 'Branch Subhead', 'Branch Story',
+               'Branch Deep Dive', 'Branch Text Status', 'Branch Group', 'Branch Travel Mode', 'Size band', 'Size band figure', 'Size band basis (internal)']
+    if old_lists:
+        overlay('Movements', LEG, mv_cols)
+    else:           # the leg list is the Routes tab, in Routes order
+        ws = out.create_sheet('Movements'); ws.append(MV_COLS)
+        for r in legs:
+            c = mv_cols(r); ws.append([r['Leg ID']] + [c[k] for k in MV_COLS[1:]])
 
     # ---- Eras, Camera Stops, Era Assignment
     ws = out.create_sheet('Eras')
@@ -200,6 +234,7 @@ def adapt(src, dst, include_new_drafts=False):
 
 def main():
     args = sys.argv[1:]
+    old_lists = '--old-lists' in args
     if not args or args[0].startswith('-'):
         sys.exit(__doc__)
     inc = '--include-new-drafts' in args
@@ -207,14 +242,14 @@ def main():
     rest = []
     it = iter(args)
     for a in it:
-        if a == '--include-new-drafts':
+        if a in ('--include-new-drafts', '--old-lists'):
             continue
         if a == '--keep-adapted':
             keep = next(it); continue
         rest.append(a)
     src = rest[0]
     tmp = keep or str(Path(tempfile.mkdtemp()) / 'adapted.xlsx')
-    for n in adapt(src, tmp, inc):
+    for n in adapt(src, tmp, inc, old_lists):
         print('NOTE:', n)
     old = load_old()
     old.main([tmp] + rest[1:])
