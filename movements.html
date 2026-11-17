@@ -291,6 +291,33 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 @media (max-width:900px){#shareSlot{right:0;top:-8px;transform:none;height:36px;display:flex;align-items:center}#shareSlot[hidden]{display:none}}
 /* header is design-LOCKED: undo site.css base heading rules inside it */
 header.top h1,header.top h2,header.top h3{font-variant-numeric:normal;font-feature-settings:normal;text-wrap:wrap}
+/* ===== site.css v0.2: cream cards on the dark stage (Jeffrey 16 Nov, 1a). Card scopes re-map the dark tokens to the card tokens so every child follows. ===== */
+.key,.prompt,.dlg,#story.pinned,#panel{--cc-text:var(--body)}
+.key,.prompt,.dlg{--text:var(--body);--soft:var(--body);--muted:var(--muted-card);--cream:var(--ink);--line:var(--card-line);--amber:var(--link);--amber2:var(--link);--red:var(--route-forced-b);background:var(--card);border-color:var(--card-line);color:var(--body)}
+.prompt{box-shadow:var(--sh-3)}.key{box-shadow:var(--sh-2)}.dlg{box-shadow:var(--sh-3)}
+.key h2,.dlg h2,.prompt p{color:var(--ink)}.dlgNote{color:var(--muted-card)}
+.prompt .pill:not(.primary),.dlg .pill:not(.primary),.key .pill{background:var(--panel);border-color:var(--card-line);color:var(--ui)}
+.dlg .round,.key .round{background:var(--panel);border-color:var(--card-line);color:var(--ui)}
+.prompt .pill:not(.primary):hover,.dlg .pill:not(.primary):hover{background:var(--mist)}
+.prompt :focus-visible,.dlg :focus-visible,.key :focus-visible,#story.pinned :focus-visible{outline-color:var(--focus-card)}
+@media (min-width:901px){
+#story.pinned{--text:var(--body);--soft:var(--body);--muted:var(--muted-card);--cream:var(--ink);--line:var(--card-line);--amber:var(--link);--amber2:var(--link);--red:var(--route-forced-b);background:var(--card);border-color:var(--card-line);color:var(--body);box-shadow:var(--sh-2)}
+#story.pinned #storyMeanwhile{background:var(--mist)}
+#story.pinned .chip{border-color:var(--card-line);background:var(--panel);color:var(--ui)}#story.pinned .chip:hover{border-color:var(--action);color:var(--ink)}#story.pinned .chips .chip.on{background:var(--action);border-color:var(--action);color:#fff}#story.pinned .badge{background:var(--badge-doc-bg);color:var(--badge-doc-fg)}#story.pinned .badge.traditional{background:var(--badge-bib-bg);color:var(--badge-bib-fg)}#story.pinned .now button{background:var(--panel);border-color:var(--card-line);color:var(--ui)}#story.pinned .back{color:var(--link)}
+}
+@media (max-width:900px){
+#panel{--text:var(--body);--soft:var(--body);--muted:var(--muted-card);--cream:var(--ink);--line:var(--card-line);--amber:var(--link);--amber2:var(--link);--red:var(--route-forced-b);background:var(--card);border-color:var(--card-line);color:var(--body)}
+#panel #storyMeanwhile{background:var(--mist)}
+#panel .chip{border-color:var(--card-line);background:var(--panel);color:var(--ui)}#panel .chip:hover{border-color:var(--action);color:var(--ink)}#panel .chips .chip.on{background:var(--action);border-color:var(--action);color:#fff}#panel .badge{background:var(--badge-doc-bg);color:var(--badge-doc-fg)}#panel .badge.traditional{background:var(--badge-bib-bg);color:var(--badge-bib-fg)}#panel .now button{background:var(--panel);border-color:var(--card-line);color:var(--ui)}#panel .back{color:var(--link)}
+#panel>.sheetHandle::before{background:rgba(24,62,80,.3)}
+#panel .rule{background:linear-gradient(90deg,rgba(24,62,80,.35),rgba(24,62,80,0))}
+#panel .pill:not(.primary),#panel .ojjpg .pgb,#shareSlot .ojj-share{background:var(--panel);border-color:var(--card-line);color:var(--ui)}
+#panel .mnav select{background:var(--panel);border-color:var(--card-line);color:var(--ui)}
+#panel .mnav{background:linear-gradient(to bottom,rgba(255,250,245,0),var(--card) 30%)}
+#panel .ojjpg .dotb::before{background:rgba(24,62,80,.28)}
+#panel .ojjpg .dotb[aria-current=true]::before,#panel .ojjpg .dotb[aria-current=step]::before{background:var(--action)}
+#panel :focus-visible{outline-color:var(--focus-card)}
+}
 </style>
 </head>
 <body>
