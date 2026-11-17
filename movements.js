@@ -243,7 +243,7 @@ function card(){
   const cause=e.routes[0].cause;
   let html='';
   if(deep&&n>1)html+=`<button type="button" class="back blk" id="cardBack">&larr; All ${n} routes</button>`;
-  const ik=PREVIEW?EVSYM.get(e.key):null;html+=`<div class="kicker">${esc(cause||'Movement')}${ik?`<span class="kicon" role="img" aria-label="${esc(SYM_LABEL[ik])}" title="${esc(SYM_LABEL[ik])}">${SYM_SVG[ik].replace(/width="30" height="30"/,'width="22" height="22"')}</span>`:''}</div><div class="sdate">${esc(yearLabel(e.start))}</div><h2 class="blk">${esc(bare(e.title))}</h2>`;
+  const ik=PREVIEW?EVSYM.get(e.key):null;const JI=journeys().findIndex(x=>x.key===e.key),JN=journeys().length;const jc=JI>=0?` <span class="jn">&middot; Journey ${JI+1} of ${JN}</span>`:'';html+=`<div class="kicker">${esc(cause||'Movement')}${jc}${ik?`<span class="kicon" role="img" aria-label="${esc(SYM_LABEL[ik])}" title="${esc(SYM_LABEL[ik])}">${SYM_SVG[ik].replace(/width="30" height="30"/,'width="22" height="22"')}</span>`:''}</div><div class="sdate">${esc(yearLabel(e.start))}</div><h2 class="blk">${esc(bare(e.title))}</h2>`;
   if(!deep){
     html+=e.card?`<p id="storyText" class="blk">${esc(bare(e.card.description))}</p>`:`<p id="storyText" class="blk">Route detail coming.</p>`;
   }else{
@@ -336,7 +336,7 @@ function ticks(){
   const first=ERAS.filter(x=>x.startYear<=MINY).pop();
   for(const e of ERAS){if(!(e===first||(e.startYear>MINY&&e.startYear<=MAXY)))continue;
     const b=document.createElement('button');b.type='button';b.dataset.era=e.era;b.style.left=(y2p(Math.max(e.startYear,MINY))*100)+'%';
-    b.textContent=e.name;b.setAttribute('aria-label',`Jump to ${e.name}`);b.addEventListener('click',()=>{stopPlay();SEL=null;setYear(Math.max(MINY,e.startYear));auto=true;followNow(800);});t.appendChild(b);}
+    b.textContent=e.name;b.setAttribute('aria-label',`Jump to the first journey in ${e.name}`);b.addEventListener('click',()=>jumpEra(e.era));t.appendChild(b);}
   mountEra();setTimeout(mountEra,400);
 }
 function setPlayUI(){$('playIco').setAttribute('d',playing?ICO_PAUSE:ICO_PLAY);$('playLbl').textContent=playing?'Pause':'Play';$('play').setAttribute('aria-pressed',String(playing));}
@@ -370,9 +370,16 @@ function tick(t){
   requestAnimationFrame(tick);
 }
 /* Previous and Next walk the journeys in order, like the globe walks its cards. */
+const journeys=()=>[...EVENTS.values()].filter(e=>e.routes.some(pass)).sort((a,b)=>a.start-b.start);
+/* Legs of one journey in chain order: a leg that lists another leg of the same journey in its links (Preceding leg) follows it; otherwise date, then id. */
+function legOrder(e){const rs=e.routes.filter(pass),ids=new Set(rs.map(r=>r.id)),dep=r=>(r.m.links||[]).filter(x=>ids.has(x)).length;
+  return rs.slice().sort((a,b)=>a.start-b.start||dep(a)-dep(b)||a.id.localeCompare(b.id));}
+function jumpEra(era){stopPlay();showStory();const E=ERAS.find(x=>x.era===era);if(!E)return;const evs=journeys(),e=evs.find(x=>x.start>=E.startYear)||evs[evs.length-1];if(!e)return;auto=true;SEL={ev:e.key,id:null};QP(e.key);setYear(clamp(e.routes[0].start,MINY,MAXY));card();frame();draw();}
 function stepEvent(d){
   stopPlay();showStory();
-  const evs=[...EVENTS.values()].filter(e=>e.routes.some(pass)).sort((a,b)=>a.start-b.start);if(!evs.length)return;
+  const evs=journeys();if(!evs.length)return;
+  if(SEL&&SEL.id&&!SEL.parent){const e=EVENTS.get(SEL.ev),L=e?legOrder(e):[],j=L.findIndex(r=>r.id===SEL.id);
+    if(j>=0&&L[j+d]){auto=true;SEL={ev:e.key,id:L[j+d].id};QP(e.key+'/'+L[j+d].id);setYear(clamp(L[j+d].start,MINY,MAXY));card();frame();draw();return;}}
   let i=-1;
   if(SEL){i=evs.findIndex(e=>e.key===SEL.ev);i=i<0?0:i+d;}
   else if(d>0){i=evs.findIndex(e=>e.start>=(Y<=MINY+.5?Y-.5:Y+.5));if(i<0)i=evs.length-1;}
