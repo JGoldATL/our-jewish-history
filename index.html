@@ -10,7 +10,7 @@ if(/^(www\.)?ourjewishhistory\.com$|^jgoldatl\.github\.io$/.test(location.hostna
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/cormorant-garamond-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/instrument-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="fonts.css"><link rel="stylesheet" href="site.css">
 <style>
 /* Layout: globe stage on the left with a curved timeline beneath it; story column on the right. Stacks on phones.
    Deliberately dark-only: the night setting is the design. */
@@ -40,7 +40,7 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 .seg{display:flex;padding:4px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(14,24,34,.6)}
 .seg button{height:36px;padding:0 14px;border:0;border-radius:999px;background:none;color:var(--soft);font-size:13px;cursor:pointer}
 .seg button[aria-pressed="true"]{background:rgba(239,230,211,.16);color:var(--cream);font-weight:600}
-.key{position:absolute;right:0;top:54px;z-index:20;width:300px;padding:16px 18px;border-radius:18px;background:rgba(18,30,41,.96);border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.5);display:grid;gap:10px;font-size:13px;color:var(--soft)}
+.key{position:absolute;right:0;top:54px;z-index:20;width:300px;padding:16px 18px;border-radius:14px;background:rgba(18,30,41,.96);border:1px solid var(--line);box-shadow:0 14px 36px rgba(0,0,0,.5);display:grid;gap:10px;font-size:13px;color:var(--soft)}
 .key h2{margin:0;font-family:var(--serif);font-size:20px;color:var(--cream)}
 .key div{display:flex;gap:12px;align-items:center}
 .key svg{flex:0 0 auto}
@@ -88,7 +88,7 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 .nav{position:absolute;left:0;top:10px;display:flex;gap:6px;z-index:5}
 .round{width:44px;height:44px;border-radius:50%;border:1px solid rgba(239,230,211,.28);background:rgba(14,24,34,.7);color:var(--text);font-size:20px;cursor:pointer;backdrop-filter:blur(6px)}
 .navReset{border-radius:999px;width:auto;padding:0 16px;font-size:14px}
-.prompt{padding:26px 28px;border-radius:24px;background:rgba(14,24,34,.86);border:1px solid var(--line);box-shadow:0 30px 70px rgba(0,0,0,.55);backdrop-filter:blur(10px);z-index:10;display:grid;gap:14px}
+.prompt{padding:26px 28px;border-radius:22px;background:rgba(14,24,34,.86);border:1px solid var(--line);box-shadow:0 30px 70px rgba(0,0,0,.6);backdrop-filter:blur(10px);z-index:10;display:grid;gap:14px}
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;color:var(--amber)}
 .prompt p{margin:0;font-family:var(--serif);font-size:30px;line-height:1.12;color:var(--cream)}
 .prompt .row{display:flex;gap:10px;flex-wrap:wrap}
@@ -99,7 +99,7 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 .rule{height:1px;background:linear-gradient(90deg,rgba(239,230,211,.5),rgba(239,230,211,0))}
 #story{display:grid;gap:12px;position:relative}
 #panel.inviting #story,#panel.inviting .mnav{display:none}
-#story.pinned{padding:20px 22px;border-radius:22px;background:rgba(239,230,211,.05);border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+#story.pinned{padding:20px 22px;border-radius:22px;background:rgba(239,230,211,.05);border:1px solid var(--line);box-shadow:0 14px 36px rgba(0,0,0,.5)}
 .kicker{font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--red);padding-right:44px}
 #story h2{margin:0;font-family:var(--serif);font-weight:700;font-size:40px;line-height:1.02;color:var(--cream);text-wrap:balance}
 #storyText{margin:0;font-size:16.5px;line-height:1.6;color:var(--soft)}
@@ -198,9 +198,9 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
  #version{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
  #stage{height:min(calc(84vw + 50px),40svh)}
  body.sheet-full #stage{height:0;min-height:0;overflow:hidden}
- #panel{display:flex;flex-direction:column;gap:0;padding:2px 18px 0;margin:0 -16px;overflow:hidden;border-radius:24px 24px 0 0;border:1px solid var(--line);border-bottom:0;background:linear-gradient(to bottom,#1d2d3c,#162634);box-shadow:0 -14px 30px rgba(0,0,0,.4);touch-action:pan-y}
+ #panel{display:flex;flex-direction:column;gap:0;padding:2px 18px 0;margin:0 -16px;overflow:hidden;border-radius:22px 22px 0 0;border:1px solid var(--line);border-bottom:0;background:linear-gradient(to bottom,#1d2d3c,#162634);box-shadow:0 -14px 36px rgba(0,0,0,.5);touch-action:pan-y}
  #panel>.sheetHandle{display:block;order:-1;flex:none;width:100%;height:22px;padding:0;border:0;background:none;cursor:pointer;position:relative}
- #panel>.sheetHandle::before{content:"";position:absolute;left:50%;top:9px;width:42px;height:5px;margin-left:-21px;border-radius:9px;background:rgba(239,230,211,.4)}
+ #panel>.sheetHandle::before{content:"";position:absolute;left:50%;top:9px;width:42px;height:5px;margin-left:-21px;border-radius:999px;background:rgba(239,230,211,.4)}
  #panel>div:first-child{flex:none;display:flex;align-items:baseline;gap:12px}
  .year{font-size:38px;letter-spacing:-1px}.year span{font-size:16px;margin-left:6px}.era{display:none}
  #panel>#story,#panel>#story.pinned{display:flex;flex-wrap:wrap;align-items:baseline;align-content:flex-start;column-gap:8px;row-gap:4px;flex:1 1 auto;min-height:0;overflow:hidden;padding:4px 0 0;margin:0;border:0;border-radius:0;background:none;box-shadow:none}
@@ -244,6 +244,33 @@ body.intro-on #cover{opacity:0}
 #story .kicker{padding-right:0}
 #panel #story h2{padding-right:0}
 @media (max-width:900px){#shareSlot{right:0;top:-8px;transform:none;height:36px;display:flex;align-items:center}#shareSlot[hidden]{display:none}#panel>div:first-child:has(#shareSlot:not([hidden])) #play{right:42px}}   /* comp v3b: Play, then Share at the far right */
+/* header is design-LOCKED: undo site.css base heading rules inside it */
+header.top h1,header.top h2,header.top h3{font-variant-numeric:normal;font-feature-settings:normal;text-wrap:wrap}
+/* ===== site.css v0.2: cream cards on the dark stage (Jeffrey 16 Nov, 1a). Card scopes re-map the dark tokens to the card tokens so every child follows. ===== */
+.key,.prompt,.dlg,#story.pinned,#panel{--cc-text:var(--body)}
+.key,.prompt,.dlg{--text:var(--body);--soft:var(--body);--muted:var(--muted-card);--cream:var(--ink);--line:var(--card-line);--amber:var(--link);--amber2:var(--link);--red:var(--route-forced-b);background:var(--card);border-color:var(--card-line);color:var(--body)}
+.prompt{box-shadow:var(--sh-3)}.key{box-shadow:var(--sh-2)}.dlg{box-shadow:var(--sh-3)}
+.key h2,.dlg h2,.prompt p{color:var(--ink)}.dlgNote{color:var(--muted-card)}
+.prompt .pill:not(.primary),.dlg .pill:not(.primary),.key .pill{background:var(--panel);border-color:var(--card-line);color:var(--ui)}
+.prompt .pill:not(.primary):hover,.dlg .pill:not(.primary):hover{background:var(--mist)}
+.prompt :focus-visible,.dlg :focus-visible,.key :focus-visible,#story.pinned :focus-visible{outline-color:var(--focus-card)}
+.dlg .round,.key .round{background:var(--panel);border-color:var(--card-line);color:var(--ui)}
+@media (min-width:901px){
+#story.pinned{--text:var(--body);--soft:var(--body);--muted:var(--muted-card);--cream:var(--ink);--line:var(--card-line);--amber:var(--link);--amber2:var(--link);--red:var(--route-forced-b);background:var(--card);border-color:var(--card-line);color:var(--body);box-shadow:var(--sh-2)}
+#story.pinned #storyMeanwhile{background:var(--mist)}
+}
+@media (max-width:900px){
+#panel{--text:var(--body);--soft:var(--body);--muted:var(--muted-card);--cream:var(--ink);--line:var(--card-line);--amber:var(--link);--amber2:var(--link);--red:var(--route-forced-b);background:var(--card);border-color:var(--card-line);color:var(--body)}
+#panel #storyMeanwhile{background:var(--mist)}
+#panel>.sheetHandle::before{background:rgba(24,62,80,.3)}
+#panel .rule{background:linear-gradient(90deg,rgba(24,62,80,.35),rgba(24,62,80,0))}
+#panel .pill:not(.primary),#panel .ojjpg .pgb,#shareSlot .ojj-share{background:var(--panel);border-color:var(--card-line);color:var(--ui)}
+#panel .mnav select{background:var(--panel);border-color:var(--card-line);color:var(--ui)}
+#panel .mnav{background:linear-gradient(to bottom,rgba(255,250,245,0),var(--card) 30%)}
+#panel .ojjpg .dotb::before{background:rgba(24,62,80,.28)}
+#panel .ojjpg .dotb[aria-current=true]::before,#panel .ojjpg .dotb[aria-current=step]::before{background:var(--action)}
+#panel :focus-visible{outline-color:var(--focus-card)}
+}
 </style>
 
 <header class="top">
