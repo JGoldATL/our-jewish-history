@@ -23,6 +23,6 @@ p=await open('index.html');await p.evaluate(()=>setYearExact(1500));await p.wait
 ck(await p.evaluate(()=>typeof EVENTS_ONLY!=='undefined'&&EVENTS_ONLY===false)&&await p.evaluate(()=>document.querySelectorAll('#ov g.route').length)>10,'old globe (index.html) unchanged: all arrows still drawn');ck(p.errs.length===0,'old globe: no page errors');await p.close();
 // nav: Events present, Globe absent, original nav links
 for(const [w,h,n] of [[1194,834,'desktop'],[820,1180,'ipad'],[390,780,'phone']]){
-  p=await open('events.html?nav=glass',w,h);const l=await p.evaluate(()=>[...document.querySelectorAll('.gn .gp-btn')].map(x=>x.textContent.replace(/\s*soon$/,'')));ck(l.includes('Events')&&!l.includes('Globe'),n+' glass nav: Events present, Globe absent ('+l.join(',')+')');await p.close();}
+  p=await open('events.html?nav=glass',w,h);const l=await p.evaluate(()=>[...document.querySelectorAll('.gn .gp-btn')].map(x=>x.textContent.replace(/\s*soon$/,'')));ck(l.includes('The History')&&!l.includes('Globe'),n+' glass nav: The History present, Globe absent ('+l.join(',')+')');await p.close();}
 for(const [pg,sel] of [['movements.html','#globeLink'],['feedback.html','#backGlobe'],['roadmap.html','#backGlobe'],['strategy.html','#backGlobe'],['quiz.html','#backLink']]){p=await open(pg+'?nav=old');const t=await p.$eval(sel,x=>[x.textContent,x.getAttribute('href')]);ck(/Events/.test(t[0])&&t[1]==='events.html',pg+' link says Events and goes to events.html');await p.close();}
 await b.close();console.log(bad?'FAILURES: '+bad:'ALL PASS');process.exit(bad?1:0);})();

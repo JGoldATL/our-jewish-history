@@ -16,12 +16,6 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,summary:focus-visi
 @media (min-width:760px){
   .wrap{padding:22px 40px 90px}
 }
-/* family tabs */
-.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 26px}
-.tab{min-height:44px;white-space:nowrap;padding:0 18px;border-radius:999px;font:600 14px var(--sans);border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);cursor:pointer}
-.tab:hover{background:rgba(239,230,211,.12)}
-.tab[aria-selected=true]{border-color:rgba(232,178,122,.7);background:rgba(232,178,122,.16);color:var(--amber2)}
-.tab .n{margin-left:8px;opacity:.8;font-weight:500}
 /* carousel */
 .car{display:flex;align-items:center;gap:14px}
 .track{flex:1;min-width:0;display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:18px calc(50% - 220px) 26px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
@@ -41,9 +35,6 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,summary:focus-visi
 .msg{padding:40px 0;text-align:center;color:var(--muted)}
 /* phone: one card fills the width with a peek of the next; tabs scroll sideways */
 @media (max-width:700px){
-  .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:4px -16px 18px;padding:0 16px}
-  .tabs::-webkit-scrollbar{display:none}
-  .tab{flex:0 0 auto}
   .car{gap:0}
   .track{gap:14px;margin:0 -16px;padding:10px 16px 20px;scroll-padding:0 16px}
   .card{flex:0 0 calc(100vw - 56px);min-height:400px;padding:24px 22px;opacity:1;transform:none;scroll-snap-align:center}

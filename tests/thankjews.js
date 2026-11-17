@@ -1,12 +1,12 @@
 // F-103 Thank Jews pages. Run: python3 -m http.server 8778 &  then  NODE_PATH=$(npm root -g) node tests/thankjews.js  (headless Chromium only)
 const {chromium}=require('playwright');const BASE=process.env.BASE||'http://localhost:8778/';let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined?'':' '+JSON.stringify(x)));if(!c)bad++;};
 const fs=require('fs');const D=JSON.parse(fs.readFileSync(__dirname+'/../data/inventions.json','utf8'));const E=D.entries;
-const FAM={'Health and medicine':7,'Science and discovery':4,'Society and ideas':7,'Computing and communication':8,'Everyday life and engineering':3,'Arts and entertainment':4};
+const FAM={'Health and medicine':10,'Science and discovery':4,'Society and ideas':7,'Computing and communication':8,'Everyday life and engineering':3,'Arts and entertainment':4};
 (async()=>{
 // ---- data file
-ck(E.length===33&&E.every(e=>e.status==='LOCKED'),'data: 33 records, all LOCKED');
-const fc={};E.forEach(e=>fc[e.family]=(fc[e.family]||0)+1);ck(JSON.stringify(Object.keys(FAM).map(k=>fc[k]))===JSON.stringify(Object.values(FAM)),'data: family counts match the Read Me (7, 4, 7, 10, 7, 7)',fc);
-ck(E.filter(e=>e.category==='Invention').length===31&&E.filter(e=>e.category==='Entertainment').length===2,'data: Category kept in the file (31 Invention, 2 Entertainment)');
+ck(E.length===36&&E.every(e=>e.status==='LOCKED'),'data: 36 records, all LOCKED');
+const fc={};E.forEach(e=>fc[e.family]=(fc[e.family]||0)+1);ck(JSON.stringify(Object.keys(FAM).map(k=>fc[k]))===JSON.stringify(Object.values(FAM)),'data: family counts match the Read Me (10, 4, 7, 8, 3, 4)',fc);
+ck(E.filter(e=>e.category==='Invention').length===34&&E.filter(e=>e.category==='Entertainment').length===2,'data: Category kept in the file (34 Invention, 2 Entertainment)');
 ck(E.every(e=>e.shortLabel.length<=32&&e.summary.length>=52&&e.summary.length<=140&&e.deepDive.length>=330&&e.deepDive.length<=510),'data: label 32 or fewer (Dataset hard maximum; target 28), summary 52 to 140, deep dive 330 to 510 on every record');
 ck(E.every(e=>!/\bCE\b|—|\bmyth\b|\bGod\b/i.test([e.shortLabel,e.summary,e.why,e.deepDive].join(' '))),'data: no CE, em dash, myth or God in the public text');
 ck(E.every(e=>e.source.name&&/^https?:\/\//.test(e.source.url)),'data: every record has one source with a link');
@@ -16,8 +16,7 @@ const mk=async(vp,touch)=>{const ctx=await b.newContext({viewport:vp,isMobile:!!
 {const {ctx,p}=await mk({width:1280,height:800});await p.goto(BASE+'thankjews.html');await p.waitForSelector('.card');await p.waitForTimeout(800);
  const html=await p.content();ck(!/name="robots"/.test(html),'page is indexable (no robots tag)');
  ck(await p.title()==='Thank Jews? | Our Jewish Journey','page title is Thank Jews?');ck((await p.textContent('.brand h1')).trim()==='Thank Jews?','page heading is Thank Jews?');
- const tabs=await p.$$eval('#tabs .tab',t=>t.map(x=>x.textContent.replace(/\s+/g,' ').trim()));ck(tabs.length===7&&/^All 33$/.test(tabs[0]),'seven tabs: All 33 plus six families',tabs);
- ck(tabs.slice(1).map(t=>+t.match(/(\d+)$/)[1]).join()==='8,7,7,4,4,3','family tabs sorted by size 8, 7, 7, 4, 4, 3',tabs);
+ ck(await p.locator('#tabs,.tab').count()===0,'no family pills or tab bar (removed 3.7.0)');
  const c=await p.evaluate(()=>{const k=document.querySelector('.card.cur');return {fam:k.querySelector('.fam').textContent,h:k.querySelector('h2').textContent,sum:(k.querySelector('.sum')||{}).textContent,lie:!!k.querySelector('.lie'),lb:/the lie/i.test(k.textContent),why:!!k.querySelector('.why'),cat:/\b(Invention|Entertainment)\b/.test(k.querySelector('.fam').textContent),link:k.querySelector('a.read').getAttribute('href'),share:!!k.querySelector('.ojj-share')};});
  const rec=E.find(e=>e.shortLabel===c.h);ck(!!rec&&c.sum===rec.summary&&c.fam===rec.family,'card shows family, headline and plain summary verbatim',c);
  const lay=await p.evaluate(()=>{const k=document.querySelector('.card.cur'),ld=k.querySelector('.frow .lead'),h=k.querySelector('h2'),rd=k.querySelector('.cfoot .read'),fm=k.querySelector('.cfoot .fam');if(!ld||!rd||!fm)return null;const a=ld.getBoundingClientRect(),b=h.getBoundingClientRect(),r=rd.getBoundingClientRect(),f=fm.getBoundingClientRect(),kc=k.getBoundingClientRect();return {lead:ld.textContent,leadAboveHeadline:a.bottom<=b.top+2,famRightOfRead:f.left>=r.right-1,sameRow:Math.abs((f.top+f.bottom)/2-(r.top+r.bottom)/2)<8,famInCard:f.right<=kc.right+1,famInTopRow:!!k.querySelector('.frow .fam')};});
@@ -28,19 +27,16 @@ const mk=async(vp,touch)=>{const ctx=await b.newContext({viewport:vp,isMobile:!!
  await p.locator('.card.cur .ojj-share').click();await p.waitForTimeout(300);const sh=await p.evaluate(()=>window.__shared[0]);
  ck(!!sh&&sh.text==='Did you know Jews are responsible for this…'&&/thankjews-entry\.html\?id=/.test(sh.url)&&/utm_source=share/.test(sh.url),'Share sends Jeffrey\'s line and a link with utm_source=share',sh);
  ck(await p.evaluate(()=>window.__ev.some(e=>e[1]==='share'&&e[2].content_type==='thankjews')),'GA4 share event carries page kind thankjews');
- const nav=await p.$$eval('#gnBar .gp-btn',t=>t.map(x=>x.textContent));ck(nav.every(x=>x.length<=12),'every nav label is 12 characters or fewer (rule raised from 11 for Islamic Rule, Jeffrey and Strategy 2026-10-31)',nav);ck(nav.join()==='Events,Movements,JewHate,Archaeology,Islamic Rule,Thank Jews?,Quiz','main nav: Islamic Rule then Thank Jews? between Archaeology and Quiz, Quiz rightmost',nav);
- ck(await p.evaluate(()=>document.querySelector('#gnBar .gp-btn[aria-pressed="true"]').textContent)==='Thank Jews?','Thank Jews? is the highlighted nav item here');
+ const nav=await p.$$eval('#gnBar .gp-btn',t=>t.map(x=>x.textContent));ck(nav.every(x=>x.length<=12),'every nav label is 12 characters or fewer (rule raised from 11 for Islamic Rule, Jeffrey and Strategy 2026-10-31)',nav);ck(nav.join()==='The History,Our Journeys,JewHate,Archaeology,Islamic Rule,Thank Jews,Quiz','main nav: Islamic Rule then Thank Jews between Archaeology and Quiz, Quiz rightmost',nav);
+ ck(await p.evaluate(()=>document.querySelector('#gnBar .gp-btn[aria-pressed="true"]').textContent)==='Thank Jews','Thank Jews? is the highlighted nav item here');
  ck(p.errs.length===0,'index: no page errors',p.errs);await ctx.close();}
 // ---- a random card comes to the front on every visit, so a card is front and centre twice only by coincidence
 {const seen=[];for(let k=0;k<14;k++){const {ctx,p}=await mk({width:1280,height:800});await p.goto(BASE+'thankjews.html');await p.evaluate(()=>sessionStorage.clear());await p.reload();await p.waitForSelector('.card.cur');seen.push(await p.textContent('.card.cur h2'));await ctx.close();}
  const distinct=new Set(seen).size;ck(distinct>=9,'front card differs between visits ('+distinct+' different cards in 14 visits)',seen);
- ck(seen.filter(x=>x==='Visiting nurses').length<=3,'it does not always open on the same middle card',seen);
- const {ctx,p}=await mk({width:1280,height:800});await p.goto(BASE+'thankjews.html');await p.waitForSelector('.card.cur');const tabs=[];for(let k=0;k<8;k++){await p.locator('#tabs .tab').nth(1+(k%2)).click();await p.waitForTimeout(250);tabs.push(await p.textContent('.card.cur h2'));}
- ck(new Set(tabs).size>=3,'switching tabs also brings a random card to the front',tabs);await ctx.close();}
+ ck(seen.filter(x=>x==='Visiting nurses').length<=3,'it does not always open on the same middle card',seen);}
 // ---- family tab filters, All shows every card
 {const {ctx,p}=await mk({width:1280,height:800});await p.goto(BASE+'thankjews.html?');await p.evaluate(()=>sessionStorage.clear());await p.reload();await p.waitForSelector('.card');
- ck(await p.locator('.card').count()===33,'All tab holds 33 cards');await p.locator('#tabs .tab').nth(1).click();await p.waitForTimeout(300);
- const n=await p.locator('.card').count(),f=await p.$$eval('.card .fam',t=>[...new Set(t.map(x=>x.textContent))]);ck(n===8&&f.length===1&&f[0]==='Computing and communication','first family tab shows its 21 cards, all one family',{n,f});
+ ck(await p.locator('.card').count()===E.length,'every card is in one carousel ('+E.length+')');
  ck(await p.locator('#pager .ojjpg').count()===1,'shared pager is mounted');await ctx.close();}
 // ---- entry page
 {const {ctx,p}=await mk({width:1280,height:800});const rec=E.find(e=>e.id==='INV-030');await p.goto(BASE+'thankjews-entry.html?id=INV-030');await p.waitForSelector('#entry h1');await p.waitForTimeout(400);
@@ -81,5 +77,5 @@ for(const pg of ['jewhate.html','events.html','archaeology.html','movements.html
 // ---- JewHate is unchanged
 {const {ctx,p}=await mk({width:1280,height:800});await p.goto(BASE+'jewhate.html');await p.waitForSelector('.card');await p.waitForTimeout(800);
  const j=await p.evaluate(()=>{const k=document.querySelector('.card.cur');return {lie:!!k.querySelector('.lie'),lb:/The lie/.test(k.textContent),tabs:document.querySelectorAll('#tabs .tab').length,robots:!!document.querySelector('meta[name=robots]'),nav:[...document.querySelectorAll('#gnBar .gp-btn')].map(x=>x.textContent).join()};});
- ck(j.lie&&j.lb&&j.tabs>=2&&j.robots,'JewHate page still shows The lie box, its tabs and its noindex',j);ck(p.errs.length===0,'JewHate: no page errors',p.errs);await ctx.close();}
+ ck(j.lie&&j.lb&&j.tabs===0&&j.robots,'JewHate page still shows The lie box and its noindex, and has no family pills',j);ck(p.errs.length===0,'JewHate: no page errors',p.errs);await ctx.close();}
 await b.close();console.log(bad?bad+' FAILED':'ALL PASSED');process.exit(bad?1:0);})();

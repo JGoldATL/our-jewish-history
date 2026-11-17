@@ -6,13 +6,7 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone']]){
   const ctx=await br.newContext({viewport:{width:vw,height:vh}});const p=await ctx.newPage();p.on('pageerror',e=>errs.push(e.message));const n=tag+': ';
   await p.goto(BASE+'jewhate.html');await p.waitForTimeout(2200);
   ck(/The History of JewHate/.test(await p.title())&&(await p.$eval('.brand h1',x=>x.textContent))==='The History of JewHate'&&(await p.$eval('.brand p',x=>x.textContent))==='The origin of lies and stereotypes.',n+'title and intro are exactly as approved');
-  const tabs=await p.$$eval('.tab',b=>b.map(x=>x.textContent.replace(/\s+/g,' ').trim()));
-  ck(tabs[0]==='All '+L.length,n+'All tab count is computed ('+tabs[0]+')');
-  const fam={};L.forEach(e=>fam[e.family]=(fam[e.family]||0)+1);const multi=Object.keys(fam).filter(f=>fam[f]>=2),oth=L.filter(e=>fam[e.family]<2).length;
-  ck(multi.every(f=>tabs.includes(f+' '+fam[f])),n+'every family with 2 or more entries has its own tab with the right count');
-  ck(oth===0||tabs[tabs.length-1]==='Other '+oth,n+'one-entry families are grouped under Other ('+tabs[tabs.length-1]+')');
-  ck(tabs.length===1+multi.length+(oth?1:0),n+'no extra or hard-coded tabs ('+tabs.join(' | ')+')');
-  ck((await p.$$eval('.tab[aria-selected=true]',b=>b.length))===1,n+'one tab selected');
+  ck((await p.$$eval('.tab,#tabs',b=>b.length))===0,n+'no family pills or tab bar (removed 3.7.0)');
   const cards=await p.$$('.card');ck(cards.length===L.length,n+'All shows every LOCKED entry ('+cards.length+')');
   const txt=await p.evaluate(()=>document.body.innerText);
   ck(!/Claim is false|The claim made|\[[^\]]+\]/.test(txt),n+'no "Claim is false" tag, no placeholder brackets');
@@ -29,18 +23,15 @@ for(const [vw,vh,tag] of [[1280,800,'desktop'],[390,844,'phone']]){
   await p.keyboard.press('ArrowRight');await p.waitForTimeout(900);ck((await p.$eval('#pager .pgn',x=>x.firstChild.textContent)).startsWith((M+3)+' of'),n+'right arrow key moves on');
   await p.keyboard.press('ArrowLeft');await p.waitForTimeout(900);ck((await p.$eval('#pager .pgn',x=>x.firstChild.textContent)).startsWith((M+2)+' of'),n+'left arrow key moves back');
   ck((await p.$$eval('.card[inert]',c=>c.length))===L.length-1,n+'only the focused card can be tabbed to');
-  // change tab resets
-  await p.click('.tab:nth-child(2)');await p.waitForTimeout(500);
-  {const q=await p.$eval('#pager .pgn',x=>x.firstChild.textContent),k=await p.$$eval('.card',c=>c.length);ck(q===`${Math.floor(k/2)+1} of ${k}`,n+'changing tab opens on that family\'s middle card');}
   // last card: Next disabled, no wrap
   const m=await p.$$eval('.card',c=>c.length);for(let i=0;i<m&&!(await p.$eval('#pager [data-step="1"]',b=>b.getAttribute('aria-disabled')==='true'));i++){await p.click('#pager [data-step="1"]');await p.waitForTimeout(350);}
   ck(await p.$eval('#pager [data-step="1"]',b=>b.getAttribute('aria-disabled')==='true'),n+'Next disabled at the last card, no wrap-around');
   await p.waitForTimeout(600);// controls reachable and sized
-  const sizes=await p.$$eval('.tab,#pager .pgb,.card.cur a.read,.card.cur .ojj-share',b=>b.filter(x=>x.offsetParent).map(x=>{const r=x.getBoundingClientRect();return Math.min(r.width,r.height)}));
+  const sizes=await p.$$eval('#pager .pgb,.card.cur a.read,.card.cur .ojj-share',b=>b.filter(x=>x.offsetParent).map(x=>{const r=x.getBoundingClientRect();return Math.min(r.width,r.height)}));
   ck(sizes.every(s=>s>=43.5),n+'touch targets at least 44 px ('+Math.min(...sizes).toFixed(0)+')');
   ck(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),n+'no sideways page scroll');
   if(vw>=950){const g=await p.evaluate(()=>{const nv=document.querySelector('#gnBar .gp').getBoundingClientRect(),e=document.querySelector('.brand h1'),r0=document.createRange();r0.selectNodeContents(e);const h=[...r0.getClientRects()].filter(q=>q.width>1)[0];return {nl:nv.left,hr:h.right,ht:h.top,nb:nv.bottom}});ck(g.nl>g.hr&&g.ht<g.nb,n+'nav on the right, title raised into the nav row');}
-  const items=await p.$$eval('#gnBar .gp-btn',b=>b.map(x=>x.textContent.trim()));ck(items.join(',')==='Events,Movements,JewHate,Archaeology,Islamic Rule,Thank Jews?,Quiz','nav pill order: '+items.join(' > '));
+  const items=await p.$$eval('#gnBar .gp-btn',b=>b.map(x=>x.textContent.trim()));ck(items.join(',')==='The History,Our Journeys,JewHate,Archaeology,Islamic Rule,Thank Jews,Quiz','nav pill order: '+items.join(' > '));
   await ctx.close();
 }
 // drafts flag

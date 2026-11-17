@@ -19,29 +19,14 @@
       cb(list,d);
     }).catch(function(){var m=$('#msg');if(m){m.hidden=false;m.textContent='The entries could not be loaded. Please try again.';}});
   }
-  function tabsFor(list){
-    var by={};list.forEach(function(e){var f=e.family||'Other';(by[f]=by[f]||[]).push(e);});
-    var multi=[],other=[];
-    Object.keys(by).forEach(function(f){(by[f].length>=2?multi:other).push(f);});
-    multi.sort(function(a,b){return by[b].length-by[a].length||by[a][0].order-by[b][0].order;});
-    var tabs=[{key:'all',name:'All',items:list}].concat(multi.map(function(f){return {key:f,name:f,items:by[f]};}));
-    if(other.length){var o=[];other.forEach(function(f){o=o.concat(by[f]);});o.sort(function(a,b){return a.order-b.order;});tabs.push({key:'__other',name:'Other',items:o});}
-    return tabs;
-  }
+  /* 3.7.0 (Jeffrey, 17 Nov): the family pills and their filtering are removed; every entry is one carousel. */
+  function tabsFor(list){return [{key:'all',name:'All',items:list}];}
 
   /* ---------- index page ---------- */
   function index(list){
     var tabs=tabsFor(list),cur=0,idx=0,cards=[];
-    var tabBar=$('#tabs'),track=$('#track');
+    var track=$('#track');
     var pg=OJJPager.mount($('#pager'),{label:'entry',onStep:function(d){go(idx+d);},onGo:function(k){go(k);}});   // shared pager (F-147): arrows, dots, "N of M"; no wrap-around
-    try{var s=JSON.parse(sessionStorage.getItem(TABKEY)||'null');if(s&&tabs[s.t]){cur=s.t;}}catch(e){}
-    tabs.forEach(function(t,i){
-      var b=el('button','tab',null,tabBar);b.type='button';b.setAttribute('role','tab');b.id='tab'+i;b.setAttribute('aria-controls','track');
-      b.appendChild(document.createTextNode(t.name+' '));el('span','n',String(t.items.length),b);
-      b.addEventListener('click',function(){pick(i,true);});
-      b.addEventListener('keydown',function(ev){var d=ev.key==='ArrowRight'?1:ev.key==='ArrowLeft'?-1:0;if(!d)return;ev.preventDefault();ev.stopPropagation();var n=(i+d+tabs.length)%tabs.length;pick(n,true);$('#tab'+n).focus();});
-    });
-    function renderTabs(){[].forEach.call(tabBar.children,function(b,i){b.setAttribute('aria-selected',String(i===cur));b.tabIndex=i===cur?0:-1;});}
     function card(e,n,m){
       var c=el('article','card');c.setAttribute('role','group');c.setAttribute('aria-roledescription','slide');c.setAttribute('aria-label',(n+1)+' of '+m+': '+label(e));
       var fr=el('div','frow',null,c);var f=el('div',TJ?'lead':'fam',TJ?'Thank Jews for\u2026':(e.family||''),fr);   // Thank Jews card (Jeffrey 2026-10-31): the lead-in sits on top, the family moves to the bottom row beside Deep dive
@@ -58,9 +43,7 @@
     /* F-035: a card counts for the quiz pop-up once it has come to rest after the person moved to it (swipe, arrow, dot, key), not while it is still sliding and not when a tab sets the starting card */
     function settle(){clearTimeout(qpT);qpT=setTimeout(function(){var it=tabs[cur]&&tabs[cur].items[idx];if(it&&window.OJJQuizPrompt)try{OJJQuizPrompt.cardOpened(it.id);}catch(e){}},450);}
     function pick(i,reset){
-      pickedAt=Date.now();cur=i;renderTabs();var items=tabs[i].items;track.replaceChildren();cards=items.map(function(e,n){var c=card(e,n,items.length);track.appendChild(c);return c;});
-      track.setAttribute('aria-labelledby','tab'+i);
-      try{sessionStorage.setItem(TABKEY,JSON.stringify({t:i}));}catch(e){}
+      pickedAt=Date.now();cur=i;var items=tabs[i].items;track.replaceChildren();cards=items.map(function(e,n){var c=card(e,n,items.length);track.appendChild(c);return c;});
       idx=TJ?Math.floor(Math.random()*items.length):Math.floor(items.length/2);mark();   /* Thank Jews: a random card comes to the front on every visit and every tab; JewHate opens on its middle card */var c0=cards[idx];if(c0)track.scrollLeft=c0.offsetLeft-(track.clientWidth-c0.clientWidth)/2;
     }
     function mark(){

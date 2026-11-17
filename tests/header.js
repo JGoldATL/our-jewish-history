@@ -5,7 +5,7 @@
 const {chromium}=require('playwright');const fs=require('fs');const BASE=process.env.BASE||'http://localhost:8778/';
 let bad=0;const ck=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined?'':' '+JSON.stringify(x)));if(!c)bad++;};
 const PAGES=['events','movements','jewhate','archaeology','haze','thankjews','quiz'],WIDTHS=[390,600,655,768,949,950,1024,1366,1920];
-const ORDER='Events,Movements,JewHate,Archaeology,Islamic Rule,Thank Jews?,Quiz';
+const ORDER='The History,Our Journeys,JewHate,Archaeology,Islamic Rule,Thank Jews,Quiz';
 const TITLE={390:36,768:42,1024:51,1366:63,1920:64};
 const FONTS=process.env.FONTS;
 async function fonts(page){
