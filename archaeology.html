@@ -339,7 +339,7 @@ body.arc .key{left:12px;right:auto;top:64px;width:240px;z-index:9}
 .hint:empty{display:none}
 body.arc .zoom{right:12px;bottom:12px;z-index:7}
 body.arc .zoom button{width:44px;height:44px}
-#card{position:absolute;right:12px;top:12px;width:360px;max-height:calc(100% - 150px);z-index:8;display:flex;flex-direction:column;border-radius:20px;background:rgba(14,24,34,.93);border:1px solid var(--line);box-shadow:0 14px 36px rgba(0,0,0,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow:hidden}
+#card{position:absolute;right:12px;top:12px;width:360px;max-height:calc(100% - 150px);z-index:8;display:flex;flex-direction:column;border-radius:22px;background:rgba(14,24,34,.93);border:1px solid var(--line);box-shadow:0 14px 36px rgba(0,0,0,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow:hidden}
 body.arc #story,body.arc #story.pinned{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:thin;padding:18px 18px 12px;border:0;border-radius:0;background:none;box-shadow:none;display:grid;gap:10px;align-content:start;position:relative}
 body.arc #story h2{font-size:32px;padding-right:0}
 body.arc #story .sub{font-size:20px;margin:-2px 0 0}
@@ -386,6 +386,14 @@ body.arc .tbar .ctl .ends{top:30px}
 @media (max-width:620px){body.arc .brand h1{font-size:22px}body.arc .brand p{font-size:13px}body.arc .top{padding:6px 16px 4px}body.arc .tbar .era{display:none}}
 /* header is design-LOCKED: undo site.css base heading rules inside it */
 header.top h1,header.top h2,header.top h3{font-variant-numeric:normal;font-feature-settings:normal;text-wrap:wrap}
+/* ===== site.css v0.2: cream cards on the dark stage (Jeffrey 16 Nov, 1a). Card scopes re-map the dark tokens to the card tokens so every child follows. ===== */
+.key,.prompt,.dlg,#card{--text:var(--body);--soft:var(--body);--muted:var(--muted-card);--cream:var(--ink);--line:var(--card-line);--amber:var(--link);--amber2:var(--link);--red:var(--route-forced-b);background:var(--card);border-color:var(--card-line);color:var(--body)}
+.prompt{box-shadow:var(--sh-3)}#card{box-shadow:var(--sh-3)}.key{box-shadow:var(--sh-2)}.dlg{box-shadow:var(--sh-3)}
+.key h2,#card h2,.dlg h2,.prompt p{color:var(--ink)}.dlgNote{color:var(--muted-card)}
+.prompt .pill:not(.primary),.dlg .pill:not(.primary),.key .pill{background:var(--panel);border-color:var(--card-line);color:var(--ui)}
+.prompt .pill:not(.primary):hover,.dlg .pill:not(.primary):hover{background:var(--mist)}
+.prompt :focus-visible,#card :focus-visible,.dlg :focus-visible,.key :focus-visible,#story.pinned :focus-visible{outline-color:var(--focus-card)}
+#card .chip,#card .pill:not(.primary){background:var(--panel);border-color:var(--card-line);color:var(--ui)}#card .badge{background:var(--badge-arc-bg);color:var(--badge-arc-fg)}#card .ojj-share{background:var(--panel);border-color:var(--card-line);color:var(--ui)}
 </style>
 </head>
 <body class="arc">
