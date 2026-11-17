@@ -47,7 +47,7 @@ function getBank(){
   return bank;
 }
 
-var CSS='.ojjqp{position:fixed;left:12px;right:12px;top:var(--qp-top,150px);z-index:46;max-width:440px;margin:0 auto;box-sizing:border-box;padding:10px 14px 12px;border-radius:16px;background:rgba(14,24,34,.97);color:var(--text,#EFE6D3);border:1px solid var(--line,rgba(239,230,211,.28));box-shadow:0 10px 30px rgba(0,0,0,.5);font-family:var(--sans,Arial,sans-serif);font-size:14px;line-height:1.35;max-height:calc(100vh - var(--qp-top,150px) - 12px);overflow:auto}'
+var CSS='.ojjqp{position:fixed;left:12px;right:12px;top:var(--qp-top,150px);z-index:46;max-width:440px;margin:0 auto;box-sizing:border-box;padding:10px 14px 12px;border-radius:16px;background:rgba(14,24,34,.97);color:var(--text,#EFE6D3);border:1px solid var(--line,rgba(239,230,211,.28));box-shadow:0 10px 30px rgba(0,0,0,.5);font-family:var(--sans,"Instrument Sans",Arial,sans-serif);font-size:14px;line-height:1.35;max-height:calc(100vh - var(--qp-top,150px) - 12px);overflow:auto}'
 +'.ojjqp[hidden]{display:none}'
 +'.ojjqp .qph{display:flex;align-items:flex-start;gap:8px;margin:0 0 2px}'
 +'.ojjqp .qpe{flex:1 1 auto;margin:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber,#E8B27A);padding-top:4px}'
