@@ -228,10 +228,11 @@ function selectRoute(id){const r=route(id);if(!r)return;showStory();SEL={ev:r.ev
 function selectEvent(key){showStory();SEL={ev:key,id:null};QP(key);card();frame();draw();}
 function selectParent(id){const m=[...EVENTS.values()].find(e=>(e.parents||[]).some(p=>p.id===id));if(!m)return;showStory();SEL={ev:m.key,id:null,parent:id};QP(m.key+'/'+id);card();frame();draw();}
 function clearSel(){SEL=null;card();followNow(600);draw();}
+window.OJJClearSel=function(){if(SEL)clearSel();};
 function chipLabels(e){const names=e.routes.map(r=>shortName(r.b)),seen={};return names.map(n=>{seen[n]=(seen[n]||0)+1;return names.filter(x=>x===n).length>1?`${n} (${seen[n]})`:n;});}
 const actKey=()=>[...EVENTS.values()].filter(e=>e.routes.some(r=>pass(r)&&strength(r)?.active)).map(e=>e.key).join(',');
 function card(){
-  const c=$('story');
+  const c=$('story');{const sl0=$('shareSlot');if(sl0&&!SEL)sl0.hidden=true;}
   if(!SEL){
     const act=[...EVENTS.values()].filter(e=>e.routes.some(r=>pass(r)&&strength(r)?.active)).sort((a,b)=>a.start-b.start).slice(0,6);
     c.innerHTML=`<div class="kicker">Movements</div><h2>Follow our travels</h2><p id="storyText" class="blk">Tap a route on the map to read its story. Slide the year, or press Play, to watch the movements appear.</p>`+
@@ -240,7 +241,7 @@ function card(){
   }
   const e=EVENTS.get(SEL.ev),r=SEL.id?route(SEL.id):null,P=SEL.parent?(e.parents||[]).find(p=>p.id===SEL.parent):null,labs=chipLabels(e),n=e.routes.length,deep=!!(r||P);
   const cause=e.routes[0].cause;
-  let html=`<button type="button" id="closeStory" aria-label="Close story">&times;</button>`;
+  let html='';
   if(deep&&n>1)html+=`<button type="button" class="back blk" id="cardBack">&larr; All ${n} routes</button>`;
   const ik=PREVIEW?EVSYM.get(e.key):null;html+=`<div class="kicker">${esc(cause||'Movement')}${ik?`<span class="kicon" role="img" aria-label="${esc(SYM_LABEL[ik])}" title="${esc(SYM_LABEL[ik])}">${SYM_SVG[ik].replace(/width="30" height="30"/,'width="22" height="22"')}</span>`:''}</div><div class="sdate">${esc(yearLabel(e.start))}</div><h2 class="blk">${esc(bare(e.title))}</h2>`;
   if(!deep){
@@ -259,8 +260,8 @@ function card(){
   const dd=(P?P.m.branch:r&&r.m.branch)?.deepDive;
   if(dd)html+=`<details class="blk"><summary>Deep dive</summary><p>${esc(bare(dd))}</p></details>`;
   c.innerHTML=html;c.scrollTop=0;
-  if(window.OJJShare)OJJShare.attach(c,{kind:'movements',label:false,getTitle:()=>bare(e.title)+' | Our Jewish Journey',getUrl:()=>location.origin+location.pathname+'?m='+encodeURIComponent(e.key)+(r?'&r='+encodeURIComponent(r.id):'')});
-  $('closeStory').addEventListener('click',clearSel);
+  {const sl=$('shareSlot');if(sl){sl.innerHTML='';sl.hidden=false;if(window.OJJShare)OJJShare.attach(sl,{kind:'movements',label:false,getTitle:()=>bare(e.title)+' | Our Jewish Journey',getUrl:()=>location.origin+location.pathname+'?m='+encodeURIComponent(e.key)+(r?'&r='+encodeURIComponent(r.id):'')});}}
+
   const back=$('cardBack');if(back)back.addEventListener('click',()=>{SEL={ev:e.key,id:null};card();frame();draw();});
   c.querySelectorAll('[data-chip]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.par)selectParent(b.dataset.par);else if(b.dataset.chip)selectRoute(b.dataset.chip);else{SEL={ev:e.key,id:null};card();frame();draw();}}));
 }
@@ -289,7 +290,7 @@ function openMenu(f,btn){
   m.style.left=clamp(r.left-w.left,8,Math.max(8,w.width-220))+'px';m.style.top=(r.bottom-w.top+6)+'px';menuEl=m;
 }
 document.addEventListener('click',e=>{if(menuEl&&!menuEl.contains(e.target))closeMenu();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();setKey(false);}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();setKey(false);if(SEL)clearSel();}});
 
 /* ---------- map key ---------- */
 const SYM_LABEL={octagon:'Massacred community',blackSquare:'Community no longer exists',purpleDiamond:'Forced conversion to Islam',splitDiamond:'Forced conversion to Christianity'};

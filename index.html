@@ -115,7 +115,6 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 #srcList{display:grid;gap:3px;padding:12px 14px;border-radius:14px;background:rgba(239,230,211,.05);font-size:13px}
 #srcList a{color:var(--amber2);margin-top:6px}
 #srcList small{color:var(--muted);line-height:1.45}
-#closeStory{position:absolute;right:10px;top:10px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(239,230,211,.08);color:var(--text);font-size:20px;cursor:pointer}
 #chipBox{display:grid;gap:8px}
 #chipBox h3{margin:0;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
 #chips{display:flex;gap:8px;flex-wrap:wrap}
@@ -211,7 +210,6 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
  #story h2,#storyText,#storyMeanwhile{flex:0 0 100%}
  #story h2{font-size:27px;line-height:1.02}
  #storyText{font-size:15px;line-height:1.5}
- #closeStory{top:-2px;right:0;width:28px;height:28px;font-size:18px;line-height:1;padding:0}
  #panel .mnav{position:static;flex:none;padding:8px 0 10px;margin:0;background:none}
  #panel .mnav::before{content:none}
  #panel.inviting .prompt{padding:12px 4px 4px}.prompt p{font-size:19px}
@@ -238,6 +236,14 @@ body.intro-on #cover{opacity:0}
 
 #stage.flatmap #gl,#stage.flatmap #ov{filter:none;-webkit-mask-image:none;mask-image:none}
 #stage.flatmap #gl{border-radius:14px;box-shadow:0 0 0 1px rgba(239,230,211,.16)}
+/* 3.7.1 card header (Jeffrey 17 Nov): no X button; Share is a 34 px icon on the year row beside Play; the title takes the full width. */
+#panel>div:first-child{position:relative}
+#shareSlot{position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:2;margin:0}#shareSlot[hidden]{display:none}
+#shareSlot .ojj-share{width:34px;height:34px;min-width:34px;min-height:34px;padding:0}
+#shareSlot .ojj-share svg{width:17px;height:17px}
+#story .kicker{padding-right:0}
+#panel #story h2{padding-right:0}
+@media (max-width:900px){#shareSlot{right:0;top:-8px;transform:none;height:36px;display:flex;align-items:center}#shareSlot[hidden]{display:none}#panel>div:first-child:has(#shareSlot:not([hidden])) #play{right:42px}}   /* comp v3b: Play, then Share at the far right */
 </style>
 
 <header class="top">
@@ -277,7 +283,7 @@ body.intro-on #cover{opacity:0}
 </section>
 
 <aside id="panel" class="inviting" aria-live="polite">
-<div><div class="year" id="year">1208<span>BCE</span></div><div class="era" id="era"></div></div>
+<div><div class="year" id="year">1208<span>BCE</span></div><div class="era" id="era"></div><div class="shareSlot" id="shareSlot" hidden></div></div>
 <div class="rule"></div>
 <div class="prompt" id="prompt">
 <div class="eyebrow">Begin the journey</div>
@@ -285,13 +291,11 @@ body.intro-on #cover{opacity:0}
 <div class="row"><button type="button" class="pill primary" id="introPlay"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5,1.5 L13.5,8 L3.5,14.5 Z"/></svg><span>Play the overview</span></button><button type="button" class="pill" id="introExplore">Explore on my own ↓</button></div>
 </div>
 <article id="story">
-<button type="button" id="closeStory" aria-label="Close story" hidden>×</button>
 <div class="kicker" id="storyKicker"></div>
 <div class="sdate" id="storyDate"></div>
 <h2 id="storyTitle"></h2>
 <p id="storyText"></p>
 <p id="storyMeanwhile" hidden><em>Meanwhile…</em><span id="storyMeanwhileText"></span></p>
-<div class="shareSlot" id="shareSlot" hidden></div>
 </article>
 <div class="mnav"><button type="button" class="pill" id="prev">‹ Previous</button><button type="button" class="pill primary" id="play" aria-pressed="false" hidden><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path id="playIco" d="M3.5,1.5 L13.5,8 L3.5,14.5 Z"/></svg><span id="playLbl">Play</span></button><button type="button" class="pill" id="next">Next ›</button></div>
 <button type="button" class="sheetHandle" id="sheetHandle" aria-expanded="false" aria-controls="story" aria-label="Show the full card"></button>
@@ -329,7 +333,8 @@ try{el.focus();}catch(e){}
   panel.addEventListener('touchstart',function(e){y0=e.touches.length===1?e.touches[0].clientY:null;},{passive:true});
   panel.addEventListener('touchend',function(e){if(y0===null||!mq.matches)return;var dy=y0-e.changedTouches[0].clientY;y0=null;
     if(!panel.classList.contains('full')&&dy>28&&!panel.classList.contains('inviting'))set(true);
-    else if(panel.classList.contains('full')&&dy<-40&&story.scrollTop<=2)set(false);},{passive:true});
+    else if(panel.classList.contains('full')&&dy<-40&&story.scrollTop<=2)set(false);
+    else if(!panel.classList.contains('full')&&dy<-40&&story.classList.contains('pinned')&&window.OJJCloseCard)window.OJJCloseCard();}   /* 3.7.1: with the X gone, a swipe down on the half-open sheet closes a pinned card */,{passive:true});
   panel.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('#prev,#next,#play'))story.scrollTop=0;});
   var onMq=function(){if(!mq.matches)set(false);};if(mq.addEventListener)mq.addEventListener('change',onMq);else if(mq.addListener)mq.addListener(onMq);
 })();

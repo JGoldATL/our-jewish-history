@@ -196,7 +196,7 @@ function card(){
     return;
   }
   const p=PINS.find(q=>q.id===SEL),r=p.r,site=r.type==='Object'?BYID.get(r.linkedSite):null;
-  let h=`<button type="button" id="closeStory" aria-label="Close story">&times;</button>`;
+  let h='';
   h+=`<div class="found-at">${site?'Found at '+esc(bare(site.name)):esc(r.type==='Site'?'Site':'Find')}</div><h2 class="blk">${esc(bare(r.name))}</h2>`;
   if(r.subhead)h+=`<div class="sub blk">${esc(bare(r.subhead))}</div>`;
   h+=`<div class="facts blk"><div><b>Found</b> ${esc(r.year)}</div>${r.periodLabel?`<div><b>From</b> ${esc(bare(r.periodLabel))}</div>`:''}</div>`;
@@ -214,7 +214,6 @@ function card(){
   c.innerHTML=h;c.scrollTop=0;$('card').classList.remove('open');
   const mb=$('moreBtn');if(mb)mb.addEventListener('click',()=>{const o=!$('card').classList.contains('open');$('card').classList.toggle('open',o);mb.setAttribute('aria-expanded',String(o));mb.innerHTML=o?'Show less &#9652;':'Read more &#9656;';if(!o)c.scrollTop=0;});
   if(window.OJJShare)OJJShare.attach(c,{kind:'archaeology',label:false,getTitle:()=>bare(r.name)+' | Our Jewish Journey',getUrl:()=>location.origin+location.pathname+'?a='+encodeURIComponent(r.id)});
-  $('closeStory').addEventListener('click',()=>select(null));
 }
 /* The part of the map not covered by the card, the time bar or the buttons: where a selected pin is moved to when it is not already in clear view. */
 function freeBox(){
@@ -280,6 +279,7 @@ function wire(){
   $('begin').addEventListener('click',begin);
   $('keyBtn').addEventListener('click',e=>{e.stopPropagation();setKey($('key').hidden);});
   document.addEventListener('click',e=>{if(!$('key').hidden&&!$('key').contains(e.target)&&e.target!==$('keyBtn'))setKey(false);});
+  {let y0=null;const cd=$('card');cd.addEventListener('touchstart',e=>{y0=e.touches.length===1?e.touches[0].clientY:null;},{passive:true});cd.addEventListener('touchend',e=>{if(y0===null)return;const dy=e.changedTouches[0].clientY-y0;y0=null;if(SEL&&narrow()&&dy>70&&$('story').scrollTop<=2)select(null);},{passive:true});}
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('intro').hidden){begin();return;}setKey(false);if(SEL)select(null);}});
   let rt=0;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{size();clampView();draw();},80);});
   if(window.ResizeObserver){let ro=0;new ResizeObserver(()=>{clearTimeout(ro);ro=setTimeout(()=>{if(w.clientWidth!==W||w.clientHeight!==H){size();clampView();draw();}else size();},30);}).observe(w);}   // the map and the bottom bar can change height after the fonts load
