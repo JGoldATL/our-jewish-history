@@ -426,6 +426,10 @@ function wire(){
   $('zin').addEventListener('click',()=>{stopPlay();zoomAt(1.5);});$('zout').addEventListener('click',()=>{stopPlay();zoomAt(1/1.5);});
   const sl=$('slider');sl.addEventListener('pointerdown',stopPlay);sl.addEventListener('keydown',stopPlay);
   sl.addEventListener('input',e=>{stopPlay();SEL=null;setYear(p2y((+e.target.value)/1000),true);clearTimeout(followT);followT=setTimeout(()=>{auto=true;followNow(700);},140);});
+  /* phone and upright tablet: Play lives in the year row (always visible); on a wide screen it sits between Previous and Next */
+  (function(){const mq=matchMedia('(max-width:900px)'),pl=$('play'),yr=$('year').parentNode,mn=document.querySelector('.mnav');
+    const put=()=>{if(mq.matches){if(pl.parentNode!==yr)yr.appendChild(pl);}else if(pl.parentNode!==mn)mn.insertBefore(pl,$('next'));};
+    put();(mq.addEventListener?mq.addEventListener('change',put):mq.addListener(put));})();
   $('play').addEventListener('click',togglePlay);$('prev').addEventListener('click',()=>stepEvent(-1));$('next').addEventListener('click',()=>stepEvent(1));
   $('introPlay').addEventListener('click',()=>{auto=true;startPlay();});
   $('introExplore').addEventListener('click',()=>{showStory();card();});

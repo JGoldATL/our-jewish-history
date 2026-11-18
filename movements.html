@@ -284,6 +284,7 @@ a.pill{display:inline-flex;align-items:center;text-decoration:none}
 @media (max-width:620px) and (orientation:portrait){.ticks button{white-space:nowrap;width:auto}.ticks button:not(.cur){display:none}.tl{height:50px}#globeLink{display:none}#story .blk{flex:0 0 100%}#story .sub{font-size:20px;margin:0}#panel>#story{align-content:flex-start}.count{display:none}.sel{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.sel::-webkit-scrollbar{display:none}.sel .pill{flex:none}}
 @media (max-width:900px){#stage{height:auto}}
 #panel>div:first-child{position:relative}
+@media (max-width:900px){#panel>div:first-child{position:relative}#panel>div:first-child #play{position:absolute;right:0;top:-8px;flex:none;width:auto;min-width:100px;height:36px;z-index:2}#panel>div:first-child:has(#shareSlot:not([hidden])) #play{right:42px}}   /* phone and upright tablet: Play sits at the right of the year, beside Share, as on Events and home */
 #shareSlot{position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:2;margin:0}#shareSlot[hidden]{display:none}
 #shareSlot .ojj-share{width:34px;height:34px;min-width:34px;min-height:34px;padding:0}
 #shareSlot .ojj-share svg{width:17px;height:17px}

@@ -392,6 +392,9 @@ header.top h1,header.top h2,header.top h3{font-variant-numeric:normal;font-featu
 .key h2,#card h2,.dlg h2,.prompt p{color:var(--ink)}.dlgNote{color:var(--muted-card)}
 .prompt .pill:not(.primary),.dlg .pill:not(.primary),.key .pill{background:var(--panel);border-color:var(--card-line);color:var(--ui)}
 .prompt .pill:not(.primary):hover,.dlg .pill:not(.primary):hover{background:var(--mist)}
+/* intro box: the dark .intro .prompt rule above beat the cream card, leaving dark text on a dark panel; make it the cream card with a readable slate button */
+.intro .prompt{background:var(--card);border-color:var(--card-line)}
+.intro .prompt .pill.primary{background:var(--action);border-color:var(--action);color:#fff}.intro .prompt .pill.primary:hover{background:var(--action-hover)}
 .prompt :focus-visible,#card :focus-visible,.dlg :focus-visible,.key :focus-visible,#story.pinned :focus-visible{outline-color:var(--focus-card)}
 #card .chip,#card .pill:not(.primary){background:var(--panel);border-color:var(--card-line);color:var(--ui)}#card .badge{background:var(--badge-arc-bg);color:var(--badge-arc-fg)}#card .ojj-share{background:var(--panel);border-color:var(--card-line);color:var(--ui)}
 </style>
