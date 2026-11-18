@@ -232,8 +232,10 @@ window.OJJClearSel=function(){if(SEL)clearSel();};
 function chipLabels(e){const names=e.routes.map(r=>shortName(r.b)),seen={};return names.map(n=>{seen[n]=(seen[n]||0)+1;return names.filter(x=>x===n).length>1?`${n} (${seen[n]})`:n;});}
 const actKey=()=>[...EVENTS.values()].filter(e=>e.routes.some(r=>pass(r)&&strength(r)?.active)).map(e=>e.key).join(',');
 function card(){
-  const c=$('story');{const sl0=$('shareSlot');if(sl0&&!SEL)sl0.hidden=true;}
+  const c=$('story');
   if(!SEL){
+    /* no card open (Play between journeys, or just browsing): Share is still there and shares this page, as on Events (Jeffrey 17 Nov) */
+    {const sl=$('shareSlot');if(sl){if(sl.dataset.k!=='page'){sl.innerHTML='';sl.dataset.k='page';if(window.OJJShare)OJJShare.attach(sl,{kind:'movements',label:false,getTitle:()=>'Our Jewish Journey: Follow our travels',getUrl:()=>location.origin+location.pathname});}sl.hidden=$('panel').classList.contains('inviting');}}
     const act=[...EVENTS.values()].filter(e=>e.routes.some(r=>pass(r)&&strength(r)?.active)).sort((a,b)=>a.start-b.start).slice(0,6);
     c.innerHTML=`<div class="kicker">Movements</div><h2>Follow our travels</h2><p id="storyText" class="blk">Tap a route on the map to read its story. Slide the year, or press Play, to watch the movements appear.</p>`+
       (act.length?`<div class="kicker blk" style="color:var(--amber)">Moving now</div><div class="now blk">${act.map(e=>`<button type="button" data-ev="${esc(e.key)}">${esc(bare(e.title))}<small>${esc(yearLabel(e.start))} &middot; ${e.routes.length} route${e.routes.length>1?'s':''}</small></button>`).join('')}</div>`:`<p class="soon blk">Nothing is moving in this year. Press Play or drag the slider.</p>`);
@@ -260,7 +262,7 @@ function card(){
   const dd=(P?P.m.branch:r&&r.m.branch)?.deepDive;
   if(dd)html+=`<details class="blk"><summary>Deep dive</summary><p>${esc(bare(dd))}</p></details>`;
   c.innerHTML=html;c.scrollTop=0;
-  {const sl=$('shareSlot');if(sl){sl.innerHTML='';sl.hidden=false;if(window.OJJShare)OJJShare.attach(sl,{kind:'movements',label:false,getTitle:()=>bare(e.title)+' | Our Jewish Journey',getUrl:()=>location.origin+location.pathname+'?m='+encodeURIComponent(e.key)+(r?'&r='+encodeURIComponent(r.id):'')});}}
+  {const sl=$('shareSlot');if(sl){sl.innerHTML='';sl.dataset.k='card';sl.hidden=false;if(window.OJJShare)OJJShare.attach(sl,{kind:'movements',label:false,getTitle:()=>bare(e.title)+' | Our Jewish Journey',getUrl:()=>location.origin+location.pathname+'?m='+encodeURIComponent(e.key)+(r?'&r='+encodeURIComponent(r.id):'')});}}
 
   const back=$('cardBack');if(back)back.addEventListener('click',()=>{SEL={ev:e.key,id:null};card();frame();draw();});
   c.querySelectorAll('[data-chip]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.par)selectParent(b.dataset.par);else if(b.dataset.chip)selectRoute(b.dataset.chip);else{SEL={ev:e.key,id:null};card();frame();draw();}}));
@@ -344,6 +346,7 @@ function stopPlay(){if(!playing)return;playing=false;setPlayUI();}
 function startPlay(){
   showStory();playing=true;setPlayUI();SEL=null;lastKey='';dwellUntil=0;
   if(Y>=MAXY-1)setYear(MINY);else setYear(Y);
+  {const f0=journeys().find(e=>Math.abs(e.start-Y)<=1);if(f0){SEL={ev:f0.key,id:null,auto:true};card();frame();draw();dwellUntil=performance.now()+CARD_DWELL;}}
   lastT=performance.now();requestAnimationFrame(tick);
 }
 function togglePlay(){if(playing)stopPlay();else startPlay();}
