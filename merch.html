@@ -12,7 +12,7 @@ if(/^(www\.)?ourjewishhistory\.com$|^jgoldatl\.github\.io$/.test(location.hostna
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="fonts.css"><link rel="stylesheet" href="site.css">
 <style>
 :root{--night:#0E1822;--night2:#162634;--glow:#24394B;--cream:#F6EBD6;--text:#EFE6D3;--muted:#A9B4B8;--amber:#E8B27A;--amber2:#F3C894;--line:rgba(239,230,211,.18);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Instrument Sans',Arial,Helvetica,sans-serif;color-scheme:dark}
 *{box-sizing:border-box}
@@ -49,7 +49,7 @@ header.top{padding:14px 0 6px}
 .tile .door{width:42cqw;height:auto;margin:6cqw 0 0}
 .tile .shert{letter-spacing:.02em;border-bottom:.9cqw solid currentColor}
 /* detail view */
-dialog{border:1px solid var(--line);border-radius:26px;background:var(--night2);color:var(--text);padding:16px;width:min(560px,calc(100vw - 24px));max-height:calc(100svh - 24px);overflow:auto}
+dialog{border:1px solid var(--line);border-radius:22px;background:var(--night2);color:var(--text);padding:16px;width:min(560px,calc(100vw - 24px));max-height:calc(100svh - 24px);overflow:auto}
 dialog::backdrop{background:rgba(6,12,18,.78)}
 .dTop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
 .close{min-height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(239,230,211,.28);background:rgba(239,230,211,.06);color:var(--text);font:inherit;font-size:14px;cursor:pointer}
@@ -57,6 +57,12 @@ dialog::backdrop{background:rgba(6,12,18,.78)}
 @media (min-width:1000px){.wrap{padding-left:28px;padding-right:28px}html.nav-glass header.top{padding-left:0!important;padding-right:0!important}}
 @media (max-width:620px){.brand h1{font-size:30px}.grid{gap:12px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* site.css v0.2: the detail dialog is a cream card; the product tiles stay as drawn (they are the artwork) */
+dialog{--text:var(--body);--soft:var(--body);--muted:var(--muted-card);--cream:var(--ink);--amber:var(--link);--line:var(--card-line);background:var(--card);color:var(--body);box-shadow:var(--sh-3)}
+dialog .close{background:var(--panel);border-color:var(--card-line);color:var(--ui)}dialog .close:hover{background:var(--mist)}
+dialog :focus-visible{outline-color:var(--focus-card)}
+/* header is design-LOCKED: undo site.css base heading rules inside it */
+header.top h1,header.top h2,header.top h3{font-variant-numeric:normal;font-feature-settings:normal;text-wrap:wrap}
 </style>
 </head>
 <body>

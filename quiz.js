@@ -59,7 +59,7 @@ const CTX=(()=>{const c={};try{if(DEVICE)c.device_id=DEVICE;}catch(e){}
 let ROUND='';   // v0.4.3: a new random tag for each round of 3, so answers and the survey tap can be grouped by round
 function newRound(){try{const a=new Uint8Array(8);crypto.getRandomValues(a);ROUND=[...a].map(x=>(x%36).toString(36)).join('');}catch(e){ROUND='';}}
 const LOG_TEST=/[?&]logtest=1\b/.test(location.search);
-function logNote(t){try{let n=document.getElementById('logNote');if(!n){n=document.createElement('div');n.id='logNote';n.style.cssText='position:fixed;left:8px;bottom:8px;z-index:9;background:#222;color:#fff;font:12px system-ui;padding:6px 10px;border-radius:6px;max-width:90vw';document.body.appendChild(n);}n.textContent=t;}catch(e){}}
+function logNote(t){try{let n=document.getElementById('logNote');if(!n){n=document.createElement('div');n.id='logNote';n.style.cssText='position:fixed;left:8px;bottom:8px;z-index:9;background:#222;color:#fff;font:12px system-ui;padding:6px 10px;border-radius:10px;max-width:90vw';document.body.appendChild(n);}n.textContent=t;}catch(e){}}
 function logRow(o){
   try{
     if(!LOG_URL||!VISIT||draftsShown)return;

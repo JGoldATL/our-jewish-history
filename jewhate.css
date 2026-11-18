@@ -21,7 +21,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,summary:focus-visi
 .track{flex:1;min-width:0;display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:18px calc(50% - 220px) 26px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .track::-webkit-scrollbar{display:none}
 .card{flex:0 0 440px;min-height:340px;scroll-snap-align:center;display:flex;flex-direction:column;gap:16px;padding:24px 28px;border-radius:22px;border:1px solid rgba(239,230,211,.14);background:rgba(239,230,211,.05);opacity:.55;transform:scale(.9);transition:opacity .25s,transform .25s,border-color .25s,box-shadow .25s}
-.card.cur{opacity:1;transform:none;border-color:rgba(232,178,122,.5);background:linear-gradient(180deg,rgba(239,230,211,.12),rgba(239,230,211,.04));box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.card.cur{opacity:1;transform:none;border-color:rgba(232,178,122,.5);background:linear-gradient(180deg,rgba(239,230,211,.12),rgba(239,230,211,.04));box-shadow:var(--sh-2)}
 .fam{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .draft{display:inline-block;margin-left:10px;padding:3px 9px;border-radius:999px;background:var(--red);color:#1A1206;font-size:11px;letter-spacing:.04em}
 .card h2{margin:0;font-family:var(--serif);font-weight:700;font-size:36px;line-height:1;color:var(--cream)}
@@ -38,7 +38,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,summary:focus-visi
   .car{gap:0}
   .track{gap:14px;margin:0 -16px;padding:10px 16px 20px;scroll-padding:0 16px}
   .card{flex:0 0 calc(100vw - 56px);min-height:400px;padding:24px 22px;opacity:1;transform:none;scroll-snap-align:center}
-  .card.cur{box-shadow:0 12px 30px rgba(0,0,0,.4)}
+  .card.cur{box-shadow:var(--sh-1)}
   .card h2{font-size:40px}
 }
 @media (prefers-reduced-motion:reduce){.card{transition:none}}
@@ -65,7 +65,7 @@ details.more summary{cursor:pointer;min-height:44px;display:flex;align-items:cen
 .src .lbl,.panel .lbl{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .src ol{margin:10px 0 0;padding-left:22px;font-size:15px;line-height:1.7;color:var(--soft)}
 .src li small{color:var(--muted)}
-.panel{display:flex;flex-direction:column;gap:12px;padding:20px 22px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(239,230,211,.09),rgba(239,230,211,.03))}
+.panel{display:flex;flex-direction:column;gap:12px;padding:20px 22px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(239,230,211,.09),rgba(239,230,211,.03))}
 .panel .big{font-family:var(--serif);font-weight:700;font-size:36px;color:var(--amber)}
 .rel{display:flex;gap:8px;flex-wrap:wrap}
 .rel a{display:inline-flex;align-items:center;min-height:44px;font-size:14px;padding:0 14px;border-radius:999px;background:rgba(239,230,211,.08);text-decoration:none}
@@ -81,3 +81,13 @@ details.more summary{cursor:pointer;min-height:44px;display:flex;align-items:cen
 .card .sum{margin:0;font-size:17px;line-height:1.5;color:var(--soft)}
 .card .why{margin:0;font-size:15px;line-height:1.45;color:var(--muted)}
 .sec .tag{margin:12px 0 0;font-size:13px;color:var(--muted)}
+
+/* ===== site.css v0.2: cream cards (Jeffrey 16 Nov, 1a). The card scope re-maps the dark tokens so every child follows. ===== */
+.card,.panel{--text:var(--body);--soft:var(--body);--muted:var(--muted-card);--cream:var(--ink);--amber:var(--link);--line:var(--card-line);color:var(--body);background:var(--card);border-color:var(--card-line)}
+.card.cur{background:var(--card);border-color:var(--card-line)}
+.card .lie{background:#FBEAE6;border-color:#D9A39B}.card .lie .lb{color:#8E1F18}
+.card .chip{background:var(--mist);color:var(--ui)}
+.card .ojj-share,.panel .ojj-share{background:var(--panel);border-color:var(--card-line);color:var(--ui)}
+.card :focus-visible,.panel :focus-visible{outline-color:var(--focus-card)}
+/* header is design-LOCKED: undo site.css base heading rules inside it */
+header.top h1,header.top h2,header.top h3{font-variant-numeric:normal;font-feature-settings:normal;text-wrap:wrap}

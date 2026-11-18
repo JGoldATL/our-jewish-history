@@ -55,7 +55,7 @@ var CSS='.ojjqp{position:fixed;left:12px;right:12px;top:var(--qp-top,150px);z-in
 +'.ojjqp .qpx:hover{background:rgba(239,230,211,.12)}'
 +'.ojjqp .qpq{margin:0 0 8px;font-weight:600}'
 +'.ojjqp .qpc{display:flex;flex-direction:column;gap:6px}'
-+'.ojjqp .qpc button{min-height:44px;text-align:left;padding:6px 12px;border-radius:12px;border:1px solid var(--line,rgba(239,230,211,.28));background:rgba(239,230,211,.06);color:inherit;font:inherit;cursor:pointer;display:flex;gap:10px;align-items:baseline}'
++'.ojjqp .qpc button{min-height:44px;text-align:left;padding:6px 12px;border-radius:10px;border:1px solid var(--line,rgba(239,230,211,.28));background:rgba(239,230,211,.06);color:inherit;font:inherit;cursor:pointer;display:flex;gap:10px;align-items:baseline}'
 +'.ojjqp .qpc button:hover:not(:disabled){background:rgba(239,230,211,.14)}'
 +'.ojjqp .qpc button:disabled{cursor:default}'
 +'.ojjqp .qpc .l{font-weight:700;color:var(--amber,#E8B27A)}'

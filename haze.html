@@ -17,7 +17,7 @@ if(/^(www\.)?ourjewishhistory\.com$|^jgoldatl\.github\.io$/.test(location.hostna
 <link rel="stylesheet" href="jewhate.css">
 <style>
 .hz{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}.left,.right{min-width:0}
-#stage{position:relative;height:clamp(300px,50svh,620px);border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#0b1624;touch-action:none}
+#stage{position:relative;height:clamp(300px,50svh,620px);border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#0b1624;touch-action:none}
 #cover{position:absolute;inset:0;z-index:3;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;pointer-events:none}
 .cover-on #cover{display:flex}.cover-on .key{display:none}
 #cover h2{margin:0 0 6px;font-family:var(--serif);font-weight:700;font-size:clamp(30px,7vw,46px);line-height:1;color:var(--cream);text-shadow:0 2px 14px rgba(11,22,36,.9)}
@@ -25,9 +25,9 @@ if(/^(www\.)?ourjewishhistory\.com$|^jgoldatl\.github\.io$/.test(location.hostna
 #cover button{pointer-events:auto;min-height:46px;min-width:110px;border-radius:999px;border:1px solid rgba(239,230,211,.5);background:rgba(78,112,72,.85);color:#fff;font:600 16px var(--sans);cursor:pointer}
 #ov{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
 #gl{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;transform:translateZ(0)}
-#mock{background:#c62828;color:#fff;text-align:center;font:800 15px/1.15 var(--sans);letter-spacing:.04em;padding:7px;border-radius:12px;margin-bottom:10px}
+#mock{background:#c62828;color:#fff;text-align:center;font:800 15px/1.15 var(--sans);letter-spacing:.04em;padding:7px;border-radius:10px;margin-bottom:10px}
 #mock[hidden]{display:none}
-.key:empty{display:none}.key{position:absolute;left:10px;bottom:10px;z-index:2;display:flex;flex-direction:column;gap:5px;padding:8px 11px;border-radius:12px;background:rgba(14,24,34,.78);border:1px solid rgba(239,230,211,.22);font-size:12.5px;line-height:1.2;pointer-events:none}
+.key:empty{display:none}.key{position:absolute;left:10px;bottom:10px;z-index:2;display:flex;flex-direction:column;gap:5px;padding:8px 11px;border-radius:14px;background:rgba(14,24,34,.78);border:1px solid rgba(239,230,211,.22);font-size:12.5px;line-height:1.2;pointer-events:none}
 .key b{font-weight:600;color:var(--cream)}
 .key .sw{display:flex;align-items:center;gap:8px;color:var(--text);font-size:12px;white-space:nowrap}
 .key .sw i{width:22px;height:13px;border-radius:3px;flex:none;border:1px solid rgba(239,230,211,.3)}
@@ -45,7 +45,7 @@ if(/^(www\.)?ourjewishhistory\.com$|^jgoldatl\.github\.io$/.test(location.hostna
 .tick[aria-current=true]{color:var(--amber2);font-weight:700}
 .cap{margin-top:-4px;font:600 13px var(--sans);letter-spacing:.04em;color:var(--amber2)}
 .wc .nbc{font-size:14.5px;font-style:italic;color:var(--soft);border-left:3px solid rgba(232,178,122,.5);padding-left:10px}
-.wc{padding:16px 18px;border-radius:18px;border:1px solid var(--line);background:rgba(239,230,211,.05)}
+.wc{padding:16px 18px;border-radius:14px;border:1px solid var(--line);background:rgba(239,230,211,.05)}
 .wc .k{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .wc h2{margin:6px 0 8px;font-family:var(--serif);font-weight:700;font-size:30px;line-height:1;color:var(--cream)}
 .wc p{margin:0 0 10px;font-size:16px;line-height:1.5;color:var(--text)}

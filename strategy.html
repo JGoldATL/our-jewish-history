@@ -12,7 +12,7 @@ if(/^(www\.)?ourjewishhistory\.com$|^jgoldatl\.github\.io$/.test(location.hostna
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="fonts.css"><link rel="stylesheet" href="site.css">
 <style>
 :root{--night:#0E1822;--night2:#162634;--text:#EFE6D3;--muted:#A9B4B8;--amber:#E8B27A;--line:rgba(239,230,211,.18)}
 html,body{margin:0;background:var(--night);color:var(--text);font-family:'Instrument Sans',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
@@ -27,6 +27,8 @@ h1{font-family:'Cormorant Garamond',Georgia,"Times New Roman",serif;font-weight:
 .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .alt{margin:12px 0 0;font-size:.85rem;color:var(--muted)}
 .alt a{color:var(--amber)}
+/* header is design-LOCKED: undo site.css base heading rules inside it */
+header.top h1,header.top h2,header.top h3{font-variant-numeric:normal;font-feature-settings:normal;text-wrap:wrap}
 </style>
 </head>
 <body>

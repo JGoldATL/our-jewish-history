@@ -11,7 +11,7 @@ if(/^(www\.)?ourjewishhistory\.com$|^jgoldatl\.github\.io$/.test(location.hostna
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="fonts.css"><link rel="stylesheet" href="site.css">
 <style>
 /* "When in the World?" quiz. Its own section of Jewish Journeys, so it has its own dusk palette (plum and amber) instead of the globe's navy.
    Layout: one card per screen, phone first. Fonts are the site's locked families: Georgia for headings, questions and quick takes; Arial for everything else. */
@@ -92,6 +92,8 @@ header.top{position:relative;padding:12px 0 0;max-width:none}
 .foot a{color:var(--gold)}
 .msg{padding:20px;text-align:center;color:var(--muted)}
 @media (prefers-reduced-motion:no-preference){.card{animation:in .25s ease-out}@keyframes in{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}}
+/* header is design-LOCKED: undo site.css base heading rules inside it */
+header.top h1,header.top h2,header.top h3{font-variant-numeric:normal;font-feature-settings:normal;text-wrap:wrap}
 </style>
 </head>
 <body>

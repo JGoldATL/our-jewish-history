@@ -23,7 +23,7 @@ var CSS='.ojjpg{flex:none;display:flex;align-items:center;justify-content:center
 +'.ojjpg .dotb[aria-current="true"]::before{background:var(--amber,#E8B27A);transform:scale(1.5)}'
 +'.ojjpg .pgn{flex:none;min-width:64px;text-align:right;font-size:14px;font-weight:600;color:var(--soft,#D2CABB);white-space:nowrap}'
 +'.ojjpg :focus-visible{outline:3px solid var(--amber,#E8B27A);outline-offset:2px;border-radius:50%}'
-+'.ojjpg .dotb:focus-visible{border-radius:8px}'
++'.ojjpg .dotb:focus-visible{border-radius:999px}'
 +'.ojjpg .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}'
 +'@media (prefers-reduced-motion:reduce){.ojjpg .dotb::before{transition:none}}';
 function style(){if(document.getElementById('ojjpgCss'))return;var s=document.createElement('style');s.id='ojjpgCss';s.textContent=CSS;document.head.appendChild(s);}
