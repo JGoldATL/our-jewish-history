@@ -10,7 +10,7 @@ for(const [sn,vp] of Object.entries(sizes)){
   await p.goto(BASE+'index.html?nav=old');await p.waitForTimeout(1800);
   ok(await p.evaluate(()=>!document.querySelector('.gn')&&!document.documentElement.classList.contains('nav-glass')&&!!document.getElementById('quizLink')),sn+': flag off, old nav only');
   await p.close();
-  for(const [pg,cur] of [['events.html','The History'],['movements.html','Our Journeys'],['quiz.html','Quiz'],['roadmap.html',null],['feedback.html',null]]){
+  for(const [pg,cur] of [['events.html','Our History'],['movements.html','Our Journeys'],['quiz.html','Quiz'],['roadmap.html',null],['feedback.html',null]]){
     p=await ctx.newPage();p.on('pageerror',e=>errs.push(pg+' '+e.message));
     await p.goto(BASE+pg+'?nav=glass');await p.waitForTimeout(pg==='quiz.html'||pg.startsWith('index')||pg.startsWith('movements')?2200:900);
     const r=await p.evaluate(()=>{const vis=e=>{if(!e)return false;const r=e.getBoundingClientRect(),s=getComputedStyle(e.closest('.gn-short,.gn-full,.gn-more')||e);return r.width>0&&s.display!=='none';};

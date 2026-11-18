@@ -41,7 +41,7 @@
   '@media (min-width:768px){:root{--gp-f:calc(14.2px + (100vw - 768px) * .00234);--gp-pad:calc(8.1px + (100vw - 768px) * .00156)}}'+
   '@media (min-width:1024px){:root{--gp-f:calc(14.8px + (100vw - 1024px) * .00643);--gp-pad:calc(8.5px + (100vw - 1024px) * .01579);--gp-h:calc(36px + (100vw - 1024px) * .00446)}}'+
   '@media (min-width:1366px){:root{--gp-f:17px;--gp-pad:13.9px}}'+
-  /* 3.7.0: the labels The History and Our Journeys are wider than Events and Movements. Between 655 and 1023 px the side padding is trimmed so the pill still fits without swiping from 655 and the 950 switch still holds (Jeffrey, 17 Nov). Text stays 14 px or more. */
+  /* 3.7.0: the labels Our History and Our Journeys are wider than Events and Movements. Between 655 and 1023 px the side padding is trimmed so the pill still fits without swiping from 655 and the 950 switch still holds (Jeffrey, 17 Nov). Text stays 14 px or more. */
   '@media (min-width:655px) and (max-width:767px){:root{--gp-pad:5.2px}}'+
   '@media (min-width:768px) and (max-width:1023px){:root{--gp-pad:calc(4.2px + (100vw - 768px) * .00156)}}'+
   '@media (min-width:1920px){:root{--gp-h:40px}}'+
